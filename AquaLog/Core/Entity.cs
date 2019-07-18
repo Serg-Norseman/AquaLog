@@ -5,29 +5,13 @@
  */
 
 using System;
-using SQLite;
 
 namespace AquaLog.Core
 {
-    public enum Sex
-    {
-        None,
-        Female,
-        Male,
-        Hermaphrodite,
-    }
-
-
     /// <summary>
     /// 
     /// </summary>
-    public class Fish : Inhabitant
+    public abstract class Entity
     {
-        public Sex Sex { get; set; }
-
-
-        public Fish()
-        {
-        }
     }
 }

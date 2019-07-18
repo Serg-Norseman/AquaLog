@@ -12,15 +12,27 @@ namespace AquaLog.Core
     public enum InhabitantType
     {
         Fish,
-        Shellfish,
-        Seaweed
+        Invertebrate,
+        Plant
     }
+
 
     /// <summary>
     /// 
     /// </summary>
-    public class Inhabitant
+    public class Inhabitant : Entity
     {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+
+        [Indexed]
+        public int AquariumId { get; set; }
+
+        public string Name { get; set; }
+        public int Quantity { get; set; }
+        public string Note { get; set; }
+
+
         public Inhabitant()
         {
         }

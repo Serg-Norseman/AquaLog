@@ -55,6 +55,10 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AquariumEditDlg.cs" />
+    <Compile Include="AquariumEditDlg.Designer.cs">
+      <DependentUpon>AquariumEditDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\TanksPanel.cs" />
     <Compile Include="Controls\TankSticker.cs" />
     <Compile Include="Core\ALCore.cs" />
@@ -62,8 +66,12 @@
     <Compile Include="Core\Aquarium.cs" />
     <Compile Include="Core\CareLevel.cs" />
     <Compile Include="Core\Device.cs" />
+    <Compile Include="Core\Expense.cs" />
     <Compile Include="Core\Fish.cs" />
+    <Compile Include="Core\Entity.cs" />
     <Compile Include="Core\Inhabitant.cs" />
+    <Compile Include="Core\Invertebrate.cs" />
+    <Compile Include="Core\Light.cs" />
     <Compile Include="Core\MeasurementType.cs" />
     <Compile Include="Core\Note.cs" />
     <Compile Include="Core\Plant.cs" />
@@ -92,6 +100,9 @@
     <Folder Include="Controls" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AquariumEditDlg.resx">
+      <DependentUpon>AquariumEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

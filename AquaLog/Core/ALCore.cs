@@ -8,6 +8,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
+using System.Windows.Forms;
 
 namespace AquaLog.Core
 {
@@ -21,6 +22,9 @@ namespace AquaLog.Core
         public const int NormalState = 0xC0FFFF;
         public const int WarningState = 0xFFFFC0;
         public const int AlertState = 0xFFC0C0;
+        public const int InactiveState = 0xC0C0C0;
+
+        public const string UnknownName = "Unknown";
 
         private static readonly int LitersDivider = 1000;
 
@@ -51,6 +55,18 @@ namespace AquaLog.Core
             int green = (rgb >> 8) & 0xFF;
             int blue = (rgb >> 0) & 0xFF;
             return Color.FromArgb(red, green, blue);
+        }
+
+        public static double GetDecimalVal(TextBox textBox)
+        {
+            string strVal = textBox.Text;
+            double value;
+            return (double.TryParse(strVal, out value)) ? value : 0.0d;
+        }
+
+        public static string GetDecimalStr(double value)
+        {
+            return value.ToString("0.00");
         }
 
         #region Application Runtime

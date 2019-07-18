@@ -9,7 +9,7 @@ using SQLite;
 
 namespace AquaLog.Core
 {
-    public class Note
+    public class Note : Entity
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

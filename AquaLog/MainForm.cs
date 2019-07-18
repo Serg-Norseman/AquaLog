@@ -47,11 +47,6 @@ namespace AquaLog
             lblDate.Text = cdt.ToString("yyyy.MM.dd\r\nHH:mm:ss", null);
         }
 
-        private void Timer1Tick(object sender, EventArgs e)
-        {
-            UpdateControls();
-        }
-
         private void SetSettings()
         {
             timer1.Interval = ALCore.UpdateInterval;
@@ -60,14 +55,44 @@ namespace AquaLog
 
         #region Event handlers
 
+        private void Timer1Tick(object sender, EventArgs e)
+        {
+            UpdateControls();
+        }
+
+        private void miExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         private void btnAddTank_Click(object sender, EventArgs e)
         {
-            fModel.AddAquarium("test");
-            fTanksPanel.UpdateLayout();
+            var aqm = new Aquarium(ALCore.UnknownName);
+
+            using (var dlg = new AquariumEditDlg()) {
+                dlg.Aquarium = aqm;
+                if (dlg.ShowDialog() == DialogResult.OK) {
+                    fModel.AddAquarium(aqm);
+                    fTanksPanel.UpdateLayout();
+                }
+            }
         }
 
         private void btnEditTank_Click(object sender, EventArgs e)
         {
+            var selectedTank = fTanksPanel.SelectedTank;
+            if (selectedTank == null) return;
+
+            var aqm = selectedTank.Aquarium;
+            if (aqm == null) return;
+
+            using (var dlg = new AquariumEditDlg()) {
+                dlg.Aquarium = aqm;
+                if (dlg.ShowDialog() == DialogResult.OK) {
+                    fModel.UpdateAquarium(aqm);
+                    fTanksPanel.UpdateLayout();
+                }
+            }
         }
 
         private void btnDeleteTank_Click(object sender, EventArgs e)

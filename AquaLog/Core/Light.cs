@@ -9,24 +9,9 @@ using SQLite;
 
 namespace AquaLog.Core
 {
-    public enum Sex
+    public class Light : Device
     {
-        None,
-        Female,
-        Male,
-        Hermaphrodite,
-    }
-
-
-    /// <summary>
-    /// 
-    /// </summary>
-    public class Fish : Inhabitant
-    {
-        public Sex Sex { get; set; }
-
-
-        public Fish()
+        public Light()
         {
         }
     }

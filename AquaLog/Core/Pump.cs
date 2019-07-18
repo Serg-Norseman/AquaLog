@@ -11,16 +11,9 @@ namespace AquaLog.Core
 {
     public class Pump : Device
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
-        public string Name { get; set; }
         public int MinFlow { get; set; }
         public int MaxFlow { get; set; }
-        public bool Enabled { get; set; }
 
-        [Indexed]
-        public int AquariumId { get; set; }
 
         public Pump()
         {

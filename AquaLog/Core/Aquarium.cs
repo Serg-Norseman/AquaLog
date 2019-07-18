@@ -22,35 +22,36 @@ namespace AquaLog.Core
         BowFrontCorner,
     }
 
-    public enum AquariumType
+
+    public enum AquariumWaterType
     {
-        Coldwater,
-        Marine,
-        Tropical,
+        Freshwater,
+        ColdwaterMarine,
+        TropicalMarine,
+        ReefMarine,
     }
+
 
     /// <summary>
     /// 
     /// </summary>
-    public class Aquarium
+    public class Aquarium : Entity
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-
-        public TankShape TankShape { get; set; }
 
         [MaxLength(140)]
         public string Name { get; set; }
 
         public string Description { get; set; }
 
-        public bool IsSalt { get; set; }
-
-        //public List<Note> Notes { get; set; }
-        //public List<Fish> Fishes { get; set; }
-        //public List<Plant> Plants { get; set; }
+        public AquariumWaterType WaterType { get; set; }
 
         public DateTime StartDate { get; set; }
+
+        public DateTime StopDate { get; set; }
+
+        public TankShape TankShape { get; set; }
 
         /// <summary>
         /// The depth of an aquarium is the distance from front to back (cm).
@@ -70,18 +71,12 @@ namespace AquaLog.Core
         /// <summary>
         /// The volume of an aquarium (litres).
         /// </summary>
-        public double Volume { get; set; }
+        public double TankVolume { get; set; }
 
         /// <summary>
-        /// The base area of an aquarium (cm2).
+        /// The volume of water (litres).
         /// </summary>
-        [Ignore]
-        public double BaseArea
-        {
-            get {
-                return ALCore.CalcArea(Width, Depth);
-            }
-        }
+        public double WaterVolume { get; set; }
 
 
         public Aquarium()
@@ -93,21 +88,32 @@ namespace AquaLog.Core
             Name = name;
         }
 
-        public Aquarium(TankShape tankShape, double volume, bool isSalt)
+        public Aquarium(TankShape tankShape, double volume)
         {
             TankShape = tankShape;
-            Volume = volume;
-            IsSalt = isSalt;
+            TankVolume = volume;
         }
 
-        public Aquarium(TankShape tankShape, double depth, double width, double height, bool isSalt)
+        public Aquarium(TankShape tankShape, double depth, double width, double height)
         {
             TankShape = tankShape;
             Depth = depth;
             Width = width;
             Height = height;
-            Volume = ALCore.CalcVolume(depth, width, height);
-            IsSalt = isSalt;
+            TankVolume = ALCore.CalcVolume(depth, width, height);
+        }
+
+        public bool IsSalt()
+        {
+            return (WaterType != AquariumWaterType.Freshwater);
+        }
+
+        /// <summary>
+        /// The base area of an aquarium (cm2).
+        /// </summary>
+        public double GetBaseArea()
+        {
+            return ALCore.CalcArea(Width, Depth);
         }
     }
 }

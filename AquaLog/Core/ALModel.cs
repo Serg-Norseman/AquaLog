@@ -24,15 +24,29 @@ namespace AquaLog.Core
             fDB = new SQLiteConnection(databasePath);
 
             fDB.CreateTable<Aquarium>();
+
             fDB.CreateTable<Fish>();
-            fDB.CreateTable<Note>();
+            fDB.CreateTable<Invertebrate>();
             fDB.CreateTable<Plant>();
+
+            fDB.CreateTable<Light>();
+            fDB.CreateTable<Pump>();
+
+            fDB.CreateTable<Expense>();
+            fDB.CreateTable<Note>();
+            fDB.CreateTable<WaterChange>();
         }
 
-        public void AddAquarium(string name)
+        #region Aquarium functions
+
+        public void AddAquarium(Aquarium aquarium)
         {
-            var aqm = new Aquarium(name);
-            fDB.Insert(aqm);
+            fDB.Insert(aquarium);
+        }
+
+        public void UpdateAquarium(Aquarium aquarium)
+        {
+            fDB.Update(aquarium);
         }
 
         public void DeleteAquarium(int id)
@@ -50,9 +64,59 @@ namespace AquaLog.Core
             return fDB.Get<Aquarium>(aqmId);
         }
 
+        #endregion
+
+        #region Fish functions
+
         public IEnumerable<Fish> QueryFishes(Aquarium aquarium)
         {
             return fDB.Query<Fish>("select * from Fish where AquariumId = ?", aquarium.Id);
         }
+
+        #endregion
+
+        #region Invertebrate functions
+
+        public IEnumerable<Invertebrate> QueryInvertebrates(Aquarium aquarium)
+        {
+            return fDB.Query<Invertebrate>("select * from Invertebrate where AquariumId = ?", aquarium.Id);
+        }
+
+        #endregion
+
+        #region Plant functions
+
+        public IEnumerable<Plant> QueryPlants(Aquarium aquarium)
+        {
+            return fDB.Query<Plant>("select * from Plant where AquariumId = ?", aquarium.Id);
+        }
+
+        #endregion
+
+        #region Note functions
+
+        public IEnumerable<Note> QueryNotes(Aquarium aquarium)
+        {
+            return fDB.Query<Note>("select * from Note where AquariumId = ?", aquarium.Id);
+        }
+
+        #endregion
+
+        #region Expense functions
+
+        public IEnumerable<Expense> QueryExpenses()
+        {
+            return fDB.Query<Expense>("select * from Expense");
+        }
+
+        public float GetTotalExpense()
+        {
+            // "select total(Price) as total_expense from Expenses"
+            // "select distinct Type as element from Expenses"
+            // "select distinct Shop as element from Expenses"
+            return 0.0f;
+        }
+
+        #endregion
     }
 }

@@ -24,7 +24,9 @@ namespace AquaLog.Controls
     public class TankSticker : UserControl
     {
         private Aquarium fAquarium;
+        private ContextMenu fContextMenu;
         private bool fSelected;
+        private StringFormat fStrFormat;
 
         public Aquarium Aquarium
         {
@@ -56,6 +58,28 @@ namespace AquaLog.Controls
             MaximumSize = new Size(200, 100);
 
             SetTankState(TankState.Normal);
+
+            var miEdit = new MenuItem();
+            miEdit.Text = "Edit";
+            //miEdit.Click += miEdit_Click;
+
+            var miDelete = new MenuItem();
+            miDelete.Text = "Delete";
+            //miDelete.Click += miDelete_Click;
+
+            fContextMenu = new ContextMenu();
+            fContextMenu.MenuItems.AddRange(new MenuItem[] { miEdit, miDelete});
+            ContextMenu = fContextMenu;
+
+            fStrFormat = new StringFormat();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) {
+                fStrFormat.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         public void SetTankState(TankState state)
@@ -91,7 +115,15 @@ namespace AquaLog.Controls
 
             if (fAquarium == null) return;
 
-            e.Graphics.DrawString(fAquarium.Name, Font, new SolidBrush(ForeColor), ClientRectangle);
+            var layoutRect = ClientRectangle;
+            layoutRect.Inflate(-4, -4);
+
+            fStrFormat.Alignment = StringAlignment.Near;
+            e.Graphics.DrawString(fAquarium.Name, Font, new SolidBrush(ForeColor), layoutRect, fStrFormat);
+
+            string volumes = ALCore.GetDecimalStr(fAquarium.WaterVolume) + " / " + ALCore.GetDecimalStr(fAquarium.TankVolume);
+            fStrFormat.Alignment = StringAlignment.Far;
+            e.Graphics.DrawString(volumes, Font, new SolidBrush(ForeColor), layoutRect, fStrFormat);
         }
     }
 }

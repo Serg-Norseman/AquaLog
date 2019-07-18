@@ -9,19 +9,12 @@ using SQLite;
 
 namespace AquaLog.Core
 {
-    public class Plant
+    /// <summary>
+    /// 
+    /// </summary>
+    public class Plant : Inhabitant
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
 
-        [Indexed]
-        public int AquariumId { get; set; }
-
-        public string Name { get; set; }
-
-        //public string Type { get; set; }
-
-        //public Aquarium Aquarium { get; set; }
 
         public Plant()
         {

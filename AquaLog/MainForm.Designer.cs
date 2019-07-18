@@ -15,6 +15,7 @@
         private System.Windows.Forms.Button btnAddTank;
         private System.Windows.Forms.Button btnEditTank;
         private System.Windows.Forms.Button btnDeleteTank;
+        private System.Windows.Forms.ToolStripMenuItem miExit;
         
         protected override void Dispose(bool disposing)
         {
@@ -41,6 +42,7 @@
             this.pnlClient = new System.Windows.Forms.Panel();
             this.pnlObjects = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.miExit = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMain.SuspendLayout();
             this.pnlTools.SuspendLayout();
             this.pnlDate.SuspendLayout();
@@ -61,6 +63,8 @@
             // 
             // miFile
             // 
+            this.miFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miExit});
             this.miFile.Name = "miFile";
             this.miFile.Size = new System.Drawing.Size(44, 24);
             this.miFile.Text = "File";
@@ -167,6 +171,13 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
+            // 
+            // miExit
+            // 
+            this.miExit.Name = "miExit";
+            this.miExit.Size = new System.Drawing.Size(181, 26);
+            this.miExit.Text = "Exit";
+            this.miExit.Click += new System.EventHandler(this.miExit_Click);
             // 
             // MainForm
             // 

@@ -12,7 +12,7 @@ namespace AquaLog.Core
     /// <summary>
     /// 
     /// </summary>
-    public class WaterChange
+    public class WaterChange : Entity
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
@@ -21,7 +21,8 @@ namespace AquaLog.Core
         public int AquariumId { get; set; }
 
         public DateTime ChangeDate { get; set; }
-        public byte Percentage { get; set; }
+        public double Volume { get; set; }
+        public string Note { get; set; }
 
 
         public WaterChange()
