@@ -7,16 +7,13 @@
 using System;
 using SQLite;
 
-namespace AquaLog.Core
+namespace AquaLog.Core.Model
 {
     /// <summary>
     /// 
     /// </summary>
     public class Expense : Entity
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
         [Indexed]
         public int ItemId { get; set; }
 
@@ -27,7 +24,7 @@ namespace AquaLog.Core
         public DateTime Date { get; set; }
 
         public int Quantity { get; set; }
-        public float Price { get; set; }
+        public float UnitPrice { get; set; }
         public string Shop { get; set; }
         public string Note { get; set; }
 

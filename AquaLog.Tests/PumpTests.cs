@@ -6,22 +6,21 @@
 
 using System;
 using AquaLog.Core.Model;
-using AquaLog.Core.Types;
 using NUnit.Framework;
 
 namespace AquaLog.Core.Model
 {
     [TestFixture]
-    public class AquariumTests
+    public class PumpTests
     {
         [Test]
         public void Test_Common()
         {
-            var tank = new Aquarium(TankShape.Rectangular, 17.5, 20.5, 26.5);
-            Assert.IsNotNull(tank);
+            var pump = new Pump();
+            Assert.IsNotNull(pump);
 
-            Assert.AreEqual(TankShape.Rectangular, tank.TankShape);
-            Assert.AreEqual(9.506875, tank.TankVolume);
+            pump.Name = "Air Pump";
+            Assert.AreEqual("Air Pump", pump.Name);
         }
     }
 }

@@ -8,8 +8,10 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
+using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 
-namespace AquaLog
+namespace AquaLog.UI
 {
     /// <summary>
     /// 

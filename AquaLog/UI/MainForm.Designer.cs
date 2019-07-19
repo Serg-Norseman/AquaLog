@@ -1,4 +1,4 @@
-﻿namespace AquaLog
+﻿namespace AquaLog.UI
 {
     partial class MainForm
     {

@@ -5,16 +5,16 @@
  */
 
 using System;
+using SQLite;
 
-namespace AquaLog.Core
+namespace AquaLog.Core.Model
 {
     /// <summary>
-    /// Fish temperament to determine compatibility factors.
+    /// 
     /// </summary>
-    public enum Temperament
+    public abstract class Entity
     {
-        Peaceful,
-        SemiAggressive,
-        Aggressive
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
     }
 }

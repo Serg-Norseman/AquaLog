@@ -7,19 +7,13 @@
 using System;
 using SQLite;
 
-namespace AquaLog.Core
+namespace AquaLog.Core.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Device : Entity
+    public abstract class Device : AquariumDetails
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
-        [Indexed]
-        public int AquariumId { get; set; }
-
         public string Name { get; set; }
         public bool Enabled { get; set; }
 

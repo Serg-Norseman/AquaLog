@@ -7,25 +7,18 @@
 using System;
 using SQLite;
 
-namespace AquaLog.Core
+namespace AquaLog.Core.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    public class WaterChange : Entity
+    public abstract class AquariumDetails : Entity
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
         [Indexed]
         public int AquariumId { get; set; }
 
-        public DateTime ChangeDate { get; set; }
-        public double Volume { get; set; }
-        public string Note { get; set; }
 
-
-        public WaterChange()
+        protected AquariumDetails()
         {
         }
     }

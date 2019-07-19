@@ -6,40 +6,16 @@
 
 using System;
 using System.Collections.Generic;
+using AquaLog.Core.Types;
 using SQLite;
 
-namespace AquaLog.Core
+namespace AquaLog.Core.Model
 {
-    public enum TankShape
-    {
-        Unknown,
-        Bowl,
-        Cube,
-        Rectangular,
-        BowFront,
-        BevelledFront,
-        PlateFrontCorner,
-        BowFrontCorner,
-    }
-
-
-    public enum AquariumWaterType
-    {
-        Freshwater,
-        ColdwaterMarine,
-        TropicalMarine,
-        ReefMarine,
-    }
-
-
     /// <summary>
     /// 
     /// </summary>
     public class Aquarium : Entity
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
         [MaxLength(140)]
         public string Name { get; set; }
 

@@ -7,7 +7,7 @@
 using System;
 using SQLite;
 
-namespace AquaLog.Core
+namespace AquaLog.Core.Model
 {
     /// <summary>
     /// 

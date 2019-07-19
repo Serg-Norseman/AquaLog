@@ -9,8 +9,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Controls;
 using AquaLog.Core;
+using AquaLog.Core.Model;
 
-namespace AquaLog
+namespace AquaLog.UI
 {
     public partial class MainForm : Form
     {

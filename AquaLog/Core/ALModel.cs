@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using AquaLog.Core.Model;
 using SQLite;
 
 namespace AquaLog.Core
@@ -28,6 +29,7 @@ namespace AquaLog.Core
             fDB.CreateTable<Fish>();
             fDB.CreateTable<Invertebrate>();
             fDB.CreateTable<Plant>();
+            fDB.CreateTable<Species>();
 
             fDB.CreateTable<Light>();
             fDB.CreateTable<Pump>();

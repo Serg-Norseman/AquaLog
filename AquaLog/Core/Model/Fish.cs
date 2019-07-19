@@ -5,19 +5,11 @@
  */
 
 using System;
+using AquaLog.Core.Types;
 using SQLite;
 
-namespace AquaLog.Core
+namespace AquaLog.Core.Model
 {
-    public enum Sex
-    {
-        None,
-        Female,
-        Male,
-        Hermaphrodite,
-    }
-
-
     /// <summary>
     /// 
     /// </summary>

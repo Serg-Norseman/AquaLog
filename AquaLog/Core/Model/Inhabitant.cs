@@ -7,30 +7,24 @@
 using System;
 using SQLite;
 
-namespace AquaLog.Core
+namespace AquaLog.Core.Model
 {
-    public enum InhabitantType
-    {
-        Fish,
-        Invertebrate,
-        Plant
-    }
-
-
     /// <summary>
     /// 
     /// </summary>
-    public class Inhabitant : Entity
+    public class Inhabitant : AquariumDetails
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
         [Indexed]
-        public int AquariumId { get; set; }
+        public int SpeciesId { get; set; }
 
         public string Name { get; set; }
         public int Quantity { get; set; }
         public string Note { get; set; }
+
+        [Ignore]
+        public DateTime CheckIn { get; set; }
+        [Ignore]
+        public DateTime CheckOut { get; set; }
 
 
         public Inhabitant()

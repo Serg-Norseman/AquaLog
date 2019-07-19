@@ -4,14 +4,15 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-using System;
-
-namespace AquaLog.Core
+namespace AquaLog.Core.Types
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public abstract class Entity
+    public enum MeasurementType
     {
+        CarbonateHardness,
+        NH4,
+        NO2,
+        NO3,
+        PH,
+        Temperature,
     }
 }

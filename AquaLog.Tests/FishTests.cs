@@ -6,22 +6,21 @@
 
 using System;
 using AquaLog.Core.Model;
-using AquaLog.Core.Types;
 using NUnit.Framework;
 
 namespace AquaLog.Core.Model
 {
     [TestFixture]
-    public class AquariumTests
+    public class FishTests
     {
         [Test]
         public void Test_Common()
         {
-            var tank = new Aquarium(TankShape.Rectangular, 17.5, 20.5, 26.5);
-            Assert.IsNotNull(tank);
+            var fish = new Fish();
+            Assert.IsNotNull(fish);
 
-            Assert.AreEqual(TankShape.Rectangular, tank.TankShape);
-            Assert.AreEqual(9.506875, tank.TankVolume);
+            fish.Name = "Siamese fighting fish";
+            Assert.AreEqual("Siamese fighting fish", fish.Name);
         }
     }
 }

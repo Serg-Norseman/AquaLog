@@ -55,37 +55,43 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AquariumEditDlg.cs" />
-    <Compile Include="AquariumEditDlg.Designer.cs">
-      <DependentUpon>AquariumEditDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controls\TanksPanel.cs" />
     <Compile Include="Controls\TankSticker.cs" />
     <Compile Include="Core\ALCore.cs" />
     <Compile Include="Core\ALModel.cs" />
-    <Compile Include="Core\Aquarium.cs" />
-    <Compile Include="Core\CareLevel.cs" />
-    <Compile Include="Core\Device.cs" />
-    <Compile Include="Core\Expense.cs" />
-    <Compile Include="Core\Fish.cs" />
-    <Compile Include="Core\Entity.cs" />
-    <Compile Include="Core\Inhabitant.cs" />
-    <Compile Include="Core\Invertebrate.cs" />
-    <Compile Include="Core\Light.cs" />
-    <Compile Include="Core\MeasurementType.cs" />
-    <Compile Include="Core\Note.cs" />
-    <Compile Include="Core\Plant.cs" />
-    <Compile Include="Core\Pump.cs" />
-    <Compile Include="Core\Temperament.cs" />
-    <Compile Include="Core\WaterChange.cs" />
-    <Compile Include="MainForm.cs" />
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Core\Model\Aquarium.cs" />
+    <Compile Include="Core\Model\AquariumDetails.cs" />
+    <Compile Include="Core\Model\Device.cs" />
+    <Compile Include="Core\Model\Entity.cs" />
+    <Compile Include="Core\Model\Expense.cs" />
+    <Compile Include="Core\Model\Fish.cs" />
+    <Compile Include="Core\Model\Inhabitant.cs" />
+    <Compile Include="Core\Model\Invertebrate.cs" />
+    <Compile Include="Core\Model\Light.cs" />
+    <Compile Include="Core\Model\Note.cs" />
+    <Compile Include="Core\Model\Plant.cs" />
+    <Compile Include="Core\Model\Pump.cs" />
+    <Compile Include="Core\Model\Species.cs" />
+    <Compile Include="Core\Model\WaterChange.cs" />
+    <Compile Include="Core\Types\AquariumWaterType.cs" />
+    <Compile Include="Core\Types\CareLevel.cs" />
+    <Compile Include="Core\Types\MeasurementType.cs" />
+    <Compile Include="Core\Types\Sex.cs" />
+    <Compile Include="Core\Types\SpeciesType.cs" />
+    <Compile Include="Core\Types\TankShape.cs" />
+    <Compile Include="Core\Types\Temperament.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
+    <Compile Include="UI\AquariumEditDlg.cs" />
+    <Compile Include="UI\AquariumEditDlg.Designer.cs">
+      <DependentUpon>AquariumEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainForm.cs" />
+    <Compile Include="UI\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -98,12 +104,15 @@
   <ItemGroup>
     <Folder Include="Core" />
     <Folder Include="Controls" />
+    <Folder Include="Core\Model" />
+    <Folder Include="Core\Types" />
+    <Folder Include="UI" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="AquariumEditDlg.resx">
+    <EmbeddedResource Include="UI\AquariumEditDlg.resx">
       <DependentUpon>AquariumEditDlg.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
