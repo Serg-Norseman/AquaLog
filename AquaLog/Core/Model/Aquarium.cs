@@ -44,6 +44,8 @@ namespace AquaLog.Core.Model
         /// </summary>
         public double Height { get; set; }
 
+        public double GlassThickness { get; set; }
+
         /// <summary>
         /// The volume of an aquarium (litres).
         /// </summary>
@@ -82,6 +84,11 @@ namespace AquaLog.Core.Model
         public bool IsSalt()
         {
             return (WaterType != AquariumWaterType.Freshwater);
+        }
+
+        public bool IsInactive()
+        {
+            return !StopDate.Equals(ALCore.ZeroDate);
         }
 
         /// <summary>

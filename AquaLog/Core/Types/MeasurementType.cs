@@ -8,11 +8,23 @@ namespace AquaLog.Core.Types
 {
     public enum MeasurementType
     {
+        Ca,
         CarbonateHardness,
+        CO2,
+        Cu,
+        Density,
+        Fe,
+        GH,
+        KH,
+        Mg,
+        NH,
+        NH3,
         NH4,
         NO2,
         NO3,
+        O2,
         PH,
+        PO4,
         Temperature,
     }
 }

@@ -13,6 +13,24 @@ using AquaLog.Core.Model;
 
 namespace AquaLog.UI
 {
+    public enum MainView
+    {
+        Prev,
+        Next,
+        Tanks,
+        Fishes,
+        Invertebrates,
+        Plants,
+        Species,
+        Lights,
+        Pumps,
+        Expenses,
+        Notes,
+        WaterChanges,
+        History,
+        Maintenance
+    }
+
     public partial class MainForm : Form
     {
         private ALModel fModel;
@@ -30,16 +48,26 @@ namespace AquaLog.UI
             SetSettings();
             UpdateControls();
 
-            SetTanksPanel();
-        }
+            btnPrev.Image = ALCore.LoadResourceImage("btn_left.gif");
+            btnNext.Image = ALCore.LoadResourceImage("btn_right.gif");
+            miExit.Image = ALCore.LoadResourceImage("btn_exit.gif");
 
-        private void SetTanksPanel()
-        {
-            if (fTanksPanel == null) {
-                fTanksPanel = new TanksPanel();
-                fTanksPanel.Model = fModel;
-            }
-            pnlObjects.Controls.Add(fTanksPanel);
+            btnPrev.Tag = MainView.Prev;
+            btnNext.Tag = MainView.Next;
+            btnTanks.Tag = MainView.Tanks;
+            btnFishes.Tag = MainView.Fishes;
+            btnInvertebrates.Tag = MainView.Invertebrates;
+            btnPlants.Tag = MainView.Plants;
+            btnSpecies.Tag = MainView.Species;
+            btnLights.Tag = MainView.Lights;
+            btnPumps.Tag = MainView.Pumps;
+            btnExpenses.Tag = MainView.Expenses;
+            btnNotes.Tag = MainView.Notes;
+            btnWaterChanges.Tag = MainView.WaterChanges;
+            btnHistory.Tag = MainView.History;
+            btnMaintenance.Tag = MainView.Maintenance;
+
+            SetTanksView();
         }
 
         private void UpdateControls()
@@ -103,6 +131,57 @@ namespace AquaLog.UI
 
             fModel.DeleteAquarium(selectedTank.Aquarium.Id);
             fTanksPanel.UpdateLayout();
+        }
+
+        private void btnMainView_Click(object sender, EventArgs e)
+        {
+            var btn = sender as ToolStripButton;
+            var mainView = (MainView)btn.Tag;
+
+            switch (mainView) {
+                case MainView.Prev:
+                    break;
+                case MainView.Next:
+                    break;
+                case MainView.Tanks:
+                    SetTanksView();
+                    break;
+                case MainView.Fishes:
+                    break;
+                case MainView.Invertebrates:
+                    break;
+                case MainView.Plants:
+                    break;
+                case MainView.Species:
+                    break;
+                case MainView.Lights:
+                    break;
+                case MainView.Pumps:
+                    break;
+                case MainView.Expenses:
+                    break;
+                case MainView.Notes:
+                    break;
+                case MainView.WaterChanges:
+                    break;
+                case MainView.History:
+                    break;
+                case MainView.Maintenance:
+                    break;
+            }
+        }
+
+        #endregion
+
+        #region Views functions
+
+        private void SetTanksView()
+        {
+            if (fTanksPanel == null) {
+                fTanksPanel = new TanksPanel();
+                fTanksPanel.Model = fModel;
+            }
+            pnlObjects.Controls.Add(fTanksPanel);
         }
 
         #endregion

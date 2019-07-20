@@ -38,6 +38,10 @@ namespace AquaLog.UI
             for (TankShape shape = TankShape.Unknown; shape <= TankShape.Rectangular; shape++) {
                 cmbShape.Items.Add(shape.ToString());
             }
+
+            for (AquariumWaterType awt = AquariumWaterType.Freshwater; awt <= AquariumWaterType.ReefMarine; awt++) {
+                cmbWaterType.Items.Add(awt.ToString());
+            }
         }
 
         private void UpdateView()
@@ -45,11 +49,22 @@ namespace AquaLog.UI
             txtName.Text = fAquarium.Name;
             txtDesc.Text = fAquarium.Description;
             cmbShape.SelectedIndex = (int)fAquarium.TankShape;
+            cmbWaterType.SelectedIndex = (int)fAquarium.WaterType;
 
             txtDepth.Text = ALCore.GetDecimalStr(fAquarium.Depth);
             txtWidth.Text = ALCore.GetDecimalStr(fAquarium.Width);
             txtHeigth.Text = ALCore.GetDecimalStr(fAquarium.Height);
             txtVolume.Text = ALCore.GetDecimalStr(fAquarium.TankVolume);
+
+            dtpStartDate.Checked = !fAquarium.StartDate.Equals(ALCore.ZeroDate);
+            if (dtpStartDate.Checked) {
+                dtpStartDate.Value = fAquarium.StartDate;
+            }
+
+            dtpStopDate.Checked = !fAquarium.StopDate.Equals(ALCore.ZeroDate);
+            if (dtpStopDate.Checked) {
+                dtpStopDate.Value = fAquarium.StopDate;
+            }
         }
 
         private void ApplyChanges()
@@ -57,11 +72,15 @@ namespace AquaLog.UI
             fAquarium.Name = txtName.Text;
             fAquarium.Description = txtDesc.Text;
             fAquarium.TankShape = (TankShape)cmbShape.SelectedIndex;
+            fAquarium.WaterType = (AquariumWaterType)cmbWaterType.SelectedIndex;
 
             fAquarium.Depth = ALCore.GetDecimalVal(txtDepth);
             fAquarium.Width = ALCore.GetDecimalVal(txtWidth);
             fAquarium.Height = ALCore.GetDecimalVal(txtHeigth);
             fAquarium.TankVolume = ALCore.GetDecimalVal(txtVolume);
+
+            fAquarium.StartDate = dtpStartDate.Checked ? dtpStartDate.Value : new DateTime(0);
+            fAquarium.StopDate = dtpStopDate.Checked ? dtpStopDate.Value : new DateTime(0);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

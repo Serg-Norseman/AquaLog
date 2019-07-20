@@ -22,9 +22,10 @@ namespace AquaLog.Core
         public const int NormalState = 0xC0FFFF;
         public const int WarningState = 0xFFFFC0;
         public const int AlertState = 0xFFC0C0;
-        public const int InactiveState = 0xC0C0C0;
+        public const int InactiveState = 0xE0E0E0;
 
         public const string UnknownName = "Unknown";
+        public static readonly DateTime ZeroDate = new DateTime(0);
 
         private static readonly int LitersDivider = 1000;
 
@@ -33,6 +34,23 @@ namespace AquaLog.Core
 
         public ALCore()
         {
+        }
+
+
+        public static Stream LoadResourceStream(string resName)
+        {
+            return LoadResourceStream(typeof(ALCore), resName);
+        }
+
+        public static Stream LoadResourceStream(Type baseType, string resName)
+        {
+            Assembly assembly = baseType.Assembly;
+            return assembly.GetManifestResourceStream(resName);
+        }
+
+        public static Bitmap LoadResourceImage(string resName)
+        {
+            return new Bitmap(LoadResourceStream("AquaLog.Resources." + resName));
         }
 
         #region Calculations

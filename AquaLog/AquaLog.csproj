@@ -65,9 +65,11 @@
     <Compile Include="Core\Model\Entity.cs" />
     <Compile Include="Core\Model\Expense.cs" />
     <Compile Include="Core\Model\Fish.cs" />
+    <Compile Include="Core\Model\History.cs" />
     <Compile Include="Core\Model\Inhabitant.cs" />
     <Compile Include="Core\Model\Invertebrate.cs" />
     <Compile Include="Core\Model\Light.cs" />
+    <Compile Include="Core\Model\Maintenance.cs" />
     <Compile Include="Core\Model\Note.cs" />
     <Compile Include="Core\Model\Plant.cs" />
     <Compile Include="Core\Model\Pump.cs" />
@@ -79,6 +81,8 @@
     <Compile Include="Core\Types\Sex.cs" />
     <Compile Include="Core\Types\SpeciesType.cs" />
     <Compile Include="Core\Types\TankShape.cs" />
+    <Compile Include="Core\Types\TaskSchedule.cs" />
+    <Compile Include="Core\Types\TaskStatus.cs" />
     <Compile Include="Core\Types\Temperament.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -100,12 +104,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <EmbeddedResource Include="Resources\btn_accept.gif" />
+    <EmbeddedResource Include="Resources\btn_cancel.gif" />
+    <EmbeddedResource Include="Resources\btn_exit.gif" />
+    <EmbeddedResource Include="Resources\btn_left.gif" />
+    <EmbeddedResource Include="Resources\btn_right.gif" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core" />
     <Folder Include="Controls" />
     <Folder Include="Core\Model" />
     <Folder Include="Core\Types" />
+    <Folder Include="Resources" />
     <Folder Include="UI" />
   </ItemGroup>
   <ItemGroup>

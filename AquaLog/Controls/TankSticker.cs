@@ -16,7 +16,8 @@ namespace AquaLog.Controls
     {
         Normal,
         Warning,
-        Alert
+        Alert,
+        Inactive
     }
 
     /// <summary>
@@ -58,8 +59,6 @@ namespace AquaLog.Controls
             MinimumSize = new Size(200, 100);
             MaximumSize = new Size(200, 100);
 
-            SetTankState(TankState.Normal);
-
             var miEdit = new MenuItem();
             miEdit.Text = "Edit";
             //miEdit.Click += miEdit_Click;
@@ -96,6 +95,9 @@ namespace AquaLog.Controls
                 case TankState.Alert:
                     color = ALCore.AlertState;
                     break;
+                case TankState.Inactive:
+                    color = ALCore.InactiveState;
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -104,6 +106,12 @@ namespace AquaLog.Controls
 
         public void UpdateView()
         {
+            if (fAquarium.IsInactive()) {
+                SetTankState(TankState.Inactive);
+            } else {
+                SetTankState(TankState.Normal);
+            }
+
             Refresh();
         }
 
@@ -125,6 +133,10 @@ namespace AquaLog.Controls
             string volumes = ALCore.GetDecimalStr(fAquarium.WaterVolume) + " / " + ALCore.GetDecimalStr(fAquarium.TankVolume);
             fStrFormat.Alignment = StringAlignment.Far;
             e.Graphics.DrawString(volumes, Font, new SolidBrush(ForeColor), layoutRect, fStrFormat);
+
+            int x = layoutRect.Left;
+            int y = layoutRect.Top + (int)(Font.Height * 1.6f);
+            e.Graphics.DrawString("Since " + fAquarium.StartDate.ToString("dd/MM/yyyy") + " passed 5 days", Font, new SolidBrush(ForeColor), x, y);
         }
     }
 }
