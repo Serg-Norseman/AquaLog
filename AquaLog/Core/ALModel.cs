@@ -39,29 +39,41 @@ namespace AquaLog.Core
             fDB.CreateTable<WaterChange>();
             fDB.CreateTable<History>();
             fDB.CreateTable<Maintenance>();
+
+            fDB.CreateTable<Transfer>();
         }
 
-        #region Aquarium functions
-
-        public void AddAquarium(Aquarium obj)
+        public int AddRecord(Entity obj)
         {
-            fDB.Insert(obj);
+            return fDB.Insert(obj);
         }
 
-        public void UpdateAquarium(Aquarium obj)
+        public void UpdateRecord(Entity obj)
         {
             fDB.Update(obj);
         }
 
-        public void DeleteAquarium(int objId)
+        public void DeleteRecord(Entity obj)
         {
-            fDB.Delete<Aquarium>(objId);
+            fDB.Delete(obj);
         }
 
-        public Aquarium GetAquarium(int objId)
+        public void DeleteRecord<T>(int objId)
         {
-            return fDB.Get<Aquarium>(objId);
+            fDB.Delete<T>(objId);
         }
+
+        public T GetRecord<T>(int objId) where T : new()
+        {
+            return fDB.Get<T>(objId);
+        }
+
+        public IEnumerable<T> QueryRecords<T>(string query, params object[] args) where T : new()
+        {
+            return fDB.Query<T>(query, args); // "select * from Aquarium"
+        }
+
+        #region Aquarium functions
 
         public IEnumerable<Aquarium> QueryAquariums()
         {
@@ -71,26 +83,6 @@ namespace AquaLog.Core
         #endregion
 
         #region Fish functions
-
-        public void AddFish(Fish obj)
-        {
-            fDB.Insert(obj);
-        }
-
-        public void UpdateFish(Fish obj)
-        {
-            fDB.Update(obj);
-        }
-
-        public void DeleteFish(int objId)
-        {
-            fDB.Delete<Fish>(objId);
-        }
-
-        public Fish GetFish(int objId)
-        {
-            return fDB.Get<Fish>(objId);
-        }
 
         public IEnumerable<Fish> QueryFishes()
         {
@@ -106,26 +98,6 @@ namespace AquaLog.Core
 
         #region Invertebrate functions
 
-        public void AddInvertebrate(Invertebrate obj)
-        {
-            fDB.Insert(obj);
-        }
-
-        public void UpdateInvertebrate(Invertebrate obj)
-        {
-            fDB.Update(obj);
-        }
-
-        public void DeleteInvertebrate(int objId)
-        {
-            fDB.Delete<Invertebrate>(objId);
-        }
-
-        public Invertebrate GetInvertebrate(int objId)
-        {
-            return fDB.Get<Invertebrate>(objId);
-        }
-
         public IEnumerable<Invertebrate> QueryInvertebrates(Aquarium aquarium)
         {
             return fDB.Query<Invertebrate>("select * from Invertebrate where AquariumId = ?", aquarium.Id);
@@ -134,26 +106,6 @@ namespace AquaLog.Core
         #endregion
 
         #region Plant functions
-
-        public void AddPlant(Plant obj)
-        {
-            fDB.Insert(obj);
-        }
-
-        public void UpdatePlant(Plant obj)
-        {
-            fDB.Update(obj);
-        }
-
-        public void DeletePlant(int objId)
-        {
-            fDB.Delete<Plant>(objId);
-        }
-
-        public Plant GetPlant(int objId)
-        {
-            return fDB.Get<Plant>(objId);
-        }
 
         public IEnumerable<Plant> QueryPlants(Aquarium aquarium)
         {

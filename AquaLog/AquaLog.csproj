@@ -55,6 +55,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Action.cs" />
+    <Compile Include="Controls\Browser.cs" />
+    <Compile Include="Controls\SpeciesPanel.cs" />
     <Compile Include="Controls\TanksPanel.cs" />
     <Compile Include="Controls\TankSticker.cs" />
     <Compile Include="Core\ALCore.cs" />
@@ -74,9 +77,11 @@
     <Compile Include="Core\Model\Plant.cs" />
     <Compile Include="Core\Model\Pump.cs" />
     <Compile Include="Core\Model\Species.cs" />
+    <Compile Include="Core\Model\Transfer.cs" />
     <Compile Include="Core\Model\WaterChange.cs" />
     <Compile Include="Core\Types\AquariumWaterType.cs" />
     <Compile Include="Core\Types\CareLevel.cs" />
+    <Compile Include="Core\Types\ItemType.cs" />
     <Compile Include="Core\Types\MeasurementType.cs" />
     <Compile Include="Core\Types\Sex.cs" />
     <Compile Include="Core\Types\SpeciesType.cs" />
@@ -84,6 +89,7 @@
     <Compile Include="Core\Types\TaskSchedule.cs" />
     <Compile Include="Core\Types\TaskStatus.cs" />
     <Compile Include="Core\Types\Temperament.cs" />
+    <Compile Include="Core\Types\TransferType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLite.cs" />
@@ -96,6 +102,7 @@
     <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MainView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -7,27 +7,17 @@
 using System;
 using System.Windows.Forms;
 using AquaLog.Core;
+using AquaLog.Core.Model;
+using AquaLog.UI;
 
 namespace AquaLog.Controls
 {
     /// <summary>
     /// 
     /// </summary>
-    public class TanksPanel : FlowLayoutPanel
+    public class TanksPanel : Browser
     {
-        private ALModel fModel;
         private TankSticker fSelectedTank;
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set {
-                if (fModel != value) {
-                    fModel = value;
-                    UpdateLayout();
-                }
-            }
-        }
 
         public TankSticker SelectedTank
         {
@@ -35,18 +25,32 @@ namespace AquaLog.Controls
         }
 
 
-        public TanksPanel()
+        public TanksPanel() : base()
         {
-            Dock = DockStyle.Fill;
-            Padding = new Padding(10);
         }
 
-        public void UpdateLayout()
+        protected override void InitActions()
+        {
+            fActions.Add(new Action() {
+                Name = "Add Tank",
+                Click = btnAddTank_Click
+            });
+            fActions.Add(new Action() {
+                Name = "Edit Tank",
+                Click = btnEditTank_Click
+            });
+            fActions.Add(new Action() {
+                Name = "Delete Tank",
+                Click = btnDeleteTank_Click
+            });
+        }
+
+        public override void UpdateLayout()
         {
             Controls.Clear();
-            if (fModel == null) return;
+            if (Model == null) return;
 
-            var aquariums = fModel.QueryAquariums();
+            var aquariums = Model.QueryAquariums();
 
             foreach (var aqm in aquariums) {
                 var aqPanel = new TankSticker();
@@ -70,6 +74,45 @@ namespace AquaLog.Controls
 
         private void OnTankDoubleClick(object sender, EventArgs e)
         {
+        }
+
+        private void btnAddTank_Click(object sender, EventArgs e)
+        {
+            var aqm = new Aquarium(ALCore.UnknownName);
+
+            using (var dlg = new AquariumEditDlg()) {
+                dlg.Aquarium = aqm;
+                if (dlg.ShowDialog() == DialogResult.OK) {
+                    Model.AddRecord(aqm);
+                    UpdateLayout();
+                }
+            }
+        }
+
+        private void btnEditTank_Click(object sender, EventArgs e)
+        {
+            var selectedTank = SelectedTank;
+            if (selectedTank == null) return;
+
+            var aqm = selectedTank.Aquarium;
+            if (aqm == null) return;
+
+            using (var dlg = new AquariumEditDlg()) {
+                dlg.Aquarium = aqm;
+                if (dlg.ShowDialog() == DialogResult.OK) {
+                    Model.UpdateRecord(aqm);
+                    UpdateLayout();
+                }
+            }
+        }
+
+        private void btnDeleteTank_Click(object sender, EventArgs e)
+        {
+            var selectedTank = SelectedTank;
+            if (selectedTank == null) return;
+
+            Model.DeleteRecord(selectedTank.Aquarium);
+            UpdateLayout();
         }
     }
 }

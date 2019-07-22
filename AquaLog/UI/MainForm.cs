@@ -9,32 +9,14 @@ using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Controls;
 using AquaLog.Core;
-using AquaLog.Core.Model;
 
 namespace AquaLog.UI
 {
-    public enum MainView
-    {
-        Prev,
-        Next,
-        Tanks,
-        Fishes,
-        Invertebrates,
-        Plants,
-        Species,
-        Lights,
-        Pumps,
-        Expenses,
-        Notes,
-        WaterChanges,
-        History,
-        Maintenance
-    }
-
     public partial class MainForm : Form
     {
         private ALModel fModel;
         private TanksPanel fTanksPanel;
+        private SpeciesPanel fSpeciesPanel;
 
 
         public MainForm()
@@ -67,7 +49,7 @@ namespace AquaLog.UI
             btnHistory.Tag = MainView.History;
             btnMaintenance.Tag = MainView.Maintenance;
 
-            SetTanksView();
+            SetView(ref fTanksPanel);
         }
 
         private void UpdateControls()
@@ -94,45 +76,6 @@ namespace AquaLog.UI
             Application.Exit();
         }
 
-        private void btnAddTank_Click(object sender, EventArgs e)
-        {
-            var aqm = new Aquarium(ALCore.UnknownName);
-
-            using (var dlg = new AquariumEditDlg()) {
-                dlg.Aquarium = aqm;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddAquarium(aqm);
-                    fTanksPanel.UpdateLayout();
-                }
-            }
-        }
-
-        private void btnEditTank_Click(object sender, EventArgs e)
-        {
-            var selectedTank = fTanksPanel.SelectedTank;
-            if (selectedTank == null) return;
-
-            var aqm = selectedTank.Aquarium;
-            if (aqm == null) return;
-
-            using (var dlg = new AquariumEditDlg()) {
-                dlg.Aquarium = aqm;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.UpdateAquarium(aqm);
-                    fTanksPanel.UpdateLayout();
-                }
-            }
-        }
-
-        private void btnDeleteTank_Click(object sender, EventArgs e)
-        {
-            var selectedTank = fTanksPanel.SelectedTank;
-            if (selectedTank == null) return;
-
-            fModel.DeleteAquarium(selectedTank.Aquarium.Id);
-            fTanksPanel.UpdateLayout();
-        }
-
         private void btnMainView_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripButton;
@@ -144,7 +87,7 @@ namespace AquaLog.UI
                 case MainView.Next:
                     break;
                 case MainView.Tanks:
-                    SetTanksView();
+                    SetView<TanksPanel>(ref fTanksPanel);
                     break;
                 case MainView.Fishes:
                     break;
@@ -153,6 +96,7 @@ namespace AquaLog.UI
                 case MainView.Plants:
                     break;
                 case MainView.Species:
+                    SetView<SpeciesPanel>(ref fSpeciesPanel);
                     break;
                 case MainView.Lights:
                     break;
@@ -175,13 +119,37 @@ namespace AquaLog.UI
 
         #region Views functions
 
-        private void SetTanksView()
+        private void SetActions(Browser browser)
         {
-            if (fTanksPanel == null) {
-                fTanksPanel = new TanksPanel();
-                fTanksPanel.Model = fModel;
+            for (int i = pnlTools.Controls.Count - 1; i >= 0; i--) {
+                if (pnlTools.Controls[i] is Button) {
+                    pnlTools.Controls.RemoveAt(i);
+                }
             }
-            pnlObjects.Controls.Add(fTanksPanel);
+
+            for (int i = 0; i < browser.Actions.Count; i++) {
+                var action = browser.Actions[i];
+
+                var btn = new Button();
+                btn.Dock = DockStyle.Top;
+                btn.Text = action.Name;
+                btn.Margin = new Padding(0, 0, 0, 10);
+                btn.Size = new Size(190, 30);
+                btn.Click += action.Click;
+                pnlTools.Controls.Add(btn);
+            }
+        }
+
+        private void SetView<T>(ref T view) where T : Browser, new()
+        {
+            pnlObjects.Controls.Clear();
+            if (view == null) {
+                view = new T();
+                view.Model = fModel;
+            }
+            pnlObjects.Controls.Add(view);
+
+            SetActions(view);
         }
 
         #endregion

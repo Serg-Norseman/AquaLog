@@ -13,7 +13,7 @@ namespace AquaLog.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public class Expense : Entity
+    public class Transfer : Entity
     {
         [Indexed]
         public int ItemId { get; set; }
@@ -24,13 +24,15 @@ namespace AquaLog.Core.Model
         [Indexed]
         public DateTime Date { get; set; }
 
-        public int Quantity { get; set; }
-        public float UnitPrice { get; set; }
-        public string Shop { get; set; }
-        public string Note { get; set; }
+        public TransferType Type { get; set; }
+        public string Cause { get; set; }
+
+        // Aquariums
+        public int SourceId { get; set; }
+        public int TargetId { get; set; }
 
 
-        public Expense()
+        public Transfer()
         {
         }
     }
