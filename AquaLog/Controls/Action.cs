@@ -6,20 +6,24 @@
 
 using System;
 using System.Drawing;
+using AquaLog.Core;
 
 namespace AquaLog.Controls
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Action
+    public sealed class Action
     {
-        public string Name { get; set; }
-        public Image Image { get; set; }
-        public EventHandler Click { get; set; }
+        public readonly string Name;
+        public readonly Image Image;
+        public readonly EventHandler Click;
 
-        public Action()
+        public Action(string name, string imageName, EventHandler clickHandler)
         {
+            Name = name;
+            Image = ALCore.LoadResourceImage(imageName);
+            Click = clickHandler;
         }
     }
 }

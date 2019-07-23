@@ -15,12 +15,12 @@ namespace AquaLog.Controls
     /// <summary>
     /// 
     /// </summary>
-    public class SpeciesPanel : Browser
+    public class FishPanel : Browser
     {
         private readonly ListView fListView;
 
 
-        public SpeciesPanel() : base()
+        public FishPanel() : base()
         {
             Padding = new Padding(10);
 
@@ -33,15 +33,17 @@ namespace AquaLog.Controls
             Controls.Add(fListView);
 
             fListView.Columns.Add("Name", 200, HorizontalAlignment.Left);
-            fListView.Columns.Add("ScientificName", 200, HorizontalAlignment.Left);
-            fListView.Columns.Add("Type", 100, HorizontalAlignment.Left);
+            //fListView.Columns.Add("ScientificName", 200, HorizontalAlignment.Left);
+            fListView.Columns.Add("Sex", 50, HorizontalAlignment.Left);
+            fListView.Columns.Add("Qty", 50, HorizontalAlignment.Right);
+            fListView.Columns.Add("Species", 150, HorizontalAlignment.Left);
         }
 
         protected override void InitActions()
         {
-            fActions.Add(new Action("Add Species", "btn_rec_new.gif", btnAddRecord_Click));
-            fActions.Add(new Action("Edit Species", "btn_rec_edit.gif", btnEditRecord_Click));
-            fActions.Add(new Action("Delete Species", "btn_rec_delete.gif", btnDeleteRecord_Click));
+            fActions.Add(new Action("Add Fish", "btn_rec_new.gif", btnAddRecord_Click));
+            fActions.Add(new Action("Edit Fish", "btn_rec_edit.gif", btnEditRecord_Click));
+            fActions.Add(new Action("Delete Fish", "btn_rec_delete.gif", btnDeleteRecord_Click));
         }
 
         public override void UpdateContent()
@@ -49,11 +51,15 @@ namespace AquaLog.Controls
             fListView.Items.Clear();
             if (fModel == null) return;
 
-            var records = fModel.QuerySpecies();
-            foreach (Species rec in records) {
+            var records = fModel.QueryFishes();
+            foreach (Fish rec in records) {
+                Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
+
                 var item = new ListViewItem(rec.Name);
-                item.SubItems.Add(rec.ScientificName);
-                item.SubItems.Add(rec.Type.ToString());
+                //item.SubItems.Add(rec.ScientificName);
+                item.SubItems.Add(rec.Sex.ToString());
+                item.SubItems.Add(rec.Quantity.ToString());
+                item.SubItems.Add(spc.Name);
                 item.Tag = rec;
                 fListView.Items.Add(item);
             }
@@ -61,12 +67,13 @@ namespace AquaLog.Controls
 
         private void btnAddRecord_Click(object sender, EventArgs e)
         {
-            var spc = new Species();
+            var fish = new Fish();
 
-            using (var dlg = new SpeciesEditDlg()) {
-                dlg.Species = spc;
+            using (var dlg = new FishEditDlg()) {
+                dlg.Model = fModel;
+                dlg.Fish = fish;
                 if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(spc);
+                    fModel.AddRecord(fish);
                     UpdateContent();
                 }
             }
@@ -77,13 +84,14 @@ namespace AquaLog.Controls
             var selectedItem = ALCore.GetSelectedItem(fListView);
             if (selectedItem == null) return;
 
-            var spc = selectedItem.Tag as Species;
-            if (spc == null) return;
+            var fish = selectedItem.Tag as Fish;
+            if (fish == null) return;
 
-            using (var dlg = new SpeciesEditDlg()) {
-                dlg.Species = spc;
+            using (var dlg = new FishEditDlg()) {
+                dlg.Model = fModel;
+                dlg.Fish = fish;
                 if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.UpdateRecord(spc);
+                    fModel.UpdateRecord(fish);
                     UpdateContent();
                 }
             }
@@ -94,7 +102,7 @@ namespace AquaLog.Controls
             var selectedItem = ALCore.GetSelectedItem(fListView);
             if (selectedItem == null) return;
 
-            fModel.DeleteRecord(selectedItem.Tag as Species);
+            fModel.DeleteRecord(selectedItem.Tag as Fish);
             UpdateContent();
         }
     }

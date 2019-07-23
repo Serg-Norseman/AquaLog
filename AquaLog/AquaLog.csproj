@@ -49,14 +49,19 @@
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\libs\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\Action.cs" />
     <Compile Include="Controls\Browser.cs" />
+    <Compile Include="Controls\FishPanel.cs" />
     <Compile Include="Controls\SpeciesPanel.cs" />
     <Compile Include="Controls\TanksPanel.cs" />
     <Compile Include="Controls\TankSticker.cs" />
@@ -90,6 +95,9 @@
     <Compile Include="Core\Types\TaskStatus.cs" />
     <Compile Include="Core\Types\Temperament.cs" />
     <Compile Include="Core\Types\TransferType.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\Log4NetHelper.cs" />
+    <Compile Include="Logging\LogManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLite.cs" />
@@ -98,13 +106,27 @@
     <Compile Include="UI\AquariumEditDlg.Designer.cs">
       <DependentUpon>AquariumEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\FishEditDlg.cs" />
+    <Compile Include="UI\FishEditDlg.Designer.cs">
+      <DependentUpon>FishEditDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainForm.cs" />
     <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainView.cs" />
+    <Compile Include="UI\SpeciesEditDlg.cs" />
+    <Compile Include="UI\SpeciesEditDlg.Designer.cs">
+      <DependentUpon>SpeciesEditDlg.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="UI\FishEditDlg.resx">
+      <DependentUpon>FishEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\SpeciesEditDlg.resx">
+      <DependentUpon>SpeciesEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="..\libs\win32\sqlite3.dll">
       <Link>sqlite3.dll</Link>
@@ -116,12 +138,16 @@
     <EmbeddedResource Include="Resources\btn_exit.gif" />
     <EmbeddedResource Include="Resources\btn_left.gif" />
     <EmbeddedResource Include="Resources\btn_right.gif" />
+    <EmbeddedResource Include="Resources\btn_rec_delete.gif" />
+    <EmbeddedResource Include="Resources\btn_rec_edit.gif" />
+    <EmbeddedResource Include="Resources\btn_rec_new.gif" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core" />
     <Folder Include="Controls" />
     <Folder Include="Core\Model" />
     <Folder Include="Core\Types" />
+    <Folder Include="Logging" />
     <Folder Include="Resources" />
     <Folder Include="UI" />
   </ItemGroup>

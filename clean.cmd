@@ -3,6 +3,7 @@ del .\*.dll
 del .\*.pdb
 del .\*.mdb
 del .\*.xml
+del .\*.log
 
 rmdir .\.vs /s /q
 

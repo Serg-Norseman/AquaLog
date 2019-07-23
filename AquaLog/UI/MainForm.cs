@@ -9,12 +9,15 @@ using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Controls;
 using AquaLog.Core;
+using AquaLog.Logging;
 
 namespace AquaLog.UI
 {
     public partial class MainForm : Form
     {
+        private readonly ILogger fLogger;
         private ALModel fModel;
+        private FishPanel fFishPanel;
         private TanksPanel fTanksPanel;
         private SpeciesPanel fSpeciesPanel;
 
@@ -25,6 +28,7 @@ namespace AquaLog.UI
 
             ClientSize = new Size(896, 504);
 
+            fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");
             fModel = new ALModel();
 
             SetSettings();
@@ -90,6 +94,7 @@ namespace AquaLog.UI
                     SetView<TanksPanel>(ref fTanksPanel);
                     break;
                 case MainView.Fishes:
+                    SetView<FishPanel>(ref fFishPanel);
                     break;
                 case MainView.Invertebrates:
                     break;
@@ -115,6 +120,11 @@ namespace AquaLog.UI
             }
         }
 
+        private void miCleanSpace_Click(object sender, EventArgs e)
+        {
+            fModel.CleanSpace();
+        }
+
         #endregion
 
         #region Views functions
@@ -133,6 +143,10 @@ namespace AquaLog.UI
                 var btn = new Button();
                 btn.Dock = DockStyle.Top;
                 btn.Text = action.Name;
+                btn.Image = action.Image;
+                btn.ImageAlign = ContentAlignment.MiddleCenter;
+                btn.TextAlign = ContentAlignment.MiddleCenter;
+                btn.TextImageRelation = TextImageRelation.ImageBeforeText;
                 btn.Margin = new Padding(0, 0, 0, 10);
                 btn.Size = new Size(190, 30);
                 btn.Click += action.Click;
@@ -142,14 +156,16 @@ namespace AquaLog.UI
 
         private void SetView<T>(ref T view) where T : Browser, new()
         {
-            pnlObjects.Controls.Clear();
+            pnlClient.Controls.Clear();
             if (view == null) {
                 view = new T();
                 view.Model = fModel;
             }
-            pnlObjects.Controls.Add(view);
+            pnlClient.Controls.Add(view);
 
             SetActions(view);
+
+            view.UpdateContent();
         }
 
         #endregion

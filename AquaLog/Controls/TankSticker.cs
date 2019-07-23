@@ -26,7 +26,6 @@ namespace AquaLog.Controls
     public class TankSticker : UserControl
     {
         private Aquarium fAquarium;
-        private ContextMenu fContextMenu;
         private bool fSelected;
         private StringFormat fStrFormat;
 
@@ -56,20 +55,8 @@ namespace AquaLog.Controls
         public TankSticker()
         {
             Margin = new Padding(10);
-            MinimumSize = new Size(200, 100);
-            MaximumSize = new Size(200, 100);
-
-            var miEdit = new MenuItem();
-            miEdit.Text = "Edit";
-            //miEdit.Click += miEdit_Click;
-
-            var miDelete = new MenuItem();
-            miDelete.Text = "Delete";
-            //miDelete.Click += miDelete_Click;
-
-            fContextMenu = new ContextMenu();
-            fContextMenu.MenuItems.AddRange(new MenuItem[] { miEdit, miDelete});
-            ContextMenu = fContextMenu;
+            MinimumSize = new Size(256, 144);
+            MaximumSize = new Size(256, 144);
 
             fStrFormat = new StringFormat();
         }
@@ -127,16 +114,29 @@ namespace AquaLog.Controls
             var layoutRect = ClientRectangle;
             layoutRect.Inflate(-4, -4);
 
+            Font font = new Font(Font, FontStyle.Bold);
             fStrFormat.Alignment = StringAlignment.Near;
-            e.Graphics.DrawString(fAquarium.Name, Font, new SolidBrush(ForeColor), layoutRect, fStrFormat);
+            e.Graphics.DrawString(fAquarium.Name, font, new SolidBrush(ForeColor), layoutRect, fStrFormat);
 
             string volumes = ALCore.GetDecimalStr(fAquarium.WaterVolume) + " / " + ALCore.GetDecimalStr(fAquarium.TankVolume);
             fStrFormat.Alignment = StringAlignment.Far;
             e.Graphics.DrawString(volumes, Font, new SolidBrush(ForeColor), layoutRect, fStrFormat);
 
+            string works;
+            TimeSpan span;
+            if (fAquarium.IsInactive()) {
+                span = fAquarium.StopDate - fAquarium.StartDate;
+                works = "Worked from " + fAquarium.StartDate.ToString("dd/MM/yyyy") + " to " + fAquarium.StopDate.ToString("dd/MM/yyyy");
+            } else {
+                span = DateTime.Now - fAquarium.StartDate;
+                works = "Works from " + fAquarium.StartDate.ToString("dd/MM/yyyy");
+            }
+            int days = span.Days;
+            works += " [" + days + " d]";
+
             int x = layoutRect.Left;
             int y = layoutRect.Top + (int)(Font.Height * 1.6f);
-            e.Graphics.DrawString("Since " + fAquarium.StartDate.ToString("dd/MM/yyyy") + " passed 5 days", Font, new SolidBrush(ForeColor), x, y);
+            e.Graphics.DrawString(works, Font, new SolidBrush(ForeColor), x, y);
         }
     }
 }

@@ -43,6 +43,14 @@ namespace AquaLog.Core
             fDB.CreateTable<Transfer>();
         }
 
+        /// <summary>
+        /// Cleaning waste space
+        /// </summary>
+        public void CleanSpace()
+        {
+            fDB.Execute("VACUUM;");
+        }
+
         public int AddRecord(Entity obj)
         {
             return fDB.Insert(obj);
@@ -65,7 +73,7 @@ namespace AquaLog.Core
 
         public T GetRecord<T>(int objId) where T : new()
         {
-            return fDB.Get<T>(objId);
+            return (objId == 0) ? default(T) : fDB.Get<T>(objId);
         }
 
         public IEnumerable<T> QueryRecords<T>(string query, params object[] args) where T : new()
@@ -113,6 +121,11 @@ namespace AquaLog.Core
         }
 
         #endregion
+
+        public IList<Species> QuerySpecies()
+        {
+            return fDB.Query<Species>("select * from Species");
+        }
 
         #region Note functions
 

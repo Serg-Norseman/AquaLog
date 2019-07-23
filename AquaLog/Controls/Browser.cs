@@ -14,10 +14,16 @@ namespace AquaLog.Controls
     /// <summary>
     /// 
     /// </summary>
-    public class Browser : FlowLayoutPanel
+    public class Browser : Panel
     {
-        protected List<Action> fActions;
-        private ALModel fModel;
+        protected readonly List<Action> fActions;
+        protected ALModel fModel;
+
+
+        public List<Action> Actions
+        {
+            get { return fActions; }
+        }
 
         public ALModel Model
         {
@@ -25,20 +31,16 @@ namespace AquaLog.Controls
             set {
                 if (fModel != value) {
                     fModel = value;
-                    UpdateLayout();
+                    UpdateContent();
                 }
             }
         }
 
-        public List<Action> Actions
-        {
-            get { return fActions; }
-        }
 
         public Browser()
         {
+            BorderStyle = BorderStyle.FixedSingle;
             Dock = DockStyle.Fill;
-            Padding = new Padding(10);
 
             fActions = new List<Action>();
             InitActions();
@@ -48,7 +50,7 @@ namespace AquaLog.Controls
         {
         }
 
-        public virtual void UpdateLayout()
+        public virtual void UpdateContent()
         {
         }
     }

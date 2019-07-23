@@ -73,51 +73,53 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(442, 326);
+            this.btnAccept.Location = new System.Drawing.Point(442, 303);
             this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(96, 32);
+            this.btnAccept.Size = new System.Drawing.Size(96, 30);
             this.btnAccept.TabIndex = 0;
             this.btnAccept.Text = "Accept";
+            this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
             this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
             // 
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(544, 326);
+            this.btnCancel.Location = new System.Drawing.Point(544, 303);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(96, 32);
+            this.btnCancel.Size = new System.Drawing.Size(96, 30);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
+            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // lblName
             // 
-            this.lblName.Location = new System.Drawing.Point(12, 18);
+            this.lblName.Location = new System.Drawing.Point(12, 17);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(100, 23);
+            this.lblName.Size = new System.Drawing.Size(100, 21);
             this.lblName.TabIndex = 2;
             this.lblName.Text = "Name";
             // 
             // lblShape
             // 
-            this.lblShape.Location = new System.Drawing.Point(421, 18);
+            this.lblShape.Location = new System.Drawing.Point(421, 17);
             this.lblShape.Name = "lblShape";
-            this.lblShape.Size = new System.Drawing.Size(100, 23);
+            this.lblShape.Size = new System.Drawing.Size(100, 21);
             this.lblShape.TabIndex = 3;
             this.lblShape.Text = "Shape";
             // 
             // lblDesc
             // 
-            this.lblDesc.Location = new System.Drawing.Point(12, 57);
+            this.lblDesc.Location = new System.Drawing.Point(12, 53);
             this.lblDesc.Name = "lblDesc";
-            this.lblDesc.Size = new System.Drawing.Size(100, 23);
+            this.lblDesc.Size = new System.Drawing.Size(100, 21);
             this.lblDesc.TabIndex = 4;
             this.lblDesc.Text = "Description";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(104, 15);
+            this.txtName.Location = new System.Drawing.Point(104, 14);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(311, 22);
             this.txtName.TabIndex = 5;
@@ -126,28 +128,28 @@
             // 
             this.cmbShape.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbShape.FormattingEnabled = true;
-            this.cmbShape.Location = new System.Drawing.Point(471, 15);
+            this.cmbShape.Location = new System.Drawing.Point(471, 14);
             this.cmbShape.Name = "cmbShape";
-            this.cmbShape.Size = new System.Drawing.Size(169, 22);
+            this.cmbShape.Size = new System.Drawing.Size(165, 21);
             this.cmbShape.TabIndex = 6;
             this.cmbShape.SelectedIndexChanged += new System.EventHandler(this.cmbShape_SelectedIndexChanged);
             // 
             // txtDesc
             // 
-            this.txtDesc.Location = new System.Drawing.Point(104, 54);
+            this.txtDesc.Location = new System.Drawing.Point(104, 50);
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
-            this.txtDesc.Size = new System.Drawing.Size(536, 63);
+            this.txtDesc.Size = new System.Drawing.Size(532, 59);
             this.txtDesc.TabIndex = 7;
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabCommon);
             this.tabControl1.Controls.Add(this.tabTank);
-            this.tabControl1.Location = new System.Drawing.Point(15, 134);
+            this.tabControl1.Location = new System.Drawing.Point(15, 124);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(625, 177);
+            this.tabControl1.Size = new System.Drawing.Size(625, 164);
             this.tabControl1.TabIndex = 8;
             // 
             // tabCommon
@@ -159,10 +161,10 @@
             this.tabCommon.Controls.Add(this.dtpStartDate);
             this.tabCommon.Controls.Add(this.lblStopDate);
             this.tabCommon.Controls.Add(this.lblStartDate);
-            this.tabCommon.Location = new System.Drawing.Point(4, 23);
+            this.tabCommon.Location = new System.Drawing.Point(4, 22);
             this.tabCommon.Name = "tabCommon";
             this.tabCommon.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCommon.Size = new System.Drawing.Size(617, 150);
+            this.tabCommon.Size = new System.Drawing.Size(617, 138);
             this.tabCommon.TabIndex = 0;
             this.tabCommon.Text = "Common";
             // 
@@ -170,16 +172,16 @@
             // 
             this.cmbWaterType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbWaterType.FormattingEnabled = true;
-            this.cmbWaterType.Location = new System.Drawing.Point(112, 34);
+            this.cmbWaterType.Location = new System.Drawing.Point(112, 32);
             this.cmbWaterType.Name = "cmbWaterType";
-            this.cmbWaterType.Size = new System.Drawing.Size(142, 22);
+            this.cmbWaterType.Size = new System.Drawing.Size(142, 21);
             this.cmbWaterType.TabIndex = 8;
             // 
             // lblWaterType
             // 
-            this.lblWaterType.Location = new System.Drawing.Point(6, 37);
+            this.lblWaterType.Location = new System.Drawing.Point(6, 35);
             this.lblWaterType.Name = "lblWaterType";
-            this.lblWaterType.Size = new System.Drawing.Size(100, 23);
+            this.lblWaterType.Size = new System.Drawing.Size(100, 21);
             this.lblWaterType.TabIndex = 7;
             this.lblWaterType.Text = "Water type";
             // 
@@ -203,17 +205,17 @@
             // 
             // lblStopDate
             // 
-            this.lblStopDate.Location = new System.Drawing.Point(286, 12);
+            this.lblStopDate.Location = new System.Drawing.Point(285, 13);
             this.lblStopDate.Name = "lblStopDate";
-            this.lblStopDate.Size = new System.Drawing.Size(100, 23);
+            this.lblStopDate.Size = new System.Drawing.Size(100, 21);
             this.lblStopDate.TabIndex = 1;
             this.lblStopDate.Text = "Stop date";
             // 
             // lblStartDate
             // 
-            this.lblStartDate.Location = new System.Drawing.Point(6, 12);
+            this.lblStartDate.Location = new System.Drawing.Point(6, 13);
             this.lblStartDate.Name = "lblStartDate";
-            this.lblStartDate.Size = new System.Drawing.Size(100, 23);
+            this.lblStartDate.Size = new System.Drawing.Size(100, 21);
             this.lblStartDate.TabIndex = 0;
             this.lblStartDate.Text = "Start date";
             // 
@@ -228,23 +230,23 @@
             this.tabTank.Controls.Add(this.lblHeigth);
             this.tabTank.Controls.Add(this.lblDepth);
             this.tabTank.Controls.Add(this.lblWidth);
-            this.tabTank.Location = new System.Drawing.Point(4, 23);
+            this.tabTank.Location = new System.Drawing.Point(4, 22);
             this.tabTank.Name = "tabTank";
-            this.tabTank.Padding = new System.Windows.Forms.Padding(10);
-            this.tabTank.Size = new System.Drawing.Size(617, 150);
+            this.tabTank.Padding = new System.Windows.Forms.Padding(10, 9, 10, 9);
+            this.tabTank.Size = new System.Drawing.Size(617, 138);
             this.tabTank.TabIndex = 1;
             this.tabTank.Text = "Tank";
             // 
             // txtVolume
             // 
-            this.txtVolume.Location = new System.Drawing.Point(100, 109);
+            this.txtVolume.Location = new System.Drawing.Point(100, 101);
             this.txtVolume.Name = "txtVolume";
             this.txtVolume.Size = new System.Drawing.Size(102, 22);
             this.txtVolume.TabIndex = 5;
             // 
             // txtHeigth
             // 
-            this.txtHeigth.Location = new System.Drawing.Point(100, 71);
+            this.txtHeigth.Location = new System.Drawing.Point(100, 66);
             this.txtHeigth.Name = "txtHeigth";
             this.txtHeigth.Size = new System.Drawing.Size(102, 22);
             this.txtHeigth.TabIndex = 5;
@@ -252,7 +254,7 @@
             // 
             // txtDepth
             // 
-            this.txtDepth.Location = new System.Drawing.Point(100, 39);
+            this.txtDepth.Location = new System.Drawing.Point(100, 36);
             this.txtDepth.Name = "txtDepth";
             this.txtDepth.Size = new System.Drawing.Size(102, 22);
             this.txtDepth.TabIndex = 4;
@@ -260,15 +262,15 @@
             // 
             // lblVolume
             // 
-            this.lblVolume.Location = new System.Drawing.Point(13, 112);
+            this.lblVolume.Location = new System.Drawing.Point(13, 104);
             this.lblVolume.Name = "lblVolume";
-            this.lblVolume.Size = new System.Drawing.Size(100, 23);
+            this.lblVolume.Size = new System.Drawing.Size(100, 21);
             this.lblVolume.TabIndex = 2;
             this.lblVolume.Text = "Tank volume";
             // 
             // txtWidth
             // 
-            this.txtWidth.Location = new System.Drawing.Point(100, 7);
+            this.txtWidth.Location = new System.Drawing.Point(100, 6);
             this.txtWidth.Name = "txtWidth";
             this.txtWidth.Size = new System.Drawing.Size(102, 22);
             this.txtWidth.TabIndex = 3;
@@ -276,35 +278,35 @@
             // 
             // lblHeigth
             // 
-            this.lblHeigth.Location = new System.Drawing.Point(13, 74);
+            this.lblHeigth.Location = new System.Drawing.Point(13, 69);
             this.lblHeigth.Name = "lblHeigth";
-            this.lblHeigth.Size = new System.Drawing.Size(100, 23);
+            this.lblHeigth.Size = new System.Drawing.Size(100, 21);
             this.lblHeigth.TabIndex = 2;
             this.lblHeigth.Text = "Heigth";
             // 
             // lblDepth
             // 
-            this.lblDepth.Location = new System.Drawing.Point(13, 42);
+            this.lblDepth.Location = new System.Drawing.Point(13, 39);
             this.lblDepth.Name = "lblDepth";
-            this.lblDepth.Size = new System.Drawing.Size(100, 23);
+            this.lblDepth.Size = new System.Drawing.Size(100, 21);
             this.lblDepth.TabIndex = 1;
             this.lblDepth.Text = "Depth";
             // 
             // lblWidth
             // 
-            this.lblWidth.Location = new System.Drawing.Point(13, 10);
+            this.lblWidth.Location = new System.Drawing.Point(13, 9);
             this.lblWidth.Name = "lblWidth";
-            this.lblWidth.Size = new System.Drawing.Size(100, 23);
+            this.lblWidth.Size = new System.Drawing.Size(100, 21);
             this.lblWidth.TabIndex = 0;
             this.lblWidth.Text = "Width";
             // 
             // AquariumEditDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(652, 370);
+            this.ClientSize = new System.Drawing.Size(652, 344);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.txtDesc);
             this.Controls.Add(this.cmbShape);
@@ -314,7 +316,7 @@
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
-            this.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

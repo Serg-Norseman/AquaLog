@@ -23,7 +23,7 @@ namespace AquaLog.Core.Model
         /// </summary>
         public string Name { get; set; }
 
-        public string Note { get; set; }
+        public string Description { get; set; }
 
         #region Common properties
 
@@ -85,6 +85,11 @@ namespace AquaLog.Core.Model
 
         public Species()
         {
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

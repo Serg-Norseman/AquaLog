@@ -10,6 +10,7 @@
 *.suo
 *.userprefs
 *.DotSettings.user
+*.log
 
 /AquaLog/packages/**/
 

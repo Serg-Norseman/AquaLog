@@ -35,6 +35,9 @@ namespace AquaLog.UI
         {
             InitializeComponent();
 
+            btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
+            btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
+
             for (TankShape shape = TankShape.Unknown; shape <= TankShape.Rectangular; shape++) {
                 cmbShape.Items.Add(shape.ToString());
             }

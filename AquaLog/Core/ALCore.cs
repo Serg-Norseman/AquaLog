@@ -27,6 +27,9 @@ namespace AquaLog.Core
         public const string UnknownName = "Unknown";
         public static readonly DateTime ZeroDate = new DateTime(0);
 
+        public const string LOG_FILE = "AquaLog.log";
+        public const string LOG_LEVEL = "INFO"; // "DEBUG";
+
         private static readonly int LitersDivider = 1000;
 
         private static string fAppDataPath = null;
@@ -51,6 +54,19 @@ namespace AquaLog.Core
         public static Bitmap LoadResourceImage(string resName)
         {
             return new Bitmap(LoadResourceStream("AquaLog.Resources." + resName));
+        }
+
+        public static ListViewItem GetSelectedItem(ListView listView)
+        {
+            ListViewItem result;
+
+            if (listView.SelectedItems.Count <= 0) {
+                result = null;
+            } else {
+                result = (listView.SelectedItems[0] as ListViewItem);
+            }
+
+            return result;
         }
 
         #region Calculations

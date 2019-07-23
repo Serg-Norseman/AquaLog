@@ -17,6 +17,8 @@ namespace AquaLog.Controls
     /// </summary>
     public class TanksPanel : Browser
     {
+        private ContextMenu fContextMenu;
+        private FlowLayoutPanel fLayoutPanel;
         private TankSticker fSelectedTank;
 
         public TankSticker SelectedTank
@@ -27,37 +29,44 @@ namespace AquaLog.Controls
 
         public TanksPanel() : base()
         {
+            fLayoutPanel = new FlowLayoutPanel();
+            fLayoutPanel.Dock = DockStyle.Fill;
+            fLayoutPanel.Padding = new Padding(10);
+            Controls.Add(fLayoutPanel);
+
+            var miEdit = new MenuItem();
+            miEdit.Text = "Edit";
+            miEdit.Click += btnEditTank_Click;
+
+            var miDelete = new MenuItem();
+            miDelete.Text = "Delete";
+            miDelete.Click += btnDeleteTank_Click;
+
+            fContextMenu = new ContextMenu();
+            fContextMenu.MenuItems.AddRange(new MenuItem[] { miEdit, miDelete});
         }
 
         protected override void InitActions()
         {
-            fActions.Add(new Action() {
-                Name = "Add Tank",
-                Click = btnAddTank_Click
-            });
-            fActions.Add(new Action() {
-                Name = "Edit Tank",
-                Click = btnEditTank_Click
-            });
-            fActions.Add(new Action() {
-                Name = "Delete Tank",
-                Click = btnDeleteTank_Click
-            });
+            fActions.Add(new Action("Add Tank", "btn_rec_new.gif", btnAddTank_Click));
+            fActions.Add(new Action("Edit Tank", "btn_rec_edit.gif", btnEditTank_Click));
+            fActions.Add(new Action("Delete Tank", "btn_rec_delete.gif", btnDeleteTank_Click));
         }
 
-        public override void UpdateLayout()
+        public override void UpdateContent()
         {
-            Controls.Clear();
-            if (Model == null) return;
+            fLayoutPanel.Controls.Clear();
+            if (fModel == null) return;
 
-            var aquariums = Model.QueryAquariums();
+            var aquariums = fModel.QueryAquariums();
 
             foreach (var aqm in aquariums) {
                 var aqPanel = new TankSticker();
                 aqPanel.Aquarium = aqm;
                 aqPanel.Click += OnTankClick;
                 aqPanel.DoubleClick += OnTankDoubleClick;
-                Controls.Add(aqPanel);
+                aqPanel.ContextMenu = fContextMenu;
+                fLayoutPanel.Controls.Add(aqPanel);
             }
         }
 
@@ -83,36 +92,36 @@ namespace AquaLog.Controls
             using (var dlg = new AquariumEditDlg()) {
                 dlg.Aquarium = aqm;
                 if (dlg.ShowDialog() == DialogResult.OK) {
-                    Model.AddRecord(aqm);
-                    UpdateLayout();
+                    fModel.AddRecord(aqm);
+                    UpdateContent();
                 }
             }
         }
 
         private void btnEditTank_Click(object sender, EventArgs e)
         {
-            var selectedTank = SelectedTank;
-            if (selectedTank == null) return;
+            var selectedItem = SelectedTank;
+            if (selectedItem == null) return;
 
-            var aqm = selectedTank.Aquarium;
+            var aqm = selectedItem.Aquarium;
             if (aqm == null) return;
 
             using (var dlg = new AquariumEditDlg()) {
                 dlg.Aquarium = aqm;
                 if (dlg.ShowDialog() == DialogResult.OK) {
-                    Model.UpdateRecord(aqm);
-                    UpdateLayout();
+                    fModel.UpdateRecord(aqm);
+                    UpdateContent();
                 }
             }
         }
 
         private void btnDeleteTank_Click(object sender, EventArgs e)
         {
-            var selectedTank = SelectedTank;
-            if (selectedTank == null) return;
+            var selectedItem = SelectedTank;
+            if (selectedItem == null) return;
 
-            Model.DeleteRecord(selectedTank.Aquarium);
-            UpdateLayout();
+            fModel.DeleteRecord(selectedItem.Aquarium);
+            UpdateContent();
         }
     }
 }
