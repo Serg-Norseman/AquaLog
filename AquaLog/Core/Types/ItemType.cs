@@ -8,6 +8,7 @@ namespace AquaLog.Core.Types
 {
     public enum ItemType
     {
+        None,
         Aquarium,
         Fish,
         Invertebrate,

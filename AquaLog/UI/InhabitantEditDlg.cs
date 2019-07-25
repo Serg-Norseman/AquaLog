@@ -17,17 +17,17 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class FishEditDlg : Form
+    public partial class InhabitantEditDlg : Form
     {
-        private Fish fFish;
+        private Inhabitant fInhabitant;
         private ALModel fModel;
 
-        public Fish Fish
+        public Inhabitant Inhabitant
         {
-            get { return fFish; }
+            get { return fInhabitant; }
             set {
-                if (fFish != value) {
-                    fFish = value;
+                if (fInhabitant != value) {
+                    fInhabitant = value;
                     UpdateView();
                 }
             }
@@ -40,7 +40,7 @@ namespace AquaLog.UI
         }
 
 
-        public FishEditDlg()
+        public InhabitantEditDlg()
         {
             InitializeComponent();
 
@@ -59,22 +59,31 @@ namespace AquaLog.UI
                 cmbSpecies.Items.Add(spc);
             }
 
-            txtName.Text = fFish.Name;
-            txtNote.Text = fFish.Note;
-            cmbSex.SelectedIndex = (int)fFish.Sex;
-            cmbSpecies.SelectedItem = species.FirstOrDefault(sp => sp.Id == fFish.SpeciesId);
-            txtQty.Text = fFish.Quantity.ToString();
+            txtName.Text = fInhabitant.Name;
+            txtNote.Text = fInhabitant.Note;
+            cmbSpecies.SelectedItem = species.FirstOrDefault(sp => sp.Id == fInhabitant.SpeciesId);
+            txtQty.Text = fInhabitant.Quantity.ToString();
+
+            if (fInhabitant is Animal) {
+                cmbSex.SelectedIndex = (int)((Animal)fInhabitant).Sex;
+            } else {
+                lblSex.Visible = false;
+                cmbSex.Visible = false;
+            }
         }
 
         private void ApplyChanges()
         {
             Species spc = cmbSpecies.SelectedItem as Species;
 
-            fFish.Name = txtName.Text;
-            fFish.Note = txtNote.Text;
-            fFish.Sex = (Sex)cmbSex.SelectedIndex;
-            fFish.SpeciesId = spc.Id;
-            fFish.Quantity = int.Parse(txtQty.Text);
+            fInhabitant.Name = txtName.Text;
+            fInhabitant.Note = txtNote.Text;
+            fInhabitant.SpeciesId = spc.Id;
+            fInhabitant.Quantity = int.Parse(txtQty.Text);
+
+            if (fInhabitant is Animal) {
+                ((Animal)fInhabitant).Sex = (Sex)cmbSex.SelectedIndex;
+            }
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

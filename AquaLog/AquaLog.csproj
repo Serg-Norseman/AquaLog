@@ -61,12 +61,15 @@
   <ItemGroup>
     <Compile Include="Controls\Action.cs" />
     <Compile Include="Controls\Browser.cs" />
-    <Compile Include="Controls\FishPanel.cs" />
+    <Compile Include="Controls\InhabitantPanel.cs" />
+    <Compile Include="Controls\ListBrowser.cs" />
     <Compile Include="Controls\SpeciesPanel.cs" />
     <Compile Include="Controls\TanksPanel.cs" />
     <Compile Include="Controls\TankSticker.cs" />
     <Compile Include="Core\ALCore.cs" />
+    <Compile Include="Core\ALMeasures.cs" />
     <Compile Include="Core\ALModel.cs" />
+    <Compile Include="Core\Model\Animal.cs" />
     <Compile Include="Core\Model\Aquarium.cs" />
     <Compile Include="Core\Model\AquariumDetails.cs" />
     <Compile Include="Core\Model\Device.cs" />
@@ -106,9 +109,9 @@
     <Compile Include="UI\AquariumEditDlg.Designer.cs">
       <DependentUpon>AquariumEditDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\FishEditDlg.cs" />
-    <Compile Include="UI\FishEditDlg.Designer.cs">
-      <DependentUpon>FishEditDlg.cs</DependentUpon>
+    <Compile Include="UI\InhabitantEditDlg.cs" />
+    <Compile Include="UI\InhabitantEditDlg.Designer.cs">
+      <DependentUpon>InhabitantEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainForm.cs" />
     <Compile Include="UI\MainForm.Designer.cs">
@@ -119,13 +122,20 @@
     <Compile Include="UI\SpeciesEditDlg.Designer.cs">
       <DependentUpon>SpeciesEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\TransferDlg.cs" />
+    <Compile Include="UI\TransferDlg.Designer.cs">
+      <DependentUpon>TransferDlg.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\FishEditDlg.resx">
-      <DependentUpon>FishEditDlg.cs</DependentUpon>
+    <EmbeddedResource Include="UI\InhabitantEditDlg.resx">
+      <DependentUpon>InhabitantEditDlg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\SpeciesEditDlg.resx">
       <DependentUpon>SpeciesEditDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TransferDlg.resx">
+      <DependentUpon>TransferDlg.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="..\libs\win32\sqlite3.dll">

@@ -5,6 +5,7 @@
  */
 
 using System;
+using AquaLog.Core.Types;
 using SQLite;
 
 namespace AquaLog.Core.Model
@@ -21,14 +22,14 @@ namespace AquaLog.Core.Model
         public int Quantity { get; set; }
         public string Note { get; set; }
 
-        [Ignore]
-        public DateTime CheckIn { get; set; }
-        [Ignore]
-        public DateTime CheckOut { get; set; }
-
 
         public Inhabitant()
         {
+        }
+
+        public virtual SpeciesType GetSpeciesType()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace AquaLog.UI
 {
-    partial class FishEditDlg
+    partial class InhabitantEditDlg
     {
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.Button btnAccept;
@@ -169,7 +169,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "AquariumEditDlg";
+            this.Text = "Fish";
             this.ResumeLayout(false);
             this.PerformLayout();
 

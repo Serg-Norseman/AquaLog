@@ -22,7 +22,7 @@ namespace AquaLog.Controls
         public Action(string name, string imageName, EventHandler clickHandler)
         {
             Name = name;
-            Image = ALCore.LoadResourceImage(imageName);
+            Image = string.IsNullOrEmpty(imageName) ? null : ALCore.LoadResourceImage(imageName);
             Click = clickHandler;
         }
     }

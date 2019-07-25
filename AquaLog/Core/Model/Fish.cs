@@ -12,13 +12,17 @@ namespace AquaLog.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public class Fish : Inhabitant
+    public class Fish : Animal
     {
-        public Sex Sex { get; set; }
 
 
         public Fish()
         {
+        }
+
+        public override SpeciesType GetSpeciesType()
+        {
+            return SpeciesType.Fish;
         }
     }
 }

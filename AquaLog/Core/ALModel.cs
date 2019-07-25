@@ -51,6 +51,11 @@ namespace AquaLog.Core
             fDB.Execute("VACUUM;");
         }
 
+        public void Execute(string query, params object[] args)
+        {
+            fDB.Execute(query, args);
+        }
+
         public int AddRecord(Entity obj)
         {
             return fDB.Insert(obj);
@@ -106,6 +111,11 @@ namespace AquaLog.Core
 
         #region Invertebrate functions
 
+        public IEnumerable<Invertebrate> QueryInvertebrates()
+        {
+            return fDB.Query<Invertebrate>("select * from Invertebrate");
+        }
+
         public IEnumerable<Invertebrate> QueryInvertebrates(Aquarium aquarium)
         {
             return fDB.Query<Invertebrate>("select * from Invertebrate where AquariumId = ?", aquarium.Id);
@@ -114,6 +124,11 @@ namespace AquaLog.Core
         #endregion
 
         #region Plant functions
+
+        public IEnumerable<Plant> QueryPlants()
+        {
+            return fDB.Query<Plant>("select * from Plant");
+        }
 
         public IEnumerable<Plant> QueryPlants(Aquarium aquarium)
         {
@@ -125,6 +140,16 @@ namespace AquaLog.Core
         public IList<Species> QuerySpecies()
         {
             return fDB.Query<Species>("select * from Species");
+        }
+
+        public IList<Transfer> QueryTransfers(int itemId, int itemType)
+        {
+            return fDB.Query<Transfer>("select * from Transfer where (ItemId = ? and ItemType = ?) order by [Date]", itemId, itemType);
+        }
+
+        public IList<Transfer> QueryLastTransfers(int itemId, int itemType)
+        {
+            return fDB.Query<Transfer>("select * from Transfer where (ItemId = ? and ItemType = ?) order by [Date] desc", itemId, itemType);
         }
 
         #region Note functions

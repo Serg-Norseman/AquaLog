@@ -15,26 +15,13 @@ namespace AquaLog.Controls
     /// <summary>
     /// 
     /// </summary>
-    public class SpeciesPanel : Browser
+    public class SpeciesPanel : ListBrowser
     {
-        private readonly ListView fListView;
-
-
         public SpeciesPanel() : base()
         {
-            Padding = new Padding(10);
-
-            fListView = new ListView();
-            fListView.Dock = DockStyle.Fill;
-            fListView.HideSelection = false;
-            fListView.LabelEdit = false;
-            fListView.FullRowSelect = true;
-            fListView.View = View.Details;
-            Controls.Add(fListView);
-
-            fListView.Columns.Add("Name", 200, HorizontalAlignment.Left);
-            fListView.Columns.Add("ScientificName", 200, HorizontalAlignment.Left);
-            fListView.Columns.Add("Type", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("Name", 200, HorizontalAlignment.Left);
+            ListView.Columns.Add("ScientificName", 200, HorizontalAlignment.Left);
+            ListView.Columns.Add("Type", 100, HorizontalAlignment.Left);
         }
 
         protected override void InitActions()
@@ -46,7 +33,7 @@ namespace AquaLog.Controls
 
         public override void UpdateContent()
         {
-            fListView.Items.Clear();
+            ListView.Items.Clear();
             if (fModel == null) return;
 
             var records = fModel.QuerySpecies();
@@ -55,7 +42,7 @@ namespace AquaLog.Controls
                 item.SubItems.Add(rec.ScientificName);
                 item.SubItems.Add(rec.Type.ToString());
                 item.Tag = rec;
-                fListView.Items.Add(item);
+                ListView.Items.Add(item);
             }
         }
 
@@ -74,7 +61,7 @@ namespace AquaLog.Controls
 
         private void btnEditRecord_Click(object sender, EventArgs e)
         {
-            var selectedItem = ALCore.GetSelectedItem(fListView);
+            var selectedItem = ALCore.GetSelectedItem(ListView);
             if (selectedItem == null) return;
 
             var spc = selectedItem.Tag as Species;
@@ -91,7 +78,7 @@ namespace AquaLog.Controls
 
         private void btnDeleteRecord_Click(object sender, EventArgs e)
         {
-            var selectedItem = ALCore.GetSelectedItem(fListView);
+            var selectedItem = ALCore.GetSelectedItem(ListView);
             if (selectedItem == null) return;
 
             fModel.DeleteRecord(selectedItem.Tag as Species);

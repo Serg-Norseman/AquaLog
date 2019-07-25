@@ -98,5 +98,10 @@ namespace AquaLog.Core.Model
         {
             return ALCore.CalcArea(Width, Depth);
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

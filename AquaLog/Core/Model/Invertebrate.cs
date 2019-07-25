@@ -6,20 +6,23 @@
 
 using System;
 using AquaLog.Core.Types;
-using SQLite;
 
 namespace AquaLog.Core.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Invertebrate : Inhabitant
+    public class Invertebrate : Animal
     {
-        public Sex Sex { get; set; }
 
 
         public Invertebrate()
         {
+        }
+
+        public override SpeciesType GetSpeciesType()
+        {
+            return SpeciesType.Invertebrate;
         }
     }
 }

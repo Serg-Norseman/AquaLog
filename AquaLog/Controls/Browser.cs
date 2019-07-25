@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
 
@@ -39,6 +40,7 @@ namespace AquaLog.Controls
 
         public Browser()
         {
+            BackColor = SystemColors.Control;
             BorderStyle = BorderStyle.FixedSingle;
             Dock = DockStyle.Fill;
 

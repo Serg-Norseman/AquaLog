@@ -18,6 +18,8 @@ namespace AquaLog.UI
         private readonly ILogger fLogger;
         private ALModel fModel;
         private FishPanel fFishPanel;
+        private InvertebratePanel fInvertebratePanel;
+        private PlantPanel fPlantPanel;
         private TanksPanel fTanksPanel;
         private SpeciesPanel fSpeciesPanel;
 
@@ -97,8 +99,10 @@ namespace AquaLog.UI
                     SetView<FishPanel>(ref fFishPanel);
                     break;
                 case MainView.Invertebrates:
+                    SetView<InvertebratePanel>(ref fInvertebratePanel);
                     break;
                 case MainView.Plants:
+                    SetView<PlantPanel>(ref fPlantPanel);
                     break;
                 case MainView.Species:
                     SetView<SpeciesPanel>(ref fSpeciesPanel);
@@ -122,6 +126,7 @@ namespace AquaLog.UI
 
         private void miCleanSpace_Click(object sender, EventArgs e)
         {
+            fModel.Execute("delete from Transfer");
             fModel.CleanSpace();
         }
 
@@ -150,6 +155,7 @@ namespace AquaLog.UI
                 btn.Margin = new Padding(0, 0, 0, 10);
                 btn.Size = new Size(190, 30);
                 btn.Click += action.Click;
+                btn.BackColor = SystemColors.Control;
                 pnlTools.Controls.Add(btn);
             }
         }

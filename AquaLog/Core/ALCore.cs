@@ -9,6 +9,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using AquaLog.Core.Types;
 
 namespace AquaLog.Core
 {
@@ -39,6 +40,20 @@ namespace AquaLog.Core
         {
         }
 
+
+        public static ItemType GetItemType(SpeciesType speciesType)
+        {
+            switch (speciesType) {
+                case SpeciesType.Fish:
+                    return ItemType.Fish;
+                case SpeciesType.Invertebrate:
+                    return ItemType.Invertebrate;
+                case SpeciesType.Plant:
+                    return ItemType.Plant;
+                default:
+                    return ItemType.None;
+            }
+        }
 
         public static Stream LoadResourceStream(string resName)
         {
