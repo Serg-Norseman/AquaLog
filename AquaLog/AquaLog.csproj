@@ -49,6 +49,9 @@
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BSLib">
+      <HintPath>..\libs\BSLib.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\libs\log4net.dll</HintPath>
     </Reference>
@@ -61,11 +64,14 @@
   <ItemGroup>
     <Compile Include="Controls\Action.cs" />
     <Compile Include="Controls\Browser.cs" />
+    <Compile Include="Controls\ComboItem.cs" />
     <Compile Include="Controls\InhabitantPanel.cs" />
     <Compile Include="Controls\ListBrowser.cs" />
     <Compile Include="Controls\SpeciesPanel.cs" />
     <Compile Include="Controls\TanksPanel.cs" />
     <Compile Include="Controls\TankSticker.cs" />
+    <Compile Include="Controls\TransferPanel.cs" />
+    <Compile Include="Controls\WaterChangePanel.cs" />
     <Compile Include="Core\ALCore.cs" />
     <Compile Include="Core\ALMeasures.cs" />
     <Compile Include="Core\ALModel.cs" />
@@ -98,6 +104,7 @@
     <Compile Include="Core\Types\TaskStatus.cs" />
     <Compile Include="Core\Types\Temperament.cs" />
     <Compile Include="Core\Types\TransferType.cs" />
+    <Compile Include="Core\Types\WaterChangeType.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Log4NetHelper.cs" />
     <Compile Include="Logging\LogManager.cs" />
@@ -126,6 +133,10 @@
     <Compile Include="UI\TransferDlg.Designer.cs">
       <DependentUpon>TransferDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\WaterChangeEditDlg.cs" />
+    <Compile Include="UI\WaterChangeEditDlg.Designer.cs">
+      <DependentUpon>WaterChangeEditDlg.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UI\InhabitantEditDlg.resx">
@@ -136,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TransferDlg.resx">
       <DependentUpon>TransferDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\WaterChangeEditDlg.resx">
+      <DependentUpon>WaterChangeEditDlg.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="..\libs\win32\sqlite3.dll">

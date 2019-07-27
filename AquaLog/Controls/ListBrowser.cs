@@ -32,7 +32,20 @@ namespace AquaLog.Controls
             fListView.LabelEdit = false;
             fListView.FullRowSelect = true;
             fListView.View = View.Details;
+            fListView.DoubleClick += EditHandler;
             Controls.Add(fListView);
+        }
+
+        protected virtual void AddHandler(object sender, EventArgs e)
+        {
+        }
+
+        protected virtual void EditHandler(object sender, EventArgs e)
+        {
+        }
+
+        protected virtual void DeleteHandler(object sender, EventArgs e)
+        {
         }
     }
 }

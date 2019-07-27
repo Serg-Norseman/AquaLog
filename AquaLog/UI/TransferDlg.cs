@@ -68,13 +68,6 @@ namespace AquaLog.UI
         {
             txtName.Text = fInhabitant.Name;
 
-            cmbTarget.Items.Clear();
-            var aquariums = fModel.QueryAquariums();
-            foreach (var aqm in aquariums) {
-                cmbSource.Items.Add(aqm);
-                cmbTarget.Items.Add(aqm);
-            }
-
             if (fTransfer != null) {
                 int sourId = 0;
                 IList<Transfer> lastTransfers = fModel.QueryLastTransfers(fInhabitant.Id, (int)ALCore.GetItemType(fInhabitant.GetSpeciesType()));
@@ -83,6 +76,16 @@ namespace AquaLog.UI
                 }
                 // if editing exists transfer <= fTransfer.SourceId
                 // sourId = fTransfer.SourceId;
+
+                cmbTarget.Items.Clear();
+                var aquariums = fModel.QueryAquariums();
+                foreach (var aqm in aquariums) {
+                    cmbSource.Items.Add(aqm);
+
+                    if (aqm.Id != sourId) {
+                        cmbTarget.Items.Add(aqm);
+                    }
+                }
 
                 cmbSource.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == sourId);
                 cmbTarget.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fTransfer.TargetId);

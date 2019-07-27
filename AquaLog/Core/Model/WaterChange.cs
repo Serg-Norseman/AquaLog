@@ -5,7 +5,7 @@
  */
 
 using System;
-using SQLite;
+using AquaLog.Core.Types;
 
 namespace AquaLog.Core.Model
 {
@@ -15,6 +15,7 @@ namespace AquaLog.Core.Model
     public class WaterChange : AquariumDetails
     {
         public DateTime ChangeDate { get; set; }
+        public WaterChangeType Type { get; set; }
         public double Volume { get; set; }
         public string Note { get; set; }
 

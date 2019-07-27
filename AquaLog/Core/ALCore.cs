@@ -10,6 +10,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using AquaLog.Core.Types;
+using BSLib;
 
 namespace AquaLog.Core
 {
@@ -35,6 +36,12 @@ namespace AquaLog.Core
 
         private static string fAppDataPath = null;
         private const string fAppSign = "AquaLog";
+
+        public static int[] WaterChangeFactors = new int[] {
+            +1, // Added
+             0, // Replaced
+            -1  // Removed
+        };
 
         public ALCore()
         {
@@ -109,13 +116,17 @@ namespace AquaLog.Core
         public static double GetDecimalVal(TextBox textBox)
         {
             string strVal = textBox.Text;
-            double value;
-            return (double.TryParse(strVal, out value)) ? value : 0.0d;
+            return ConvertHelper.ParseFloat(strVal, 0.0d, true);
         }
 
         public static string GetDecimalStr(double value)
         {
             return value.ToString("0.00");
+        }
+
+        public static string GetDateStr(DateTime value)
+        {
+            return value.ToString("dd/MM/yyyy");
         }
 
         #region Application Runtime

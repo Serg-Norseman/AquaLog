@@ -26,10 +26,10 @@ namespace AquaLog.Controls
         public InhabitantPanel() : base()
         {
             ListView.Columns.Add("Name", 200, HorizontalAlignment.Left);
-            //fListView.Columns.Add("ScientificName", 200, HorizontalAlignment.Left);
             fSexColumn = ListView.Columns.Add("Sex", 50, HorizontalAlignment.Left);
             ListView.Columns.Add("Qty", 50, HorizontalAlignment.Right);
             ListView.Columns.Add("Species", 150, HorizontalAlignment.Left);
+            ListView.Columns.Add("Current Aquarium", 150, HorizontalAlignment.Left);
         }
 
         protected override void InitActions()
@@ -65,6 +65,7 @@ namespace AquaLog.Controls
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
 
                 var item = new ListViewItem(rec.Name);
+                item.Tag = rec;
                 //item.SubItems.Add(rec.ScientificName);
 
                 string sx = (isAnimal) ? ((Animal)rec).Sex.ToString() : string.Empty;
@@ -72,7 +73,16 @@ namespace AquaLog.Controls
 
                 item.SubItems.Add(rec.Quantity.ToString());
                 item.SubItems.Add(spc.Name);
-                item.Tag = rec;
+
+                int currAqmId = 0;
+                IList<Transfer> lastTransfers = fModel.QueryLastTransfers(rec.Id, (int)ALCore.GetItemType(rec.GetSpeciesType()));
+                if (lastTransfers.Count > 0) {
+                    currAqmId = lastTransfers[0].TargetId;
+                }
+                Aquarium aqm = fModel.GetRecord<Aquarium>(currAqmId);
+                string aqmName = (aqm == null) ? string.Empty : aqm.Name;
+                item.SubItems.Add(aqmName);
+
                 ListView.Items.Add(item);
             }
         }

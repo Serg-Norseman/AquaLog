@@ -54,7 +54,7 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            var species = fModel.QuerySpecies();
+            var species = fModel.QuerySpecies((int)fInhabitant.GetSpeciesType());
             foreach (Species spc in species) {
                 cmbSpecies.Items.Add(spc);
             }

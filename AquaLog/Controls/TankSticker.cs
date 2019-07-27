@@ -26,6 +26,7 @@ namespace AquaLog.Controls
     public class TankSticker : UserControl
     {
         private Aquarium fAquarium;
+        private ALModel fModel;
         private bool fSelected;
         private StringFormat fStrFormat;
 
@@ -38,6 +39,12 @@ namespace AquaLog.Controls
                     UpdateView();
                 }
             }
+        }
+
+        public ALModel Model
+        {
+            get { return fModel; }
+            set { fModel = value; }
         }
 
         public bool Selected
@@ -102,6 +109,49 @@ namespace AquaLog.Controls
             Refresh();
         }
 
+        private double GetWaterVolume()
+        {
+            double result = 0.0d;
+
+            var records = fModel.QueryWaterChanges(fAquarium.Id);
+            foreach (WaterChange rec in records) {
+                int idx = (int)rec.Type;
+                int factor = ALCore.WaterChangeFactors[idx];
+                result += (rec.Volume * factor);
+            }
+
+            return result;
+        }
+
+        private double GetAverageWaterChangeInterval()
+        {
+            double result = 0.0d;
+            int count = 0;
+
+            DateTime dtPrev = ALCore.ZeroDate;
+            var records = fModel.QueryWaterChanges(fAquarium.Id);
+            foreach (WaterChange rec in records) {
+                if (!dtPrev.Equals(ALCore.ZeroDate)) {
+                    int days = (rec.ChangeDate.Date - dtPrev).Days;
+                    result += days;
+                    count += 1;
+                }
+                dtPrev = rec.ChangeDate.Date;
+            }
+
+            return result / count;
+        }
+
+        private double GetLastWaterChangeInterval()
+        {
+            DateTime dtPrev = ALCore.ZeroDate;
+            var records = fModel.QueryWaterChanges(fAquarium.Id);
+            foreach (WaterChange rec in records) {
+                dtPrev = rec.ChangeDate.Date;
+            }
+            return (DateTime.Now.Date - dtPrev).Days;
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -137,6 +187,35 @@ namespace AquaLog.Controls
             int x = layoutRect.Left;
             int y = layoutRect.Top + (int)(Font.Height * 1.6f);
             e.Graphics.DrawString(works, Font, new SolidBrush(ForeColor), x, y);
+
+            double waterVolume = GetWaterVolume();
+            y = y + (int)(Font.Height * 1.6f);
+            e.Graphics.DrawString("WaterVolume: " + ALCore.GetDecimalStr(waterVolume), Font, new SolidBrush(ForeColor), x, y);
+
+            double avgChangeDays = GetAverageWaterChangeInterval();
+            y = y + (int)(Font.Height * 1.6f);
+            e.Graphics.DrawString("AvgChangeDays: " + ALCore.GetDecimalStr(avgChangeDays), Font, new SolidBrush(ForeColor), x, y);
+
+            if (!fAquarium.IsInactive()) {
+                double lastChangeDays = GetLastWaterChangeInterval();
+                y = y + (int)(Font.Height * 1.6f);
+                e.Graphics.DrawString("LastChangeDays: " + ALCore.GetDecimalStr(lastChangeDays), Font, new SolidBrush(ForeColor), x, y);
+
+                Color wsColor = ForeColor;
+                string waterStatus = "";
+                if (lastChangeDays <= avgChangeDays) {
+                    waterStatus = "normal";
+                    wsColor = Color.Green;
+                } else if (lastChangeDays >= avgChangeDays * 2) {
+                    waterStatus = "alarm";
+                    wsColor = Color.Red;
+                } else if (avgChangeDays + 1 < lastChangeDays) {
+                    waterStatus = "exceeded";
+                    wsColor = Color.Yellow;
+                }
+                y = y + (int)(Font.Height * 1.6f);
+                e.Graphics.DrawString("WaterStatus: " + waterStatus, Font, new SolidBrush(wsColor), x, y);
+            }
         }
     }
 }

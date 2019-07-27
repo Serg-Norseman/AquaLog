@@ -11,6 +11,7 @@
 *.userprefs
 *.DotSettings.user
 *.log
+*.smproj
 
 /AquaLog/packages/**/
 

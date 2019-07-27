@@ -21,6 +21,7 @@ namespace AquaLog.UI
         Notes,
         WaterChanges,
         History,
-        Maintenance
+        Maintenance,
+        Transfers,
     }
 }

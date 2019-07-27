@@ -142,6 +142,31 @@ namespace AquaLog.Core
             return fDB.Query<Species>("select * from Species");
         }
 
+        public IList<Species> QuerySpecies(int type)
+        {
+            return fDB.Query<Species>("select * from Species where [Type] = ?", type);
+        }
+
+        public IList<WaterChange> QueryWaterChanges()
+        {
+            return fDB.Query<WaterChange>("select * from WaterChange order by [ChangeDate]");
+        }
+
+        public IList<WaterChange> QueryWaterChanges(int aquariumId)
+        {
+            return fDB.Query<WaterChange>("select * from WaterChange where (AquariumId = ?) order by [ChangeDate]", aquariumId);
+        }
+
+        public IList<Transfer> QueryTransfers()
+        {
+            return fDB.Query<Transfer>("select * from Transfer order by [Date]");
+        }
+
+        public IList<Transfer> QueryTransfers(int aquariumId)
+        {
+            return fDB.Query<Transfer>("select * from Transfer where (SourceId = ? or TargetId = ?) order by [Date]", aquariumId, aquariumId);
+        }
+
         public IList<Transfer> QueryTransfers(int itemId, int itemType)
         {
             return fDB.Query<Transfer>("select * from Transfer where (ItemId = ? and ItemType = ?) order by [Date]", itemId, itemType);

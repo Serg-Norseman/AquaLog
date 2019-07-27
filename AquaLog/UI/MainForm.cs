@@ -22,6 +22,8 @@ namespace AquaLog.UI
         private PlantPanel fPlantPanel;
         private TanksPanel fTanksPanel;
         private SpeciesPanel fSpeciesPanel;
+        private TransferPanel fTransferPanel;
+        private WaterChangePanel fWaterChangePanel;
 
 
         public MainForm()
@@ -54,6 +56,7 @@ namespace AquaLog.UI
             btnWaterChanges.Tag = MainView.WaterChanges;
             btnHistory.Tag = MainView.History;
             btnMaintenance.Tag = MainView.Maintenance;
+            btnTransfers.Tag = MainView.Transfers;
 
             SetView(ref fTanksPanel);
         }
@@ -116,10 +119,14 @@ namespace AquaLog.UI
                 case MainView.Notes:
                     break;
                 case MainView.WaterChanges:
+                    SetView<WaterChangePanel>(ref fWaterChangePanel);
                     break;
                 case MainView.History:
                     break;
                 case MainView.Maintenance:
+                    break;
+                case MainView.Transfers:
+                    SetView<TransferPanel>(ref fTransferPanel);
                     break;
             }
         }

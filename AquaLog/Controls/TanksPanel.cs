@@ -62,6 +62,7 @@ namespace AquaLog.Controls
 
             foreach (var aqm in aquariums) {
                 var aqPanel = new TankSticker();
+                aqPanel.Model = fModel;
                 aqPanel.Aquarium = aqm;
                 aqPanel.Click += OnTankClick;
                 aqPanel.DoubleClick += OnTankDoubleClick;
