@@ -45,24 +45,7 @@ namespace AquaLog.Controls
                 Aquarium aqmSour = fModel.GetRecord<Aquarium>(rec.SourceId);
                 Aquarium aqmTarg = fModel.GetRecord<Aquarium>(rec.TargetId);
 
-                string itName = string.Empty;
-                switch (rec.ItemType) {
-                    case ItemType.Aquarium:
-                        break;
-                    case ItemType.Fish:
-                        itName = fModel.GetRecord<Fish>(rec.ItemId).Name;
-                        break;
-                    case ItemType.Invertebrate:
-                        itName = fModel.GetRecord<Invertebrate>(rec.ItemId).Name;
-                        break;
-                    case ItemType.Light:
-                        break;
-                    case ItemType.Plant:
-                        itName = fModel.GetRecord<Plant>(rec.ItemId).Name;
-                        break;
-                    case ItemType.Pump:
-                        break;
-                }
+                string itName = fModel.GetRecordName(rec.ItemType, rec.ItemId);
 
                 var item = new ListViewItem(itName);
                 item.Tag = rec;

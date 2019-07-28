@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 using SQLite;
 
 namespace AquaLog.Core
@@ -84,6 +85,53 @@ namespace AquaLog.Core
         public IEnumerable<T> QueryRecords<T>(string query, params object[] args) where T : new()
         {
             return fDB.Query<T>(query, args); // "select * from Aquarium"
+        }
+
+        public Entity GetRecord(ItemType itemType, int itemId)
+        {
+            Entity result = null;
+            switch (itemType) {
+                case ItemType.Aquarium:
+                    break;
+                case ItemType.Fish:
+                    result = GetRecord<Fish>(itemId);
+                    break;
+                case ItemType.Invertebrate:
+                    result = GetRecord<Invertebrate>(itemId);
+                    break;
+                case ItemType.Light:
+                    break;
+                case ItemType.Plant:
+                    result = GetRecord<Plant>(itemId);
+                    break;
+                case ItemType.Pump:
+                    break;
+            }
+            return result;
+        }
+
+        public string GetRecordName(ItemType itemType, int itemId)
+        {
+            Entity itemRec = GetRecord(itemType, itemId);
+            string itName = string.Empty;
+            switch (itemType) {
+                case ItemType.Aquarium:
+                    break;
+                case ItemType.Fish:
+                    itName = (itemRec as Fish).Name;
+                    break;
+                case ItemType.Invertebrate:
+                    itName = (itemRec as Invertebrate).Name;
+                    break;
+                case ItemType.Light:
+                    break;
+                case ItemType.Plant:
+                    itName = (itemRec as Plant).Name;
+                    break;
+                case ItemType.Pump:
+                    break;
+            }
+            return itName;
         }
 
         #region Aquarium functions

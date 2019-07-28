@@ -119,9 +119,10 @@ namespace AquaLog.Core
             return ConvertHelper.ParseFloat(strVal, 0.0d, true);
         }
 
-        public static string GetDecimalStr(double value)
+        public static string GetDecimalStr(double value, int decimalDigits = 2)
         {
-            return value.ToString("0.00");
+            string fmt = "0.".PadRight(2 + decimalDigits, '0');
+            return value.ToString(fmt);
         }
 
         public static string GetDateStr(DateTime value)

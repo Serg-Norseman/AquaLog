@@ -34,10 +34,10 @@ namespace AquaLog.Controls
 
         protected override void InitActions()
         {
-            fActions.Add(new Action("Add", "btn_rec_new.gif", btnAddRecord_Click));
-            fActions.Add(new Action("Edit", "btn_rec_edit.gif", btnEditRecord_Click));
-            fActions.Add(new Action("Delete", "btn_rec_delete.gif", btnDeleteRecord_Click));
-            fActions.Add(new Action("Transfer", null, btnTransferInhabitant_Click));
+            fActions.Add(new Action("Add", "btn_rec_new.gif", AddHandler));
+            fActions.Add(new Action("Edit", "btn_rec_edit.gif", EditHandler));
+            fActions.Add(new Action("Delete", "btn_rec_delete.gif", DeleteHandler));
+            fActions.Add(new Action("Transfer", null, TransferInhabitantHandler));
         }
 
         public override void UpdateContent()
@@ -66,7 +66,6 @@ namespace AquaLog.Controls
 
                 var item = new ListViewItem(rec.Name);
                 item.Tag = rec;
-                //item.SubItems.Add(rec.ScientificName);
 
                 string sx = (isAnimal) ? ((Animal)rec).Sex.ToString() : string.Empty;
                 item.SubItems.Add(sx);
@@ -87,7 +86,7 @@ namespace AquaLog.Controls
             }
         }
 
-        private void btnAddRecord_Click(object sender, EventArgs e)
+        protected override void AddHandler(object sender, EventArgs e)
         {
             Inhabitant record = null;
             switch (fType) {
@@ -112,7 +111,7 @@ namespace AquaLog.Controls
             }
         }
 
-        private void btnEditRecord_Click(object sender, EventArgs e)
+        protected override void EditHandler(object sender, EventArgs e)
         {
             var selectedItem = ALCore.GetSelectedItem(ListView);
             if (selectedItem == null) return;
@@ -130,7 +129,7 @@ namespace AquaLog.Controls
             }
         }
 
-        private void btnDeleteRecord_Click(object sender, EventArgs e)
+        protected override void DeleteHandler(object sender, EventArgs e)
         {
             var selectedItem = ALCore.GetSelectedItem(ListView);
             if (selectedItem == null) return;
@@ -139,7 +138,7 @@ namespace AquaLog.Controls
             UpdateContent();
         }
 
-        private void btnTransferInhabitant_Click(object sender, EventArgs e)
+        private void TransferInhabitantHandler(object sender, EventArgs e)
         {
             var selectedItem = ALCore.GetSelectedItem(ListView);
             if (selectedItem == null) return;
@@ -147,10 +146,13 @@ namespace AquaLog.Controls
             var record = selectedItem.Tag as Inhabitant;
             if (record == null) return;
 
+            var transfer = new Transfer();
+            transfer.ItemType = ALCore.GetItemType(record.GetSpeciesType());
+            transfer.ItemId = record.Id;
+
             using (var dlg = new TransferDlg()) {
                 dlg.Model = fModel;
-                dlg.Inhabitant = record;
-                dlg.Transfer = new Transfer();
+                dlg.Transfer = transfer;
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fModel.AddRecord(dlg.Transfer);
                     UpdateContent();

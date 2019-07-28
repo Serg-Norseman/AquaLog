@@ -168,9 +168,10 @@ namespace AquaLog.Controls
             fStrFormat.Alignment = StringAlignment.Near;
             e.Graphics.DrawString(fAquarium.Name, font, new SolidBrush(ForeColor), layoutRect, fStrFormat);
 
-            string volumes = ALCore.GetDecimalStr(fAquarium.WaterVolume) + " / " + ALCore.GetDecimalStr(fAquarium.TankVolume);
+            double waterVolume = GetWaterVolume();
+            string volumes = ALCore.GetDecimalStr(waterVolume) + " / " + ALCore.GetDecimalStr(fAquarium.TankVolume);
             fStrFormat.Alignment = StringAlignment.Far;
-            e.Graphics.DrawString(volumes, Font, new SolidBrush(ForeColor), layoutRect, fStrFormat);
+            e.Graphics.DrawString(volumes, font, new SolidBrush(ForeColor), layoutRect, fStrFormat);
 
             string works;
             TimeSpan span;
@@ -188,34 +189,31 @@ namespace AquaLog.Controls
             int y = layoutRect.Top + (int)(Font.Height * 1.6f);
             e.Graphics.DrawString(works, Font, new SolidBrush(ForeColor), x, y);
 
-            double waterVolume = GetWaterVolume();
-            y = y + (int)(Font.Height * 1.6f);
-            e.Graphics.DrawString("WaterVolume: " + ALCore.GetDecimalStr(waterVolume), Font, new SolidBrush(ForeColor), x, y);
-
             double avgChangeDays = GetAverageWaterChangeInterval();
-            y = y + (int)(Font.Height * 1.6f);
-            e.Graphics.DrawString("AvgChangeDays: " + ALCore.GetDecimalStr(avgChangeDays), Font, new SolidBrush(ForeColor), x, y);
+            string avgChange = "avg=" + ALCore.GetDecimalStr(avgChangeDays, 1) + "d";
 
+            Color wsColor = ForeColor;
+            string lastChange = "";
+            string waterStatus = "";
             if (!fAquarium.IsInactive()) {
                 double lastChangeDays = GetLastWaterChangeInterval();
-                y = y + (int)(Font.Height * 1.6f);
-                e.Graphics.DrawString("LastChangeDays: " + ALCore.GetDecimalStr(lastChangeDays), Font, new SolidBrush(ForeColor), x, y);
+                lastChange = ", last=" + ALCore.GetDecimalStr(lastChangeDays, 1) + "d";
 
-                Color wsColor = ForeColor;
-                string waterStatus = "";
                 if (lastChangeDays <= avgChangeDays) {
-                    waterStatus = "normal";
+                    waterStatus = " [normal]";
                     wsColor = Color.Green;
                 } else if (lastChangeDays >= avgChangeDays * 2) {
-                    waterStatus = "alarm";
+                    waterStatus = " [alarm]";
                     wsColor = Color.Red;
                 } else if (avgChangeDays + 1 < lastChangeDays) {
-                    waterStatus = "exceeded";
-                    wsColor = Color.Yellow;
+                    waterStatus = " [exceeded]";
+                    wsColor = Color.Orange;
                 }
-                y = y + (int)(Font.Height * 1.6f);
-                e.Graphics.DrawString("WaterStatus: " + waterStatus, Font, new SolidBrush(wsColor), x, y);
             }
+
+            string waterChanges = avgChange + lastChange + waterStatus;
+            y = y + (int)(Font.Height * 1.6f);
+            e.Graphics.DrawString("Water changes: " + waterChanges, Font, new SolidBrush(wsColor), x, y);
         }
     }
 }

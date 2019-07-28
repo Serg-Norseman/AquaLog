@@ -32,6 +32,8 @@
         private System.Windows.Forms.ToolStripMenuItem miCleanSpace;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripButton btnTransfers;
+        private System.Windows.Forms.ToolStripMenuItem miSettings;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         
         protected override void Dispose(bool disposing)
         {
@@ -69,12 +71,14 @@
             this.btnWaterChanges = new System.Windows.Forms.ToolStripButton();
             this.btnHistory = new System.Windows.Forms.ToolStripButton();
             this.btnMaintenance = new System.Windows.Forms.ToolStripButton();
+            this.btnTransfers = new System.Windows.Forms.ToolStripButton();
             this.pnlTools = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlDate = new System.Windows.Forms.Panel();
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnTransfers = new System.Windows.Forms.ToolStripButton();
+            this.miSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.menuMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlTools.SuspendLayout();
@@ -98,6 +102,8 @@
             this.miFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.miCleanSpace,
             this.toolStripMenuItem1,
+            this.miSettings,
+            this.toolStripMenuItem2,
             this.miExit});
             this.miFile.Name = "miFile";
             this.miFile.Size = new System.Drawing.Size(37, 19);
@@ -106,19 +112,19 @@
             // miCleanSpace
             // 
             this.miCleanSpace.Name = "miCleanSpace";
-            this.miCleanSpace.Size = new System.Drawing.Size(135, 22);
+            this.miCleanSpace.Size = new System.Drawing.Size(152, 22);
             this.miCleanSpace.Text = "CleanSpace";
             this.miCleanSpace.Click += new System.EventHandler(this.miCleanSpace_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(132, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
             // 
             // miExit
             // 
             this.miExit.Name = "miExit";
-            this.miExit.Size = new System.Drawing.Size(135, 22);
+            this.miExit.Size = new System.Drawing.Size(152, 22);
             this.miExit.Text = "Exit";
             this.miExit.Click += new System.EventHandler(this.miExit_Click);
             // 
@@ -299,6 +305,15 @@
             this.btnMaintenance.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMaintenance.Click += new System.EventHandler(this.btnMainView_Click);
             // 
+            // btnTransfers
+            // 
+            this.btnTransfers.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTransfers.Name = "btnTransfers";
+            this.btnTransfers.Size = new System.Drawing.Size(58, 22);
+            this.btnTransfers.Text = "Transfers";
+            this.btnTransfers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTransfers.Click += new System.EventHandler(this.btnMainView_Click);
+            // 
             // pnlTools
             // 
             this.pnlTools.BackColor = System.Drawing.SystemColors.InactiveCaption;
@@ -349,14 +364,17 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
             // 
-            // btnTransfers
+            // miSettings
             // 
-            this.btnTransfers.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnTransfers.Name = "btnTransfers";
-            this.btnTransfers.Size = new System.Drawing.Size(58, 22);
-            this.btnTransfers.Text = "Transfers";
-            this.btnTransfers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnTransfers.Click += new System.EventHandler(this.btnMainView_Click);
+            this.miSettings.Enabled = false;
+            this.miSettings.Name = "miSettings";
+            this.miSettings.Size = new System.Drawing.Size(152, 22);
+            this.miSettings.Text = "Settings";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // MainForm
             // 

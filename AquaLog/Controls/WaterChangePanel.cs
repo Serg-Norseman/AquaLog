@@ -42,8 +42,9 @@ namespace AquaLog.Controls
 
             foreach (WaterChange rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
+                string aqmName = (aqm == null) ? "" : aqm.Name;
 
-                var item = new ListViewItem(aqm.Name);
+                var item = new ListViewItem(aqmName);
                 item.Tag = rec;
                 item.SubItems.Add(ALCore.GetDateStr(rec.ChangeDate));
                 item.SubItems.Add(rec.Type.ToString());

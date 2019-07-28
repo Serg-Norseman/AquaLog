@@ -133,7 +133,6 @@ namespace AquaLog.UI
 
         private void miCleanSpace_Click(object sender, EventArgs e)
         {
-            fModel.Execute("delete from Transfer");
             fModel.CleanSpace();
         }
 

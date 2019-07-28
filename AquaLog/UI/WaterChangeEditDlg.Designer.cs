@@ -81,7 +81,6 @@
             // 
             // dtpDate
             // 
-            this.dtpDate.Checked = false;
             this.dtpDate.Location = new System.Drawing.Point(147, 45);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(142, 22);

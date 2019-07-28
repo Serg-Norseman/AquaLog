@@ -12,7 +12,7 @@ namespace AquaLog.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public abstract class Device : AquariumDetails
+    public class Device : AquariumDetails
     {
         public string Name { get; set; }
         public bool Enabled { get; set; }

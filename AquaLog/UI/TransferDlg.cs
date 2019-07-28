@@ -19,20 +19,8 @@ namespace AquaLog.UI
     /// </summary>
     public partial class TransferDlg : Form
     {
-        private Inhabitant fInhabitant;
         private ALModel fModel;
         private Transfer fTransfer;
-
-        public Inhabitant Inhabitant
-        {
-            get { return fInhabitant; }
-            set {
-                if (fInhabitant != value) {
-                    fInhabitant = value;
-                    UpdateView();
-                }
-            }
-        }
 
         public ALModel Model
         {
@@ -66,11 +54,12 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            txtName.Text = fInhabitant.Name;
-
             if (fTransfer != null) {
+                string itName = fModel.GetRecordName(fTransfer.ItemType, fTransfer.ItemId);
+                txtName.Text = itName;
+
                 int sourId = 0;
-                IList<Transfer> lastTransfers = fModel.QueryLastTransfers(fInhabitant.Id, (int)ALCore.GetItemType(fInhabitant.GetSpeciesType()));
+                IList<Transfer> lastTransfers = fModel.QueryLastTransfers(fTransfer.ItemId, (int)fTransfer.ItemType);
                 if (lastTransfers.Count > 0) {
                     sourId = lastTransfers[0].TargetId;
                 }
@@ -82,7 +71,7 @@ namespace AquaLog.UI
                 foreach (var aqm in aquariums) {
                     cmbSource.Items.Add(aqm);
 
-                    if (aqm.Id != sourId) {
+                    if (aqm.Id != sourId && !aqm.IsInactive()) {
                         cmbTarget.Items.Add(aqm);
                     }
                 }
@@ -107,8 +96,8 @@ namespace AquaLog.UI
             aqm = cmbTarget.SelectedItem as Aquarium;
             fTransfer.TargetId = (aqm == null) ? 0 : aqm.Id;
 
-            fTransfer.ItemId = fInhabitant.Id;
-            fTransfer.ItemType = ALCore.GetItemType(fInhabitant.GetSpeciesType());
+            //fTransfer.ItemId = fInhabitant.Id;
+            //fTransfer.ItemType = ALCore.GetItemType(fInhabitant.GetSpeciesType());
             fTransfer.Date = dtpDate.Value;
             fTransfer.Type = (TransferType)cmbType.SelectedIndex;
             fTransfer.Cause = txtCause.Text;

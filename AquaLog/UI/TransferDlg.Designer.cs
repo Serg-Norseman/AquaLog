@@ -111,6 +111,7 @@
             // 
             // cmbTarget
             // 
+            this.cmbTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTarget.Location = new System.Drawing.Point(147, 83);
             this.cmbTarget.Name = "cmbTarget";
             this.cmbTarget.Size = new System.Drawing.Size(268, 21);
@@ -124,17 +125,17 @@
             this.lblSource.TabIndex = 2;
             this.lblSource.Text = "From (source aquarium)";
             // 
-            // txtSource
+            // cmbSource
             // 
+            this.cmbSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSource.Enabled = false;
             this.cmbSource.Location = new System.Drawing.Point(147, 48);
-            this.cmbSource.Name = "txtSource";
-            this.cmbSource.Size = new System.Drawing.Size(268, 22);
+            this.cmbSource.Name = "cmbSource";
+            this.cmbSource.Size = new System.Drawing.Size(268, 21);
             this.cmbSource.TabIndex = 5;
             // 
             // dtpDate
             // 
-            this.dtpDate.Checked = false;
             this.dtpDate.Location = new System.Drawing.Point(147, 116);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(142, 22);
