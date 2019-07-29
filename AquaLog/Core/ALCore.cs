@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -35,7 +36,8 @@ namespace AquaLog.Core
         private static readonly int LitersDivider = 1000;
 
         private static string fAppDataPath = null;
-        private const string fAppSign = "AquaLog";
+
+        public const string AppName = "AquaLog";
 
         public static int[] WaterChangeFactors = new int[] {
             +1, // Added
@@ -132,6 +134,17 @@ namespace AquaLog.Core
 
         #region Application Runtime
 
+        public static void LoadExtFile(string fileName, string args = "")
+        {
+            #if !CI_MODE
+            if (File.Exists(fileName)) {
+                Process.Start(new ProcessStartInfo("file://"+fileName) { UseShellExecute = true, Arguments = args });
+            } else {
+                Process.Start(fileName);
+            }
+            #endif
+        }
+
         private static Assembly GetAssembly()
         {
             Assembly asm = Assembly.GetEntryAssembly();
@@ -169,7 +182,7 @@ namespace AquaLog.Core
 
         protected static string GetAppSign()
         {
-            return fAppSign;
+            return AppName;
         }
 
         public static string GetAppDataPath()

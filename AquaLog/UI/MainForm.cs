@@ -24,6 +24,7 @@ namespace AquaLog.UI
         private SpeciesPanel fSpeciesPanel;
         private TransferPanel fTransferPanel;
         private WaterChangePanel fWaterChangePanel;
+        private DevicePanel fDevicePanel;
 
 
         public MainForm()
@@ -111,8 +112,8 @@ namespace AquaLog.UI
                     SetView<SpeciesPanel>(ref fSpeciesPanel);
                     break;
                 case MainView.Lights:
-                    break;
                 case MainView.Pumps:
+                    SetView<DevicePanel>(ref fDevicePanel);
                     break;
                 case MainView.Expenses:
                     break;
@@ -134,6 +135,13 @@ namespace AquaLog.UI
         private void miCleanSpace_Click(object sender, EventArgs e)
         {
             fModel.CleanSpace();
+        }
+
+        private void miAbout_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new AboutDlg()) {
+                dlg.ShowDialog();
+            }
         }
 
         #endregion

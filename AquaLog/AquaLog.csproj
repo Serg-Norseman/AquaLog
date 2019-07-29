@@ -65,6 +65,7 @@
     <Compile Include="Controls\Action.cs" />
     <Compile Include="Controls\Browser.cs" />
     <Compile Include="Controls\ComboItem.cs" />
+    <Compile Include="Controls\DevicePanel.cs" />
     <Compile Include="Controls\InhabitantPanel.cs" />
     <Compile Include="Controls\ListBrowser.cs" />
     <Compile Include="Controls\SpeciesPanel.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Core\Model\Invertebrate.cs" />
     <Compile Include="Core\Model\Light.cs" />
     <Compile Include="Core\Model\Maintenance.cs" />
+    <Compile Include="Core\Model\Measure.cs" />
     <Compile Include="Core\Model\Note.cs" />
     <Compile Include="Core\Model\Plant.cs" />
     <Compile Include="Core\Model\Pump.cs" />
@@ -112,9 +114,17 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
+    <Compile Include="UI\AboutDlg.cs" />
+    <Compile Include="UI\AboutDlg.Designer.cs">
+      <DependentUpon>AboutDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\AquariumEditDlg.cs" />
     <Compile Include="UI\AquariumEditDlg.Designer.cs">
       <DependentUpon>AquariumEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\DeviceEditDlg.cs" />
+    <Compile Include="UI\DeviceEditDlg.Designer.cs">
+      <DependentUpon>DeviceEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\InhabitantEditDlg.cs" />
     <Compile Include="UI\InhabitantEditDlg.Designer.cs">
@@ -165,6 +175,8 @@
     <EmbeddedResource Include="Resources\btn_rec_delete.gif" />
     <EmbeddedResource Include="Resources\btn_rec_edit.gif" />
     <EmbeddedResource Include="Resources\btn_rec_new.gif" />
+    <EmbeddedResource Include="Resources\btn_excel.gif" />
+    <EmbeddedResource Include="Resources\btn_chart.gif" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core" />

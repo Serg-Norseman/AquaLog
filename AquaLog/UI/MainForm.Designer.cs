@@ -34,6 +34,8 @@
         private System.Windows.Forms.ToolStripButton btnTransfers;
         private System.Windows.Forms.ToolStripMenuItem miSettings;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem miHelp;
+        private System.Windows.Forms.ToolStripMenuItem miAbout;
         
         protected override void Dispose(bool disposing)
         {
@@ -52,6 +54,8 @@
             this.miFile = new System.Windows.Forms.ToolStripMenuItem();
             this.miCleanSpace = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.miSettings = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.miExit = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.btnPrev = new System.Windows.Forms.ToolStripButton();
@@ -77,8 +81,8 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.miSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.miHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.miAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlTools.SuspendLayout();
@@ -89,7 +93,8 @@
             // 
             this.menuMain.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.miFile});
+            this.miFile,
+            this.miHelp});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
@@ -120,6 +125,18 @@
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(149, 6);
+            // 
+            // miSettings
+            // 
+            this.miSettings.Enabled = false;
+            this.miSettings.Name = "miSettings";
+            this.miSettings.Size = new System.Drawing.Size(152, 22);
+            this.miSettings.Text = "Settings";
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
             // 
             // miExit
             // 
@@ -233,7 +250,6 @@
             // 
             // btnLights
             // 
-            this.btnLights.Enabled = false;
             this.btnLights.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnLights.Name = "btnLights";
             this.btnLights.Size = new System.Drawing.Size(43, 22);
@@ -243,7 +259,6 @@
             // 
             // btnPumps
             // 
-            this.btnPumps.Enabled = false;
             this.btnPumps.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPumps.Name = "btnPumps";
             this.btnPumps.Size = new System.Drawing.Size(48, 22);
@@ -364,17 +379,20 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
             // 
-            // miSettings
+            // miHelp
             // 
-            this.miSettings.Enabled = false;
-            this.miSettings.Name = "miSettings";
-            this.miSettings.Size = new System.Drawing.Size(152, 22);
-            this.miSettings.Text = "Settings";
+            this.miHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miAbout});
+            this.miHelp.Name = "miHelp";
+            this.miHelp.Size = new System.Drawing.Size(44, 19);
+            this.miHelp.Text = "Help";
             // 
-            // toolStripMenuItem2
+            // miAbout
             // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(149, 6);
+            this.miAbout.Name = "miAbout";
+            this.miAbout.Size = new System.Drawing.Size(152, 22);
+            this.miAbout.Text = "About";
+            this.miAbout.Click += new System.EventHandler(this.miAbout_Click);
             // 
             // MainForm
             // 

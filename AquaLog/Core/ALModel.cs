@@ -195,6 +195,12 @@ namespace AquaLog.Core
             return fDB.Query<Species>("select * from Species where [Type] = ?", type);
         }
 
+        // FIXME: debug table name
+        public IList<Device> QueryDevices()
+        {
+            return fDB.Query<Device>("select * from Pump");
+        }
+
         public IList<WaterChange> QueryWaterChanges()
         {
             return fDB.Query<WaterChange>("select * from WaterChange order by [ChangeDate]");
