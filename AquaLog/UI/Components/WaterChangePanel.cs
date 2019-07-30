@@ -10,21 +10,20 @@ using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
 
-namespace AquaLog.Controls
+namespace AquaLog.Components
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DevicePanel : ListBrowser
+    public class WaterChangePanel : ListBrowser
     {
-        public DevicePanel()
+        public WaterChangePanel()
         {
             ListView.Columns.Add("Aquarium", 200, HorizontalAlignment.Left);
-            ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Enabled", 60, HorizontalAlignment.Left);
-            ListView.Columns.Add("Digital", 60, HorizontalAlignment.Left);
-            ListView.Columns.Add("Brand", 50, HorizontalAlignment.Left);
-            ListView.Columns.Add("Wattage", 100, HorizontalAlignment.Right);
+            ListView.Columns.Add("ChangeDate", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("Type", 80, HorizontalAlignment.Left);
+            ListView.Columns.Add("Volume", 50, HorizontalAlignment.Right);
+            ListView.Columns.Add("Note", 250, HorizontalAlignment.Left);
         }
 
         protected override void InitActions()
@@ -39,29 +38,29 @@ namespace AquaLog.Controls
             ListView.Items.Clear();
             if (fModel == null) return;
 
-            var records = fModel.QueryDevices();
-            foreach (Device rec in records) {
+            var records = fModel.QueryWaterChanges();
+
+            foreach (WaterChange rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
 
                 var item = new ListViewItem(aqmName);
                 item.Tag = rec;
-                item.SubItems.Add(rec.Name);
-                item.SubItems.Add(rec.Enabled.ToString());
-                item.SubItems.Add(rec.Digital.ToString());
-                item.SubItems.Add(rec.Brand);
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Wattage));
+                item.SubItems.Add(ALCore.GetDateStr(rec.ChangeDate));
+                item.SubItems.Add(rec.Type.ToString());
+                item.SubItems.Add(ALCore.GetDecimalStr(rec.Volume));
+                item.SubItems.Add(rec.Note);
                 ListView.Items.Add(item);
             }
         }
 
         protected override void AddHandler(object sender, EventArgs e)
         {
-            Device record = new Device();
+            WaterChange record = new WaterChange();
 
-            using (var dlg = new DeviceEditDlg()) {
+            using (var dlg = new WaterChangeEditDlg()) {
                 dlg.Model = fModel;
-                dlg.Device = record;
+                dlg.WaterChange = record;
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fModel.AddRecord(record);
                     UpdateContent();
@@ -74,12 +73,12 @@ namespace AquaLog.Controls
             var selectedItem = ALCore.GetSelectedItem(ListView);
             if (selectedItem == null) return;
 
-            var record = selectedItem.Tag as Device;
+            var record = selectedItem.Tag as WaterChange;
             if (record == null) return;
 
-            using (var dlg = new DeviceEditDlg()) {
+            using (var dlg = new WaterChangeEditDlg()) {
                 dlg.Model = fModel;
-                dlg.Device = record;
+                dlg.WaterChange = record;
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fModel.UpdateRecord(record);
                     UpdateContent();
@@ -92,7 +91,7 @@ namespace AquaLog.Controls
             var selectedItem = ALCore.GetSelectedItem(ListView);
             if (selectedItem == null) return;
 
-            fModel.DeleteRecord(selectedItem.Tag as Device);
+            fModel.DeleteRecord(selectedItem.Tag as WaterChange);
             UpdateContent();
         }
     }

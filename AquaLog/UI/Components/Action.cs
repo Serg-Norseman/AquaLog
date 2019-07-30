@@ -8,7 +8,7 @@ using System;
 using System.Drawing;
 using AquaLog.Core;
 
-namespace AquaLog.Controls
+namespace AquaLog.Components
 {
     /// <summary>
     /// 

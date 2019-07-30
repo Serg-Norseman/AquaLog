@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 
-namespace AquaLog.Controls
+namespace AquaLog.Components
 {
     public enum TankState
     {
@@ -214,6 +214,10 @@ namespace AquaLog.Controls
             string waterChanges = avgChange + lastChange + waterStatus;
             y = y + (int)(Font.Height * 1.6f);
             e.Graphics.DrawString("Water changes: " + waterChanges, Font, new SolidBrush(wsColor), x, y);
+
+            int inhabCount = fModel.QueryInhabitantsCount(fAquarium.Id);
+            y = y + (int)(Font.Height * 1.6f);
+            e.Graphics.DrawString("Inhabitants: " + inhabCount.ToString(), Font, new SolidBrush(ForeColor), x, y);
         }
     }
 }

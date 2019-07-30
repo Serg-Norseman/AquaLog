@@ -1,6 +1,6 @@
 ﻿namespace AquaLog.UI
 {
-    partial class TransferDlg
+    partial class TransferEditDlg
     {
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.Button btnAccept;

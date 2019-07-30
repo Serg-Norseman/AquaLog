@@ -9,13 +9,12 @@ namespace AquaLog.Core.Types
     public enum MeasurementType
     {
         Ca,
-        CarbonateHardness,
         CO2,
         Cu,
         Density,
         Fe,
-        GH,
-        KH,
+        GH, // General water Hardness, magnesium (Mg+) and calcium (Ca+) dissolved in water
+        KH, // Carbonate Hardness, carbonates (CO3-) and bicarbonates (HCO3-) dissolved in water
         Mg,
         NH,
         NH3,

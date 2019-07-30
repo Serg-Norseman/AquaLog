@@ -60,19 +60,24 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="ZedGraph">
+      <HintPath>..\libs\ZedGraph.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Action.cs" />
-    <Compile Include="Controls\Browser.cs" />
-    <Compile Include="Controls\ComboItem.cs" />
-    <Compile Include="Controls\DevicePanel.cs" />
-    <Compile Include="Controls\InhabitantPanel.cs" />
-    <Compile Include="Controls\ListBrowser.cs" />
-    <Compile Include="Controls\SpeciesPanel.cs" />
-    <Compile Include="Controls\TanksPanel.cs" />
-    <Compile Include="Controls\TankSticker.cs" />
-    <Compile Include="Controls\TransferPanel.cs" />
-    <Compile Include="Controls\WaterChangePanel.cs" />
+    <Compile Include="UI\Components\Action.cs" />
+    <Compile Include="UI\Components\Browser.cs" />
+    <Compile Include="UI\Components\ComboItem.cs" />
+    <Compile Include="UI\Components\DevicePanel.cs" />
+    <Compile Include="UI\Components\InhabitantPanel.cs" />
+    <Compile Include="UI\Components\ListBrowser.cs" />
+    <Compile Include="UI\Components\SpeciesPanel.cs" />
+    <Compile Include="UI\Components\TanksPanel.cs" />
+    <Compile Include="UI\Components\TankSticker.cs" />
+    <Compile Include="UI\Components\TransferPanel.cs" />
+    <Compile Include="UI\Components\WaterChangePanel.cs" />
+    <Compile Include="UI\Components\WizardPages.cs" />
+    <Compile Include="UI\Components\ZGraphControl.cs" />
     <Compile Include="Core\ALCore.cs" />
     <Compile Include="Core\ALMeasures.cs" />
     <Compile Include="Core\ALModel.cs" />
@@ -95,6 +100,7 @@
     <Compile Include="Core\Model\Species.cs" />
     <Compile Include="Core\Model\Transfer.cs" />
     <Compile Include="Core\Model\WaterChange.cs" />
+    <Compile Include="Core\NavigationStack.cs" />
     <Compile Include="Core\Types\AquariumWaterType.cs" />
     <Compile Include="Core\Types\CareLevel.cs" />
     <Compile Include="Core\Types\ItemType.cs" />
@@ -107,6 +113,7 @@
     <Compile Include="Core\Types\Temperament.cs" />
     <Compile Include="Core\Types\TransferType.cs" />
     <Compile Include="Core\Types\WaterChangeType.cs" />
+    <Compile Include="ALTray.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Log4NetHelper.cs" />
     <Compile Include="Logging\LogManager.cs" />
@@ -139,9 +146,9 @@
     <Compile Include="UI\SpeciesEditDlg.Designer.cs">
       <DependentUpon>SpeciesEditDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\TransferDlg.cs" />
-    <Compile Include="UI\TransferDlg.Designer.cs">
-      <DependentUpon>TransferDlg.cs</DependentUpon>
+    <Compile Include="UI\TransferEditDlg.cs" />
+    <Compile Include="UI\TransferEditDlg.Designer.cs">
+      <DependentUpon>TransferEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\WaterChangeEditDlg.cs" />
     <Compile Include="UI\WaterChangeEditDlg.Designer.cs">
@@ -149,18 +156,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="UI\InhabitantEditDlg.resx">
-      <DependentUpon>InhabitantEditDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\SpeciesEditDlg.resx">
-      <DependentUpon>SpeciesEditDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\TransferDlg.resx">
-      <DependentUpon>TransferDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\WaterChangeEditDlg.resx">
-      <DependentUpon>WaterChangeEditDlg.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="..\libs\win32\sqlite3.dll">
       <Link>sqlite3.dll</Link>
@@ -177,23 +172,16 @@
     <EmbeddedResource Include="Resources\btn_rec_new.gif" />
     <EmbeddedResource Include="Resources\btn_excel.gif" />
     <EmbeddedResource Include="Resources\btn_chart.gif" />
+    <EmbeddedResource Include="Resources\icon_aqualog.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core" />
-    <Folder Include="Controls" />
+    <Folder Include="UI\Components" />
     <Folder Include="Core\Model" />
     <Folder Include="Core\Types" />
     <Folder Include="Logging" />
     <Folder Include="Resources" />
     <Folder Include="UI" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="UI\AquariumEditDlg.resx">
-      <DependentUpon>AquariumEditDlg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

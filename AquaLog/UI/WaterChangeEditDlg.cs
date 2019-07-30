@@ -58,10 +58,13 @@ namespace AquaLog.UI
                 cmbAquarium.Items.Clear();
                 var aquariums = fModel.QueryAquariums();
                 foreach (var aqm in aquariums) {
-                    cmbAquarium.Items.Add(aqm);
+                    if (fWaterChange.AquariumId != 0 || !aqm.IsInactive()) {
+                        cmbAquarium.Items.Add(aqm);
+                    }
                 }
 
                 cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fWaterChange.AquariumId);
+                cmbAquarium.Enabled = (fWaterChange.AquariumId == 0);
 
                 if (!fWaterChange.ChangeDate.Equals(ALCore.ZeroDate)) {
                     dtpDate.Value = fWaterChange.ChangeDate;

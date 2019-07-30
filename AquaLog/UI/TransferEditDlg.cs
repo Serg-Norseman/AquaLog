@@ -17,7 +17,7 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class TransferDlg : Form
+    public partial class TransferEditDlg : Form
     {
         private ALModel fModel;
         private Transfer fTransfer;
@@ -40,7 +40,7 @@ namespace AquaLog.UI
         }
 
 
-        public TransferDlg()
+        public TransferEditDlg()
         {
             InitializeComponent();
 

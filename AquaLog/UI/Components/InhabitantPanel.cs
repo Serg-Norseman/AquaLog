@@ -12,7 +12,7 @@ using AquaLog.Core.Model;
 using AquaLog.Core.Types;
 using AquaLog.UI;
 
-namespace AquaLog.Controls
+namespace AquaLog.Components
 {
     /// <summary>
     /// 
@@ -150,7 +150,7 @@ namespace AquaLog.Controls
             transfer.ItemType = ALCore.GetItemType(record.GetSpeciesType());
             transfer.ItemId = record.Id;
 
-            using (var dlg = new TransferDlg()) {
+            using (var dlg = new TransferEditDlg()) {
                 dlg.Model = fModel;
                 dlg.Transfer = transfer;
                 if (dlg.ShowDialog() == DialogResult.OK) {

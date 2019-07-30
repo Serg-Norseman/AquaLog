@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
 
-namespace AquaLog.Controls
+namespace AquaLog.Components
 {
     /// <summary>
     /// 

@@ -141,6 +141,42 @@ namespace AquaLog.Core
             return fDB.Query<Aquarium>("select * from Aquarium");
         }
 
+        private class TransferVal
+        {
+            public ItemType ItemType { get; set; }
+            public int ItemId { get; set; }
+        }
+
+        private class InhVal
+        {
+            public int Quantity { get; set; }
+        }
+
+        public int QueryInhabitantsCount(int aquariumId)
+        {
+            int result = 0;
+            var qv = fDB.Query<TransferVal>("select ItemType, ItemId from Transfer where TargetId = ?", aquariumId);
+            foreach (var val in qv) {
+                string tableName = "";
+                switch (val.ItemType) {
+                    case ItemType.Fish:
+                        tableName = "Fish";
+                        break;
+                    case ItemType.Invertebrate:
+                        tableName = "Invertebrate";
+                        break;
+                    case ItemType.Plant:
+                        tableName = "Plant";
+                        break;
+                }
+                string query = string.Format("select Quantity from {0} where Id = ?", tableName);
+                var frecs = fDB.Query<InhVal>(query, val.ItemId);
+                int qty = (frecs.Count > 0) ? frecs[0].Quantity : 0;
+                result += qty;
+            }
+            return result;
+        }
+
         #endregion
 
         #region Fish functions

@@ -7,7 +7,7 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using AquaLog.Controls;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Logging;
 
@@ -17,6 +17,8 @@ namespace AquaLog.UI
     {
         private readonly ILogger fLogger;
         private ALModel fModel;
+        private NavigationStack<Browser> fNavigationStack;
+
         private FishPanel fFishPanel;
         private InvertebratePanel fInvertebratePanel;
         private PlantPanel fPlantPanel;
@@ -35,10 +37,12 @@ namespace AquaLog.UI
 
             fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");
             fModel = new ALModel();
+            fNavigationStack = new NavigationStack<Browser>();
 
             SetSettings();
             UpdateControls();
 
+            Icon = new Icon(ALCore.LoadResourceStream("AquaLog.Resources.icon_aqualog.ico"));
             btnPrev.Image = ALCore.LoadResourceImage("btn_left.gif");
             btnNext.Image = ALCore.LoadResourceImage("btn_right.gif");
             miExit.Image = ALCore.LoadResourceImage("btn_exit.gif");
@@ -86,6 +90,14 @@ namespace AquaLog.UI
             Application.Exit();
         }
 
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing) {
+                e.Cancel = true;
+                Hide();
+            }
+        }
+
         private void btnMainView_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripButton;
@@ -93,8 +105,10 @@ namespace AquaLog.UI
 
             switch (mainView) {
                 case MainView.Prev:
+                    SetView(fNavigationStack.Back());
                     break;
                 case MainView.Next:
+                    SetView(fNavigationStack.Next());
                     break;
                 case MainView.Tanks:
                     SetView<TanksPanel>(ref fTanksPanel);
@@ -176,16 +190,34 @@ namespace AquaLog.UI
 
         private void SetView<T>(ref T view) where T : Browser, new()
         {
-            pnlClient.Controls.Clear();
             if (view == null) {
                 view = new T();
                 view.Model = fModel;
+            }
+
+            fNavigationStack.Current = view;
+            SetView(view);
+        }
+
+        private void SetView(Browser view)
+        {
+            pnlClient.Controls.Clear();
+            if (view == null) {
+                return;
             }
             pnlClient.Controls.Add(view);
 
             SetActions(view);
 
             view.UpdateContent();
+
+            UpdateNavControls();
+        }
+
+        private void UpdateNavControls()
+        {
+            btnPrev.Enabled = fNavigationStack.CanBackward();
+            btnNext.Enabled = fNavigationStack.CanForward();
         }
 
         #endregion

@@ -6,6 +6,7 @@
 
 using System;
 using System.IO;
+using AquaLog.Core.Model;
 using SQLite;
 
 namespace AquaLog.Core
@@ -22,7 +23,7 @@ namespace AquaLog.Core
             var databasePath = Path.Combine(ALCore.GetAppDataPath(), "ALMeasures.db");
             fDB = new SQLiteConnection(databasePath);
 
-            //fDB.CreateTable<>();
+            fDB.CreateTable<Measure>();
         }
     }
 }

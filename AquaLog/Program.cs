@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Threading;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.UI;
@@ -20,7 +21,16 @@ namespace AquaLog
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            bool isFirstInstance;
+            using (Mutex mtx = new Mutex(true, "AquaLog", out isFirstInstance)) {
+                if (isFirstInstance) {
+                    var mainForm = new MainForm();
+                    using (ALTray notificationIcon = new ALTray(mainForm)) {
+                        Application.Run(mainForm);
+                    }
+                }
+            }
         }
     }
 }

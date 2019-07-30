@@ -15,13 +15,13 @@ namespace AquaLog.Core.Model
     /// </summary>
     public class Measure
     {
-        [Indexed]
+        [Indexed("IDX_Point", 1)]
         public int AquariumId { get; set; }
 
-        [Indexed]
+        [Indexed("IDX_Point", 2)]
         public DateTime Timestamp { get; set; }
 
-        [Indexed]
+        [Indexed("IDX_Point", 3)]
         public MeasurementType Type { get; set; }
 
         public double Value { get; set; }

@@ -8,10 +8,9 @@ using System;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
-using AquaLog.Core.Types;
 using AquaLog.UI;
 
-namespace AquaLog.Controls
+namespace AquaLog.Components
 {
     /// <summary>
     /// 
@@ -62,7 +61,7 @@ namespace AquaLog.Controls
         {
             Transfer record = new Transfer();
 
-            using (var dlg = new TransferDlg()) {
+            using (var dlg = new TransferEditDlg()) {
                 dlg.Model = fModel;
                 dlg.Transfer = record;
                 if (dlg.ShowDialog() == DialogResult.OK) {
@@ -80,7 +79,7 @@ namespace AquaLog.Controls
             var record = selectedItem.Tag as Transfer;
             if (record == null) return;
 
-            using (var dlg = new TransferDlg()) {
+            using (var dlg = new TransferEditDlg()) {
                 dlg.Model = fModel;
                 dlg.Transfer = record;
                 if (dlg.ShowDialog() == DialogResult.OK) {
