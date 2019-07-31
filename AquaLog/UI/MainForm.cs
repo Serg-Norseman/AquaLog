@@ -27,6 +27,7 @@ namespace AquaLog.UI
         private TransferPanel fTransferPanel;
         private WaterChangePanel fWaterChangePanel;
         private DevicePanel fDevicePanel;
+        private MaintenancePanel fMaintenancePanel;
 
 
         public MainForm()
@@ -139,6 +140,7 @@ namespace AquaLog.UI
                 case MainView.History:
                     break;
                 case MainView.Maintenance:
+                    SetView<MaintenancePanel>(ref fMaintenancePanel);
                     break;
                 case MainView.Transfers:
                     SetView<TransferPanel>(ref fTransferPanel);

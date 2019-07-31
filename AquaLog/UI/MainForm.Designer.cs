@@ -98,7 +98,7 @@
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
-            this.menuMain.Size = new System.Drawing.Size(882, 30);
+            this.menuMain.Size = new System.Drawing.Size(1050, 30);
             this.menuMain.TabIndex = 2;
             this.menuMain.Text = "menuStrip1";
             // 
@@ -184,7 +184,7 @@
             this.btnTransfers});
             this.toolStrip1.Location = new System.Drawing.Point(0, 30);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(882, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(1050, 27);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -327,7 +327,6 @@
             // 
             // btnMaintenance
             // 
-            this.btnMaintenance.Enabled = false;
             this.btnMaintenance.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMaintenance.Name = "btnMaintenance";
             this.btnMaintenance.Size = new System.Drawing.Size(98, 24);
@@ -386,7 +385,7 @@
             this.pnlClient.Location = new System.Drawing.Point(210, 57);
             this.pnlClient.Name = "pnlClient";
             this.pnlClient.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlClient.Size = new System.Drawing.Size(672, 456);
+            this.pnlClient.Size = new System.Drawing.Size(840, 456);
             this.pnlClient.TabIndex = 5;
             // 
             // timer1
@@ -398,7 +397,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(882, 513);
+            this.ClientSize = new System.Drawing.Size(1050, 513);
             this.Controls.Add(this.pnlClient);
             this.Controls.Add(this.pnlTools);
             this.Controls.Add(this.toolStrip1);

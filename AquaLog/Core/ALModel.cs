@@ -237,6 +237,11 @@ namespace AquaLog.Core
             return fDB.Query<Device>("select * from Pump");
         }
 
+        public IList<Maintenance> QueryMaintenances()
+        {
+            return fDB.Query<Maintenance>("select * from Maintenance order by [DateTime]");
+        }
+
         public IList<WaterChange> QueryWaterChanges()
         {
             return fDB.Query<WaterChange>("select * from WaterChange order by [ChangeDate]");

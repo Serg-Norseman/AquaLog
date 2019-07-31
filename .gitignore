@@ -12,9 +12,11 @@
 *.DotSettings.user
 *.log
 *.smproj
+*.xml
 
 /AquaLog/packages/**/
 
+/ALWatcher/
 /appdata/
 /temp/
 bsl_copy.cmd

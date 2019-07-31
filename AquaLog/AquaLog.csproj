@@ -65,12 +65,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\Types\ValueBounds.cs" />
     <Compile Include="UI\Components\Action.cs" />
     <Compile Include="UI\Components\Browser.cs" />
     <Compile Include="UI\Components\ComboItem.cs" />
     <Compile Include="UI\Components\DevicePanel.cs" />
     <Compile Include="UI\Components\InhabitantPanel.cs" />
     <Compile Include="UI\Components\ListBrowser.cs" />
+    <Compile Include="UI\Components\MaintenancePanel.cs" />
     <Compile Include="UI\Components\SpeciesPanel.cs" />
     <Compile Include="UI\Components\TanksPanel.cs" />
     <Compile Include="UI\Components\TankSticker.cs" />
@@ -140,6 +142,10 @@
     <Compile Include="UI\MainForm.cs" />
     <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaintenanceEditDlg.cs" />
+    <Compile Include="UI\MaintenanceEditDlg.Designer.cs">
+      <DependentUpon>MaintenanceEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainView.cs" />
     <Compile Include="UI\SpeciesEditDlg.cs" />

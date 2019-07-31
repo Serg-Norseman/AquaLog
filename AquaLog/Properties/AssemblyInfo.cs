@@ -5,5 +5,5 @@ using System.Reflection;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyProduct("AquaLog")]
 [assembly: AssemblyCopyright("Copyright © 2019 by Sergey V. Zhdanovskih")]
-[assembly: AssemblyVersion("0.1.16.0")]
+[assembly: AssemblyVersion("0.1.17.0")]
 [assembly: AssemblyCulture("")]
