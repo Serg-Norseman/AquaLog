@@ -28,6 +28,8 @@ namespace AquaLog.UI
         private WaterChangePanel fWaterChangePanel;
         private DevicePanel fDevicePanel;
         private MaintenancePanel fMaintenancePanel;
+        private HistoryPanel fHistoryPanel;
+        private NotePanel fNotePanel;
 
 
         public MainForm()
@@ -133,11 +135,13 @@ namespace AquaLog.UI
                 case MainView.Expenses:
                     break;
                 case MainView.Notes:
+                    SetView<NotePanel>(ref fNotePanel);
                     break;
                 case MainView.WaterChanges:
                     SetView<WaterChangePanel>(ref fWaterChangePanel);
                     break;
                 case MainView.History:
+                    SetView<HistoryPanel>(ref fHistoryPanel);
                     break;
                 case MainView.Maintenance:
                     SetView<MaintenancePanel>(ref fMaintenancePanel);

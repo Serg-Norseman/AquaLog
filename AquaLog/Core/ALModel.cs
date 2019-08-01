@@ -237,6 +237,11 @@ namespace AquaLog.Core
             return fDB.Query<Device>("select * from Pump");
         }
 
+        public IList<History> QueryHistory()
+        {
+            return fDB.Query<History>("select * from History order by [DateTime]");
+        }
+
         public IList<Maintenance> QueryMaintenances()
         {
             return fDB.Query<Maintenance>("select * from Maintenance order by [DateTime]");
@@ -273,6 +278,11 @@ namespace AquaLog.Core
         }
 
         #region Note functions
+
+        public IEnumerable<Note> QueryNotes()
+        {
+            return fDB.Query<Note>("select * from Note");
+        }
 
         public IEnumerable<Note> QueryNotes(Aquarium aquarium)
         {

@@ -70,9 +70,11 @@
     <Compile Include="UI\Components\Browser.cs" />
     <Compile Include="UI\Components\ComboItem.cs" />
     <Compile Include="UI\Components\DevicePanel.cs" />
+    <Compile Include="UI\Components\HistoryPanel.cs" />
     <Compile Include="UI\Components\InhabitantPanel.cs" />
     <Compile Include="UI\Components\ListBrowser.cs" />
     <Compile Include="UI\Components\MaintenancePanel.cs" />
+    <Compile Include="UI\Components\NotePanel.cs" />
     <Compile Include="UI\Components\SpeciesPanel.cs" />
     <Compile Include="UI\Components\TanksPanel.cs" />
     <Compile Include="UI\Components\TankSticker.cs" />
@@ -135,6 +137,10 @@
     <Compile Include="UI\DeviceEditDlg.Designer.cs">
       <DependentUpon>DeviceEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\HistoryEditDlg.cs" />
+    <Compile Include="UI\HistoryEditDlg.Designer.cs">
+      <DependentUpon>HistoryEditDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\InhabitantEditDlg.cs" />
     <Compile Include="UI\InhabitantEditDlg.Designer.cs">
       <DependentUpon>InhabitantEditDlg.cs</DependentUpon>
@@ -148,6 +154,10 @@
       <DependentUpon>MaintenanceEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainView.cs" />
+    <Compile Include="UI\NoteEditDlg.cs" />
+    <Compile Include="UI\NoteEditDlg.Designer.cs">
+      <DependentUpon>NoteEditDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SpeciesEditDlg.cs" />
     <Compile Include="UI\SpeciesEditDlg.Designer.cs">
       <DependentUpon>SpeciesEditDlg.cs</DependentUpon>

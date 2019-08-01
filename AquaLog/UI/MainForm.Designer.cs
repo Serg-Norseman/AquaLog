@@ -298,7 +298,6 @@
             // 
             // btnNotes
             // 
-            this.btnNotes.Enabled = false;
             this.btnNotes.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNotes.Name = "btnNotes";
             this.btnNotes.Size = new System.Drawing.Size(52, 24);
@@ -317,7 +316,6 @@
             // 
             // btnHistory
             // 
-            this.btnHistory.Enabled = false;
             this.btnHistory.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnHistory.Name = "btnHistory";
             this.btnHistory.Size = new System.Drawing.Size(60, 24);
