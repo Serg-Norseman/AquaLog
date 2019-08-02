@@ -17,6 +17,12 @@
         private System.Windows.Forms.Label lblDate;
         private System.Windows.Forms.Label lblCause;
         private System.Windows.Forms.TextBox txtCause;
+        private System.Windows.Forms.TextBox txtQty;
+        private System.Windows.Forms.Label lblQty;
+        private System.Windows.Forms.TextBox txtUnitPrice;
+        private System.Windows.Forms.Label lblUnitPrice;
+        private System.Windows.Forms.Label lblShop;
+        private System.Windows.Forms.ComboBox cmbShop;
         
         protected override void Dispose(bool disposing)
         {
@@ -44,11 +50,17 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.lblCause = new System.Windows.Forms.Label();
             this.txtCause = new System.Windows.Forms.TextBox();
+            this.txtQty = new System.Windows.Forms.TextBox();
+            this.lblQty = new System.Windows.Forms.Label();
+            this.txtUnitPrice = new System.Windows.Forms.TextBox();
+            this.lblUnitPrice = new System.Windows.Forms.Label();
+            this.lblShop = new System.Windows.Forms.Label();
+            this.cmbShop = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(217, 234);
+            this.btnAccept.Location = new System.Drawing.Point(218, 286);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 30);
             this.btnAccept.TabIndex = 0;
@@ -60,7 +72,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(319, 234);
+            this.btnCancel.Location = new System.Drawing.Point(320, 286);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 30);
             this.btnCancel.TabIndex = 1;
@@ -96,10 +108,11 @@
             // 
             this.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbType.FormattingEnabled = true;
-            this.cmbType.Location = new System.Drawing.Point(147, 150);
+            this.cmbType.Location = new System.Drawing.Point(104, 150);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(169, 21);
             this.cmbType.TabIndex = 6;
+            this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
             // lblTarget
             // 
@@ -136,7 +149,7 @@
             // 
             // dtpDate
             // 
-            this.dtpDate.Location = new System.Drawing.Point(147, 116);
+            this.dtpDate.Location = new System.Drawing.Point(104, 116);
             this.dtpDate.Name = "dtpDate";
             this.dtpDate.Size = new System.Drawing.Size(142, 22);
             this.dtpDate.TabIndex = 8;
@@ -159,25 +172,76 @@
             // 
             // txtCause
             // 
-            this.txtCause.Location = new System.Drawing.Point(147, 183);
+            this.txtCause.Location = new System.Drawing.Point(104, 183);
             this.txtCause.Name = "txtCause";
-            this.txtCause.Size = new System.Drawing.Size(268, 22);
+            this.txtCause.Size = new System.Drawing.Size(311, 22);
             this.txtCause.TabIndex = 5;
             // 
-            // TransferDlg
+            // txtQty
+            // 
+            this.txtQty.Location = new System.Drawing.Point(104, 216);
+            this.txtQty.Name = "txtQty";
+            this.txtQty.Size = new System.Drawing.Size(91, 22);
+            this.txtQty.TabIndex = 10;
+            // 
+            // lblQty
+            // 
+            this.lblQty.Location = new System.Drawing.Point(12, 219);
+            this.lblQty.Name = "lblQty";
+            this.lblQty.Size = new System.Drawing.Size(100, 21);
+            this.lblQty.TabIndex = 9;
+            this.lblQty.Text = "Qty";
+            // 
+            // txtUnitPrice
+            // 
+            this.txtUnitPrice.Location = new System.Drawing.Point(324, 216);
+            this.txtUnitPrice.Name = "txtUnitPrice";
+            this.txtUnitPrice.Size = new System.Drawing.Size(91, 22);
+            this.txtUnitPrice.TabIndex = 12;
+            // 
+            // lblUnitPrice
+            // 
+            this.lblUnitPrice.Location = new System.Drawing.Point(214, 219);
+            this.lblUnitPrice.Name = "lblUnitPrice";
+            this.lblUnitPrice.Size = new System.Drawing.Size(100, 21);
+            this.lblUnitPrice.TabIndex = 11;
+            this.lblUnitPrice.Text = "Unit Price";
+            // 
+            // lblShop
+            // 
+            this.lblShop.Location = new System.Drawing.Point(12, 250);
+            this.lblShop.Name = "lblShop";
+            this.lblShop.Size = new System.Drawing.Size(110, 21);
+            this.lblShop.TabIndex = 2;
+            this.lblShop.Text = "Shop";
+            // 
+            // cmbShop
+            // 
+            this.cmbShop.Location = new System.Drawing.Point(104, 247);
+            this.cmbShop.Name = "cmbShop";
+            this.cmbShop.Size = new System.Drawing.Size(311, 21);
+            this.cmbShop.TabIndex = 5;
+            // 
+            // TransferEditDlg
             // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(428, 276);
+            this.ClientSize = new System.Drawing.Size(428, 328);
+            this.Controls.Add(this.txtUnitPrice);
+            this.Controls.Add(this.lblUnitPrice);
+            this.Controls.Add(this.txtQty);
+            this.Controls.Add(this.lblQty);
             this.Controls.Add(this.dtpDate);
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.cmbType);
+            this.Controls.Add(this.cmbShop);
             this.Controls.Add(this.cmbTarget);
             this.Controls.Add(this.txtCause);
             this.Controls.Add(this.cmbSource);
             this.Controls.Add(this.txtName);
+            this.Controls.Add(this.lblShop);
             this.Controls.Add(this.lblCause);
             this.Controls.Add(this.lblTarget);
             this.Controls.Add(this.lblSource);
@@ -189,7 +253,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "TransferDlg";
+            this.Name = "TransferEditDlg";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

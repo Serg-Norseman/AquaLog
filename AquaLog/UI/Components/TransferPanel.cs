@@ -25,6 +25,9 @@ namespace AquaLog.Components
             ListView.Columns.Add("Cause", 80, HorizontalAlignment.Right);
             ListView.Columns.Add("Source", 80, HorizontalAlignment.Left);
             ListView.Columns.Add("Target", 80, HorizontalAlignment.Left);
+            ListView.Columns.Add("Qty", 80, HorizontalAlignment.Right);
+            ListView.Columns.Add("UnitPrice", 80, HorizontalAlignment.Right);
+            ListView.Columns.Add("Shop", 180, HorizontalAlignment.Left);
         }
 
         protected override void InitActions()
@@ -53,6 +56,9 @@ namespace AquaLog.Components
                 item.SubItems.Add(rec.Cause);
                 item.SubItems.Add((aqmSour == null) ? string.Empty : aqmSour.Name);
                 item.SubItems.Add((aqmTarg == null) ? string.Empty : aqmTarg.Name);
+                item.SubItems.Add(rec.Quantity.ToString());
+                item.SubItems.Add(ALCore.GetDecimalStr(rec.UnitPrice));
+                item.SubItems.Add(rec.Shop);
                 ListView.Items.Add(item);
             }
         }

@@ -35,12 +35,10 @@ namespace AquaLog.Core
             fDB.CreateTable<Light>();
             fDB.CreateTable<Pump>();
 
-            fDB.CreateTable<Expense>();
             fDB.CreateTable<Note>();
             fDB.CreateTable<WaterChange>();
             fDB.CreateTable<History>();
             fDB.CreateTable<Maintenance>();
-
             fDB.CreateTable<Transfer>();
         }
 
@@ -49,6 +47,7 @@ namespace AquaLog.Core
         /// </summary>
         public void CleanSpace()
         {
+            fDB.Execute("drop table if exists Expense");
             fDB.Execute("VACUUM;");
         }
 
@@ -145,19 +144,17 @@ namespace AquaLog.Core
         {
             public ItemType ItemType { get; set; }
             public int ItemId { get; set; }
-        }
-
-        private class InhVal
-        {
+            public TransferType Type { get; set; }
             public int Quantity { get; set; }
         }
 
         public int QueryInhabitantsCount(int aquariumId)
         {
             int result = 0;
-            var qv = fDB.Query<TransferVal>("select ItemType, ItemId from Transfer where TargetId = ?", aquariumId);
+            var qv = fDB.Query<TransferVal>("select ItemType, ItemId, Type, Quantity from Transfer where TargetId = ?", aquariumId);
             foreach (var val in qv) {
-                string tableName = "";
+                // Useful in the future
+                /*string tableName = "";
                 switch (val.ItemType) {
                     case ItemType.Fish:
                         tableName = "Fish";
@@ -171,8 +168,33 @@ namespace AquaLog.Core
                 }
                 string query = string.Format("select Quantity from {0} where Id = ?", tableName);
                 var frecs = fDB.Query<InhVal>(query, val.ItemId);
-                int qty = (frecs.Count > 0) ? frecs[0].Quantity : 0;
-                result += qty;
+                int qty = (frecs.Count > 0) ? frecs[0].Quantity : 0;*/
+
+                // FIXME: transfer types +/- birth, death and etc
+                result += val.Quantity;
+            }
+            return result;
+        }
+
+        public int QueryInhabitantsCount(int itemId, ItemType itemType)
+        {
+            int result = 0;
+            var qv = fDB.Query<TransferVal>("select Type, Quantity from Transfer where ItemType = ? and ItemId = ?", (int)itemType, itemId);
+            foreach (var val in qv) {
+                int factor = 0;
+                switch (val.Type) {
+                    case TransferType.Relocation:
+                        break;
+                    case TransferType.Purchase:
+                    case TransferType.Birth:
+                        factor = +1;
+                        break;
+                    case TransferType.Sale:
+                    case TransferType.Death:
+                        factor = -1;
+                        break;
+                }
+                result += (val.Quantity * factor);
             }
             return result;
         }
@@ -221,6 +243,8 @@ namespace AquaLog.Core
 
         #endregion
 
+        #region Species functions
+
         public IList<Species> QuerySpecies()
         {
             return fDB.Query<Species>("select * from Species");
@@ -231,21 +255,37 @@ namespace AquaLog.Core
             return fDB.Query<Species>("select * from Species where [Type] = ?", type);
         }
 
+        #endregion
+
+        #region Device functions
+
         // FIXME: debug table name
         public IList<Device> QueryDevices()
         {
             return fDB.Query<Device>("select * from Pump");
         }
 
+        #endregion
+
+        #region History functions
+
         public IList<History> QueryHistory()
         {
             return fDB.Query<History>("select * from History order by [DateTime]");
         }
 
+        #endregion
+
+        #region Maintenance functions
+
         public IList<Maintenance> QueryMaintenances()
         {
             return fDB.Query<Maintenance>("select * from Maintenance order by [DateTime]");
         }
+
+        #endregion
+
+        #region WaterChange functions
 
         public IList<WaterChange> QueryWaterChanges()
         {
@@ -256,6 +296,10 @@ namespace AquaLog.Core
         {
             return fDB.Query<WaterChange>("select * from WaterChange where (AquariumId = ?) order by [ChangeDate]", aquariumId);
         }
+
+        #endregion
+
+        #region Transfer functions
 
         public IList<Transfer> QueryTransfers()
         {
@@ -277,6 +321,8 @@ namespace AquaLog.Core
             return fDB.Query<Transfer>("select * from Transfer where (ItemId = ? and ItemType = ?) order by [Date] desc", itemId, itemType);
         }
 
+        #endregion
+
         #region Note functions
 
         public IEnumerable<Note> QueryNotes()
@@ -293,9 +339,9 @@ namespace AquaLog.Core
 
         #region Expense functions
 
-        public IEnumerable<Expense> QueryExpenses()
+        public IEnumerable<Transfer> QueryExpenses()
         {
-            return fDB.Query<Expense>("select * from Expense");
+            return fDB.Query<Transfer>("select Date, ItemType, ItemId, Type, Quantity, UnitPrice, Shop from Transfer");
         }
 
         public float GetTotalExpense()

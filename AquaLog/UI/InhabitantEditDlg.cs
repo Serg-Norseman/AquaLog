@@ -62,7 +62,6 @@ namespace AquaLog.UI
             txtName.Text = fInhabitant.Name;
             txtNote.Text = fInhabitant.Note;
             cmbSpecies.SelectedItem = species.FirstOrDefault(sp => sp.Id == fInhabitant.SpeciesId);
-            txtQty.Text = fInhabitant.Quantity.ToString();
 
             if (fInhabitant is Animal) {
                 cmbSex.SelectedIndex = (int)((Animal)fInhabitant).Sex;
@@ -79,7 +78,6 @@ namespace AquaLog.UI
             fInhabitant.Name = txtName.Text;
             fInhabitant.Note = txtNote.Text;
             fInhabitant.SpeciesId = spc.Id;
-            fInhabitant.Quantity = int.Parse(txtQty.Text);
 
             if (fInhabitant is Animal) {
                 ((Animal)fInhabitant).Sex = (Sex)cmbSex.SelectedIndex;

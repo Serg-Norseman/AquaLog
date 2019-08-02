@@ -31,6 +31,15 @@ namespace AquaLog.Core.Model
         public int SourceId { get; set; }
         public int TargetId { get; set; }
 
+        public int Quantity { get; set; }
+
+        #region Expenses and Revenues
+
+        public float UnitPrice { get; set; }
+        public string Shop { get; set; }
+
+        #endregion
+
 
         public Transfer()
         {

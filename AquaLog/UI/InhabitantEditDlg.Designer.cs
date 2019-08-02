@@ -13,8 +13,6 @@
         private System.Windows.Forms.TextBox txtNote;
         private System.Windows.Forms.Label lblSpecies;
         private System.Windows.Forms.ComboBox cmbSpecies;
-        private System.Windows.Forms.Label lblQty;
-        private System.Windows.Forms.TextBox txtQty;
         
         protected override void Dispose(bool disposing)
         {
@@ -38,8 +36,6 @@
             this.txtNote = new System.Windows.Forms.TextBox();
             this.lblSpecies = new System.Windows.Forms.Label();
             this.cmbSpecies = new System.Windows.Forms.ComboBox();
-            this.lblQty = new System.Windows.Forms.Label();
-            this.txtQty = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnAccept
@@ -127,22 +123,7 @@
             this.cmbSpecies.Size = new System.Drawing.Size(311, 21);
             this.cmbSpecies.TabIndex = 5;
             // 
-            // lblQty
-            // 
-            this.lblQty.Location = new System.Drawing.Point(421, 54);
-            this.lblQty.Name = "lblQty";
-            this.lblQty.Size = new System.Drawing.Size(100, 21);
-            this.lblQty.TabIndex = 3;
-            this.lblQty.Text = "Qty";
-            // 
-            // txtQty
-            // 
-            this.txtQty.Location = new System.Drawing.Point(471, 51);
-            this.txtQty.Name = "txtQty";
-            this.txtQty.Size = new System.Drawing.Size(169, 22);
-            this.txtQty.TabIndex = 5;
-            // 
-            // FishEditDlg
+            // InhabitantEditDlg
             // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -152,11 +133,9 @@
             this.Controls.Add(this.txtNote);
             this.Controls.Add(this.cmbSex);
             this.Controls.Add(this.cmbSpecies);
-            this.Controls.Add(this.txtQty);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblNote);
             this.Controls.Add(this.lblSpecies);
-            this.Controls.Add(this.lblQty);
             this.Controls.Add(this.lblSex);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.btnCancel);
@@ -165,7 +144,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FishEditDlg";
+            this.Name = "InhabitantEditDlg";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

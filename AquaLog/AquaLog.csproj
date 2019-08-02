@@ -19,6 +19,7 @@
     <WarningLevel>4</WarningLevel>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <ApplicationIcon>Resources\icon_aqualog.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -70,6 +71,7 @@
     <Compile Include="UI\Components\Browser.cs" />
     <Compile Include="UI\Components\ComboItem.cs" />
     <Compile Include="UI\Components\DevicePanel.cs" />
+    <Compile Include="UI\Components\ExpensePanel.cs" />
     <Compile Include="UI\Components\HistoryPanel.cs" />
     <Compile Include="UI\Components\InhabitantPanel.cs" />
     <Compile Include="UI\Components\ListBrowser.cs" />
@@ -90,7 +92,6 @@
     <Compile Include="Core\Model\AquariumDetails.cs" />
     <Compile Include="Core\Model\Device.cs" />
     <Compile Include="Core\Model\Entity.cs" />
-    <Compile Include="Core\Model\Expense.cs" />
     <Compile Include="Core\Model\Fish.cs" />
     <Compile Include="Core\Model\History.cs" />
     <Compile Include="Core\Model\Inhabitant.cs" />

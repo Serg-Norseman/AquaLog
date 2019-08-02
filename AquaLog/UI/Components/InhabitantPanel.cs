@@ -70,7 +70,7 @@ namespace AquaLog.Components
                 string sx = (isAnimal) ? ((Animal)rec).Sex.ToString() : string.Empty;
                 item.SubItems.Add(sx);
 
-                item.SubItems.Add(rec.Quantity.ToString());
+                item.SubItems.Add(fModel.QueryInhabitantsCount(rec.Id, ALCore.GetItemType(rec.GetSpeciesType())).ToString());
                 item.SubItems.Add(spc.Name);
 
                 int currAqmId = 0;
