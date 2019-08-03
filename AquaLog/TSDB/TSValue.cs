@@ -5,30 +5,29 @@
  */
 
 using System;
-using AquaLog.Core.Types;
 using SQLite;
 
-namespace AquaLog.Core.Model
+namespace AquaLog.TSDB
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Measure
+    public class TSValue
     {
-        [Indexed("IDX_Point", 1)]
-        public int AquariumId { get; set; }
-
-        [Indexed("IDX_Point", 2)]
+        [Unique]
         public DateTime Timestamp { get; set; }
-
-        [Indexed("IDX_Point", 3)]
-        public MeasurementType Type { get; set; }
 
         public double Value { get; set; }
 
 
-        public Measure()
+        public TSValue()
         {
+        }
+
+        public TSValue(DateTime timestamp, double value)
+        {
+            Timestamp = timestamp;
+            Value = value;
         }
     }
 }

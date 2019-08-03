@@ -17,7 +17,7 @@ namespace AquaLog.UI
         Species,
         Lights,
         Pumps,
-        Expenses,
+        Budget,
         Notes,
         WaterChanges,
         History,

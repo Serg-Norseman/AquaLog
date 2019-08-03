@@ -33,7 +33,7 @@ namespace AquaLog.Core.Model
 
         public int Quantity { get; set; }
 
-        #region Expenses and Revenues
+        #region Expenses and Incomes
 
         public float UnitPrice { get; set; }
         public string Shop { get; set; }

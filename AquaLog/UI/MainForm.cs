@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Logging;
+using AquaLog.TSDB;
 
 namespace AquaLog.UI
 {
@@ -18,6 +19,7 @@ namespace AquaLog.UI
         private readonly ILogger fLogger;
         private ALModel fModel;
         private NavigationStack<Browser> fNavigationStack;
+        private TSDatabase fTSDB;
 
         private FishPanel fFishPanel;
         private InvertebratePanel fInvertebratePanel;
@@ -30,7 +32,7 @@ namespace AquaLog.UI
         private MaintenancePanel fMaintenancePanel;
         private HistoryPanel fHistoryPanel;
         private NotePanel fNotePanel;
-        private ExpensePanel fExpensePanel;
+        private BudgetPanel fExpensePanel;
 
 
         public MainForm()
@@ -42,6 +44,7 @@ namespace AquaLog.UI
             fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");
             fModel = new ALModel();
             fNavigationStack = new NavigationStack<Browser>();
+            fTSDB = new TSDatabase();
 
             SetSettings();
             UpdateControls();
@@ -60,7 +63,7 @@ namespace AquaLog.UI
             btnSpecies.Tag = MainView.Species;
             btnLights.Tag = MainView.Lights;
             btnPumps.Tag = MainView.Pumps;
-            btnExpenses.Tag = MainView.Expenses;
+            btnBudget.Tag = MainView.Budget;
             btnNotes.Tag = MainView.Notes;
             btnWaterChanges.Tag = MainView.WaterChanges;
             btnHistory.Tag = MainView.History;
@@ -133,8 +136,8 @@ namespace AquaLog.UI
                 case MainView.Pumps:
                     SetView<DevicePanel>(ref fDevicePanel);
                     break;
-                case MainView.Expenses:
-                    SetView<ExpensePanel>(ref fExpensePanel);
+                case MainView.Budget:
+                    SetView<BudgetPanel>(ref fExpensePanel);
                     break;
                 case MainView.Notes:
                     SetView<NotePanel>(ref fNotePanel);

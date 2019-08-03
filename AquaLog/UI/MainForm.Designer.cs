@@ -24,7 +24,7 @@
         private System.Windows.Forms.ToolStripButton btnLights;
         private System.Windows.Forms.ToolStripButton btnPumps;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripButton btnExpenses;
+        private System.Windows.Forms.ToolStripButton btnBudget;
         private System.Windows.Forms.ToolStripButton btnNotes;
         private System.Windows.Forms.ToolStripButton btnWaterChanges;
         private System.Windows.Forms.ToolStripButton btnHistory;
@@ -72,7 +72,7 @@
             this.btnLights = new System.Windows.Forms.ToolStripButton();
             this.btnPumps = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.btnExpenses = new System.Windows.Forms.ToolStripButton();
+            this.btnBudget = new System.Windows.Forms.ToolStripButton();
             this.btnNotes = new System.Windows.Forms.ToolStripButton();
             this.btnWaterChanges = new System.Windows.Forms.ToolStripButton();
             this.btnHistory = new System.Windows.Forms.ToolStripButton();
@@ -176,7 +176,7 @@
             this.btnLights,
             this.btnPumps,
             this.toolStripSeparator3,
-            this.btnExpenses,
+            this.btnBudget,
             this.btnNotes,
             this.btnWaterChanges,
             this.btnHistory,
@@ -286,14 +286,14 @@
             this.toolStripSeparator3.Name = "toolStripSeparator3";
             this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
             // 
-            // btnExpenses
+            // btnBudget
             // 
-            this.btnExpenses.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnExpenses.Name = "btnExpenses";
-            this.btnExpenses.Size = new System.Drawing.Size(58, 22);
-            this.btnExpenses.Text = "Expenses";
-            this.btnExpenses.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnExpenses.Click += new System.EventHandler(this.btnMainView_Click);
+            this.btnBudget.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnBudget.Name = "btnBudget";
+            this.btnBudget.Size = new System.Drawing.Size(58, 22);
+            this.btnBudget.Text = "Budget";
+            this.btnBudget.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnBudget.Click += new System.EventHandler(this.btnMainView_Click);
             // 
             // btnNotes
             // 

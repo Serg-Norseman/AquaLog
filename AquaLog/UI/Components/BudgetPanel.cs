@@ -9,16 +9,15 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
-using AquaLog.UI;
 
 namespace AquaLog.Components
 {
     /// <summary>
     /// 
     /// </summary>
-    public class ExpensePanel : ListBrowser
+    public class BudgetPanel : ListBrowser
     {
-        public ExpensePanel()
+        public BudgetPanel()
         {
             ListView.Columns.Add("Item", 140, HorizontalAlignment.Left);
             ListView.Columns.Add("Date", 80, HorizontalAlignment.Left);
@@ -28,10 +27,6 @@ namespace AquaLog.Components
             ListView.Columns.Add("Shop", 180, HorizontalAlignment.Left);
         }
 
-        protected override void InitActions()
-        {
-        }
-
         public override void UpdateContent()
         {
             ListView.Items.Clear();
@@ -39,8 +34,6 @@ namespace AquaLog.Components
 
             var records = fModel.QueryExpenses();
             foreach (Transfer rec in records) {
-                string itName = fModel.GetRecordName(rec.ItemType, rec.ItemId);
-
                 int factor = 0;
                 switch (rec.Type) {
                     case TransferType.Purchase:
@@ -52,6 +45,7 @@ namespace AquaLog.Components
                 }
 
                 if (factor != 0) {
+                    string itName = fModel.GetRecordName(rec.ItemType, rec.ItemId);
                     double sum = (rec.Quantity * rec.UnitPrice * factor);
                     var item = new ListViewItem(itName);
                     item.Tag = rec;
