@@ -36,6 +36,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem miHelp;
         private System.Windows.Forms.ToolStripMenuItem miAbout;
+        private System.Windows.Forms.ToolStripButton btnTSDB;
         
         protected override void Dispose(bool disposing)
         {
@@ -83,6 +84,7 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnTSDB = new System.Windows.Forms.ToolStripButton();
             this.menuMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlTools.SuspendLayout();
@@ -181,7 +183,8 @@
             this.btnWaterChanges,
             this.btnHistory,
             this.btnMaintenance,
-            this.btnTransfers});
+            this.btnTransfers,
+            this.btnTSDB});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1050, 25);
@@ -290,7 +293,7 @@
             // 
             this.btnBudget.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnBudget.Name = "btnBudget";
-            this.btnBudget.Size = new System.Drawing.Size(58, 22);
+            this.btnBudget.Size = new System.Drawing.Size(49, 22);
             this.btnBudget.Text = "Budget";
             this.btnBudget.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnBudget.Click += new System.EventHandler(this.btnMainView_Click);
@@ -389,6 +392,15 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
+            // 
+            // btnTSDB
+            // 
+            this.btnTSDB.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTSDB.Name = "btnTSDB";
+            this.btnTSDB.Size = new System.Drawing.Size(39, 22);
+            this.btnTSDB.Text = "TSDB";
+            this.btnTSDB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnTSDB.Click += new System.EventHandler(this.btnMainView_Click);
             // 
             // MainForm
             // 

@@ -12,7 +12,7 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public class ListBrowser : Browser
+    public class ListPanel : DataPanel
     {
         private readonly ListView fListView;
 
@@ -22,7 +22,7 @@ namespace AquaLog.Components
         }
 
 
-        public ListBrowser()
+        public ListPanel()
         {
             Padding = new Padding(10);
 

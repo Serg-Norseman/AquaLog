@@ -10,16 +10,14 @@ using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Logging;
-using AquaLog.TSDB;
 
 namespace AquaLog.UI
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IBrowser
     {
         private readonly ILogger fLogger;
         private ALModel fModel;
-        private NavigationStack<Browser> fNavigationStack;
-        private TSDatabase fTSDB;
+        private NavigationStack<DataPanel> fNavigationStack;
 
         private FishPanel fFishPanel;
         private InvertebratePanel fInvertebratePanel;
@@ -33,6 +31,8 @@ namespace AquaLog.UI
         private HistoryPanel fHistoryPanel;
         private NotePanel fNotePanel;
         private BudgetPanel fExpensePanel;
+        private TSDBPanel fTSDBPanel;
+        private TSValuePanel fTSValuePanel;
 
 
         public MainForm()
@@ -43,8 +43,7 @@ namespace AquaLog.UI
 
             fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");
             fModel = new ALModel();
-            fNavigationStack = new NavigationStack<Browser>();
-            fTSDB = new TSDatabase();
+            fNavigationStack = new NavigationStack<DataPanel>();
 
             SetSettings();
             UpdateControls();
@@ -69,8 +68,9 @@ namespace AquaLog.UI
             btnHistory.Tag = MainView.History;
             btnMaintenance.Tag = MainView.Maintenance;
             btnTransfers.Tag = MainView.Transfers;
+            btnTSDB.Tag = MainView.TSDB;
 
-            SetView(ref fTanksPanel);
+            SetView(MainView.Tanks, null);
         }
 
         private void UpdateControls()
@@ -109,52 +109,7 @@ namespace AquaLog.UI
         {
             var btn = sender as ToolStripButton;
             var mainView = (MainView)btn.Tag;
-
-            switch (mainView) {
-                case MainView.Prev:
-                    SetView(fNavigationStack.Back());
-                    break;
-                case MainView.Next:
-                    SetView(fNavigationStack.Next());
-                    break;
-                case MainView.Tanks:
-                    SetView<TanksPanel>(ref fTanksPanel);
-                    break;
-                case MainView.Fishes:
-                    SetView<FishPanel>(ref fFishPanel);
-                    break;
-                case MainView.Invertebrates:
-                    SetView<InvertebratePanel>(ref fInvertebratePanel);
-                    break;
-                case MainView.Plants:
-                    SetView<PlantPanel>(ref fPlantPanel);
-                    break;
-                case MainView.Species:
-                    SetView<SpeciesPanel>(ref fSpeciesPanel);
-                    break;
-                case MainView.Lights:
-                case MainView.Pumps:
-                    SetView<DevicePanel>(ref fDevicePanel);
-                    break;
-                case MainView.Budget:
-                    SetView<BudgetPanel>(ref fExpensePanel);
-                    break;
-                case MainView.Notes:
-                    SetView<NotePanel>(ref fNotePanel);
-                    break;
-                case MainView.WaterChanges:
-                    SetView<WaterChangePanel>(ref fWaterChangePanel);
-                    break;
-                case MainView.History:
-                    SetView<HistoryPanel>(ref fHistoryPanel);
-                    break;
-                case MainView.Maintenance:
-                    SetView<MaintenancePanel>(ref fMaintenancePanel);
-                    break;
-                case MainView.Transfers:
-                    SetView<TransferPanel>(ref fTransferPanel);
-                    break;
-            }
+            SetView(mainView, null);
         }
 
         private void miCleanSpace_Click(object sender, EventArgs e)
@@ -173,7 +128,7 @@ namespace AquaLog.UI
 
         #region Views functions
 
-        private void SetActions(Browser browser)
+        private void SetActions(DataPanel browser)
         {
             for (int i = pnlTools.Controls.Count - 1; i >= 0; i--) {
                 if (pnlTools.Controls[i] is Button) {
@@ -199,10 +154,67 @@ namespace AquaLog.UI
             }
         }
 
-        private void SetView<T>(ref T view) where T : Browser, new()
+        public void SetView(MainView mainView, object extData)
+        {
+            switch (mainView) {
+                case MainView.Prev:
+                    SetView(fNavigationStack.Back());
+                    break;
+                case MainView.Next:
+                    SetView(fNavigationStack.Next());
+                    break;
+                case MainView.Tanks:
+                    SetView<TanksPanel>(ref fTanksPanel, extData);
+                    break;
+                case MainView.Fishes:
+                    SetView<FishPanel>(ref fFishPanel, extData);
+                    break;
+                case MainView.Invertebrates:
+                    SetView<InvertebratePanel>(ref fInvertebratePanel, extData);
+                    break;
+                case MainView.Plants:
+                    SetView<PlantPanel>(ref fPlantPanel, extData);
+                    break;
+                case MainView.Species:
+                    SetView<SpeciesPanel>(ref fSpeciesPanel, extData);
+                    break;
+                case MainView.Lights:
+                case MainView.Pumps:
+                    SetView<DevicePanel>(ref fDevicePanel, extData);
+                    break;
+                case MainView.Budget:
+                    SetView<BudgetPanel>(ref fExpensePanel, extData);
+                    break;
+                case MainView.Notes:
+                    SetView<NotePanel>(ref fNotePanel, extData);
+                    break;
+                case MainView.WaterChanges:
+                    SetView<WaterChangePanel>(ref fWaterChangePanel, extData);
+                    break;
+                case MainView.History:
+                    SetView<HistoryPanel>(ref fHistoryPanel, extData);
+                    break;
+                case MainView.Maintenance:
+                    SetView<MaintenancePanel>(ref fMaintenancePanel, extData);
+                    break;
+                case MainView.Transfers:
+                    SetView<TransferPanel>(ref fTransferPanel, extData);
+                    break;
+                case MainView.TSDB:
+                    SetView<TSDBPanel>(ref fTSDBPanel, extData);
+                    break;
+                case MainView.TSValues:
+                    SetView<TSValuePanel>(ref fTSValuePanel, extData);
+                    break;
+            }
+        }
+
+        private void SetView<T>(ref T view, object extData) where T : DataPanel, new()
         {
             if (view == null) {
                 view = new T();
+                view.Browser = this;
+                view.SetExtData(extData);
                 view.Model = fModel;
             }
 
@@ -210,7 +222,7 @@ namespace AquaLog.UI
             SetView(view);
         }
 
-        private void SetView(Browser view)
+        private void SetView(DataPanel view)
         {
             pnlClient.Controls.Clear();
             if (view == null) {

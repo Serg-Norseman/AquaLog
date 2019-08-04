@@ -17,7 +17,7 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public class InhabitantPanel : ListBrowser
+    public class InhabitantPanel : ListPanel
     {
         private ColumnHeader fSexColumn;
         protected SpeciesType fType;

@@ -7,7 +7,7 @@
 using System;
 using System.Windows.Forms;
 using AquaLog.Core;
-using AquaLog.Core.Model;
+using AquaLog.TSDB;
 using AquaLog.UI;
 
 namespace AquaLog.Components
@@ -15,16 +15,27 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public class DevicePanel : ListPanel
+    public class TSValuePanel : ListPanel
     {
-        public DevicePanel()
+        private int fPointId;
+
+        public int PointId
         {
-            ListView.Columns.Add("Aquarium", 200, HorizontalAlignment.Left);
-            ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Enabled", 60, HorizontalAlignment.Left);
-            ListView.Columns.Add("Digital", 60, HorizontalAlignment.Left);
-            ListView.Columns.Add("Brand", 50, HorizontalAlignment.Left);
-            ListView.Columns.Add("Wattage", 100, HorizontalAlignment.Right);
+            get { return fPointId; }
+            set { fPointId = value; }
+        }
+
+
+        public TSValuePanel()
+        {
+            ListView.Columns.Add("Timestamp", 140, HorizontalAlignment.Left);
+            ListView.Columns.Add("Value", 120, HorizontalAlignment.Right);
+        }
+
+        public override void SetExtData(object extData)
+        {
+            int pointId = (int)extData;
+            fPointId = pointId;
         }
 
         protected override void InitActions()
@@ -39,31 +50,25 @@ namespace AquaLog.Components
             ListView.Items.Clear();
             if (fModel == null) return;
 
-            var records = fModel.QueryDevices();
-            foreach (Device rec in records) {
-                Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
-                string aqmName = (aqm == null) ? "" : aqm.Name;
+            TSDatabase tsdb = fModel.TSDB;
 
-                var item = new ListViewItem(aqmName);
+            var records = tsdb.QueryValues(fPointId, DateTime.Now.AddDays(-10), DateTime.Now);
+            foreach (TSValue rec in records) {
+                var item = new ListViewItem(rec.Timestamp.ToString());
                 item.Tag = rec;
-                item.SubItems.Add(rec.Name);
-                item.SubItems.Add(rec.Enabled.ToString());
-                item.SubItems.Add(rec.Digital.ToString());
-                item.SubItems.Add(rec.Brand);
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Wattage));
+                item.SubItems.Add(ALCore.GetDecimalStr(rec.Value));
                 ListView.Items.Add(item);
             }
         }
 
         protected override void AddHandler(object sender, EventArgs e)
         {
-            Device record = new Device();
+            TSValue record = new TSValue();
 
-            using (var dlg = new DeviceEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Device = record;
+            using (var dlg = new TSValueEditDlg()) {
+                dlg.Value = record;
                 if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(record);
+                    fModel.TSDB.InsertValue(fPointId, record.Timestamp, record.Value);
                     UpdateContent();
                 }
             }
@@ -74,14 +79,13 @@ namespace AquaLog.Components
             var selectedItem = ALCore.GetSelectedItem(ListView);
             if (selectedItem == null) return;
 
-            var record = selectedItem.Tag as Device;
+            var record = selectedItem.Tag as TSValue;
             if (record == null) return;
 
-            using (var dlg = new DeviceEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Device = record;
+            using (var dlg = new TSValueEditDlg()) {
+                dlg.Value = record;
                 if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.UpdateRecord(record);
+                    fModel.TSDB.UpdateValue(fPointId, record.Timestamp, record.Value);
                     UpdateContent();
                 }
             }
@@ -92,7 +96,10 @@ namespace AquaLog.Components
             var selectedItem = ALCore.GetSelectedItem(ListView);
             if (selectedItem == null) return;
 
-            fModel.DeleteRecord(selectedItem.Tag as Device);
+            var record = selectedItem.Tag as TSValue;
+            if (record == null) return;
+
+            fModel.TSDB.DeleteValue(fPointId, record.Timestamp);
             UpdateContent();
         }
     }

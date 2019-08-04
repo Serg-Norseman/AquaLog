@@ -23,5 +23,7 @@ namespace AquaLog.UI
         History,
         Maintenance,
         Transfers,
+        TSDB,
+        TSValues,
     }
 }

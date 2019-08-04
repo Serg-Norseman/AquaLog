@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
+using AquaLog.TSDB;
 using SQLite;
 
 namespace AquaLog.Core
@@ -19,9 +20,19 @@ namespace AquaLog.Core
     public class ALModel
     {
         private readonly SQLiteConnection fDB;
+        private TSDatabase fTSDB;
+
+
+        public TSDatabase TSDB
+        {
+            get { return fTSDB; }
+        }
+
 
         public ALModel()
         {
+            fTSDB = new TSDatabase();
+
             var databasePath = Path.Combine(ALCore.GetAppDataPath(), "ALData.db");
             fDB = new SQLiteConnection(databasePath);
 

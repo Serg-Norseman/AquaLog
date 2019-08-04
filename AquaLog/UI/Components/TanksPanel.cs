@@ -15,7 +15,7 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public class TanksPanel : Browser
+    public class TanksPanel : DataPanel
     {
         private ContextMenu fContextMenu;
         private FlowLayoutPanel fLayoutPanel;

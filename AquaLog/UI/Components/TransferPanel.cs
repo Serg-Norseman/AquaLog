@@ -15,7 +15,7 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public class TransferPanel : ListBrowser
+    public class TransferPanel : ListPanel
     {
         public TransferPanel()
         {

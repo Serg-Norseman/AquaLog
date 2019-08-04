@@ -72,19 +72,21 @@
     <Compile Include="TSDB\TSDatabase.cs" />
     <Compile Include="TSDB\TSValue.cs" />
     <Compile Include="UI\Components\Action.cs" />
-    <Compile Include="UI\Components\Browser.cs" />
+    <Compile Include="UI\Components\DataPanel.cs" />
     <Compile Include="UI\Components\ComboItem.cs" />
     <Compile Include="UI\Components\DevicePanel.cs" />
     <Compile Include="UI\Components\BudgetPanel.cs" />
     <Compile Include="UI\Components\HistoryPanel.cs" />
     <Compile Include="UI\Components\InhabitantPanel.cs" />
-    <Compile Include="UI\Components\ListBrowser.cs" />
+    <Compile Include="UI\Components\ListPanel.cs" />
     <Compile Include="UI\Components\MaintenancePanel.cs" />
     <Compile Include="UI\Components\NotePanel.cs" />
     <Compile Include="UI\Components\SpeciesPanel.cs" />
     <Compile Include="UI\Components\TanksPanel.cs" />
     <Compile Include="UI\Components\TankSticker.cs" />
     <Compile Include="UI\Components\TransferPanel.cs" />
+    <Compile Include="UI\Components\TSDBPanel.cs" />
+    <Compile Include="UI\Components\TSValuePanel.cs" />
     <Compile Include="UI\Components\WaterChangePanel.cs" />
     <Compile Include="UI\Components\WizardPages.cs" />
     <Compile Include="UI\Components\ZGraphControl.cs" />
@@ -144,6 +146,7 @@
     <Compile Include="UI\HistoryEditDlg.Designer.cs">
       <DependentUpon>HistoryEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\IBrowser.cs" />
     <Compile Include="UI\InhabitantEditDlg.cs" />
     <Compile Include="UI\InhabitantEditDlg.Designer.cs">
       <DependentUpon>InhabitantEditDlg.cs</DependentUpon>
@@ -168,6 +171,14 @@
     <Compile Include="UI\TransferEditDlg.cs" />
     <Compile Include="UI\TransferEditDlg.Designer.cs">
       <DependentUpon>TransferEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TSPointEditDlg.cs" />
+    <Compile Include="UI\TSPointEditDlg.Designer.cs">
+      <DependentUpon>TSPointEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TSValueEditDlg.cs" />
+    <Compile Include="UI\TSValueEditDlg.Designer.cs">
+      <DependentUpon>TSValueEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\WaterChangeEditDlg.cs" />
     <Compile Include="UI\WaterChangeEditDlg.Designer.cs">

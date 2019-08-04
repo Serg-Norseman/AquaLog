@@ -15,7 +15,7 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public class WaterChangePanel : ListBrowser
+    public class WaterChangePanel : ListPanel
     {
         public WaterChangePanel()
         {

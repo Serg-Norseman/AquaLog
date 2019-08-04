@@ -9,21 +9,29 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
+using AquaLog.UI;
 
 namespace AquaLog.Components
 {
     /// <summary>
     /// 
     /// </summary>
-    public class Browser : Panel
+    public class DataPanel : Panel
     {
         protected readonly List<Action> fActions;
+        protected IBrowser fBrowser;
         protected ALModel fModel;
 
 
         public List<Action> Actions
         {
             get { return fActions; }
+        }
+
+        public IBrowser Browser
+        {
+            get { return fBrowser; }
+            set { fBrowser = value; }
         }
 
         public ALModel Model
@@ -38,7 +46,7 @@ namespace AquaLog.Components
         }
 
 
-        public Browser()
+        public DataPanel()
         {
             BackColor = SystemColors.Control;
             BorderStyle = BorderStyle.FixedSingle;
@@ -53,6 +61,10 @@ namespace AquaLog.Components
         }
 
         public virtual void UpdateContent()
+        {
+        }
+
+        public virtual void SetExtData(object extData)
         {
         }
     }

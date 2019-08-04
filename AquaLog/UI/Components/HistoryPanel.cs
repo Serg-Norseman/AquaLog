@@ -15,7 +15,7 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public class HistoryPanel : ListBrowser
+    public class HistoryPanel : ListPanel
     {
         public HistoryPanel()
         {

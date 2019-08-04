@@ -15,7 +15,7 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public class BudgetPanel : ListBrowser
+    public class BudgetPanel : ListPanel
     {
         public BudgetPanel()
         {

@@ -15,7 +15,7 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public class NotePanel : ListBrowser
+    public class NotePanel : ListPanel
     {
         public NotePanel()
         {

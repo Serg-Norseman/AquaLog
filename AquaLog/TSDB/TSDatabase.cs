@@ -30,10 +30,8 @@ namespace AquaLog.TSDB
             fCompressionCache = new Dictionary<int, SDCompression>();
         }
 
-        public TSPoint CreatePoint(string ptName)
+        public void AddPoint(TSPoint point)
         {
-            var point = new TSPoint();
-            point.Name = ptName;
             fDB.Insert(point);
 
             string tableName = point.GetDataTableName();
@@ -43,8 +41,11 @@ namespace AquaLog.TSDB
 
             string idxExpr = string.Format("create unique index \"{0}_Timestamp\" on \"{1}\"(\"Timestamp\")", tableName, tableName);
             fDB.Execute(idxExpr);
+        }
 
-            return point;
+        public void UpdatePoint(TSPoint point)
+        {
+            fDB.Update(point);
         }
 
         public void DeletePoint(TSPoint point)
@@ -60,8 +61,9 @@ namespace AquaLog.TSDB
             fDB.Delete(point);
         }
 
-        public void GetPoints(string ptFilter)
+        public IList<TSPoint> GetPoints(string ptFilter = "*")
         {
+            return fDB.Query<TSPoint>("select * from TSPoint");
         }
 
         public void InsertValue(int pointId, DateTime timestamp, double value)
@@ -73,7 +75,7 @@ namespace AquaLog.TSDB
 
         private void InsertValue(string tableName, DateTime timestamp, double value)
         {
-            fDB.Execute("insert into {0}(Timestamp, Value) values('{1}', {2})", tableName, timestamp, value);
+            fDB.Execute(string.Format("insert into {0}(Timestamp, Value) values('{1}', {2})", tableName, timestamp, value));
         }
 
         public void UpdateValue(int pointId, DateTime timestamp, double value)
@@ -81,7 +83,7 @@ namespace AquaLog.TSDB
             TSPoint point = fDB.Get<TSPoint>(pointId);
             string tableName = point.GetDataTableName();
 
-            fDB.Execute("update {0} set Value = {1} where Timestamp = '{2}'", tableName, value, timestamp);
+            fDB.Execute(string.Format("update {0} set Value = {1} where Timestamp = '{2}'", tableName, value, timestamp));
         }
 
         public void DeleteValue(int pointId, DateTime timestamp)
@@ -89,7 +91,7 @@ namespace AquaLog.TSDB
             TSPoint point = fDB.Get<TSPoint>(pointId);
             string tableName = point.GetDataTableName();
 
-            fDB.Execute("delete from {0} where Timestamp = '{1}'", tableName, timestamp);
+            fDB.Execute(string.Format("delete from {0} where Timestamp = '{1}'", tableName, timestamp));
         }
 
         public IEnumerable<TSValue> QueryValues(int pointId, DateTime begTime, DateTime endTime)
@@ -97,7 +99,8 @@ namespace AquaLog.TSDB
             TSPoint point = fDB.Get<TSPoint>(pointId);
             string tableName = point.GetDataTableName();
 
-            string query = string.Format("select * from {0} where Timestamp between {1} and {2}", tableName, begTime, endTime);
+            // where Timestamp between '{1}' and '{2}', begTime, endTime
+            string query = string.Format("select * from {0}", tableName);
             return fDB.Query<TSValue>(query);
         }
 

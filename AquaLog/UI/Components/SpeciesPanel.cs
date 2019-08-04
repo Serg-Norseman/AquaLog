@@ -15,7 +15,7 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public class SpeciesPanel : ListBrowser
+    public class SpeciesPanel : ListPanel
     {
         public SpeciesPanel() : base()
         {
