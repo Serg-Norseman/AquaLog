@@ -7,6 +7,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
@@ -45,10 +46,25 @@ namespace AquaLog.Core
             -1  // Removed
         };
 
+        private static readonly NumberFormatInfo SQLITE_NFI = new NumberFormatInfo {
+            NumberDecimalSeparator = ".",
+            NumberGroupSeparator = ""
+        };
+
         public ALCore()
         {
         }
 
+
+        public static string FmtSQLiteDate(DateTime dateTime)
+        {
+            return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        public static string FmtSQLiteFloat(double value)
+        {
+            return value.ToString(SQLITE_NFI);
+        }
 
         public static ItemType GetItemType(SpeciesType speciesType)
         {

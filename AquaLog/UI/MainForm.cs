@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Logging;
+using AquaLog.Panels;
 
 namespace AquaLog.UI
 {
@@ -33,6 +34,7 @@ namespace AquaLog.UI
         private BudgetPanel fExpensePanel;
         private TSDBPanel fTSDBPanel;
         private TSValuePanel fTSValuePanel;
+        private TSTrendPanel fTSTrendPanel;
 
 
         public MainForm()
@@ -205,6 +207,9 @@ namespace AquaLog.UI
                     break;
                 case MainView.TSValues:
                     SetView<TSValuePanel>(ref fTSValuePanel, extData);
+                    break;
+                case MainView.TSTrend:
+                    SetView<TSTrendPanel>(ref fTSTrendPanel, extData);
                     break;
             }
         }

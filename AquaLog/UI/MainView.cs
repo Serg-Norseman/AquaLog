@@ -25,5 +25,6 @@ namespace AquaLog.UI
         Transfers,
         TSDB,
         TSValues,
+        TSTrend,
     }
 }

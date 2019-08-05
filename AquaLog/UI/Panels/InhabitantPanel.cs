@@ -7,12 +7,13 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
 using AquaLog.UI;
 
-namespace AquaLog.Components
+namespace AquaLog.Panels
 {
     /// <summary>
     /// 
@@ -34,10 +35,10 @@ namespace AquaLog.Components
 
         protected override void InitActions()
         {
-            fActions.Add(new Action("Add", "btn_rec_new.gif", AddHandler));
-            fActions.Add(new Action("Edit", "btn_rec_edit.gif", EditHandler));
-            fActions.Add(new Action("Delete", "btn_rec_delete.gif", DeleteHandler));
-            fActions.Add(new Action("Transfer", null, TransferInhabitantHandler));
+            fActions.Add(new UserAction("Add", "btn_rec_new.gif", AddHandler));
+            fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
+            fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
+            fActions.Add(new UserAction("Transfer", null, TransferInhabitantHandler));
         }
 
         public override void UpdateContent()

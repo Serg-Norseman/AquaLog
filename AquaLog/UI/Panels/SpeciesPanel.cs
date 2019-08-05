@@ -6,11 +6,12 @@
 
 using System;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
 
-namespace AquaLog.Components
+namespace AquaLog.Panels
 {
     /// <summary>
     /// 
@@ -26,9 +27,9 @@ namespace AquaLog.Components
 
         protected override void InitActions()
         {
-            fActions.Add(new Action("Add Species", "btn_rec_new.gif", btnAddRecord_Click));
-            fActions.Add(new Action("Edit Species", "btn_rec_edit.gif", btnEditRecord_Click));
-            fActions.Add(new Action("Delete Species", "btn_rec_delete.gif", btnDeleteRecord_Click));
+            fActions.Add(new UserAction("Add Species", "btn_rec_new.gif", btnAddRecord_Click));
+            fActions.Add(new UserAction("Edit Species", "btn_rec_edit.gif", btnEditRecord_Click));
+            fActions.Add(new UserAction("Delete Species", "btn_rec_delete.gif", btnDeleteRecord_Click));
         }
 
         public override void UpdateContent()

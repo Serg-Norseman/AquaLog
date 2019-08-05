@@ -71,23 +71,8 @@
     <Compile Include="TSDB\SDCompression.cs" />
     <Compile Include="TSDB\TSDatabase.cs" />
     <Compile Include="TSDB\TSValue.cs" />
-    <Compile Include="UI\Components\Action.cs" />
-    <Compile Include="UI\Components\DataPanel.cs" />
+    <Compile Include="UI\Components\UserAction.cs" />
     <Compile Include="UI\Components\ComboItem.cs" />
-    <Compile Include="UI\Components\DevicePanel.cs" />
-    <Compile Include="UI\Components\BudgetPanel.cs" />
-    <Compile Include="UI\Components\HistoryPanel.cs" />
-    <Compile Include="UI\Components\InhabitantPanel.cs" />
-    <Compile Include="UI\Components\ListPanel.cs" />
-    <Compile Include="UI\Components\MaintenancePanel.cs" />
-    <Compile Include="UI\Components\NotePanel.cs" />
-    <Compile Include="UI\Components\SpeciesPanel.cs" />
-    <Compile Include="UI\Components\TanksPanel.cs" />
-    <Compile Include="UI\Components\TankSticker.cs" />
-    <Compile Include="UI\Components\TransferPanel.cs" />
-    <Compile Include="UI\Components\TSDBPanel.cs" />
-    <Compile Include="UI\Components\TSValuePanel.cs" />
-    <Compile Include="UI\Components\WaterChangePanel.cs" />
     <Compile Include="UI\Components\WizardPages.cs" />
     <Compile Include="UI\Components\ZGraphControl.cs" />
     <Compile Include="Core\ALCore.cs" />
@@ -164,6 +149,7 @@
     <Compile Include="UI\NoteEditDlg.Designer.cs">
       <DependentUpon>NoteEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\TSTrendPanel.cs" />
     <Compile Include="UI\SpeciesEditDlg.cs" />
     <Compile Include="UI\SpeciesEditDlg.Designer.cs">
       <DependentUpon>SpeciesEditDlg.cs</DependentUpon>
@@ -180,6 +166,21 @@
     <Compile Include="UI\TSValueEditDlg.Designer.cs">
       <DependentUpon>TSValueEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Panels\BudgetPanel.cs" />
+    <Compile Include="UI\Panels\DataPanel.cs" />
+    <Compile Include="UI\Panels\DevicePanel.cs" />
+    <Compile Include="UI\Panels\HistoryPanel.cs" />
+    <Compile Include="UI\Panels\InhabitantPanel.cs" />
+    <Compile Include="UI\Panels\ListPanel.cs" />
+    <Compile Include="UI\Panels\MaintenancePanel.cs" />
+    <Compile Include="UI\Panels\NotePanel.cs" />
+    <Compile Include="UI\Panels\SpeciesPanel.cs" />
+    <Compile Include="UI\Panels\TanksPanel.cs" />
+    <Compile Include="UI\Panels\TankSticker.cs" />
+    <Compile Include="UI\Panels\TransferPanel.cs" />
+    <Compile Include="UI\Panels\TSDBPanel.cs" />
+    <Compile Include="UI\Panels\TSValuePanel.cs" />
+    <Compile Include="UI\Panels\WaterChangePanel.cs" />
     <Compile Include="UI\WaterChangeEditDlg.cs" />
     <Compile Include="UI\WaterChangeEditDlg.Designer.cs">
       <DependentUpon>WaterChangeEditDlg.cs</DependentUpon>
@@ -213,6 +214,7 @@
     <Folder Include="Logging" />
     <Folder Include="Resources" />
     <Folder Include="UI" />
+    <Folder Include="UI\Panels" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

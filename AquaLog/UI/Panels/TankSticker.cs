@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 
-namespace AquaLog.Components
+namespace AquaLog.Panels
 {
     public enum TankState
     {

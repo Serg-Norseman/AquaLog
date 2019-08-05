@@ -4,10 +4,10 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using BSLib;
 using ZedGraph;
 
 namespace AquaLog.Components
@@ -21,11 +21,18 @@ namespace AquaLog.Components
     public sealed class ChartPoint
     {
         public string Caption;
+        public DateTime Timestamp;
         public double Value;
 
         public ChartPoint(string caption, double value)
         {
             Caption = caption;
+            Value = value;
+        }
+
+        public ChartPoint(DateTime timestamp, double value)
+        {
+            Timestamp = timestamp;
             Value = value;
         }
 
@@ -50,11 +57,6 @@ namespace AquaLog.Components
             Controls.Add(fGraph);
         }
 
-        public void Activate()
-        {
-            Select();
-        }
-
         public void Clear()
         {
             GraphPane gPane = fGraph.GraphPane;
@@ -67,7 +69,7 @@ namespace AquaLog.Components
             fGraph.Invalidate();
         }
 
-        public void PrepareArray(string title, string xAxis, string yAxis, ChartStyle style, bool excludeUnknowns, List<ChartPoint> vals)
+        public void PrepareArray(string title, string xAxis, string yAxis, ChartStyle style, List<ChartPoint> vals)
         {
             GraphPane gPane = fGraph.GraphPane;
             try {
@@ -75,6 +77,16 @@ namespace AquaLog.Components
 
                 gPane.Title.Text = title;
                 gPane.XAxis.Title.Text = xAxis;
+
+                gPane.XAxis.Type = AxisType.Date;
+                gPane.XAxis.Scale.Format = "yy-MM-dd HH:mm:ss";
+                gPane.XAxis.Scale.FontSpec.Angle = 60;
+                gPane.XAxis.Scale.FontSpec.Size = 12;
+                gPane.XAxis.Scale.MajorUnit = DateUnit.Year;
+                //gPane.XAxis.Scale.MajorStep = 500;
+                gPane.XAxis.Scale.MinorUnit = DateUnit.Second;
+                //gPane.XAxis.Scale.MinorStep = 250;
+
                 gPane.YAxis.Title.Text = yAxis;
 
                 //if (style != ChartStyle.ClusterBar)
@@ -85,12 +97,12 @@ namespace AquaLog.Components
                     for (int i = 0; i < num; i++) {
                         ChartPoint item = vals[i];
 
-                        string s = item.Caption;
-                        double lab = (s == "?") ? 0.0f : ConvertHelper.ParseFloat(s, 0.0f, true);
+                        //string s = item.Caption;
+                        //double lab = (s == "?") ? 0.0f : ConvertHelper.ParseFloat(s, 0.0f, true);
 
-                        if (lab != 0.0d || !excludeUnknowns) {
-                            ppList.Add(lab, item.Value);
-                        }
+                        //if (lab != 0.0d || !excludeUnknowns) {
+                            ppList.Add(new XDate(item.Timestamp), item.Value);
+                        //}
                     }
                     ppList.Sort();
 

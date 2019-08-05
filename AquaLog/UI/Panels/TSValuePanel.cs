@@ -6,11 +6,12 @@
 
 using System;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.TSDB;
 using AquaLog.UI;
 
-namespace AquaLog.Components
+namespace AquaLog.Panels
 {
     /// <summary>
     /// 
@@ -40,9 +41,9 @@ namespace AquaLog.Components
 
         protected override void InitActions()
         {
-            fActions.Add(new Action("Add", "btn_rec_new.gif", AddHandler));
-            fActions.Add(new Action("Edit", "btn_rec_edit.gif", EditHandler));
-            fActions.Add(new Action("Delete", "btn_rec_delete.gif", DeleteHandler));
+            fActions.Add(new UserAction("Add", "btn_rec_new.gif", AddHandler));
+            fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
+            fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
         }
 
         public override void UpdateContent()
@@ -52,7 +53,7 @@ namespace AquaLog.Components
 
             TSDatabase tsdb = fModel.TSDB;
 
-            var records = tsdb.QueryValues(fPointId, DateTime.Now.AddDays(-10), DateTime.Now);
+            var records = tsdb.QueryValues(fPointId, DateTime.Now.AddDays(-60), DateTime.Now);
             foreach (TSValue rec in records) {
                 var item = new ListViewItem(rec.Timestamp.ToString());
                 item.Tag = rec;

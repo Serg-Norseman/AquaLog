@@ -7,7 +7,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace AquaLog.Components
+namespace AquaLog.Panels
 {
     /// <summary>
     /// 

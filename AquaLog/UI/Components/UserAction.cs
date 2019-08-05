@@ -13,13 +13,13 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed class Action
+    public sealed class UserAction
     {
         public readonly string Name;
         public readonly Image Image;
         public readonly EventHandler Click;
 
-        public Action(string name, string imageName, EventHandler clickHandler)
+        public UserAction(string name, string imageName, EventHandler clickHandler)
         {
             Name = name;
             Image = string.IsNullOrEmpty(imageName) ? null : ALCore.LoadResourceImage(imageName);

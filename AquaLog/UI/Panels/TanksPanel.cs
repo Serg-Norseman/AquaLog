@@ -6,11 +6,12 @@
 
 using System;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
 
-namespace AquaLog.Components
+namespace AquaLog.Panels
 {
     /// <summary>
     /// 
@@ -48,9 +49,9 @@ namespace AquaLog.Components
 
         protected override void InitActions()
         {
-            fActions.Add(new Action("Add Aquarium", "btn_rec_new.gif", btnAddTank_Click));
-            fActions.Add(new Action("Edit Aquarium", "btn_rec_edit.gif", btnEditTank_Click));
-            fActions.Add(new Action("Delete Aquarium", "btn_rec_delete.gif", btnDeleteTank_Click));
+            fActions.Add(new UserAction("Add Aquarium", "btn_rec_new.gif", btnAddTank_Click));
+            fActions.Add(new UserAction("Edit Aquarium", "btn_rec_edit.gif", btnEditTank_Click));
+            fActions.Add(new UserAction("Delete Aquarium", "btn_rec_delete.gif", btnDeleteTank_Click));
         }
 
         public override void UpdateContent()

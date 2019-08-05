@@ -10,7 +10,7 @@ using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
 
-namespace AquaLog.Components
+namespace AquaLog.Panels
 {
     /// <summary>
     /// 

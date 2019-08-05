@@ -17,7 +17,4 @@ rmdir .\AquaLog.Tests\OpenCover /s /q
 rmdir .\ALWatcher\bin /s /q
 rmdir .\ALWatcher\obj /s /q
 
-rmdir .\AquaLog.TSDB\bin /s /q
-rmdir .\AquaLog.TSDB\obj /s /q
-
 del msbuild.log

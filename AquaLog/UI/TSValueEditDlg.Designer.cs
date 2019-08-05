@@ -35,7 +35,7 @@
             this.btnAccept.Location = new System.Drawing.Point(75, 83);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 30);
-            this.btnAccept.TabIndex = 0;
+            this.btnAccept.TabIndex = 3;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -47,7 +47,7 @@
             this.btnCancel.Location = new System.Drawing.Point(177, 83);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 30);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 4;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -65,7 +65,7 @@
             this.txtValue.Location = new System.Drawing.Point(104, 43);
             this.txtValue.Name = "txtValue";
             this.txtValue.Size = new System.Drawing.Size(91, 22);
-            this.txtValue.TabIndex = 10;
+            this.txtValue.TabIndex = 2;
             // 
             // lblValue
             // 
@@ -77,12 +77,12 @@
             // 
             // dtpTimestamp
             // 
-            this.dtpTimestamp.CustomFormat = "dd.MM.yyyy HH:mm";
+            this.dtpTimestamp.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             this.dtpTimestamp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpTimestamp.Location = new System.Drawing.Point(104, 12);
             this.dtpTimestamp.Name = "dtpTimestamp";
             this.dtpTimestamp.Size = new System.Drawing.Size(169, 22);
-            this.dtpTimestamp.TabIndex = 11;
+            this.dtpTimestamp.TabIndex = 1;
             // 
             // TSValueEditDlg
             // 

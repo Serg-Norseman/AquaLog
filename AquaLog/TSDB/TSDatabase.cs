@@ -17,17 +17,16 @@ namespace AquaLog.TSDB
     /// </summary>
     public class TSDatabase
     {
+        private readonly Dictionary<int, SDCompression> fCompressionCache;
         private readonly SQLiteConnection fDB;
-        private Dictionary<int, SDCompression> fCompressionCache;
 
         public TSDatabase()
         {
+            fCompressionCache = new Dictionary<int, SDCompression>();
+
             var databasePath = Path.Combine(ALCore.GetAppDataPath(), "ALTSDB.db");
             fDB = new SQLiteConnection(databasePath);
-
             fDB.CreateTable<TSPoint>();
-
-            fCompressionCache = new Dictionary<int, SDCompression>();
         }
 
         public void AddPoint(TSPoint point)
@@ -66,6 +65,11 @@ namespace AquaLog.TSDB
             return fDB.Query<TSPoint>("select * from TSPoint");
         }
 
+        public TSPoint GetPoint(int pointId)
+        {
+            return fDB.Get<TSPoint>(pointId);
+        }
+
         public void InsertValue(int pointId, DateTime timestamp, double value)
         {
             TSPoint point = fDB.Get<TSPoint>(pointId);
@@ -75,7 +79,9 @@ namespace AquaLog.TSDB
 
         private void InsertValue(string tableName, DateTime timestamp, double value)
         {
-            fDB.Execute(string.Format("insert into {0}(Timestamp, Value) values('{1}', {2})", tableName, timestamp, value));
+            string tsx = ALCore.FmtSQLiteDate(timestamp);
+            string vx = ALCore.FmtSQLiteFloat(value);
+            fDB.Execute(string.Format("insert into {0}(Timestamp, Value) values('{1}', '{2}')", tableName, tsx, vx));
         }
 
         public void UpdateValue(int pointId, DateTime timestamp, double value)
@@ -83,7 +89,10 @@ namespace AquaLog.TSDB
             TSPoint point = fDB.Get<TSPoint>(pointId);
             string tableName = point.GetDataTableName();
 
-            fDB.Execute(string.Format("update {0} set Value = {1} where Timestamp = '{2}'", tableName, value, timestamp));
+            string tsx = ALCore.FmtSQLiteDate(timestamp);
+            string vx = ALCore.FmtSQLiteFloat(value);
+            string query = string.Format("update {0} set Value = '{1}' where Timestamp = '{2}'", tableName, vx, tsx);
+            fDB.Execute(query);
         }
 
         public void DeleteValue(int pointId, DateTime timestamp)
@@ -91,7 +100,8 @@ namespace AquaLog.TSDB
             TSPoint point = fDB.Get<TSPoint>(pointId);
             string tableName = point.GetDataTableName();
 
-            fDB.Execute(string.Format("delete from {0} where Timestamp = '{1}'", tableName, timestamp));
+            string tsx = ALCore.FmtSQLiteDate(timestamp);
+            fDB.Execute(string.Format("delete from {0} where Timestamp = '{1}'", tableName, tsx));
         }
 
         public IEnumerable<TSValue> QueryValues(int pointId, DateTime begTime, DateTime endTime)
@@ -99,8 +109,9 @@ namespace AquaLog.TSDB
             TSPoint point = fDB.Get<TSPoint>(pointId);
             string tableName = point.GetDataTableName();
 
-            // where Timestamp between '{1}' and '{2}', begTime, endTime
-            string query = string.Format("select * from {0}", tableName);
+            string tsBeg = ALCore.FmtSQLiteDate(begTime);
+            string tsEnd = ALCore.FmtSQLiteDate(endTime);
+            string query = string.Format("select * from {0} where Timestamp between '{1}' and '{2}'", tableName, tsBeg, tsEnd);
             return fDB.Query<TSValue>(query);
         }
 

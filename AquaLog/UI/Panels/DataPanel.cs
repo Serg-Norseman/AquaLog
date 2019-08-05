@@ -8,22 +8,23 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.UI;
 
-namespace AquaLog.Components
+namespace AquaLog.Panels
 {
     /// <summary>
     /// 
     /// </summary>
     public class DataPanel : Panel
     {
-        protected readonly List<Action> fActions;
+        protected readonly List<UserAction> fActions;
         protected IBrowser fBrowser;
         protected ALModel fModel;
 
 
-        public List<Action> Actions
+        public List<UserAction> Actions
         {
             get { return fActions; }
         }
@@ -52,7 +53,7 @@ namespace AquaLog.Components
             BorderStyle = BorderStyle.FixedSingle;
             Dock = DockStyle.Fill;
 
-            fActions = new List<Action>();
+            fActions = new List<UserAction>();
             InitActions();
         }
 
