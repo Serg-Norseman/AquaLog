@@ -1,6 +1,6 @@
-﻿namespace ALWatcher
+﻿namespace AquaLog.DataCollection
 {
-    partial class MainForm
+    partial class DataMonitor
     {
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.Label lblPortData;
@@ -40,15 +40,16 @@
             this.chkEnableCommLED.UseVisualStyleBackColor = true;
             this.chkEnableCommLED.CheckedChanged += new System.EventHandler(this.chkEnableCommLED_CheckedChanged);
             // 
-            // MainForm
+            // DataMonitor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(466, 261);
             this.Controls.Add(this.chkEnableCommLED);
             this.Controls.Add(this.lblPortData);
-            this.Name = "MainForm";
-            this.Text = "ALWatcher";
+            this.Name = "DataMonitor";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Text = "DataMonitor";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormFormClosed);
             this.Load += new System.EventHandler(this.MainFormLoad);
             this.ResumeLayout(false);

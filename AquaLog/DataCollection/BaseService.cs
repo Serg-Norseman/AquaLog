@@ -8,7 +8,7 @@ using System;
 using System.Timers;
 using BSLib;
 
-namespace ALWatcher
+namespace AquaLog.DataCollection
 {
     /// <summary>
     /// 

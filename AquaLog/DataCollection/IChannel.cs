@@ -6,7 +6,7 @@
 
 using System;
 
-namespace ALWatcher
+namespace AquaLog.DataCollection
 {
     /// <summary>
     /// 

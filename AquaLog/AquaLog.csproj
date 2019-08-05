@@ -67,6 +67,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Types\ValueBounds.cs" />
+    <Compile Include="DataCollection\BaseService.cs" />
+    <Compile Include="DataCollection\CommunicationLEDService.cs" />
+    <Compile Include="DataCollection\DataMonitor.cs" />
+    <Compile Include="DataCollection\DataMonitor.Designer.cs">
+      <DependentUpon>DataMonitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DataCollection\IChannel.cs" />
+    <Compile Include="DataCollection\SerialChannel.cs" />
     <Compile Include="TSDB\TSPoint.cs" />
     <Compile Include="TSDB\SDCompression.cs" />
     <Compile Include="TSDB\TSDatabase.cs" />
@@ -207,6 +215,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core" />
+    <Folder Include="DataCollection" />
     <Folder Include="TSDB" />
     <Folder Include="UI\Components" />
     <Folder Include="Core\Model" />

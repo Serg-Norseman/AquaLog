@@ -8,14 +8,14 @@ using System;
 using System.Windows.Forms;
 using System.Timers;
 
-namespace ALWatcher
+namespace AquaLog.DataCollection
 {
-    public partial class MainForm : Form
+    public partial class DataMonitor : Form
     {
         private IChannel fChannel;
         private BaseService fCommunicationLED;
 
-        public MainForm()
+        public DataMonitor()
         {
             InitializeComponent();
 

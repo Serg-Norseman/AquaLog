@@ -8,6 +8,7 @@ using System;
 using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core;
+using AquaLog.DataCollection;
 using AquaLog.TSDB;
 using AquaLog.UI;
 
@@ -34,6 +35,7 @@ namespace AquaLog.Panels
             fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
             fActions.Add(new UserAction("Data", "", ViewDataHandler));
             fActions.Add(new UserAction("Trend", "", ViewTrendHandler));
+            fActions.Add(new UserAction("Data Monitor", "", ShowMonitor));
         }
 
         public override void UpdateContent()
@@ -116,6 +118,13 @@ namespace AquaLog.Panels
             if (record == null) return;
 
             Browser.SetView(MainView.TSTrend, record.Id);
+        }
+
+        private void ShowMonitor(object sender, EventArgs e)
+        {
+            using (var monitor = new DataMonitor()) {
+                monitor.ShowDialog();
+            }
         }
     }
 }

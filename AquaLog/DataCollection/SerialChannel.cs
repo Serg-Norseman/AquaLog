@@ -9,7 +9,7 @@ using System.IO.Ports;
 using System.Threading;
 using BSLib;
 
-namespace ALWatcher
+namespace AquaLog.DataCollection
 {
     public delegate void UpdateDelegate(string text);
 
