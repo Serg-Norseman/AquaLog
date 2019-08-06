@@ -19,6 +19,8 @@
         private System.Windows.Forms.TextBox txtBrand;
         private System.Windows.Forms.CheckBox chkEnabled;
         private System.Windows.Forms.CheckBox chkDigital;
+        private System.Windows.Forms.Label lblTSDBPoint;
+        private System.Windows.Forms.ComboBox cmbTSDBPoint;
         
         protected override void Dispose(bool disposing)
         {
@@ -48,11 +50,13 @@
             this.txtBrand = new System.Windows.Forms.TextBox();
             this.chkEnabled = new System.Windows.Forms.CheckBox();
             this.chkDigital = new System.Windows.Forms.CheckBox();
+            this.lblTSDBPoint = new System.Windows.Forms.Label();
+            this.cmbTSDBPoint = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(218, 342);
+            this.btnAccept.Location = new System.Drawing.Point(218, 395);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 30);
             this.btnAccept.TabIndex = 0;
@@ -64,7 +68,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(320, 342);
+            this.btnCancel.Location = new System.Drawing.Point(320, 395);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 30);
             this.btnCancel.TabIndex = 1;
@@ -122,12 +126,12 @@
             // cmbType
             // 
             this.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbType.Enabled = false;
             this.cmbType.FormattingEnabled = true;
             this.cmbType.Location = new System.Drawing.Point(147, 199);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(169, 27);
             this.cmbType.TabIndex = 10;
+            this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
             // lblType
             // 
@@ -187,15 +191,35 @@
             this.chkDigital.Text = "Digital";
             this.chkDigital.UseVisualStyleBackColor = true;
             // 
+            // lblTSDBPoint
+            // 
+            this.lblTSDBPoint.Location = new System.Drawing.Point(12, 344);
+            this.lblTSDBPoint.Name = "lblTSDBPoint";
+            this.lblTSDBPoint.Size = new System.Drawing.Size(100, 21);
+            this.lblTSDBPoint.TabIndex = 9;
+            this.lblTSDBPoint.Text = "TSDB Point";
+            // 
+            // cmbTSDBPoint
+            // 
+            this.cmbTSDBPoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTSDBPoint.FormattingEnabled = true;
+            this.cmbTSDBPoint.Location = new System.Drawing.Point(147, 341);
+            this.cmbTSDBPoint.Name = "cmbTSDBPoint";
+            this.cmbTSDBPoint.Size = new System.Drawing.Size(169, 27);
+            this.cmbTSDBPoint.TabIndex = 10;
+            this.cmbTSDBPoint.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
+            // 
             // DeviceEditDlg
             // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(428, 384);
+            this.ClientSize = new System.Drawing.Size(428, 437);
             this.Controls.Add(this.chkDigital);
             this.Controls.Add(this.chkEnabled);
+            this.Controls.Add(this.cmbTSDBPoint);
+            this.Controls.Add(this.lblTSDBPoint);
             this.Controls.Add(this.cmbType);
             this.Controls.Add(this.lblType);
             this.Controls.Add(this.cmbAquarium);

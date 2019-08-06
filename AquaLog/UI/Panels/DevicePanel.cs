@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.DataCollection;
 using AquaLog.UI;
 
 namespace AquaLog.Panels
@@ -33,6 +34,10 @@ namespace AquaLog.Panels
             fActions.Add(new UserAction("Add", "btn_rec_new.gif", AddHandler));
             fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
             fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
+
+            fActions.Add(new UserAction("Data", "", ViewDataHandler));
+            fActions.Add(new UserAction("Trend", "", ViewTrendHandler));
+            fActions.Add(new UserAction("Data Monitor", "", ShowMonitor));
         }
 
         public override void UpdateContent()
@@ -95,6 +100,36 @@ namespace AquaLog.Panels
 
             fModel.DeleteRecord(selectedItem.Tag as Device);
             UpdateContent();
+        }
+
+
+        private void ViewDataHandler(object sender, EventArgs e)
+        {
+            var selectedItem = ALCore.GetSelectedItem(ListView);
+            if (selectedItem == null) return;
+
+            var device = selectedItem.Tag as Device;
+            if (device == null || device.PointId == 0) return;
+
+            Browser.SetView(MainView.TSValues, device.PointId);
+        }
+
+        private void ViewTrendHandler(object sender, EventArgs e)
+        {
+            var selectedItem = ALCore.GetSelectedItem(ListView);
+            if (selectedItem == null) return;
+
+            var device = selectedItem.Tag as Device;
+            if (device == null || device.PointId == 0) return;
+
+            Browser.SetView(MainView.TSTrend, device.PointId);
+        }
+
+        private void ShowMonitor(object sender, EventArgs e)
+        {
+            using (var monitor = new DataMonitor()) {
+                monitor.ShowDialog();
+            }
         }
     }
 }

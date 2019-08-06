@@ -49,9 +49,9 @@ namespace AquaLog.Panels
 
         protected override void InitActions()
         {
-            fActions.Add(new UserAction("Add Aquarium", "btn_rec_new.gif", btnAddTank_Click));
-            fActions.Add(new UserAction("Edit Aquarium", "btn_rec_edit.gif", btnEditTank_Click));
-            fActions.Add(new UserAction("Delete Aquarium", "btn_rec_delete.gif", btnDeleteTank_Click));
+            fActions.Add(new UserAction("Add", "btn_rec_new.gif", btnAddTank_Click));
+            fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", btnEditTank_Click));
+            fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", btnDeleteTank_Click));
         }
 
         public override void UpdateContent()

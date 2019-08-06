@@ -5,6 +5,7 @@
  */
 
 using System;
+using AquaLog.Core.Types;
 using SQLite;
 
 namespace AquaLog.Core.Model
@@ -15,12 +16,22 @@ namespace AquaLog.Core.Model
     public class Device : AquariumDetails
     {
         public string Name { get; set; }
+        public DeviceType Type { get; set; }
+
         public bool Enabled { get; set; }
         public bool Digital { get; set; }
 
         public string Brand { get; set; }
         public double Wattage { get; set; }
 
+        public int PointId { get; set; }
+
+        #region Pump properties
+
+        public int MinFlow { get; set; }
+        public int MaxFlow { get; set; }
+
+        #endregion
 
         public Device()
         {

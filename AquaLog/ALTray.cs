@@ -22,6 +22,8 @@ namespace AquaLog
         }
 
         private MenuItem fAutorunItem;
+        private MenuItem fAboutItem;
+        private MenuItem fExitItem;
         private Form fMainForm;
         private readonly ContextMenu fMenu;
         private readonly NotifyIcon fNotifyIcon;
@@ -45,6 +47,7 @@ namespace AquaLog
             fTipsList = new StringList();
 
             LoadSettings();
+            SetLocale();
 
             fTipsTimer = new System.Threading.Timer(this.TimerCallback, null, 1000, 1000*60);
         }
@@ -63,16 +66,25 @@ namespace AquaLog
             appItem.DefaultItem = true;
 
             fAutorunItem = new MenuItem("Autorun", miAutorun_Click);
+            fAboutItem = new MenuItem("About", miAbout_Click);
+            fExitItem = new MenuItem("Exit", miExit_Click);
 
             MenuItem[] menu = new MenuItem[] {
                 appItem,
                 new MenuItem("-"),
                 fAutorunItem,
                 new MenuItem("-"),
-                new MenuItem("About", miAbout_Click),
-                new MenuItem("Exit", miExit_Click)
+                fAboutItem,
+                fExitItem
             };
             return menu;
+        }
+
+        public void SetLocale()
+        {
+            fExitItem.Text = Localizer.LS(LSID.LSID_MIExit);
+            fAboutItem.Text = Localizer.LS(LSID.LSID_MIAbout);
+            //miSettings.Text = Localizer.LS(LSID.LSID_MISettings);
         }
 
         private void LoadSettings()

@@ -17,7 +17,7 @@ namespace AquaLog.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class DataPanel : Panel
+    public class DataPanel : Panel, ILocalizable
     {
         protected readonly List<UserAction> fActions;
         protected IBrowser fBrowser;
@@ -55,6 +55,10 @@ namespace AquaLog.Panels
 
             fActions = new List<UserAction>();
             InitActions();
+        }
+
+        public virtual void SetLocale()
+        {
         }
 
         protected virtual void InitActions()

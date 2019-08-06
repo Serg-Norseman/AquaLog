@@ -4,15 +4,12 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-using System;
-using SQLite;
-
-namespace AquaLog.Core.Model
+namespace AquaLog.Core.Types
 {
-    public class Light : Device
+    public enum DeviceType
     {
-        public Light()
-        {
-        }
+        Light,
+        Pump,
+        Thermometer,
     }
 }

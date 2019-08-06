@@ -66,6 +66,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ILocalizable.cs" />
+    <Compile Include="Core\Localizer.cs" />
+    <Compile Include="Core\Types\DeviceProps.cs" />
+    <Compile Include="Core\Types\DeviceType.cs" />
     <Compile Include="Core\Types\ValueBounds.cs" />
     <Compile Include="DataCollection\BaseService.cs" />
     <Compile Include="DataCollection\CommunicationLEDService.cs" />
@@ -94,11 +98,9 @@
     <Compile Include="Core\Model\History.cs" />
     <Compile Include="Core\Model\Inhabitant.cs" />
     <Compile Include="Core\Model\Invertebrate.cs" />
-    <Compile Include="Core\Model\Light.cs" />
     <Compile Include="Core\Model\Maintenance.cs" />
     <Compile Include="Core\Model\Note.cs" />
     <Compile Include="Core\Model\Plant.cs" />
-    <Compile Include="Core\Model\Pump.cs" />
     <Compile Include="Core\Model\Species.cs" />
     <Compile Include="Core\Model\Transfer.cs" />
     <Compile Include="Core\Model\WaterChange.cs" />

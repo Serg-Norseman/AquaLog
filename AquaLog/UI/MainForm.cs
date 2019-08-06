@@ -12,9 +12,11 @@ using AquaLog.Core;
 using AquaLog.Logging;
 using AquaLog.Panels;
 
+// TODO: food, additives, equipment, furniture
+
 namespace AquaLog.UI
 {
-    public partial class MainForm : Form, IBrowser
+    public partial class MainForm : Form, IBrowser, ILocalizable
     {
         private readonly ILogger fLogger;
         private ALModel fModel;
@@ -62,8 +64,7 @@ namespace AquaLog.UI
             btnInvertebrates.Tag = MainView.Invertebrates;
             btnPlants.Tag = MainView.Plants;
             btnSpecies.Tag = MainView.Species;
-            btnLights.Tag = MainView.Lights;
-            btnPumps.Tag = MainView.Pumps;
+            btnDevices.Tag = MainView.Devices;
             btnBudget.Tag = MainView.Budget;
             btnNotes.Tag = MainView.Notes;
             btnWaterChanges.Tag = MainView.WaterChanges;
@@ -73,6 +74,19 @@ namespace AquaLog.UI
             btnTSDB.Tag = MainView.TSDB;
 
             SetView(MainView.Tanks, null);
+
+            Localizer.FindLocales();
+            Localizer.LoadLocale(1049); // 1049 | Localizer.LS_DEF_CODE
+            SetLocale();
+        }
+
+        public void SetLocale()
+        {
+            miFile.Text = Localizer.LS(LSID.LSID_MIFile);
+            miHelp.Text = Localizer.LS(LSID.LSID_MIHelp);
+            miExit.Text = Localizer.LS(LSID.LSID_MIExit);
+            miAbout.Text = Localizer.LS(LSID.LSID_MIAbout);
+            miSettings.Text = Localizer.LS(LSID.LSID_MISettings);
         }
 
         private void UpdateControls()
@@ -180,8 +194,7 @@ namespace AquaLog.UI
                 case MainView.Species:
                     SetView<SpeciesPanel>(ref fSpeciesPanel, extData);
                     break;
-                case MainView.Lights:
-                case MainView.Pumps:
+                case MainView.Devices:
                     SetView<DevicePanel>(ref fDevicePanel, extData);
                     break;
                 case MainView.Budget:
@@ -237,6 +250,7 @@ namespace AquaLog.UI
 
             SetActions(view);
 
+            view.SetLocale();
             view.UpdateContent();
 
             UpdateNavControls();

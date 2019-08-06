@@ -36,5 +36,10 @@ namespace AquaLog.TSDB
             string tableName = "PD" + ConvertHelper.AdjustNumber(Id, 6, '0');
             return tableName;
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

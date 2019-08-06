@@ -11,12 +11,12 @@ using NUnit.Framework;
 namespace AquaLog.Core.Model
 {
     [TestFixture]
-    public class LightTests
+    public class DeviceTests
     {
         [Test]
         public void Test_Common()
         {
-            var light = new Light();
+            var light = new Device();
             Assert.IsNotNull(light);
 
             light.Name = "Light";

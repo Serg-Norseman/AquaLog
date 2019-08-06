@@ -31,6 +31,7 @@ namespace AquaLog.Panels
             ListView.Columns.Add("Qty", 50, HorizontalAlignment.Right);
             ListView.Columns.Add("Species", 150, HorizontalAlignment.Left);
             ListView.Columns.Add("Current Aquarium", 150, HorizontalAlignment.Left);
+            ListView.Columns.Add("Introduction date", 150, HorizontalAlignment.Left);
         }
 
         protected override void InitActions()
@@ -75,13 +76,17 @@ namespace AquaLog.Panels
                 item.SubItems.Add(spc.Name);
 
                 int currAqmId = 0;
+                DateTime intrDate = ALCore.ZeroDate;
                 IList<Transfer> lastTransfers = fModel.QueryLastTransfers(rec.Id, (int)ALCore.GetItemType(rec.GetSpeciesType()));
                 if (lastTransfers.Count > 0) {
                     currAqmId = lastTransfers[0].TargetId;
+                    intrDate = lastTransfers[0].Date;
                 }
                 Aquarium aqm = fModel.GetRecord<Aquarium>(currAqmId);
                 string aqmName = (aqm == null) ? string.Empty : aqm.Name;
                 item.SubItems.Add(aqmName);
+                string strIntrDate = (intrDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetDateStr(intrDate);
+                item.SubItems.Add(strIntrDate);
 
                 ListView.Items.Add(item);
             }

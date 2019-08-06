@@ -51,6 +51,13 @@ namespace AquaLog.Core
             NumberGroupSeparator = ""
         };
 
+        public static readonly DeviceProps[] DeviceProps = new DeviceProps[] {
+            new DeviceProps(false), // Light
+            new DeviceProps(false), // Pump
+            new DeviceProps(true), // Thermometer
+        };
+
+
         public ALCore()
         {
         }
@@ -215,6 +222,12 @@ namespace AquaLog.Core
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
 
             return path;
+        }
+
+        public static string GetLocalesPath()
+        {
+            string appPath = GetAppPath();
+            return appPath + "locales" + Path.DirectorySeparatorChar;
         }
 
         public static string GetAppPath()

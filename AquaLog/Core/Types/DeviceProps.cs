@@ -4,15 +4,17 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
+
 namespace AquaLog.Core.Types
 {
-    public enum ItemType
+    public class DeviceProps
     {
-        None,
-        Aquarium,
-        Fish,
-        Invertebrate,
-        Device,
-        Plant,
+        public readonly bool HasMeasurements;
+
+        public DeviceProps(bool hasMeasurements)
+        {
+            HasMeasurements = hasMeasurements;
+        }
     }
 }

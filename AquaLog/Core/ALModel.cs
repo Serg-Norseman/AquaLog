@@ -43,9 +43,7 @@ namespace AquaLog.Core
             fDB.CreateTable<Plant>();
             fDB.CreateTable<Species>();
 
-            fDB.CreateTable<Light>();
-            fDB.CreateTable<Pump>();
-
+            fDB.CreateTable<Device>();
             fDB.CreateTable<Note>();
             fDB.CreateTable<WaterChange>();
             fDB.CreateTable<History>();
@@ -94,7 +92,7 @@ namespace AquaLog.Core
 
         public IEnumerable<T> QueryRecords<T>(string query, params object[] args) where T : new()
         {
-            return fDB.Query<T>(query, args); // "select * from Aquarium"
+            return fDB.Query<T>(query, args);
         }
 
         public Entity GetRecord(ItemType itemType, int itemId)
@@ -109,12 +107,11 @@ namespace AquaLog.Core
                 case ItemType.Invertebrate:
                     result = GetRecord<Invertebrate>(itemId);
                     break;
-                case ItemType.Light:
+                case ItemType.Device:
+                    result = GetRecord<Device>(itemId);
                     break;
                 case ItemType.Plant:
                     result = GetRecord<Plant>(itemId);
-                    break;
-                case ItemType.Pump:
                     break;
             }
             return result;
@@ -133,12 +130,11 @@ namespace AquaLog.Core
                 case ItemType.Invertebrate:
                     itName = (itemRec as Invertebrate).Name;
                     break;
-                case ItemType.Light:
+                case ItemType.Device:
+                    itName = (itemRec as Device).Name;
                     break;
                 case ItemType.Plant:
                     itName = (itemRec as Plant).Name;
-                    break;
-                case ItemType.Pump:
                     break;
             }
             return itName;
@@ -151,38 +147,19 @@ namespace AquaLog.Core
             return fDB.Query<Aquarium>("select * from Aquarium");
         }
 
-        private class TransferVal
-        {
-            public ItemType ItemType { get; set; }
-            public int ItemId { get; set; }
-            public TransferType Type { get; set; }
-            public int Quantity { get; set; }
-        }
-
         public int QueryInhabitantsCount(int aquariumId)
         {
             int result = 0;
-            var qv = fDB.Query<TransferVal>("select ItemType, ItemId, Type, Quantity from Transfer where TargetId = ?", aquariumId);
+            var qv = fDB.Query<Transfer>("select ItemType, ItemId, Type, Quantity from Transfer where TargetId = ?", aquariumId);
             foreach (var val in qv) {
-                // Useful in the future
-                /*string tableName = "";
+                // FIXME: transfer types +/- birth, death and etc
                 switch (val.ItemType) {
                     case ItemType.Fish:
-                        tableName = "Fish";
-                        break;
                     case ItemType.Invertebrate:
-                        tableName = "Invertebrate";
-                        break;
                     case ItemType.Plant:
-                        tableName = "Plant";
+                        result += val.Quantity;
                         break;
                 }
-                string query = string.Format("select Quantity from {0} where Id = ?", tableName);
-                var frecs = fDB.Query<InhVal>(query, val.ItemId);
-                int qty = (frecs.Count > 0) ? frecs[0].Quantity : 0;*/
-
-                // FIXME: transfer types +/- birth, death and etc
-                result += val.Quantity;
             }
             return result;
         }
@@ -190,7 +167,7 @@ namespace AquaLog.Core
         public int QueryInhabitantsCount(int itemId, ItemType itemType)
         {
             int result = 0;
-            var qv = fDB.Query<TransferVal>("select Type, Quantity from Transfer where ItemType = ? and ItemId = ?", (int)itemType, itemId);
+            var qv = fDB.Query<Transfer>("select Type, Quantity from Transfer where ItemType = ? and ItemId = ?", (int)itemType, itemId);
             foreach (var val in qv) {
                 int factor = 0;
                 switch (val.Type) {
@@ -270,10 +247,9 @@ namespace AquaLog.Core
 
         #region Device functions
 
-        // FIXME: debug table name
         public IList<Device> QueryDevices()
         {
-            return fDB.Query<Device>("select * from Pump");
+            return fDB.Query<Device>("select * from Device");
         }
 
         #endregion
@@ -358,7 +334,6 @@ namespace AquaLog.Core
         public float GetTotalExpense()
         {
             // "select total(Price) as total_expense from Expenses"
-            // "select distinct Type as element from Expenses"
             // "select distinct Shop as element from Expenses"
             return 0.0f;
         }

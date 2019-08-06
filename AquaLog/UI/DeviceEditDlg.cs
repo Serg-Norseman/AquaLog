@@ -10,6 +10,8 @@ using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.Core.Types;
+using AquaLog.TSDB;
 
 namespace AquaLog.UI
 {
@@ -45,6 +47,10 @@ namespace AquaLog.UI
 
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
+
+            for (DeviceType type = DeviceType.Light; type <= DeviceType.Thermometer; type++) {
+                cmbType.Items.Add(type.ToString());
+            }
         }
 
         private void UpdateView()
@@ -57,7 +63,15 @@ namespace AquaLog.UI
                 }
                 cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fDevice.AquariumId);
 
-                //cmbType.SelectedIndex = (int)fDevice.Type;
+                cmbTSDBPoint.Items.Clear();
+                TSDatabase tsdb = fModel.TSDB;
+                var points = tsdb.GetPoints();
+                foreach (TSPoint pt in points) {
+                    cmbTSDBPoint.Items.Add(pt);
+                }
+                cmbTSDBPoint.SelectedItem = points.FirstOrDefault(pt => pt.Id == fDevice.PointId);
+
+                cmbType.SelectedIndex = (int)fDevice.Type;
                 txtName.Text = fDevice.Name;
                 txtBrand.Text = fDevice.Brand;
                 chkEnabled.Checked = fDevice.Enabled;
@@ -71,11 +85,14 @@ namespace AquaLog.UI
             var aqm = cmbAquarium.SelectedItem as Aquarium;
             fDevice.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
+            var pt = cmbTSDBPoint.SelectedItem as TSPoint;
+            fDevice.PointId = (pt == null) ? 0 : pt.Id;
+
             fDevice.Name = txtName.Text;
             fDevice.Brand = txtBrand.Text;
             fDevice.Enabled = chkEnabled.Checked;
             fDevice.Digital = chkDigital.Checked;
-            //fDevice.Type = (DeviceType)cmbType.SelectedIndex;
+            fDevice.Type = (DeviceType)cmbType.SelectedIndex;
             fDevice.Wattage = ALCore.GetDecimalVal(txtWattage);
         }
 
@@ -86,6 +103,15 @@ namespace AquaLog.UI
                 DialogResult = DialogResult.OK;
             } catch {
                 DialogResult = DialogResult.None;
+            }
+        }
+
+        private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var deviceType = (DeviceType)cmbType.SelectedIndex;
+            if (deviceType >= 0) {
+                var props = ALCore.DeviceProps[(int)deviceType];
+                cmbTSDBPoint.Enabled = props.HasMeasurements;
             }
         }
     }

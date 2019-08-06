@@ -4,15 +4,15 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-namespace AquaLog.Core.Types
+using System;
+
+namespace AquaLog.Core
 {
-    public enum ItemType
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface ILocalizable
     {
-        None,
-        Aquarium,
-        Fish,
-        Invertebrate,
-        Device,
-        Plant,
+        void SetLocale();
     }
 }
