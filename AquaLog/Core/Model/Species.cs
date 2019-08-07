@@ -32,14 +32,14 @@ namespace AquaLog.Core.Model
         public string BioFamily { get; set; } // BioClassification: FamilyName
         public string Distribution { get; set; }
         public int MinTankSize { get; set; }
-        public string PHMin { get; set; }
-        public string PHMax { get; set; }
-        public string DHMin { get; set; }
-        public string DHMax { get; set; }
+        public float PHMin { get; set; }
+        public float PHMax { get; set; }
+        public float GHMin { get; set; }
+        public float GHMax { get; set; }
         public bool ReefCompatible { get; set; }
         public string ScientificName { get; set; } // BioClassification: SpeciesName
-        public string TempMin { get; set; }
-        public string TempMax { get; set; }
+        public float TempMin { get; set; }
+        public float TempMax { get; set; }
 
         #endregion
 
@@ -65,8 +65,8 @@ namespace AquaLog.Core.Model
 
         #region Invertebrate properties
 
-        public string TDSMin { get; set; }
-        public string TDSMax { get; set; }
+        public float TDSMin { get; set; }
+        public float TDSMax { get; set; }
 
         #endregion
 

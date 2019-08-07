@@ -16,7 +16,7 @@
         private System.Windows.Forms.Label lblName;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label lblBrand;
-        private System.Windows.Forms.TextBox txtBrand;
+        private System.Windows.Forms.ComboBox cmbBrand;
         private System.Windows.Forms.CheckBox chkEnabled;
         private System.Windows.Forms.CheckBox chkDigital;
         private System.Windows.Forms.Label lblTSDBPoint;
@@ -47,7 +47,7 @@
             this.lblName = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.lblBrand = new System.Windows.Forms.Label();
-            this.txtBrand = new System.Windows.Forms.TextBox();
+            this.cmbBrand = new System.Windows.Forms.ComboBox();
             this.chkEnabled = new System.Windows.Forms.CheckBox();
             this.chkDigital = new System.Windows.Forms.CheckBox();
             this.lblTSDBPoint = new System.Windows.Forms.Label();
@@ -164,12 +164,12 @@
             this.lblBrand.TabIndex = 2;
             this.lblBrand.Text = "Brand";
             // 
-            // txtBrand
+            // cmbBrand
             // 
-            this.txtBrand.Location = new System.Drawing.Point(147, 92);
-            this.txtBrand.Name = "txtBrand";
-            this.txtBrand.Size = new System.Drawing.Size(268, 26);
-            this.txtBrand.TabIndex = 5;
+            this.cmbBrand.Location = new System.Drawing.Point(147, 92);
+            this.cmbBrand.Name = "cmbBrand";
+            this.cmbBrand.Size = new System.Drawing.Size(268, 26);
+            this.cmbBrand.TabIndex = 5;
             // 
             // chkEnabled
             // 
@@ -225,7 +225,7 @@
             this.Controls.Add(this.cmbAquarium);
             this.Controls.Add(this.txtNote);
             this.Controls.Add(this.lblNote);
-            this.Controls.Add(this.txtBrand);
+            this.Controls.Add(this.cmbBrand);
             this.Controls.Add(this.lblBrand);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);

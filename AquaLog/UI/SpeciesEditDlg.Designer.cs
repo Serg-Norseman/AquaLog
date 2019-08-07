@@ -17,6 +17,18 @@
         private System.Windows.Forms.TabPage tabPlant;
         private System.Windows.Forms.Label lblScientificName;
         private System.Windows.Forms.TextBox txtScientificName;
+        private System.Windows.Forms.Label lblTempMin;
+        private System.Windows.Forms.TextBox txtTempMin;
+        private System.Windows.Forms.Label lblTempMax;
+        private System.Windows.Forms.TextBox txtTempMax;
+        private System.Windows.Forms.Label lblPHMin;
+        private System.Windows.Forms.TextBox txtPHMin;
+        private System.Windows.Forms.Label lblPHMax;
+        private System.Windows.Forms.TextBox txtPHMax;
+        private System.Windows.Forms.Label lblGHMin;
+        private System.Windows.Forms.Label lblGHMax;
+        private System.Windows.Forms.TextBox txtGHMin;
+        private System.Windows.Forms.TextBox txtGHMax;
         
         protected override void Dispose(bool disposing)
         {
@@ -44,12 +56,24 @@
             this.tabPlant = new System.Windows.Forms.TabPage();
             this.lblScientificName = new System.Windows.Forms.Label();
             this.txtScientificName = new System.Windows.Forms.TextBox();
+            this.lblTempMin = new System.Windows.Forms.Label();
+            this.txtTempMin = new System.Windows.Forms.TextBox();
+            this.lblTempMax = new System.Windows.Forms.Label();
+            this.txtTempMax = new System.Windows.Forms.TextBox();
+            this.lblPHMin = new System.Windows.Forms.Label();
+            this.txtPHMin = new System.Windows.Forms.TextBox();
+            this.lblPHMax = new System.Windows.Forms.Label();
+            this.txtPHMax = new System.Windows.Forms.TextBox();
+            this.lblGHMin = new System.Windows.Forms.Label();
+            this.lblGHMax = new System.Windows.Forms.Label();
+            this.txtGHMin = new System.Windows.Forms.TextBox();
+            this.txtGHMax = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(442, 344);
+            this.btnAccept.Location = new System.Drawing.Point(442, 372);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 30);
             this.btnAccept.TabIndex = 0;
@@ -61,7 +85,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(544, 344);
+            this.btnCancel.Location = new System.Drawing.Point(544, 372);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 30);
             this.btnCancel.TabIndex = 1;
@@ -95,9 +119,9 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(104, 14);
+            this.txtName.Location = new System.Drawing.Point(118, 14);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(311, 22);
+            this.txtName.Size = new System.Drawing.Size(297, 26);
             this.txtName.TabIndex = 5;
             // 
             // cmbType
@@ -106,16 +130,16 @@
             this.cmbType.FormattingEnabled = true;
             this.cmbType.Location = new System.Drawing.Point(471, 14);
             this.cmbType.Name = "cmbType";
-            this.cmbType.Size = new System.Drawing.Size(165, 21);
+            this.cmbType.Size = new System.Drawing.Size(165, 27);
             this.cmbType.TabIndex = 6;
             this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
             // txtDesc
             // 
-            this.txtDesc.Location = new System.Drawing.Point(104, 50);
+            this.txtDesc.Location = new System.Drawing.Point(118, 50);
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
-            this.txtDesc.Size = new System.Drawing.Size(532, 59);
+            this.txtDesc.Size = new System.Drawing.Size(518, 59);
             this.txtDesc.TabIndex = 7;
             // 
             // tabControl1
@@ -123,39 +147,39 @@
             this.tabControl1.Controls.Add(this.tabFish);
             this.tabControl1.Controls.Add(this.tabInvertebrate);
             this.tabControl1.Controls.Add(this.tabPlant);
-            this.tabControl1.Location = new System.Drawing.Point(15, 167);
+            this.tabControl1.Location = new System.Drawing.Point(15, 264);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(625, 164);
+            this.tabControl1.Size = new System.Drawing.Size(625, 94);
             this.tabControl1.TabIndex = 8;
             // 
             // tabFish
             // 
             this.tabFish.BackColor = System.Drawing.SystemColors.Control;
-            this.tabFish.Location = new System.Drawing.Point(4, 22);
+            this.tabFish.Location = new System.Drawing.Point(4, 28);
             this.tabFish.Name = "tabFish";
             this.tabFish.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFish.Size = new System.Drawing.Size(617, 138);
+            this.tabFish.Size = new System.Drawing.Size(617, 62);
             this.tabFish.TabIndex = 0;
             this.tabFish.Text = "Fish";
             // 
             // tabInvertebrate
             // 
             this.tabInvertebrate.BackColor = System.Drawing.SystemColors.Control;
-            this.tabInvertebrate.Location = new System.Drawing.Point(4, 23);
+            this.tabInvertebrate.Location = new System.Drawing.Point(4, 28);
             this.tabInvertebrate.Name = "tabInvertebrate";
             this.tabInvertebrate.Padding = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.tabInvertebrate.Size = new System.Drawing.Size(617, 137);
+            this.tabInvertebrate.Size = new System.Drawing.Size(617, 62);
             this.tabInvertebrate.TabIndex = 1;
             this.tabInvertebrate.Text = "Invertebrate";
             // 
             // tabPlant
             // 
             this.tabPlant.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPlant.Location = new System.Drawing.Point(4, 23);
+            this.tabPlant.Location = new System.Drawing.Point(4, 28);
             this.tabPlant.Name = "tabPlant";
             this.tabPlant.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPlant.Size = new System.Drawing.Size(617, 137);
+            this.tabPlant.Size = new System.Drawing.Size(617, 62);
             this.tabPlant.TabIndex = 2;
             this.tabPlant.Text = "Plant";
             // 
@@ -169,23 +193,125 @@
             // 
             // txtScientificName
             // 
-            this.txtScientificName.Location = new System.Drawing.Point(104, 123);
+            this.txtScientificName.Location = new System.Drawing.Point(118, 123);
             this.txtScientificName.Name = "txtScientificName";
-            this.txtScientificName.Size = new System.Drawing.Size(311, 22);
+            this.txtScientificName.Size = new System.Drawing.Size(518, 26);
             this.txtScientificName.TabIndex = 5;
+            // 
+            // lblTempMin
+            // 
+            this.lblTempMin.Location = new System.Drawing.Point(15, 158);
+            this.lblTempMin.Name = "lblTempMin";
+            this.lblTempMin.Size = new System.Drawing.Size(110, 21);
+            this.lblTempMin.TabIndex = 2;
+            this.lblTempMin.Text = "TempMin";
+            // 
+            // txtTempMin
+            // 
+            this.txtTempMin.Location = new System.Drawing.Point(118, 155);
+            this.txtTempMin.Name = "txtTempMin";
+            this.txtTempMin.Size = new System.Drawing.Size(74, 26);
+            this.txtTempMin.TabIndex = 5;
+            // 
+            // lblTempMax
+            // 
+            this.lblTempMax.Location = new System.Drawing.Point(203, 158);
+            this.lblTempMax.Name = "lblTempMax";
+            this.lblTempMax.Size = new System.Drawing.Size(110, 21);
+            this.lblTempMax.TabIndex = 2;
+            this.lblTempMax.Text = "TempMax";
+            // 
+            // txtTempMax
+            // 
+            this.txtTempMax.Location = new System.Drawing.Point(306, 155);
+            this.txtTempMax.Name = "txtTempMax";
+            this.txtTempMax.Size = new System.Drawing.Size(74, 26);
+            this.txtTempMax.TabIndex = 5;
+            // 
+            // lblPHMin
+            // 
+            this.lblPHMin.Location = new System.Drawing.Point(15, 190);
+            this.lblPHMin.Name = "lblPHMin";
+            this.lblPHMin.Size = new System.Drawing.Size(110, 21);
+            this.lblPHMin.TabIndex = 2;
+            this.lblPHMin.Text = "PHMin";
+            // 
+            // txtPHMin
+            // 
+            this.txtPHMin.Location = new System.Drawing.Point(118, 187);
+            this.txtPHMin.Name = "txtPHMin";
+            this.txtPHMin.Size = new System.Drawing.Size(74, 26);
+            this.txtPHMin.TabIndex = 5;
+            // 
+            // lblPHMax
+            // 
+            this.lblPHMax.Location = new System.Drawing.Point(203, 190);
+            this.lblPHMax.Name = "lblPHMax";
+            this.lblPHMax.Size = new System.Drawing.Size(110, 21);
+            this.lblPHMax.TabIndex = 2;
+            this.lblPHMax.Text = "PHMax";
+            // 
+            // txtPHMax
+            // 
+            this.txtPHMax.Location = new System.Drawing.Point(306, 187);
+            this.txtPHMax.Name = "txtPHMax";
+            this.txtPHMax.Size = new System.Drawing.Size(74, 26);
+            this.txtPHMax.TabIndex = 5;
+            // 
+            // lblGHMin
+            // 
+            this.lblGHMin.Location = new System.Drawing.Point(15, 222);
+            this.lblGHMin.Name = "lblGHMin";
+            this.lblGHMin.Size = new System.Drawing.Size(110, 21);
+            this.lblGHMin.TabIndex = 2;
+            this.lblGHMin.Text = "GHMin";
+            // 
+            // lblGHMax
+            // 
+            this.lblGHMax.Location = new System.Drawing.Point(203, 222);
+            this.lblGHMax.Name = "lblGHMax";
+            this.lblGHMax.Size = new System.Drawing.Size(110, 21);
+            this.lblGHMax.TabIndex = 2;
+            this.lblGHMax.Text = "GHMax";
+            // 
+            // txtGHMin
+            // 
+            this.txtGHMin.Location = new System.Drawing.Point(118, 219);
+            this.txtGHMin.Name = "txtGHMin";
+            this.txtGHMin.Size = new System.Drawing.Size(74, 26);
+            this.txtGHMin.TabIndex = 5;
+            // 
+            // txtGHMax
+            // 
+            this.txtGHMax.Location = new System.Drawing.Point(306, 219);
+            this.txtGHMax.Name = "txtGHMax";
+            this.txtGHMax.Size = new System.Drawing.Size(74, 26);
+            this.txtGHMax.TabIndex = 5;
             // 
             // SpeciesEditDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(652, 386);
+            this.ClientSize = new System.Drawing.Size(652, 414);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.txtDesc);
             this.Controls.Add(this.cmbType);
+            this.Controls.Add(this.txtGHMax);
+            this.Controls.Add(this.txtPHMax);
+            this.Controls.Add(this.txtGHMin);
+            this.Controls.Add(this.txtPHMin);
+            this.Controls.Add(this.lblGHMax);
+            this.Controls.Add(this.txtTempMax);
+            this.Controls.Add(this.lblPHMax);
+            this.Controls.Add(this.lblGHMin);
+            this.Controls.Add(this.txtTempMin);
+            this.Controls.Add(this.lblPHMin);
             this.Controls.Add(this.txtScientificName);
+            this.Controls.Add(this.lblTempMax);
             this.Controls.Add(this.txtName);
+            this.Controls.Add(this.lblTempMin);
             this.Controls.Add(this.lblDesc);
             this.Controls.Add(this.lblScientificName);
             this.Controls.Add(this.lblType);

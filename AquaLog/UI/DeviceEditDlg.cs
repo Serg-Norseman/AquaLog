@@ -71,9 +71,15 @@ namespace AquaLog.UI
                 }
                 cmbTSDBPoint.SelectedItem = points.FirstOrDefault(pt => pt.Id == fDevice.PointId);
 
+                cmbBrand.Items.Clear();
+                var brands = fModel.QueryDeviceBrands();
+                foreach (ALModel.QString bqs in brands) {
+                    cmbBrand.Items.Add(bqs.element);
+                }
+                cmbBrand.Text = fDevice.Brand;
+
                 cmbType.SelectedIndex = (int)fDevice.Type;
                 txtName.Text = fDevice.Name;
-                txtBrand.Text = fDevice.Brand;
                 chkEnabled.Checked = fDevice.Enabled;
                 chkDigital.Checked = fDevice.Digital;
                 txtWattage.Text = ALCore.GetDecimalStr(fDevice.Wattage);
@@ -89,7 +95,7 @@ namespace AquaLog.UI
             fDevice.PointId = (pt == null) ? 0 : pt.Id;
 
             fDevice.Name = txtName.Text;
-            fDevice.Brand = txtBrand.Text;
+            fDevice.Brand = cmbBrand.Text;
             fDevice.Enabled = chkEnabled.Checked;
             fDevice.Digital = chkDigital.Checked;
             fDevice.Type = (DeviceType)cmbType.SelectedIndex;

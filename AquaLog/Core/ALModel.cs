@@ -252,6 +252,16 @@ namespace AquaLog.Core
             return fDB.Query<Device>("select * from Device");
         }
 
+        public class QString
+        {
+            public string element { get; set; }
+        }
+
+        public IList<QString> QueryDeviceBrands()
+        {
+            return fDB.Query<QString>("select distinct Brand as element from Device");
+        }
+
         #endregion
 
         #region History functions

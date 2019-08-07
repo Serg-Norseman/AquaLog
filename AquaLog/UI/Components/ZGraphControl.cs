@@ -69,12 +69,10 @@ namespace AquaLog.Components
             fGraph.Invalidate();
         }
 
-        public void PrepareArray(string title, string xAxis, string yAxis, ChartStyle style, List<ChartPoint> vals)
+        public void PrepareArray(string title, string xAxis, string yAxis, ChartStyle style, List<ChartPoint> vals, Color color)
         {
             GraphPane gPane = fGraph.GraphPane;
             try {
-                gPane.CurveList.Clear();
-
                 gPane.Title.Text = title;
                 gPane.XAxis.Title.Text = xAxis;
 
@@ -108,11 +106,11 @@ namespace AquaLog.Components
 
                     switch (style) {
                         case ChartStyle.Bar:
-                            gPane.AddBar("-", ppList, Color.Green);
+                            gPane.AddBar("-", ppList, color);
                             break;
 
                         case ChartStyle.Point:
-                            gPane.AddCurve("-", ppList, Color.Green, SymbolType.Diamond).Symbol.Size = 3;
+                            gPane.AddCurve("-", ppList, color, SymbolType.Diamond).Symbol.Size = 3;
                             break;
                     }
                 }

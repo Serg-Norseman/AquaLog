@@ -49,6 +49,13 @@ namespace AquaLog.UI
             txtDesc.Text = fSpecies.Description;
             cmbType.SelectedIndex = (int)fSpecies.Type;
             txtScientificName.Text = fSpecies.ScientificName;
+
+            txtTempMin.Text = ALCore.GetDecimalStr(fSpecies.TempMin);
+            txtTempMax.Text = ALCore.GetDecimalStr(fSpecies.TempMax);
+            txtPHMin.Text = ALCore.GetDecimalStr(fSpecies.PHMin);
+            txtPHMax.Text = ALCore.GetDecimalStr(fSpecies.PHMax);
+            txtGHMin.Text = ALCore.GetDecimalStr(fSpecies.GHMin);
+            txtGHMax.Text = ALCore.GetDecimalStr(fSpecies.GHMax);
         }
 
         private void ApplyChanges()
@@ -57,6 +64,13 @@ namespace AquaLog.UI
             fSpecies.Description = txtDesc.Text;
             fSpecies.Type = (SpeciesType)cmbType.SelectedIndex;
             fSpecies.ScientificName = txtScientificName.Text;
+
+            fSpecies.TempMin = (float)ALCore.GetDecimalVal(txtTempMin);
+            fSpecies.TempMax = (float)ALCore.GetDecimalVal(txtTempMax);
+            fSpecies.PHMin = (float)ALCore.GetDecimalVal(txtPHMin);
+            fSpecies.PHMax = (float)ALCore.GetDecimalVal(txtPHMax);
+            fSpecies.GHMin = (float)ALCore.GetDecimalVal(txtGHMin);
+            fSpecies.GHMax = (float)ALCore.GetDecimalVal(txtGHMax);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
