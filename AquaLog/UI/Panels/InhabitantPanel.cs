@@ -32,6 +32,9 @@ namespace AquaLog.Panels
             ListView.Columns.Add("Species", 150, HorizontalAlignment.Left);
             ListView.Columns.Add("Current Aquarium", 150, HorizontalAlignment.Left);
             ListView.Columns.Add("Introduction date", 150, HorizontalAlignment.Left);
+            ListView.Columns.Add("Temp", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("PH", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("GH", 100, HorizontalAlignment.Left);
         }
 
         protected override void InitActions()
@@ -88,8 +91,14 @@ namespace AquaLog.Panels
                 string strIntrDate = (intrDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetDateStr(intrDate);
                 item.SubItems.Add(strIntrDate);
 
+                item.SubItems.Add(spc.GetTempRange());
+                item.SubItems.Add(spc.GetPHRange());
+                item.SubItems.Add(spc.GetGHRange());
+
                 ListView.Items.Add(item);
             }
+
+            ListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         protected override void AddHandler(object sender, EventArgs e)

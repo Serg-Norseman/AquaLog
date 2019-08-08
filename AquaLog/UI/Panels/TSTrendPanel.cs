@@ -4,7 +4,7 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-//define SDC_TEST
+#define SDC_TEST
 
 using System;
 using System.Collections.Generic;

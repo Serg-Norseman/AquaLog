@@ -87,6 +87,7 @@ namespace AquaLog.UI
             miExit.Text = Localizer.LS(LSID.LSID_MIExit);
             miAbout.Text = Localizer.LS(LSID.LSID_MIAbout);
             miSettings.Text = Localizer.LS(LSID.LSID_MISettings);
+            miCleanSpace.Text = Localizer.LS(LSID.LSID_MICleanSpace);
         }
 
         private void UpdateControls()

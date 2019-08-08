@@ -63,7 +63,7 @@ namespace AquaLog.DataCollection
         public string ReadLine()
         {
             if (fPort != null) {
-                fPort.DiscardInBuffer();
+                //fPort.DiscardInBuffer();
                 return fPort.ReadLine();
             } else {
                 return string.Empty;

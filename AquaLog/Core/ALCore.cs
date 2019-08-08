@@ -144,6 +144,11 @@ namespace AquaLog.Core
             return ConvertHelper.ParseFloat(strVal, 0.0d, true);
         }
 
+        public static double GetDecimalVal(string strVal)
+        {
+            return ConvertHelper.ParseFloat(strVal, 0.0d, true);
+        }
+
         public static string GetDecimalStr(double value, int decimalDigits = 2)
         {
             string fmt = "0.".PadRight(2 + decimalDigits, '0');

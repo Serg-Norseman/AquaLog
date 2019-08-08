@@ -26,8 +26,9 @@ namespace AquaLog.Core
         /* 004 */ LSID_MIExit = 4,
         /* 005 */ LSID_MIAbout = 5,
         /* 006 */ LSID_MISettings = 6,
+        /* 007 */ LSID_MICleanSpace = 7,
 
-        /* 000 */ LSID_Last = LSID_MISettings
+        /* 000 */ LSID_Last = LSID_MICleanSpace
     }
 
 
@@ -44,6 +45,7 @@ namespace AquaLog.Core
             /* 004 */ "Exit",
             /* 005 */ "About",
             /* 006 */ "Settings",
+            /* 007 */ "Clean Space",
         };
 
 

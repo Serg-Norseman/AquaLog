@@ -3,8 +3,9 @@
     partial class DataMonitor
     {
         private System.ComponentModel.IContainer components = null;
-        private System.Windows.Forms.Label lblPortData;
         private System.Windows.Forms.CheckBox chkEnableCommLED;
+        private System.Windows.Forms.CheckBox chkEnableGetTemp;
+        private System.Windows.Forms.TextBox textBox1;
 
         protected override void Dispose(bool disposing)
         {
@@ -18,21 +19,14 @@
 
         private void InitializeComponent()
         {
-            this.lblPortData = new System.Windows.Forms.Label();
             this.chkEnableCommLED = new System.Windows.Forms.CheckBox();
+            this.chkEnableGetTemp = new System.Windows.Forms.CheckBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // lblPortData
-            // 
-            this.lblPortData.Location = new System.Drawing.Point(50, 28);
-            this.lblPortData.Name = "lblPortData";
-            this.lblPortData.Size = new System.Drawing.Size(211, 23);
-            this.lblPortData.TabIndex = 0;
-            this.lblPortData.Text = "label1";
             // 
             // chkEnableCommLED
             // 
-            this.chkEnableCommLED.Location = new System.Drawing.Point(45, 128);
+            this.chkEnableCommLED.Location = new System.Drawing.Point(12, 12);
             this.chkEnableCommLED.Name = "chkEnableCommLED";
             this.chkEnableCommLED.Size = new System.Drawing.Size(153, 24);
             this.chkEnableCommLED.TabIndex = 3;
@@ -40,19 +34,40 @@
             this.chkEnableCommLED.UseVisualStyleBackColor = true;
             this.chkEnableCommLED.CheckedChanged += new System.EventHandler(this.chkEnableCommLED_CheckedChanged);
             // 
+            // chkEnableGetTemp
+            // 
+            this.chkEnableGetTemp.Location = new System.Drawing.Point(12, 42);
+            this.chkEnableGetTemp.Name = "chkEnableGetTemp";
+            this.chkEnableGetTemp.Size = new System.Drawing.Size(153, 24);
+            this.chkEnableGetTemp.TabIndex = 3;
+            this.chkEnableGetTemp.Text = "EnableGetTemp";
+            this.chkEnableGetTemp.UseVisualStyleBackColor = true;
+            this.chkEnableGetTemp.CheckedChanged += new System.EventHandler(this.chkEnableGetTemp_CheckedChanged);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(12, 72);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.textBox1.Size = new System.Drawing.Size(442, 170);
+            this.textBox1.TabIndex = 4;
+            // 
             // DataMonitor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(466, 261);
+            this.ClientSize = new System.Drawing.Size(466, 254);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.chkEnableGetTemp);
             this.Controls.Add(this.chkEnableCommLED);
-            this.Controls.Add(this.lblPortData);
             this.Name = "DataMonitor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DataMonitor";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormFormClosed);
             this.Load += new System.EventHandler(this.MainFormLoad);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
     }

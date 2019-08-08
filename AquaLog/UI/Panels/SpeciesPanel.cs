@@ -23,13 +23,16 @@ namespace AquaLog.Panels
             ListView.Columns.Add("Name", 200, HorizontalAlignment.Left);
             ListView.Columns.Add("ScientificName", 200, HorizontalAlignment.Left);
             ListView.Columns.Add("Type", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("Temp", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("PH", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add("GH", 100, HorizontalAlignment.Left);
         }
 
         protected override void InitActions()
         {
-            fActions.Add(new UserAction("Add Species", "btn_rec_new.gif", btnAddRecord_Click));
-            fActions.Add(new UserAction("Edit Species", "btn_rec_edit.gif", btnEditRecord_Click));
-            fActions.Add(new UserAction("Delete Species", "btn_rec_delete.gif", btnDeleteRecord_Click));
+            fActions.Add(new UserAction("Add Species", "btn_rec_new.gif", AddHandler));
+            fActions.Add(new UserAction("Edit Species", "btn_rec_edit.gif", EditHandler));
+            fActions.Add(new UserAction("Delete Species", "btn_rec_delete.gif", DeleteHandler));
         }
 
         public override void UpdateContent()
@@ -42,12 +45,15 @@ namespace AquaLog.Panels
                 var item = new ListViewItem(rec.Name);
                 item.SubItems.Add(rec.ScientificName);
                 item.SubItems.Add(rec.Type.ToString());
+                item.SubItems.Add(rec.GetTempRange());
+                item.SubItems.Add(rec.GetPHRange());
+                item.SubItems.Add(rec.GetGHRange());
                 item.Tag = rec;
                 ListView.Items.Add(item);
             }
         }
 
-        private void btnAddRecord_Click(object sender, EventArgs e)
+        protected override void AddHandler(object sender, EventArgs e)
         {
             var spc = new Species();
 
@@ -60,7 +66,7 @@ namespace AquaLog.Panels
             }
         }
 
-        private void btnEditRecord_Click(object sender, EventArgs e)
+        protected override void EditHandler(object sender, EventArgs e)
         {
             var selectedItem = ALCore.GetSelectedItem(ListView);
             if (selectedItem == null) return;
@@ -77,7 +83,7 @@ namespace AquaLog.Panels
             }
         }
 
-        private void btnDeleteRecord_Click(object sender, EventArgs e)
+        protected override void DeleteHandler(object sender, EventArgs e)
         {
             var selectedItem = ALCore.GetSelectedItem(ListView);
             if (selectedItem == null) return;

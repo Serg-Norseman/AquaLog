@@ -5,6 +5,7 @@
  */
 
 using System;
+using AquaLog.Core.Types;
 using BSLib;
 using SQLite;
 
@@ -21,6 +22,7 @@ namespace AquaLog.TSDB
         [Unique]
         public string Name { get; set; }
 
+        public MeasurementType Type { get; set; }
         public string MeasureUnit { get; set; }
 
         #region Range

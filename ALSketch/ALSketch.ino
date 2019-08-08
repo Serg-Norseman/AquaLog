@@ -1,39 +1,43 @@
 #include <OneWire.h>
 
+const String _version = "v0.1";
+const String _sketchName = "ALSketch";
+
 int counter = 0;
 int led = 13;
 
 void setup() {
-  Serial.begin(9600);
+  Serial.begin(9600); // 115200
   pinMode(led, OUTPUT);
 }
 
 void loop() {
-  counter = counter + 1;
-  String pingMsg = "Ping counter from Arduino: ";
-  pingMsg += counter;
-  Serial.println(pingMsg);
-
   if (Serial.available() > 0) {
-    char cmdChar = Serial.read();
-    switch (cmdChar) {
-      case '1':
-        digitalWrite(led, HIGH);
-        break;
-      case '0':
-        digitalWrite(led, LOW);
-        break;
-      case 'T':
-        int pin = 2;
-        QueryTemp(pin);
-        break;
+    counter = counter + 1;
+
+    String query = Serial.readString();
+    String command = getPartFromQuery(query, 0);
+
+    if (command == "Q:info") {
+      String response = "R:ping;sketch:" + _sketchName + ";ver:" + _version + ";counter:" + counter + ";";
+      writeResponse(response);
+    }
+
+    if (command == "Q:setled") {
+      String pin = getPartFromQuery(query, command.length());
+      String ledValue = getPartFromQuery(query, (command.length() + pin.length() + 1));
+      setLED(pin.toInt(), ledValue.toInt());
+    }
+
+    if (command == "Q:gettemp") {
+      String pin = getPartFromQuery(query, command.length());
+      queryTemp(pin.toInt());
     }
   }
-  delay(300);
 }
 
 // OneWire DS18S20, DS18B20, DS1822 Temperature Sensors
-void QueryTemp(int pin)
+void queryTemp(int pin)
 {
   OneWire ds(pin);
 
@@ -108,8 +112,8 @@ void QueryTemp(int pin)
   }
   float celsius = (float)raw / 16.0;
 
-  String response = "R:temp|sid:" + rom + "|val:" + celsius;
-  Serial.println("    Response = [" + response + "]");
+  String response = "R:temp;sid:" + rom + ";val:" + celsius + ";";
+  Serial.println(response);
 }
 
 String arr2str(size_t size, uint8_t *src)
@@ -134,4 +138,27 @@ char val2hex(uint8_t val)
     return ('0' + val);
   else
     return ('a' + (val - 10));
+}
+
+String getPartFromQuery(String query, int startIndex)
+{
+  if (startIndex > 0) startIndex++;
+  int endIndex = query.indexOf(';', startIndex);
+  String part = query.substring(startIndex, endIndex);
+  return part;
+}
+
+void writeResponse(String response)
+{
+  delay(50);
+  Serial.println(response);
+}
+
+void setLED(int pin, int value)
+{
+  if (value) {
+    digitalWrite(pin, HIGH);
+  } else {
+    digitalWrite(pin, LOW);
+  }
 }

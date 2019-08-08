@@ -90,5 +90,29 @@ namespace AquaLog.Core.Model
         {
             return Name;
         }
+
+        public string GetTempRange()
+        {
+            if (TempMin == 0.0f && TempMax == 0.0f) {
+                return string.Empty;
+            }
+            return ALCore.GetDecimalStr(TempMin) + " - " + ALCore.GetDecimalStr(TempMax);
+        }
+
+        public string GetPHRange()
+        {
+            if (PHMin == 0.0f && PHMax == 0.0f) {
+                return string.Empty;
+            }
+            return ALCore.GetDecimalStr(PHMin) + " - " + ALCore.GetDecimalStr(PHMax);
+        }
+
+        public string GetGHRange()
+        {
+            if (GHMin == 0.0f && GHMax == 0.0f) {
+                return string.Empty;
+            }
+            return ALCore.GetDecimalStr(GHMin) + " - " + ALCore.GetDecimalStr(GHMax);
+        }
     }
 }

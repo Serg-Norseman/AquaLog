@@ -21,6 +21,9 @@ namespace AquaLog.DataCollection
 
         public event ElapsedEventHandler Elapsed;
 
+        public event EventHandler ReceivedData;
+
+
         public bool Enabled
         {
             get { return fTimer.Enabled; }
@@ -74,6 +77,12 @@ namespace AquaLog.DataCollection
 
             ElapsedEventHandler handler = Elapsed;
             if (handler != null) handler(sender, e);
+        }
+
+        protected void ReceiveData()
+        {
+            EventHandler handler = ReceivedData;
+            if (handler != null) handler(this, null);
         }
     }
 }

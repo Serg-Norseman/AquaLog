@@ -7,6 +7,7 @@
 using System;
 using System.Windows.Forms;
 using System.Timers;
+using AquaLog.Core;
 
 namespace AquaLog.DataCollection
 {
@@ -14,6 +15,7 @@ namespace AquaLog.DataCollection
     {
         private IChannel fChannel;
         private BaseService fCommunicationLED;
+        private BaseService fTemperatureService;
 
         public DataMonitor()
         {
@@ -24,7 +26,14 @@ namespace AquaLog.DataCollection
             fCommunicationLED = new CommunicationLEDService();
             fCommunicationLED.SetChannel(fChannel);
             fCommunicationLED.SetInterval(1000);
-            fCommunicationLED.Elapsed += OnTimedEvent;
+            //fCommunicationLED.Elapsed += OnTimedEvent;
+            fCommunicationLED.ReceivedData += OnReceivedData;
+
+            fTemperatureService = new TemperatureService();
+            fTemperatureService.SetChannel(fChannel);
+            fTemperatureService.SetInterval(5000);
+            //fTemperatureService.Elapsed += OnTimedEvent;
+            fTemperatureService.ReceivedData += OnReceivedData;
         }
 
         private void MainFormLoad(object sender, EventArgs e)
@@ -43,20 +52,36 @@ namespace AquaLog.DataCollection
             try {
                 if (fChannel.IsOpen) {
                     string strFromPort = fChannel.ReadLine();
-                    lblPortData.BeginInvoke(new UpdateDelegate(updateTextBox), strFromPort);
+                    textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), strFromPort);
                 }
             } catch {
             }
         }
 
-        private void updateTextBox(string txt)
+        private void OnReceivedData(object sender, EventArgs e)
         {
-            lblPortData.Text = txt;
+            try {
+                if (fChannel.IsOpen) {
+                    textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), ALCore.GetDecimalStr(((TemperatureService)fTemperatureService).Temperature));
+                    //textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), (((TemperatureService)fTemperatureService).Temperature));
+                }
+            } catch {
+            }
+        }
+
+        private void updateTextBox(string text)
+        {
+            textBox1.Text += text + "\r\n";
         }
 
         private void chkEnableCommLED_CheckedChanged(object sender, EventArgs e)
         {
             fCommunicationLED.Enabled = chkEnableCommLED.Checked;
+        }
+
+        private void chkEnableGetTemp_CheckedChanged(object sender, EventArgs e)
+        {
+            fTemperatureService.Enabled = chkEnableGetTemp.Checked;
         }
     }
 }

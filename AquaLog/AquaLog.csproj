@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="DataCollection\IChannel.cs" />
     <Compile Include="DataCollection\SerialChannel.cs" />
+    <Compile Include="DataCollection\TemperatureService.cs" />
     <Compile Include="TSDB\TSPoint.cs" />
     <Compile Include="TSDB\SDCompression.cs" />
     <Compile Include="TSDB\TSDatabase.cs" />
