@@ -19,16 +19,13 @@ namespace AquaLog.Core.Model
         public int SpeciesId { get; set; }
 
         public string Name { get; set; }
+        public Sex Sex { get; set; }
+
         public string Note { get; set; }
 
 
         public Inhabitant()
         {
-        }
-
-        public virtual SpeciesType GetSpeciesType()
-        {
-            throw new NotImplementedException();
         }
     }
 }

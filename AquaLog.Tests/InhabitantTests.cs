@@ -11,12 +11,12 @@ using NUnit.Framework;
 namespace AquaLog.Core.Model
 {
     [TestFixture]
-    public class FishTests
+    public class InhabitantTests
     {
         [Test]
         public void Test_Common()
         {
-            var fish = new Fish();
+            var fish = new Inhabitant();
             Assert.IsNotNull(fish);
 
             fish.Name = "Siamese fighting fish";

@@ -55,7 +55,7 @@ namespace AquaLog.UI
         private void ApplyChanges()
         {
             fValue.Timestamp = dtpTimestamp.Value;
-            fValue.Value = (float)ALCore.GetDecimalVal(txtValue);
+            fValue.Value = (float)ALCore.GetDecimalVal(txtValue.Text);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

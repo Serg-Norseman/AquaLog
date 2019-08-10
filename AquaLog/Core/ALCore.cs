@@ -138,12 +138,6 @@ namespace AquaLog.Core
             return Color.FromArgb(red, green, blue);
         }
 
-        public static double GetDecimalVal(TextBox textBox)
-        {
-            string strVal = textBox.Text;
-            return ConvertHelper.ParseFloat(strVal, 0.0d, true);
-        }
-
         public static double GetDecimalVal(string strVal)
         {
             return ConvertHelper.ParseFloat(strVal, 0.0d, true);
@@ -182,11 +176,6 @@ namespace AquaLog.Core
             return asm;
         }
 
-        public static Version GetAppVersion()
-        {
-            return GetAssembly().GetName().Version;
-        }
-
         public static T GetAssemblyAttribute<T>(Assembly assembly) where T : Attribute
         {
             if (assembly == null)
@@ -208,9 +197,9 @@ namespace AquaLog.Core
             return (attr == null) ? string.Empty : attr.Copyright;
         }
 
-        protected static string GetAppSign()
+        public static Version GetAppVersion()
         {
-            return AppName;
+            return GetAssembly().GetName().Version;
         }
 
         public static string GetAppDataPath()
@@ -219,7 +208,7 @@ namespace AquaLog.Core
 
             if (string.IsNullOrEmpty(fAppDataPath)) {
                 path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                    Path.DirectorySeparatorChar + GetAppSign() + Path.DirectorySeparatorChar;
+                    Path.DirectorySeparatorChar + AppName + Path.DirectorySeparatorChar;
             } else {
                 path = fAppDataPath;
             }

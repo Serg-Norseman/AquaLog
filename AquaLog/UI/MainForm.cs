@@ -22,9 +22,7 @@ namespace AquaLog.UI
         private ALModel fModel;
         private NavigationStack<DataPanel> fNavigationStack;
 
-        private FishPanel fFishPanel;
-        private InvertebratePanel fInvertebratePanel;
-        private PlantPanel fPlantPanel;
+        private InhabitantPanel fInhabitantPanel;
         private TanksPanel fTanksPanel;
         private SpeciesPanel fSpeciesPanel;
         private TransferPanel fTransferPanel;
@@ -60,9 +58,7 @@ namespace AquaLog.UI
             btnPrev.Tag = MainView.Prev;
             btnNext.Tag = MainView.Next;
             btnTanks.Tag = MainView.Tanks;
-            btnFishes.Tag = MainView.Fishes;
-            btnInvertebrates.Tag = MainView.Invertebrates;
-            btnPlants.Tag = MainView.Plants;
+            btnInhabitants.Tag = MainView.Inhabitants;
             btnSpecies.Tag = MainView.Species;
             btnDevices.Tag = MainView.Devices;
             btnBudget.Tag = MainView.Budget;
@@ -183,14 +179,8 @@ namespace AquaLog.UI
                 case MainView.Tanks:
                     SetView<TanksPanel>(ref fTanksPanel, extData);
                     break;
-                case MainView.Fishes:
-                    SetView<FishPanel>(ref fFishPanel, extData);
-                    break;
-                case MainView.Invertebrates:
-                    SetView<InvertebratePanel>(ref fInvertebratePanel, extData);
-                    break;
-                case MainView.Plants:
-                    SetView<PlantPanel>(ref fPlantPanel, extData);
+                case MainView.Inhabitants:
+                    SetView<InhabitantPanel>(ref fInhabitantPanel, extData);
                     break;
                 case MainView.Species:
                     SetView<SpeciesPanel>(ref fSpeciesPanel, extData);

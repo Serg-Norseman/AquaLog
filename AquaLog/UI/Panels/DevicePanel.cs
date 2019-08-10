@@ -40,11 +40,8 @@ namespace AquaLog.Panels
             fActions.Add(new UserAction("Data Monitor", "", ShowMonitor));
         }
 
-        public override void UpdateContent()
+        protected override void UpdateListView()
         {
-            ListView.Items.Clear();
-            if (fModel == null) return;
-
             var records = fModel.QueryDevices();
             foreach (Device rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);

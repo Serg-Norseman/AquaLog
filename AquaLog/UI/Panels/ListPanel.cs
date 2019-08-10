@@ -36,6 +36,19 @@ namespace AquaLog.Panels
             Controls.Add(fListView);
         }
 
+        public override void UpdateContent()
+        {
+            ListView.Items.Clear();
+            if (fModel == null) return;
+
+            UpdateListView();
+            ListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+        }
+
+        protected virtual void UpdateListView()
+        {
+        }
+
         protected virtual void AddHandler(object sender, EventArgs e)
         {
         }

@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
@@ -54,21 +53,16 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            var species = fModel.QuerySpecies((int)fInhabitant.GetSpeciesType());
-            foreach (Species spc in species) {
+            var speciesList = fModel.QuerySpecies();
+            foreach (Species spc in speciesList) {
                 cmbSpecies.Items.Add(spc);
             }
+            var species = speciesList.FirstOrDefault(sp => sp.Id == fInhabitant.SpeciesId);
 
             txtName.Text = fInhabitant.Name;
             txtNote.Text = fInhabitant.Note;
-            cmbSpecies.SelectedItem = species.FirstOrDefault(sp => sp.Id == fInhabitant.SpeciesId);
-
-            if (fInhabitant is Animal) {
-                cmbSex.SelectedIndex = (int)((Animal)fInhabitant).Sex;
-            } else {
-                lblSex.Visible = false;
-                cmbSex.Visible = false;
-            }
+            cmbSpecies.SelectedItem = species;
+            cmbSex.SelectedIndex = (int)fInhabitant.Sex;
         }
 
         private void ApplyChanges()
@@ -78,10 +72,7 @@ namespace AquaLog.UI
             fInhabitant.Name = txtName.Text;
             fInhabitant.Note = txtNote.Text;
             fInhabitant.SpeciesId = spc.Id;
-
-            if (fInhabitant is Animal) {
-                ((Animal)fInhabitant).Sex = (Sex)cmbSex.SelectedIndex;
-            }
+            fInhabitant.Sex = (Sex)cmbSex.SelectedIndex;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
@@ -92,6 +83,15 @@ namespace AquaLog.UI
             } catch {
                 DialogResult = DialogResult.None;
             }
+        }
+
+        private void cmbSpecies_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var species = cmbSpecies.SelectedItem as Species;
+            bool hasSex = (species != null && species.Type != SpeciesType.Plant);
+
+            lblSex.Visible = hasSex;
+            cmbSex.Visible = hasSex;
         }
     }
 }

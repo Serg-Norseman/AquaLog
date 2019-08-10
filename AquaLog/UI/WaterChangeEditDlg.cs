@@ -83,7 +83,7 @@ namespace AquaLog.UI
 
             fWaterChange.ChangeDate = dtpDate.Value;
             fWaterChange.Type = (WaterChangeType)cmbType.SelectedIndex;
-            fWaterChange.Volume = ALCore.GetDecimalVal(txtVolume);
+            fWaterChange.Volume = ALCore.GetDecimalVal(txtVolume.Text);
             fWaterChange.Note = txtNote.Text;
         }
 

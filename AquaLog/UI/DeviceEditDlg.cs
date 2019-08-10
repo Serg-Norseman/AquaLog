@@ -99,7 +99,7 @@ namespace AquaLog.UI
             fDevice.Enabled = chkEnabled.Checked;
             fDevice.Digital = chkDigital.Checked;
             fDevice.Type = (DeviceType)cmbType.SelectedIndex;
-            fDevice.Wattage = ALCore.GetDecimalVal(txtWattage);
+            fDevice.Wattage = ALCore.GetDecimalVal(txtWattage.Text);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

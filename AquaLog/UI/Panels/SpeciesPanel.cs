@@ -35,11 +35,8 @@ namespace AquaLog.Panels
             fActions.Add(new UserAction("Delete Species", "btn_rec_delete.gif", DeleteHandler));
         }
 
-        public override void UpdateContent()
+        protected override void UpdateListView()
         {
-            ListView.Items.Clear();
-            if (fModel == null) return;
-
             var records = fModel.QuerySpecies();
             foreach (Species rec in records) {
                 var item = new ListViewItem(rec.Name);

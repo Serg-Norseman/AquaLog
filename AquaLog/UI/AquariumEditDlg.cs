@@ -77,10 +77,10 @@ namespace AquaLog.UI
             fAquarium.TankShape = (TankShape)cmbShape.SelectedIndex;
             fAquarium.WaterType = (AquariumWaterType)cmbWaterType.SelectedIndex;
 
-            fAquarium.Depth = ALCore.GetDecimalVal(txtDepth);
-            fAquarium.Width = ALCore.GetDecimalVal(txtWidth);
-            fAquarium.Height = ALCore.GetDecimalVal(txtHeigth);
-            fAquarium.TankVolume = ALCore.GetDecimalVal(txtVolume);
+            fAquarium.Depth = ALCore.GetDecimalVal(txtDepth.Text);
+            fAquarium.Width = ALCore.GetDecimalVal(txtWidth.Text);
+            fAquarium.Height = ALCore.GetDecimalVal(txtHeigth.Text);
+            fAquarium.TankVolume = ALCore.GetDecimalVal(txtVolume.Text);
 
             fAquarium.StartDate = dtpStartDate.Checked ? dtpStartDate.Value : new DateTime(0);
             fAquarium.StopDate = dtpStopDate.Checked ? dtpStopDate.Value : new DateTime(0);
@@ -144,14 +144,14 @@ namespace AquaLog.UI
                     break;
 
                 case TankShape.Cube:
-                    var size = ALCore.GetDecimalVal(txtWidth);
+                    var size = ALCore.GetDecimalVal(txtWidth.Text);
                     txtVolume.Text = ALCore.GetDecimalStr(size * size * size);
                     break;
 
                 case TankShape.Rectangular:
-                    var depth = ALCore.GetDecimalVal(txtDepth);
-                    var width = ALCore.GetDecimalVal(txtWidth);
-                    var height = ALCore.GetDecimalVal(txtHeigth);
+                    var depth = ALCore.GetDecimalVal(txtDepth.Text);
+                    var width = ALCore.GetDecimalVal(txtWidth.Text);
+                    var height = ALCore.GetDecimalVal(txtHeigth.Text);
                     txtVolume.Text = ALCore.GetDecimalStr(ALCore.CalcVolume(depth, width, height));
                     break;
 

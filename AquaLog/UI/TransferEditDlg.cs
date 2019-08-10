@@ -109,7 +109,7 @@ namespace AquaLog.UI
 
             fTransfer.Quantity = int.Parse(txtQty.Text);
             if (fTransfer.Type == TransferType.Purchase || fTransfer.Type == TransferType.Sale) {
-                fTransfer.UnitPrice = (float)ALCore.GetDecimalVal(txtUnitPrice);
+                fTransfer.UnitPrice = (float)ALCore.GetDecimalVal(txtUnitPrice.Text);
                 fTransfer.Shop = cmbShop.Text;
             }
         }

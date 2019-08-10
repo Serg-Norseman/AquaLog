@@ -20,14 +20,10 @@ namespace AquaLog.Panels
     /// </summary>
     public class InhabitantPanel : ListPanel
     {
-        private ColumnHeader fSexColumn;
-        protected SpeciesType fType;
-
-
         public InhabitantPanel() : base()
         {
             ListView.Columns.Add("Name", 200, HorizontalAlignment.Left);
-            fSexColumn = ListView.Columns.Add("Sex", 50, HorizontalAlignment.Left);
+            ListView.Columns.Add("Sex", 50, HorizontalAlignment.Left);
             ListView.Columns.Add("Qty", 50, HorizontalAlignment.Right);
             ListView.Columns.Add("Species", 150, HorizontalAlignment.Left);
             ListView.Columns.Add("Current Aquarium", 150, HorizontalAlignment.Left);
@@ -45,42 +41,28 @@ namespace AquaLog.Panels
             fActions.Add(new UserAction("Transfer", null, TransferInhabitantHandler));
         }
 
-        public override void UpdateContent()
+        protected override void UpdateListView()
         {
-            ListView.Items.Clear();
-            if (fModel == null) return;
-
-            bool isAnimal = (fType != SpeciesType.Plant);
-            fSexColumn.Width = (isAnimal) ? 50 : 0;
-
-            IEnumerable<Inhabitant> records = null;
-            switch (fType) {
-                case SpeciesType.Fish:
-                    records = fModel.QueryFishes();
-                    break;
-                case SpeciesType.Invertebrate:
-                    records = fModel.QueryInvertebrates();
-                    break;
-                case SpeciesType.Plant:
-                    records = fModel.QueryPlants();
-                    break;
-            }
-
+            IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
 
                 var item = new ListViewItem(rec.Name);
                 item.Tag = rec;
 
-                string sx = (isAnimal) ? ((Animal)rec).Sex.ToString() : string.Empty;
+                bool isAnimal = (spc.Type != SpeciesType.Plant);
+                string sx = (isAnimal) ? rec.Sex.ToString() : string.Empty;
                 item.SubItems.Add(sx);
 
-                item.SubItems.Add(fModel.QueryInhabitantsCount(rec.Id, ALCore.GetItemType(rec.GetSpeciesType())).ToString());
+                SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
+                ItemType itemType = ALCore.GetItemType(speciesType);
+
+                item.SubItems.Add(fModel.QueryInhabitantsCount(rec.Id, itemType).ToString());
                 item.SubItems.Add(spc.Name);
 
                 int currAqmId = 0;
                 DateTime intrDate = ALCore.ZeroDate;
-                IList<Transfer> lastTransfers = fModel.QueryLastTransfers(rec.Id, (int)ALCore.GetItemType(rec.GetSpeciesType()));
+                IList<Transfer> lastTransfers = fModel.QueryLastTransfers(rec.Id, (int)itemType);
                 if (lastTransfers.Count > 0) {
                     currAqmId = lastTransfers[0].TargetId;
                     intrDate = lastTransfers[0].Date;
@@ -97,24 +79,11 @@ namespace AquaLog.Panels
 
                 ListView.Items.Add(item);
             }
-
-            ListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
         }
 
         protected override void AddHandler(object sender, EventArgs e)
         {
-            Inhabitant record = null;
-            switch (fType) {
-                case SpeciesType.Fish:
-                    record = new Fish();
-                    break;
-                case SpeciesType.Invertebrate:
-                    record = new Invertebrate();
-                    break;
-                case SpeciesType.Plant:
-                    record = new Plant();
-                    break;
-            }
+            Inhabitant record = new Inhabitant();
 
             using (var dlg = new InhabitantEditDlg()) {
                 dlg.Model = fModel;
@@ -161,8 +130,11 @@ namespace AquaLog.Panels
             var record = selectedItem.Tag as Inhabitant;
             if (record == null) return;
 
+            SpeciesType speciesType = fModel.GetSpeciesType(record.SpeciesId);
+            ItemType itemType = ALCore.GetItemType(speciesType);
+
             var transfer = new Transfer();
-            transfer.ItemType = ALCore.GetItemType(record.GetSpeciesType());
+            transfer.ItemType = itemType;
             transfer.ItemId = record.Id;
 
             using (var dlg = new TransferEditDlg()) {
@@ -173,33 +145,6 @@ namespace AquaLog.Panels
                     UpdateContent();
                 }
             }
-        }
-    }
-
-
-    public class FishPanel : InhabitantPanel
-    {
-        public FishPanel()
-        {
-            fType = SpeciesType.Fish;
-        }
-    }
-
-
-    public class InvertebratePanel : InhabitantPanel
-    {
-        public InvertebratePanel()
-        {
-            fType = SpeciesType.Invertebrate;
-        }
-    }
-
-
-    public class PlantPanel : InhabitantPanel
-    {
-        public PlantPanel()
-        {
-            fType = SpeciesType.Plant;
         }
     }
 }

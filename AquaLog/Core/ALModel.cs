@@ -38,9 +38,7 @@ namespace AquaLog.Core
 
             fDB.CreateTable<Aquarium>();
 
-            fDB.CreateTable<Fish>();
-            fDB.CreateTable<Invertebrate>();
-            fDB.CreateTable<Plant>();
+            fDB.CreateTable<Inhabitant>();
             fDB.CreateTable<Species>();
 
             fDB.CreateTable<Device>();
@@ -102,16 +100,16 @@ namespace AquaLog.Core
                 case ItemType.Aquarium:
                     break;
                 case ItemType.Fish:
-                    result = GetRecord<Fish>(itemId);
+                    result = GetRecord<Inhabitant>(itemId);
                     break;
                 case ItemType.Invertebrate:
-                    result = GetRecord<Invertebrate>(itemId);
+                    result = GetRecord<Inhabitant>(itemId);
                     break;
                 case ItemType.Device:
                     result = GetRecord<Device>(itemId);
                     break;
                 case ItemType.Plant:
-                    result = GetRecord<Plant>(itemId);
+                    result = GetRecord<Inhabitant>(itemId);
                     break;
             }
             return result;
@@ -125,16 +123,16 @@ namespace AquaLog.Core
                 case ItemType.Aquarium:
                     break;
                 case ItemType.Fish:
-                    itName = (itemRec as Fish).Name;
+                    itName = (itemRec as Inhabitant).Name;
                     break;
                 case ItemType.Invertebrate:
-                    itName = (itemRec as Invertebrate).Name;
+                    itName = (itemRec as Inhabitant).Name;
                     break;
                 case ItemType.Device:
                     itName = (itemRec as Device).Name;
                     break;
                 case ItemType.Plant:
-                    itName = (itemRec as Plant).Name;
+                    itName = (itemRec as Inhabitant).Name;
                     break;
             }
             return itName;
@@ -189,44 +187,16 @@ namespace AquaLog.Core
 
         #endregion
 
-        #region Fish functions
+        #region Inhabitant functions
 
-        public IEnumerable<Fish> QueryFishes()
+        public IEnumerable<Inhabitant> QueryInhabitants()
         {
-            return fDB.Query<Fish>("select * from Fish");
+            return fDB.Query<Inhabitant>("select * from Inhabitant");
         }
 
-        public IEnumerable<Fish> QueryFishes(Aquarium aquarium)
+        public IEnumerable<Inhabitant> QueryInhabitants(Aquarium aquarium)
         {
-            return fDB.Query<Fish>("select * from Fish where AquariumId = ?", aquarium.Id);
-        }
-
-        #endregion
-
-        #region Invertebrate functions
-
-        public IEnumerable<Invertebrate> QueryInvertebrates()
-        {
-            return fDB.Query<Invertebrate>("select * from Invertebrate");
-        }
-
-        public IEnumerable<Invertebrate> QueryInvertebrates(Aquarium aquarium)
-        {
-            return fDB.Query<Invertebrate>("select * from Invertebrate where AquariumId = ?", aquarium.Id);
-        }
-
-        #endregion
-
-        #region Plant functions
-
-        public IEnumerable<Plant> QueryPlants()
-        {
-            return fDB.Query<Plant>("select * from Plant");
-        }
-
-        public IEnumerable<Plant> QueryPlants(Aquarium aquarium)
-        {
-            return fDB.Query<Plant>("select * from Plant where AquariumId = ?", aquarium.Id);
+            return fDB.Query<Inhabitant>("select * from Inhabitant where AquariumId = ?", aquarium.Id);
         }
 
         #endregion
@@ -241,6 +211,12 @@ namespace AquaLog.Core
         public IList<Species> QuerySpecies(int type)
         {
             return fDB.Query<Species>("select * from Species where [Type] = ?", type);
+        }
+
+        public SpeciesType GetSpeciesType(int speciesId)
+        {
+            var species = fDB.Query<Species>("select * from Species where [Id] = ?", speciesId);
+            return (species != null && species.Count > 0) ? species[0].Type : SpeciesType.Fish;
         }
 
         #endregion
@@ -341,11 +317,9 @@ namespace AquaLog.Core
             return fDB.Query<Transfer>("select Date, ItemType, ItemId, Type, Quantity, UnitPrice, Shop from Transfer");
         }
 
-        public float GetTotalExpense()
+        public IList<QString> QueryShops()
         {
-            // "select total(Price) as total_expense from Expenses"
-            // "select distinct Shop as element from Expenses"
-            return 0.0f;
+            return fDB.Query<QString>("select distinct Shop as element from Transfer");
         }
 
         #endregion

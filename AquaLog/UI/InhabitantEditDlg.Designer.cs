@@ -122,6 +122,7 @@
             this.cmbSpecies.Name = "cmbSpecies";
             this.cmbSpecies.Size = new System.Drawing.Size(311, 21);
             this.cmbSpecies.TabIndex = 5;
+            this.cmbSpecies.SelectedIndexChanged += new System.EventHandler(this.cmbSpecies_SelectedIndexChanged);
             // 
             // InhabitantEditDlg
             // 
@@ -148,7 +149,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Fish";
+            this.Text = "Inhabitant";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -61,9 +61,9 @@ namespace AquaLog.UI
         {
             fPoint.Name = txtName.Text;
             fPoint.MeasureUnit = txtUoM.Text;
-            fPoint.Min = (float)ALCore.GetDecimalVal(txtMin);
-            fPoint.Max = (float)ALCore.GetDecimalVal(txtMax);
-            fPoint.Deviation = (float)ALCore.GetDecimalVal(txtDeviation);
+            fPoint.Min = (float)ALCore.GetDecimalVal(txtMin.Text);
+            fPoint.Max = (float)ALCore.GetDecimalVal(txtMax.Text);
+            fPoint.Deviation = (float)ALCore.GetDecimalVal(txtDeviation.Text);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
