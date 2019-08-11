@@ -38,12 +38,14 @@ namespace AquaLog.DataCollection
 
         private void MainFormLoad(object sender, EventArgs e)
         {
-            fChannel.Open("COM3");
+            cmbChannel.SelectedIndex = 0;
+            cmbChannel.Enabled = false;
         }
 
         private void MainFormFormClosed(object sender, FormClosedEventArgs e)
         {
             fCommunicationLED.Dispose();
+            fTemperatureService.Dispose();
             fChannel.Dispose();
         }
 
@@ -82,6 +84,20 @@ namespace AquaLog.DataCollection
         private void chkEnableGetTemp_CheckedChanged(object sender, EventArgs e)
         {
             fTemperatureService.Enabled = chkEnableGetTemp.Checked;
+        }
+
+        private void btnOpen_Click(object sender, EventArgs e)
+        {
+            fChannel.Open(cmbPort.Text);
+            btnOpen.Enabled = false;
+            btnClose.Enabled = true;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            fChannel.Close();
+            btnOpen.Enabled = true;
+            btnClose.Enabled = false;
         }
     }
 }
