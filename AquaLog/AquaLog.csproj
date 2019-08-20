@@ -66,11 +66,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ALData.cs" />
+    <Compile Include="Core\ALSettings.cs" />
     <Compile Include="Core\ILocalizable.cs" />
     <Compile Include="Core\Localizer.cs" />
+    <Compile Include="Core\Model\Measure.cs" />
+    <Compile Include="Core\Model\Nutrition.cs" />
     <Compile Include="Core\Types\DeviceProps.cs" />
     <Compile Include="Core\Types\DeviceType.cs" />
     <Compile Include="Core\Types\ValueBounds.cs" />
+    <Compile Include="Core\UnitConverter.cs" />
     <Compile Include="DataCollection\BaseService.cs" />
     <Compile Include="DataCollection\CommunicationLEDService.cs" />
     <Compile Include="DataCollection\DataMonitor.cs" />
@@ -152,11 +157,25 @@
       <DependentUpon>MaintenanceEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainView.cs" />
+    <Compile Include="UI\MeasureEditDlg.cs" />
+    <Compile Include="UI\MeasureEditDlg.Designer.cs">
+      <DependentUpon>MeasureEditDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\NoteEditDlg.cs" />
     <Compile Include="UI\NoteEditDlg.Designer.cs">
       <DependentUpon>NoteEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\NutritionEditDlg.cs" />
+    <Compile Include="UI\NutritionEditDlg.Designer.cs">
+      <DependentUpon>NutritionEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\MeasurePanel.cs" />
+    <Compile Include="UI\Panels\NutritionPanel.cs" />
     <Compile Include="UI\Panels\TSTrendPanel.cs" />
+    <Compile Include="UI\SettingsDlg.cs" />
+    <Compile Include="UI\SettingsDlg.Designer.cs">
+      <DependentUpon>SettingsDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SpeciesEditDlg.cs" />
     <Compile Include="UI\SpeciesEditDlg.Designer.cs">
       <DependentUpon>SpeciesEditDlg.cs</DependentUpon>

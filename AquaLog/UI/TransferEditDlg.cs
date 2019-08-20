@@ -88,6 +88,15 @@ namespace AquaLog.UI
                 txtQty.Text = fTransfer.Quantity.ToString();
                 if (fTransfer.Type == TransferType.Purchase || fTransfer.Type == TransferType.Sale) {
                     txtUnitPrice.Text = ALCore.GetDecimalStr(fTransfer.UnitPrice);
+
+                    cmbShop.Items.Clear();
+                    var shops = fModel.QueryShops();
+                    foreach (var shp in shops) {
+                        if (!string.IsNullOrEmpty(shp.element)) {
+                            cmbShop.Items.Add(shp.element);
+                        }
+                    }
+
                     cmbShop.Text = fTransfer.Shop;
                 }
             }

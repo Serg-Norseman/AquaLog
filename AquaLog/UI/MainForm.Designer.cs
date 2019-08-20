@@ -34,6 +34,8 @@
         private System.Windows.Forms.ToolStripMenuItem miHelp;
         private System.Windows.Forms.ToolStripMenuItem miAbout;
         private System.Windows.Forms.ToolStripButton btnTSDB;
+        private System.Windows.Forms.ToolStripButton btnNutrition;
+        private System.Windows.Forms.ToolStripButton btnMeasures;
         
         protected override void Dispose(bool disposing)
         {
@@ -65,6 +67,7 @@
             this.btnInhabitants = new System.Windows.Forms.ToolStripButton();
             this.btnSpecies = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnNutrition = new System.Windows.Forms.ToolStripButton();
             this.btnDevices = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnBudget = new System.Windows.Forms.ToolStripButton();
@@ -79,6 +82,7 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnMeasures = new System.Windows.Forms.ToolStripButton();
             this.menuMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlTools.SuspendLayout();
@@ -124,10 +128,10 @@
             // 
             // miSettings
             // 
-            this.miSettings.Enabled = false;
             this.miSettings.Name = "miSettings";
             this.miSettings.Size = new System.Drawing.Size(135, 22);
             this.miSettings.Text = "Settings";
+            this.miSettings.Click += new System.EventHandler(this.miSettings_Click);
             // 
             // toolStripMenuItem2
             // 
@@ -167,6 +171,7 @@
             this.btnInhabitants,
             this.btnSpecies,
             this.toolStripSeparator2,
+            this.btnNutrition,
             this.btnDevices,
             this.toolStripSeparator3,
             this.btnBudget,
@@ -175,7 +180,8 @@
             this.btnHistory,
             this.btnMaintenance,
             this.btnTransfers,
-            this.btnTSDB});
+            this.btnTSDB,
+            this.btnMeasures});
             this.toolStrip1.Location = new System.Drawing.Point(0, 25);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(1050, 25);
@@ -238,6 +244,15 @@
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnNutrition
+            // 
+            this.btnNutrition.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnNutrition.Name = "btnNutrition";
+            this.btnNutrition.Size = new System.Drawing.Size(59, 22);
+            this.btnNutrition.Text = "Nutrition";
+            this.btnNutrition.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnNutrition.Click += new System.EventHandler(this.btnMainView_Click);
             // 
             // btnDevices
             // 
@@ -365,6 +380,15 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
+            // 
+            // btnMeasures
+            // 
+            this.btnMeasures.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMeasures.Name = "btnMeasures";
+            this.btnMeasures.Size = new System.Drawing.Size(61, 22);
+            this.btnMeasures.Text = "Measures";
+            this.btnMeasures.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnMeasures.Click += new System.EventHandler(this.btnMainView_Click);
             // 
             // MainForm
             // 

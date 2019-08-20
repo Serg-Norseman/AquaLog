@@ -62,6 +62,10 @@ namespace AquaLog.Panels
             var aquariums = fModel.QueryAquariums();
 
             foreach (var aqm in aquariums) {
+                if (aqm.IsInactive() && ALSettings.Instance.HideClosedTanks) {
+                    continue;
+                }
+
                 var aqPanel = new TankSticker();
                 aqPanel.Model = fModel;
                 aqPanel.Aquarium = aqm;

@@ -47,6 +47,8 @@ namespace AquaLog.Core
             fDB.CreateTable<History>();
             fDB.CreateTable<Maintenance>();
             fDB.CreateTable<Transfer>();
+            fDB.CreateTable<Nutrition>();
+            fDB.CreateTable<Measure>();
         }
 
         /// <summary>
@@ -306,6 +308,39 @@ namespace AquaLog.Core
         public IEnumerable<Note> QueryNotes(Aquarium aquarium)
         {
             return fDB.Query<Note>("select * from Note where AquariumId = ?", aquarium.Id);
+        }
+
+        #endregion
+
+        #region Measure functions
+
+        public IEnumerable<Measure> QueryMeasures()
+        {
+            return fDB.Query<Measure>("select * from Measure order by Timestamp");
+        }
+
+        public IEnumerable<Measure> QueryMeasures(Aquarium aquarium)
+        {
+            return fDB.Query<Measure>("select * from Measure where AquariumId = ? order by Timestamp", aquarium.Id);
+        }
+
+        #endregion
+
+        #region Nutrition functions
+
+        public IEnumerable<Nutrition> QueryNutritions()
+        {
+            return fDB.Query<Nutrition>("select * from Nutrition");
+        }
+
+        public IEnumerable<Nutrition> QueryNutritions(Aquarium aquarium)
+        {
+            return fDB.Query<Nutrition>("select * from Nutrition where AquariumId = ?", aquarium.Id);
+        }
+
+        public IList<QString> QueryNutritionBrands()
+        {
+            return fDB.Query<QString>("select distinct Brand as element from Nutrition");
         }
 
         #endregion

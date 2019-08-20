@@ -20,6 +20,8 @@ namespace AquaLog.UI
         History,
         Maintenance,
         Transfers,
+        Nutrition,
+        Measures,
         TSDB,
         TSValues,
         TSTrend,

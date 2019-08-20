@@ -34,8 +34,6 @@ namespace AquaLog.Core
         public const string LOG_FILE = "AquaLog.log";
         public const string LOG_LEVEL = "INFO"; // "DEBUG";
 
-        private static readonly int LitersDivider = 1000;
-
         private static string fAppDataPath = null;
 
         public const string AppName = "AquaLog";
@@ -123,9 +121,16 @@ namespace AquaLog.Core
             return depth * width;
         }
 
-        public static double CalcVolume(double depth, double width, double height)
+        public static double CalcTankVolume(double depth, double width, double height)
         {
-            return depth * width * height / LitersDivider;
+            double ccVolume = depth * width * height; // cubic cm (cc)
+            return UnitConverter.cc2l(ccVolume);
+        }
+
+        public static double CalcWaterVolume(double tankVolume)
+        {
+            // estimated water volume is 85% of tank volume
+            return 0.85 * tankVolume;
         }
 
         #endregion
@@ -138,13 +143,17 @@ namespace AquaLog.Core
             return Color.FromArgb(red, green, blue);
         }
 
-        public static double GetDecimalVal(string strVal)
+        public static double GetDecimalVal(string strVal, double defaultValue = 0.0d)
         {
-            return ConvertHelper.ParseFloat(strVal, 0.0d, true);
+            return ConvertHelper.ParseFloat(strVal, defaultValue, true);
         }
 
-        public static string GetDecimalStr(double value, int decimalDigits = 2)
+        public static string GetDecimalStr(double value, int decimalDigits = 2, bool hideZero = false)
         {
+            if (value == 0.0d && hideZero) {
+                return string.Empty;
+            }
+
             string fmt = "0.".PadRight(2 + decimalDigits, '0');
             return value.ToString(fmt);
         }

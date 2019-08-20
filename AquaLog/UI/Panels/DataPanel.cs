@@ -69,6 +69,12 @@ namespace AquaLog.Panels
         {
         }
 
+        public void UpdateView()
+        {
+            SetLocale();
+            UpdateContent();
+        }
+
         public virtual void SetExtData(object extData)
         {
         }

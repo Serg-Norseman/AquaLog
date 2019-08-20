@@ -27,5 +27,10 @@ namespace AquaLog.Core.Model
         public Inhabitant()
         {
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

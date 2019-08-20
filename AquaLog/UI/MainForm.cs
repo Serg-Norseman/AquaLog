@@ -5,14 +5,13 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Logging;
 using AquaLog.Panels;
-
-// TODO: food, additives, equipment, furniture
 
 namespace AquaLog.UI
 {
@@ -21,20 +20,8 @@ namespace AquaLog.UI
         private readonly ILogger fLogger;
         private ALModel fModel;
         private NavigationStack<DataPanel> fNavigationStack;
-
-        private InhabitantPanel fInhabitantPanel;
-        private TanksPanel fTanksPanel;
-        private SpeciesPanel fSpeciesPanel;
-        private TransferPanel fTransferPanel;
-        private WaterChangePanel fWaterChangePanel;
-        private DevicePanel fDevicePanel;
-        private MaintenancePanel fMaintenancePanel;
-        private HistoryPanel fHistoryPanel;
-        private NotePanel fNotePanel;
-        private BudgetPanel fExpensePanel;
-        private TSDBPanel fTSDBPanel;
-        private TSValuePanel fTSValuePanel;
-        private TSTrendPanel fTSTrendPanel;
+        private Dictionary<Type, DataPanel> fPanels;
+        private DataPanel fCurrentPanel;
 
 
         public MainForm()
@@ -46,6 +33,7 @@ namespace AquaLog.UI
             fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");
             fModel = new ALModel();
             fNavigationStack = new NavigationStack<DataPanel>();
+            fPanels = new Dictionary<Type, DataPanel>();
 
             SetSettings();
             UpdateControls();
@@ -68,6 +56,8 @@ namespace AquaLog.UI
             btnMaintenance.Tag = MainView.Maintenance;
             btnTransfers.Tag = MainView.Transfers;
             btnTSDB.Tag = MainView.TSDB;
+            btnNutrition.Tag = MainView.Nutrition;
+            btnMeasures.Tag = MainView.Measures;
 
             SetView(MainView.Tanks, null);
 
@@ -137,6 +127,17 @@ namespace AquaLog.UI
             }
         }
 
+        private void miSettings_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new SettingsDlg()) {
+                dlg.Model = fModel;
+                dlg.Settings = ALSettings.Instance;
+                if (dlg.ShowDialog() == DialogResult.OK) {
+                    fCurrentPanel.UpdateView();
+                }
+            }
+        }
+
         #endregion
 
         #region Views functions
@@ -177,58 +178,72 @@ namespace AquaLog.UI
                     SetView(fNavigationStack.Next());
                     break;
                 case MainView.Tanks:
-                    SetView<TanksPanel>(ref fTanksPanel, extData);
+                    SetView<TanksPanel>(extData);
                     break;
                 case MainView.Inhabitants:
-                    SetView<InhabitantPanel>(ref fInhabitantPanel, extData);
+                    SetView<InhabitantPanel>(extData);
                     break;
                 case MainView.Species:
-                    SetView<SpeciesPanel>(ref fSpeciesPanel, extData);
+                    SetView<SpeciesPanel>(extData);
                     break;
                 case MainView.Devices:
-                    SetView<DevicePanel>(ref fDevicePanel, extData);
+                    SetView<DevicePanel>(extData);
                     break;
                 case MainView.Budget:
-                    SetView<BudgetPanel>(ref fExpensePanel, extData);
+                    SetView<BudgetPanel>(extData);
                     break;
                 case MainView.Notes:
-                    SetView<NotePanel>(ref fNotePanel, extData);
+                    SetView<NotePanel>(extData);
                     break;
                 case MainView.WaterChanges:
-                    SetView<WaterChangePanel>(ref fWaterChangePanel, extData);
+                    SetView<WaterChangePanel>(extData);
                     break;
                 case MainView.History:
-                    SetView<HistoryPanel>(ref fHistoryPanel, extData);
+                    SetView<HistoryPanel>(extData);
                     break;
                 case MainView.Maintenance:
-                    SetView<MaintenancePanel>(ref fMaintenancePanel, extData);
+                    SetView<MaintenancePanel>(extData);
                     break;
                 case MainView.Transfers:
-                    SetView<TransferPanel>(ref fTransferPanel, extData);
+                    SetView<TransferPanel>(extData);
+                    break;
+                case MainView.Nutrition:
+                    SetView<NutritionPanel>(extData);
                     break;
                 case MainView.TSDB:
-                    SetView<TSDBPanel>(ref fTSDBPanel, extData);
+                    SetView<TSDBPanel>(extData);
                     break;
                 case MainView.TSValues:
-                    SetView<TSValuePanel>(ref fTSValuePanel, extData);
+                    SetView<TSValuePanel>(extData);
                     break;
                 case MainView.TSTrend:
-                    SetView<TSTrendPanel>(ref fTSTrendPanel, extData);
+                    SetView<TSTrendPanel>(extData);
+                    break;
+                case MainView.Measures:
+                    SetView<MeasurePanel>(extData);
                     break;
             }
         }
 
-        private void SetView<T>(ref T view, object extData) where T : DataPanel, new()
+        private void SetView<T>(object extData) where T : DataPanel, new()
         {
-            if (view == null) {
-                view = new T();
-                view.Browser = this;
-                view.SetExtData(extData);
-                view.Model = fModel;
+            Type type = typeof(T);
+            DataPanel panel;
+            bool exists = fPanels.TryGetValue(type, out panel);
+
+            if (!exists) {
+                panel = new T();
+                panel.Browser = this;
+                panel.SetExtData(extData);
+                panel.Model = fModel;
             }
 
-            fNavigationStack.Current = view;
-            SetView(view);
+            fNavigationStack.Current = panel;
+            SetView(panel);
+
+            if (!exists) {
+                fPanels.Add(type, panel);
+            }
         }
 
         private void SetView(DataPanel view)
@@ -241,8 +256,8 @@ namespace AquaLog.UI
 
             SetActions(view);
 
-            view.SetLocale();
-            view.UpdateContent();
+            fCurrentPanel = view;
+            fCurrentPanel.UpdateView();
 
             UpdateNavControls();
         }

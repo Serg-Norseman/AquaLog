@@ -20,7 +20,7 @@
         private System.Windows.Forms.TextBox txtHeigth;
         private System.Windows.Forms.TextBox txtDepth;
         private System.Windows.Forms.TextBox txtWidth;
-        private System.Windows.Forms.TextBox txtVolume;
+        private System.Windows.Forms.TextBox txtTankVolume;
         private System.Windows.Forms.Label lblVolume;
         private System.Windows.Forms.DateTimePicker dtpStopDate;
         private System.Windows.Forms.DateTimePicker dtpStartDate;
@@ -28,6 +28,10 @@
         private System.Windows.Forms.Label lblStartDate;
         private System.Windows.Forms.ComboBox cmbWaterType;
         private System.Windows.Forms.Label lblWaterType;
+        private System.Windows.Forms.TextBox txtWaterVolume;
+        private System.Windows.Forms.Label lblWaterVolume;
+        private System.Windows.Forms.TextBox txtGlassThickness;
+        private System.Windows.Forms.Label lblGlassThickness;
         
         protected override void Dispose(bool disposing)
         {
@@ -58,8 +62,12 @@
             this.lblStopDate = new System.Windows.Forms.Label();
             this.lblStartDate = new System.Windows.Forms.Label();
             this.tabTank = new System.Windows.Forms.TabPage();
-            this.txtVolume = new System.Windows.Forms.TextBox();
+            this.txtGlassThickness = new System.Windows.Forms.TextBox();
+            this.txtWaterVolume = new System.Windows.Forms.TextBox();
+            this.txtTankVolume = new System.Windows.Forms.TextBox();
+            this.lblGlassThickness = new System.Windows.Forms.Label();
             this.txtHeigth = new System.Windows.Forms.TextBox();
+            this.lblWaterVolume = new System.Windows.Forms.Label();
             this.txtDepth = new System.Windows.Forms.TextBox();
             this.lblVolume = new System.Windows.Forms.Label();
             this.txtWidth = new System.Windows.Forms.TextBox();
@@ -76,7 +84,7 @@
             this.btnAccept.Location = new System.Drawing.Point(442, 303);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 30);
-            this.btnAccept.TabIndex = 0;
+            this.btnAccept.TabIndex = 7;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -88,7 +96,7 @@
             this.btnCancel.Location = new System.Drawing.Point(544, 303);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 30);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -98,7 +106,7 @@
             this.lblName.Location = new System.Drawing.Point(12, 17);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(100, 21);
-            this.lblName.TabIndex = 2;
+            this.lblName.TabIndex = 0;
             this.lblName.Text = "Name";
             // 
             // lblShape
@@ -106,7 +114,7 @@
             this.lblShape.Location = new System.Drawing.Point(421, 17);
             this.lblShape.Name = "lblShape";
             this.lblShape.Size = new System.Drawing.Size(100, 21);
-            this.lblShape.TabIndex = 3;
+            this.lblShape.TabIndex = 2;
             this.lblShape.Text = "Shape";
             // 
             // lblDesc
@@ -122,7 +130,7 @@
             this.txtName.Location = new System.Drawing.Point(104, 14);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(311, 22);
-            this.txtName.TabIndex = 5;
+            this.txtName.TabIndex = 1;
             // 
             // cmbShape
             // 
@@ -131,7 +139,7 @@
             this.cmbShape.Location = new System.Drawing.Point(471, 14);
             this.cmbShape.Name = "cmbShape";
             this.cmbShape.Size = new System.Drawing.Size(165, 21);
-            this.cmbShape.TabIndex = 6;
+            this.cmbShape.TabIndex = 3;
             this.cmbShape.SelectedIndexChanged += new System.EventHandler(this.cmbShape_SelectedIndexChanged);
             // 
             // txtDesc
@@ -140,7 +148,7 @@
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
             this.txtDesc.Size = new System.Drawing.Size(532, 59);
-            this.txtDesc.TabIndex = 7;
+            this.txtDesc.TabIndex = 5;
             // 
             // tabControl1
             // 
@@ -150,7 +158,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(625, 164);
-            this.tabControl1.TabIndex = 8;
+            this.tabControl1.TabIndex = 6;
             // 
             // tabCommon
             // 
@@ -175,14 +183,14 @@
             this.cmbWaterType.Location = new System.Drawing.Point(112, 32);
             this.cmbWaterType.Name = "cmbWaterType";
             this.cmbWaterType.Size = new System.Drawing.Size(142, 21);
-            this.cmbWaterType.TabIndex = 8;
+            this.cmbWaterType.TabIndex = 5;
             // 
             // lblWaterType
             // 
             this.lblWaterType.Location = new System.Drawing.Point(6, 35);
             this.lblWaterType.Name = "lblWaterType";
             this.lblWaterType.Size = new System.Drawing.Size(100, 21);
-            this.lblWaterType.TabIndex = 7;
+            this.lblWaterType.TabIndex = 4;
             this.lblWaterType.Text = "Water type";
             // 
             // dtpStopDate
@@ -192,7 +200,7 @@
             this.dtpStopDate.Name = "dtpStopDate";
             this.dtpStopDate.ShowCheckBox = true;
             this.dtpStopDate.Size = new System.Drawing.Size(142, 22);
-            this.dtpStopDate.TabIndex = 2;
+            this.dtpStopDate.TabIndex = 3;
             // 
             // dtpStartDate
             // 
@@ -201,14 +209,14 @@
             this.dtpStartDate.Name = "dtpStartDate";
             this.dtpStartDate.ShowCheckBox = true;
             this.dtpStartDate.Size = new System.Drawing.Size(142, 22);
-            this.dtpStartDate.TabIndex = 2;
+            this.dtpStartDate.TabIndex = 1;
             // 
             // lblStopDate
             // 
             this.lblStopDate.Location = new System.Drawing.Point(285, 13);
             this.lblStopDate.Name = "lblStopDate";
             this.lblStopDate.Size = new System.Drawing.Size(100, 21);
-            this.lblStopDate.TabIndex = 1;
+            this.lblStopDate.TabIndex = 2;
             this.lblStopDate.Text = "Stop date";
             // 
             // lblStartDate
@@ -222,8 +230,12 @@
             // tabTank
             // 
             this.tabTank.BackColor = System.Drawing.SystemColors.Control;
-            this.tabTank.Controls.Add(this.txtVolume);
+            this.tabTank.Controls.Add(this.txtGlassThickness);
+            this.tabTank.Controls.Add(this.txtWaterVolume);
+            this.tabTank.Controls.Add(this.txtTankVolume);
+            this.tabTank.Controls.Add(this.lblGlassThickness);
             this.tabTank.Controls.Add(this.txtHeigth);
+            this.tabTank.Controls.Add(this.lblWaterVolume);
             this.tabTank.Controls.Add(this.txtDepth);
             this.tabTank.Controls.Add(this.lblVolume);
             this.tabTank.Controls.Add(this.txtWidth);
@@ -237,12 +249,36 @@
             this.tabTank.TabIndex = 1;
             this.tabTank.Text = "Tank";
             // 
-            // txtVolume
+            // txtGlassThickness
             // 
-            this.txtVolume.Location = new System.Drawing.Point(100, 101);
-            this.txtVolume.Name = "txtVolume";
-            this.txtVolume.Size = new System.Drawing.Size(102, 22);
-            this.txtVolume.TabIndex = 5;
+            this.txtGlassThickness.Location = new System.Drawing.Point(339, 36);
+            this.txtGlassThickness.Name = "txtGlassThickness";
+            this.txtGlassThickness.Size = new System.Drawing.Size(102, 22);
+            this.txtGlassThickness.TabIndex = 11;
+            this.txtGlassThickness.TextChanged += new System.EventHandler(this.txtSizes_TextChanged);
+            // 
+            // txtWaterVolume
+            // 
+            this.txtWaterVolume.Location = new System.Drawing.Point(339, 6);
+            this.txtWaterVolume.Name = "txtWaterVolume";
+            this.txtWaterVolume.Size = new System.Drawing.Size(102, 22);
+            this.txtWaterVolume.TabIndex = 9;
+            // 
+            // txtTankVolume
+            // 
+            this.txtTankVolume.Location = new System.Drawing.Point(100, 101);
+            this.txtTankVolume.Name = "txtTankVolume";
+            this.txtTankVolume.Size = new System.Drawing.Size(102, 22);
+            this.txtTankVolume.TabIndex = 7;
+            this.txtTankVolume.TextChanged += new System.EventHandler(this.txtTankVolume_TextChanged);
+            // 
+            // lblGlassThickness
+            // 
+            this.lblGlassThickness.Location = new System.Drawing.Point(247, 39);
+            this.lblGlassThickness.Name = "lblGlassThickness";
+            this.lblGlassThickness.Size = new System.Drawing.Size(100, 21);
+            this.lblGlassThickness.TabIndex = 10;
+            this.lblGlassThickness.Text = "Glass thickness";
             // 
             // txtHeigth
             // 
@@ -252,12 +288,20 @@
             this.txtHeigth.TabIndex = 5;
             this.txtHeigth.TextChanged += new System.EventHandler(this.txtSizes_TextChanged);
             // 
+            // lblWaterVolume
+            // 
+            this.lblWaterVolume.Location = new System.Drawing.Point(247, 9);
+            this.lblWaterVolume.Name = "lblWaterVolume";
+            this.lblWaterVolume.Size = new System.Drawing.Size(100, 21);
+            this.lblWaterVolume.TabIndex = 8;
+            this.lblWaterVolume.Text = "Water volume";
+            // 
             // txtDepth
             // 
             this.txtDepth.Location = new System.Drawing.Point(100, 36);
             this.txtDepth.Name = "txtDepth";
             this.txtDepth.Size = new System.Drawing.Size(102, 22);
-            this.txtDepth.TabIndex = 4;
+            this.txtDepth.TabIndex = 3;
             this.txtDepth.TextChanged += new System.EventHandler(this.txtSizes_TextChanged);
             // 
             // lblVolume
@@ -265,7 +309,7 @@
             this.lblVolume.Location = new System.Drawing.Point(13, 104);
             this.lblVolume.Name = "lblVolume";
             this.lblVolume.Size = new System.Drawing.Size(100, 21);
-            this.lblVolume.TabIndex = 2;
+            this.lblVolume.TabIndex = 6;
             this.lblVolume.Text = "Tank volume";
             // 
             // txtWidth
@@ -273,7 +317,7 @@
             this.txtWidth.Location = new System.Drawing.Point(100, 6);
             this.txtWidth.Name = "txtWidth";
             this.txtWidth.Size = new System.Drawing.Size(102, 22);
-            this.txtWidth.TabIndex = 3;
+            this.txtWidth.TabIndex = 1;
             this.txtWidth.TextChanged += new System.EventHandler(this.txtSizes_TextChanged);
             // 
             // lblHeigth
@@ -281,7 +325,7 @@
             this.lblHeigth.Location = new System.Drawing.Point(13, 69);
             this.lblHeigth.Name = "lblHeigth";
             this.lblHeigth.Size = new System.Drawing.Size(100, 21);
-            this.lblHeigth.TabIndex = 2;
+            this.lblHeigth.TabIndex = 4;
             this.lblHeigth.Text = "Heigth";
             // 
             // lblDepth
@@ -289,7 +333,7 @@
             this.lblDepth.Location = new System.Drawing.Point(13, 39);
             this.lblDepth.Name = "lblDepth";
             this.lblDepth.Size = new System.Drawing.Size(100, 21);
-            this.lblDepth.TabIndex = 1;
+            this.lblDepth.TabIndex = 2;
             this.lblDepth.Text = "Depth";
             // 
             // lblWidth
