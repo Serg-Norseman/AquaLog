@@ -5,12 +5,9 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
-using AquaLog.Core.Model;
-using AquaLog.Core.Types;
 using AquaLog.TSDB;
 
 namespace AquaLog.UI

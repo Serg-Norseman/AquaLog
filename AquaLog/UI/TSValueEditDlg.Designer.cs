@@ -32,7 +32,7 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(75, 83);
+            this.btnAccept.Location = new System.Drawing.Point(94, 97);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 30);
             this.btnAccept.TabIndex = 3;
@@ -44,7 +44,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(177, 83);
+            this.btnCancel.Location = new System.Drawing.Point(196, 97);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 30);
             this.btnCancel.TabIndex = 4;
@@ -54,7 +54,7 @@
             // 
             // lblTimestamp
             // 
-            this.lblTimestamp.Location = new System.Drawing.Point(12, 19);
+            this.lblTimestamp.Location = new System.Drawing.Point(12, 18);
             this.lblTimestamp.Name = "lblTimestamp";
             this.lblTimestamp.Size = new System.Drawing.Size(100, 21);
             this.lblTimestamp.TabIndex = 7;
@@ -62,14 +62,15 @@
             // 
             // txtValue
             // 
-            this.txtValue.Location = new System.Drawing.Point(104, 43);
+            this.txtValue.Location = new System.Drawing.Point(110, 50);
+            this.txtValue.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtValue.Name = "txtValue";
-            this.txtValue.Size = new System.Drawing.Size(91, 22);
+            this.txtValue.Size = new System.Drawing.Size(91, 26);
             this.txtValue.TabIndex = 2;
             // 
             // lblValue
             // 
-            this.lblValue.Location = new System.Drawing.Point(12, 46);
+            this.lblValue.Location = new System.Drawing.Point(12, 53);
             this.lblValue.Name = "lblValue";
             this.lblValue.Size = new System.Drawing.Size(100, 21);
             this.lblValue.TabIndex = 9;
@@ -79,18 +80,19 @@
             // 
             this.dtpTimestamp.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             this.dtpTimestamp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpTimestamp.Location = new System.Drawing.Point(104, 12);
+            this.dtpTimestamp.Location = new System.Drawing.Point(110, 12);
+            this.dtpTimestamp.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.dtpTimestamp.Name = "dtpTimestamp";
-            this.dtpTimestamp.Size = new System.Drawing.Size(169, 22);
+            this.dtpTimestamp.Size = new System.Drawing.Size(182, 26);
             this.dtpTimestamp.TabIndex = 1;
             // 
             // TSValueEditDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(286, 124);
+            this.ClientSize = new System.Drawing.Size(304, 139);
             this.Controls.Add(this.dtpTimestamp);
             this.Controls.Add(this.txtValue);
             this.Controls.Add(this.lblValue);

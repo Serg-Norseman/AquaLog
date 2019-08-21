@@ -73,7 +73,7 @@ namespace AquaLog.UI
 
                 cmbBrand.Items.Clear();
                 var brands = fModel.QueryDeviceBrands();
-                foreach (ALModel.QString bqs in brands) {
+                foreach (QString bqs in brands) {
                     cmbBrand.Items.Add(bqs.element);
                 }
                 cmbBrand.Text = fDevice.Brand;

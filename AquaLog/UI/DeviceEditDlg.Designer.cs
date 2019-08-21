@@ -86,14 +86,15 @@
             // 
             // cmbAquarium
             // 
-            this.cmbAquarium.Location = new System.Drawing.Point(147, 12);
+            this.cmbAquarium.Location = new System.Drawing.Point(148, 12);
+            this.cmbAquarium.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.cmbAquarium.Name = "cmbAquarium";
             this.cmbAquarium.Size = new System.Drawing.Size(268, 27);
             this.cmbAquarium.TabIndex = 5;
             // 
             // lblWattage
             // 
-            this.lblWattage.Location = new System.Drawing.Point(12, 238);
+            this.lblWattage.Location = new System.Drawing.Point(12, 242);
             this.lblWattage.Name = "lblWattage";
             this.lblWattage.Size = new System.Drawing.Size(129, 21);
             this.lblWattage.TabIndex = 2;
@@ -101,14 +102,15 @@
             // 
             // txtWattage
             // 
-            this.txtWattage.Location = new System.Drawing.Point(147, 235);
+            this.txtWattage.Location = new System.Drawing.Point(147, 239);
+            this.txtWattage.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtWattage.Name = "txtWattage";
-            this.txtWattage.Size = new System.Drawing.Size(268, 26);
+            this.txtWattage.Size = new System.Drawing.Size(269, 26);
             this.txtWattage.TabIndex = 5;
             // 
             // lblNote
             // 
-            this.lblNote.Location = new System.Drawing.Point(12, 273);
+            this.lblNote.Location = new System.Drawing.Point(12, 280);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(129, 21);
             this.lblNote.TabIndex = 2;
@@ -117,17 +119,19 @@
             // txtNote
             // 
             this.txtNote.Enabled = false;
-            this.txtNote.Location = new System.Drawing.Point(147, 273);
+            this.txtNote.Location = new System.Drawing.Point(147, 277);
+            this.txtNote.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(268, 59);
+            this.txtNote.Size = new System.Drawing.Size(269, 59);
             this.txtNote.TabIndex = 5;
             // 
             // cmbType
             // 
             this.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbType.FormattingEnabled = true;
-            this.cmbType.Location = new System.Drawing.Point(147, 199);
+            this.cmbType.Location = new System.Drawing.Point(148, 200);
+            this.cmbType.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(169, 27);
             this.cmbType.TabIndex = 10;
@@ -135,7 +139,7 @@
             // 
             // lblType
             // 
-            this.lblType.Location = new System.Drawing.Point(12, 202);
+            this.lblType.Location = new System.Drawing.Point(12, 203);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(100, 21);
             this.lblType.TabIndex = 9;
@@ -143,7 +147,7 @@
             // 
             // lblName
             // 
-            this.lblName.Location = new System.Drawing.Point(12, 57);
+            this.lblName.Location = new System.Drawing.Point(12, 54);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(129, 21);
             this.lblName.TabIndex = 2;
@@ -151,14 +155,15 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(147, 54);
+            this.txtName.Location = new System.Drawing.Point(147, 51);
+            this.txtName.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(268, 26);
+            this.txtName.Size = new System.Drawing.Size(269, 26);
             this.txtName.TabIndex = 5;
             // 
             // lblBrand
             // 
-            this.lblBrand.Location = new System.Drawing.Point(12, 95);
+            this.lblBrand.Location = new System.Drawing.Point(12, 92);
             this.lblBrand.Name = "lblBrand";
             this.lblBrand.Size = new System.Drawing.Size(129, 21);
             this.lblBrand.TabIndex = 2;
@@ -166,15 +171,17 @@
             // 
             // cmbBrand
             // 
-            this.cmbBrand.Location = new System.Drawing.Point(147, 92);
+            this.cmbBrand.Location = new System.Drawing.Point(147, 89);
+            this.cmbBrand.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.cmbBrand.Name = "cmbBrand";
-            this.cmbBrand.Size = new System.Drawing.Size(268, 26);
+            this.cmbBrand.Size = new System.Drawing.Size(269, 27);
             this.cmbBrand.TabIndex = 5;
             // 
             // chkEnabled
             // 
             this.chkEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkEnabled.Location = new System.Drawing.Point(12, 129);
+            this.chkEnabled.Location = new System.Drawing.Point(12, 128);
+            this.chkEnabled.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(153, 24);
             this.chkEnabled.TabIndex = 11;
@@ -184,7 +191,8 @@
             // chkDigital
             // 
             this.chkDigital.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkDigital.Location = new System.Drawing.Point(12, 159);
+            this.chkDigital.Location = new System.Drawing.Point(12, 164);
+            this.chkDigital.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.chkDigital.Name = "chkDigital";
             this.chkDigital.Size = new System.Drawing.Size(153, 24);
             this.chkDigital.TabIndex = 11;
@@ -193,7 +201,7 @@
             // 
             // lblTSDBPoint
             // 
-            this.lblTSDBPoint.Location = new System.Drawing.Point(12, 344);
+            this.lblTSDBPoint.Location = new System.Drawing.Point(12, 351);
             this.lblTSDBPoint.Name = "lblTSDBPoint";
             this.lblTSDBPoint.Size = new System.Drawing.Size(100, 21);
             this.lblTSDBPoint.TabIndex = 9;
@@ -203,17 +211,18 @@
             // 
             this.cmbTSDBPoint.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbTSDBPoint.FormattingEnabled = true;
-            this.cmbTSDBPoint.Location = new System.Drawing.Point(147, 341);
+            this.cmbTSDBPoint.Location = new System.Drawing.Point(147, 348);
+            this.cmbTSDBPoint.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.cmbTSDBPoint.Name = "cmbTSDBPoint";
-            this.cmbTSDBPoint.Size = new System.Drawing.Size(169, 27);
+            this.cmbTSDBPoint.Size = new System.Drawing.Size(269, 27);
             this.cmbTSDBPoint.TabIndex = 10;
             this.cmbTSDBPoint.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
             // DeviceEditDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(428, 437);
             this.Controls.Add(this.chkDigital);

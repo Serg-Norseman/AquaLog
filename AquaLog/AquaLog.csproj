@@ -74,6 +74,8 @@
     <Compile Include="Core\Model\Nutrition.cs" />
     <Compile Include="Core\Types\DeviceProps.cs" />
     <Compile Include="Core\Types\DeviceType.cs" />
+    <Compile Include="Core\Types\QDecimal.cs" />
+    <Compile Include="Core\Types\QString.cs" />
     <Compile Include="Core\Types\ValueBounds.cs" />
     <Compile Include="Core\UnitConverter.cs" />
     <Compile Include="DataCollection\BaseService.cs" />

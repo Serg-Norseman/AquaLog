@@ -10,6 +10,7 @@ using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 
 namespace AquaLog.UI
 {
@@ -66,7 +67,7 @@ namespace AquaLog.UI
 
                 cmbBrand.Items.Clear();
                 var brands = fModel.QueryNutritionBrands();
-                foreach (ALModel.QString bqs in brands) {
+                foreach (QString bqs in brands) {
                     cmbBrand.Items.Add(bqs.element);
                 }
                 cmbBrand.Text = fNutrition.Brand;

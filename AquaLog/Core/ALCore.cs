@@ -114,27 +114,6 @@ namespace AquaLog.Core
             return result;
         }
 
-        #region Calculations
-
-        public static double CalcArea(double depth, double width)
-        {
-            return depth * width;
-        }
-
-        public static double CalcTankVolume(double depth, double width, double height)
-        {
-            double ccVolume = depth * width * height; // cubic cm (cc)
-            return UnitConverter.cc2l(ccVolume);
-        }
-
-        public static double CalcWaterVolume(double tankVolume)
-        {
-            // estimated water volume is 85% of tank volume
-            return 0.85 * tankVolume;
-        }
-
-        #endregion
-
         public static Color CreateColor(int rgb)
         {
             int red = (rgb >> 16) & 0xFF;

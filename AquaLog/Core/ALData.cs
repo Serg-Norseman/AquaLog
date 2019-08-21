@@ -37,13 +37,70 @@ namespace AquaLog.Core
         ///     > 40 mg/l    red [toxic for fish - adjust immediately] 
         /// </summary>
         public static readonly List<ValueBounds> CO2Ranges = new List<ValueBounds>() {
-            new ValueBounds(0, 12, Color.Pink, "very_low_adjust"),
+            new ValueBounds(0, 12, Color.DeepPink, "very_low_adjust"),
             new ValueBounds(12, 20, Color.Yellow, "low_adjust"),
             new ValueBounds(20, 30, Color.Green, ""),
             new ValueBounds(30, 40, Color.Orange, "alert_high"),
             new ValueBounds(40, 9999, Color.Red, "Toxic"),
         };
 
+
+        public static readonly List<ValueBounds> NO3Ranges = new List<ValueBounds>() {
+            new ValueBounds(0, 25, Color.Green, "Safe"),
+            new ValueBounds(25, 100, Color.Orange, "Warn"),
+            new ValueBounds(100, 250, Color.Red, "Alarm"),
+        };
+
+
+        public static readonly List<ValueBounds> NO2Ranges = new List<ValueBounds>() {
+            new ValueBounds(0, 1, Color.Green, "Safe"),
+            new ValueBounds(1, 5, Color.Orange, "Warn"),
+            new ValueBounds(5, 10, Color.Red, "Alarm"),
+        };
+
+
+        public static readonly List<ValueBounds> GHRanges = new List<ValueBounds>() {
+            new ValueBounds(0, 4, Color.Orange, "Warn"),
+            new ValueBounds(4, 16, Color.Green, "Safe"),
+        };
+
+
+        public static readonly List<ValueBounds> KHRanges = new List<ValueBounds>() {
+            new ValueBounds(0, 3, Color.Red, "Alarm"),
+            new ValueBounds(3, 10, Color.Green, "Safe"),
+            new ValueBounds(10, 20, Color.Orange, "Warn"),
+        };
+
+
+        public static readonly List<ValueBounds> pHRanges = new List<ValueBounds>() {
+            new ValueBounds(0, 6.4, Color.Orange, "Warn"),
+            new ValueBounds(6.4, 8.4, Color.Green, "Safe"),
+            new ValueBounds(8.4, 10, Color.Red, "Alarm"),
+        };
+
+
+        public static readonly List<ValueBounds> Cl2Ranges = new List<ValueBounds>() {
+            new ValueBounds(0, 0.8, Color.Green, "Safe"),
+            new ValueBounds(0.8, 3.0, Color.Red, "Alarm"),
+        };
+
+
+        public static double CalcArea(double depth, double width)
+        {
+            return depth * width;
+        }
+
+        public static double CalcTankVolume(double depth, double width, double height)
+        {
+            double ccVolume = depth * width * height; // cubic cm (cc)
+            return UnitConverter.cc2l(ccVolume);
+        }
+
+        public static double CalcWaterVolume(double tankVolume)
+        {
+            // estimated water volume is 85% of tank volume
+            return 0.85 * tankVolume;
+        }
 
         public static double CalcNH3(double pH, double temperature, double totalNH)
         {

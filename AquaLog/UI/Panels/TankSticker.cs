@@ -5,10 +5,12 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 
 namespace AquaLog.Panels
 {
@@ -20,6 +22,13 @@ namespace AquaLog.Panels
         Inactive
     }
 
+    public class TankValue
+    {
+        public double Value;
+        public string Text;
+        public Color Color;
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -29,6 +38,8 @@ namespace AquaLog.Panels
         private ALModel fModel;
         private bool fSelected;
         private StringFormat fStrFormat;
+        private SolidBrush fTextBrush;
+        private List<TankValue> fValues;
 
         public Aquarium Aquarium
         {
@@ -62,16 +73,21 @@ namespace AquaLog.Panels
         public TankSticker()
         {
             Margin = new Padding(10);
-            MinimumSize = new Size(256, 144);
-            MaximumSize = new Size(256, 144);
+
+            int XS = 24;
+            MinimumSize = new Size(XS * 16, XS * 9);
+            MaximumSize = new Size(XS * 16, XS * 9);
 
             fStrFormat = new StringFormat();
+            fTextBrush = null;
+            fValues = new List<TankValue>();
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
                 fStrFormat.Dispose();
+                if (fTextBrush != null) fTextBrush.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -106,7 +122,65 @@ namespace AquaLog.Panels
                 SetTankState(TankState.Normal);
             }
 
+            CollectData();
+
             Refresh();
+        }
+
+        private void CollectData()
+        {
+            fValues.Clear();
+
+            PrepareValue("Temperature", "T", "°C", null);
+            PrepareValue("NO3", "NO3", "mg/l", ALData.NO3Ranges);
+            PrepareValue("NO2", "NO2", "mg/l", ALData.NO2Ranges);
+            PrepareValue("Cl2", "Cl2", "mg/l", ALData.Cl2Ranges);
+            PrepareValue("GH", "GH", "°d", ALData.GHRanges);
+            PrepareValue("KH", "KH", "°d", ALData.KHRanges);
+            PrepareValue("pH", "pH", "", ALData.pHRanges);
+            PrepareValue("CO2", "CO2", "", ALData.CO2Ranges);
+        }
+
+        private void PrepareValue(string field, string sign, string uom, List<ValueBounds> ranges)
+        {
+            QDecimal measure = fModel.QueryLastMeasure(fAquarium, field);
+            double mVal = (measure != null) ? measure.value : double.NaN;
+
+            string str = !double.IsNaN(mVal) ? ALCore.GetDecimalStr(mVal) : string.Empty;
+            str = string.Format("{0}={1} {2}", sign, str, uom);
+
+            Color color = ForeColor;
+            if (!double.IsNaN(mVal) && mVal != 0.0d && ranges != null) {
+                ValueBounds bounds = CheckValue(mVal, ranges);
+                if (bounds != null) {
+                    color = bounds.Color;
+                }
+            }
+
+            var tval = new TankValue() {
+                Value = mVal,
+                Text = str,
+                Color = color
+            };
+            fValues.Add(tval);
+        }
+
+        private ValueBounds CheckValue(double value, List<ValueBounds> ranges)
+        {
+            foreach (var bounds in ranges) {
+                if (value >= bounds.Min && value <= bounds.Max) {
+                    return bounds;
+                }
+            }
+            return null;
+        }
+
+        private string GetMeasureVal(string field, string sign, string uom)
+        {
+            QDecimal val = fModel.QueryLastMeasure(fAquarium, field);
+            string str = (val != null) ? ALCore.GetDecimalStr(val.value) : string.Empty;
+            str = string.Format("{0}={1} {2}", sign, str, uom);
+            return str;
         }
 
         private double GetWaterVolume()
@@ -155,6 +229,7 @@ namespace AquaLog.Panels
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
+            Graphics gfx = e.Graphics;
 
             ButtonBorderStyle style = (fSelected) ? ButtonBorderStyle.Inset : ButtonBorderStyle.Outset;
             ControlPaint.DrawBorder(e.Graphics, ClientRectangle, Color.Silver, style);
@@ -165,13 +240,14 @@ namespace AquaLog.Panels
             layoutRect.Inflate(-4, -4);
 
             Font font = new Font(Font, FontStyle.Bold);
+
             fStrFormat.Alignment = StringAlignment.Near;
-            e.Graphics.DrawString(fAquarium.Name, font, new SolidBrush(ForeColor), layoutRect, fStrFormat);
+            DrawText(gfx, fAquarium.Name, font, ForeColor, layoutRect);
 
             double waterVolume = GetWaterVolume();
             string volumes = ALCore.GetDecimalStr(waterVolume) + " / " + ALCore.GetDecimalStr(fAquarium.TankVolume);
             fStrFormat.Alignment = StringAlignment.Far;
-            e.Graphics.DrawString(volumes, font, new SolidBrush(ForeColor), layoutRect, fStrFormat);
+            DrawText(gfx, volumes, font, ForeColor, layoutRect);
 
             string works;
             TimeSpan span;
@@ -187,7 +263,7 @@ namespace AquaLog.Panels
 
             int x = layoutRect.Left;
             int y = layoutRect.Top + (int)(Font.Height * 1.6f);
-            e.Graphics.DrawString(works, Font, new SolidBrush(ForeColor), x, y);
+            DrawText(gfx, works, Font, ForeColor, x, y);
 
             double avgChangeDays = GetAverageWaterChangeInterval();
             string avgChange = "avg=" + ALCore.GetDecimalStr(avgChangeDays, 1) + "d";
@@ -213,11 +289,49 @@ namespace AquaLog.Panels
 
             string waterChanges = avgChange + lastChange + waterStatus;
             y = y + (int)(Font.Height * 1.6f);
-            e.Graphics.DrawString("Water changes: " + waterChanges, Font, new SolidBrush(wsColor), x, y);
+            DrawText(gfx, "Water changes: " + waterChanges, Font, wsColor, x, y);
 
             int inhabCount = fModel.QueryInhabitantsCount(fAquarium.Id);
             y = y + (int)(Font.Height * 1.6f);
-            e.Graphics.DrawString("Inhabitants: " + inhabCount.ToString(), Font, new SolidBrush(ForeColor), x, y);
+            DrawText(gfx, "Inhabitants: " + inhabCount.ToString(), Font, ForeColor, x, y);
+
+            int xoffset = layoutRect.Width / 4;
+
+            y = y + (int)(Font.Height * 1.6f);
+            DrawMeasure(gfx, 0, font, x, y);
+            DrawMeasure(gfx, 1, font, x + xoffset * 1, y);
+            DrawMeasure(gfx, 2, font, x + xoffset * 2, y);
+            DrawMeasure(gfx, 3, font, x + xoffset * 3, y);
+
+            y = y + (int)(Font.Height * 1.6f);
+            DrawMeasure(gfx, 4, font, x, y);
+            DrawMeasure(gfx, 5, font, x + xoffset * 1, y);
+            DrawMeasure(gfx, 6, font, x + xoffset * 2, y);
+            DrawMeasure(gfx, 7, font, x + xoffset * 3, y);
+        }
+
+        private void DrawMeasure(Graphics gfx, int index, Font font, int x, int y)
+        {
+            TankValue tVal = fValues[index];
+            DrawText(gfx, tVal.Text, font, tVal.Color, x, y);
+        }
+
+        private void DrawText(Graphics gfx, string text, Font font, Color color, int x, int y)
+        {
+            if (fTextBrush == null) {
+                fTextBrush = new SolidBrush(color);
+            }
+            fTextBrush.Color = color;
+            gfx.DrawString(text, font, fTextBrush, x, y);
+        }
+
+        private void DrawText(Graphics gfx, string text, Font font, Color color, Rectangle layoutRect)
+        {
+            if (fTextBrush == null) {
+                fTextBrush = new SolidBrush(color);
+            }
+            fTextBrush.Color = color;
+            gfx.DrawString(text, font, fTextBrush, layoutRect, fStrFormat);
         }
     }
 }

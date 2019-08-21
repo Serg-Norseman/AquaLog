@@ -44,7 +44,7 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(218, 163);
+            this.btnAccept.Location = new System.Drawing.Point(218, 205);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 30);
             this.btnAccept.TabIndex = 0;
@@ -56,7 +56,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(320, 163);
+            this.btnCancel.Location = new System.Drawing.Point(320, 205);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 30);
             this.btnCancel.TabIndex = 1;
@@ -66,7 +66,7 @@
             // 
             // lblName
             // 
-            this.lblName.Location = new System.Drawing.Point(12, 17);
+            this.lblName.Location = new System.Drawing.Point(12, 15);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(100, 21);
             this.lblName.TabIndex = 2;
@@ -74,14 +74,15 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(104, 14);
+            this.txtName.Location = new System.Drawing.Point(105, 12);
+            this.txtName.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(311, 22);
+            this.txtName.Size = new System.Drawing.Size(311, 26);
             this.txtName.TabIndex = 5;
             // 
             // lblUoM
             // 
-            this.lblUoM.Location = new System.Drawing.Point(12, 45);
+            this.lblUoM.Location = new System.Drawing.Point(12, 53);
             this.lblUoM.Name = "lblUoM";
             this.lblUoM.Size = new System.Drawing.Size(129, 21);
             this.lblUoM.TabIndex = 2;
@@ -89,21 +90,23 @@
             // 
             // txtUoM
             // 
-            this.txtUoM.Location = new System.Drawing.Point(104, 42);
+            this.txtUoM.Location = new System.Drawing.Point(105, 50);
+            this.txtUoM.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtUoM.Name = "txtUoM";
-            this.txtUoM.Size = new System.Drawing.Size(311, 22);
+            this.txtUoM.Size = new System.Drawing.Size(274, 26);
             this.txtUoM.TabIndex = 5;
             // 
             // txtMin
             // 
-            this.txtMin.Location = new System.Drawing.Point(104, 70);
+            this.txtMin.Location = new System.Drawing.Point(105, 88);
+            this.txtMin.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtMin.Name = "txtMin";
-            this.txtMin.Size = new System.Drawing.Size(91, 22);
+            this.txtMin.Size = new System.Drawing.Size(91, 26);
             this.txtMin.TabIndex = 10;
             // 
             // lblMin
             // 
-            this.lblMin.Location = new System.Drawing.Point(12, 73);
+            this.lblMin.Location = new System.Drawing.Point(12, 91);
             this.lblMin.Name = "lblMin";
             this.lblMin.Size = new System.Drawing.Size(100, 21);
             this.lblMin.TabIndex = 9;
@@ -111,14 +114,15 @@
             // 
             // txtMax
             // 
-            this.txtMax.Location = new System.Drawing.Point(104, 98);
+            this.txtMax.Location = new System.Drawing.Point(105, 126);
+            this.txtMax.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtMax.Name = "txtMax";
-            this.txtMax.Size = new System.Drawing.Size(91, 22);
+            this.txtMax.Size = new System.Drawing.Size(91, 26);
             this.txtMax.TabIndex = 12;
             // 
             // lblMax
             // 
-            this.lblMax.Location = new System.Drawing.Point(12, 101);
+            this.lblMax.Location = new System.Drawing.Point(12, 129);
             this.lblMax.Name = "lblMax";
             this.lblMax.Size = new System.Drawing.Size(100, 21);
             this.lblMax.TabIndex = 11;
@@ -126,14 +130,15 @@
             // 
             // txtDeviation
             // 
-            this.txtDeviation.Location = new System.Drawing.Point(104, 125);
+            this.txtDeviation.Location = new System.Drawing.Point(105, 164);
+            this.txtDeviation.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtDeviation.Name = "txtDeviation";
-            this.txtDeviation.Size = new System.Drawing.Size(91, 22);
+            this.txtDeviation.Size = new System.Drawing.Size(91, 26);
             this.txtDeviation.TabIndex = 14;
             // 
             // lblDeviation
             // 
-            this.lblDeviation.Location = new System.Drawing.Point(12, 128);
+            this.lblDeviation.Location = new System.Drawing.Point(12, 167);
             this.lblDeviation.Name = "lblDeviation";
             this.lblDeviation.Size = new System.Drawing.Size(100, 21);
             this.lblDeviation.TabIndex = 13;
@@ -142,10 +147,10 @@
             // TSPointEditDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(428, 202);
+            this.ClientSize = new System.Drawing.Size(428, 247);
             this.Controls.Add(this.txtDeviation);
             this.Controls.Add(this.lblDeviation);
             this.Controls.Add(this.txtMax);

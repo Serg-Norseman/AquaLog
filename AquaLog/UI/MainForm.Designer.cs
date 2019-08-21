@@ -77,12 +77,12 @@
             this.btnMaintenance = new System.Windows.Forms.ToolStripButton();
             this.btnTransfers = new System.Windows.Forms.ToolStripButton();
             this.btnTSDB = new System.Windows.Forms.ToolStripButton();
+            this.btnMeasures = new System.Windows.Forms.ToolStripButton();
             this.pnlTools = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlDate = new System.Windows.Forms.Panel();
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnMeasures = new System.Windows.Forms.ToolStripButton();
             this.menuMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlTools.SuspendLayout();
@@ -97,8 +97,8 @@
             this.miHelp});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
-            this.menuMain.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
-            this.menuMain.Size = new System.Drawing.Size(1050, 25);
+            this.menuMain.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuMain.Size = new System.Drawing.Size(840, 24);
             this.menuMain.TabIndex = 2;
             this.menuMain.Text = "menuStrip1";
             // 
@@ -111,7 +111,7 @@
             this.toolStripMenuItem2,
             this.miExit});
             this.miFile.Name = "miFile";
-            this.miFile.Size = new System.Drawing.Size(37, 19);
+            this.miFile.Size = new System.Drawing.Size(37, 20);
             this.miFile.Text = "File";
             // 
             // miCleanSpace
@@ -150,7 +150,7 @@
             this.miHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.miAbout});
             this.miHelp.Name = "miHelp";
-            this.miHelp.Size = new System.Drawing.Size(44, 19);
+            this.miHelp.Size = new System.Drawing.Size(44, 20);
             this.miHelp.Text = "Help";
             // 
             // miAbout
@@ -182,9 +182,9 @@
             this.btnTransfers,
             this.btnTSDB,
             this.btnMeasures});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 25);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(1050, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(840, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -331,15 +331,24 @@
             this.btnTSDB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnTSDB.Click += new System.EventHandler(this.btnMainView_Click);
             // 
+            // btnMeasures
+            // 
+            this.btnMeasures.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMeasures.Name = "btnMeasures";
+            this.btnMeasures.Size = new System.Drawing.Size(61, 22);
+            this.btnMeasures.Text = "Measures";
+            this.btnMeasures.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnMeasures.Click += new System.EventHandler(this.btnMainView_Click);
+            // 
             // pnlTools
             // 
             this.pnlTools.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.pnlTools.Controls.Add(this.pnlDate);
             this.pnlTools.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlTools.Location = new System.Drawing.Point(0, 50);
+            this.pnlTools.Location = new System.Drawing.Point(0, 49);
             this.pnlTools.Name = "pnlTools";
             this.pnlTools.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlTools.Size = new System.Drawing.Size(210, 463);
+            this.pnlTools.Size = new System.Drawing.Size(210, 361);
             this.pnlTools.TabIndex = 4;
             // 
             // pnlDate
@@ -351,7 +360,7 @@
             this.pnlDate.Location = new System.Drawing.Point(10, 10);
             this.pnlDate.Margin = new System.Windows.Forms.Padding(0, 0, 0, 18);
             this.pnlDate.Name = "pnlDate";
-            this.pnlDate.Size = new System.Drawing.Size(190, 55);
+            this.pnlDate.Size = new System.Drawing.Size(190, 52);
             this.pnlDate.TabIndex = 0;
             // 
             // lblDate
@@ -361,7 +370,7 @@
             this.lblDate.Location = new System.Drawing.Point(0, 0);
             this.lblDate.Margin = new System.Windows.Forms.Padding(0);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(188, 53);
+            this.lblDate.Size = new System.Drawing.Size(188, 50);
             this.lblDate.TabIndex = 0;
             this.lblDate.Text = "lblDate";
             this.lblDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -370,10 +379,10 @@
             // 
             this.pnlClient.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlClient.Location = new System.Drawing.Point(210, 50);
+            this.pnlClient.Location = new System.Drawing.Point(210, 49);
             this.pnlClient.Name = "pnlClient";
             this.pnlClient.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlClient.Size = new System.Drawing.Size(840, 463);
+            this.pnlClient.Size = new System.Drawing.Size(630, 361);
             this.pnlClient.TabIndex = 5;
             // 
             // timer1
@@ -381,20 +390,11 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
             // 
-            // btnMeasures
-            // 
-            this.btnMeasures.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnMeasures.Name = "btnMeasures";
-            this.btnMeasures.Size = new System.Drawing.Size(61, 22);
-            this.btnMeasures.Text = "Measures";
-            this.btnMeasures.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnMeasures.Click += new System.EventHandler(this.btnMainView_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1050, 513);
+            this.ClientSize = new System.Drawing.Size(840, 410);
             this.Controls.Add(this.pnlClient);
             this.Controls.Add(this.pnlTools);
             this.Controls.Add(this.toolStrip1);

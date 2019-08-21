@@ -66,7 +66,7 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(174, 304);
+            this.btnAccept.Location = new System.Drawing.Point(174, 406);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 30);
             this.btnAccept.TabIndex = 20;
@@ -78,7 +78,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(276, 304);
+            this.btnCancel.Location = new System.Drawing.Point(276, 406);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 30);
             this.btnCancel.TabIndex = 21;
@@ -88,7 +88,7 @@
             // 
             // lblTimestamp
             // 
-            this.lblTimestamp.Location = new System.Drawing.Point(12, 46);
+            this.lblTimestamp.Location = new System.Drawing.Point(12, 57);
             this.lblTimestamp.Name = "lblTimestamp";
             this.lblTimestamp.Size = new System.Drawing.Size(100, 21);
             this.lblTimestamp.TabIndex = 2;
@@ -96,14 +96,15 @@
             // 
             // txtTemperature
             // 
-            this.txtTemperature.Location = new System.Drawing.Point(126, 67);
+            this.txtTemperature.Location = new System.Drawing.Point(126, 89);
+            this.txtTemperature.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtTemperature.Name = "txtTemperature";
-            this.txtTemperature.Size = new System.Drawing.Size(91, 22);
+            this.txtTemperature.Size = new System.Drawing.Size(91, 26);
             this.txtTemperature.TabIndex = 5;
             // 
             // lblTemperature
             // 
-            this.lblTemperature.Location = new System.Drawing.Point(12, 70);
+            this.lblTemperature.Location = new System.Drawing.Point(12, 92);
             this.lblTemperature.Name = "lblTemperature";
             this.lblTemperature.Size = new System.Drawing.Size(100, 21);
             this.lblTemperature.TabIndex = 4;
@@ -113,16 +114,18 @@
             // 
             this.dtpTimestamp.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             this.dtpTimestamp.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpTimestamp.Location = new System.Drawing.Point(126, 39);
+            this.dtpTimestamp.Location = new System.Drawing.Point(126, 51);
+            this.dtpTimestamp.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.dtpTimestamp.Name = "dtpTimestamp";
-            this.dtpTimestamp.Size = new System.Drawing.Size(169, 22);
+            this.dtpTimestamp.Size = new System.Drawing.Size(189, 26);
             this.dtpTimestamp.TabIndex = 3;
             // 
             // cmbAquarium
             // 
             this.cmbAquarium.Location = new System.Drawing.Point(126, 12);
+            this.cmbAquarium.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.cmbAquarium.Name = "cmbAquarium";
-            this.cmbAquarium.Size = new System.Drawing.Size(246, 21);
+            this.cmbAquarium.Size = new System.Drawing.Size(246, 27);
             this.cmbAquarium.TabIndex = 1;
             // 
             // lblAquarium
@@ -135,7 +138,7 @@
             // 
             // lblNO3
             // 
-            this.lblNO3.Location = new System.Drawing.Point(12, 98);
+            this.lblNO3.Location = new System.Drawing.Point(12, 130);
             this.lblNO3.Name = "lblNO3";
             this.lblNO3.Size = new System.Drawing.Size(100, 21);
             this.lblNO3.TabIndex = 6;
@@ -143,14 +146,15 @@
             // 
             // txtNO3
             // 
-            this.txtNO3.Location = new System.Drawing.Point(126, 95);
+            this.txtNO3.Location = new System.Drawing.Point(126, 127);
+            this.txtNO3.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtNO3.Name = "txtNO3";
-            this.txtNO3.Size = new System.Drawing.Size(91, 22);
+            this.txtNO3.Size = new System.Drawing.Size(91, 26);
             this.txtNO3.TabIndex = 7;
             // 
             // lblNO2
             // 
-            this.lblNO2.Location = new System.Drawing.Point(12, 126);
+            this.lblNO2.Location = new System.Drawing.Point(12, 168);
             this.lblNO2.Name = "lblNO2";
             this.lblNO2.Size = new System.Drawing.Size(100, 21);
             this.lblNO2.TabIndex = 8;
@@ -158,14 +162,15 @@
             // 
             // txtNO2
             // 
-            this.txtNO2.Location = new System.Drawing.Point(126, 123);
+            this.txtNO2.Location = new System.Drawing.Point(126, 165);
+            this.txtNO2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtNO2.Name = "txtNO2";
-            this.txtNO2.Size = new System.Drawing.Size(91, 22);
+            this.txtNO2.Size = new System.Drawing.Size(91, 26);
             this.txtNO2.TabIndex = 9;
             // 
             // lblGH
             // 
-            this.lblGH.Location = new System.Drawing.Point(12, 154);
+            this.lblGH.Location = new System.Drawing.Point(12, 206);
             this.lblGH.Name = "lblGH";
             this.lblGH.Size = new System.Drawing.Size(100, 21);
             this.lblGH.TabIndex = 10;
@@ -173,14 +178,15 @@
             // 
             // txtGH
             // 
-            this.txtGH.Location = new System.Drawing.Point(126, 151);
+            this.txtGH.Location = new System.Drawing.Point(126, 203);
+            this.txtGH.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtGH.Name = "txtGH";
-            this.txtGH.Size = new System.Drawing.Size(91, 22);
+            this.txtGH.Size = new System.Drawing.Size(91, 26);
             this.txtGH.TabIndex = 11;
             // 
             // lblKH
             // 
-            this.lblKH.Location = new System.Drawing.Point(12, 182);
+            this.lblKH.Location = new System.Drawing.Point(12, 244);
             this.lblKH.Name = "lblKH";
             this.lblKH.Size = new System.Drawing.Size(100, 21);
             this.lblKH.TabIndex = 12;
@@ -188,14 +194,15 @@
             // 
             // txtKH
             // 
-            this.txtKH.Location = new System.Drawing.Point(126, 179);
+            this.txtKH.Location = new System.Drawing.Point(126, 241);
+            this.txtKH.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtKH.Name = "txtKH";
-            this.txtKH.Size = new System.Drawing.Size(91, 22);
+            this.txtKH.Size = new System.Drawing.Size(91, 26);
             this.txtKH.TabIndex = 13;
             // 
             // lblPH
             // 
-            this.lblPH.Location = new System.Drawing.Point(12, 210);
+            this.lblPH.Location = new System.Drawing.Point(12, 282);
             this.lblPH.Name = "lblPH";
             this.lblPH.Size = new System.Drawing.Size(100, 21);
             this.lblPH.TabIndex = 14;
@@ -203,14 +210,15 @@
             // 
             // txtPH
             // 
-            this.txtPH.Location = new System.Drawing.Point(126, 207);
+            this.txtPH.Location = new System.Drawing.Point(126, 279);
+            this.txtPH.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtPH.Name = "txtPH";
-            this.txtPH.Size = new System.Drawing.Size(91, 22);
+            this.txtPH.Size = new System.Drawing.Size(91, 26);
             this.txtPH.TabIndex = 15;
             // 
             // lblCl2
             // 
-            this.lblCl2.Location = new System.Drawing.Point(12, 238);
+            this.lblCl2.Location = new System.Drawing.Point(12, 320);
             this.lblCl2.Name = "lblCl2";
             this.lblCl2.Size = new System.Drawing.Size(100, 21);
             this.lblCl2.TabIndex = 16;
@@ -218,14 +226,15 @@
             // 
             // txtCl2
             // 
-            this.txtCl2.Location = new System.Drawing.Point(126, 235);
+            this.txtCl2.Location = new System.Drawing.Point(126, 317);
+            this.txtCl2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtCl2.Name = "txtCl2";
-            this.txtCl2.Size = new System.Drawing.Size(91, 22);
+            this.txtCl2.Size = new System.Drawing.Size(91, 26);
             this.txtCl2.TabIndex = 17;
             // 
             // lblCO2
             // 
-            this.lblCO2.Location = new System.Drawing.Point(12, 266);
+            this.lblCO2.Location = new System.Drawing.Point(12, 358);
             this.lblCO2.Name = "lblCO2";
             this.lblCO2.Size = new System.Drawing.Size(100, 21);
             this.lblCO2.TabIndex = 18;
@@ -233,16 +242,18 @@
             // 
             // txtCO2
             // 
-            this.txtCO2.Location = new System.Drawing.Point(126, 263);
+            this.txtCO2.Location = new System.Drawing.Point(126, 355);
+            this.txtCO2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtCO2.Name = "txtCO2";
-            this.txtCO2.Size = new System.Drawing.Size(91, 22);
+            this.txtCO2.Size = new System.Drawing.Size(91, 26);
             this.txtCO2.TabIndex = 19;
             // 
             // btnCalcCO2
             // 
-            this.btnCalcCO2.Location = new System.Drawing.Point(223, 263);
+            this.btnCalcCO2.Location = new System.Drawing.Point(223, 355);
+            this.btnCalcCO2.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.btnCalcCO2.Name = "btnCalcCO2";
-            this.btnCalcCO2.Size = new System.Drawing.Size(149, 22);
+            this.btnCalcCO2.Size = new System.Drawing.Size(149, 26);
             this.btnCalcCO2.TabIndex = 22;
             this.btnCalcCO2.Text = "<= Calc(KH, pH)";
             this.btnCalcCO2.UseVisualStyleBackColor = true;
@@ -251,10 +262,10 @@
             // MeasureEditDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(384, 346);
+            this.ClientSize = new System.Drawing.Size(384, 448);
             this.Controls.Add(this.btnCalcCO2);
             this.Controls.Add(this.cmbAquarium);
             this.Controls.Add(this.lblAquarium);

@@ -40,7 +40,7 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(218, 197);
+            this.btnAccept.Location = new System.Drawing.Point(218, 217);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 30);
             this.btnAccept.TabIndex = 0;
@@ -52,7 +52,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(320, 197);
+            this.btnCancel.Location = new System.Drawing.Point(320, 217);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 30);
             this.btnCancel.TabIndex = 1;
@@ -71,6 +71,7 @@
             // cmbAquarium
             // 
             this.cmbAquarium.Location = new System.Drawing.Point(148, 12);
+            this.cmbAquarium.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.cmbAquarium.Name = "cmbAquarium";
             this.cmbAquarium.Size = new System.Drawing.Size(268, 27);
             this.cmbAquarium.TabIndex = 5;
@@ -79,14 +80,15 @@
             // 
             this.dtpDateTime.CustomFormat = "dd.MM.yyyy HH:mm";
             this.dtpDateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDateTime.Location = new System.Drawing.Point(148, 45);
+            this.dtpDateTime.Location = new System.Drawing.Point(148, 51);
+            this.dtpDateTime.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.dtpDateTime.Name = "dtpDateTime";
             this.dtpDateTime.Size = new System.Drawing.Size(169, 26);
             this.dtpDateTime.TabIndex = 8;
             // 
             // lblDate
             // 
-            this.lblDate.Location = new System.Drawing.Point(12, 51);
+            this.lblDate.Location = new System.Drawing.Point(12, 57);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(100, 21);
             this.lblDate.TabIndex = 7;
@@ -94,7 +96,7 @@
             // 
             // lblNote
             // 
-            this.lblNote.Location = new System.Drawing.Point(12, 121);
+            this.lblNote.Location = new System.Drawing.Point(12, 130);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(129, 21);
             this.lblNote.TabIndex = 2;
@@ -102,15 +104,16 @@
             // 
             // txtNote
             // 
-            this.txtNote.Location = new System.Drawing.Point(148, 118);
+            this.txtNote.Location = new System.Drawing.Point(148, 127);
+            this.txtNote.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(268, 59);
+            this.txtNote.Size = new System.Drawing.Size(268, 78);
             this.txtNote.TabIndex = 5;
             // 
             // lblEvent
             // 
-            this.lblEvent.Location = new System.Drawing.Point(12, 80);
+            this.lblEvent.Location = new System.Drawing.Point(12, 92);
             this.lblEvent.Name = "lblEvent";
             this.lblEvent.Size = new System.Drawing.Size(129, 21);
             this.lblEvent.TabIndex = 2;
@@ -118,7 +121,8 @@
             // 
             // txtEvent
             // 
-            this.txtEvent.Location = new System.Drawing.Point(148, 77);
+            this.txtEvent.Location = new System.Drawing.Point(148, 89);
+            this.txtEvent.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtEvent.Name = "txtEvent";
             this.txtEvent.Size = new System.Drawing.Size(268, 26);
             this.txtEvent.TabIndex = 5;
@@ -126,10 +130,10 @@
             // HistoryEditDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(428, 242);
+            this.ClientSize = new System.Drawing.Size(428, 259);
             this.Controls.Add(this.dtpDateTime);
             this.Controls.Add(this.lblDate);
             this.Controls.Add(this.cmbAquarium);

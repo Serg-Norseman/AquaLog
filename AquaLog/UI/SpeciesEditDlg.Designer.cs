@@ -73,7 +73,7 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(442, 372);
+            this.btnAccept.Location = new System.Drawing.Point(442, 452);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 30);
             this.btnAccept.TabIndex = 0;
@@ -85,7 +85,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(544, 372);
+            this.btnCancel.Location = new System.Drawing.Point(544, 452);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 30);
             this.btnCancel.TabIndex = 1;
@@ -111,7 +111,7 @@
             // 
             // lblDesc
             // 
-            this.lblDesc.Location = new System.Drawing.Point(12, 53);
+            this.lblDesc.Location = new System.Drawing.Point(12, 54);
             this.lblDesc.Name = "lblDesc";
             this.lblDesc.Size = new System.Drawing.Size(100, 21);
             this.lblDesc.TabIndex = 4;
@@ -119,7 +119,8 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(118, 14);
+            this.txtName.Location = new System.Drawing.Point(118, 12);
+            this.txtName.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(297, 26);
             this.txtName.TabIndex = 5;
@@ -128,7 +129,8 @@
             // 
             this.cmbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbType.FormattingEnabled = true;
-            this.cmbType.Location = new System.Drawing.Point(471, 14);
+            this.cmbType.Location = new System.Drawing.Point(475, 12);
+            this.cmbType.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(165, 27);
             this.cmbType.TabIndex = 6;
@@ -136,10 +138,11 @@
             // 
             // txtDesc
             // 
-            this.txtDesc.Location = new System.Drawing.Point(118, 50);
+            this.txtDesc.Location = new System.Drawing.Point(118, 51);
+            this.txtDesc.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtDesc.Multiline = true;
             this.txtDesc.Name = "txtDesc";
-            this.txtDesc.Size = new System.Drawing.Size(518, 59);
+            this.txtDesc.Size = new System.Drawing.Size(522, 59);
             this.txtDesc.TabIndex = 7;
             // 
             // tabControl1
@@ -147,10 +150,11 @@
             this.tabControl1.Controls.Add(this.tabFish);
             this.tabControl1.Controls.Add(this.tabInvertebrate);
             this.tabControl1.Controls.Add(this.tabPlant);
-            this.tabControl1.Location = new System.Drawing.Point(15, 264);
+            this.tabControl1.Location = new System.Drawing.Point(12, 274);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(625, 94);
+            this.tabControl1.Size = new System.Drawing.Size(628, 164);
             this.tabControl1.TabIndex = 8;
             // 
             // tabFish
@@ -159,7 +163,7 @@
             this.tabFish.Location = new System.Drawing.Point(4, 28);
             this.tabFish.Name = "tabFish";
             this.tabFish.Padding = new System.Windows.Forms.Padding(3);
-            this.tabFish.Size = new System.Drawing.Size(617, 62);
+            this.tabFish.Size = new System.Drawing.Size(620, 132);
             this.tabFish.TabIndex = 0;
             this.tabFish.Text = "Fish";
             // 
@@ -169,7 +173,7 @@
             this.tabInvertebrate.Location = new System.Drawing.Point(4, 28);
             this.tabInvertebrate.Name = "tabInvertebrate";
             this.tabInvertebrate.Padding = new System.Windows.Forms.Padding(10, 9, 10, 9);
-            this.tabInvertebrate.Size = new System.Drawing.Size(617, 62);
+            this.tabInvertebrate.Size = new System.Drawing.Size(620, 132);
             this.tabInvertebrate.TabIndex = 1;
             this.tabInvertebrate.Text = "Invertebrate";
             // 
@@ -179,13 +183,13 @@
             this.tabPlant.Location = new System.Drawing.Point(4, 28);
             this.tabPlant.Name = "tabPlant";
             this.tabPlant.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPlant.Size = new System.Drawing.Size(617, 62);
+            this.tabPlant.Size = new System.Drawing.Size(620, 132);
             this.tabPlant.TabIndex = 2;
             this.tabPlant.Text = "Plant";
             // 
             // lblScientificName
             // 
-            this.lblScientificName.Location = new System.Drawing.Point(15, 126);
+            this.lblScientificName.Location = new System.Drawing.Point(12, 125);
             this.lblScientificName.Name = "lblScientificName";
             this.lblScientificName.Size = new System.Drawing.Size(110, 21);
             this.lblScientificName.TabIndex = 2;
@@ -193,14 +197,15 @@
             // 
             // txtScientificName
             // 
-            this.txtScientificName.Location = new System.Drawing.Point(118, 123);
+            this.txtScientificName.Location = new System.Drawing.Point(118, 122);
+            this.txtScientificName.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtScientificName.Name = "txtScientificName";
-            this.txtScientificName.Size = new System.Drawing.Size(518, 26);
+            this.txtScientificName.Size = new System.Drawing.Size(522, 26);
             this.txtScientificName.TabIndex = 5;
             // 
             // lblTempMin
             // 
-            this.lblTempMin.Location = new System.Drawing.Point(15, 158);
+            this.lblTempMin.Location = new System.Drawing.Point(12, 163);
             this.lblTempMin.Name = "lblTempMin";
             this.lblTempMin.Size = new System.Drawing.Size(110, 21);
             this.lblTempMin.TabIndex = 2;
@@ -208,14 +213,15 @@
             // 
             // txtTempMin
             // 
-            this.txtTempMin.Location = new System.Drawing.Point(118, 155);
+            this.txtTempMin.Location = new System.Drawing.Point(118, 160);
+            this.txtTempMin.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtTempMin.Name = "txtTempMin";
             this.txtTempMin.Size = new System.Drawing.Size(74, 26);
             this.txtTempMin.TabIndex = 5;
             // 
             // lblTempMax
             // 
-            this.lblTempMax.Location = new System.Drawing.Point(203, 158);
+            this.lblTempMax.Location = new System.Drawing.Point(203, 163);
             this.lblTempMax.Name = "lblTempMax";
             this.lblTempMax.Size = new System.Drawing.Size(110, 21);
             this.lblTempMax.TabIndex = 2;
@@ -223,14 +229,15 @@
             // 
             // txtTempMax
             // 
-            this.txtTempMax.Location = new System.Drawing.Point(306, 155);
+            this.txtTempMax.Location = new System.Drawing.Point(306, 160);
+            this.txtTempMax.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtTempMax.Name = "txtTempMax";
             this.txtTempMax.Size = new System.Drawing.Size(74, 26);
             this.txtTempMax.TabIndex = 5;
             // 
             // lblPHMin
             // 
-            this.lblPHMin.Location = new System.Drawing.Point(15, 190);
+            this.lblPHMin.Location = new System.Drawing.Point(12, 201);
             this.lblPHMin.Name = "lblPHMin";
             this.lblPHMin.Size = new System.Drawing.Size(110, 21);
             this.lblPHMin.TabIndex = 2;
@@ -238,14 +245,15 @@
             // 
             // txtPHMin
             // 
-            this.txtPHMin.Location = new System.Drawing.Point(118, 187);
+            this.txtPHMin.Location = new System.Drawing.Point(118, 198);
+            this.txtPHMin.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtPHMin.Name = "txtPHMin";
             this.txtPHMin.Size = new System.Drawing.Size(74, 26);
             this.txtPHMin.TabIndex = 5;
             // 
             // lblPHMax
             // 
-            this.lblPHMax.Location = new System.Drawing.Point(203, 190);
+            this.lblPHMax.Location = new System.Drawing.Point(203, 201);
             this.lblPHMax.Name = "lblPHMax";
             this.lblPHMax.Size = new System.Drawing.Size(110, 21);
             this.lblPHMax.TabIndex = 2;
@@ -253,14 +261,15 @@
             // 
             // txtPHMax
             // 
-            this.txtPHMax.Location = new System.Drawing.Point(306, 187);
+            this.txtPHMax.Location = new System.Drawing.Point(306, 198);
+            this.txtPHMax.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtPHMax.Name = "txtPHMax";
             this.txtPHMax.Size = new System.Drawing.Size(74, 26);
             this.txtPHMax.TabIndex = 5;
             // 
             // lblGHMin
             // 
-            this.lblGHMin.Location = new System.Drawing.Point(15, 222);
+            this.lblGHMin.Location = new System.Drawing.Point(12, 239);
             this.lblGHMin.Name = "lblGHMin";
             this.lblGHMin.Size = new System.Drawing.Size(110, 21);
             this.lblGHMin.TabIndex = 2;
@@ -268,7 +277,7 @@
             // 
             // lblGHMax
             // 
-            this.lblGHMax.Location = new System.Drawing.Point(203, 222);
+            this.lblGHMax.Location = new System.Drawing.Point(203, 239);
             this.lblGHMax.Name = "lblGHMax";
             this.lblGHMax.Size = new System.Drawing.Size(110, 21);
             this.lblGHMax.TabIndex = 2;
@@ -276,14 +285,16 @@
             // 
             // txtGHMin
             // 
-            this.txtGHMin.Location = new System.Drawing.Point(118, 219);
+            this.txtGHMin.Location = new System.Drawing.Point(118, 236);
+            this.txtGHMin.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtGHMin.Name = "txtGHMin";
             this.txtGHMin.Size = new System.Drawing.Size(74, 26);
             this.txtGHMin.TabIndex = 5;
             // 
             // txtGHMax
             // 
-            this.txtGHMax.Location = new System.Drawing.Point(306, 219);
+            this.txtGHMax.Location = new System.Drawing.Point(306, 236);
+            this.txtGHMax.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtGHMax.Name = "txtGHMax";
             this.txtGHMax.Size = new System.Drawing.Size(74, 26);
             this.txtGHMax.TabIndex = 5;
@@ -291,10 +302,10 @@
             // SpeciesEditDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(652, 414);
+            this.ClientSize = new System.Drawing.Size(652, 494);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.txtDesc);
             this.Controls.Add(this.cmbType);

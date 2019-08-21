@@ -54,7 +54,7 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(218, 353);
+            this.btnAccept.Location = new System.Drawing.Point(218, 363);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 30);
             this.btnAccept.TabIndex = 0;
@@ -66,7 +66,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(320, 353);
+            this.btnCancel.Location = new System.Drawing.Point(320, 363);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 30);
             this.btnCancel.TabIndex = 1;
@@ -85,6 +85,7 @@
             // cmbAquarium
             // 
             this.cmbAquarium.Location = new System.Drawing.Point(148, 12);
+            this.cmbAquarium.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.cmbAquarium.Name = "cmbAquarium";
             this.cmbAquarium.Size = new System.Drawing.Size(268, 27);
             this.cmbAquarium.TabIndex = 5;
@@ -93,14 +94,15 @@
             // 
             this.dtpDateTime.CustomFormat = "dd.MM.yyyy HH:mm";
             this.dtpDateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpDateTime.Location = new System.Drawing.Point(148, 45);
+            this.dtpDateTime.Location = new System.Drawing.Point(148, 51);
+            this.dtpDateTime.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.dtpDateTime.Name = "dtpDateTime";
-            this.dtpDateTime.Size = new System.Drawing.Size(169, 26);
+            this.dtpDateTime.Size = new System.Drawing.Size(184, 26);
             this.dtpDateTime.TabIndex = 8;
             // 
             // lblDate
             // 
-            this.lblDate.Location = new System.Drawing.Point(12, 51);
+            this.lblDate.Location = new System.Drawing.Point(12, 57);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(100, 21);
             this.lblDate.TabIndex = 7;
@@ -108,7 +110,7 @@
             // 
             // lblNote
             // 
-            this.lblNote.Location = new System.Drawing.Point(12, 264);
+            this.lblNote.Location = new System.Drawing.Point(12, 282);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(129, 21);
             this.lblNote.TabIndex = 2;
@@ -116,24 +118,26 @@
             // 
             // txtNote
             // 
-            this.txtNote.Location = new System.Drawing.Point(148, 261);
+            this.txtNote.Location = new System.Drawing.Point(147, 279);
+            this.txtNote.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(268, 59);
+            this.txtNote.Size = new System.Drawing.Size(269, 59);
             this.txtNote.TabIndex = 5;
             // 
             // cmbSchedule
             // 
             this.cmbSchedule.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSchedule.FormattingEnabled = true;
-            this.cmbSchedule.Location = new System.Drawing.Point(148, 177);
+            this.cmbSchedule.Location = new System.Drawing.Point(148, 201);
+            this.cmbSchedule.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.cmbSchedule.Name = "cmbSchedule";
             this.cmbSchedule.Size = new System.Drawing.Size(169, 27);
             this.cmbSchedule.TabIndex = 10;
             // 
             // lblSchedule
             // 
-            this.lblSchedule.Location = new System.Drawing.Point(12, 180);
+            this.lblSchedule.Location = new System.Drawing.Point(12, 204);
             this.lblSchedule.Name = "lblSchedule";
             this.lblSchedule.Size = new System.Drawing.Size(100, 21);
             this.lblSchedule.TabIndex = 9;
@@ -141,7 +145,7 @@
             // 
             // lblEvent
             // 
-            this.lblEvent.Location = new System.Drawing.Point(12, 80);
+            this.lblEvent.Location = new System.Drawing.Point(12, 92);
             this.lblEvent.Name = "lblEvent";
             this.lblEvent.Size = new System.Drawing.Size(129, 21);
             this.lblEvent.TabIndex = 2;
@@ -149,14 +153,15 @@
             // 
             // txtEvent
             // 
-            this.txtEvent.Location = new System.Drawing.Point(148, 77);
+            this.txtEvent.Location = new System.Drawing.Point(148, 89);
+            this.txtEvent.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtEvent.Name = "txtEvent";
             this.txtEvent.Size = new System.Drawing.Size(268, 26);
             this.txtEvent.TabIndex = 5;
             // 
             // lblUnits
             // 
-            this.lblUnits.Location = new System.Drawing.Point(12, 118);
+            this.lblUnits.Location = new System.Drawing.Point(12, 130);
             this.lblUnits.Name = "lblUnits";
             this.lblUnits.Size = new System.Drawing.Size(129, 21);
             this.lblUnits.TabIndex = 2;
@@ -164,7 +169,8 @@
             // 
             // txtUnits
             // 
-            this.txtUnits.Location = new System.Drawing.Point(148, 115);
+            this.txtUnits.Location = new System.Drawing.Point(148, 127);
+            this.txtUnits.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.txtUnits.Name = "txtUnits";
             this.txtUnits.Size = new System.Drawing.Size(268, 26);
             this.txtUnits.TabIndex = 5;
@@ -172,7 +178,8 @@
             // chkReminder
             // 
             this.chkReminder.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.chkReminder.Location = new System.Drawing.Point(12, 147);
+            this.chkReminder.Location = new System.Drawing.Point(12, 165);
+            this.chkReminder.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.chkReminder.Name = "chkReminder";
             this.chkReminder.Size = new System.Drawing.Size(153, 24);
             this.chkReminder.TabIndex = 11;
@@ -181,7 +188,7 @@
             // 
             // lblStatus
             // 
-            this.lblStatus.Location = new System.Drawing.Point(12, 223);
+            this.lblStatus.Location = new System.Drawing.Point(12, 243);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(100, 21);
             this.lblStatus.TabIndex = 9;
@@ -191,7 +198,8 @@
             // 
             this.cmbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbStatus.FormattingEnabled = true;
-            this.cmbStatus.Location = new System.Drawing.Point(148, 220);
+            this.cmbStatus.Location = new System.Drawing.Point(148, 240);
+            this.cmbStatus.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Size = new System.Drawing.Size(169, 27);
             this.cmbStatus.TabIndex = 10;
@@ -199,10 +207,10 @@
             // MaintenanceEditDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(428, 395);
+            this.ClientSize = new System.Drawing.Size(428, 405);
             this.Controls.Add(this.chkReminder);
             this.Controls.Add(this.cmbStatus);
             this.Controls.Add(this.lblStatus);

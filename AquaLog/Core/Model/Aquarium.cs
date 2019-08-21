@@ -78,7 +78,7 @@ namespace AquaLog.Core.Model
             Depth = depth;
             Width = width;
             Height = height;
-            TankVolume = ALCore.CalcTankVolume(depth, width, height);
+            TankVolume = ALData.CalcTankVolume(depth, width, height);
         }
 
         public bool IsSalt()
@@ -96,7 +96,7 @@ namespace AquaLog.Core.Model
         /// </summary>
         public double GetBaseArea()
         {
-            return ALCore.CalcArea(Width, Depth);
+            return ALData.CalcArea(Width, Depth);
         }
 
         public override string ToString()

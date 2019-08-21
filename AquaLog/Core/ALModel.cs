@@ -230,11 +230,6 @@ namespace AquaLog.Core
             return fDB.Query<Device>("select * from Device");
         }
 
-        public class QString
-        {
-            public string element { get; set; }
-        }
-
         public IList<QString> QueryDeviceBrands()
         {
             return fDB.Query<QString>("select distinct Brand as element from Device");
@@ -322,6 +317,13 @@ namespace AquaLog.Core
         public IEnumerable<Measure> QueryMeasures(Aquarium aquarium)
         {
             return fDB.Query<Measure>("select * from Measure where AquariumId = ? order by Timestamp", aquarium.Id);
+        }
+
+        public QDecimal QueryLastMeasure(Aquarium aquarium, string field)
+        {
+            string query = string.Format("select [{0}] as value from Measure where AquariumId = {1} and [{2}] <> 0.00000 order by Timestamp desc limit 1", field, aquarium.Id, field);
+            List<QDecimal> list = fDB.Query<QDecimal>(query);
+            return (list != null && list.Count > 0) ? list[0] : null;
         }
 
         #endregion

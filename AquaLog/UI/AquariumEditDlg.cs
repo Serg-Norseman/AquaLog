@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -169,7 +168,7 @@ namespace AquaLog.UI
                         width -= glassThickness;
                         height -= glassThickness;
                     }
-                    txtTankVolume.Text = ALCore.GetDecimalStr(ALCore.CalcTankVolume(depth, width, height));
+                    txtTankVolume.Text = ALCore.GetDecimalStr(ALData.CalcTankVolume(depth, width, height));
                     break;
 
                 case TankShape.BowFront:
@@ -183,7 +182,7 @@ namespace AquaLog.UI
         private void txtTankVolume_TextChanged(object sender, EventArgs e)
         {
             var tankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
-            txtWaterVolume.Text = ALCore.GetDecimalStr(ALCore.CalcWaterVolume(tankVolume));
+            txtWaterVolume.Text = ALCore.GetDecimalStr(ALData.CalcWaterVolume(tankVolume));
         }
     }
 }
