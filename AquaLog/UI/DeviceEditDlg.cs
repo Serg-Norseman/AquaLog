@@ -18,10 +18,10 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class DeviceEditDlg : Form
+    public partial class DeviceEditDlg : Form, IEditDialog<Device>
     {
         private ALModel fModel;
-        private Device fDevice;
+        private Device fRecord;
 
         public ALModel Model
         {
@@ -29,12 +29,12 @@ namespace AquaLog.UI
             set { fModel = value; }
         }
 
-        public Device Device
+        public Device Record
         {
-            get { return fDevice; }
+            get { return fRecord; }
             set {
-                if (fDevice != value) {
-                    fDevice = value;
+                if (fRecord != value) {
+                    fRecord = value;
                     UpdateView();
                 }
             }
@@ -55,13 +55,9 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            if (fDevice != null) {
-                cmbAquarium.Items.Clear();
-                var aquariums = fModel.QueryAquariums();
-                foreach (var aqm in aquariums) {
-                    cmbAquarium.Items.Add(aqm);
-                }
-                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fDevice.AquariumId);
+            if (fRecord != null) {
+                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
+                cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
                 cmbTSDBPoint.Items.Clear();
                 TSDatabase tsdb = fModel.TSDB;
@@ -69,37 +65,37 @@ namespace AquaLog.UI
                 foreach (TSPoint pt in points) {
                     cmbTSDBPoint.Items.Add(pt);
                 }
-                cmbTSDBPoint.SelectedItem = points.FirstOrDefault(pt => pt.Id == fDevice.PointId);
+                cmbTSDBPoint.SelectedItem = points.FirstOrDefault(pt => pt.Id == fRecord.PointId);
 
                 cmbBrand.Items.Clear();
                 var brands = fModel.QueryDeviceBrands();
                 foreach (QString bqs in brands) {
                     cmbBrand.Items.Add(bqs.element);
                 }
-                cmbBrand.Text = fDevice.Brand;
+                cmbBrand.Text = fRecord.Brand;
 
-                cmbType.SelectedIndex = (int)fDevice.Type;
-                txtName.Text = fDevice.Name;
-                chkEnabled.Checked = fDevice.Enabled;
-                chkDigital.Checked = fDevice.Digital;
-                txtWattage.Text = ALCore.GetDecimalStr(fDevice.Wattage);
+                cmbType.SelectedIndex = (int)fRecord.Type;
+                txtName.Text = fRecord.Name;
+                chkEnabled.Checked = fRecord.Enabled;
+                chkDigital.Checked = fRecord.Digital;
+                txtWattage.Text = ALCore.GetDecimalStr(fRecord.Wattage);
             }
         }
 
         private void ApplyChanges()
         {
             var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fDevice.AquariumId = (aqm == null) ? 0 : aqm.Id;
+            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
             var pt = cmbTSDBPoint.SelectedItem as TSPoint;
-            fDevice.PointId = (pt == null) ? 0 : pt.Id;
+            fRecord.PointId = (pt == null) ? 0 : pt.Id;
 
-            fDevice.Name = txtName.Text;
-            fDevice.Brand = cmbBrand.Text;
-            fDevice.Enabled = chkEnabled.Checked;
-            fDevice.Digital = chkDigital.Checked;
-            fDevice.Type = (DeviceType)cmbType.SelectedIndex;
-            fDevice.Wattage = ALCore.GetDecimalVal(txtWattage.Text);
+            fRecord.Name = txtName.Text;
+            fRecord.Brand = cmbBrand.Text;
+            fRecord.Enabled = chkEnabled.Checked;
+            fRecord.Digital = chkDigital.Checked;
+            fRecord.Type = (DeviceType)cmbType.SelectedIndex;
+            fRecord.Wattage = ALCore.GetDecimalVal(txtWattage.Text);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

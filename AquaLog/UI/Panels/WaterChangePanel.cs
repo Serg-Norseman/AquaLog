@@ -16,7 +16,7 @@ namespace AquaLog.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class WaterChangePanel : ListPanel
+    public class WaterChangePanel : ListPanel<WaterChange, WaterChangeEditDlg>
     {
         public WaterChangePanel()
         {
@@ -53,47 +53,6 @@ namespace AquaLog.Panels
                 item.SubItems.Add(rec.Note);
                 ListView.Items.Add(item);
             }
-        }
-
-        protected override void AddHandler(object sender, EventArgs e)
-        {
-            WaterChange record = new WaterChange();
-
-            using (var dlg = new WaterChangeEditDlg()) {
-                dlg.Model = fModel;
-                dlg.WaterChange = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void EditHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as WaterChange;
-            if (record == null) return;
-
-            using (var dlg = new WaterChangeEditDlg()) {
-                dlg.Model = fModel;
-                dlg.WaterChange = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.UpdateRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void DeleteHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            fModel.DeleteRecord(selectedItem.Tag as WaterChange);
-            UpdateContent();
         }
     }
 }

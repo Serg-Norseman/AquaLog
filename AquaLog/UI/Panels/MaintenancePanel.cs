@@ -7,7 +7,6 @@
 using System;
 using System.Windows.Forms;
 using AquaLog.Components;
-using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
 
@@ -16,7 +15,7 @@ namespace AquaLog.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class MaintenancePanel : ListPanel
+    public class MaintenancePanel : ListPanel<Maintenance, MaintenanceEditDlg>
     {
         public MaintenancePanel()
         {
@@ -59,47 +58,6 @@ namespace AquaLog.Panels
             fActions.Add(new UserAction("Add", "btn_rec_new.gif", AddHandler));
             fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
             fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
-        }
-
-        protected override void AddHandler(object sender, EventArgs e)
-        {
-            Maintenance record = new Maintenance();
-
-            using (var dlg = new MaintenanceEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Maintenance = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void EditHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as Maintenance;
-            if (record == null) return;
-
-            using (var dlg = new MaintenanceEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Maintenance = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.UpdateRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void DeleteHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            fModel.DeleteRecord(selectedItem.Tag as Maintenance);
-            UpdateContent();
         }
     }
 }

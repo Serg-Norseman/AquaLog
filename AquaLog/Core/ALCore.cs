@@ -101,6 +101,12 @@ namespace AquaLog.Core
             return new Bitmap(LoadResourceStream("AquaLog.Resources." + resName));
         }
 
+        public static T GetSelectedTag<T>(ListView listView) where T : class
+        {
+            var selectedItem = ALCore.GetSelectedItem(listView);
+            return (selectedItem == null) ? default(T) : selectedItem.Tag as T;
+        }
+
         public static ListViewItem GetSelectedItem(ListView listView)
         {
             ListViewItem result;

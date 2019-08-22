@@ -17,10 +17,10 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class MaintenanceEditDlg : Form
+    public partial class MaintenanceEditDlg : Form, IEditDialog<Maintenance>
     {
         private ALModel fModel;
-        private Maintenance fMaintenance;
+        private Maintenance fRecord;
 
         public ALModel Model
         {
@@ -28,12 +28,12 @@ namespace AquaLog.UI
             set { fModel = value; }
         }
 
-        public Maintenance Maintenance
+        public Maintenance Record
         {
-            get { return fMaintenance; }
+            get { return fRecord; }
             set {
-                if (fMaintenance != value) {
-                    fMaintenance = value;
+                if (fRecord != value) {
+                    fRecord = value;
                     UpdateView();
                 }
             }
@@ -58,43 +58,43 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            if (fMaintenance != null) {
+            if (fRecord != null) {
                 cmbAquarium.Items.Clear();
                 var aquariums = fModel.QueryAquariums();
                 foreach (var aqm in aquariums) {
-                    if (fMaintenance.AquariumId != 0 || !aqm.IsInactive()) {
+                    if (fRecord.AquariumId != 0 || !aqm.IsInactive()) {
                         cmbAquarium.Items.Add(aqm);
                     }
                 }
 
-                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fMaintenance.AquariumId);
-                cmbAquarium.Enabled = (fMaintenance.AquariumId == 0);
+                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.AquariumId);
+                cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
-                if (!fMaintenance.DateTime.Equals(ALCore.ZeroDate)) {
-                    dtpDateTime.Value = fMaintenance.DateTime;
+                if (!fRecord.DateTime.Equals(ALCore.ZeroDate)) {
+                    dtpDateTime.Value = fRecord.DateTime;
                 }
 
-                txtEvent.Text = fMaintenance.Event;
-                txtUnits.Text = fMaintenance.Units;
-                chkReminder.Checked = fMaintenance.Reminder;
-                cmbSchedule.SelectedIndex = (int)fMaintenance.Schedule;
-                cmbStatus.SelectedIndex = (int)fMaintenance.Status;
-                txtNote.Text = fMaintenance.Note;
+                txtEvent.Text = fRecord.Event;
+                txtUnits.Text = fRecord.Units;
+                chkReminder.Checked = fRecord.Reminder;
+                cmbSchedule.SelectedIndex = (int)fRecord.Schedule;
+                cmbStatus.SelectedIndex = (int)fRecord.Status;
+                txtNote.Text = fRecord.Note;
             }
         }
 
         private void ApplyChanges()
         {
             var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fMaintenance.AquariumId = (aqm == null) ? 0 : aqm.Id;
+            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
-            fMaintenance.DateTime = dtpDateTime.Value;
-            fMaintenance.Event = txtEvent.Text;
-            fMaintenance.Units = txtUnits.Text;
-            fMaintenance.Reminder = chkReminder.Checked;
-            fMaintenance.Schedule = (TaskSchedule)cmbSchedule.SelectedIndex;
-            fMaintenance.Status = (TaskStatus)cmbStatus.SelectedIndex;
-            fMaintenance.Note = txtNote.Text;
+            fRecord.DateTime = dtpDateTime.Value;
+            fRecord.Event = txtEvent.Text;
+            fRecord.Units = txtUnits.Text;
+            fRecord.Reminder = chkReminder.Checked;
+            fRecord.Schedule = (TaskSchedule)cmbSchedule.SelectedIndex;
+            fRecord.Status = (TaskStatus)cmbStatus.SelectedIndex;
+            fRecord.Note = txtNote.Text;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

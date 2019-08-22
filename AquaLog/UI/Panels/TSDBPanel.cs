@@ -73,10 +73,7 @@ namespace AquaLog.Panels
 
         protected override void EditHandler(object sender, EventArgs e)
         {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as TSPoint;
+            var record = ALCore.GetSelectedTag<TSPoint>(ListView);
             if (record == null) return;
 
             using (var dlg = new TSPointEditDlg()) {
@@ -91,19 +88,16 @@ namespace AquaLog.Panels
 
         protected override void DeleteHandler(object sender, EventArgs e)
         {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
+            var record = ALCore.GetSelectedTag<TSPoint>(ListView);
+            if (record == null) return;
 
-            fModel.TSDB.DeletePoint(selectedItem.Tag as TSPoint);
+            fModel.TSDB.DeletePoint(record);
             UpdateContent();
         }
 
         private void ViewDataHandler(object sender, EventArgs e)
         {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as TSPoint;
+            var record = ALCore.GetSelectedTag<TSPoint>(ListView);
             if (record == null) return;
 
             Browser.SetView(MainView.TSValues, record.Id);
@@ -111,10 +105,7 @@ namespace AquaLog.Panels
 
         private void ViewTrendHandler(object sender, EventArgs e)
         {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as TSPoint;
+            var record = ALCore.GetSelectedTag<TSPoint>(ListView);
             if (record == null) return;
 
             Browser.SetView(MainView.TSTrend, record.Id);

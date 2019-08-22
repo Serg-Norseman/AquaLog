@@ -146,6 +146,7 @@
       <DependentUpon>HistoryEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\IBrowser.cs" />
+    <Compile Include="UI\IEditDialog.cs" />
     <Compile Include="UI\InhabitantEditDlg.cs" />
     <Compile Include="UI\InhabitantEditDlg.Designer.cs">
       <DependentUpon>InhabitantEditDlg.cs</DependentUpon>
@@ -209,6 +210,7 @@
     <Compile Include="UI\Panels\TSDBPanel.cs" />
     <Compile Include="UI\Panels\TSValuePanel.cs" />
     <Compile Include="UI\Panels\WaterChangePanel.cs" />
+    <Compile Include="UI\UIHelper.cs" />
     <Compile Include="UI\WaterChangeEditDlg.cs" />
     <Compile Include="UI\WaterChangeEditDlg.Designer.cs">
       <DependentUpon>WaterChangeEditDlg.cs</DependentUpon>

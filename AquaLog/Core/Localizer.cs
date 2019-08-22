@@ -17,18 +17,19 @@ namespace AquaLog.Core
     /// </summary>
     public enum LSID
     {
-        /* 000 */ LSID_None,
-        /* 001 */ LSID_First,
+        /* 000 */ None,
+        /* 001 */ First,
 
-        /* 001 */ LSID_MIFile = 1,
-        /* 002 */ LSID_MIEdit = 2,
-        /* 003 */ LSID_MIHelp = 3,
-        /* 004 */ LSID_MIExit = 4,
-        /* 005 */ LSID_MIAbout = 5,
-        /* 006 */ LSID_MISettings = 6,
-        /* 007 */ LSID_MICleanSpace = 7,
+        /* 001 */ MIFile = 1,
+        /* 002 */ MIEdit = 2,
+        /* 003 */ MIHelp,
+        /* 004 */ MIExit,
+        /* 005 */ MIAbout,
+        /* 006 */ MISettings,
+        /* 007 */ MICleanSpace,
+        /* 008 */ RecordDeleteQuery,
 
-        /* 000 */ LSID_Last = LSID_MICleanSpace
+        /* 000 */ Last = RecordDeleteQuery
     }
 
 
@@ -46,6 +47,7 @@ namespace AquaLog.Core
             /* 005 */ "About",
             /* 006 */ "Settings",
             /* 007 */ "Clean Space",
+            /* 008 */ "Are you sure you want to remove record \"{0}\"?",
         };
 
 
@@ -79,7 +81,7 @@ namespace AquaLog.Core
         private static void DefInit(string[] source)
         {
             fList.Clear();
-            for (LSID id = LSID.LSID_First; id <= LSID.LSID_Last; id++) {
+            for (LSID id = LSID.First; id <= LSID.Last; id++) {
                 int idx = (int)id;
                 fList.Add(idx, source[idx - 1]);
             }

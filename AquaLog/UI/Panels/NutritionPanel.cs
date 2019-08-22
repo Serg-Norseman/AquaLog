@@ -16,7 +16,7 @@ namespace AquaLog.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class NutritionPanel : ListPanel
+    public class NutritionPanel : ListPanel<Nutrition, NutritionEditDlg>
     {
         public NutritionPanel()
         {
@@ -54,47 +54,6 @@ namespace AquaLog.Panels
                 item.SubItems.Add(inhabName);
                 ListView.Items.Add(item);
             }
-        }
-
-        protected override void AddHandler(object sender, EventArgs e)
-        {
-            Nutrition record = new Nutrition();
-
-            using (var dlg = new NutritionEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Nutrition = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void EditHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as Nutrition;
-            if (record == null) return;
-
-            using (var dlg = new NutritionEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Nutrition = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.UpdateRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void DeleteHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            fModel.DeleteRecord(selectedItem.Tag as Nutrition);
-            UpdateContent();
         }
     }
 }

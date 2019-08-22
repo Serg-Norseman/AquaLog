@@ -139,6 +139,10 @@ namespace AquaLog.Panels
             PrepareValue("KH", "KH", "°d", ALData.KHRanges);
             PrepareValue("pH", "pH", "", ALData.pHRanges);
             PrepareValue("CO2", "CO2", "", ALData.CO2Ranges);
+
+            PrepareValue("NH", "NHtot", "", null);
+            PrepareValue("NH3", "NH3", "", ALData.NH3Ranges);
+            PrepareValue("NH4", "NH4", "", null);
         }
 
         private void PrepareValue(string field, string sign, string uom, List<ValueBounds> ranges)
@@ -308,6 +312,11 @@ namespace AquaLog.Panels
             DrawMeasure(gfx, 5, font, x + xoffset * 1, y);
             DrawMeasure(gfx, 6, font, x + xoffset * 2, y);
             DrawMeasure(gfx, 7, font, x + xoffset * 3, y);
+
+            y = y + (int)(Font.Height * 1.6f);
+            DrawMeasure(gfx, 8, font, x, y);
+            DrawMeasure(gfx, 9, font, x + xoffset * 1, y);
+            DrawMeasure(gfx, 10, font, x + xoffset * 2, y);
         }
 
         private void DrawMeasure(Graphics gfx, int index, Font font, int x, int y)

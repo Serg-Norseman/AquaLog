@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
@@ -16,10 +15,10 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class MeasureEditDlg : Form
+    public partial class MeasureEditDlg : Form, IEditDialog<Measure>
     {
         private ALModel fModel;
-        private Measure fMeasure;
+        private Measure fRecord;
 
         public ALModel Model
         {
@@ -27,12 +26,12 @@ namespace AquaLog.UI
             set { fModel = value; }
         }
 
-        public Measure Measure
+        public Measure Record
         {
-            get { return fMeasure; }
+            get { return fRecord; }
             set {
-                if (fMeasure != value) {
-                    fMeasure = value;
+                if (fRecord != value) {
+                    fRecord = value;
                     UpdateView();
                 }
             }
@@ -49,44 +48,46 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            if (fMeasure != null) {
-                cmbAquarium.Items.Clear();
-                var aquariums = fModel.QueryAquariums();
-                foreach (var aqm in aquariums) {
-                    cmbAquarium.Items.Add(aqm);
-                }
-                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fMeasure.AquariumId);
+            if (fRecord != null) {
+                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
+                cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
-                if (!fMeasure.Timestamp.Equals(ALCore.ZeroDate)) {
-                    dtpTimestamp.Value = fMeasure.Timestamp;
+                if (!fRecord.Timestamp.Equals(ALCore.ZeroDate)) {
+                    dtpTimestamp.Value = fRecord.Timestamp;
                 }
 
-                txtTemperature.Text = ALCore.GetDecimalStr(fMeasure.Temperature);
-                txtNO3.Text = ALCore.GetDecimalStr(fMeasure.NO3);
-                txtNO2.Text = ALCore.GetDecimalStr(fMeasure.NO2);
-                txtGH.Text = ALCore.GetDecimalStr(fMeasure.GH);
-                txtKH.Text = ALCore.GetDecimalStr(fMeasure.KH);
-                txtPH.Text = ALCore.GetDecimalStr(fMeasure.pH);
-                txtCl2.Text = ALCore.GetDecimalStr(fMeasure.Cl2);
-                txtCO2.Text = ALCore.GetDecimalStr(fMeasure.CO2);
+                txtTemperature.Text = ALCore.GetDecimalStr(fRecord.Temperature);
+                txtNO3.Text = ALCore.GetDecimalStr(fRecord.NO3);
+                txtNO2.Text = ALCore.GetDecimalStr(fRecord.NO2);
+                txtGH.Text = ALCore.GetDecimalStr(fRecord.GH);
+                txtKH.Text = ALCore.GetDecimalStr(fRecord.KH);
+                txtPH.Text = ALCore.GetDecimalStr(fRecord.pH);
+                txtCl2.Text = ALCore.GetDecimalStr(fRecord.Cl2);
+                txtCO2.Text = ALCore.GetDecimalStr(fRecord.CO2);
+                txtNHtot.Text = ALCore.GetDecimalStr(fRecord.NH);
+                txtNH3.Text = ALCore.GetDecimalStr(fRecord.NH3);
+                txtNH4.Text = ALCore.GetDecimalStr(fRecord.NH4);
             }
         }
 
         private void ApplyChanges()
         {
             var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fMeasure.AquariumId = (aqm == null) ? 0 : aqm.Id;
+            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
-            fMeasure.Timestamp = dtpTimestamp.Value;
+            fRecord.Timestamp = dtpTimestamp.Value;
 
-            fMeasure.Temperature = (float)ALCore.GetDecimalVal(txtTemperature.Text);
-            fMeasure.NO3 = (float)ALCore.GetDecimalVal(txtNO3.Text);
-            fMeasure.NO2 = (float)ALCore.GetDecimalVal(txtNO2.Text);
-            fMeasure.GH = (float)ALCore.GetDecimalVal(txtGH.Text);
-            fMeasure.KH = (float)ALCore.GetDecimalVal(txtKH.Text);
-            fMeasure.pH = (float)ALCore.GetDecimalVal(txtPH.Text);
-            fMeasure.Cl2 = (float)ALCore.GetDecimalVal(txtCl2.Text);
-            fMeasure.CO2 = (float)ALCore.GetDecimalVal(txtCO2.Text);
+            fRecord.Temperature = (float)ALCore.GetDecimalVal(txtTemperature.Text);
+            fRecord.NO3 = (float)ALCore.GetDecimalVal(txtNO3.Text);
+            fRecord.NO2 = (float)ALCore.GetDecimalVal(txtNO2.Text);
+            fRecord.GH = (float)ALCore.GetDecimalVal(txtGH.Text);
+            fRecord.KH = (float)ALCore.GetDecimalVal(txtKH.Text);
+            fRecord.pH = (float)ALCore.GetDecimalVal(txtPH.Text);
+            fRecord.Cl2 = (float)ALCore.GetDecimalVal(txtCl2.Text);
+            fRecord.CO2 = (float)ALCore.GetDecimalVal(txtCO2.Text);
+            fRecord.NH = (float)ALCore.GetDecimalVal(txtNHtot.Text);
+            fRecord.NH3 = (float)ALCore.GetDecimalVal(txtNH3.Text);
+            fRecord.NH4 = (float)ALCore.GetDecimalVal(txtNH4.Text);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
@@ -105,6 +106,23 @@ namespace AquaLog.UI
             double PH = ALCore.GetDecimalVal(txtPH.Text);
             double CO2 = ALData.CalcCO2(degKH, PH);
             txtCO2.Text = ALCore.GetDecimalStr(CO2);
+        }
+
+        private void btnCalcNH3_Click(object sender, EventArgs e)
+        {
+            double temp = ALCore.GetDecimalVal(txtTemperature.Text);
+            double totalNH = ALCore.GetDecimalVal(txtNHtot.Text);
+            double pH = ALCore.GetDecimalVal(txtPH.Text);
+            double NH3 = ALData.CalcNH3(pH, temp, totalNH);
+            txtNH3.Text = ALCore.GetDecimalStr(NH3);
+        }
+
+        private void btnCalcNH4_Click(object sender, EventArgs e)
+        {
+            double totalNH = ALCore.GetDecimalVal(txtNHtot.Text);
+            double NH3 = ALCore.GetDecimalVal(txtNH3.Text);
+            double NH4 = totalNH - NH3;
+            txtNH4.Text = ALCore.GetDecimalStr(NH4);
         }
     }
 }

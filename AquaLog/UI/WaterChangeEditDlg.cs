@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
@@ -17,10 +16,10 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class WaterChangeEditDlg : Form
+    public partial class WaterChangeEditDlg : Form, IEditDialog<WaterChange>
     {
         private ALModel fModel;
-        private WaterChange fWaterChange;
+        private WaterChange fRecord;
 
         public ALModel Model
         {
@@ -28,12 +27,12 @@ namespace AquaLog.UI
             set { fModel = value; }
         }
 
-        public WaterChange WaterChange
+        public WaterChange Record
         {
-            get { return fWaterChange; }
+            get { return fRecord; }
             set {
-                if (fWaterChange != value) {
-                    fWaterChange = value;
+                if (fRecord != value) {
+                    fRecord = value;
                     UpdateView();
                 }
             }
@@ -54,37 +53,29 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            if (fWaterChange != null) {
-                cmbAquarium.Items.Clear();
-                var aquariums = fModel.QueryAquariums();
-                foreach (var aqm in aquariums) {
-                    if (fWaterChange.AquariumId != 0 || !aqm.IsInactive()) {
-                        cmbAquarium.Items.Add(aqm);
-                    }
+            if (fRecord != null) {
+                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
+                cmbAquarium.Enabled = (fRecord.AquariumId == 0);
+
+                if (!fRecord.ChangeDate.Equals(ALCore.ZeroDate)) {
+                    dtpDate.Value = fRecord.ChangeDate;
                 }
 
-                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fWaterChange.AquariumId);
-                cmbAquarium.Enabled = (fWaterChange.AquariumId == 0);
-
-                if (!fWaterChange.ChangeDate.Equals(ALCore.ZeroDate)) {
-                    dtpDate.Value = fWaterChange.ChangeDate;
-                }
-
-                cmbType.SelectedIndex = (int)fWaterChange.Type;
-                txtVolume.Text = ALCore.GetDecimalStr(fWaterChange.Volume);
-                txtNote.Text = fWaterChange.Note;
+                cmbType.SelectedIndex = (int)fRecord.Type;
+                txtVolume.Text = ALCore.GetDecimalStr(fRecord.Volume);
+                txtNote.Text = fRecord.Note;
             }
         }
 
         private void ApplyChanges()
         {
             var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fWaterChange.AquariumId = (aqm == null) ? 0 : aqm.Id;
+            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
-            fWaterChange.ChangeDate = dtpDate.Value;
-            fWaterChange.Type = (WaterChangeType)cmbType.SelectedIndex;
-            fWaterChange.Volume = ALCore.GetDecimalVal(txtVolume.Text);
-            fWaterChange.Note = txtNote.Text;
+            fRecord.ChangeDate = dtpDate.Value;
+            fRecord.Type = (WaterChangeType)cmbType.SelectedIndex;
+            fRecord.Volume = ALCore.GetDecimalVal(txtVolume.Text);
+            fRecord.Note = txtNote.Text;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

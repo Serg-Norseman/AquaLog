@@ -7,7 +7,6 @@
 using System;
 using System.Windows.Forms;
 using AquaLog.Components;
-using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
 
@@ -16,7 +15,7 @@ namespace AquaLog.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class SpeciesPanel : ListPanel
+    public class SpeciesPanel : ListPanel<Species, SpeciesEditDlg>
     {
         public SpeciesPanel() : base()
         {
@@ -48,45 +47,6 @@ namespace AquaLog.Panels
                 item.Tag = rec;
                 ListView.Items.Add(item);
             }
-        }
-
-        protected override void AddHandler(object sender, EventArgs e)
-        {
-            var spc = new Species();
-
-            using (var dlg = new SpeciesEditDlg()) {
-                dlg.Species = spc;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(spc);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void EditHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var spc = selectedItem.Tag as Species;
-            if (spc == null) return;
-
-            using (var dlg = new SpeciesEditDlg()) {
-                dlg.Species = spc;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.UpdateRecord(spc);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void DeleteHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            fModel.DeleteRecord(selectedItem.Tag as Species);
-            UpdateContent();
         }
     }
 }

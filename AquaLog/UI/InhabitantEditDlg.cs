@@ -16,26 +16,27 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class InhabitantEditDlg : Form
+    public partial class InhabitantEditDlg : Form, IEditDialog<Inhabitant>
     {
-        private Inhabitant fInhabitant;
         private ALModel fModel;
+        private Inhabitant fRecord;
 
-        public Inhabitant Inhabitant
-        {
-            get { return fInhabitant; }
-            set {
-                if (fInhabitant != value) {
-                    fInhabitant = value;
-                    UpdateView();
-                }
-            }
-        }
 
         public ALModel Model
         {
             get { return fModel; }
             set { fModel = value; }
+        }
+
+        public Inhabitant Record
+        {
+            get { return fRecord; }
+            set {
+                if (fRecord != value) {
+                    fRecord = value;
+                    UpdateView();
+                }
+            }
         }
 
 
@@ -57,22 +58,22 @@ namespace AquaLog.UI
             foreach (Species spc in speciesList) {
                 cmbSpecies.Items.Add(spc);
             }
-            var species = speciesList.FirstOrDefault(sp => sp.Id == fInhabitant.SpeciesId);
+            var species = speciesList.FirstOrDefault(sp => sp.Id == fRecord.SpeciesId);
 
-            txtName.Text = fInhabitant.Name;
-            txtNote.Text = fInhabitant.Note;
+            txtName.Text = fRecord.Name;
+            txtNote.Text = fRecord.Note;
             cmbSpecies.SelectedItem = species;
-            cmbSex.SelectedIndex = (int)fInhabitant.Sex;
+            cmbSex.SelectedIndex = (int)fRecord.Sex;
         }
 
         private void ApplyChanges()
         {
             Species spc = cmbSpecies.SelectedItem as Species;
 
-            fInhabitant.Name = txtName.Text;
-            fInhabitant.Note = txtNote.Text;
-            fInhabitant.SpeciesId = spc.Id;
-            fInhabitant.Sex = (Sex)cmbSex.SelectedIndex;
+            fRecord.Name = txtName.Text;
+            fRecord.Note = txtNote.Text;
+            fRecord.SpeciesId = spc.Id;
+            fRecord.Sex = (Sex)cmbSex.SelectedIndex;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

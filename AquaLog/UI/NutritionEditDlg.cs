@@ -17,10 +17,11 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class NutritionEditDlg : Form
+    public partial class NutritionEditDlg : Form, IEditDialog<Nutrition>
     {
         private ALModel fModel;
-        private Nutrition fNutrition;
+        private Nutrition fRecord;
+
 
         public ALModel Model
         {
@@ -28,12 +29,12 @@ namespace AquaLog.UI
             set { fModel = value; }
         }
 
-        public Nutrition Nutrition
+        public Nutrition Record
         {
-            get { return fNutrition; }
+            get { return fRecord; }
             set {
-                if (fNutrition != value) {
-                    fNutrition = value;
+                if (fRecord != value) {
+                    fRecord = value;
                     UpdateView();
                 }
             }
@@ -50,46 +51,42 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            if (fNutrition != null) {
-                cmbAquarium.Items.Clear();
-                var aquariums = fModel.QueryAquariums();
-                foreach (var aqm in aquariums) {
-                    cmbAquarium.Items.Add(aqm);
-                }
-                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fNutrition.AquariumId);
+            if (fRecord != null) {
+                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
+                cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
                 cmbInhabitant.Items.Clear();
                 var inhabitants = fModel.QueryInhabitants();
                 foreach (Inhabitant inh in inhabitants) {
                     cmbInhabitant.Items.Add(inh);
                 }
-                cmbInhabitant.SelectedItem = inhabitants.FirstOrDefault(inh => inh.Id == fNutrition.InhabitantId);
+                cmbInhabitant.SelectedItem = inhabitants.FirstOrDefault(inh => inh.Id == fRecord.InhabitantId);
 
                 cmbBrand.Items.Clear();
                 var brands = fModel.QueryNutritionBrands();
                 foreach (QString bqs in brands) {
                     cmbBrand.Items.Add(bqs.element);
                 }
-                cmbBrand.Text = fNutrition.Brand;
+                cmbBrand.Text = fRecord.Brand;
 
-                txtName.Text = fNutrition.Name;
-                txtAmount.Text = ALCore.GetDecimalStr(fNutrition.Amount);
-                txtNote.Text = fNutrition.Note;
+                txtName.Text = fRecord.Name;
+                txtAmount.Text = ALCore.GetDecimalStr(fRecord.Amount);
+                txtNote.Text = fRecord.Note;
             }
         }
 
         private void ApplyChanges()
         {
             var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fNutrition.AquariumId = (aqm == null) ? 0 : aqm.Id;
+            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
             var pt = cmbInhabitant.SelectedItem as Inhabitant;
-            fNutrition.InhabitantId = (pt == null) ? 0 : pt.Id;
+            fRecord.InhabitantId = (pt == null) ? 0 : pt.Id;
 
-            fNutrition.Name = txtName.Text;
-            fNutrition.Brand = cmbBrand.Text;
-            fNutrition.Amount = (float)ALCore.GetDecimalVal(txtAmount.Text);
-            fNutrition.Note = txtNote.Text;
+            fRecord.Name = txtName.Text;
+            fRecord.Brand = cmbBrand.Text;
+            fRecord.Amount = (float)ALCore.GetDecimalVal(txtAmount.Text);
+            fRecord.Note = txtNote.Text;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

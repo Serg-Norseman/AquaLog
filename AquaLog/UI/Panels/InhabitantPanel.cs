@@ -18,7 +18,7 @@ namespace AquaLog.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class InhabitantPanel : ListPanel
+    public class InhabitantPanel : ListPanel<Inhabitant, InhabitantEditDlg>
     {
         public InhabitantPanel() : base()
         {
@@ -81,53 +81,9 @@ namespace AquaLog.Panels
             }
         }
 
-        protected override void AddHandler(object sender, EventArgs e)
-        {
-            Inhabitant record = new Inhabitant();
-
-            using (var dlg = new InhabitantEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Inhabitant = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void EditHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as Inhabitant;
-            if (record == null) return;
-
-            using (var dlg = new InhabitantEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Inhabitant = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.UpdateRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void DeleteHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            fModel.DeleteRecord(selectedItem.Tag as Inhabitant);
-            UpdateContent();
-        }
-
         private void TransferInhabitantHandler(object sender, EventArgs e)
         {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as Inhabitant;
+            var record = ALCore.GetSelectedTag<Inhabitant>(ListView);
             if (record == null) return;
 
             SpeciesType speciesType = fModel.GetSpeciesType(record.SpeciesId);
@@ -139,9 +95,9 @@ namespace AquaLog.Panels
 
             using (var dlg = new TransferEditDlg()) {
                 dlg.Model = fModel;
-                dlg.Transfer = transfer;
+                dlg.Record = transfer;
                 if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(dlg.Transfer);
+                    fModel.AddRecord(dlg.Record);
                     UpdateContent();
                 }
             }

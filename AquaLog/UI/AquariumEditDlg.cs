@@ -15,16 +15,23 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class AquariumEditDlg : Form
+    public partial class AquariumEditDlg : Form, IEditDialog<Aquarium>
     {
-        private Aquarium fAquarium;
+        private ALModel fModel;
+        private Aquarium fRecord;
 
-        public Aquarium Aquarium
+        public ALModel Model
         {
-            get { return fAquarium; }
+            get { return fModel; }
+            set { fModel = value; }
+        }
+
+        public Aquarium Record
+        {
+            get { return fRecord; }
             set {
-                if (fAquarium != value) {
-                    fAquarium = value;
+                if (fRecord != value) {
+                    fRecord = value;
                     UpdateView();
                 }
             }
@@ -48,43 +55,43 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            txtName.Text = fAquarium.Name;
-            txtDesc.Text = fAquarium.Description;
-            cmbShape.SelectedIndex = (int)fAquarium.TankShape;
-            cmbWaterType.SelectedIndex = (int)fAquarium.WaterType;
+            txtName.Text = fRecord.Name;
+            txtDesc.Text = fRecord.Description;
+            cmbShape.SelectedIndex = (int)fRecord.TankShape;
+            cmbWaterType.SelectedIndex = (int)fRecord.WaterType;
 
-            txtDepth.Text = ALCore.GetDecimalStr(fAquarium.Depth);
-            txtWidth.Text = ALCore.GetDecimalStr(fAquarium.Width);
-            txtHeigth.Text = ALCore.GetDecimalStr(fAquarium.Height);
-            txtTankVolume.Text = ALCore.GetDecimalStr(fAquarium.TankVolume);
-            txtGlassThickness.Text = ALCore.GetDecimalStr(fAquarium.GlassThickness);
+            txtDepth.Text = ALCore.GetDecimalStr(fRecord.Depth);
+            txtWidth.Text = ALCore.GetDecimalStr(fRecord.Width);
+            txtHeigth.Text = ALCore.GetDecimalStr(fRecord.Height);
+            txtTankVolume.Text = ALCore.GetDecimalStr(fRecord.TankVolume);
+            txtGlassThickness.Text = ALCore.GetDecimalStr(fRecord.GlassThickness);
 
-            dtpStartDate.Checked = !fAquarium.StartDate.Equals(ALCore.ZeroDate);
+            dtpStartDate.Checked = !fRecord.StartDate.Equals(ALCore.ZeroDate);
             if (dtpStartDate.Checked) {
-                dtpStartDate.Value = fAquarium.StartDate;
+                dtpStartDate.Value = fRecord.StartDate;
             }
 
-            dtpStopDate.Checked = !fAquarium.StopDate.Equals(ALCore.ZeroDate);
+            dtpStopDate.Checked = !fRecord.StopDate.Equals(ALCore.ZeroDate);
             if (dtpStopDate.Checked) {
-                dtpStopDate.Value = fAquarium.StopDate;
+                dtpStopDate.Value = fRecord.StopDate;
             }
         }
 
         private void ApplyChanges()
         {
-            fAquarium.Name = txtName.Text;
-            fAquarium.Description = txtDesc.Text;
-            fAquarium.TankShape = (TankShape)cmbShape.SelectedIndex;
-            fAquarium.WaterType = (AquariumWaterType)cmbWaterType.SelectedIndex;
+            fRecord.Name = txtName.Text;
+            fRecord.Description = txtDesc.Text;
+            fRecord.TankShape = (TankShape)cmbShape.SelectedIndex;
+            fRecord.WaterType = (AquariumWaterType)cmbWaterType.SelectedIndex;
 
-            fAquarium.Depth = ALCore.GetDecimalVal(txtDepth.Text);
-            fAquarium.Width = ALCore.GetDecimalVal(txtWidth.Text);
-            fAquarium.Height = ALCore.GetDecimalVal(txtHeigth.Text);
-            fAquarium.TankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
-            fAquarium.GlassThickness = ALCore.GetDecimalVal(txtGlassThickness.Text);
+            fRecord.Depth = ALCore.GetDecimalVal(txtDepth.Text);
+            fRecord.Width = ALCore.GetDecimalVal(txtWidth.Text);
+            fRecord.Height = ALCore.GetDecimalVal(txtHeigth.Text);
+            fRecord.TankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
+            fRecord.GlassThickness = ALCore.GetDecimalVal(txtGlassThickness.Text);
 
-            fAquarium.StartDate = dtpStartDate.Checked ? dtpStartDate.Value : new DateTime(0);
-            fAquarium.StopDate = dtpStopDate.Checked ? dtpStopDate.Value : new DateTime(0);
+            fRecord.StartDate = dtpStartDate.Checked ? dtpStartDate.Value : new DateTime(0);
+            fRecord.StopDate = dtpStopDate.Checked ? dtpStopDate.Value : new DateTime(0);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

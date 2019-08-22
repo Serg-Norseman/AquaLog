@@ -16,10 +16,11 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class NoteEditDlg : Form
+    public partial class NoteEditDlg : Form, IEditDialog<Note>
     {
         private ALModel fModel;
-        private Note fNote;
+        private Note fRecord;
+
 
         public ALModel Model
         {
@@ -27,12 +28,12 @@ namespace AquaLog.UI
             set { fModel = value; }
         }
 
-        public Note Note
+        public Note Record
         {
-            get { return fNote; }
+            get { return fRecord; }
             set {
-                if (fNote != value) {
-                    fNote = value;
+                if (fRecord != value) {
+                    fRecord = value;
                     UpdateView();
                 }
             }
@@ -49,33 +50,33 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            if (fNote != null) {
+            if (fRecord != null) {
                 cmbAquarium.Items.Clear();
                 var aquariums = fModel.QueryAquariums();
                 foreach (var aqm in aquariums) {
-                    if (fNote.AquariumId != 0 || !aqm.IsInactive()) {
+                    if (fRecord.AquariumId != 0 || !aqm.IsInactive()) {
                         cmbAquarium.Items.Add(aqm);
                     }
                 }
 
-                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fNote.AquariumId);
-                cmbAquarium.Enabled = (fNote.AquariumId == 0);
+                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.AquariumId);
+                cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
-                if (!fNote.PublishDate.Equals(ALCore.ZeroDate)) {
-                    dtpDateTime.Value = fNote.PublishDate;
+                if (!fRecord.PublishDate.Equals(ALCore.ZeroDate)) {
+                    dtpDateTime.Value = fRecord.PublishDate;
                 }
 
-                txtNote.Text = fNote.Content;
+                txtNote.Text = fRecord.Content;
             }
         }
 
         private void ApplyChanges()
         {
             var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fNote.AquariumId = (aqm == null) ? 0 : aqm.Id;
+            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
-            fNote.PublishDate = dtpDateTime.Value;
-            fNote.Content = txtNote.Text;
+            fRecord.PublishDate = dtpDateTime.Value;
+            fRecord.Content = txtNote.Text;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

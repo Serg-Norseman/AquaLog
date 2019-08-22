@@ -7,7 +7,6 @@
 using System;
 using System.Windows.Forms;
 using AquaLog.Components;
-using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
 
@@ -16,7 +15,7 @@ namespace AquaLog.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class NotePanel : ListPanel
+    public class NotePanel : ListPanel<Note, NoteEditDlg>
     {
         public NotePanel()
         {
@@ -49,47 +48,6 @@ namespace AquaLog.Panels
             fActions.Add(new UserAction("Add", "btn_rec_new.gif", AddHandler));
             fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
             fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
-        }
-
-        protected override void AddHandler(object sender, EventArgs e)
-        {
-            Note record = new Note();
-
-            using (var dlg = new NoteEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Note = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void EditHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as Note;
-            if (record == null) return;
-
-            using (var dlg = new NoteEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Note = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.UpdateRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void DeleteHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            fModel.DeleteRecord(selectedItem.Tag as Note);
-            UpdateContent();
         }
     }
 }

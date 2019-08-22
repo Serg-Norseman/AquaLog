@@ -16,7 +16,7 @@ namespace AquaLog.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class TransferPanel : ListPanel
+    public class TransferPanel : ListPanel<Transfer, TransferEditDlg>
     {
         public TransferPanel()
         {
@@ -62,47 +62,6 @@ namespace AquaLog.Panels
                 item.SubItems.Add(rec.Shop);
                 ListView.Items.Add(item);
             }
-        }
-
-        protected override void AddHandler(object sender, EventArgs e)
-        {
-            Transfer record = new Transfer();
-
-            using (var dlg = new TransferEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Transfer = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void EditHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as Transfer;
-            if (record == null) return;
-
-            using (var dlg = new TransferEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Transfer = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.UpdateRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void DeleteHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            fModel.DeleteRecord(selectedItem.Tag as Transfer);
-            UpdateContent();
         }
     }
 }

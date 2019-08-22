@@ -69,12 +69,12 @@ namespace AquaLog.UI
 
         public void SetLocale()
         {
-            miFile.Text = Localizer.LS(LSID.LSID_MIFile);
-            miHelp.Text = Localizer.LS(LSID.LSID_MIHelp);
-            miExit.Text = Localizer.LS(LSID.LSID_MIExit);
-            miAbout.Text = Localizer.LS(LSID.LSID_MIAbout);
-            miSettings.Text = Localizer.LS(LSID.LSID_MISettings);
-            miCleanSpace.Text = Localizer.LS(LSID.LSID_MICleanSpace);
+            miFile.Text = Localizer.LS(LSID.MIFile);
+            miHelp.Text = Localizer.LS(LSID.MIHelp);
+            miExit.Text = Localizer.LS(LSID.MIExit);
+            miAbout.Text = Localizer.LS(LSID.MIAbout);
+            miSettings.Text = Localizer.LS(LSID.MISettings);
+            miCleanSpace.Text = Localizer.LS(LSID.MICleanSpace);
         }
 
         private void UpdateControls()

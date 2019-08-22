@@ -15,16 +15,24 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class SpeciesEditDlg : Form
+    public partial class SpeciesEditDlg : Form, IEditDialog<Species>
     {
-        private Species fSpecies;
+        private ALModel fModel;
+        private Species fRecord;
 
-        public Species Species
+
+        public ALModel Model
         {
-            get { return fSpecies; }
+            get { return fModel; }
+            set { fModel = value; }
+        }
+
+        public Species Record
+        {
+            get { return fRecord; }
             set {
-                if (fSpecies != value) {
-                    fSpecies = value;
+                if (fRecord != value) {
+                    fRecord = value;
                     UpdateView();
                 }
             }
@@ -44,32 +52,32 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            txtName.Text = fSpecies.Name;
-            txtDesc.Text = fSpecies.Description;
-            cmbType.SelectedIndex = (int)fSpecies.Type;
-            txtScientificName.Text = fSpecies.ScientificName;
+            txtName.Text = fRecord.Name;
+            txtDesc.Text = fRecord.Description;
+            cmbType.SelectedIndex = (int)fRecord.Type;
+            txtScientificName.Text = fRecord.ScientificName;
 
-            txtTempMin.Text = ALCore.GetDecimalStr(fSpecies.TempMin);
-            txtTempMax.Text = ALCore.GetDecimalStr(fSpecies.TempMax);
-            txtPHMin.Text = ALCore.GetDecimalStr(fSpecies.PHMin);
-            txtPHMax.Text = ALCore.GetDecimalStr(fSpecies.PHMax);
-            txtGHMin.Text = ALCore.GetDecimalStr(fSpecies.GHMin);
-            txtGHMax.Text = ALCore.GetDecimalStr(fSpecies.GHMax);
+            txtTempMin.Text = ALCore.GetDecimalStr(fRecord.TempMin);
+            txtTempMax.Text = ALCore.GetDecimalStr(fRecord.TempMax);
+            txtPHMin.Text = ALCore.GetDecimalStr(fRecord.PHMin);
+            txtPHMax.Text = ALCore.GetDecimalStr(fRecord.PHMax);
+            txtGHMin.Text = ALCore.GetDecimalStr(fRecord.GHMin);
+            txtGHMax.Text = ALCore.GetDecimalStr(fRecord.GHMax);
         }
 
         private void ApplyChanges()
         {
-            fSpecies.Name = txtName.Text;
-            fSpecies.Description = txtDesc.Text;
-            fSpecies.Type = (SpeciesType)cmbType.SelectedIndex;
-            fSpecies.ScientificName = txtScientificName.Text;
+            fRecord.Name = txtName.Text;
+            fRecord.Description = txtDesc.Text;
+            fRecord.Type = (SpeciesType)cmbType.SelectedIndex;
+            fRecord.ScientificName = txtScientificName.Text;
 
-            fSpecies.TempMin = (float)ALCore.GetDecimalVal(txtTempMin.Text);
-            fSpecies.TempMax = (float)ALCore.GetDecimalVal(txtTempMax.Text);
-            fSpecies.PHMin = (float)ALCore.GetDecimalVal(txtPHMin.Text);
-            fSpecies.PHMax = (float)ALCore.GetDecimalVal(txtPHMax.Text);
-            fSpecies.GHMin = (float)ALCore.GetDecimalVal(txtGHMin.Text);
-            fSpecies.GHMax = (float)ALCore.GetDecimalVal(txtGHMax.Text);
+            fRecord.TempMin = (float)ALCore.GetDecimalVal(txtTempMin.Text);
+            fRecord.TempMax = (float)ALCore.GetDecimalVal(txtTempMax.Text);
+            fRecord.PHMin = (float)ALCore.GetDecimalVal(txtPHMin.Text);
+            fRecord.PHMax = (float)ALCore.GetDecimalVal(txtPHMax.Text);
+            fRecord.GHMin = (float)ALCore.GetDecimalVal(txtGHMin.Text);
+            fRecord.GHMax = (float)ALCore.GetDecimalVal(txtGHMax.Text);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

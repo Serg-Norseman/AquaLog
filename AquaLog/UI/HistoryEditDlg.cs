@@ -16,10 +16,10 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class HistoryEditDlg : Form
+    public partial class HistoryEditDlg : Form, IEditDialog<History>
     {
         private ALModel fModel;
-        private History fHistory;
+        private History fRecord;
 
         public ALModel Model
         {
@@ -27,12 +27,12 @@ namespace AquaLog.UI
             set { fModel = value; }
         }
 
-        public History History
+        public History Record
         {
-            get { return fHistory; }
+            get { return fRecord; }
             set {
-                if (fHistory != value) {
-                    fHistory = value;
+                if (fRecord != value) {
+                    fRecord = value;
                     UpdateView();
                 }
             }
@@ -49,35 +49,35 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            if (fHistory != null) {
+            if (fRecord != null) {
                 cmbAquarium.Items.Clear();
                 var aquariums = fModel.QueryAquariums();
                 foreach (var aqm in aquariums) {
-                    if (fHistory.AquariumId != 0 || !aqm.IsInactive()) {
+                    if (fRecord.AquariumId != 0 || !aqm.IsInactive()) {
                         cmbAquarium.Items.Add(aqm);
                     }
                 }
 
-                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fHistory.AquariumId);
-                cmbAquarium.Enabled = (fHistory.AquariumId == 0);
+                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.AquariumId);
+                cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
-                if (!fHistory.DateTime.Equals(ALCore.ZeroDate)) {
-                    dtpDateTime.Value = fHistory.DateTime;
+                if (!fRecord.DateTime.Equals(ALCore.ZeroDate)) {
+                    dtpDateTime.Value = fRecord.DateTime;
                 }
 
-                txtEvent.Text = fHistory.Event;
-                txtNote.Text = fHistory.Note;
+                txtEvent.Text = fRecord.Event;
+                txtNote.Text = fRecord.Note;
             }
         }
 
         private void ApplyChanges()
         {
             var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fHistory.AquariumId = (aqm == null) ? 0 : aqm.Id;
+            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
-            fHistory.DateTime = dtpDateTime.Value;
-            fHistory.Event = txtEvent.Text;
-            fHistory.Note = txtNote.Text;
+            fRecord.DateTime = dtpDateTime.Value;
+            fRecord.Event = txtEvent.Text;
+            fRecord.Note = txtNote.Text;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

@@ -18,7 +18,7 @@ namespace AquaLog.Core.Model
         // physical
         public float Conductivity { get; set; }
         public float Density { get; set; }
-        public float Temperature { get; set; }
+        public float Temperature { get; set; } // dlg+
 
         // chemical elements
         public float Ca { get; set; }
@@ -27,19 +27,19 @@ namespace AquaLog.Core.Model
         public float Mg { get; set; }
 
         // chemical compounds and ions
-        public float Cl2 { get; set; }
-        public float CO2 { get; set; }
-        public float NH { get; set; }
-        public float NH3 { get; set; }
-        public float NH4 { get; set; }
-        public float NO2 { get; set; }
-        public float NO3 { get; set; }
+        public float Cl2 { get; set; } // dlg+
+        public float CO2 { get; set; } // dlg+
+        public float NH { get; set; } // dlg+
+        public float NH3 { get; set; } // dlg+
+        public float NH4 { get; set; } // dlg+
+        public float NO2 { get; set; } // dlg+
+        public float NO3 { get; set; } // dlg+
         public float O2 { get; set; }
         public float PO4 { get; set; }
 
         // chemical complex
-        public float GH { get; set; }
-        public float KH { get; set; }
-        public float pH { get; set; }
+        public float GH { get; set; } // dlg+
+        public float KH { get; set; } // dlg+
+        public float pH { get; set; } // dlg+
     }
 }

@@ -77,10 +77,7 @@ namespace AquaLog.Panels
 
         protected override void EditHandler(object sender, EventArgs e)
         {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as TSValue;
+            var record = ALCore.GetSelectedTag<TSValue>(ListView);
             if (record == null) return;
 
             using (var dlg = new TSValueEditDlg()) {
@@ -94,10 +91,7 @@ namespace AquaLog.Panels
 
         protected override void DeleteHandler(object sender, EventArgs e)
         {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as TSValue;
+            var record = ALCore.GetSelectedTag<TSValue>(ListView);
             if (record == null) return;
 
             fModel.TSDB.DeleteValue(fPointId, record.Timestamp);

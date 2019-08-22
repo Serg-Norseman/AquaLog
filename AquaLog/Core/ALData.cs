@@ -112,7 +112,11 @@ namespace AquaLog.Core
         /// </summary>
         public static double CalcCO2(double degKH, double PH)
         {
-            return 3 * degKH * Math.Pow(10, 7 - PH);
+            // common variant
+            // return 3 * degKH * Math.Pow(10, 7 - PH);
+
+            // corrected variant?
+            return 15.65 * degKH * Math.Pow(10, 6.35 - PH);
         }
 
         /// <summary>

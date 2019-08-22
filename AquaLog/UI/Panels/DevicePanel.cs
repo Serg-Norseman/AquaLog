@@ -17,7 +17,7 @@ namespace AquaLog.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class DevicePanel : ListPanel
+    public class DevicePanel : ListPanel<Device, DeviceEditDlg>
     {
         public DevicePanel()
         {
@@ -58,54 +58,10 @@ namespace AquaLog.Panels
             }
         }
 
-        protected override void AddHandler(object sender, EventArgs e)
-        {
-            Device record = new Device();
-
-            using (var dlg = new DeviceEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Device = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void EditHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Tag as Device;
-            if (record == null) return;
-
-            using (var dlg = new DeviceEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Device = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.UpdateRecord(record);
-                    UpdateContent();
-                }
-            }
-        }
-
-        protected override void DeleteHandler(object sender, EventArgs e)
-        {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            fModel.DeleteRecord(selectedItem.Tag as Device);
-            UpdateContent();
-        }
-
 
         private void ViewDataHandler(object sender, EventArgs e)
         {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var device = selectedItem.Tag as Device;
+            var device = ALCore.GetSelectedTag<Device>(ListView);
             if (device == null || device.PointId == 0) return;
 
             Browser.SetView(MainView.TSValues, device.PointId);
@@ -113,10 +69,7 @@ namespace AquaLog.Panels
 
         private void ViewTrendHandler(object sender, EventArgs e)
         {
-            var selectedItem = ALCore.GetSelectedItem(ListView);
-            if (selectedItem == null) return;
-
-            var device = selectedItem.Tag as Device;
+            var device = ALCore.GetSelectedTag<Device>(ListView);
             if (device == null || device.PointId == 0) return;
 
             Browser.SetView(MainView.TSTrend, device.PointId);

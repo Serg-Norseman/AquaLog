@@ -17,10 +17,11 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class TransferEditDlg : Form
+    public partial class TransferEditDlg : Form, IEditDialog<Transfer>
     {
         private ALModel fModel;
-        private Transfer fTransfer;
+        private Transfer fRecord;
+
 
         public ALModel Model
         {
@@ -28,12 +29,12 @@ namespace AquaLog.UI
             set { fModel = value; }
         }
 
-        public Transfer Transfer
+        public Transfer Record
         {
-            get { return fTransfer; }
+            get { return fRecord; }
             set {
-                if (fTransfer != value) {
-                    fTransfer = value;
+                if (fRecord != value) {
+                    fRecord = value;
                     UpdateView();
                 }
             }
@@ -54,14 +55,14 @@ namespace AquaLog.UI
 
         private void UpdateView()
         {
-            if (fTransfer != null) {
-                string itName = fModel.GetRecordName(fTransfer.ItemType, fTransfer.ItemId);
+            if (fRecord != null) {
+                string itName = fModel.GetRecordName(fRecord.ItemType, fRecord.ItemId);
                 txtName.Text = itName;
 
-                if (fTransfer.Id == 0) {
-                    IList<Transfer> lastTransfers = fModel.QueryLastTransfers(fTransfer.ItemId, (int)fTransfer.ItemType);
+                if (fRecord.Id == 0) {
+                    IList<Transfer> lastTransfers = fModel.QueryLastTransfers(fRecord.ItemId, (int)fRecord.ItemType);
                     if (lastTransfers.Count > 0) {
-                        fTransfer.SourceId = lastTransfers[0].TargetId;
+                        fRecord.SourceId = lastTransfers[0].TargetId;
                     }
                 }
 
@@ -70,24 +71,24 @@ namespace AquaLog.UI
                 foreach (var aqm in aquariums) {
                     cmbSource.Items.Add(aqm);
 
-                    if (aqm.Id != fTransfer.SourceId) {
+                    if (aqm.Id != fRecord.SourceId) {
                         cmbTarget.Items.Add(aqm);
                     }
                 }
 
-                cmbSource.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fTransfer.SourceId);
-                cmbTarget.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fTransfer.TargetId);
+                cmbSource.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.SourceId);
+                cmbTarget.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.TargetId);
 
-                if (!fTransfer.Date.Equals(ALCore.ZeroDate)) {
-                    dtpDate.Value = fTransfer.Date;
+                if (!fRecord.Date.Equals(ALCore.ZeroDate)) {
+                    dtpDate.Value = fRecord.Date;
                 }
 
-                cmbType.SelectedIndex = (int)fTransfer.Type;
-                txtCause.Text = fTransfer.Cause;
+                cmbType.SelectedIndex = (int)fRecord.Type;
+                txtCause.Text = fRecord.Cause;
 
-                txtQty.Text = fTransfer.Quantity.ToString();
-                if (fTransfer.Type == TransferType.Purchase || fTransfer.Type == TransferType.Sale) {
-                    txtUnitPrice.Text = ALCore.GetDecimalStr(fTransfer.UnitPrice);
+                txtQty.Text = fRecord.Quantity.ToString();
+                if (fRecord.Type == TransferType.Purchase || fRecord.Type == TransferType.Sale) {
+                    txtUnitPrice.Text = ALCore.GetDecimalStr(fRecord.UnitPrice);
 
                     cmbShop.Items.Clear();
                     var shops = fModel.QueryShops();
@@ -97,7 +98,7 @@ namespace AquaLog.UI
                         }
                     }
 
-                    cmbShop.Text = fTransfer.Shop;
+                    cmbShop.Text = fRecord.Shop;
                 }
             }
         }
@@ -105,21 +106,21 @@ namespace AquaLog.UI
         private void ApplyChanges()
         {
             Aquarium aqm = cmbSource.SelectedItem as Aquarium;
-            fTransfer.SourceId = (aqm == null) ? 0 : aqm.Id;
+            fRecord.SourceId = (aqm == null) ? 0 : aqm.Id;
 
             aqm = cmbTarget.SelectedItem as Aquarium;
-            fTransfer.TargetId = (aqm == null) ? 0 : aqm.Id;
+            fRecord.TargetId = (aqm == null) ? 0 : aqm.Id;
 
             //fTransfer.ItemId = fInhabitant.Id;
             //fTransfer.ItemType = ALCore.GetItemType(fInhabitant.GetSpeciesType());
-            fTransfer.Date = dtpDate.Value;
-            fTransfer.Type = (TransferType)cmbType.SelectedIndex;
-            fTransfer.Cause = txtCause.Text;
+            fRecord.Date = dtpDate.Value;
+            fRecord.Type = (TransferType)cmbType.SelectedIndex;
+            fRecord.Cause = txtCause.Text;
 
-            fTransfer.Quantity = int.Parse(txtQty.Text);
-            if (fTransfer.Type == TransferType.Purchase || fTransfer.Type == TransferType.Sale) {
-                fTransfer.UnitPrice = (float)ALCore.GetDecimalVal(txtUnitPrice.Text);
-                fTransfer.Shop = cmbShop.Text;
+            fRecord.Quantity = int.Parse(txtQty.Text);
+            if (fRecord.Type == TransferType.Purchase || fRecord.Type == TransferType.Sale) {
+                fRecord.UnitPrice = (float)ALCore.GetDecimalVal(txtUnitPrice.Text);
+                fRecord.Shop = cmbShop.Text;
             }
         }
 
@@ -141,8 +142,8 @@ namespace AquaLog.UI
             txtUnitPrice.Enabled = ps;
             cmbShop.Enabled = ps;
             if (ps) {
-                txtUnitPrice.Text = ALCore.GetDecimalStr(fTransfer.UnitPrice);
-                cmbShop.Text = fTransfer.Shop;
+                txtUnitPrice.Text = ALCore.GetDecimalStr(fRecord.UnitPrice);
+                cmbShop.Text = fRecord.Shop;
             } else {
                 txtUnitPrice.Text = "";
                 cmbShop.Text = "";

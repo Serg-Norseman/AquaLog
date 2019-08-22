@@ -96,7 +96,7 @@ namespace AquaLog.Panels
             var aqm = new Aquarium(ALCore.UnknownName);
 
             using (var dlg = new AquariumEditDlg()) {
-                dlg.Aquarium = aqm;
+                dlg.Record = aqm;
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fModel.AddRecord(aqm);
                     UpdateContent();
@@ -113,7 +113,7 @@ namespace AquaLog.Panels
             if (aqm == null) return;
 
             using (var dlg = new AquariumEditDlg()) {
-                dlg.Aquarium = aqm;
+                dlg.Record = aqm;
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fModel.UpdateRecord(aqm);
                     UpdateContent();
@@ -126,7 +126,11 @@ namespace AquaLog.Panels
             var selectedItem = SelectedTank;
             if (selectedItem == null) return;
 
-            fModel.DeleteRecord(selectedItem.Aquarium);
+            var record = selectedItem.Aquarium;
+
+            if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), record.ToString()))) return;
+
+            fModel.DeleteRecord(record);
             UpdateContent();
         }
     }
