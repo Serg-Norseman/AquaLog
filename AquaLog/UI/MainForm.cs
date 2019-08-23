@@ -63,7 +63,8 @@ namespace AquaLog.UI
             SetView(MainView.Tanks, null);
 
             Localizer.FindLocales();
-            Localizer.LoadLocale(1049); // 1049 | Localizer.LS_DEF_CODE
+            //Localizer.LoadLocale(1049);
+            Localizer.LoadLocale(Localizer.LS_DEF_CODE);
             SetLocale();
         }
 
@@ -75,6 +76,18 @@ namespace AquaLog.UI
             miAbout.Text = Localizer.LS(LSID.MIAbout);
             miSettings.Text = Localizer.LS(LSID.MISettings);
             miCleanSpace.Text = Localizer.LS(LSID.MICleanSpace);
+            btnTanks.Text = Localizer.LS(LSID.Aquariums);
+            btnInhabitants.Text = Localizer.LS(LSID.Inhabitants);
+            btnSpecies.Text = Localizer.LS(LSID.Species);
+            btnDevices.Text = Localizer.LS(LSID.Devices);
+            btnNutrition.Text = Localizer.LS(LSID.Nutrition);
+            btnMaintenance.Text = Localizer.LS(LSID.Maintenance);
+            btnNotes.Text = Localizer.LS(LSID.Notes);
+            btnHistory.Text = Localizer.LS(LSID.History);
+            btnMeasures.Text = Localizer.LS(LSID.Measures);
+            btnSchedule.Text = Localizer.LS(LSID.Schedule);
+            btnTransfers.Text = Localizer.LS(LSID.Transfers);
+            btnBudget.Text = Localizer.LS(LSID.Budget);
         }
 
         private void UpdateControls()

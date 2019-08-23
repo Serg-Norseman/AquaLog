@@ -51,6 +51,14 @@ namespace AquaLog.UI
             for (DeviceType type = DeviceType.Light; type <= DeviceType.Thermometer; type++) {
                 cmbType.Items.Add(type.ToString());
             }
+
+            SetLocale();
+        }
+
+        public void SetLocale()
+        {
+            btnAccept.Text = Localizer.LS(LSID.Accept);
+            btnCancel.Text = Localizer.LS(LSID.Cancel);
         }
 
         private void UpdateView()

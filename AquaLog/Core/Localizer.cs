@@ -28,8 +28,22 @@ namespace AquaLog.Core
         /* 006 */ MISettings,
         /* 007 */ MICleanSpace,
         /* 008 */ RecordDeleteQuery,
+        /* 009 */ Aquariums,
+        /* 010 */ Inhabitants,
+        /* 011 */ Species,
+        /* 012 */ Devices,
+        /* 013 */ Nutrition,
+        /* 014 */ Maintenance,
+        /* 015 */ Notes,
+        /* 016 */ History,
+        /* 017 */ Measures,
+        /* 018 */ Schedule,
+        /* 019 */ Transfers,
+        /* 020 */ Budget,
+        /* 021 */ Accept,
+        /* 022 */ Cancel,
 
-        /* 000 */ Last = RecordDeleteQuery
+        /* 000 */ Last = Cancel
     }
 
 
@@ -48,6 +62,20 @@ namespace AquaLog.Core
             /* 006 */ "Settings",
             /* 007 */ "Clean Space",
             /* 008 */ "Are you sure you want to remove record \"{0}\"?",
+            /* 009 */ "Aquariums",
+            /* 010 */ "Inhabitants",
+            /* 011 */ "Species",
+            /* 012 */ "Devices",
+            /* 013 */ "Nutrition",
+            /* 014 */ "Maintenance",
+            /* 015 */ "Notes",
+            /* 016 */ "History",
+            /* 017 */ "Measures",
+            /* 018 */ "Schedule",
+            /* 019 */ "Transfers",
+            /* 020 */ "Budget",
+            /* 021 */ "Accept",
+            /* 022 */ "Cancel",
         };
 
 

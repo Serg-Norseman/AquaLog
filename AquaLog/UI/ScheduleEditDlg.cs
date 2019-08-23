@@ -54,6 +54,14 @@ namespace AquaLog.UI
             for (TaskStatus status = TaskStatus.ToDo; status <= TaskStatus.Closed; status++) {
                 cmbStatus.Items.Add(status.ToString());
             }
+
+            SetLocale();
+        }
+
+        public void SetLocale()
+        {
+            btnAccept.Text = Localizer.LS(LSID.Accept);
+            btnCancel.Text = Localizer.LS(LSID.Cancel);
         }
 
         private void UpdateView()

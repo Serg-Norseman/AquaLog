@@ -48,9 +48,10 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(218, 301);
+            this.btnAccept.Location = new System.Drawing.Point(135, 239);
+            this.btnAccept.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(96, 30);
+            this.btnAccept.Size = new System.Drawing.Size(96, 24);
             this.btnAccept.TabIndex = 0;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -60,9 +61,10 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(320, 301);
+            this.btnCancel.Location = new System.Drawing.Point(235, 239);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(96, 30);
+            this.btnCancel.Size = new System.Drawing.Size(96, 24);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -70,111 +72,117 @@
             // 
             // lblAquarium
             // 
-            this.lblAquarium.Location = new System.Drawing.Point(12, 15);
+            this.lblAquarium.Location = new System.Drawing.Point(10, 12);
+            this.lblAquarium.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAquarium.Name = "lblAquarium";
-            this.lblAquarium.Size = new System.Drawing.Size(110, 21);
+            this.lblAquarium.Size = new System.Drawing.Size(88, 17);
             this.lblAquarium.TabIndex = 2;
             this.lblAquarium.Text = "Aquarium";
             // 
             // cmbAquarium
             // 
             this.cmbAquarium.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbAquarium.Location = new System.Drawing.Point(148, 12);
-            this.cmbAquarium.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.cmbAquarium.Location = new System.Drawing.Point(118, 10);
+            this.cmbAquarium.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbAquarium.Name = "cmbAquarium";
-            this.cmbAquarium.Size = new System.Drawing.Size(268, 27);
+            this.cmbAquarium.Size = new System.Drawing.Size(213, 21);
             this.cmbAquarium.TabIndex = 5;
             // 
             // lblAmount
             // 
-            this.lblAmount.Location = new System.Drawing.Point(12, 131);
+            this.lblAmount.Location = new System.Drawing.Point(10, 105);
+            this.lblAmount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAmount.Name = "lblAmount";
-            this.lblAmount.Size = new System.Drawing.Size(129, 21);
+            this.lblAmount.Size = new System.Drawing.Size(103, 17);
             this.lblAmount.TabIndex = 2;
             this.lblAmount.Text = "Amount";
             // 
             // txtAmount
             // 
-            this.txtAmount.Location = new System.Drawing.Point(148, 128);
-            this.txtAmount.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.txtAmount.Location = new System.Drawing.Point(118, 102);
+            this.txtAmount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtAmount.Name = "txtAmount";
-            this.txtAmount.Size = new System.Drawing.Size(268, 26);
+            this.txtAmount.Size = new System.Drawing.Size(213, 22);
             this.txtAmount.TabIndex = 5;
             // 
             // lblNote
             // 
-            this.lblNote.Location = new System.Drawing.Point(12, 169);
+            this.lblNote.Location = new System.Drawing.Point(10, 135);
+            this.lblNote.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNote.Name = "lblNote";
-            this.lblNote.Size = new System.Drawing.Size(129, 21);
+            this.lblNote.Size = new System.Drawing.Size(103, 17);
             this.lblNote.TabIndex = 2;
             this.lblNote.Text = "Note";
             // 
             // txtNote
             // 
             this.txtNote.Enabled = false;
-            this.txtNote.Location = new System.Drawing.Point(147, 166);
-            this.txtNote.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.txtNote.Location = new System.Drawing.Point(118, 133);
+            this.txtNote.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
-            this.txtNote.Size = new System.Drawing.Size(269, 69);
+            this.txtNote.Size = new System.Drawing.Size(213, 56);
             this.txtNote.TabIndex = 5;
             // 
             // lblName
             // 
-            this.lblName.Location = new System.Drawing.Point(12, 54);
+            this.lblName.Location = new System.Drawing.Point(10, 43);
+            this.lblName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(129, 21);
+            this.lblName.Size = new System.Drawing.Size(103, 17);
             this.lblName.TabIndex = 2;
             this.lblName.Text = "Name";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(148, 51);
-            this.txtName.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.txtName.Location = new System.Drawing.Point(118, 41);
+            this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(268, 26);
+            this.txtName.Size = new System.Drawing.Size(213, 22);
             this.txtName.TabIndex = 5;
             // 
             // lblBrand
             // 
-            this.lblBrand.Location = new System.Drawing.Point(12, 92);
+            this.lblBrand.Location = new System.Drawing.Point(10, 74);
+            this.lblBrand.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBrand.Name = "lblBrand";
-            this.lblBrand.Size = new System.Drawing.Size(129, 21);
+            this.lblBrand.Size = new System.Drawing.Size(103, 17);
             this.lblBrand.TabIndex = 2;
             this.lblBrand.Text = "Brand";
             // 
             // cmbBrand
             // 
-            this.cmbBrand.Location = new System.Drawing.Point(148, 89);
-            this.cmbBrand.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.cmbBrand.Location = new System.Drawing.Point(118, 71);
+            this.cmbBrand.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbBrand.Name = "cmbBrand";
-            this.cmbBrand.Size = new System.Drawing.Size(268, 27);
+            this.cmbBrand.Size = new System.Drawing.Size(213, 21);
             this.cmbBrand.TabIndex = 5;
             // 
             // lblInhabitant
             // 
-            this.lblInhabitant.Location = new System.Drawing.Point(12, 252);
+            this.lblInhabitant.Location = new System.Drawing.Point(10, 202);
+            this.lblInhabitant.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblInhabitant.Name = "lblInhabitant";
-            this.lblInhabitant.Size = new System.Drawing.Size(110, 21);
+            this.lblInhabitant.Size = new System.Drawing.Size(88, 17);
             this.lblInhabitant.TabIndex = 2;
             this.lblInhabitant.Text = "Inhabitant";
             // 
             // cmbInhabitant
             // 
             this.cmbInhabitant.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbInhabitant.Location = new System.Drawing.Point(148, 249);
-            this.cmbInhabitant.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.cmbInhabitant.Location = new System.Drawing.Point(118, 199);
+            this.cmbInhabitant.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbInhabitant.Name = "cmbInhabitant";
-            this.cmbInhabitant.Size = new System.Drawing.Size(268, 27);
+            this.cmbInhabitant.Size = new System.Drawing.Size(213, 21);
             this.cmbInhabitant.TabIndex = 5;
             // 
             // NutritionEditDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(428, 343);
+            this.ClientSize = new System.Drawing.Size(342, 274);
             this.Controls.Add(this.cmbInhabitant);
             this.Controls.Add(this.cmbAquarium);
             this.Controls.Add(this.txtNote);
@@ -191,6 +199,7 @@
             this.Controls.Add(this.btnAccept);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NutritionEditDlg";

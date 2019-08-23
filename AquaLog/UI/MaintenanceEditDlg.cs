@@ -50,6 +50,15 @@ namespace AquaLog.UI
             for (MaintenanceType type = MaintenanceType.Restart; type <= MaintenanceType.Other; type++) {
                 cmbType.Items.Add(type.ToString());
             }
+
+            SetLocale();
+        }
+
+        public void SetLocale()
+        {
+            Text = Localizer.LS(LSID.Maintenance);
+            btnAccept.Text = Localizer.LS(LSID.Accept);
+            btnCancel.Text = Localizer.LS(LSID.Cancel);
         }
 
         private void UpdateView()

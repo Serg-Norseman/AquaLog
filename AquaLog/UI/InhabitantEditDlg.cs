@@ -50,6 +50,14 @@ namespace AquaLog.UI
             for (Sex sex = Sex.None; sex <= Sex.Hermaphrodite; sex++) {
                 cmbSex.Items.Add(sex.ToString());
             }
+
+            SetLocale();
+        }
+
+        public void SetLocale()
+        {
+            btnAccept.Text = Localizer.LS(LSID.Accept);
+            btnCancel.Text = Localizer.LS(LSID.Cancel);
         }
 
         private void UpdateView()

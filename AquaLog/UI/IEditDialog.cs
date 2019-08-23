@@ -14,7 +14,7 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public interface IEditDialog<T> : IDisposable where T : Entity
+    public interface IEditDialog<T> : IDisposable, ILocalizable where T : Entity
     {
         ALModel Model { get; set; }
 

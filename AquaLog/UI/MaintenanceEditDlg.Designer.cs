@@ -44,10 +44,10 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(172, 226);
+            this.btnAccept.Location = new System.Drawing.Point(135, 226);
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(77, 24);
+            this.btnAccept.Size = new System.Drawing.Size(96, 24);
             this.btnAccept.TabIndex = 0;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -57,10 +57,10 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(254, 226);
+            this.btnCancel.Location = new System.Drawing.Point(235, 226);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(77, 24);
+            this.btnCancel.Size = new System.Drawing.Size(96, 24);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;

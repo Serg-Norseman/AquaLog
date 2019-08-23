@@ -48,6 +48,14 @@ namespace AquaLog.UI
             for (SpeciesType type = SpeciesType.Fish; type <= SpeciesType.Plant; type++) {
                 cmbType.Items.Add(type.ToString());
             }
+
+            SetLocale();
+        }
+
+        public void SetLocale()
+        {
+            btnAccept.Text = Localizer.LS(LSID.Accept);
+            btnCancel.Text = Localizer.LS(LSID.Cancel);
         }
 
         private void UpdateView()

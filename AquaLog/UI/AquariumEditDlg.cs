@@ -51,6 +51,14 @@ namespace AquaLog.UI
             for (AquariumWaterType awt = AquariumWaterType.Freshwater; awt <= AquariumWaterType.ReefMarine; awt++) {
                 cmbWaterType.Items.Add(awt.ToString());
             }
+
+            SetLocale();
+        }
+
+        public void SetLocale()
+        {
+            btnAccept.Text = Localizer.LS(LSID.Accept);
+            btnCancel.Text = Localizer.LS(LSID.Cancel);
         }
 
         private void UpdateView()
