@@ -15,10 +15,9 @@ namespace AquaLog.Core.Model
     public class Maintenance : AquariumDetails
     {
         public DateTime DateTime { get; set; }
-        public string Event { get; set; }
-        public string Units { get; set; }
+        public MaintenanceType Type { get; set; }
+        public double Value { get; set; }
         public string Note { get; set; }
-
 
         public Maintenance()
         {

@@ -52,7 +52,6 @@ namespace AquaLog.UI
             btnDevices.Tag = MainView.Devices;
             btnBudget.Tag = MainView.Budget;
             btnNotes.Tag = MainView.Notes;
-            btnWaterChanges.Tag = MainView.WaterChanges;
             btnHistory.Tag = MainView.History;
             btnMaintenance.Tag = MainView.Maintenance;
             btnTransfers.Tag = MainView.Transfers;
@@ -196,9 +195,6 @@ namespace AquaLog.UI
                     break;
                 case MainView.Notes:
                     SetView<NotePanel>(extData);
-                    break;
-                case MainView.WaterChanges:
-                    SetView<WaterChangePanel>(extData);
                     break;
                 case MainView.History:
                     SetView<HistoryPanel>(extData);

@@ -39,9 +39,11 @@ namespace AquaLog.Core
         public const string AppName = "AquaLog";
 
         public static int[] WaterChangeFactors = new int[] {
-            +1, // Added
-             0, // Replaced
-            -1  // Removed
+             0, // Restart
+            +1, // WC_Added
+             0, // WC_Replaced
+            -1, // WC_Removed
+             0, // Other
         };
 
         private static readonly NumberFormatInfo SQLITE_NFI = new NumberFormatInfo {

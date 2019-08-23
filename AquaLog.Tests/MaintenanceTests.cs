@@ -11,16 +11,16 @@ using NUnit.Framework;
 namespace AquaLog.Core.Model
 {
     [TestFixture]
-    public class WaterChangeTests
+    public class MaintenanceTests
     {
         [Test]
         public void Test_Common()
         {
-            var waterChange = new WaterChange();
-            Assert.IsNotNull(waterChange);
+            var maintenance = new Maintenance();
+            Assert.IsNotNull(maintenance);
 
-            waterChange.Volume = 2.5;
-            Assert.AreEqual(2.5, waterChange.Volume);
+            maintenance.Value = 2.5;
+            Assert.AreEqual(2.5, maintenance.Value);
         }
     }
 }

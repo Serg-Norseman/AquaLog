@@ -23,7 +23,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripButton btnBudget;
         private System.Windows.Forms.ToolStripButton btnNotes;
-        private System.Windows.Forms.ToolStripButton btnWaterChanges;
         private System.Windows.Forms.ToolStripButton btnHistory;
         private System.Windows.Forms.ToolStripButton btnMaintenance;
         private System.Windows.Forms.ToolStripMenuItem miCleanSpace;
@@ -73,18 +72,17 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnBudget = new System.Windows.Forms.ToolStripButton();
             this.btnNotes = new System.Windows.Forms.ToolStripButton();
-            this.btnWaterChanges = new System.Windows.Forms.ToolStripButton();
             this.btnHistory = new System.Windows.Forms.ToolStripButton();
             this.btnMaintenance = new System.Windows.Forms.ToolStripButton();
             this.btnTransfers = new System.Windows.Forms.ToolStripButton();
             this.btnTSDB = new System.Windows.Forms.ToolStripButton();
             this.btnMeasures = new System.Windows.Forms.ToolStripButton();
+            this.btnSchedule = new System.Windows.Forms.ToolStripButton();
             this.pnlTools = new System.Windows.Forms.FlowLayoutPanel();
             this.pnlDate = new System.Windows.Forms.Panel();
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.btnSchedule = new System.Windows.Forms.ToolStripButton();
             this.menuMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlTools.SuspendLayout();
@@ -176,15 +174,14 @@
             this.btnNutrition,
             this.btnDevices,
             this.toolStripSeparator3,
-            this.btnBudget,
-            this.btnNotes,
-            this.btnWaterChanges,
-            this.btnHistory,
             this.btnMaintenance,
-            this.btnTransfers,
-            this.btnTSDB,
+            this.btnNotes,
+            this.btnHistory,
             this.btnMeasures,
-            this.btnSchedule});
+            this.btnSchedule,
+            this.btnTransfers,
+            this.btnBudget,
+            this.btnTSDB});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(989, 25);
@@ -289,15 +286,6 @@
             this.btnNotes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnNotes.Click += new System.EventHandler(this.btnMainView_Click);
             // 
-            // btnWaterChanges
-            // 
-            this.btnWaterChanges.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnWaterChanges.Name = "btnWaterChanges";
-            this.btnWaterChanges.Size = new System.Drawing.Size(89, 22);
-            this.btnWaterChanges.Text = "Water changes";
-            this.btnWaterChanges.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnWaterChanges.Click += new System.EventHandler(this.btnMainView_Click);
-            // 
             // btnHistory
             // 
             this.btnHistory.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -342,6 +330,15 @@
             this.btnMeasures.Text = "Measures";
             this.btnMeasures.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMeasures.Click += new System.EventHandler(this.btnMainView_Click);
+            // 
+            // btnSchedule
+            // 
+            this.btnSchedule.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSchedule.Name = "btnSchedule";
+            this.btnSchedule.Size = new System.Drawing.Size(59, 22);
+            this.btnSchedule.Text = "Schedule";
+            this.btnSchedule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSchedule.Click += new System.EventHandler(this.btnMainView_Click);
             // 
             // pnlTools
             // 
@@ -392,15 +389,6 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
-            // 
-            // btnSchedule
-            // 
-            this.btnSchedule.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSchedule.Name = "btnSchedule";
-            this.btnSchedule.Size = new System.Drawing.Size(59, 22);
-            this.btnSchedule.Text = "Schedule";
-            this.btnSchedule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSchedule.Click += new System.EventHandler(this.btnMainView_Click);
             // 
             // MainForm
             // 

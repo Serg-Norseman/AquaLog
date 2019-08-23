@@ -11,10 +11,12 @@ namespace AquaLog.Core.Types
     /// <summary>
     /// 
     /// </summary>
-    public enum WaterChangeType
+    public enum MaintenanceType
     {
-        Added,
-        Replaced,
-        Removed,
+        Restart,
+        WaterChange_Added,
+        WaterChange_Replaced,
+        WaterChange_Removed,
+        Other,
     }
 }

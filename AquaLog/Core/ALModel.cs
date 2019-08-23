@@ -43,7 +43,6 @@ namespace AquaLog.Core
 
             fDB.CreateTable<Device>();
             fDB.CreateTable<Note>();
-            fDB.CreateTable<WaterChange>();
             fDB.CreateTable<History>();
             fDB.CreateTable<Maintenance>();
             fDB.CreateTable<Transfer>();
@@ -254,6 +253,11 @@ namespace AquaLog.Core
             return fDB.Query<Maintenance>("select * from Maintenance order by [DateTime]");
         }
 
+        public IList<Maintenance> QueryWaterChanges(int aquariumId)
+        {
+            return fDB.Query<Maintenance>("select * from Maintenance where (AquariumId = ? and Type between 1 and 3) order by [DateTime]", aquariumId);
+        }
+
         #endregion
 
         #region Schedule functions
@@ -261,20 +265,6 @@ namespace AquaLog.Core
         public IList<Schedule> QuerySchedule()
         {
             return fDB.Query<Schedule>("select * from Schedule order by [DateTime]");
-        }
-
-        #endregion
-
-        #region WaterChange functions
-
-        public IList<WaterChange> QueryWaterChanges()
-        {
-            return fDB.Query<WaterChange>("select * from WaterChange order by [ChangeDate]");
-        }
-
-        public IList<WaterChange> QueryWaterChanges(int aquariumId)
-        {
-            return fDB.Query<WaterChange>("select * from WaterChange where (AquariumId = ?) order by [ChangeDate]", aquariumId);
         }
 
         #endregion

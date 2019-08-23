@@ -47,7 +47,7 @@
     <Compile Include="SDCompressionTests.cs" />
     <Compile Include="SpeciesTests.cs" />
     <Compile Include="TransferTests.cs" />
-    <Compile Include="WaterChangeTests.cs" />
+    <Compile Include="MaintenanceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AquaLog\AquaLog.csproj">

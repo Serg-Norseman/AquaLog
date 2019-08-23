@@ -192,10 +192,10 @@ namespace AquaLog.Panels
             double result = 0.0d;
 
             var records = fModel.QueryWaterChanges(fAquarium.Id);
-            foreach (WaterChange rec in records) {
+            foreach (Maintenance rec in records) {
                 int idx = (int)rec.Type;
                 int factor = ALCore.WaterChangeFactors[idx];
-                result += (rec.Volume * factor);
+                result += (rec.Value * factor);
             }
 
             return result;
@@ -208,13 +208,13 @@ namespace AquaLog.Panels
 
             DateTime dtPrev = ALCore.ZeroDate;
             var records = fModel.QueryWaterChanges(fAquarium.Id);
-            foreach (WaterChange rec in records) {
+            foreach (Maintenance rec in records) {
                 if (!dtPrev.Equals(ALCore.ZeroDate)) {
-                    int days = (rec.ChangeDate.Date - dtPrev).Days;
+                    int days = (rec.DateTime.Date - dtPrev).Days;
                     result += days;
                     count += 1;
                 }
-                dtPrev = rec.ChangeDate.Date;
+                dtPrev = rec.DateTime.Date;
             }
 
             return result / count;
@@ -224,8 +224,8 @@ namespace AquaLog.Panels
         {
             DateTime dtPrev = ALCore.ZeroDate;
             var records = fModel.QueryWaterChanges(fAquarium.Id);
-            foreach (WaterChange rec in records) {
-                dtPrev = rec.ChangeDate.Date;
+            foreach (Maintenance rec in records) {
+                dtPrev = rec.DateTime.Date;
             }
             return (DateTime.Now.Date - dtPrev).Days;
         }

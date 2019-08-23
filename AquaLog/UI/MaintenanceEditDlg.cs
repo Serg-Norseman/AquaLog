@@ -46,28 +46,24 @@ namespace AquaLog.UI
 
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
+
+            for (MaintenanceType type = MaintenanceType.Restart; type <= MaintenanceType.Other; type++) {
+                cmbType.Items.Add(type.ToString());
+            }
         }
 
         private void UpdateView()
         {
             if (fRecord != null) {
-                cmbAquarium.Items.Clear();
-                var aquariums = fModel.QueryAquariums();
-                foreach (var aqm in aquariums) {
-                    if (fRecord.AquariumId != 0 || !aqm.IsInactive()) {
-                        cmbAquarium.Items.Add(aqm);
-                    }
-                }
-
-                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.AquariumId);
+                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
                 cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
                 if (!fRecord.DateTime.Equals(ALCore.ZeroDate)) {
                     dtpDateTime.Value = fRecord.DateTime;
                 }
 
-                txtEvent.Text = fRecord.Event;
-                txtUnits.Text = fRecord.Units;
+                cmbType.SelectedIndex = (int)fRecord.Type;
+                txtValue.Text = ALCore.GetDecimalStr(fRecord.Value);
                 txtNote.Text = fRecord.Note;
             }
         }
@@ -78,8 +74,8 @@ namespace AquaLog.UI
             fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
             fRecord.DateTime = dtpDateTime.Value;
-            fRecord.Event = txtEvent.Text;
-            fRecord.Units = txtUnits.Text;
+            fRecord.Type = (MaintenanceType)cmbType.SelectedIndex;
+            fRecord.Value = ALCore.GetDecimalVal(txtValue.Text);
             fRecord.Note = txtNote.Text;
         }
 

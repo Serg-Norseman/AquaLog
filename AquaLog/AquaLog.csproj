@@ -108,7 +108,6 @@
     <Compile Include="Core\Model\Note.cs" />
     <Compile Include="Core\Model\Species.cs" />
     <Compile Include="Core\Model\Transfer.cs" />
-    <Compile Include="Core\Model\WaterChange.cs" />
     <Compile Include="Core\NavigationStack.cs" />
     <Compile Include="Core\Types\AquariumWaterType.cs" />
     <Compile Include="Core\Types\CareLevel.cs" />
@@ -121,7 +120,7 @@
     <Compile Include="Core\Types\TaskStatus.cs" />
     <Compile Include="Core\Types\Temperament.cs" />
     <Compile Include="Core\Types\TransferType.cs" />
-    <Compile Include="Core\Types\WaterChangeType.cs" />
+    <Compile Include="Core\Types\MaintenanceType.cs" />
     <Compile Include="ALTray.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Log4NetHelper.cs" />
@@ -216,12 +215,7 @@
     <Compile Include="UI\Panels\TransferPanel.cs" />
     <Compile Include="UI\Panels\TSDBPanel.cs" />
     <Compile Include="UI\Panels\TSValuePanel.cs" />
-    <Compile Include="UI\Panels\WaterChangePanel.cs" />
     <Compile Include="UI\UIHelper.cs" />
-    <Compile Include="UI\WaterChangeEditDlg.cs" />
-    <Compile Include="UI\WaterChangeEditDlg.Designer.cs">
-      <DependentUpon>WaterChangeEditDlg.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
