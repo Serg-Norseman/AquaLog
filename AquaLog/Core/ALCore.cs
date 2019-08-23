@@ -40,9 +40,9 @@ namespace AquaLog.Core
 
         public static int[] WaterChangeFactors = new int[] {
              0, // Restart
-            +1, // WC_Added
-             0, // WC_Replaced
-            -1, // WC_Removed
+            +1, // WaterAdded
+             0, // WaterReplaced
+            -1, // WaterRemoved
              0, // Other
         };
 

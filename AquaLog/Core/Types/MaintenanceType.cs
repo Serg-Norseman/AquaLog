@@ -14,9 +14,9 @@ namespace AquaLog.Core.Types
     public enum MaintenanceType
     {
         Restart,
-        WaterChange_Added,
-        WaterChange_Replaced,
-        WaterChange_Removed,
+        WaterAdded,
+        WaterReplaced,
+        WaterRemoved,
         Other,
     }
 }
