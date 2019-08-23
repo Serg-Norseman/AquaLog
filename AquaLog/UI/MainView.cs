@@ -26,5 +26,6 @@ namespace AquaLog.UI
         TSValues,
         TSTrend,
         MeasuresChart,
+        Schedule,
     }
 }

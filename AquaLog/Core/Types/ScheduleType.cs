@@ -6,7 +6,7 @@
 
 namespace AquaLog.Core.Types
 {
-    public enum TaskSchedule
+    public enum ScheduleType
     {
         Single,
         Daily,

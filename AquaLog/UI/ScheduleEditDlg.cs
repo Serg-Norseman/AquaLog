@@ -17,10 +17,10 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class MaintenanceEditDlg : Form, IEditDialog<Maintenance>
+    public partial class ScheduleEditDlg : Form, IEditDialog<Schedule>
     {
         private ALModel fModel;
-        private Maintenance fRecord;
+        private Schedule fRecord;
 
         public ALModel Model
         {
@@ -28,7 +28,7 @@ namespace AquaLog.UI
             set { fModel = value; }
         }
 
-        public Maintenance Record
+        public Schedule Record
         {
             get { return fRecord; }
             set {
@@ -40,12 +40,20 @@ namespace AquaLog.UI
         }
 
 
-        public MaintenanceEditDlg()
+        public ScheduleEditDlg()
         {
             InitializeComponent();
 
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
+
+            for (ScheduleType ts = ScheduleType.Single; ts <= ScheduleType.Yearly; ts++) {
+                cmbSchedule.Items.Add(ts.ToString());
+            }
+
+            for (TaskStatus status = TaskStatus.ToDo; status <= TaskStatus.Closed; status++) {
+                cmbStatus.Items.Add(status.ToString());
+            }
         }
 
         private void UpdateView()
@@ -67,7 +75,9 @@ namespace AquaLog.UI
                 }
 
                 txtEvent.Text = fRecord.Event;
-                txtUnits.Text = fRecord.Units;
+                chkReminder.Checked = fRecord.Reminder;
+                cmbSchedule.SelectedIndex = (int)fRecord.Type;
+                cmbStatus.SelectedIndex = (int)fRecord.Status;
                 txtNote.Text = fRecord.Note;
             }
         }
@@ -79,7 +89,9 @@ namespace AquaLog.UI
 
             fRecord.DateTime = dtpDateTime.Value;
             fRecord.Event = txtEvent.Text;
-            fRecord.Units = txtUnits.Text;
+            fRecord.Reminder = chkReminder.Checked;
+            fRecord.Type = (ScheduleType)cmbSchedule.SelectedIndex;
+            fRecord.Status = (TaskStatus)cmbStatus.SelectedIndex;
             fRecord.Note = txtNote.Text;
         }
 

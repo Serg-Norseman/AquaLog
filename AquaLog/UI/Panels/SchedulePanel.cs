@@ -15,16 +15,15 @@ namespace AquaLog.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class MaintenancePanel : ListPanel<Maintenance, MaintenanceEditDlg>
+    public class SchedulePanel : ListPanel<Schedule, ScheduleEditDlg>
     {
-        public MaintenancePanel()
+        public SchedulePanel()
         {
             ListView.Columns.Add("Aquarium", 120, HorizontalAlignment.Left);
             ListView.Columns.Add("DateTime", 120, HorizontalAlignment.Left);
             ListView.Columns.Add("Event", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Units", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("Reminder", 80, HorizontalAlignment.Left);
-            ListView.Columns.Add("Schedule", 80, HorizontalAlignment.Left);
+            ListView.Columns.Add("Type", 80, HorizontalAlignment.Left);
             ListView.Columns.Add("Status", 80, HorizontalAlignment.Left);
             ListView.Columns.Add("Note", 250, HorizontalAlignment.Left);
         }
@@ -34,9 +33,9 @@ namespace AquaLog.Panels
             ListView.Items.Clear();
             if (fModel == null) return;
 
-            var records = fModel.QueryMaintenances();
+            var records = fModel.QuerySchedule();
 
-            foreach (Maintenance rec in records) {
+            foreach (Schedule rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
 
@@ -44,7 +43,9 @@ namespace AquaLog.Panels
                 item.Tag = rec;
                 item.SubItems.Add(rec.DateTime.ToString());
                 item.SubItems.Add(rec.Event);
-                item.SubItems.Add(rec.Units);
+                item.SubItems.Add(rec.Reminder.ToString());
+                item.SubItems.Add(rec.Type.ToString());
+                item.SubItems.Add(rec.Status.ToString());
                 item.SubItems.Add(rec.Note);
                 ListView.Items.Add(item);
             }

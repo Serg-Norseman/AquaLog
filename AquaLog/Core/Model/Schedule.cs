@@ -12,15 +12,17 @@ namespace AquaLog.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public class Maintenance : AquariumDetails
+    public class Schedule : AquariumDetails
     {
         public DateTime DateTime { get; set; }
         public string Event { get; set; }
-        public string Units { get; set; }
         public string Note { get; set; }
+        public bool Reminder { get; set; }
+        public ScheduleType Type { get; set; }
+        public TaskStatus Status { get; set; }
 
 
-        public Maintenance()
+        public Schedule()
         {
         }
     }

@@ -36,6 +36,7 @@
         private System.Windows.Forms.ToolStripButton btnTSDB;
         private System.Windows.Forms.ToolStripButton btnNutrition;
         private System.Windows.Forms.ToolStripButton btnMeasures;
+        private System.Windows.Forms.ToolStripButton btnSchedule;
         
         protected override void Dispose(bool disposing)
         {
@@ -83,6 +84,7 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnSchedule = new System.Windows.Forms.ToolStripButton();
             this.menuMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlTools.SuspendLayout();
@@ -98,7 +100,7 @@
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuMain.Size = new System.Drawing.Size(840, 24);
+            this.menuMain.Size = new System.Drawing.Size(989, 24);
             this.menuMain.TabIndex = 2;
             this.menuMain.Text = "menuStrip1";
             // 
@@ -181,10 +183,11 @@
             this.btnMaintenance,
             this.btnTransfers,
             this.btnTSDB,
-            this.btnMeasures});
+            this.btnMeasures,
+            this.btnSchedule});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(840, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(989, 25);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -382,7 +385,7 @@
             this.pnlClient.Location = new System.Drawing.Point(210, 49);
             this.pnlClient.Name = "pnlClient";
             this.pnlClient.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlClient.Size = new System.Drawing.Size(630, 361);
+            this.pnlClient.Size = new System.Drawing.Size(779, 361);
             this.pnlClient.TabIndex = 5;
             // 
             // timer1
@@ -390,11 +393,20 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
             // 
+            // btnSchedule
+            // 
+            this.btnSchedule.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSchedule.Name = "btnSchedule";
+            this.btnSchedule.Size = new System.Drawing.Size(59, 22);
+            this.btnSchedule.Text = "Schedule";
+            this.btnSchedule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSchedule.Click += new System.EventHandler(this.btnMainView_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(840, 410);
+            this.ClientSize = new System.Drawing.Size(989, 410);
             this.Controls.Add(this.pnlClient);
             this.Controls.Add(this.pnlTools);
             this.Controls.Add(this.toolStrip1);

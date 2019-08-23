@@ -72,6 +72,7 @@
     <Compile Include="Core\Localizer.cs" />
     <Compile Include="Core\Model\Measure.cs" />
     <Compile Include="Core\Model\Nutrition.cs" />
+    <Compile Include="Core\Model\Schedule.cs" />
     <Compile Include="Core\Types\DeviceProps.cs" />
     <Compile Include="Core\Types\DeviceType.cs" />
     <Compile Include="Core\Types\QDecimal.cs" />
@@ -116,7 +117,7 @@
     <Compile Include="Core\Types\Sex.cs" />
     <Compile Include="Core\Types\SpeciesType.cs" />
     <Compile Include="Core\Types\TankShape.cs" />
-    <Compile Include="Core\Types\TaskSchedule.cs" />
+    <Compile Include="Core\Types\ScheduleType.cs" />
     <Compile Include="Core\Types\TaskStatus.cs" />
     <Compile Include="Core\Types\Temperament.cs" />
     <Compile Include="Core\Types\TransferType.cs" />
@@ -175,7 +176,12 @@
     <Compile Include="UI\Panels\MeasurePanel.cs" />
     <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
     <Compile Include="UI\Panels\NutritionPanel.cs" />
+    <Compile Include="UI\Panels\SchedulePanel.cs" />
     <Compile Include="UI\Panels\TSTrendPanel.cs" />
+    <Compile Include="UI\ScheduleEditDlg.cs" />
+    <Compile Include="UI\ScheduleEditDlg.Designer.cs">
+      <DependentUpon>ScheduleEditDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\SettingsDlg.cs" />
     <Compile Include="UI\SettingsDlg.Designer.cs">
       <DependentUpon>SettingsDlg.cs</DependentUpon>

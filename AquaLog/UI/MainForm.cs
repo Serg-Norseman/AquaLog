@@ -59,6 +59,7 @@ namespace AquaLog.UI
             btnTSDB.Tag = MainView.TSDB;
             btnNutrition.Tag = MainView.Nutrition;
             btnMeasures.Tag = MainView.Measures;
+            btnSchedule.Tag = MainView.Schedule;
 
             SetView(MainView.Tanks, null);
 
@@ -225,6 +226,9 @@ namespace AquaLog.UI
                     break;
                 case MainView.MeasuresChart:
                     SetView<MeasuresChartPanel>(extData);
+                    break;
+                case MainView.Schedule:
+                    SetView<SchedulePanel>(extData);
                     break;
             }
         }

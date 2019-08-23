@@ -49,6 +49,7 @@ namespace AquaLog.Core
             fDB.CreateTable<Transfer>();
             fDB.CreateTable<Nutrition>();
             fDB.CreateTable<Measure>();
+            fDB.CreateTable<Schedule>();
         }
 
         /// <summary>
@@ -251,6 +252,15 @@ namespace AquaLog.Core
         public IList<Maintenance> QueryMaintenances()
         {
             return fDB.Query<Maintenance>("select * from Maintenance order by [DateTime]");
+        }
+
+        #endregion
+
+        #region Schedule functions
+
+        public IList<Schedule> QuerySchedule()
+        {
+            return fDB.Query<Schedule>("select * from Schedule order by [DateTime]");
         }
 
         #endregion

@@ -12,16 +12,16 @@ using NUnit.Framework;
 namespace AquaLog.Core.Model
 {
     [TestFixture]
-    public class MaintenanceTests
+    public class ScheduleTests
     {
         [Test]
         public void Test_Common()
         {
-            var maintenance = new Maintenance();
-            Assert.IsNotNull(maintenance);
+            var schedule = new Schedule();
+            Assert.IsNotNull(schedule);
 
-            maintenance.Schedule = TaskSchedule.Weekly;
-            Assert.AreEqual(TaskSchedule.Weekly, maintenance.Schedule);
+            schedule.Type = ScheduleType.Weekly;
+            Assert.AreEqual(ScheduleType.Weekly, schedule.Type);
         }
     }
 }
