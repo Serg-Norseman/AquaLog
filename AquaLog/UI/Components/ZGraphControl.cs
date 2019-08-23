@@ -73,7 +73,7 @@ namespace AquaLog.Components
         {
             GraphPane gPane = fGraph.GraphPane;
             try {
-                gPane.Title.Text = title;
+                //gPane.Title.Text = title;
                 gPane.XAxis.Title.Text = xAxis;
 
                 gPane.XAxis.Type = AxisType.Date;
@@ -106,11 +106,11 @@ namespace AquaLog.Components
 
                     switch (style) {
                         case ChartStyle.Bar:
-                            gPane.AddBar("-", ppList, color);
+                            gPane.AddBar(title, ppList, color);
                             break;
 
                         case ChartStyle.Point:
-                            gPane.AddCurve("-", ppList, color, SymbolType.Diamond).Symbol.Size = 3;
+                            gPane.AddCurve(title, ppList, color, SymbolType.Diamond).Symbol.Size = 3;
                             break;
                     }
                 }

@@ -69,6 +69,12 @@ namespace AquaLog.Panels
             fActions.Add(new UserAction("Add", "btn_rec_new.gif", AddHandler));
             fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
             fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
+            fActions.Add(new UserAction("Chart", "", ViewChartHandler));
+        }
+
+        private void ViewChartHandler(object sender, EventArgs e)
+        {
+            Browser.SetView(MainView.MeasuresChart, null);
         }
     }
 }

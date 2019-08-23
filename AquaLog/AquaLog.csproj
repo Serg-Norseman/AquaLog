@@ -173,6 +173,7 @@
       <DependentUpon>NutritionEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\MeasurePanel.cs" />
+    <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
     <Compile Include="UI\Panels\NutritionPanel.cs" />
     <Compile Include="UI\Panels\TSTrendPanel.cs" />
     <Compile Include="UI\SettingsDlg.cs" />

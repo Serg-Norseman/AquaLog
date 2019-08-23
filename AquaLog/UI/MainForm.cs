@@ -223,6 +223,9 @@ namespace AquaLog.UI
                 case MainView.Measures:
                     SetView<MeasurePanel>(extData);
                     break;
+                case MainView.MeasuresChart:
+                    SetView<MeasuresChartPanel>(extData);
+                    break;
             }
         }
 
