@@ -187,49 +187,6 @@ namespace AquaLog.Panels
             return str;
         }
 
-        private double GetWaterVolume()
-        {
-            double result = 0.0d;
-
-            var records = fModel.QueryWaterChanges(fAquarium.Id);
-            foreach (Maintenance rec in records) {
-                int idx = (int)rec.Type;
-                int factor = ALCore.WaterChangeFactors[idx];
-                result += (rec.Value * factor);
-            }
-
-            return result;
-        }
-
-        private double GetAverageWaterChangeInterval()
-        {
-            double result = 0.0d;
-            int count = 0;
-
-            DateTime dtPrev = ALCore.ZeroDate;
-            var records = fModel.QueryWaterChanges(fAquarium.Id);
-            foreach (Maintenance rec in records) {
-                if (!dtPrev.Equals(ALCore.ZeroDate)) {
-                    int days = (rec.DateTime.Date - dtPrev).Days;
-                    result += days;
-                    count += 1;
-                }
-                dtPrev = rec.DateTime.Date;
-            }
-
-            return result / count;
-        }
-
-        private double GetLastWaterChangeInterval()
-        {
-            DateTime dtPrev = ALCore.ZeroDate;
-            var records = fModel.QueryWaterChanges(fAquarium.Id);
-            foreach (Maintenance rec in records) {
-                dtPrev = rec.DateTime.Date;
-            }
-            return (DateTime.Now.Date - dtPrev).Days;
-        }
-
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -248,7 +205,7 @@ namespace AquaLog.Panels
             fStrFormat.Alignment = StringAlignment.Near;
             DrawText(gfx, fAquarium.Name, font, ForeColor, layoutRect);
 
-            double waterVolume = GetWaterVolume();
+            double waterVolume = fModel.GetWaterVolume(fAquarium.Id);
             string volumes = ALCore.GetDecimalStr(waterVolume) + " / " + ALCore.GetDecimalStr(fAquarium.TankVolume);
             fStrFormat.Alignment = StringAlignment.Far;
             DrawText(gfx, volumes, font, ForeColor, layoutRect);
@@ -269,14 +226,14 @@ namespace AquaLog.Panels
             int y = layoutRect.Top + (int)(Font.Height * 1.6f);
             DrawText(gfx, works, Font, ForeColor, x, y);
 
-            double avgChangeDays = GetAverageWaterChangeInterval();
+            double avgChangeDays = fModel.GetAverageWaterChangeInterval(fAquarium.Id);
             string avgChange = "avg=" + ALCore.GetDecimalStr(avgChangeDays, 1) + "d";
 
             Color wsColor = ForeColor;
             string lastChange = "";
             string waterStatus = "";
             if (!fAquarium.IsInactive()) {
-                double lastChangeDays = GetLastWaterChangeInterval();
+                double lastChangeDays = fModel.GetLastWaterChangeInterval(fAquarium.Id);
                 lastChange = ", last=" + ALCore.GetDecimalStr(lastChangeDays, 1) + "d";
 
                 if (lastChangeDays <= avgChangeDays) {

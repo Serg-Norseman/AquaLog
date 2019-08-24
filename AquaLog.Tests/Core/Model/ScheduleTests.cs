@@ -5,22 +5,22 @@
  */
 
 using System;
-using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 using NUnit.Framework;
 
 namespace AquaLog.Core.Model
 {
     [TestFixture]
-    public class DeviceTests
+    public class ScheduleTests
     {
         [Test]
         public void Test_Common()
         {
-            var light = new Device();
-            Assert.IsNotNull(light);
+            var schedule = new Schedule();
+            Assert.IsNotNull(schedule);
 
-            light.Name = "Light";
-            Assert.AreEqual("Light", light.Name);
+            schedule.Type = ScheduleType.Weekly;
+            Assert.AreEqual(ScheduleType.Weekly, schedule.Type);
         }
     }
 }

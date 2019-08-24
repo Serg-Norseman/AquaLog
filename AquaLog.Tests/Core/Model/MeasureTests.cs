@@ -5,23 +5,21 @@
  */
 
 using System;
-using AquaLog.Core.Model;
-using AquaLog.Core.Types;
 using NUnit.Framework;
 
 namespace AquaLog.Core.Model
 {
     [TestFixture]
-    public class TransferTests
+    public class MeasureTests
     {
         [Test]
         public void Test_Common()
         {
-            var transfer = new Transfer();
-            Assert.IsNotNull(transfer);
+            var measure = new Measure();
+            Assert.IsNotNull(measure);
 
-            transfer.Type = TransferType.Relocation;
-            Assert.AreEqual(TransferType.Relocation, transfer.Type);
+            measure.Temperature = 2.5f;
+            Assert.AreEqual(2.5f, measure.Temperature);
         }
     }
 }

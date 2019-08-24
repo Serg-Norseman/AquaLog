@@ -6,11 +6,12 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <OutputType>Library</OutputType>
-    <RootNamespace>AquaLog.Tests</RootNamespace>
+    <RootNamespace>AquaLog</RootNamespace>
     <AssemblyName>AquaLog.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkProfile />
+    <NoWin32Manifest>False</NoWin32Manifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,25 +36,43 @@
     <Reference Include="nunit.framework">
       <HintPath>..\libs\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="NUnitForms">
+      <HintPath>..\libs\NUnitForms.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AquariumTests.cs" />
-    <Compile Include="InhabitantTests.cs" />
-    <Compile Include="DeviceTests.cs" />
-    <Compile Include="ScheduleTests.cs" />
-    <Compile Include="NoteTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SDCompressionTests.cs" />
-    <Compile Include="SpeciesTests.cs" />
-    <Compile Include="TransferTests.cs" />
-    <Compile Include="MaintenanceTests.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Core\ALDataTests.cs" />
+    <Compile Include="Core\ALSettingsTests.cs" />
+    <Compile Include="Core\UnitConverterTests.cs" />
+    <Compile Include="Core\Model\HistoryTests.cs" />
+    <Compile Include="Core\Model\NutritionTests.cs" />
+    <Compile Include="Core\Model\AquariumTests.cs" />
+    <Compile Include="Core\Model\DeviceTests.cs" />
+    <Compile Include="Core\Model\InhabitantTests.cs" />
+    <Compile Include="Core\Model\MaintenanceTests.cs" />
+    <Compile Include="Core\Model\MeasureTests.cs" />
+    <Compile Include="Core\Model\NoteTests.cs" />
+    <Compile Include="Core\Model\ScheduleTests.cs" />
+    <Compile Include="Core\Model\SpeciesTests.cs" />
+    <Compile Include="Core\Model\TransferTests.cs" />
+    <Compile Include="TSDB\SDCompressionTests.cs" />
+    <Compile Include="UI\CustomFormTest.cs" />
+    <Compile Include="UI\UITests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AquaLog\AquaLog.csproj">
       <Project>{4bbeeab9-562b-4360-be8c-36e65b005593}</Project>
       <Name>AquaLog</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Core" />
+    <Folder Include="Core\Model" />
+    <Folder Include="UI" />
+    <Folder Include="TSDB" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

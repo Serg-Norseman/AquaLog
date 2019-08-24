@@ -5,22 +5,21 @@
  */
 
 using System;
-using AquaLog.Core.Model;
 using NUnit.Framework;
 
 namespace AquaLog.Core.Model
 {
     [TestFixture]
-    public class InhabitantTests
+    public class HistoryTests
     {
         [Test]
         public void Test_Common()
         {
-            var fish = new Inhabitant();
-            Assert.IsNotNull(fish);
+            var instance = new History();
+            Assert.IsNotNull(instance);
 
-            fish.Name = "Siamese fighting fish";
-            Assert.AreEqual("Siamese fighting fish", fish.Name);
+            instance.Event = "event";
+            Assert.AreEqual("event", instance.Event);
         }
     }
 }

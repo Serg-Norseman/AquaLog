@@ -5,7 +5,6 @@
  */
 
 using System;
-using AquaLog.Core.Model;
 using NUnit.Framework;
 
 namespace AquaLog.Core.Model

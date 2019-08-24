@@ -41,5 +41,10 @@ namespace AquaLog.Core.Model
         public float GH { get; set; } // dlg+
         public float KH { get; set; } // dlg+
         public float pH { get; set; } // dlg+
+
+
+        public Measure()
+        {
+        }
     }
 }

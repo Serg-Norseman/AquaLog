@@ -5,22 +5,21 @@
  */
 
 using System;
-using AquaLog.Core.Model;
 using NUnit.Framework;
 
-namespace AquaLog.Core.Model
+namespace AquaLog.Core
 {
     [TestFixture]
-    public class SpeciesTests
+    public class ALSettingsTests
     {
         [Test]
         public void Test_Common()
         {
-            var species = new Species();
-            Assert.IsNotNull(species);
+            var instance = ALSettings.Instance;
+            Assert.IsNotNull(instance);
 
-            species.BioFamily = "Hydrocharitaceae";
-            Assert.AreEqual("Hydrocharitaceae", species.BioFamily);
+            instance.HideClosedTanks = true;
+            Assert.AreEqual(true, instance.HideClosedTanks);
         }
     }
 }

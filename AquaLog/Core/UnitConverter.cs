@@ -4,7 +4,7 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-namespace AquaLog.Core.Types
+namespace AquaLog.Core
 {
     public static class UnitConverter
     {
@@ -13,7 +13,7 @@ namespace AquaLog.Core.Types
         /// </summary>
         public static double cm2inch(double cm)
         {
-            return cm * 0.3937;
+            return cm * 0.393701;
         }
 
         /// <summary>

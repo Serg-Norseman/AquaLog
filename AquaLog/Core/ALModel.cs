@@ -255,7 +255,54 @@ namespace AquaLog.Core
 
         public IList<Maintenance> QueryWaterChanges(int aquariumId)
         {
-            return fDB.Query<Maintenance>("select * from Maintenance where (AquariumId = ? and Type between 1 and 3) order by [DateTime]", aquariumId);
+            return fDB.Query<Maintenance>("select * from Maintenance where (AquariumId = ? and Type between 0 and 3) order by [DateTime]", aquariumId);
+        }
+
+        public double GetWaterVolume(int aquariumId)
+        {
+            double result = 0.0d;
+
+            var records = QueryWaterChanges(aquariumId);
+            foreach (Maintenance rec in records) {
+                if (rec.Type == MaintenanceType.Restart) {
+                    result = rec.Value;
+                } else {
+                    int idx = (int)rec.Type;
+                    int factor = ALCore.WaterChangeFactors[idx];
+                    result += (rec.Value * factor);
+                }
+            }
+
+            return result;
+        }
+
+        public double GetAverageWaterChangeInterval(int aquariumId)
+        {
+            double result = 0.0d;
+            int count = 0;
+
+            DateTime dtPrev = ALCore.ZeroDate;
+            var records = QueryWaterChanges(aquariumId);
+            foreach (Maintenance rec in records) {
+                if (!dtPrev.Equals(ALCore.ZeroDate)) {
+                    int days = (rec.DateTime.Date - dtPrev).Days;
+                    result += days;
+                    count += 1;
+                }
+                dtPrev = rec.DateTime.Date;
+            }
+
+            return result / count;
+        }
+
+        public double GetLastWaterChangeInterval(int aquariumId)
+        {
+            DateTime dtPrev = ALCore.ZeroDate;
+            var records = QueryWaterChanges(aquariumId);
+            foreach (Maintenance rec in records) {
+                dtPrev = rec.DateTime.Date;
+            }
+            return (DateTime.Now.Date - dtPrev).Days;
         }
 
         #endregion

@@ -16,5 +16,10 @@ namespace AquaLog.Core.Model
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+
+
+        protected Entity()
+        {
+        }
     }
 }

@@ -29,9 +29,9 @@ namespace AquaLog.Panels
 
         protected override void InitActions()
         {
-            fActions.Add(new UserAction("Add Species", "btn_rec_new.gif", AddHandler));
-            fActions.Add(new UserAction("Edit Species", "btn_rec_edit.gif", EditHandler));
-            fActions.Add(new UserAction("Delete Species", "btn_rec_delete.gif", DeleteHandler));
+            fActions.Add(new UserAction("Add", "btn_rec_new.gif", AddHandler));
+            fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
+            fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
         }
 
         protected override void UpdateListView()

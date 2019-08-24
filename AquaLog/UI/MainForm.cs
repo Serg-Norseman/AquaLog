@@ -169,6 +169,7 @@ namespace AquaLog.UI
 
                 var btn = new Button();
                 btn.Dock = DockStyle.Top;
+                btn.Name = "btn" + action.Name;
                 btn.Text = action.Name;
                 btn.Image = action.Image;
                 btn.ImageAlign = ContentAlignment.MiddleCenter;

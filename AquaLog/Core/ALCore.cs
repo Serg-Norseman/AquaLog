@@ -21,6 +21,8 @@ namespace AquaLog.Core
     /// </summary>
     public class ALCore
     {
+        public static bool TEST_MODE = false;
+
         public const int UpdateInterval = 1000;
 
         public const int NormalState = 0xC0FFFF;
@@ -202,11 +204,15 @@ namespace AquaLog.Core
         {
             string path;
 
-            if (string.IsNullOrEmpty(fAppDataPath)) {
-                path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                    Path.DirectorySeparatorChar + AppName + Path.DirectorySeparatorChar;
+            if (TEST_MODE) {
+                path = Environment.GetEnvironmentVariable("TEMP") + Path.DirectorySeparatorChar;
             } else {
-                path = fAppDataPath;
+                if (string.IsNullOrEmpty(fAppDataPath)) {
+                    path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                        Path.DirectorySeparatorChar + AppName + Path.DirectorySeparatorChar;
+                } else {
+                    path = fAppDataPath;
+                }
             }
 
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);

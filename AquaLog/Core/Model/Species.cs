@@ -82,7 +82,7 @@ namespace AquaLog.Core.Model
 
         #endregion
 
-        public Species()
+        public Species() : base()
         {
         }
 
