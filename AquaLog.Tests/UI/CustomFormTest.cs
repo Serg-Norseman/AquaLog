@@ -100,6 +100,12 @@ namespace AquaLog.UI
             textBox.Enter(value);
         }
 
+        public static void SelectListView(string name, Form form, int value)
+        {
+            var lv = new ListViewTester(name, form);
+            lv.Select(value);
+        }
+
         /*public static void EnterNumeric(string name, Form form, int value)
         {
             var nud = new NumericUpDownTester(name, form);

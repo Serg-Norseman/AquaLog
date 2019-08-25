@@ -69,6 +69,9 @@ namespace AquaLog.UI
             ModalFormHandler = Dialog_Cancel_Handler;
             ClickButton("btnAdd", fMainWin);
 
+            ModalFormHandler = Tanks_Accept_Handler;
+            ClickButton("btnAdd", fMainWin);
+
             // no selected item
             //ModalFormHandler = Dialog_Cancel_Handler;
             //ClickButton("btnEdit", fMainWin);
@@ -78,6 +81,21 @@ namespace AquaLog.UI
             //ClickButton("btnDelete", fMainWin);
 
             ClickToolStripMenuItem("miExit", fMainWin);
+        }
+
+        public static void Tanks_Accept_Handler(string name, IntPtr ptr, Form form)
+        {
+            EnterText("txtName", form, "sample aquarium");
+
+            SelectCombo("cmbShape", form, 2);
+
+            SelectCombo("cmbShape", form, 3);
+            EnterText("txtDepth", form, "10");
+            EnterText("txtWidth", form, "10");
+            EnterText("txtHeigth", form, "10");
+            EnterText("txtGlassThickness", form, "0.5");
+
+            ClickButton("btnAccept", form);
         }
 
         [Test]
@@ -111,15 +129,25 @@ namespace AquaLog.UI
             ModalFormHandler = Dialog_Cancel_Handler;
             ClickButton("btnAdd", fMainWin);
 
-            // no selected item
-            //ModalFormHandler = Dialog_Cancel_Handler;
-            //ClickButton("btnEdit", fMainWin);
+            ModalFormHandler = Species_Accept_Handler;
+            ClickButton("btnAdd", fMainWin);
 
-            // no selected item
-            //ModalFormHandler = Dialog_Cancel_Handler;
-            //ClickButton("btnDelete", fMainWin);
+            SelectListView("ListView", fMainWin, 0);
+            ModalFormHandler = Dialog_Cancel_Handler;
+            ClickButton("btnEdit", fMainWin);
+
+            SelectListView("ListView", fMainWin, 0);
+            ModalFormHandler = MessageBox_YesHandler;
+            ClickButton("btnDelete", fMainWin);
 
             ClickToolStripMenuItem("miExit", fMainWin);
+        }
+
+        public static void Species_Accept_Handler(string name, IntPtr ptr, Form form)
+        {
+            EnterText("txtName", form, "sample species");
+
+            ClickButton("btnAccept", form);
         }
 
         [Test]
@@ -132,15 +160,25 @@ namespace AquaLog.UI
             ModalFormHandler = Dialog_Cancel_Handler;
             ClickButton("btnAdd", fMainWin);
 
-            // no selected item
-            //ModalFormHandler = Dialog_Cancel_Handler;
-            //ClickButton("btnEdit", fMainWin);
+            ModalFormHandler = Nutrition_Accept_Handler;
+            ClickButton("btnAdd", fMainWin);
 
-            // no selected item
-            //ModalFormHandler = Dialog_Cancel_Handler;
-            //ClickButton("btnDelete", fMainWin);
+            SelectListView("ListView", fMainWin, 0);
+            ModalFormHandler = Nutrition_Accept_Handler;
+            ClickButton("btnEdit", fMainWin);
+
+            SelectListView("ListView", fMainWin, 0);
+            ModalFormHandler = MessageBox_YesHandler;
+            ClickButton("btnDelete", fMainWin);
 
             ClickToolStripMenuItem("miExit", fMainWin);
+        }
+
+        public static void Nutrition_Accept_Handler(string name, IntPtr ptr, Form form)
+        {
+            EnterText("txtName", form, "sample nutrition");
+
+            ClickButton("btnAccept", form);
         }
 
         [Test]
@@ -153,15 +191,25 @@ namespace AquaLog.UI
             ModalFormHandler = Dialog_Cancel_Handler;
             ClickButton("btnAdd", fMainWin);
 
-            // no selected item
-            //ModalFormHandler = Dialog_Cancel_Handler;
-            //ClickButton("btnEdit", fMainWin);
+            ModalFormHandler = Device_Accept_Handler;
+            ClickButton("btnAdd", fMainWin);
 
-            // no selected item
-            //ModalFormHandler = Dialog_Cancel_Handler;
-            //ClickButton("btnDelete", fMainWin);
+            SelectListView("ListView", fMainWin, 0);
+            ModalFormHandler = Device_Accept_Handler;
+            ClickButton("btnEdit", fMainWin);
+
+            SelectListView("ListView", fMainWin, 0);
+            ModalFormHandler = MessageBox_YesHandler;
+            ClickButton("btnDelete", fMainWin);
 
             ClickToolStripMenuItem("miExit", fMainWin);
+        }
+
+        public static void Device_Accept_Handler(string name, IntPtr ptr, Form form)
+        {
+            EnterText("txtName", form, "sample device");
+
+            ClickButton("btnAccept", form);
         }
 
         [Test]

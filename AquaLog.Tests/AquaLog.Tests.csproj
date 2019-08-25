@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Core\ALDataTests.cs" />
+    <Compile Include="Core\ALModelTests.cs" />
     <Compile Include="Core\ALSettingsTests.cs" />
     <Compile Include="Core\UnitConverterTests.cs" />
     <Compile Include="Core\Model\HistoryTests.cs" />

@@ -31,6 +31,7 @@ namespace AquaLog.Panels
 
             fListView = new ListView();
             fListView.Dock = DockStyle.Fill;
+            fListView.Name = "ListView";
             fListView.HideSelection = false;
             fListView.LabelEdit = false;
             fListView.FullRowSelect = true;

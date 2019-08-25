@@ -19,7 +19,7 @@ namespace AquaLog.Core
     /// <summary>
     /// 
     /// </summary>
-    public class ALCore
+    public static class ALCore
     {
         public static bool TEST_MODE = false;
 
@@ -58,11 +58,6 @@ namespace AquaLog.Core
             new DeviceProps(false), // Pump
             new DeviceProps(true), // Thermometer
         };
-
-
-        public ALCore()
-        {
-        }
 
 
         public static string FmtSQLiteDate(DateTime dateTime)
