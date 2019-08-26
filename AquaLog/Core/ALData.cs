@@ -108,15 +108,19 @@ namespace AquaLog.Core
         }
 
         /// <summary>
-        /// Calculate CO2 = 3 * KH * 10(7-pH) (KH in degrees)
+        /// Calculate CO2
         /// </summary>
         public static double CalcCO2(double degKH, double PH)
         {
-            // common variant
+            // common variant: CO2 = 3 * KH * 10(7-pH) (KH in degrees) [1 source]
             // return 3 * degKH * Math.Pow(10, 7 - PH);
 
-            // corrected variant?
-            return 15.65 * degKH * Math.Pow(10, 6.35 - PH);
+            // CO2 = 12.839 * dKH * 10^(6.37 - pH) [2 source]
+
+            // corrected variants
+            // CO2 = 15.65 * dKH * 10^(6.35-pH)
+            // CO2 = 15.65 * dKH * 10^(6.37-pH)
+            return 15.65 * degKH * Math.Pow(10, 6.37 - PH); // 3 source
         }
 
         /// <summary>
