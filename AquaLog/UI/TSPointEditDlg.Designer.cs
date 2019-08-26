@@ -44,10 +44,11 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(218, 205);
+            this.btnAccept.Location = new System.Drawing.Point(174, 164);
+            this.btnAccept.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(96, 30);
-            this.btnAccept.TabIndex = 0;
+            this.btnAccept.Size = new System.Drawing.Size(77, 24);
+            this.btnAccept.TabIndex = 10;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -56,101 +57,107 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(320, 205);
+            this.btnCancel.Location = new System.Drawing.Point(256, 164);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(96, 30);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Size = new System.Drawing.Size(77, 24);
+            this.btnCancel.TabIndex = 11;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // lblName
             // 
-            this.lblName.Location = new System.Drawing.Point(12, 15);
+            this.lblName.Location = new System.Drawing.Point(10, 12);
+            this.lblName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(100, 21);
-            this.lblName.TabIndex = 2;
+            this.lblName.Size = new System.Drawing.Size(80, 17);
+            this.lblName.TabIndex = 0;
             this.lblName.Text = "Name";
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(105, 12);
-            this.txtName.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.txtName.Location = new System.Drawing.Point(84, 10);
+            this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(311, 26);
-            this.txtName.TabIndex = 5;
+            this.txtName.Size = new System.Drawing.Size(250, 22);
+            this.txtName.TabIndex = 1;
             // 
             // lblUoM
             // 
-            this.lblUoM.Location = new System.Drawing.Point(12, 53);
+            this.lblUoM.Location = new System.Drawing.Point(10, 42);
+            this.lblUoM.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUoM.Name = "lblUoM";
-            this.lblUoM.Size = new System.Drawing.Size(129, 21);
+            this.lblUoM.Size = new System.Drawing.Size(103, 17);
             this.lblUoM.TabIndex = 2;
             this.lblUoM.Text = "UoM";
             // 
             // txtUoM
             // 
-            this.txtUoM.Location = new System.Drawing.Point(105, 50);
-            this.txtUoM.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.txtUoM.Location = new System.Drawing.Point(84, 40);
+            this.txtUoM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtUoM.Name = "txtUoM";
-            this.txtUoM.Size = new System.Drawing.Size(274, 26);
-            this.txtUoM.TabIndex = 5;
+            this.txtUoM.Size = new System.Drawing.Size(220, 22);
+            this.txtUoM.TabIndex = 3;
             // 
             // txtMin
             // 
-            this.txtMin.Location = new System.Drawing.Point(105, 88);
-            this.txtMin.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.txtMin.Location = new System.Drawing.Point(84, 70);
+            this.txtMin.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtMin.Name = "txtMin";
-            this.txtMin.Size = new System.Drawing.Size(91, 26);
-            this.txtMin.TabIndex = 10;
+            this.txtMin.Size = new System.Drawing.Size(74, 22);
+            this.txtMin.TabIndex = 5;
             // 
             // lblMin
             // 
-            this.lblMin.Location = new System.Drawing.Point(12, 91);
+            this.lblMin.Location = new System.Drawing.Point(10, 73);
+            this.lblMin.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMin.Name = "lblMin";
-            this.lblMin.Size = new System.Drawing.Size(100, 21);
-            this.lblMin.TabIndex = 9;
+            this.lblMin.Size = new System.Drawing.Size(80, 17);
+            this.lblMin.TabIndex = 4;
             this.lblMin.Text = "Min";
             // 
             // txtMax
             // 
-            this.txtMax.Location = new System.Drawing.Point(105, 126);
-            this.txtMax.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.txtMax.Location = new System.Drawing.Point(84, 101);
+            this.txtMax.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtMax.Name = "txtMax";
-            this.txtMax.Size = new System.Drawing.Size(91, 26);
-            this.txtMax.TabIndex = 12;
+            this.txtMax.Size = new System.Drawing.Size(74, 22);
+            this.txtMax.TabIndex = 7;
             // 
             // lblMax
             // 
-            this.lblMax.Location = new System.Drawing.Point(12, 129);
+            this.lblMax.Location = new System.Drawing.Point(10, 103);
+            this.lblMax.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblMax.Name = "lblMax";
-            this.lblMax.Size = new System.Drawing.Size(100, 21);
-            this.lblMax.TabIndex = 11;
+            this.lblMax.Size = new System.Drawing.Size(80, 17);
+            this.lblMax.TabIndex = 6;
             this.lblMax.Text = "Max";
             // 
             // txtDeviation
             // 
-            this.txtDeviation.Location = new System.Drawing.Point(105, 164);
-            this.txtDeviation.Margin = new System.Windows.Forms.Padding(3, 3, 3, 9);
+            this.txtDeviation.Location = new System.Drawing.Point(84, 131);
+            this.txtDeviation.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtDeviation.Name = "txtDeviation";
-            this.txtDeviation.Size = new System.Drawing.Size(91, 26);
-            this.txtDeviation.TabIndex = 14;
+            this.txtDeviation.Size = new System.Drawing.Size(74, 22);
+            this.txtDeviation.TabIndex = 9;
             // 
             // lblDeviation
             // 
-            this.lblDeviation.Location = new System.Drawing.Point(12, 167);
+            this.lblDeviation.Location = new System.Drawing.Point(10, 134);
+            this.lblDeviation.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDeviation.Name = "lblDeviation";
-            this.lblDeviation.Size = new System.Drawing.Size(100, 21);
-            this.lblDeviation.TabIndex = 13;
+            this.lblDeviation.Size = new System.Drawing.Size(80, 17);
+            this.lblDeviation.TabIndex = 8;
             this.lblDeviation.Text = "Deviation";
             // 
             // TSPointEditDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(428, 247);
+            this.ClientSize = new System.Drawing.Size(342, 198);
             this.Controls.Add(this.txtDeviation);
             this.Controls.Add(this.lblDeviation);
             this.Controls.Add(this.txtMax);
@@ -165,6 +172,7 @@
             this.Controls.Add(this.btnAccept);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TSPointEditDlg";

@@ -60,7 +60,7 @@
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
-            this.btnAccept.TabIndex = 0;
+            this.btnAccept.TabIndex = 16;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -73,7 +73,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 17;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -84,7 +84,7 @@
             this.lblAquarium.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAquarium.Name = "lblAquarium";
             this.lblAquarium.Size = new System.Drawing.Size(88, 17);
-            this.lblAquarium.TabIndex = 2;
+            this.lblAquarium.TabIndex = 0;
             this.lblAquarium.Text = "Aquarium";
             // 
             // cmbAquarium
@@ -94,7 +94,7 @@
             this.cmbAquarium.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbAquarium.Name = "cmbAquarium";
             this.cmbAquarium.Size = new System.Drawing.Size(213, 21);
-            this.cmbAquarium.TabIndex = 5;
+            this.cmbAquarium.TabIndex = 1;
             // 
             // lblWattage
             // 
@@ -102,7 +102,7 @@
             this.lblWattage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblWattage.Name = "lblWattage";
             this.lblWattage.Size = new System.Drawing.Size(103, 17);
-            this.lblWattage.TabIndex = 2;
+            this.lblWattage.TabIndex = 10;
             this.lblWattage.Text = "Wattage";
             // 
             // txtWattage
@@ -111,7 +111,7 @@
             this.txtWattage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtWattage.Name = "txtWattage";
             this.txtWattage.Size = new System.Drawing.Size(213, 22);
-            this.txtWattage.TabIndex = 5;
+            this.txtWattage.TabIndex = 11;
             // 
             // lblNote
             // 
@@ -119,7 +119,7 @@
             this.lblNote.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(103, 17);
-            this.lblNote.TabIndex = 2;
+            this.lblNote.TabIndex = 12;
             this.lblNote.Text = "Note";
             // 
             // txtNote
@@ -130,7 +130,7 @@
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
             this.txtNote.Size = new System.Drawing.Size(213, 48);
-            this.txtNote.TabIndex = 5;
+            this.txtNote.TabIndex = 13;
             // 
             // cmbType
             // 
@@ -140,7 +140,7 @@
             this.cmbType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(136, 21);
-            this.cmbType.TabIndex = 10;
+            this.cmbType.TabIndex = 9;
             this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
             // lblType
@@ -149,7 +149,7 @@
             this.lblType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(80, 17);
-            this.lblType.TabIndex = 9;
+            this.lblType.TabIndex = 8;
             this.lblType.Text = "Type";
             // 
             // lblName
@@ -167,7 +167,7 @@
             this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(213, 22);
-            this.txtName.TabIndex = 5;
+            this.txtName.TabIndex = 3;
             // 
             // lblBrand
             // 
@@ -175,7 +175,7 @@
             this.lblBrand.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBrand.Name = "lblBrand";
             this.lblBrand.Size = new System.Drawing.Size(103, 17);
-            this.lblBrand.TabIndex = 2;
+            this.lblBrand.TabIndex = 4;
             this.lblBrand.Text = "Brand";
             // 
             // cmbBrand
@@ -193,7 +193,7 @@
             this.chkEnabled.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(122, 19);
-            this.chkEnabled.TabIndex = 11;
+            this.chkEnabled.TabIndex = 6;
             this.chkEnabled.Text = "Enabled";
             this.chkEnabled.UseVisualStyleBackColor = true;
             // 
@@ -204,7 +204,7 @@
             this.chkDigital.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.chkDigital.Name = "chkDigital";
             this.chkDigital.Size = new System.Drawing.Size(122, 19);
-            this.chkDigital.TabIndex = 11;
+            this.chkDigital.TabIndex = 7;
             this.chkDigital.Text = "Digital";
             this.chkDigital.UseVisualStyleBackColor = true;
             // 
@@ -214,7 +214,7 @@
             this.lblTSDBPoint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTSDBPoint.Name = "lblTSDBPoint";
             this.lblTSDBPoint.Size = new System.Drawing.Size(80, 17);
-            this.lblTSDBPoint.TabIndex = 9;
+            this.lblTSDBPoint.TabIndex = 14;
             this.lblTSDBPoint.Text = "TSDB Point";
             // 
             // cmbTSDBPoint
@@ -225,7 +225,7 @@
             this.cmbTSDBPoint.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbTSDBPoint.Name = "cmbTSDBPoint";
             this.cmbTSDBPoint.Size = new System.Drawing.Size(213, 21);
-            this.cmbTSDBPoint.TabIndex = 10;
+            this.cmbTSDBPoint.TabIndex = 15;
             this.cmbTSDBPoint.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
             // DeviceEditDlg

@@ -86,7 +86,7 @@
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
-            this.btnAccept.TabIndex = 20;
+            this.btnAccept.TabIndex = 26;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -99,7 +99,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
-            this.btnCancel.TabIndex = 21;
+            this.btnCancel.TabIndex = 27;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -283,7 +283,7 @@
             this.btnCalcCO2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.btnCalcCO2.Name = "btnCalcCO2";
             this.btnCalcCO2.Size = new System.Drawing.Size(121, 22);
-            this.btnCalcCO2.TabIndex = 22;
+            this.btnCalcCO2.TabIndex = 28;
             this.btnCalcCO2.Text = "<= Calc(KH, pH)";
             this.btnCalcCO2.UseVisualStyleBackColor = true;
             this.btnCalcCO2.Click += new System.EventHandler(this.btnCalcCO2_Click);
@@ -294,7 +294,7 @@
             this.lblNHtot.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNHtot.Name = "lblNHtot";
             this.lblNHtot.Size = new System.Drawing.Size(80, 17);
-            this.lblNHtot.TabIndex = 14;
+            this.lblNHtot.TabIndex = 20;
             this.lblNHtot.Text = "NH total";
             // 
             // txtNHtot
@@ -303,7 +303,7 @@
             this.txtNHtot.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtNHtot.Name = "txtNHtot";
             this.txtNHtot.Size = new System.Drawing.Size(74, 22);
-            this.txtNHtot.TabIndex = 15;
+            this.txtNHtot.TabIndex = 21;
             // 
             // lblNH3
             // 
@@ -311,7 +311,7 @@
             this.lblNH3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNH3.Name = "lblNH3";
             this.lblNH3.Size = new System.Drawing.Size(80, 17);
-            this.lblNH3.TabIndex = 16;
+            this.lblNH3.TabIndex = 22;
             this.lblNH3.Text = "NH3";
             // 
             // txtNH3
@@ -320,7 +320,7 @@
             this.txtNH3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtNH3.Name = "txtNH3";
             this.txtNH3.Size = new System.Drawing.Size(74, 22);
-            this.txtNH3.TabIndex = 17;
+            this.txtNH3.TabIndex = 23;
             // 
             // lblNH4
             // 
@@ -328,7 +328,7 @@
             this.lblNH4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNH4.Name = "lblNH4";
             this.lblNH4.Size = new System.Drawing.Size(80, 17);
-            this.lblNH4.TabIndex = 18;
+            this.lblNH4.TabIndex = 24;
             this.lblNH4.Text = "NH4";
             // 
             // txtNH4
@@ -337,7 +337,7 @@
             this.txtNH4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtNH4.Name = "txtNH4";
             this.txtNH4.Size = new System.Drawing.Size(74, 22);
-            this.txtNH4.TabIndex = 19;
+            this.txtNH4.TabIndex = 25;
             // 
             // btnCalcNH4
             // 
@@ -345,7 +345,7 @@
             this.btnCalcNH4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.btnCalcNH4.Name = "btnCalcNH4";
             this.btnCalcNH4.Size = new System.Drawing.Size(121, 22);
-            this.btnCalcNH4.TabIndex = 22;
+            this.btnCalcNH4.TabIndex = 30;
             this.btnCalcNH4.Text = "<= Calc(NHtot,NH3)";
             this.btnCalcNH4.UseVisualStyleBackColor = true;
             this.btnCalcNH4.Click += new System.EventHandler(this.btnCalcNH4_Click);
@@ -356,7 +356,7 @@
             this.btnCalcNH3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.btnCalcNH3.Name = "btnCalcNH3";
             this.btnCalcNH3.Size = new System.Drawing.Size(121, 22);
-            this.btnCalcNH3.TabIndex = 22;
+            this.btnCalcNH3.TabIndex = 29;
             this.btnCalcNH3.Text = "<= Calc(NHtot,pH,T)";
             this.btnCalcNH3.UseVisualStyleBackColor = true;
             this.btnCalcNH3.Click += new System.EventHandler(this.btnCalcNH3_Click);

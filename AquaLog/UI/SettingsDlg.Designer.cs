@@ -26,10 +26,11 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(218, 78);
+            this.btnAccept.Location = new System.Drawing.Point(174, 62);
+            this.btnAccept.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnAccept.Name = "btnAccept";
-            this.btnAccept.Size = new System.Drawing.Size(96, 30);
-            this.btnAccept.TabIndex = 0;
+            this.btnAccept.Size = new System.Drawing.Size(77, 24);
+            this.btnAccept.TabIndex = 1;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -38,35 +39,38 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(320, 78);
+            this.btnCancel.Location = new System.Drawing.Point(256, 62);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(96, 30);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Size = new System.Drawing.Size(77, 24);
+            this.btnCancel.TabIndex = 2;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // chkHideClosedTanks
             // 
-            this.chkHideClosedTanks.Location = new System.Drawing.Point(12, 12);
+            this.chkHideClosedTanks.Location = new System.Drawing.Point(10, 10);
+            this.chkHideClosedTanks.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chkHideClosedTanks.Name = "chkHideClosedTanks";
-            this.chkHideClosedTanks.Size = new System.Drawing.Size(153, 24);
-            this.chkHideClosedTanks.TabIndex = 11;
+            this.chkHideClosedTanks.Size = new System.Drawing.Size(122, 19);
+            this.chkHideClosedTanks.TabIndex = 0;
             this.chkHideClosedTanks.Text = "Hide closed tanks";
             this.chkHideClosedTanks.UseVisualStyleBackColor = true;
             // 
             // SettingsDlg
             // 
             this.AcceptButton = this.btnAccept;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(428, 120);
+            this.ClientSize = new System.Drawing.Size(342, 96);
             this.Controls.Add(this.chkHideClosedTanks);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SettingsDlg";

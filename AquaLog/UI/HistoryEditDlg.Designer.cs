@@ -41,10 +41,10 @@
             // btnAccept
             // 
             this.btnAccept.Location = new System.Drawing.Point(135, 185);
-            this.btnAccept.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
-            this.btnAccept.TabIndex = 0;
+            this.btnAccept.TabIndex = 8;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -54,10 +54,10 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(235, 185);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             this.lblAquarium.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAquarium.Name = "lblAquarium";
             this.lblAquarium.Size = new System.Drawing.Size(88, 17);
-            this.lblAquarium.TabIndex = 2;
+            this.lblAquarium.TabIndex = 0;
             this.lblAquarium.Text = "Aquarium";
             // 
             // cmbAquarium
@@ -77,7 +77,7 @@
             this.cmbAquarium.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbAquarium.Name = "cmbAquarium";
             this.cmbAquarium.Size = new System.Drawing.Size(213, 21);
-            this.cmbAquarium.TabIndex = 5;
+            this.cmbAquarium.TabIndex = 1;
             // 
             // dtpDateTime
             // 
@@ -87,7 +87,7 @@
             this.dtpDateTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.dtpDateTime.Name = "dtpDateTime";
             this.dtpDateTime.Size = new System.Drawing.Size(136, 22);
-            this.dtpDateTime.TabIndex = 8;
+            this.dtpDateTime.TabIndex = 3;
             // 
             // lblDate
             // 
@@ -95,7 +95,7 @@
             this.lblDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDate.Name = "lblDate";
             this.lblDate.Size = new System.Drawing.Size(80, 17);
-            this.lblDate.TabIndex = 7;
+            this.lblDate.TabIndex = 2;
             this.lblDate.Text = "Date";
             // 
             // lblNote
@@ -104,7 +104,7 @@
             this.lblNote.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(103, 17);
-            this.lblNote.TabIndex = 2;
+            this.lblNote.TabIndex = 6;
             this.lblNote.Text = "Note";
             // 
             // txtNote
@@ -114,7 +114,7 @@
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
             this.txtNote.Size = new System.Drawing.Size(213, 65);
-            this.txtNote.TabIndex = 5;
+            this.txtNote.TabIndex = 7;
             // 
             // lblEvent
             // 
@@ -122,7 +122,7 @@
             this.lblEvent.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblEvent.Name = "lblEvent";
             this.lblEvent.Size = new System.Drawing.Size(103, 17);
-            this.lblEvent.TabIndex = 2;
+            this.lblEvent.TabIndex = 4;
             this.lblEvent.Text = "Event";
             // 
             // txtEvent
@@ -152,7 +152,7 @@
             this.Controls.Add(this.btnAccept);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "HistoryEditDlg";

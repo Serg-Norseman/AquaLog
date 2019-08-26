@@ -41,10 +41,10 @@
             // btnAccept
             // 
             this.btnAccept.Location = new System.Drawing.Point(315, 134);
-            this.btnAccept.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
-            this.btnAccept.TabIndex = 0;
+            this.btnAccept.TabIndex = 8;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -54,10 +54,10 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(415, 134);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             this.lblName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(80, 17);
-            this.lblName.TabIndex = 2;
+            this.lblName.TabIndex = 0;
             this.lblName.Text = "Name";
             // 
             // lblSex
@@ -77,7 +77,7 @@
             this.lblSex.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSex.Name = "lblSex";
             this.lblSex.Size = new System.Drawing.Size(80, 17);
-            this.lblSex.TabIndex = 3;
+            this.lblSex.TabIndex = 2;
             this.lblSex.Text = "Sex";
             // 
             // lblNote
@@ -86,7 +86,7 @@
             this.lblNote.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(80, 17);
-            this.lblNote.TabIndex = 4;
+            this.lblNote.TabIndex = 6;
             this.lblNote.Text = "Note";
             // 
             // txtName
@@ -95,7 +95,7 @@
             this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(250, 22);
-            this.txtName.TabIndex = 5;
+            this.txtName.TabIndex = 1;
             // 
             // cmbSex
             // 
@@ -105,7 +105,7 @@
             this.cmbSex.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbSex.Name = "cmbSex";
             this.cmbSex.Size = new System.Drawing.Size(124, 21);
-            this.cmbSex.TabIndex = 6;
+            this.cmbSex.TabIndex = 3;
             // 
             // txtNote
             // 
@@ -122,7 +122,7 @@
             this.lblSpecies.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSpecies.Name = "lblSpecies";
             this.lblSpecies.Size = new System.Drawing.Size(88, 17);
-            this.lblSpecies.TabIndex = 2;
+            this.lblSpecies.TabIndex = 4;
             this.lblSpecies.Text = "Species";
             // 
             // cmbSpecies
@@ -153,7 +153,7 @@
             this.Controls.Add(this.btnAccept);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "InhabitantEditDlg";

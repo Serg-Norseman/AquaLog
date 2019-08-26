@@ -49,10 +49,10 @@
             // btnAccept
             // 
             this.btnAccept.Location = new System.Drawing.Point(135, 239);
-            this.btnAccept.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
-            this.btnAccept.TabIndex = 0;
+            this.btnAccept.TabIndex = 12;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -62,10 +62,10 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(235, 239);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 13;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -76,7 +76,7 @@
             this.lblAquarium.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAquarium.Name = "lblAquarium";
             this.lblAquarium.Size = new System.Drawing.Size(88, 17);
-            this.lblAquarium.TabIndex = 2;
+            this.lblAquarium.TabIndex = 0;
             this.lblAquarium.Text = "Aquarium";
             // 
             // cmbAquarium
@@ -86,7 +86,7 @@
             this.cmbAquarium.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbAquarium.Name = "cmbAquarium";
             this.cmbAquarium.Size = new System.Drawing.Size(213, 21);
-            this.cmbAquarium.TabIndex = 5;
+            this.cmbAquarium.TabIndex = 1;
             // 
             // lblAmount
             // 
@@ -94,7 +94,7 @@
             this.lblAmount.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAmount.Name = "lblAmount";
             this.lblAmount.Size = new System.Drawing.Size(103, 17);
-            this.lblAmount.TabIndex = 2;
+            this.lblAmount.TabIndex = 6;
             this.lblAmount.Text = "Amount";
             // 
             // txtAmount
@@ -103,7 +103,7 @@
             this.txtAmount.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtAmount.Name = "txtAmount";
             this.txtAmount.Size = new System.Drawing.Size(213, 22);
-            this.txtAmount.TabIndex = 5;
+            this.txtAmount.TabIndex = 7;
             // 
             // lblNote
             // 
@@ -111,7 +111,7 @@
             this.lblNote.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(103, 17);
-            this.lblNote.TabIndex = 2;
+            this.lblNote.TabIndex = 8;
             this.lblNote.Text = "Note";
             // 
             // txtNote
@@ -122,7 +122,7 @@
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
             this.txtNote.Size = new System.Drawing.Size(213, 56);
-            this.txtNote.TabIndex = 5;
+            this.txtNote.TabIndex = 9;
             // 
             // lblName
             // 
@@ -139,7 +139,7 @@
             this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(213, 22);
-            this.txtName.TabIndex = 5;
+            this.txtName.TabIndex = 3;
             // 
             // lblBrand
             // 
@@ -147,7 +147,7 @@
             this.lblBrand.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBrand.Name = "lblBrand";
             this.lblBrand.Size = new System.Drawing.Size(103, 17);
-            this.lblBrand.TabIndex = 2;
+            this.lblBrand.TabIndex = 4;
             this.lblBrand.Text = "Brand";
             // 
             // cmbBrand
@@ -164,7 +164,7 @@
             this.lblInhabitant.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblInhabitant.Name = "lblInhabitant";
             this.lblInhabitant.Size = new System.Drawing.Size(88, 17);
-            this.lblInhabitant.TabIndex = 2;
+            this.lblInhabitant.TabIndex = 10;
             this.lblInhabitant.Text = "Inhabitant";
             // 
             // cmbInhabitant
@@ -174,7 +174,7 @@
             this.cmbInhabitant.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbInhabitant.Name = "cmbInhabitant";
             this.cmbInhabitant.Size = new System.Drawing.Size(213, 21);
-            this.cmbInhabitant.TabIndex = 5;
+            this.cmbInhabitant.TabIndex = 11;
             // 
             // NutritionEditDlg
             // 
@@ -199,7 +199,7 @@
             this.Controls.Add(this.btnAccept);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NutritionEditDlg";

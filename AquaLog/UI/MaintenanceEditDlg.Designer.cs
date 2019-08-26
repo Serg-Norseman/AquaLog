@@ -48,7 +48,7 @@
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
-            this.btnAccept.TabIndex = 0;
+            this.btnAccept.TabIndex = 10;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -61,7 +61,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
-            this.btnCancel.TabIndex = 1;
+            this.btnCancel.TabIndex = 11;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -72,7 +72,7 @@
             this.lblAquarium.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblAquarium.Name = "lblAquarium";
             this.lblAquarium.Size = new System.Drawing.Size(88, 17);
-            this.lblAquarium.TabIndex = 2;
+            this.lblAquarium.TabIndex = 0;
             this.lblAquarium.Text = "Aquarium";
             // 
             // cmbAquarium
@@ -81,7 +81,7 @@
             this.cmbAquarium.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbAquarium.Name = "cmbAquarium";
             this.cmbAquarium.Size = new System.Drawing.Size(213, 21);
-            this.cmbAquarium.TabIndex = 5;
+            this.cmbAquarium.TabIndex = 1;
             // 
             // dtpDateTime
             // 
@@ -91,7 +91,7 @@
             this.dtpDateTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.dtpDateTime.Name = "dtpDateTime";
             this.dtpDateTime.Size = new System.Drawing.Size(148, 22);
-            this.dtpDateTime.TabIndex = 8;
+            this.dtpDateTime.TabIndex = 3;
             // 
             // lblDateTime
             // 
@@ -99,7 +99,7 @@
             this.lblDateTime.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDateTime.Name = "lblDateTime";
             this.lblDateTime.Size = new System.Drawing.Size(80, 17);
-            this.lblDateTime.TabIndex = 7;
+            this.lblDateTime.TabIndex = 2;
             this.lblDateTime.Text = "DateTime";
             // 
             // lblNote
@@ -108,7 +108,7 @@
             this.lblNote.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(103, 17);
-            this.lblNote.TabIndex = 2;
+            this.lblNote.TabIndex = 8;
             this.lblNote.Text = "Note";
             // 
             // txtNote
@@ -118,7 +118,7 @@
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
             this.txtNote.Size = new System.Drawing.Size(213, 79);
-            this.txtNote.TabIndex = 5;
+            this.txtNote.TabIndex = 9;
             // 
             // lblValue
             // 
@@ -126,7 +126,7 @@
             this.lblValue.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblValue.Name = "lblValue";
             this.lblValue.Size = new System.Drawing.Size(103, 17);
-            this.lblValue.TabIndex = 2;
+            this.lblValue.TabIndex = 6;
             this.lblValue.Text = "Value";
             // 
             // txtValue
@@ -135,7 +135,7 @@
             this.txtValue.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtValue.Name = "txtValue";
             this.txtValue.Size = new System.Drawing.Size(213, 22);
-            this.txtValue.TabIndex = 5;
+            this.txtValue.TabIndex = 7;
             // 
             // cmbType
             // 
@@ -145,7 +145,7 @@
             this.cmbType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(148, 21);
-            this.cmbType.TabIndex = 12;
+            this.cmbType.TabIndex = 5;
             // 
             // lblType
             // 
@@ -153,7 +153,7 @@
             this.lblType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(80, 17);
-            this.lblType.TabIndex = 11;
+            this.lblType.TabIndex = 4;
             this.lblType.Text = "Type";
             // 
             // MaintenanceEditDlg
