@@ -32,5 +32,17 @@ namespace AquaLog.UI
         {
             return MessageBox.Show(msg, ALCore.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
         }
+
+        public static ListView CreateListView(string name)
+        {
+            var listView = new ListView();
+            listView.Dock = DockStyle.Fill;
+            listView.Name = name;
+            listView.HideSelection = false;
+            listView.LabelEdit = false;
+            listView.FullRowSelect = true;
+            listView.View = View.Details;
+            return listView;
+        }
     }
 }

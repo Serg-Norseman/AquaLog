@@ -39,7 +39,6 @@ namespace AquaLog.Panels
             fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
             fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
             fActions.Add(new UserAction("Transfer", null, TransferInhabitantHandler));
-            fActions.Add(new UserAction("Compatibility", "", ViewCompatibilityHandler));
         }
 
         protected override void UpdateListView()
@@ -102,11 +101,6 @@ namespace AquaLog.Panels
                     UpdateContent();
                 }
             }
-        }
-
-        private void ViewCompatibilityHandler(object sender, EventArgs e)
-        {
-            Browser.SetView(MainView.Compatibility, null);
         }
     }
 }

@@ -32,8 +32,6 @@ namespace AquaLog.UI
         {
             var tsBtn = new ButtonTester(name, form);
             if (tsBtn.Count > 1) {
-                // FIXME: Find out why sometimes the search returns
-                // two components where there is only one (MediaViewerWinTests)
                 tsBtn[0].FireEvent("Click");
             } else {
                 tsBtn.FireEvent("Click");
@@ -44,8 +42,6 @@ namespace AquaLog.UI
         {
             var tsBtn = new ButtonTester(name, form);
             if (tsBtn.Count > 1) {
-                // FIXME: Find out why sometimes the search returns
-                // two components where there is only one (MediaViewerWinTests)
                 tsBtn[0].FireEvent("Click");
             } else {
                 tsBtn.FireEvent("Click");
@@ -56,8 +52,6 @@ namespace AquaLog.UI
         {
             var tsBtn = new ToolStripButtonTester(name, form);
             if (tsBtn.Count > 1) {
-                // FIXME: Find out why sometimes the search returns
-                // two components where there is only one (MediaViewerWinTests)
                 tsBtn[0].FireEvent("Click");
             } else {
                 tsBtn.FireEvent("Click");

@@ -29,24 +29,22 @@ namespace AquaLog.Panels
         {
             Padding = new Padding(10);
 
-            fListView = new ListView();
-            fListView.Dock = DockStyle.Fill;
-            fListView.Name = "ListView";
-            fListView.HideSelection = false;
-            fListView.LabelEdit = false;
-            fListView.FullRowSelect = true;
-            fListView.View = View.Details;
+            fListView = UIHelper.CreateListView("ListView");
             fListView.DoubleClick += EditHandler;
             Controls.Add(fListView);
         }
 
         public override void UpdateContent()
         {
+            ListView.BeginUpdate();
             ListView.Items.Clear();
-            if (fModel == null) return;
 
-            UpdateListView();
-            ListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            if (fModel != null) {
+                UpdateListView();
+                ListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            }
+
+            ListView.EndUpdate();
         }
 
         protected virtual void UpdateListView()

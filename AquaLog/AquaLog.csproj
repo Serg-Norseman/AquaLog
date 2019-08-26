@@ -77,6 +77,7 @@
     <Compile Include="Core\Model\Schedule.cs" />
     <Compile Include="Core\Types\DeviceProps.cs" />
     <Compile Include="Core\Types\DeviceType.cs" />
+    <Compile Include="Core\Types\MeasureValue.cs" />
     <Compile Include="Core\Types\QDecimal.cs" />
     <Compile Include="Core\Types\QString.cs" />
     <Compile Include="Core\Types\ValueBounds.cs" />
@@ -173,7 +174,7 @@
     <Compile Include="UI\NutritionEditDlg.Designer.cs">
       <DependentUpon>NutritionEditDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Panels\CompatibilityPanel.cs" />
+    <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
     <Compile Include="UI\Panels\MeasurePanel.cs" />
     <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
     <Compile Include="UI\Panels\NutritionPanel.cs" />

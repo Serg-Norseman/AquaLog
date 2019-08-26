@@ -240,8 +240,8 @@ namespace AquaLog.UI
                 case MainView.Schedule:
                     SetView<SchedulePanel>(extData);
                     break;
-                case MainView.Compatibility:
-                    SetView<CompatibilityPanel>(extData);
+                case MainView.AquariumDetails:
+                    SetView<AquaDetailsPanel>(extData);
                     break;
             }
         }

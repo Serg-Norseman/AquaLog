@@ -147,6 +147,14 @@ namespace AquaLog.Core
             return value.ToString("dd/MM/yyyy");
         }
 
+        public static string GetRangeStr(double min, double max)
+        {
+            if (double.IsNaN(min) && double.IsNaN(max)) {
+                return string.Empty;
+            }
+            return ALCore.GetDecimalStr(min) + " - " + ALCore.GetDecimalStr(max);
+        }
+
         #region Application Runtime
 
         public static void LoadExtFile(string fileName, string args = "")

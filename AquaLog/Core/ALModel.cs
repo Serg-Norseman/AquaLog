@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
@@ -198,7 +199,7 @@ namespace AquaLog.Core
 
         public IEnumerable<Inhabitant> QueryInhabitants(Aquarium aquarium)
         {
-            return fDB.Query<Inhabitant>("select * from Inhabitant where AquariumId = ?", aquarium.Id);
+            return fDB.Query<Inhabitant>("select inh.Id, inh.SpeciesId, inh.Sex, inh.Name from Inhabitant inh, Transfer tran where (inh.Id = tran.ItemId and tran.ItemType in (2, 3, 5) and TargetId = ?)", aquarium.Id);
         }
 
         #endregion
@@ -230,6 +231,11 @@ namespace AquaLog.Core
             return fDB.Query<Device>("select * from Device");
         }
 
+        public IList<Device> QueryDevices(Aquarium aquarium)
+        {
+            return fDB.Query<Device>("select * from Device where AquariumId = ?", aquarium.Id);
+        }
+
         public IList<QString> QueryDeviceBrands()
         {
             return fDB.Query<QString>("select distinct Brand as element from Device");
@@ -251,6 +257,11 @@ namespace AquaLog.Core
         public IList<Maintenance> QueryMaintenances()
         {
             return fDB.Query<Maintenance>("select * from Maintenance order by [DateTime]");
+        }
+
+        public IList<Maintenance> QueryMaintenances(int aquariumId)
+        {
+            return fDB.Query<Maintenance>("select * from Maintenance where (AquariumId = ?) order by [DateTime]", aquariumId);
         }
 
         public IList<Maintenance> QueryWaterChanges(int aquariumId)
@@ -371,6 +382,70 @@ namespace AquaLog.Core
             string query = string.Format("select [{0}] as value from Measure where AquariumId = {1} and [{2}] <> 0.00000 order by Timestamp desc limit 1", field, aquarium.Id, field);
             List<QDecimal> list = fDB.Query<QDecimal>(query);
             return (list != null && list.Count > 0) ? list[0] : null;
+        }
+
+        public double GetCurrentMeasureValue(Aquarium aquarium, string field)
+        {
+            QDecimal measure = QueryLastMeasure(aquarium, field);
+            double mVal = (measure != null) ? measure.value : double.NaN;
+            return mVal;
+        }
+
+        public List<MeasureValue> CollectData(Aquarium aquarium)
+        {
+            List<MeasureValue> measures = new List<MeasureValue>();
+
+            PrepareValue(aquarium, measures, "Temperature", "T", "°C", null);
+            PrepareValue(aquarium, measures, "NO3", "NO3", "mg/l", ALData.NO3Ranges);
+            PrepareValue(aquarium, measures, "NO2", "NO2", "mg/l", ALData.NO2Ranges);
+            PrepareValue(aquarium, measures, "Cl2", "Cl2", "mg/l", ALData.Cl2Ranges);
+            PrepareValue(aquarium, measures, "GH", "GH", "°d", ALData.GHRanges);
+            PrepareValue(aquarium, measures, "KH", "KH", "°d", ALData.KHRanges);
+            PrepareValue(aquarium, measures, "pH", "pH", "", ALData.pHRanges);
+            PrepareValue(aquarium, measures, "CO2", "CO2", "", ALData.CO2Ranges);
+
+            PrepareValue(aquarium, measures, "NH", "NHtot", "", null);
+            PrepareValue(aquarium, measures, "NH3", "NH3", "", ALData.NH3Ranges);
+            PrepareValue(aquarium, measures, "NH4", "NH4", "", null);
+
+            return measures;
+        }
+
+        private void PrepareValue(Aquarium aquarium, List<MeasureValue> measures, string field, string sign, string uom, List<ValueBounds> ranges)
+        {
+            QDecimal measure = QueryLastMeasure(aquarium, field);
+            double mVal = (measure != null) ? measure.value : double.NaN;
+
+            string strVal = !double.IsNaN(mVal) ? ALCore.GetDecimalStr(mVal) : string.Empty;
+            string text = string.Format("{0}={1} {2}", sign, strVal, uom);
+
+            Color color = Color.Black;
+            if (!double.IsNaN(mVal) && mVal != 0.0d && ranges != null) {
+                ValueBounds bounds = CheckValue(mVal, ranges);
+                if (bounds != null) {
+                    color = bounds.Color;
+                }
+            }
+
+            var tval = new MeasureValue() {
+                Name = sign,
+                Value = mVal,
+                Unit = uom,
+                ValText = strVal,
+                Text = text,
+                Color = color
+            };
+            measures.Add(tval);
+        }
+
+        private ValueBounds CheckValue(double value, List<ValueBounds> ranges)
+        {
+            foreach (var bounds in ranges) {
+                if (value >= bounds.Min && value <= bounds.Max) {
+                    return bounds;
+                }
+            }
+            return null;
         }
 
         #endregion

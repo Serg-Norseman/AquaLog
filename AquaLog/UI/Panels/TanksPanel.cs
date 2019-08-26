@@ -89,6 +89,12 @@ namespace AquaLog.Panels
 
         private void OnTankDoubleClick(object sender, EventArgs e)
         {
+            var selectedItem = SelectedTank;
+            if (selectedItem == null) return;
+
+            var record = selectedItem.Aquarium;
+
+            Browser.SetView(MainView.AquariumDetails, record);
         }
 
         private void btnAddTank_Click(object sender, EventArgs e)

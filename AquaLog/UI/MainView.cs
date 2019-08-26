@@ -26,6 +26,6 @@ namespace AquaLog.UI
         TSTrend,
         MeasuresChart,
         Schedule,
-        Compatibility,
+        AquariumDetails,
     }
 }

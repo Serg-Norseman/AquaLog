@@ -22,12 +22,6 @@ namespace AquaLog.Panels
         Inactive
     }
 
-    public class TankValue
-    {
-        public double Value;
-        public string Text;
-        public Color Color;
-    }
 
     /// <summary>
     /// 
@@ -39,7 +33,7 @@ namespace AquaLog.Panels
         private bool fSelected;
         private StringFormat fStrFormat;
         private SolidBrush fTextBrush;
-        private List<TankValue> fValues;
+        private List<MeasureValue> fValues;
 
         public Aquarium Aquarium
         {
@@ -80,7 +74,7 @@ namespace AquaLog.Panels
 
             fStrFormat = new StringFormat();
             fTextBrush = null;
-            fValues = new List<TankValue>();
+            fValues = new List<MeasureValue>();
         }
 
         protected override void Dispose(bool disposing)
@@ -122,61 +116,9 @@ namespace AquaLog.Panels
                 SetTankState(TankState.Normal);
             }
 
-            CollectData();
+            fValues = fModel.CollectData(fAquarium);
 
             Refresh();
-        }
-
-        private void CollectData()
-        {
-            fValues.Clear();
-
-            PrepareValue("Temperature", "T", "°C", null);
-            PrepareValue("NO3", "NO3", "mg/l", ALData.NO3Ranges);
-            PrepareValue("NO2", "NO2", "mg/l", ALData.NO2Ranges);
-            PrepareValue("Cl2", "Cl2", "mg/l", ALData.Cl2Ranges);
-            PrepareValue("GH", "GH", "°d", ALData.GHRanges);
-            PrepareValue("KH", "KH", "°d", ALData.KHRanges);
-            PrepareValue("pH", "pH", "", ALData.pHRanges);
-            PrepareValue("CO2", "CO2", "", ALData.CO2Ranges);
-
-            PrepareValue("NH", "NHtot", "", null);
-            PrepareValue("NH3", "NH3", "", ALData.NH3Ranges);
-            PrepareValue("NH4", "NH4", "", null);
-        }
-
-        private void PrepareValue(string field, string sign, string uom, List<ValueBounds> ranges)
-        {
-            QDecimal measure = fModel.QueryLastMeasure(fAquarium, field);
-            double mVal = (measure != null) ? measure.value : double.NaN;
-
-            string str = !double.IsNaN(mVal) ? ALCore.GetDecimalStr(mVal) : string.Empty;
-            str = string.Format("{0}={1} {2}", sign, str, uom);
-
-            Color color = ForeColor;
-            if (!double.IsNaN(mVal) && mVal != 0.0d && ranges != null) {
-                ValueBounds bounds = CheckValue(mVal, ranges);
-                if (bounds != null) {
-                    color = bounds.Color;
-                }
-            }
-
-            var tval = new TankValue() {
-                Value = mVal,
-                Text = str,
-                Color = color
-            };
-            fValues.Add(tval);
-        }
-
-        private ValueBounds CheckValue(double value, List<ValueBounds> ranges)
-        {
-            foreach (var bounds in ranges) {
-                if (value >= bounds.Min && value <= bounds.Max) {
-                    return bounds;
-                }
-            }
-            return null;
         }
 
         private string GetMeasureVal(string field, string sign, string uom)
@@ -278,7 +220,7 @@ namespace AquaLog.Panels
 
         private void DrawMeasure(Graphics gfx, int index, Font font, int x, int y)
         {
-            TankValue tVal = fValues[index];
+            MeasureValue tVal = fValues[index];
             DrawText(gfx, tVal.Text, font, tVal.Color, x, y);
         }
 
