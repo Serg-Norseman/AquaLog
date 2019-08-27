@@ -9,10 +9,23 @@ namespace AquaLog.Core.Types
     public enum ItemType
     {
         None,
+
         Aquarium,
+
         Fish,
         Invertebrate,
-        Device,
         Plant,
+        Coral,
+
+        Nutrition,
+        Chemistry,
+        Additive,
+
+        Device,
+        Equipment,
+
+        Maintenance,
+        Furniture,
+        Decoration
     }
 }

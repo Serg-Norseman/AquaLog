@@ -36,5 +36,10 @@ namespace AquaLog.Core.Model
         public Device()
         {
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

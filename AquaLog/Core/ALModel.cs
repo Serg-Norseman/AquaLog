@@ -108,11 +108,28 @@ namespace AquaLog.Core
                 case ItemType.Invertebrate:
                     result = GetRecord<Inhabitant>(itemId);
                     break;
+                case ItemType.Plant:
+                    result = GetRecord<Inhabitant>(itemId);
+                    break;
+                case ItemType.Coral:
+                    break;
+                case ItemType.Nutrition:
+                    result = GetRecord<Nutrition>(itemId);
+                    break;
+                case ItemType.Chemistry:
+                    break;
+                case ItemType.Additive:
+                    break;
                 case ItemType.Device:
                     result = GetRecord<Device>(itemId);
                     break;
-                case ItemType.Plant:
-                    result = GetRecord<Inhabitant>(itemId);
+                case ItemType.Equipment:
+                    break;
+                case ItemType.Maintenance:
+                    break;
+                case ItemType.Furniture:
+                    break;
+                case ItemType.Decoration:
                     break;
             }
             return result;
@@ -121,24 +138,7 @@ namespace AquaLog.Core
         public string GetRecordName(ItemType itemType, int itemId)
         {
             Entity itemRec = GetRecord(itemType, itemId);
-            string itName = string.Empty;
-            switch (itemType) {
-                case ItemType.Aquarium:
-                    break;
-                case ItemType.Fish:
-                    itName = (itemRec as Inhabitant).Name;
-                    break;
-                case ItemType.Invertebrate:
-                    itName = (itemRec as Inhabitant).Name;
-                    break;
-                case ItemType.Device:
-                    itName = (itemRec as Device).Name;
-                    break;
-                case ItemType.Plant:
-                    itName = (itemRec as Inhabitant).Name;
-                    break;
-            }
-            return itName;
+            return (itemRec == null) ? string.Empty : itemRec.ToString();
         }
 
         #region Aquarium functions
