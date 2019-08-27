@@ -73,54 +73,6 @@ namespace AquaLog.Core
         }
 
         /// <summary>
-        /// Convert cubic inch (ci) to liters:  1 ci = 0.016387 liter
-        /// </summary>
-        public static double ci2l(double ci)
-        {
-            return ci * 0.016387;
-        }
-
-        /// <summary>
-        /// Convert liters to cubic inch (ci):  1 liter = 61.023744 ci
-        /// </summary>
-        public static double l2ci(double l)
-        {
-            return l * 61.023744;
-        }
-
-        /// <summary>
-        /// Convert US gal to cubic inch (ci):  1 US gallon = 231 ci
-        /// </summary>
-        public static double gal2ci(double gal)
-        {
-            return gal * 231;
-        }
-
-        /// <summary>
-        /// Convert cubic inch (ci) to US gal:  1 ci = 0.004329 US gallon
-        /// </summary>
-        public static double ci2gal(double ci)
-        {
-            return ci * 0.004329;
-        }
-
-        /// <summary>
-        /// Convert US gal to cubic cm (cc):  1 US gallon = 3785.411784 cc
-        /// </summary>
-        public static double gal2cc(double gal)
-        {
-            return gal * 3785.411784;
-        }
-
-        /// <summary>
-        /// Convert cubic cm (cc) to US gal:  1 cc = 0.004329 US gallon
-        /// </summary>
-        public static double cc2gal(double cc)
-        {
-            return cc * 0.000264;
-        }
-
-        /// <summary>
         /// Convert table spoons (tsp) to cubic cm (cc):  1 tsp = 14.786765 cc
         /// </summary>
         public static double tsp2cc(double tsp)

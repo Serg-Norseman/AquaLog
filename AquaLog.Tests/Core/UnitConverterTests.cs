@@ -35,5 +35,53 @@ namespace AquaLog.Core
         {
             Assert.AreEqual(0.0328, UnitConverter.cm2feet(1.0f));
         }
+
+        [Test]
+        public void Test_gal2l()
+        {
+            Assert.AreEqual(3.78541178, UnitConverter.gal2l(1.0f));
+        }
+
+        [Test]
+        public void Test_l2gal()
+        {
+            Assert.AreEqual(0.264172, UnitConverter.l2gal(1.0f));
+        }
+
+        [Test]
+        public void Test_cc2l()
+        {
+            Assert.AreEqual(0.001, UnitConverter.cc2l(1.0f));
+        }
+
+        [Test]
+        public void Test_l2cc()
+        {
+            Assert.AreEqual(1000, UnitConverter.l2cc(1.0f));
+        }
+
+        [Test]
+        public void Test_mg2g()
+        {
+            Assert.AreEqual(0.001, UnitConverter.mg2g(1.0f));
+        }
+
+        [Test]
+        public void Test_g2mg()
+        {
+            Assert.AreEqual(1000, UnitConverter.g2mg(1.0f));
+        }
+
+        [Test]
+        public void Test_C2K()
+        {
+            Assert.AreEqual(274.15, UnitConverter.C2K(1.0f));
+        }
+
+        [Test]
+        public void Test_K2C()
+        {
+            Assert.AreEqual(-272.15, UnitConverter.K2C(1.0f));
+        }
     }
 }
