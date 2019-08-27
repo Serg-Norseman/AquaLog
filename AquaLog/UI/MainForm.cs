@@ -22,6 +22,14 @@ namespace AquaLog.UI
         private NavigationStack<DataPanel> fNavigationStack;
         private Dictionary<Type, DataPanel> fPanels;
         private DataPanel fCurrentPanel;
+        private ALTray fTray;
+
+
+        public ALTray Tray
+        {
+            get { return fTray; }
+            set { fTray = value; }
+        }
 
 
         public MainForm()
@@ -63,9 +71,15 @@ namespace AquaLog.UI
             SetView(MainView.Tanks, null);
 
             Localizer.FindLocales();
-            //Localizer.LoadLocale(1049);
-            Localizer.LoadLocale(Localizer.LS_DEF_CODE);
+            ChangeLocale();
+        }
+
+        private void ChangeLocale()
+        {
+            Localizer.LoadLocale(ALSettings.Instance.CurrentLocale);
             SetLocale();
+
+            if (fTray != null) fTray.SetLocale();
         }
 
         public void SetLocale()
@@ -73,8 +87,8 @@ namespace AquaLog.UI
             miFile.Text = Localizer.LS(LSID.MIFile);
             miHelp.Text = Localizer.LS(LSID.MIHelp);
             miExit.Text = Localizer.LS(LSID.MIExit);
-            miAbout.Text = Localizer.LS(LSID.MIAbout);
-            miSettings.Text = Localizer.LS(LSID.MISettings);
+            miAbout.Text = Localizer.LS(LSID.About);
+            miSettings.Text = Localizer.LS(LSID.Settings);
             miCleanSpace.Text = Localizer.LS(LSID.MICleanSpace);
             btnTanks.Text = Localizer.LS(LSID.Aquariums);
             btnInhabitants.Text = Localizer.LS(LSID.Inhabitants);
@@ -116,7 +130,7 @@ namespace AquaLog.UI
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing) {
+            if (e.CloseReason == CloseReason.UserClosing && !ALSettings.Instance.ExitOnClose) {
                 e.Cancel = true;
                 Hide();
             }
@@ -147,6 +161,7 @@ namespace AquaLog.UI
                 dlg.Model = fModel;
                 dlg.Settings = ALSettings.Instance;
                 if (dlg.ShowDialog() == DialogResult.OK) {
+                    ChangeLocale();
                     fCurrentPanel.UpdateView();
                 }
             }

@@ -14,6 +14,9 @@ namespace AquaLog.Core
     public class ALSettings
     {
         private bool fHideClosedTanks;
+        private bool fExitOnClose;
+        private int fCurrentLocale;
+
 
         public bool HideClosedTanks
         {
@@ -21,6 +24,20 @@ namespace AquaLog.Core
             set { fHideClosedTanks = value; }
         }
 
+        public bool ExitOnClose
+        {
+            get { return fExitOnClose; }
+            set { fExitOnClose = value; }
+        }
+
+        public int CurrentLocale
+        {
+            get { return fCurrentLocale; }
+            set { fCurrentLocale = value; }
+        }
+
+
+        #region Instance
 
         private static ALSettings fInstance;
 
@@ -32,10 +49,14 @@ namespace AquaLog.Core
             }
         }
 
+        #endregion
+
 
         private ALSettings()
         {
             fHideClosedTanks = true;
+            fExitOnClose = true;
+            fCurrentLocale = Localizer.LS_DEF_CODE;
         }
     }
 }

@@ -21,7 +21,7 @@ namespace AquaLog.UI
 
             btnClose.Image = ALCore.LoadResourceImage("btn_accept.gif");
 
-            Text = "About";
+            Text = Localizer.LS(LSID.About);
             btnClose.Text = "Close";
             lblProduct.Text = ALCore.AppName;
             lblVersion.Text = @"Version " + ALCore.GetAppVersion();

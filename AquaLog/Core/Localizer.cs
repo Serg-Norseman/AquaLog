@@ -24,8 +24,8 @@ namespace AquaLog.Core
         /* 002 */ MIEdit = 2,
         /* 003 */ MIHelp,
         /* 004 */ MIExit,
-        /* 005 */ MIAbout,
-        /* 006 */ MISettings,
+        /* 005 */ About,
+        /* 006 */ Settings,
         /* 007 */ MICleanSpace,
         /* 008 */ RecordDeleteQuery,
         /* 009 */ Aquariums,
@@ -42,8 +42,14 @@ namespace AquaLog.Core
         /* 020 */ Budget,
         /* 021 */ Accept,
         /* 022 */ Cancel,
+        /* 023 */ Add,
+        /* 024 */ Delete,
+        /* 025 */ Language,
+        /* 026 */ HideClosedTanks,
+        /* 027 */ ExitOnClose,
+        /* 028 */ Autorun,
 
-        /* 000 */ Last = Cancel
+        /* 000 */ Last = Autorun
     }
 
 
@@ -76,6 +82,12 @@ namespace AquaLog.Core
             /* 020 */ "Budget",
             /* 021 */ "Accept",
             /* 022 */ "Cancel",
+            /* 023 */ "Add",
+            /* 024 */ "Delete",
+            /* 025 */ "Language",
+            /* 026 */ "Hide closed tanks",
+            /* 027 */ "Exit on Close",
+            /* 028 */ "Autorun",
         };
 
 
@@ -233,6 +245,11 @@ namespace AquaLog.Core
             Sign = sign;
             Name = name;
             FileName = fileName;
+        }
+
+        public override string ToString()
+        {
+            return Name;
         }
     }
 }

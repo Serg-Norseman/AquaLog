@@ -55,6 +55,7 @@ namespace AquaLog
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
+                fNotifyIcon.Icon = null;
                 fNotifyIcon.Dispose();
             }
             base.Dispose(disposing);
@@ -83,8 +84,8 @@ namespace AquaLog
         public void SetLocale()
         {
             fExitItem.Text = Localizer.LS(LSID.MIExit);
-            fAboutItem.Text = Localizer.LS(LSID.MIAbout);
-            //miSettings.Text = Localizer.LS(LSID.MISettings);
+            fAboutItem.Text = Localizer.LS(LSID.About);
+            fAutorunItem.Text = Localizer.LS(LSID.Autorun);
         }
 
         private void LoadSettings()

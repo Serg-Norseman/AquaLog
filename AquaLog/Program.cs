@@ -26,7 +26,8 @@ namespace AquaLog
             using (Mutex mtx = new Mutex(true, "AquaLog", out isFirstInstance)) {
                 if (isFirstInstance) {
                     var mainForm = new MainForm();
-                    using (ALTray notificationIcon = new ALTray(mainForm)) {
+                    using (ALTray tray = new ALTray(mainForm)) {
+                        mainForm.Tray = tray;
                         Application.Run(mainForm);
                     }
                 }

@@ -14,7 +14,7 @@ namespace AquaLog.UI
     /// <summary>
     /// 
     /// </summary>
-    public partial class SettingsDlg : Form
+    public partial class SettingsDlg : Form, ILocalizable
     {
         private ALModel fModel;
         private ALSettings fSettings;
@@ -43,18 +43,38 @@ namespace AquaLog.UI
 
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
+
+            foreach (var locale in Localizer.Locales) {
+                cmbLocale.Items.Add(locale);
+            }
+
+            SetLocale();
+        }
+
+        public void SetLocale()
+        {
+            Text = Localizer.LS(LSID.Settings);
+            btnAccept.Text = Localizer.LS(LSID.Accept);
+            btnCancel.Text = Localizer.LS(LSID.Cancel);
+            chkHideClosedTanks.Text = Localizer.LS(LSID.HideClosedTanks);
+            chkExitOnClose.Text = Localizer.LS(LSID.ExitOnClose);
+            lblLocale.Text = Localizer.LS(LSID.Language);
         }
 
         private void UpdateView()
         {
             if (fSettings != null) {
                 chkHideClosedTanks.Checked = fSettings.HideClosedTanks;
+                chkExitOnClose.Checked = fSettings.ExitOnClose;
+                cmbLocale.SelectedItem = Localizer.Locales.FirstOrDefault(loc => loc.Code == fSettings.CurrentLocale);
             }
         }
 
         private void ApplyChanges()
         {
             fSettings.HideClosedTanks = chkHideClosedTanks.Checked;
+            fSettings.ExitOnClose = chkExitOnClose.Checked;
+            fSettings.CurrentLocale = (cmbLocale.SelectedItem as LocaleFile).Code;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
