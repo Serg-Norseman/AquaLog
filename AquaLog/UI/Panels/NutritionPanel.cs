@@ -20,12 +20,6 @@ namespace AquaLog.Panels
     {
         public NutritionPanel()
         {
-            ListView.Columns.Add("Aquarium", 200, HorizontalAlignment.Left);
-            ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Brand", 50, HorizontalAlignment.Left);
-            ListView.Columns.Add("Amount", 100, HorizontalAlignment.Right);
-            ListView.Columns.Add("Note", 80, HorizontalAlignment.Left);
-            ListView.Columns.Add("Inhabitant", 80, HorizontalAlignment.Left);
         }
 
         protected override void InitActions()
@@ -37,6 +31,14 @@ namespace AquaLog.Panels
 
         protected override void UpdateListView()
         {
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 200, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Amount), 100, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.Note), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Inhabitant), 80, HorizontalAlignment.Left);
+
             var records = fModel.QueryNutritions();
             foreach (Nutrition rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);

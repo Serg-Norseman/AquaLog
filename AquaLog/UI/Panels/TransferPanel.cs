@@ -20,15 +20,6 @@ namespace AquaLog.Panels
     {
         public TransferPanel()
         {
-            ListView.Columns.Add("Item", 140, HorizontalAlignment.Left);
-            ListView.Columns.Add("Date", 80, HorizontalAlignment.Left);
-            ListView.Columns.Add("Type", 80, HorizontalAlignment.Left);
-            ListView.Columns.Add("Cause", 80, HorizontalAlignment.Right);
-            ListView.Columns.Add("Source", 80, HorizontalAlignment.Left);
-            ListView.Columns.Add("Target", 80, HorizontalAlignment.Left);
-            ListView.Columns.Add("Qty", 80, HorizontalAlignment.Right);
-            ListView.Columns.Add("UnitPrice", 80, HorizontalAlignment.Right);
-            ListView.Columns.Add("Shop", 180, HorizontalAlignment.Left);
         }
 
         protected override void InitActions()
@@ -40,8 +31,16 @@ namespace AquaLog.Panels
 
         public override void UpdateContent()
         {
-            ListView.Items.Clear();
-            if (fModel == null) return;
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Item), 140, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Date), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Type), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Cause), 80, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.SourceTank), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.TargetTank), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Quantity), 80, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.UnitPrice), 80, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.Shop), 180, HorizontalAlignment.Left);
 
             var records = fModel.QueryTransfers();
             foreach (Transfer rec in records) {

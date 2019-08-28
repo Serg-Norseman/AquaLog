@@ -17,6 +17,7 @@ namespace AquaLog.Core.Types
         Plant,
         Coral,
 
+        // TODO: may be common table Inventory? (seems like a good idea)
         Nutrition,
         Chemistry,
         Additive,

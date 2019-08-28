@@ -87,7 +87,7 @@
             this.lblName.Location = new System.Drawing.Point(10, 14);
             this.lblName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblName.Name = "lblName";
-            this.lblName.Size = new System.Drawing.Size(80, 17);
+            this.lblName.Size = new System.Drawing.Size(104, 17);
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Inhabitant";
             // 
@@ -96,7 +96,7 @@
             this.lblType.Location = new System.Drawing.Point(10, 135);
             this.lblType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblType.Name = "lblType";
-            this.lblType.Size = new System.Drawing.Size(80, 17);
+            this.lblType.Size = new System.Drawing.Size(104, 17);
             this.lblType.TabIndex = 8;
             this.lblType.Text = "Type";
             // 
@@ -125,7 +125,7 @@
             this.lblTarget.Location = new System.Drawing.Point(10, 74);
             this.lblTarget.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTarget.Name = "lblTarget";
-            this.lblTarget.Size = new System.Drawing.Size(88, 17);
+            this.lblTarget.Size = new System.Drawing.Size(138, 17);
             this.lblTarget.TabIndex = 4;
             this.lblTarget.Text = "To (target aquarium)";
             // 
@@ -143,7 +143,7 @@
             this.lblSource.Location = new System.Drawing.Point(10, 42);
             this.lblSource.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSource.Name = "lblSource";
-            this.lblSource.Size = new System.Drawing.Size(131, 17);
+            this.lblSource.Size = new System.Drawing.Size(138, 17);
             this.lblSource.TabIndex = 2;
             this.lblSource.Text = "From (source aquarium)";
             // 
@@ -170,7 +170,7 @@
             this.lblDate.Location = new System.Drawing.Point(10, 107);
             this.lblDate.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblDate.Name = "lblDate";
-            this.lblDate.Size = new System.Drawing.Size(80, 17);
+            this.lblDate.Size = new System.Drawing.Size(104, 17);
             this.lblDate.TabIndex = 6;
             this.lblDate.Text = "Date";
             // 
@@ -179,7 +179,7 @@
             this.lblCause.Location = new System.Drawing.Point(10, 166);
             this.lblCause.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblCause.Name = "lblCause";
-            this.lblCause.Size = new System.Drawing.Size(103, 17);
+            this.lblCause.Size = new System.Drawing.Size(104, 17);
             this.lblCause.TabIndex = 10;
             this.lblCause.Text = "Cause";
             // 
@@ -204,7 +204,7 @@
             this.lblQty.Location = new System.Drawing.Point(10, 197);
             this.lblQty.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblQty.Name = "lblQty";
-            this.lblQty.Size = new System.Drawing.Size(80, 17);
+            this.lblQty.Size = new System.Drawing.Size(104, 17);
             this.lblQty.TabIndex = 12;
             this.lblQty.Text = "Qty";
             // 
@@ -218,10 +218,10 @@
             // 
             // lblUnitPrice
             // 
-            this.lblUnitPrice.Location = new System.Drawing.Point(209, 197);
+            this.lblUnitPrice.Location = new System.Drawing.Point(196, 197);
             this.lblUnitPrice.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblUnitPrice.Name = "lblUnitPrice";
-            this.lblUnitPrice.Size = new System.Drawing.Size(80, 17);
+            this.lblUnitPrice.Size = new System.Drawing.Size(101, 17);
             this.lblUnitPrice.TabIndex = 14;
             this.lblUnitPrice.Text = "Unit Price";
             // 
@@ -230,7 +230,7 @@
             this.lblShop.Location = new System.Drawing.Point(10, 227);
             this.lblShop.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblShop.Name = "lblShop";
-            this.lblShop.Size = new System.Drawing.Size(88, 17);
+            this.lblShop.Size = new System.Drawing.Size(104, 17);
             this.lblShop.TabIndex = 16;
             this.lblShop.Text = "Shop";
             // 

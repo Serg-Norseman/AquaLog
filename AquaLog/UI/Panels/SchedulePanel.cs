@@ -7,6 +7,7 @@
 using System;
 using System.Windows.Forms;
 using AquaLog.Components;
+using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
 
@@ -19,22 +20,20 @@ namespace AquaLog.Panels
     {
         public SchedulePanel()
         {
-            ListView.Columns.Add("Aquarium", 120, HorizontalAlignment.Left);
-            ListView.Columns.Add("DateTime", 120, HorizontalAlignment.Left);
-            ListView.Columns.Add("Event", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Reminder", 80, HorizontalAlignment.Left);
-            ListView.Columns.Add("Type", 80, HorizontalAlignment.Left);
-            ListView.Columns.Add("Status", 80, HorizontalAlignment.Left);
-            ListView.Columns.Add("Note", 250, HorizontalAlignment.Left);
         }
 
         public override void UpdateContent()
         {
-            ListView.Items.Clear();
-            if (fModel == null) return;
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 120, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Event), 100, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Reminder), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Type), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Status), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Note), 250, HorizontalAlignment.Left);
 
             var records = fModel.QuerySchedule();
-
             foreach (Schedule rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;

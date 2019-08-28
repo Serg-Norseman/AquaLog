@@ -116,7 +116,6 @@
             // 
             // txtNote
             // 
-            this.txtNote.Enabled = false;
             this.txtNote.Location = new System.Drawing.Point(118, 133);
             this.txtNote.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtNote.Multiline = true;

@@ -5,6 +5,8 @@
  */
 
 using System;
+using AquaLog.Logging;
+using BSLib;
 
 namespace AquaLog.Core
 {
@@ -13,9 +15,11 @@ namespace AquaLog.Core
     /// </summary>
     public class ALSettings
     {
+        private readonly ILogger fLogger;
+
         private bool fHideClosedTanks;
         private bool fExitOnClose;
-        private int fCurrentLocale;
+        private int fInterfaceLang;
 
 
         public bool HideClosedTanks
@@ -32,8 +36,8 @@ namespace AquaLog.Core
 
         public int CurrentLocale
         {
-            get { return fCurrentLocale; }
-            set { fCurrentLocale = value; }
+            get { return fInterfaceLang; }
+            set { fInterfaceLang = value; }
         }
 
 
@@ -54,9 +58,66 @@ namespace AquaLog.Core
 
         private ALSettings()
         {
+            fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ALSettings");
+
             fHideClosedTanks = true;
             fExitOnClose = true;
-            fCurrentLocale = Localizer.LS_DEF_CODE;
+            fInterfaceLang = Localizer.LS_DEF_CODE;
+        }
+
+        public void LoadFromFile(IniFile ini)
+        {
+            if (ini == null)
+                throw new ArgumentNullException("ini");
+
+            fHideClosedTanks = ini.ReadBool("Common", "HideClosedTanks", true);
+            fExitOnClose = ini.ReadBool("Common", "ExitOnClose", true);
+            fInterfaceLang = ini.ReadInteger("Common", "InterfaceLang", 0);
+        }
+
+        public void SaveToFile(IniFile ini)
+        {
+            if (ini == null)
+                throw new ArgumentNullException("ini");
+
+            ini.WriteBool("Common", "HideClosedTanks", fHideClosedTanks);
+            ini.WriteBool("Common", "ExitOnClose", fExitOnClose);
+            ini.WriteInteger("Common", "InterfaceLang", fInterfaceLang);
+        }
+
+
+        public void LoadFromFile(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+                throw new ArgumentNullException("fileName");
+
+            try {
+                IniFile ini = new IniFile(fileName);
+                try {
+                    LoadFromFile(ini);
+                } finally {
+                    ini.Dispose();
+                }
+            } catch (Exception ex) {
+                fLogger.WriteError("ALSettings.LoadFromFile(): " + ex.Message);
+            }
+        }
+
+        public void SaveToFile(string fileName)
+        {
+            if (string.IsNullOrEmpty(fileName))
+                throw new ArgumentNullException("fileName");
+
+            try {
+                IniFile ini = new IniFile(fileName);
+                try {
+                    SaveToFile(ini);
+                } finally {
+                    ini.Dispose();
+                }
+            } catch (Exception ex) {
+                fLogger.WriteError("ALSettings.SaveToFile(): " + ex.Message);
+            }
         }
     }
 }

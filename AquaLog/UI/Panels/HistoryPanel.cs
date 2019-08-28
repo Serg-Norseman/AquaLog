@@ -7,6 +7,7 @@
 using System;
 using System.Windows.Forms;
 using AquaLog.Components;
+using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
 
@@ -19,19 +20,17 @@ namespace AquaLog.Panels
     {
         public HistoryPanel()
         {
-            ListView.Columns.Add("Aquarium", 120, HorizontalAlignment.Left);
-            ListView.Columns.Add("DateTime", 120, HorizontalAlignment.Left);
-            ListView.Columns.Add("Event", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Note", 250, HorizontalAlignment.Left);
         }
 
         public override void UpdateContent()
         {
-            ListView.Items.Clear();
-            if (fModel == null) return;
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 120, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Event), 100, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Note), 250, HorizontalAlignment.Left);
 
             var records = fModel.QueryHistory();
-
             foreach (History rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;

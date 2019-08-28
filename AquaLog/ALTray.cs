@@ -83,7 +83,7 @@ namespace AquaLog
 
         public void SetLocale()
         {
-            fExitItem.Text = Localizer.LS(LSID.MIExit);
+            fExitItem.Text = Localizer.LS(LSID.Exit);
             fAboutItem.Text = Localizer.LS(LSID.About);
             fAutorunItem.Text = Localizer.LS(LSID.Autorun);
         }

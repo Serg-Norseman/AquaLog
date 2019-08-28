@@ -56,8 +56,14 @@ namespace AquaLog.UI
 
         public void SetLocale()
         {
+            Text = Localizer.LS(LSID.Inhabitant);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            lblName.Text = Localizer.LS(LSID.Name);
+            lblNote.Text = Localizer.LS(LSID.Note);
+            lblSpecies.Text = Localizer.LS(LSID.Species);
+            lblSex.Text = Localizer.LS(LSID.Sex);
         }
 
         private void UpdateView()

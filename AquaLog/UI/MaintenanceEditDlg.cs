@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
@@ -59,6 +58,12 @@ namespace AquaLog.UI
             Text = Localizer.LS(LSID.Maintenance);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            lblAquarium.Text = Localizer.LS(LSID.Aquarium);
+            lblDateTime.Text = Localizer.LS(LSID.Date);
+            lblType.Text = Localizer.LS(LSID.Type);
+            lblValue.Text = Localizer.LS(LSID.Value);
+            lblNote.Text = Localizer.LS(LSID.Note);
         }
 
         private void UpdateView()

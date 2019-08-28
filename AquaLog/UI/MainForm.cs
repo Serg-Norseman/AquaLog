@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core;
@@ -44,6 +45,7 @@ namespace AquaLog.UI
             fNavigationStack = new NavigationStack<DataPanel>();
             fPanels = new Dictionary<Type, DataPanel>();
 
+            ALSettings.Instance.LoadFromFile(Path.Combine(ALCore.GetAppDataPath(), "AquaLog.ini"));
             SetSettings();
             UpdateControls();
 
@@ -74,6 +76,17 @@ namespace AquaLog.UI
             ChangeLocale();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) {
+                if (components != null) {
+                    components.Dispose();
+                }
+                ALSettings.Instance.SaveToFile(Path.Combine(ALCore.GetAppDataPath(), "AquaLog.ini"));
+            }
+            base.Dispose(disposing);
+        }
+
         private void ChangeLocale()
         {
             Localizer.LoadLocale(ALSettings.Instance.CurrentLocale);
@@ -84,12 +97,12 @@ namespace AquaLog.UI
 
         public void SetLocale()
         {
-            miFile.Text = Localizer.LS(LSID.MIFile);
-            miHelp.Text = Localizer.LS(LSID.MIHelp);
-            miExit.Text = Localizer.LS(LSID.MIExit);
+            miFile.Text = Localizer.LS(LSID.File);
+            miHelp.Text = Localizer.LS(LSID.Help);
+            miExit.Text = Localizer.LS(LSID.Exit);
             miAbout.Text = Localizer.LS(LSID.About);
             miSettings.Text = Localizer.LS(LSID.Settings);
-            miCleanSpace.Text = Localizer.LS(LSID.MICleanSpace);
+            miCleanSpace.Text = Localizer.LS(LSID.CleanSpace);
             btnTanks.Text = Localizer.LS(LSID.Aquariums);
             btnInhabitants.Text = Localizer.LS(LSID.Inhabitants);
             btnSpecies.Text = Localizer.LS(LSID.Species);

@@ -17,6 +17,7 @@ namespace AquaLog.Core.Types
         WaterAdded,
         WaterReplaced,
         WaterRemoved,
+        Clean,
         Other,
     }
 }

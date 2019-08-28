@@ -60,8 +60,17 @@ namespace AquaLog.UI
 
         public void SetLocale()
         {
+            Text = Localizer.LS(LSID.ScheduleS);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            lblAquarium.Text = Localizer.LS(LSID.Aquarium);
+            lblDate.Text = Localizer.LS(LSID.Date);
+            lblEvent.Text = Localizer.LS(LSID.Event);
+            chkReminder.Text = Localizer.LS(LSID.Reminder);
+            lblType.Text = Localizer.LS(LSID.Type);
+            lblStatus.Text = Localizer.LS(LSID.Status);
+            lblNote.Text = Localizer.LS(LSID.Note);
         }
 
         private void UpdateView()

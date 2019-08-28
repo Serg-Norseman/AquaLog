@@ -44,7 +44,7 @@ namespace AquaLog.UI
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
 
-            for (TankShape shape = TankShape.Unknown; shape <= TankShape.Rectangular; shape++) {
+            for (TankShape shape = TankShape.Unknown; shape <= TankShape.BowFrontCorner; shape++) {
                 cmbShape.Items.Add(shape.ToString());
             }
 
@@ -57,8 +57,22 @@ namespace AquaLog.UI
 
         public void SetLocale()
         {
+            Text = Localizer.LS(LSID.Aquarium);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            lblName.Text = Localizer.LS(LSID.Name);
+            lblDesc.Text = Localizer.LS(LSID.Description);
+            lblStartDate.Text = Localizer.LS(LSID.StartDate);
+            lblStopDate.Text = Localizer.LS(LSID.StopDate);
+            lblShape.Text = Localizer.LS(LSID.Shape);
+            lblWaterType.Text = Localizer.LS(LSID.WaterType);
+            lblDepth.Text = Localizer.LS(LSID.Depth);
+            lblWidth.Text = Localizer.LS(LSID.Width);
+            lblHeigth.Text = Localizer.LS(LSID.Heigth);
+            lblVolume.Text = Localizer.LS(LSID.TankVolume);
+            lblWaterVolume.Text = Localizer.LS(LSID.WaterVolume);
+            lblGlassThickness.Text = Localizer.LS(LSID.GlassThickness);
         }
 
         private void UpdateView()
@@ -123,6 +137,10 @@ namespace AquaLog.UI
             switch (tankShape) {
                 case TankShape.Unknown:
                 case TankShape.Bowl:
+                case TankShape.BowFront:
+                case TankShape.BevelledFront:
+                case TankShape.PlateFrontCorner:
+                case TankShape.BowFrontCorner:
                     txtDepth.Enabled = false;
                     txtWidth.Enabled = false;
                     txtHeigth.Enabled = false;
@@ -145,12 +163,6 @@ namespace AquaLog.UI
                     txtTankVolume.Enabled = false;
                     txtGlassThickness.Enabled = true;
                     break;
-
-                case TankShape.BowFront:
-                case TankShape.BevelledFront:
-                case TankShape.PlateFrontCorner:
-                case TankShape.BowFrontCorner:
-                    break;
             }
         }
 
@@ -164,6 +176,10 @@ namespace AquaLog.UI
             switch (tankShape) {
                 case TankShape.Unknown:
                 case TankShape.Bowl:
+                case TankShape.BowFront:
+                case TankShape.BevelledFront:
+                case TankShape.PlateFrontCorner:
+                case TankShape.BowFrontCorner:
                     break;
 
                 case TankShape.Cube:
@@ -184,12 +200,6 @@ namespace AquaLog.UI
                         height -= glassThickness;
                     }
                     txtTankVolume.Text = ALCore.GetDecimalStr(ALData.CalcTankVolume(depth, width, height));
-                    break;
-
-                case TankShape.BowFront:
-                case TankShape.BevelledFront:
-                case TankShape.PlateFrontCorner:
-                case TankShape.BowFrontCorner:
                     break;
             }
         }

@@ -3,8 +3,6 @@
 **/[Oo]bj/
 **/ProfilingSessions/
 
-/*.exe*
-/*.dll
 *.pdb
 *.mdb
 *.suo
@@ -12,11 +10,12 @@
 *.DotSettings.user
 *.log
 *.smproj
-*.xml
 
+/*.exe*
+/*.dll
+/*.xml
 /AquaLog/packages/**/
-
 /appdata/
 /temp/
-bsl_copy.cmd
-deploy.cmd
+/bsl_copy.cmd
+/deploy.cmd

@@ -20,20 +20,18 @@ namespace AquaLog.Panels
     {
         public MaintenancePanel()
         {
-            ListView.Columns.Add("Aquarium", 120, HorizontalAlignment.Left);
-            ListView.Columns.Add("DateTime", 120, HorizontalAlignment.Left);
-            ListView.Columns.Add("Type", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Value", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Note", 250, HorizontalAlignment.Left);
         }
 
         public override void UpdateContent()
         {
-            ListView.Items.Clear();
-            if (fModel == null) return;
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 120, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Value), 100, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Note), 250, HorizontalAlignment.Left);
 
             var records = fModel.QueryMaintenances();
-
             foreach (Maintenance rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;

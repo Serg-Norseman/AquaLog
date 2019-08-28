@@ -6,7 +6,6 @@
 
 using System;
 using AquaLog.Core.Types;
-using SQLite;
 
 namespace AquaLog.Core.Model
 {

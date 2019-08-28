@@ -54,6 +54,7 @@ namespace AquaLog.UI
 
         public void SetLocale()
         {
+            Text = Localizer.LS(LSID.SpeciesS);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
         }

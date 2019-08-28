@@ -36,16 +36,6 @@
         private System.Windows.Forms.ToolStripButton btnNutrition;
         private System.Windows.Forms.ToolStripButton btnMeasures;
         private System.Windows.Forms.ToolStripButton btnSchedule;
-        
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing) {
-                if (components != null) {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
-        }
 
         private void InitializeComponent()
         {
