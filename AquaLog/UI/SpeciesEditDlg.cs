@@ -45,7 +45,7 @@ namespace AquaLog.UI
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
 
-            for (SpeciesType type = SpeciesType.Fish; type <= SpeciesType.Plant; type++) {
+            for (SpeciesType type = SpeciesType.Fish; type <= SpeciesType.Coral; type++) {
                 cmbType.Items.Add(type.ToString());
             }
 
@@ -110,6 +110,9 @@ namespace AquaLog.UI
                     break;
 
                 case SpeciesType.Plant:
+                    break;
+
+                case SpeciesType.Coral:
                     break;
             }
         }

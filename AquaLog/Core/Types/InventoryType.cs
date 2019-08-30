@@ -7,14 +7,15 @@
 namespace AquaLog.Core.Types
 {
     /// <summary>
-    /// Type of electrical and/or measurement equipments.
+    /// 
     /// </summary>
-    public enum DeviceType
+    public enum InventoryType
     {
-        Light,
-        Pump,
-        Thermometer,
-        Filter,
-        Heater
+        Additive,
+        Chemistry,
+        Equipment,
+        Maintenance,
+        Furniture,
+        Decoration,
     }
 }

@@ -65,4 +65,10 @@
   <string id="063">Text</string>
   <string id="064">Brand</string>
   <string id="065">Amount</string>
+  <string id="066">Inventory</string>
+  <string id="067">Additive</string>
+  <string id="068">Chemistry</string>
+  <string id="069">Equipment</string>
+  <string id="070">Furniture</string>
+  <string id="071">Decoration</string>
 </resources>

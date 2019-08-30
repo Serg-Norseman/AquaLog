@@ -72,11 +72,13 @@
     <Compile Include="Core\Average.cs" />
     <Compile Include="Core\ILocalizable.cs" />
     <Compile Include="Core\Localizer.cs" />
+    <Compile Include="Core\Model\Inventory.cs" />
     <Compile Include="Core\Model\Measure.cs" />
     <Compile Include="Core\Model\Nutrition.cs" />
     <Compile Include="Core\Model\Schedule.cs" />
     <Compile Include="Core\Types\DeviceProps.cs" />
     <Compile Include="Core\Types\DeviceType.cs" />
+    <Compile Include="Core\Types\InventoryType.cs" />
     <Compile Include="Core\Types\MeasureValue.cs" />
     <Compile Include="Core\Types\QDecimal.cs" />
     <Compile Include="Core\Types\QString.cs" />
@@ -153,6 +155,10 @@
     <Compile Include="UI\InhabitantEditDlg.Designer.cs">
       <DependentUpon>InhabitantEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\InventoryEditDlg.cs" />
+    <Compile Include="UI\InventoryEditDlg.Designer.cs">
+      <DependentUpon>InventoryEditDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainForm.cs" />
     <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -175,6 +181,7 @@
       <DependentUpon>NutritionEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
+    <Compile Include="UI\Panels\InventoryPanel.cs" />
     <Compile Include="UI\Panels\MeasurePanel.cs" />
     <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
     <Compile Include="UI\Panels\NutritionPanel.cs" />

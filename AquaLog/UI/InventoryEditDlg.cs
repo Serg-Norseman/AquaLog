@@ -11,17 +11,16 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
-using AquaLog.TSDB;
 
 namespace AquaLog.UI
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class DeviceEditDlg : Form, IEditDialog<Device>
+    public partial class InventoryEditDlg : Form, IEditDialog<Inventory>
     {
         private ALModel fModel;
-        private Device fRecord;
+        private Inventory fRecord;
 
         public ALModel Model
         {
@@ -29,7 +28,7 @@ namespace AquaLog.UI
             set { fModel = value; }
         }
 
-        public Device Record
+        public Inventory Record
         {
             get { return fRecord; }
             set {
@@ -41,14 +40,14 @@ namespace AquaLog.UI
         }
 
 
-        public DeviceEditDlg()
+        public InventoryEditDlg()
         {
             InitializeComponent();
 
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
 
-            for (DeviceType type = DeviceType.Light; type <= DeviceType.Heater; type++) {
+            for (InventoryType type = InventoryType.Additive; type <= InventoryType.Decoration; type++) {
                 cmbType.Items.Add(type.ToString());
             }
 
@@ -57,56 +56,38 @@ namespace AquaLog.UI
 
         public void SetLocale()
         {
-            Text = Localizer.LS(LSID.Device);
+            Text = Localizer.LS(LSID.Inventory);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            lblName.Text = Localizer.LS(LSID.Name);
+            lblBrand.Text = Localizer.LS(LSID.Brand);
+            lblType.Text = Localizer.LS(LSID.Type);
+            lblNote.Text = Localizer.LS(LSID.Note);
         }
 
         private void UpdateView()
         {
             if (fRecord != null) {
-                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
-                cmbAquarium.Enabled = (fRecord.AquariumId == 0);
-
-                cmbTSDBPoint.Items.Clear();
-                TSDatabase tsdb = fModel.TSDB;
-                var points = tsdb.GetPoints();
-                foreach (TSPoint pt in points) {
-                    cmbTSDBPoint.Items.Add(pt);
-                }
-                cmbTSDBPoint.SelectedItem = points.FirstOrDefault(pt => pt.Id == fRecord.PointId);
-
                 cmbBrand.Items.Clear();
-                var brands = fModel.QueryDeviceBrands();
+                var brands = fModel.QueryInventoryBrands();
                 foreach (QString bqs in brands) {
                     cmbBrand.Items.Add(bqs.element);
                 }
                 cmbBrand.Text = fRecord.Brand;
 
-                cmbType.SelectedIndex = (int)fRecord.Type;
                 txtName.Text = fRecord.Name;
-                chkEnabled.Checked = fRecord.Enabled;
-                chkDigital.Checked = fRecord.Digital;
-                txtWattage.Text = ALCore.GetDecimalStr(fRecord.Wattage);
-                txtWorkTime.Text = ALCore.GetDecimalStr(fRecord.WorkTime);
+                cmbType.SelectedIndex = (int)fRecord.Type;
+                txtNote.Text = fRecord.Note;
             }
         }
 
         private void ApplyChanges()
         {
-            var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
-
-            var pt = cmbTSDBPoint.SelectedItem as TSPoint;
-            fRecord.PointId = (pt == null) ? 0 : pt.Id;
-
             fRecord.Name = txtName.Text;
             fRecord.Brand = cmbBrand.Text;
-            fRecord.Enabled = chkEnabled.Checked;
-            fRecord.Digital = chkDigital.Checked;
-            fRecord.Type = (DeviceType)cmbType.SelectedIndex;
-            fRecord.Wattage = ALCore.GetDecimalVal(txtWattage.Text);
-            fRecord.WorkTime = ALCore.GetDecimalVal(txtWorkTime.Text);
+            fRecord.Type = (InventoryType)cmbType.SelectedIndex;
+            fRecord.Note = txtNote.Text;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
@@ -121,10 +102,8 @@ namespace AquaLog.UI
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var deviceType = (DeviceType)cmbType.SelectedIndex;
-            if (deviceType >= 0) {
-                var props = ALCore.DeviceProps[(int)deviceType];
-                cmbTSDBPoint.Enabled = props.HasMeasurements;
+            var invType = (InventoryType)cmbType.SelectedIndex;
+            if (invType >= 0) {
             }
         }
     }

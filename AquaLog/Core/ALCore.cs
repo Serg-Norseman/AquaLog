@@ -79,9 +79,16 @@ namespace AquaLog.Core
                     return ItemType.Invertebrate;
                 case SpeciesType.Plant:
                     return ItemType.Plant;
+                case SpeciesType.Coral:
+                    return ItemType.Coral;
                 default:
                     return ItemType.None;
             }
+        }
+
+        public static bool IsAnimal(SpeciesType speciesType)
+        {
+            return speciesType == SpeciesType.Fish || speciesType == SpeciesType.Invertebrate;
         }
 
         public static Stream LoadResourceStream(string resName)

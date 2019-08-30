@@ -46,20 +46,9 @@ namespace AquaLog.Panels
             IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
-
-                var item = new ListViewItem(rec.Name);
-                item.Tag = rec;
-
-                bool isAnimal = (spc.Type != SpeciesType.Plant);
-                string sx = (isAnimal) ? rec.Sex.ToString() : string.Empty;
-                item.SubItems.Add(sx);
-
+                string sx = ALCore.IsAnimal(spc.Type) ? rec.Sex.ToString() : string.Empty;
                 SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
                 ItemType itemType = ALCore.GetItemType(speciesType);
-
-                item.SubItems.Add(fModel.QueryInhabitantsCount(rec.Id, itemType).ToString());
-                item.SubItems.Add(spc.Name);
-
                 int currAqmId = 0;
                 DateTime intrDate = ALCore.ZeroDate;
                 IList<Transfer> lastTransfers = fModel.QueryLastTransfers(rec.Id, (int)itemType);
@@ -69,14 +58,18 @@ namespace AquaLog.Panels
                 }
                 Aquarium aqm = fModel.GetRecord<Aquarium>(currAqmId);
                 string aqmName = (aqm == null) ? string.Empty : aqm.Name;
-                item.SubItems.Add(aqmName);
                 string strIntrDate = (intrDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetDateStr(intrDate);
-                item.SubItems.Add(strIntrDate);
 
+                var item = new ListViewItem(rec.Name);
+                item.Tag = rec;
+                item.SubItems.Add(sx);
+                item.SubItems.Add(fModel.QueryInhabitantsCount(rec.Id, itemType).ToString());
+                item.SubItems.Add(spc.Name);
+                item.SubItems.Add(aqmName);
+                item.SubItems.Add(strIntrDate);
                 item.SubItems.Add(spc.GetTempRange());
                 item.SubItems.Add(spc.GetPHRange());
                 item.SubItems.Add(spc.GetGHRange());
-
                 ListView.Items.Add(item);
             }
         }

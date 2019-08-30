@@ -10,6 +10,7 @@ namespace AquaLog.Core.Types
     {
         Fish,
         Invertebrate,
-        Plant
+        Plant,
+        Coral
     }
 }

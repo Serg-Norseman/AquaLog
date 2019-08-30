@@ -69,6 +69,7 @@ namespace AquaLog.UI
             btnNutrition.Tag = MainView.Nutrition;
             btnMeasures.Tag = MainView.Measures;
             btnSchedule.Tag = MainView.Schedule;
+            btnInventory.Tag = MainView.Inventory;
 
             SetView(MainView.Tanks, null);
 
@@ -115,6 +116,7 @@ namespace AquaLog.UI
             btnSchedule.Text = Localizer.LS(LSID.Schedule);
             btnTransfers.Text = Localizer.LS(LSID.Transfers);
             btnBudget.Text = Localizer.LS(LSID.Budget);
+            btnInventory.Text = Localizer.LS(LSID.Inventory);
         }
 
         private void UpdateControls()
@@ -270,6 +272,9 @@ namespace AquaLog.UI
                     break;
                 case MainView.AquariumDetails:
                     SetView<AquaDetailsPanel>(extData);
+                    break;
+                case MainView.Inventory:
+                    SetView<InventoryPanel>(extData);
                     break;
             }
         }

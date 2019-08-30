@@ -27,5 +27,6 @@ namespace AquaLog.UI
         MeasuresChart,
         Schedule,
         AquariumDetails,
+        Inventory,
     }
 }

@@ -85,8 +85,14 @@ namespace AquaLog.Core
         /* 063 */ Text,
         /* 064 */ Brand,
         /* 065 */ Amount,
+        /* 066 */ Inventory,
+        /* 067 */ Additive,
+        /* 068 */ Chemistry,
+        /* 069 */ Equipment,
+        /* 070 */ Furniture,
+        /* 071 */ Decoration,
 
-        /* 000 */ Last = Amount
+        /* 000 */ Last = Decoration
     }
 
 
@@ -162,6 +168,12 @@ namespace AquaLog.Core
             /* 063 */ "Text",
             /* 064 */ "Brand",
             /* 065 */ "Amount",
+            /* 066 */ "Inventory",
+            /* 067 */ "Additive",
+            /* 068 */ "Chemistry",
+            /* 069 */ "Equipment",
+            /* 070 */ "Furniture",
+            /* 071 */ "Decoration",
         };
 
 

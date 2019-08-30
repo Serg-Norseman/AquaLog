@@ -27,6 +27,7 @@ namespace AquaLog.Panels
             ListView.Columns.Add("Digital", 60, HorizontalAlignment.Left);
             ListView.Columns.Add("Brand", 50, HorizontalAlignment.Left);
             ListView.Columns.Add("Wattage", 100, HorizontalAlignment.Right);
+            ListView.Columns.Add("WorkTime (h/d)", 100, HorizontalAlignment.Right);
         }
 
         protected override void InitActions()
@@ -54,6 +55,7 @@ namespace AquaLog.Panels
                 item.SubItems.Add(rec.Digital.ToString());
                 item.SubItems.Add(rec.Brand);
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.Wattage));
+                item.SubItems.Add(ALCore.GetDecimalStr(rec.WorkTime));
                 ListView.Items.Add(item);
             }
         }

@@ -103,7 +103,7 @@ namespace AquaLog.UI
         private void cmbSpecies_SelectedIndexChanged(object sender, EventArgs e)
         {
             var species = cmbSpecies.SelectedItem as Species;
-            bool hasSex = (species != null && species.Type != SpeciesType.Plant);
+            bool hasSex = (species != null && ALCore.IsAnimal(species.Type));
 
             lblSex.Visible = hasSex;
             cmbSex.Visible = hasSex;

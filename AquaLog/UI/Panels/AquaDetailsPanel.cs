@@ -120,7 +120,7 @@ namespace AquaLog.Panels
             IEnumerable<Inhabitant> records = fModel.QueryInhabitants(fAquarium);
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
-                string sex = (spc.Type != SpeciesType.Plant) ? rec.Sex.ToString() : string.Empty;
+                string sex = ALCore.IsAnimal(spc.Type) ? rec.Sex.ToString() : string.Empty;
                 ItemType itemType = ALCore.GetItemType(spc.Type);
                 int qty = fModel.QueryInhabitantsCount(rec.Id, itemType);
 
@@ -268,10 +268,11 @@ namespace AquaLog.Panels
             fCompatibilityLV.Columns.Add("Cur GH", 100, HorizontalAlignment.Right);
 
             SpeciesTypeData[] stData;
-            stData = new SpeciesTypeData[3];
+            stData = new SpeciesTypeData[4];
             stData[0] = new SpeciesTypeData(SpeciesType.Fish.ToString());
             stData[1] = new SpeciesTypeData(SpeciesType.Invertebrate.ToString());
             stData[2] = new SpeciesTypeData(SpeciesType.Plant.ToString());
+            stData[3] = new SpeciesTypeData(SpeciesType.Coral.ToString());
 
             IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {

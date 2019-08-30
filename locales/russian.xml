@@ -65,4 +65,10 @@
   <string id="063">Текст</string>
   <string id="064">Брэнд</string>
   <string id="065">Количество</string>
+  <string id="066">Инвентарь</string>
+  <string id="067">Присадка</string>
+  <string id="068">Химия</string>
+  <string id="069">Оборудование</string>
+  <string id="070">Обстановка</string>
+  <string id="071">Декорация</string>
 </resources>

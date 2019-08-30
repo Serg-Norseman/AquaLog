@@ -50,6 +50,7 @@ namespace AquaLog.Core
             fDB.CreateTable<Nutrition>();
             fDB.CreateTable<Measure>();
             fDB.CreateTable<Schedule>();
+            fDB.CreateTable<Inventory>();
         }
 
         /// <summary>
@@ -102,34 +103,29 @@ namespace AquaLog.Core
             switch (itemType) {
                 case ItemType.Aquarium:
                     break;
+
                 case ItemType.Fish:
-                    result = GetRecord<Inhabitant>(itemId);
-                    break;
                 case ItemType.Invertebrate:
-                    result = GetRecord<Inhabitant>(itemId);
-                    break;
                 case ItemType.Plant:
+                case ItemType.Coral:
                     result = GetRecord<Inhabitant>(itemId);
                     break;
-                case ItemType.Coral:
-                    break;
+
                 case ItemType.Nutrition:
                     result = GetRecord<Nutrition>(itemId);
                     break;
-                case ItemType.Chemistry:
-                    break;
-                case ItemType.Additive:
-                    break;
+
                 case ItemType.Device:
                     result = GetRecord<Device>(itemId);
                     break;
+
+                case ItemType.Additive:
+                case ItemType.Chemistry:
                 case ItemType.Equipment:
-                    break;
                 case ItemType.Maintenance:
-                    break;
                 case ItemType.Furniture:
-                    break;
                 case ItemType.Decoration:
+                    result = GetRecord<Inventory>(itemId);
                     break;
             }
             return result;
@@ -239,6 +235,20 @@ namespace AquaLog.Core
         public IList<QString> QueryDeviceBrands()
         {
             return fDB.Query<QString>("select distinct Brand as element from Device");
+        }
+
+        #endregion
+
+        #region Inventory functions
+
+        public IList<Inventory> QueryInventory()
+        {
+            return fDB.Query<Inventory>("select * from Inventory");
+        }
+
+        public IList<QString> QueryInventoryBrands()
+        {
+            return fDB.Query<QString>("select distinct Brand as element from Inventory");
         }
 
         #endregion
