@@ -6,7 +6,6 @@
 
 using System;
 using System.Windows.Forms;
-using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.TSDB;
 using AquaLog.UI;

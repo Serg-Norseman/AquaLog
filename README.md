@@ -5,10 +5,11 @@ It is also planned to collect and monitor data through Arduino.
 
 Features:
 - Aquarium, tank properties;
-- Inhabitants: fish, invertebrates, plants;
+- Inhabitants: fish, invertebrates, plants, corals;
 - Species ref.book;
 - Nutritions;
 - Devices;
+- Inventory (additives, chemistry, equipments, maintenance, furnitures, decorations);
 - Maintenance;
 - Notes and history events;
 - Measures of water quality;

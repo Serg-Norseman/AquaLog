@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
