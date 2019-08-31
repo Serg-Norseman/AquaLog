@@ -57,6 +57,10 @@ namespace AquaLog.UI
             Text = Localizer.LS(LSID.SpeciesS);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            lblName.Text = Localizer.LS(LSID.Name);
+            lblDesc.Text = Localizer.LS(LSID.Description);
+            lblType.Text = Localizer.LS(LSID.Type);
         }
 
         private void UpdateView()

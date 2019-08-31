@@ -19,7 +19,7 @@ namespace AquaLog.Panels
     /// </summary>
     public class DataPanel : Panel, ILocalizable
     {
-        protected readonly List<UserAction> fActions;
+        private readonly List<UserAction> fActions;
         protected IBrowser fBrowser;
         protected ALModel fModel;
 
@@ -77,6 +77,11 @@ namespace AquaLog.Panels
 
         public virtual void SetExtData(object extData)
         {
+        }
+
+        public void AddAction(string btnName, LSID btnText, string imageName, EventHandler clickHandler)
+        {
+            fActions.Add(new UserAction(btnName, btnText, imageName, clickHandler));
         }
     }
 }

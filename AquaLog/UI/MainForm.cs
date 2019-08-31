@@ -92,6 +92,7 @@ namespace AquaLog.UI
         {
             Localizer.LoadLocale(ALSettings.Instance.CurrentLocale);
             SetLocale();
+            SetActions(fCurrentPanel);
 
             if (fTray != null) fTray.SetLocale();
         }
@@ -199,8 +200,8 @@ namespace AquaLog.UI
 
                 var btn = new Button();
                 btn.Dock = DockStyle.Top;
-                btn.Name = "btn" + action.Name;
-                btn.Text = action.Name;
+                btn.Name = "btn" + action.BtnName;
+                btn.Text = Localizer.LS(action.BtnText);
                 btn.Image = action.Image;
                 btn.ImageAlign = ContentAlignment.MiddleCenter;
                 btn.TextAlign = ContentAlignment.MiddleCenter;

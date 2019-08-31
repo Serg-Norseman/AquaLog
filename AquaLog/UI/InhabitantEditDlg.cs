@@ -62,7 +62,7 @@ namespace AquaLog.UI
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblNote.Text = Localizer.LS(LSID.Note);
-            lblSpecies.Text = Localizer.LS(LSID.Species);
+            lblSpecies.Text = Localizer.LS(LSID.SpeciesS);
             lblSex.Text = Localizer.LS(LSID.Sex);
         }
 

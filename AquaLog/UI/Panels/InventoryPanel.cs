@@ -7,6 +7,7 @@
 using System;
 using System.Windows.Forms;
 using AquaLog.Components;
+using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
 
@@ -19,21 +20,23 @@ namespace AquaLog.Panels
     {
         public InventoryPanel()
         {
-            ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Brand", 50, HorizontalAlignment.Left);
-            ListView.Columns.Add("Type", 75, HorizontalAlignment.Left);
-            ListView.Columns.Add("Note", 50, HorizontalAlignment.Left);
         }
 
         protected override void InitActions()
         {
-            fActions.Add(new UserAction("Add", "btn_rec_new.gif", AddHandler));
-            fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
-            fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
+            AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
+            AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
+            AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
         }
 
         protected override void UpdateListView()
         {
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Type), 75, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Note), 50, HorizontalAlignment.Left);
+
             var records = fModel.QueryInventory();
             foreach (Inventory rec in records) {
                 var item = new ListViewItem(rec.Name);

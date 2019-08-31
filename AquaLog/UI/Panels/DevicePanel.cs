@@ -6,7 +6,6 @@
 
 using System;
 using System.Windows.Forms;
-using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.DataCollection;
@@ -21,28 +20,30 @@ namespace AquaLog.Panels
     {
         public DevicePanel()
         {
-            ListView.Columns.Add("Aquarium", 200, HorizontalAlignment.Left);
-            ListView.Columns.Add("Name", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Enabled", 60, HorizontalAlignment.Left);
-            ListView.Columns.Add("Digital", 60, HorizontalAlignment.Left);
-            ListView.Columns.Add("Brand", 50, HorizontalAlignment.Left);
-            ListView.Columns.Add("Wattage", 100, HorizontalAlignment.Right);
-            ListView.Columns.Add("WorkTime (h/d)", 100, HorizontalAlignment.Right);
         }
 
         protected override void InitActions()
         {
-            fActions.Add(new UserAction("Add", "btn_rec_new.gif", AddHandler));
-            fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
-            fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
+            AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
+            AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
+            AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
 
-            fActions.Add(new UserAction("Data", "", ViewDataHandler));
-            fActions.Add(new UserAction("Trend", "", ViewTrendHandler));
-            fActions.Add(new UserAction("Data Monitor", "", ShowMonitor));
+            AddAction("Data", LSID.Data, "", ViewDataHandler);
+            AddAction("Trend", LSID.Trend, "", ViewTrendHandler);
+            AddAction("Data Monitor", LSID.DataMonitor, "", ShowMonitor);
         }
 
         protected override void UpdateListView()
         {
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 200, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Enabled), 60, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Digital), 60, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Wattage), 100, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.WorkTime), 100, HorizontalAlignment.Right);
+
             var records = fModel.QueryDevices();
             foreach (Device rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);

@@ -36,11 +36,11 @@ namespace AquaLog.Panels
             Controls.Add(fLayoutPanel);
 
             var miEdit = new MenuItem();
-            miEdit.Text = "Edit";
+            miEdit.Text = Localizer.LS(LSID.Edit);
             miEdit.Click += btnEditTank_Click;
 
             var miDelete = new MenuItem();
-            miDelete.Text = "Delete";
+            miDelete.Text = Localizer.LS(LSID.Delete);
             miDelete.Click += btnDeleteTank_Click;
 
             fContextMenu = new ContextMenu();
@@ -49,9 +49,9 @@ namespace AquaLog.Panels
 
         protected override void InitActions()
         {
-            fActions.Add(new UserAction("Add", "btn_rec_new.gif", btnAddTank_Click));
-            fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", btnEditTank_Click));
-            fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", btnDeleteTank_Click));
+            AddAction("Add", LSID.Add, "btn_rec_new.gif", btnAddTank_Click);
+            AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", btnEditTank_Click);
+            AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", btnDeleteTank_Click);
         }
 
         public override void UpdateContent()

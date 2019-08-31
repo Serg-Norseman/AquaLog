@@ -91,8 +91,18 @@ namespace AquaLog.Core
         /* 069 */ Equipment,
         /* 070 */ Furniture,
         /* 071 */ Decoration,
+        /* 072 */ Timestamp,
+        /* 073 */ Enabled,
+        /* 074 */ Digital,
+        /* 075 */ Wattage,
+        /* 076 */ WorkTime,
+        /* 077 */ TSDBPoint,
+        /* 078 */ Data,
+        /* 079 */ Trend,
+        /* 080 */ DataMonitor,
+        /* 081 */ Chart,
 
-        /* 000 */ Last = Decoration
+        /* 000 */ Last = Chart
     }
 
 
@@ -174,6 +184,16 @@ namespace AquaLog.Core
             /* 069 */ "Equipment",
             /* 070 */ "Furniture",
             /* 071 */ "Decoration",
+            /* 072 */ "Timestamp",
+            /* 073 */ "Enabled",
+            /* 074 */ "Digital",
+            /* 075 */ "Wattage",
+            /* 076 */ "Work time",
+            /* 077 */ "TSDB Point",
+            /* 078 */ "Data",
+            /* 079 */ "Trend",
+            /* 080 */ "Data Monitor",
+            /* 081 */ "Chart",
         };
 
 

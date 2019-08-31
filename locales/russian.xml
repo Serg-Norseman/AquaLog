@@ -71,4 +71,14 @@
   <string id="069">Оборудование</string>
   <string id="070">Обстановка</string>
   <string id="071">Декорация</string>
+  <string id="072">Время</string>
+  <string id="073">Включен</string>
+  <string id="074">Цифровой</string>
+  <string id="075">Ваттов</string>
+  <string id="076">Время работы (ч/д)</string>
+  <string id="077">TSDB Точка</string>
+  <string id="078">Данные</string>
+  <string id="079">Тренд</string>
+  <string id="080">Монитор данных</string>
+  <string id="081">Диграмма</string>
 </resources>

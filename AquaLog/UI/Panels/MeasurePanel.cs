@@ -6,7 +6,6 @@
 
 using System;
 using System.Windows.Forms;
-using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
@@ -20,8 +19,13 @@ namespace AquaLog.Panels
     {
         public MeasurePanel()
         {
-            ListView.Columns.Add("Aquarium", 120, HorizontalAlignment.Left);
-            ListView.Columns.Add("Timestamp", 120, HorizontalAlignment.Left);
+        }
+
+        public override void UpdateContent()
+        {
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 120, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Timestamp), 120, HorizontalAlignment.Left);
             ListView.Columns.Add("Temp (°C)", 60, HorizontalAlignment.Right);
             ListView.Columns.Add("NO3 (mg/l)", 60, HorizontalAlignment.Right);
             ListView.Columns.Add("NO2 (mg/l)", 60, HorizontalAlignment.Right);
@@ -33,15 +37,8 @@ namespace AquaLog.Panels
             ListView.Columns.Add("NHtot", 60, HorizontalAlignment.Right);
             ListView.Columns.Add("NH3", 60, HorizontalAlignment.Right);
             ListView.Columns.Add("NH4", 60, HorizontalAlignment.Right);
-        }
-
-        public override void UpdateContent()
-        {
-            ListView.Items.Clear();
-            if (fModel == null) return;
 
             var records = fModel.QueryMeasures();
-
             foreach (Measure rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
@@ -66,10 +63,10 @@ namespace AquaLog.Panels
 
         protected override void InitActions()
         {
-            fActions.Add(new UserAction("Add", "btn_rec_new.gif", AddHandler));
-            fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
-            fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
-            fActions.Add(new UserAction("Chart", "", ViewChartHandler));
+            AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
+            AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
+            AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
+            AddAction("Chart", LSID.Chart, "", ViewChartHandler);
         }
 
         private void ViewChartHandler(object sender, EventArgs e)

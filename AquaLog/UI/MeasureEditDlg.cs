@@ -53,6 +53,9 @@ namespace AquaLog.UI
             Text = Localizer.LS(LSID.Measure);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            lblAquarium.Text = Localizer.LS(LSID.Aquarium);
+            lblTimestamp.Text = Localizer.LS(LSID.Timestamp);
         }
 
         private void UpdateView()

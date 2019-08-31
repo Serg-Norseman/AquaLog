@@ -60,6 +60,17 @@ namespace AquaLog.UI
             Text = Localizer.LS(LSID.Device);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            lblAquarium.Text = Localizer.LS(LSID.Aquarium);
+            lblName.Text = Localizer.LS(LSID.Name);
+            lblBrand.Text = Localizer.LS(LSID.Brand);
+            chkEnabled.Text = Localizer.LS(LSID.Enabled);
+            chkDigital.Text = Localizer.LS(LSID.Digital);
+            lblType.Text = Localizer.LS(LSID.Type);
+            lblWattage.Text = Localizer.LS(LSID.Wattage);
+            lblWorkTime.Text = Localizer.LS(LSID.WorkTime);
+            lblNote.Text = Localizer.LS(LSID.Note);
+            lblTSDBPoint.Text = Localizer.LS(LSID.TSDBPoint);
         }
 
         private void UpdateView()
@@ -89,6 +100,7 @@ namespace AquaLog.UI
                 chkDigital.Checked = fRecord.Digital;
                 txtWattage.Text = ALCore.GetDecimalStr(fRecord.Wattage);
                 txtWorkTime.Text = ALCore.GetDecimalStr(fRecord.WorkTime);
+                txtNote.Text = fRecord.Note;
             }
         }
 
@@ -107,6 +119,7 @@ namespace AquaLog.UI
             fRecord.Type = (DeviceType)cmbType.SelectedIndex;
             fRecord.Wattage = ALCore.GetDecimalVal(txtWattage.Text);
             fRecord.WorkTime = ALCore.GetDecimalVal(txtWorkTime.Text);
+            fRecord.Note = txtNote.Text;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

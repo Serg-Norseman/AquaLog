@@ -22,27 +22,29 @@ namespace AquaLog.Panels
     {
         public InhabitantPanel() : base()
         {
-            ListView.Columns.Add("Name", 200, HorizontalAlignment.Left);
-            ListView.Columns.Add("Sex", 50, HorizontalAlignment.Left);
+        }
+
+        protected override void InitActions()
+        {
+            AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
+            AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
+            AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
+            AddAction("Transfer", LSID.Transfer, null, TransferInhabitantHandler);
+        }
+
+        protected override void UpdateListView()
+        {
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Name), 200, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Sex), 50, HorizontalAlignment.Left);
             ListView.Columns.Add("Qty", 50, HorizontalAlignment.Right);
-            ListView.Columns.Add("Species", 150, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.SpeciesS), 150, HorizontalAlignment.Left);
             ListView.Columns.Add("Current Aquarium", 150, HorizontalAlignment.Left);
             ListView.Columns.Add("Introduction date", 150, HorizontalAlignment.Left);
             ListView.Columns.Add("Temp", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("PH", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("GH", 100, HorizontalAlignment.Left);
-        }
 
-        protected override void InitActions()
-        {
-            fActions.Add(new UserAction("Add", "btn_rec_new.gif", AddHandler));
-            fActions.Add(new UserAction("Edit", "btn_rec_edit.gif", EditHandler));
-            fActions.Add(new UserAction("Delete", "btn_rec_delete.gif", DeleteHandler));
-            fActions.Add(new UserAction("Transfer", null, TransferInhabitantHandler));
-        }
-
-        protected override void UpdateListView()
-        {
             IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);

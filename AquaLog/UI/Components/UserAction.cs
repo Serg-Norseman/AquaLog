@@ -15,13 +15,15 @@ namespace AquaLog.Components
     /// </summary>
     public sealed class UserAction
     {
-        public readonly string Name;
+        public readonly string BtnName;
+        public readonly LSID BtnText;
         public readonly Image Image;
         public readonly EventHandler Click;
 
-        public UserAction(string name, string imageName, EventHandler clickHandler)
+        public UserAction(string btnName, LSID btnText, string imageName, EventHandler clickHandler)
         {
-            Name = name;
+            BtnName = btnName;
+            BtnText = btnText;
             Image = string.IsNullOrEmpty(imageName) ? null : ALCore.LoadResourceImage(imageName);
             Click = clickHandler;
         }

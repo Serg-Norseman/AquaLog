@@ -16,6 +16,7 @@ namespace AquaLog.Core.Model
     {
         public string Name { get; set; }
         public string Brand { get; set; }
+        public string Note { get; set; }
 
         public DeviceType Type { get; set; }
 
