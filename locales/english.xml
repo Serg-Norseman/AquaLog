@@ -81,4 +81,21 @@
   <string id="079">Trend</string>
   <string id="080">Data Monitor</string>
   <string id="081">Chart</string>
+  <string id="082">Relocation</string>
+  <string id="083">Purchase</string>
+  <string id="084">Sale</string>
+  <string id="085">Birth</string>
+  <string id="086">Death</string>
+  <string id="087">Light</string>
+  <string id="088">Pump</string>
+  <string id="089">Thermometer</string>
+  <string id="090">Filter</string>
+  <string id="091">Heater</string>
+  <string id="092">Sum</string>
+  <string id="093">Restart</string>
+  <string id="094">Water: Added</string>
+  <string id="095">Water: Replaced</string>
+  <string id="096">Water: Removed</string>
+  <string id="097">Clean</string>
+  <string id="098">Other</string>
 </resources>

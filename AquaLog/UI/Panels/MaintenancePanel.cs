@@ -34,11 +34,12 @@ namespace AquaLog.Panels
             foreach (Maintenance rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
+                string strType = Localizer.LS(ALCore.MaintenanceTypes[(int)rec.Type]);
 
                 var item = new ListViewItem(aqmName);
                 item.Tag = rec;
                 item.SubItems.Add(rec.DateTime.ToString());
-                item.SubItems.Add(rec.Type.ToString());
+                item.SubItems.Add(strType);
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.Value));
                 item.SubItems.Add(rec.Note);
                 ListView.Items.Add(item);

@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
@@ -48,10 +49,6 @@ namespace AquaLog.UI
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
 
-            for (TransferType type = TransferType.Relocation; type <= TransferType.Death; type++) {
-                cmbType.Items.Add(type.ToString());
-            }
-
             SetLocale();
         }
 
@@ -60,6 +57,12 @@ namespace AquaLog.UI
             Text = Localizer.LS(LSID.Transfer);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            cmbType.Items.Clear();
+            cmbType.Sorted = true;
+            for (TransferType type = TransferType.Relocation; type <= TransferType.Death; type++) {
+                cmbType.Items.Add(new ComboItem<TransferType>(Localizer.LS(ALCore.TransferTypes[(int)type]), type));
+            }
 
             lblName.Text = Localizer.LS(LSID.Inhabitant);
             lblSource.Text = Localizer.LS(LSID.SourceTank);
@@ -102,7 +105,7 @@ namespace AquaLog.UI
                     dtpDate.Value = fRecord.Date;
                 }
 
-                cmbType.SelectedIndex = (int)fRecord.Type;
+                UIHelper.SetSelectedTag(cmbType, fRecord.Type);
                 txtCause.Text = fRecord.Cause;
 
                 txtQty.Text = fRecord.Quantity.ToString();
@@ -133,7 +136,7 @@ namespace AquaLog.UI
             //fTransfer.ItemId = fInhabitant.Id;
             //fTransfer.ItemType = ALCore.GetItemType(fInhabitant.GetSpeciesType());
             fRecord.Date = dtpDate.Value;
-            fRecord.Type = (TransferType)cmbType.SelectedIndex;
+            fRecord.Type = UIHelper.GetSelectedTag<TransferType>(cmbType);
             fRecord.Cause = txtCause.Text;
 
             fRecord.Quantity = int.Parse(txtQty.Text);
@@ -155,7 +158,7 @@ namespace AquaLog.UI
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var transferType = (TransferType)cmbType.SelectedIndex;
+            var transferType = UIHelper.GetSelectedTag<TransferType>(cmbType);
 
             bool ps = transferType == TransferType.Purchase || transferType == TransferType.Sale;
             txtUnitPrice.Enabled = ps;

@@ -53,6 +53,7 @@ namespace AquaLog.UI
             btnPrev.Image = ALCore.LoadResourceImage("btn_left.gif");
             btnNext.Image = ALCore.LoadResourceImage("btn_right.gif");
             miExit.Image = ALCore.LoadResourceImage("btn_exit.gif");
+            miSettings.Image = ALCore.LoadResourceImage("btn_tools.gif");
 
             btnPrev.Tag = MainView.Prev;
             btnNext.Tag = MainView.Next;

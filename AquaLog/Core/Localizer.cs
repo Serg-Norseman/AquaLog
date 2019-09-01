@@ -101,8 +101,25 @@ namespace AquaLog.Core
         /* 079 */ Trend,
         /* 080 */ DataMonitor,
         /* 081 */ Chart,
+        /* 082 */ Relocation,
+        /* 083 */ Purchase,
+        /* 084 */ Sale,
+        /* 085 */ Birth,
+        /* 086 */ Death,
+        /* 087 */ Light,
+        /* 088 */ Pump,
+        /* 089 */ Thermometer,
+        /* 090 */ Filter,
+        /* 091 */ Heater,
+        /* 092 */ Sum,
+        /* 093 */ Restart,
+        /* 094 */ WaterAdded,
+        /* 095 */ WaterReplaced,
+        /* 096 */ WaterRemoved,
+        /* 097 */ Clean,
+        /* 098 */ Other,
 
-        /* 000 */ Last = Chart
+        /* 000 */ Last = Other
     }
 
 
@@ -194,6 +211,23 @@ namespace AquaLog.Core
             /* 079 */ "Trend",
             /* 080 */ "Data Monitor",
             /* 081 */ "Chart",
+            /* 082 */ "Relocation",
+            /* 083 */ "Purchase",
+            /* 084 */ "Sale",
+            /* 085 */ "Birth",
+            /* 086 */ "Death",
+            /* 087 */ "Light",
+            /* 088 */ "Pump",
+            /* 089 */ "Thermometer",
+            /* 090 */ "Filter",
+            /* 091 */ "Heater",
+            /* 092 */ "Sum",
+            /* 093 */ "Restart",
+            /* 094 */ "WaterAdded",
+            /* 095 */ "WaterReplaced",
+            /* 096 */ "WaterRemoved",
+            /* 097 */ "Clean",
+            /* 098 */ "Other",
         };
 
 

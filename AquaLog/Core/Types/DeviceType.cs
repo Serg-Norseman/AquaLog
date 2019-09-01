@@ -15,6 +15,6 @@ namespace AquaLog.Core.Types
         Pump,
         Thermometer,
         Filter,
-        Heater
+        Heater,
     }
 }

@@ -7,6 +7,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
@@ -46,10 +47,6 @@ namespace AquaLog.UI
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
 
-            for (MaintenanceType type = MaintenanceType.Restart; type <= MaintenanceType.Other; type++) {
-                cmbType.Items.Add(type.ToString());
-            }
-
             SetLocale();
         }
 
@@ -58,6 +55,12 @@ namespace AquaLog.UI
             Text = Localizer.LS(LSID.Maintenance);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            cmbType.Items.Clear();
+            cmbType.Sorted = true;
+            for (MaintenanceType type = MaintenanceType.Restart; type <= MaintenanceType.Other; type++) {
+                cmbType.Items.Add(new ComboItem<MaintenanceType>(Localizer.LS(ALCore.MaintenanceTypes[(int)type]), type));
+            }
 
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblDateTime.Text = Localizer.LS(LSID.Date);
@@ -76,7 +79,7 @@ namespace AquaLog.UI
                     dtpDateTime.Value = fRecord.DateTime;
                 }
 
-                cmbType.SelectedIndex = (int)fRecord.Type;
+                UIHelper.SetSelectedTag(cmbType, fRecord.Type);
                 txtValue.Text = ALCore.GetDecimalStr(fRecord.Value);
                 txtNote.Text = fRecord.Note;
             }
@@ -88,7 +91,7 @@ namespace AquaLog.UI
             fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
             fRecord.DateTime = dtpDateTime.Value;
-            fRecord.Type = (MaintenanceType)cmbType.SelectedIndex;
+            fRecord.Type = UIHelper.GetSelectedTag<MaintenanceType>(cmbType);
             fRecord.Value = ALCore.GetDecimalVal(txtValue.Text);
             fRecord.Note = txtNote.Text;
         }

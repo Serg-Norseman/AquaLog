@@ -245,6 +245,8 @@
     <EmbeddedResource Include="Resources\btn_excel.gif" />
     <EmbeddedResource Include="Resources\btn_chart.gif" />
     <EmbeddedResource Include="Resources\icon_aqualog.ico" />
+    <EmbeddedResource Include="Resources\btn_help.gif" />
+    <EmbeddedResource Include="Resources\btn_tools.gif" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core" />

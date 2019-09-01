@@ -21,7 +21,7 @@ namespace AquaLog.Core
         /// </summary>
         public static readonly List<ValueBounds> NH3Ranges = new List<ValueBounds>() {
             new ValueBounds(0.000, 0.020, Color.Green, ""),
-            new ValueBounds(0.020, 0.050, Color.Yellow, "Alert"),
+            new ValueBounds(0.020, 0.050, Color.YellowGreen, "Alert"),
             new ValueBounds(0.050, 0.200, Color.Orange, "Alarm"),
             new ValueBounds(0.200, 0.500, Color.Red, "Toxic"),
             new ValueBounds(0.500, 99999, Color.Magenta, "Deadly"),
@@ -38,7 +38,7 @@ namespace AquaLog.Core
         /// </summary>
         public static readonly List<ValueBounds> CO2Ranges = new List<ValueBounds>() {
             new ValueBounds(0, 12, Color.DeepPink, "very_low_adjust"),
-            new ValueBounds(12, 20, Color.Yellow, "low_adjust"),
+            new ValueBounds(12, 20, Color.YellowGreen, "low_adjust"),
             new ValueBounds(20, 30, Color.Green, ""),
             new ValueBounds(30, 40, Color.Orange, "alert_high"),
             new ValueBounds(40, 9999, Color.Red, "Toxic"),

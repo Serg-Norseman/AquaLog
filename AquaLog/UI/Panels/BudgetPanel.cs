@@ -19,18 +19,17 @@ namespace AquaLog.Panels
     {
         public BudgetPanel()
         {
-            ListView.Columns.Add("Item", 140, HorizontalAlignment.Left);
-            ListView.Columns.Add("Date", 80, HorizontalAlignment.Left);
-            ListView.Columns.Add("Qty", 80, HorizontalAlignment.Right);
-            ListView.Columns.Add("UnitPrice", 80, HorizontalAlignment.Right);
-            ListView.Columns.Add("Sum", 80, HorizontalAlignment.Right);
-            ListView.Columns.Add("Shop", 180, HorizontalAlignment.Left);
         }
 
         public override void UpdateContent()
         {
-            ListView.Items.Clear();
-            if (fModel == null) return;
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Item), 140, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Date), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Quantity), 80, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.UnitPrice), 80, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.Sum), 80, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.Shop), 180, HorizontalAlignment.Left);
 
             var records = fModel.QueryExpenses();
             foreach (Transfer rec in records) {

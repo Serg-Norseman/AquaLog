@@ -54,9 +54,37 @@ namespace AquaLog.Core
         };
 
         public static readonly DeviceProps[] DeviceProps = new DeviceProps[] {
-            new DeviceProps(false), // Light
-            new DeviceProps(false), // Pump
-            new DeviceProps(true), // Thermometer
+            new DeviceProps(LSID.Light, false), // Light
+            new DeviceProps(LSID.Pump, false), // Pump
+            new DeviceProps(LSID.Thermometer, true), // Thermometer
+            new DeviceProps(LSID.Filter, false), // Filter
+            new DeviceProps(LSID.Heater, false), // Heater
+        };
+
+        public static readonly LSID[] InventoryTypes = new LSID[] {
+            LSID.Additive,
+            LSID.Chemistry,
+            LSID.Equipment,
+            LSID.Maintenance,
+            LSID.Furniture,
+            LSID.Decoration,
+        };
+
+        public static readonly LSID[] TransferTypes = new LSID[] {
+            LSID.Relocation,
+            LSID.Purchase,
+            LSID.Sale,
+            LSID.Birth,
+            LSID.Death
+        };
+
+        public static readonly LSID[] MaintenanceTypes = new LSID[] {
+            LSID.Restart,
+            LSID.WaterAdded,
+            LSID.WaterReplaced,
+            LSID.WaterRemoved,
+            LSID.Clean,
+            LSID.Other,
         };
 
 

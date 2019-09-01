@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
@@ -47,10 +48,6 @@ namespace AquaLog.UI
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
 
-            for (InventoryType type = InventoryType.Additive; type <= InventoryType.Decoration; type++) {
-                cmbType.Items.Add(type.ToString());
-            }
-
             SetLocale();
         }
 
@@ -59,6 +56,12 @@ namespace AquaLog.UI
             Text = Localizer.LS(LSID.Inventory);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            cmbType.Items.Clear();
+            cmbType.Sorted = true;
+            for (InventoryType type = InventoryType.Additive; type <= InventoryType.Decoration; type++) {
+                cmbType.Items.Add(new ComboItem<InventoryType>(Localizer.LS(ALCore.InventoryTypes[(int)type]), type));
+            }
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblBrand.Text = Localizer.LS(LSID.Brand);
@@ -77,7 +80,7 @@ namespace AquaLog.UI
                 cmbBrand.Text = fRecord.Brand;
 
                 txtName.Text = fRecord.Name;
-                cmbType.SelectedIndex = (int)fRecord.Type;
+                UIHelper.SetSelectedTag(cmbType, fRecord.Type);
                 txtNote.Text = fRecord.Note;
             }
         }
@@ -86,7 +89,7 @@ namespace AquaLog.UI
         {
             fRecord.Name = txtName.Text;
             fRecord.Brand = cmbBrand.Text;
-            fRecord.Type = (InventoryType)cmbType.SelectedIndex;
+            fRecord.Type = UIHelper.GetSelectedTag<InventoryType>(cmbType);
             fRecord.Note = txtNote.Text;
         }
 
@@ -102,7 +105,7 @@ namespace AquaLog.UI
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var invType = (InventoryType)cmbType.SelectedIndex;
+            var invType = UIHelper.GetSelectedTag<InventoryType>(cmbType);
             if (invType >= 0) {
             }
         }

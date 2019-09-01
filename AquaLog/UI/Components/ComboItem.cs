@@ -9,17 +9,12 @@ namespace AquaLog.Components
     /// <summary>
     /// 
     /// </summary>
-    public class ComboItem
+    public class ComboItem<T>
     {
         public readonly string Text;
-        public readonly object Tag;
+        public readonly T Tag;
 
-        public ComboItem(string text)
-        {
-            Text = text;
-        }
-
-        public ComboItem(string text, object tag)
+        public ComboItem(string text, T tag)
         {
             Text = text;
             Tag = tag;

@@ -7,6 +7,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 
 namespace AquaLog.UI
@@ -43,6 +44,28 @@ namespace AquaLog.UI
             listView.FullRowSelect = true;
             listView.View = View.Details;
             return listView;
+        }
+
+        public static T GetSelectedTag<T>(ComboBox comboBox)
+        {
+            object selectedItem = comboBox.SelectedItem;
+            ComboItem<T> comboItem = (ComboItem<T>)selectedItem;
+            T itemTag = (comboItem == null) ? default(T) : (T)comboItem.Tag;
+            return itemTag;
+        }
+
+        public static void SetSelectedTag<T>(ComboBox comboBox, T tagValue)
+        {
+            foreach (object item in comboBox.Items) {
+                ComboItem<T> comboItem = (ComboItem<T>)item;
+                T itemTag = (T)comboItem.Tag;
+
+                if (tagValue.Equals(itemTag)) {
+                    comboBox.SelectedItem = item;
+                    return;
+                }
+            }
+            comboBox.SelectedIndex = 0;
         }
     }
 }

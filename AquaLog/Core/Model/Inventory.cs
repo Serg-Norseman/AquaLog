@@ -10,7 +10,7 @@ using AquaLog.Core.Types;
 namespace AquaLog.Core.Model
 {
     /// <summary>
-    /// Inventory: chemistry, equipment, maintenance, furniture, decoration.
+    /// Inventory: additive, chemistry, equipment, maintenance, furniture, decoration.
     /// </summary>
     public class Inventory : Entity
     {

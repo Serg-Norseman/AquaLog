@@ -38,10 +38,12 @@ namespace AquaLog.Panels
 
             var records = fModel.QueryInventory();
             foreach (Inventory rec in records) {
+                string strType = Localizer.LS(ALCore.InventoryTypes[(int)rec.Type]);
+
                 var item = new ListViewItem(rec.Name);
                 item.Tag = rec;
                 item.SubItems.Add(rec.Brand);
-                item.SubItems.Add(rec.Type.ToString());
+                item.SubItems.Add(strType);
                 item.SubItems.Add(rec.Note);
                 ListView.Items.Add(item);
             }

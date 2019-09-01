@@ -81,4 +81,21 @@
   <string id="079">Тренд</string>
   <string id="080">Монитор данных</string>
   <string id="081">Диграмма</string>
+  <string id="082">Перемещение</string>
+  <string id="083">Покупка</string>
+  <string id="084">Продажа</string>
+  <string id="085">Рождение</string>
+  <string id="086">Смерть</string>
+  <string id="087">Светильник</string>
+  <string id="088">Помпа</string>
+  <string id="089">Термометр</string>
+  <string id="090">Фильтр</string>
+  <string id="091">Нагреватель</string>
+  <string id="092">Сумма</string>
+  <string id="093">Перезапуск</string>
+  <string id="094">Вода: добавлена</string>
+  <string id="095">Вода: заменена</string>
+  <string id="096">Вода: удалена</string>
+  <string id="097">Чистка</string>
+  <string id="098">Прочее</string>
 </resources>

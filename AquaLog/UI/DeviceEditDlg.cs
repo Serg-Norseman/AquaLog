@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
@@ -48,10 +49,6 @@ namespace AquaLog.UI
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
 
-            for (DeviceType type = DeviceType.Light; type <= DeviceType.Heater; type++) {
-                cmbType.Items.Add(type.ToString());
-            }
-
             SetLocale();
         }
 
@@ -60,6 +57,12 @@ namespace AquaLog.UI
             Text = Localizer.LS(LSID.Device);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            cmbType.Items.Clear();
+            cmbType.Sorted = true;
+            for (DeviceType type = DeviceType.Light; type <= DeviceType.Heater; type++) {
+                cmbType.Items.Add(new ComboItem<DeviceType>(Localizer.LS(ALCore.DeviceProps[(int)type].Text), type));
+            }
 
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblName.Text = Localizer.LS(LSID.Name);
@@ -94,7 +97,7 @@ namespace AquaLog.UI
                 }
                 cmbBrand.Text = fRecord.Brand;
 
-                cmbType.SelectedIndex = (int)fRecord.Type;
+                UIHelper.SetSelectedTag(cmbType, fRecord.Type);
                 txtName.Text = fRecord.Name;
                 chkEnabled.Checked = fRecord.Enabled;
                 chkDigital.Checked = fRecord.Digital;
@@ -116,7 +119,7 @@ namespace AquaLog.UI
             fRecord.Brand = cmbBrand.Text;
             fRecord.Enabled = chkEnabled.Checked;
             fRecord.Digital = chkDigital.Checked;
-            fRecord.Type = (DeviceType)cmbType.SelectedIndex;
+            fRecord.Type = UIHelper.GetSelectedTag<DeviceType>(cmbType);
             fRecord.Wattage = ALCore.GetDecimalVal(txtWattage.Text);
             fRecord.WorkTime = ALCore.GetDecimalVal(txtWorkTime.Text);
             fRecord.Note = txtNote.Text;
@@ -134,7 +137,7 @@ namespace AquaLog.UI
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var deviceType = (DeviceType)cmbType.SelectedIndex;
+            var deviceType = UIHelper.GetSelectedTag<DeviceType>(cmbType);
             if (deviceType >= 0) {
                 var props = ALCore.DeviceProps[(int)deviceType];
                 cmbTSDBPoint.Enabled = props.HasMeasurements;

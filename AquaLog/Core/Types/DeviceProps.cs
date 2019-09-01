@@ -10,10 +10,12 @@ namespace AquaLog.Core.Types
 {
     public class DeviceProps
     {
+        public readonly LSID Text;
         public readonly bool HasMeasurements;
 
-        public DeviceProps(bool hasMeasurements)
+        public DeviceProps(LSID text, bool hasMeasurements)
         {
+            Text = text;
             HasMeasurements = hasMeasurements;
         }
     }

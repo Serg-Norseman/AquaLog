@@ -37,6 +37,7 @@ namespace AquaLog.Panels
         {
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 200, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Enabled), 60, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Digital), 60, HorizontalAlignment.Left);
@@ -48,9 +49,11 @@ namespace AquaLog.Panels
             foreach (Device rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
+                string strType = Localizer.LS(ALCore.DeviceProps[(int)rec.Type].Text);
 
                 var item = new ListViewItem(aqmName);
                 item.Tag = rec;
+                item.SubItems.Add(strType);
                 item.SubItems.Add(rec.Name);
                 item.SubItems.Add(rec.Enabled.ToString());
                 item.SubItems.Add(rec.Digital.ToString());
