@@ -61,22 +61,22 @@ namespace AquaLog.Panels
             Controls.SetChildIndex(fHeader, 1);
 
             fInhabitantsLV = UIHelper.CreateListView("InhabitantsLV");
-            SetCellGroup("Inhabitants", fInhabitantsLV, 0, 0);
+            SetCellGroup(Localizer.LS(LSID.Inhabitants), fInhabitantsLV, 0, 0);
 
             fMeasuresLV = UIHelper.CreateListView("MeasuresLV");
-            SetCellGroup("Measures", fMeasuresLV, 1, 0);
+            SetCellGroup(Localizer.LS(LSID.Measures), fMeasuresLV, 1, 0);
 
             fNutritionLV = UIHelper.CreateListView("NutritionLV");
-            SetCellGroup("Nutrition", fNutritionLV, 0, 1);
+            SetCellGroup(Localizer.LS(LSID.Nutrition), fNutritionLV, 0, 1);
 
             fDevicesLV = UIHelper.CreateListView("DevicesLV");
-            SetCellGroup("Devices", fDevicesLV, 1, 1);
+            SetCellGroup(Localizer.LS(LSID.Devices), fDevicesLV, 1, 1);
 
             fMaintenanceLV = UIHelper.CreateListView("MaintenanceLV");
-            SetCellGroup("Maintenance", fMaintenanceLV, 0, 2);
+            SetCellGroup(Localizer.LS(LSID.Maintenance), fMaintenanceLV, 0, 2);
 
             fCompatibilityLV = UIHelper.CreateListView("CompatibilityLV");
-            SetCellGroup("Compatibility", fCompatibilityLV, 1, 2);
+            SetCellGroup(Localizer.LS(LSID.Compatibility), fCompatibilityLV, 1, 2);
         }
 
         private void SetCellGroup(string name, ListView listView, int col, int row)
@@ -109,10 +109,10 @@ namespace AquaLog.Panels
         {
             fInhabitantsLV.BeginUpdate();
             fInhabitantsLV.Clear();
-            fInhabitantsLV.Columns.Add("Name", 200, HorizontalAlignment.Left);
-            fInhabitantsLV.Columns.Add("Sex", 50, HorizontalAlignment.Left);
-            fInhabitantsLV.Columns.Add("Qty", 50, HorizontalAlignment.Right);
-            fInhabitantsLV.Columns.Add("Introduction date", 150, HorizontalAlignment.Left);
+            fInhabitantsLV.Columns.Add(Localizer.LS(LSID.Name), 200, HorizontalAlignment.Left);
+            fInhabitantsLV.Columns.Add(Localizer.LS(LSID.Sex), 50, HorizontalAlignment.Left);
+            fInhabitantsLV.Columns.Add(Localizer.LS(LSID.Quantity), 50, HorizontalAlignment.Right);
+            fInhabitantsLV.Columns.Add(Localizer.LS(LSID.IntroductionDate), 150, HorizontalAlignment.Left);
             fInhabitantsLV.Columns.Add("Temp", 100, HorizontalAlignment.Left);
             fInhabitantsLV.Columns.Add("PH", 100, HorizontalAlignment.Left);
             fInhabitantsLV.Columns.Add("GH", 100, HorizontalAlignment.Left);
@@ -144,7 +144,7 @@ namespace AquaLog.Panels
                 fInhabitantsLV.Items.Add(item);
             }
 
-            fInhabitantsLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            fInhabitantsLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             fInhabitantsLV.EndUpdate();
         }
 
@@ -152,9 +152,9 @@ namespace AquaLog.Panels
         {
             fMeasuresLV.BeginUpdate();
             fMeasuresLV.Clear();
-            fMeasuresLV.Columns.Add("Name", 200, HorizontalAlignment.Left);
-            fMeasuresLV.Columns.Add("Value", 50, HorizontalAlignment.Right);
-            fMeasuresLV.Columns.Add("Unit", 200, HorizontalAlignment.Left);
+            fMeasuresLV.Columns.Add(Localizer.LS(LSID.Name), 200, HorizontalAlignment.Left);
+            fMeasuresLV.Columns.Add(Localizer.LS(LSID.Value), 50, HorizontalAlignment.Right);
+            fMeasuresLV.Columns.Add(Localizer.LS(LSID.Unit), 200, HorizontalAlignment.Left);
 
             var values = fModel.CollectData(fAquarium);
             foreach (MeasureValue mVal in values) {
@@ -165,7 +165,7 @@ namespace AquaLog.Panels
                 fMeasuresLV.Items.Add(item);
             }
 
-            fMeasuresLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            fMeasuresLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             fMeasuresLV.EndUpdate();
         }
 
@@ -173,9 +173,9 @@ namespace AquaLog.Panels
         {
             fNutritionLV.BeginUpdate();
             fNutritionLV.Clear();
-            fNutritionLV.Columns.Add("Name", 100, HorizontalAlignment.Left);
-            fNutritionLV.Columns.Add("Brand", 50, HorizontalAlignment.Left);
-            fNutritionLV.Columns.Add("Amount", 100, HorizontalAlignment.Right);
+            fNutritionLV.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
+            fNutritionLV.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
+            fNutritionLV.Columns.Add(Localizer.LS(LSID.Amount), 100, HorizontalAlignment.Right);
 
             var records = fModel.QueryNutritions(fAquarium);
             foreach (Nutrition rec in records) {
@@ -186,7 +186,7 @@ namespace AquaLog.Panels
                 fNutritionLV.Items.Add(item);
             }
 
-            fNutritionLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            fNutritionLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             fNutritionLV.EndUpdate();
         }
 
@@ -194,24 +194,24 @@ namespace AquaLog.Panels
         {
             fDevicesLV.BeginUpdate();
             fDevicesLV.Clear();
-            fDevicesLV.Columns.Add("Name", 100, HorizontalAlignment.Left);
-            fDevicesLV.Columns.Add("Enabled", 60, HorizontalAlignment.Left);
-            fDevicesLV.Columns.Add("Digital", 60, HorizontalAlignment.Left);
-            fDevicesLV.Columns.Add("Brand", 50, HorizontalAlignment.Left);
-            fDevicesLV.Columns.Add("Wattage", 100, HorizontalAlignment.Right);
+            fDevicesLV.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
+            fDevicesLV.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
+            fDevicesLV.Columns.Add(Localizer.LS(LSID.Enabled), 60, HorizontalAlignment.Left);
+            fDevicesLV.Columns.Add(Localizer.LS(LSID.Digital), 60, HorizontalAlignment.Left);
+            fDevicesLV.Columns.Add(Localizer.LS(LSID.Wattage), 100, HorizontalAlignment.Right);
 
             var records = fModel.QueryDevices(fAquarium);
             foreach (Device rec in records) {
                 var item = new ListViewItem(rec.Name);
                 item.Tag = rec;
+                item.SubItems.Add(rec.Brand);
                 item.SubItems.Add(rec.Enabled.ToString());
                 item.SubItems.Add(rec.Digital.ToString());
-                item.SubItems.Add(rec.Brand);
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.Wattage));
                 fDevicesLV.Items.Add(item);
             }
 
-            fDevicesLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            fDevicesLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             fDevicesLV.EndUpdate();
         }
 
@@ -219,10 +219,10 @@ namespace AquaLog.Panels
         {
             fMaintenanceLV.BeginUpdate();
             fMaintenanceLV.Clear();
-            fMaintenanceLV.Columns.Add("DateTime", 120, HorizontalAlignment.Left);
-            fMaintenanceLV.Columns.Add("Type", 100, HorizontalAlignment.Left);
-            fMaintenanceLV.Columns.Add("Value", 100, HorizontalAlignment.Left);
-            fMaintenanceLV.Columns.Add("Note", 250, HorizontalAlignment.Left);
+            fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
+            fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
+            fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Value), 100, HorizontalAlignment.Left);
+            fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Note), 250, HorizontalAlignment.Left);
 
             var records = fModel.QueryMaintenances(fAquarium.Id);
             foreach (Maintenance rec in records) {
@@ -234,7 +234,7 @@ namespace AquaLog.Panels
                 fMaintenanceLV.Items.Add(item);
             }
 
-            fMaintenanceLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            fMaintenanceLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             fMaintenanceLV.EndUpdate();
         }
 
@@ -312,7 +312,7 @@ namespace AquaLog.Panels
                 fCompatibilityLV.Items.Add(item);
             }
 
-            fCompatibilityLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+            fCompatibilityLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             fCompatibilityLV.EndUpdate();
         }
     }

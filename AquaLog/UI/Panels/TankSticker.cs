@@ -192,11 +192,11 @@ namespace AquaLog.Panels
 
             string waterChanges = avgChange + lastChange + waterStatus;
             y = y + (int)(Font.Height * 1.6f);
-            DrawText(gfx, "Water changes: " + waterChanges, Font, wsColor, x, y);
+            DrawText(gfx, Localizer.LS(LSID.WaterChanges) + ": " + waterChanges, Font, wsColor, x, y);
 
             int inhabCount = fModel.QueryInhabitantsCount(fAquarium.Id);
             y = y + (int)(Font.Height * 1.6f);
-            DrawText(gfx, "Inhabitants: " + inhabCount.ToString(), Font, ForeColor, x, y);
+            DrawText(gfx, Localizer.LS(LSID.Inhabitants) + ": " + inhabCount.ToString(), Font, ForeColor, x, y);
 
             int xoffset = layoutRect.Width / 4;
 

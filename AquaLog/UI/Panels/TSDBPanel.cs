@@ -20,11 +20,6 @@ namespace AquaLog.Panels
     {
         public TSDBPanel()
         {
-            ListView.Columns.Add("Name", 140, HorizontalAlignment.Left);
-            ListView.Columns.Add("MeasureUnit", 80, HorizontalAlignment.Left);
-            ListView.Columns.Add("Min", 80, HorizontalAlignment.Right);
-            ListView.Columns.Add("Max", 80, HorizontalAlignment.Right);
-            ListView.Columns.Add("Deviation", 80, HorizontalAlignment.Right);
         }
 
         protected override void InitActions()
@@ -39,11 +34,14 @@ namespace AquaLog.Panels
 
         public override void UpdateContent()
         {
-            ListView.Items.Clear();
-            if (fModel == null) return;
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Name), 140, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Unit), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Min), 80, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.Max), 80, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.Deviation), 80, HorizontalAlignment.Right);
 
             TSDatabase tsdb = fModel.TSDB;
-
             var records = tsdb.GetPoints();
             foreach (TSPoint rec in records) {
                 var item = new ListViewItem(rec.Name);

@@ -64,7 +64,7 @@
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
-            this.btnAccept.TabIndex = 16;
+            this.btnAccept.TabIndex = 18;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -77,7 +77,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
-            this.btnCancel.TabIndex = 17;
+            this.btnCancel.TabIndex = 19;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -123,7 +123,7 @@
             this.lblNote.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(103, 17);
-            this.lblNote.TabIndex = 12;
+            this.lblNote.TabIndex = 14;
             this.lblNote.Text = "Note";
             // 
             // txtNote
@@ -133,7 +133,7 @@
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
             this.txtNote.Size = new System.Drawing.Size(213, 48);
-            this.txtNote.TabIndex = 13;
+            this.txtNote.TabIndex = 15;
             // 
             // cmbType
             // 
@@ -217,7 +217,7 @@
             this.lblTSDBPoint.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblTSDBPoint.Name = "lblTSDBPoint";
             this.lblTSDBPoint.Size = new System.Drawing.Size(80, 17);
-            this.lblTSDBPoint.TabIndex = 14;
+            this.lblTSDBPoint.TabIndex = 16;
             this.lblTSDBPoint.Text = "TSDB Point";
             // 
             // cmbTSDBPoint
@@ -228,7 +228,7 @@
             this.cmbTSDBPoint.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbTSDBPoint.Name = "cmbTSDBPoint";
             this.cmbTSDBPoint.Size = new System.Drawing.Size(213, 21);
-            this.cmbTSDBPoint.TabIndex = 15;
+            this.cmbTSDBPoint.TabIndex = 17;
             this.cmbTSDBPoint.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
             // txtWorkTime
@@ -237,7 +237,7 @@
             this.txtWorkTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtWorkTime.Name = "txtWorkTime";
             this.txtWorkTime.Size = new System.Drawing.Size(213, 22);
-            this.txtWorkTime.TabIndex = 19;
+            this.txtWorkTime.TabIndex = 13;
             // 
             // lblWorkTime
             // 
@@ -245,7 +245,7 @@
             this.lblWorkTime.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblWorkTime.Name = "lblWorkTime";
             this.lblWorkTime.Size = new System.Drawing.Size(103, 17);
-            this.lblWorkTime.TabIndex = 18;
+            this.lblWorkTime.TabIndex = 12;
             this.lblWorkTime.Text = "Work time (h / d)";
             // 
             // DeviceEditDlg

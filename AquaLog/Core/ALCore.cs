@@ -87,6 +87,52 @@ namespace AquaLog.Core
             LSID.Other,
         };
 
+        public static readonly LSID[] SpeciesTypes = new LSID[] {
+            LSID.Fish,
+            LSID.Invertebrate,
+            LSID.Plant,
+            LSID.Coral,
+        };
+
+        public static readonly LSID[] SexNames = new LSID[] {
+            LSID.None,
+            LSID.Female,
+            LSID.Male,
+            LSID.Hermaphrodite,
+        };
+
+        public static readonly LSID[] WaterTypes = new LSID[] {
+            LSID.FreshWater,
+            LSID.BrackishWater,
+            LSID.SeaWater,
+        };
+
+        public static readonly LSID[] TankShapes = new LSID[] {
+            LSID.None,
+            LSID.Bowl,
+            LSID.Cube,
+            LSID.Rectangular,
+            LSID.BowFront,
+            LSID.PlateFrontCorner,
+            LSID.BowFrontCorner,
+        };
+
+        public static readonly LSID[] ScheduleTypes = new LSID[] {
+            LSID.Single,
+            LSID.Daily,
+            LSID.Weekly,
+            LSID.Monthly,
+            LSID.Yearly,
+        };
+
+        public static readonly LSID[] TaskStatuses = new LSID[] {
+            LSID.ToDo,
+            LSID.Canceled,
+            LSID.Snoozed,
+            LSID.Late,
+            LSID.Closed,
+        };
+
 
         public static string FmtSQLiteDate(DateTime dateTime)
         {

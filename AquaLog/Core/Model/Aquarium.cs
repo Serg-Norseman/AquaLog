@@ -83,7 +83,7 @@ namespace AquaLog.Core.Model
 
         public bool IsSalt()
         {
-            return (WaterType != AquariumWaterType.Freshwater);
+            return (WaterType != AquariumWaterType.FreshWater);
         }
 
         public bool IsInactive()

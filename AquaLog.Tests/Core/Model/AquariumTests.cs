@@ -49,7 +49,7 @@ namespace AquaLog.Core.Model
             var tank = new Aquarium();
             Assert.IsNotNull(tank);
 
-            tank.WaterType = AquariumWaterType.ReefMarine;
+            tank.WaterType = AquariumWaterType.SeaWater;
             Assert.AreEqual(true, tank.IsSalt());
         }
 

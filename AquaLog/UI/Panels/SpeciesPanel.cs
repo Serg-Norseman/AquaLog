@@ -40,9 +40,11 @@ namespace AquaLog.Panels
 
             var records = fModel.QuerySpecies();
             foreach (Species rec in records) {
+                string strType = Localizer.LS(ALCore.SpeciesTypes[(int)rec.Type]);
+
                 var item = new ListViewItem(rec.Name);
                 item.SubItems.Add(rec.ScientificName);
-                item.SubItems.Add(rec.Type.ToString());
+                item.SubItems.Add(strType);
                 item.SubItems.Add(rec.GetTempRange());
                 item.SubItems.Add(rec.GetPHRange());
                 item.SubItems.Add(rec.GetGHRange());

@@ -13,7 +13,6 @@ namespace AquaLog.Core.Types
         Cube,
         Rectangular,
         BowFront,
-        BevelledFront,
         PlateFrontCorner,
         BowFrontCorner,
     }

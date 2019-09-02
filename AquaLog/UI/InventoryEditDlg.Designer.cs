@@ -44,7 +44,7 @@
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
-            this.btnAccept.TabIndex = 16;
+            this.btnAccept.TabIndex = 8;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -57,7 +57,7 @@
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
-            this.btnCancel.TabIndex = 17;
+            this.btnCancel.TabIndex = 9;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             this.lblNote.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(103, 17);
-            this.lblNote.TabIndex = 12;
+            this.lblNote.TabIndex = 6;
             this.lblNote.Text = "Note";
             // 
             // txtNote
@@ -78,7 +78,7 @@
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
             this.txtNote.Size = new System.Drawing.Size(213, 48);
-            this.txtNote.TabIndex = 13;
+            this.txtNote.TabIndex = 7;
             // 
             // lblName
             // 
@@ -86,7 +86,7 @@
             this.lblName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(103, 17);
-            this.lblName.TabIndex = 2;
+            this.lblName.TabIndex = 0;
             this.lblName.Text = "Name";
             // 
             // txtName
@@ -95,7 +95,7 @@
             this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(213, 22);
-            this.txtName.TabIndex = 3;
+            this.txtName.TabIndex = 1;
             // 
             // lblBrand
             // 
@@ -103,7 +103,7 @@
             this.lblBrand.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblBrand.Name = "lblBrand";
             this.lblBrand.Size = new System.Drawing.Size(103, 17);
-            this.lblBrand.TabIndex = 4;
+            this.lblBrand.TabIndex = 2;
             this.lblBrand.Text = "Brand";
             // 
             // cmbBrand
@@ -112,7 +112,7 @@
             this.cmbBrand.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbBrand.Name = "cmbBrand";
             this.cmbBrand.Size = new System.Drawing.Size(213, 21);
-            this.cmbBrand.TabIndex = 5;
+            this.cmbBrand.TabIndex = 3;
             // 
             // cmbType
             // 
@@ -122,7 +122,7 @@
             this.cmbType.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbType.Name = "cmbType";
             this.cmbType.Size = new System.Drawing.Size(136, 21);
-            this.cmbType.TabIndex = 19;
+            this.cmbType.TabIndex = 5;
             this.cmbType.SelectedIndexChanged += new System.EventHandler(this.cmbType_SelectedIndexChanged);
             // 
             // lblType
@@ -131,7 +131,7 @@
             this.lblType.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(80, 17);
-            this.lblType.TabIndex = 18;
+            this.lblType.TabIndex = 4;
             this.lblType.Text = "Type";
             // 
             // InventoryEditDlg

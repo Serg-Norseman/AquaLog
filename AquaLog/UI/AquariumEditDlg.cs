@@ -6,6 +6,7 @@
 
 using System;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
@@ -44,14 +45,6 @@ namespace AquaLog.UI
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
 
-            for (TankShape shape = TankShape.Unknown; shape <= TankShape.BowFrontCorner; shape++) {
-                cmbShape.Items.Add(shape.ToString());
-            }
-
-            for (AquariumWaterType awt = AquariumWaterType.Freshwater; awt <= AquariumWaterType.ReefMarine; awt++) {
-                cmbWaterType.Items.Add(awt.ToString());
-            }
-
             SetLocale();
         }
 
@@ -60,6 +53,19 @@ namespace AquaLog.UI
             Text = Localizer.LS(LSID.Aquarium);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            cmbShape.Items.Clear();
+            for (TankShape shape = TankShape.Unknown; shape <= TankShape.BowFrontCorner; shape++) {
+                cmbShape.Items.Add(new ComboItem<TankShape>(Localizer.LS(ALCore.TankShapes[(int)shape]), shape));
+            }
+
+            cmbWaterType.Items.Clear();
+            for (AquariumWaterType awt = AquariumWaterType.FreshWater; awt <= AquariumWaterType.SeaWater; awt++) {
+                cmbWaterType.Items.Add(new ComboItem<AquariumWaterType>(Localizer.LS(ALCore.WaterTypes[(int)awt]), awt));
+            }
+
+            tabCommon.Text = Localizer.LS(LSID.Common);
+            tabTank.Text = Localizer.LS(LSID.Tank);
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblDesc.Text = Localizer.LS(LSID.Description);
@@ -79,8 +85,8 @@ namespace AquaLog.UI
         {
             txtName.Text = fRecord.Name;
             txtDesc.Text = fRecord.Description;
-            cmbShape.SelectedIndex = (int)fRecord.TankShape;
-            cmbWaterType.SelectedIndex = (int)fRecord.WaterType;
+            UIHelper.SetSelectedTag(cmbShape, fRecord.TankShape);
+            UIHelper.SetSelectedTag(cmbWaterType, fRecord.WaterType);
 
             txtDepth.Text = ALCore.GetDecimalStr(fRecord.Depth);
             txtWidth.Text = ALCore.GetDecimalStr(fRecord.Width);
@@ -103,8 +109,8 @@ namespace AquaLog.UI
         {
             fRecord.Name = txtName.Text;
             fRecord.Description = txtDesc.Text;
-            fRecord.TankShape = (TankShape)cmbShape.SelectedIndex;
-            fRecord.WaterType = (AquariumWaterType)cmbWaterType.SelectedIndex;
+            fRecord.TankShape = UIHelper.GetSelectedTag<TankShape>(cmbShape);
+            fRecord.WaterType = UIHelper.GetSelectedTag<AquariumWaterType>(cmbWaterType);
 
             fRecord.Depth = ALCore.GetDecimalVal(txtDepth.Text);
             fRecord.Width = ALCore.GetDecimalVal(txtWidth.Text);
@@ -133,12 +139,11 @@ namespace AquaLog.UI
             txtHeigth.Text = "";
             txtTankVolume.Text = "";
 
-            var tankShape = (TankShape)cmbShape.SelectedIndex;
+            var tankShape = UIHelper.GetSelectedTag<TankShape>(cmbShape);
             switch (tankShape) {
                 case TankShape.Unknown:
                 case TankShape.Bowl:
                 case TankShape.BowFront:
-                case TankShape.BevelledFront:
                 case TankShape.PlateFrontCorner:
                 case TankShape.BowFrontCorner:
                     txtDepth.Enabled = false;
@@ -172,12 +177,11 @@ namespace AquaLog.UI
             // two sides
             glassThickness *= 2.0;
 
-            var tankShape = (TankShape)cmbShape.SelectedIndex;
+            var tankShape = UIHelper.GetSelectedTag<TankShape>(cmbShape);
             switch (tankShape) {
                 case TankShape.Unknown:
                 case TankShape.Bowl:
                 case TankShape.BowFront:
-                case TankShape.BevelledFront:
                 case TankShape.PlateFrontCorner:
                 case TankShape.BowFrontCorner:
                     break;

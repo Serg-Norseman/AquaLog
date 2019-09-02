@@ -44,6 +44,21 @@ namespace AquaLog.UI
 
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
+
+            SetLocale();
+        }
+
+        public void SetLocale()
+        {
+            Text = Localizer.LS(LSID.TSDBPoint);
+            btnAccept.Text = Localizer.LS(LSID.Accept);
+            btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            lblName.Text = Localizer.LS(LSID.Name);
+            lblUoM.Text = Localizer.LS(LSID.Unit);
+            lblMin.Text = Localizer.LS(LSID.Min);
+            lblMax.Text = Localizer.LS(LSID.Max);
+            lblDeviation.Text = Localizer.LS(LSID.Deviation);
         }
 
         private void UpdateView()

@@ -83,6 +83,7 @@
             // 
             // cmbAquarium
             // 
+            this.cmbAquarium.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAquarium.Location = new System.Drawing.Point(118, 10);
             this.cmbAquarium.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbAquarium.Name = "cmbAquarium";

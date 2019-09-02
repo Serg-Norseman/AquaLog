@@ -28,8 +28,6 @@ namespace AquaLog.Panels
 
         public TSValuePanel()
         {
-            ListView.Columns.Add("Timestamp", 140, HorizontalAlignment.Left);
-            ListView.Columns.Add("Value", 120, HorizontalAlignment.Right);
         }
 
         public override void SetExtData(object extData)
@@ -47,11 +45,11 @@ namespace AquaLog.Panels
 
         public override void UpdateContent()
         {
-            ListView.Items.Clear();
-            if (fModel == null) return;
+            ListView.Clear();
+            ListView.Columns.Add(Localizer.LS(LSID.Timestamp), 140, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Value), 120, HorizontalAlignment.Right);
 
             TSDatabase tsdb = fModel.TSDB;
-
             var records = tsdb.QueryValues(fPointId, DateTime.Now.AddDays(-60), DateTime.Now);
             foreach (TSValue rec in records) {
                 var item = new ListViewItem(rec.Timestamp.ToString());

@@ -183,20 +183,22 @@
             // 
             // btnPrev
             // 
+            this.btnPrev.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnPrev.Enabled = false;
             this.btnPrev.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(34, 22);
+            this.btnPrev.Size = new System.Drawing.Size(23, 22);
             this.btnPrev.Text = "Prev";
             this.btnPrev.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnPrev.Click += new System.EventHandler(this.btnMainView_Click);
             // 
             // btnNext
             // 
+            this.btnNext.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.btnNext.Enabled = false;
             this.btnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(35, 22);
+            this.btnNext.Size = new System.Drawing.Size(23, 22);
             this.btnNext.Text = "Next";
             this.btnNext.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnNext.Click += new System.EventHandler(this.btnMainView_Click);

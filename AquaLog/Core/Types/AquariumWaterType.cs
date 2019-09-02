@@ -8,9 +8,15 @@ namespace AquaLog.Core.Types
 {
     public enum AquariumWaterType
     {
-        Freshwater,
-        ColdwaterMarine,
-        TropicalMarine,
-        ReefMarine,
+        FreshWater,
+        BrackishWater,
+        SeaWater,
+    }
+
+    public enum AquariumTemperatureType
+    {
+        Coldwater,
+        Tropical,
+        ReefMarine, // only SeaWater
     }
 }

@@ -7,6 +7,7 @@
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
@@ -47,10 +48,6 @@ namespace AquaLog.UI
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
 
-            for (Sex sex = Sex.None; sex <= Sex.Hermaphrodite; sex++) {
-                cmbSex.Items.Add(sex.ToString());
-            }
-
             SetLocale();
         }
 
@@ -59,6 +56,11 @@ namespace AquaLog.UI
             Text = Localizer.LS(LSID.Inhabitant);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            cmbSex.Items.Clear();
+            for (Sex sex = Sex.None; sex <= Sex.Hermaphrodite; sex++) {
+                cmbSex.Items.Add(new ComboItem<Sex>(Localizer.LS(ALCore.SexNames[(int)sex]), sex));
+            }
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblNote.Text = Localizer.LS(LSID.Note);
@@ -77,7 +79,7 @@ namespace AquaLog.UI
             txtName.Text = fRecord.Name;
             txtNote.Text = fRecord.Note;
             cmbSpecies.SelectedItem = species;
-            cmbSex.SelectedIndex = (int)fRecord.Sex;
+            UIHelper.SetSelectedTag(cmbSex, fRecord.Sex);
         }
 
         private void ApplyChanges()
@@ -87,7 +89,7 @@ namespace AquaLog.UI
             fRecord.Name = txtName.Text;
             fRecord.Note = txtNote.Text;
             fRecord.SpeciesId = spc.Id;
-            fRecord.Sex = (Sex)cmbSex.SelectedIndex;
+            fRecord.Sex = UIHelper.GetSelectedTag<Sex>(cmbSex);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

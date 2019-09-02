@@ -21,6 +21,10 @@ namespace AquaLog.Panels
         private FlowLayoutPanel fLayoutPanel;
         private TankSticker fSelectedTank;
 
+        private MenuItem fEditItem;
+        private MenuItem fDeleteItem;
+
+
         public TankSticker SelectedTank
         {
             get { return fSelectedTank; }
@@ -34,16 +38,20 @@ namespace AquaLog.Panels
             fLayoutPanel.Padding = new Padding(10);
             Controls.Add(fLayoutPanel);
 
-            var miEdit = new MenuItem();
-            miEdit.Text = Localizer.LS(LSID.Edit);
-            miEdit.Click += btnEditTank_Click;
+            fEditItem = new MenuItem();
+            fEditItem.Click += btnEditTank_Click;
 
-            var miDelete = new MenuItem();
-            miDelete.Text = Localizer.LS(LSID.Delete);
-            miDelete.Click += btnDeleteTank_Click;
+            fDeleteItem = new MenuItem();
+            fDeleteItem.Click += btnDeleteTank_Click;
 
             fContextMenu = new ContextMenu();
-            fContextMenu.MenuItems.AddRange(new MenuItem[] { miEdit, miDelete});
+            fContextMenu.MenuItems.AddRange(new MenuItem[] { fEditItem, fDeleteItem});
+        }
+
+        public override void SetLocale()
+        {
+            fEditItem.Text = Localizer.LS(LSID.Edit);
+            fDeleteItem.Text = Localizer.LS(LSID.Delete);
         }
 
         protected override void InitActions()

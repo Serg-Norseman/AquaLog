@@ -36,14 +36,16 @@ namespace AquaLog.Panels
             foreach (Schedule rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
+                string strType = Localizer.LS(ALCore.ScheduleTypes[(int)rec.Type]);
+                string strStatus = Localizer.LS(ALCore.TaskStatuses[(int)rec.Status]);
 
                 var item = new ListViewItem(aqmName);
                 item.Tag = rec;
                 item.SubItems.Add(rec.DateTime.ToString());
                 item.SubItems.Add(rec.Event);
                 item.SubItems.Add(rec.Reminder.ToString());
-                item.SubItems.Add(rec.Type.ToString());
-                item.SubItems.Add(rec.Status.ToString());
+                item.SubItems.Add(strType);
+                item.SubItems.Add(strStatus);
                 item.SubItems.Add(rec.Note);
                 ListView.Items.Add(item);
             }

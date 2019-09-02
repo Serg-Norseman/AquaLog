@@ -41,7 +41,7 @@ namespace AquaLog.Panels
 
             if (fModel != null) {
                 UpdateListView();
-                ListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
+                ListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             }
 
             ListView.EndUpdate();

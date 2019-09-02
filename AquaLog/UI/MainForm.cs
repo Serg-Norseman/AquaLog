@@ -93,6 +93,8 @@ namespace AquaLog.UI
         {
             Localizer.LoadLocale(ALSettings.Instance.CurrentLocale);
             SetLocale();
+
+            fCurrentPanel.SetLocale();
             SetActions(fCurrentPanel);
 
             if (fTray != null) fTray.SetLocale();
@@ -119,6 +121,9 @@ namespace AquaLog.UI
             btnTransfers.Text = Localizer.LS(LSID.Transfers);
             btnBudget.Text = Localizer.LS(LSID.Budget);
             btnInventory.Text = Localizer.LS(LSID.Inventory);
+
+            btnPrev.ToolTipText = Localizer.LS(LSID.NavPrev);
+            btnNext.ToolTipText = Localizer.LS(LSID.NavNext);
         }
 
         private void UpdateControls()

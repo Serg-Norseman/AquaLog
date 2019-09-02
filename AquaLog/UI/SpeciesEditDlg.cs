@@ -6,6 +6,7 @@
 
 using System;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
@@ -45,10 +46,6 @@ namespace AquaLog.UI
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
 
-            for (SpeciesType type = SpeciesType.Fish; type <= SpeciesType.Coral; type++) {
-                cmbType.Items.Add(type.ToString());
-            }
-
             SetLocale();
         }
 
@@ -58,16 +55,27 @@ namespace AquaLog.UI
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
+            cmbType.Items.Clear();
+            cmbType.Sorted = true;
+            for (SpeciesType type = SpeciesType.Fish; type <= SpeciesType.Coral; type++) {
+                cmbType.Items.Add(new ComboItem<SpeciesType>(Localizer.LS(ALCore.SpeciesTypes[(int)type]), type));
+            }
+
             lblName.Text = Localizer.LS(LSID.Name);
             lblDesc.Text = Localizer.LS(LSID.Description);
             lblType.Text = Localizer.LS(LSID.Type);
+
+            tabFish.Text = Localizer.LS(LSID.Fish);
+            tabInvertebrate.Text = Localizer.LS(LSID.Invertebrate);
+            tabPlant.Text = Localizer.LS(LSID.Plant);
+            tabCoral.Text = Localizer.LS(LSID.Coral);
         }
 
         private void UpdateView()
         {
             txtName.Text = fRecord.Name;
             txtDesc.Text = fRecord.Description;
-            cmbType.SelectedIndex = (int)fRecord.Type;
+            UIHelper.SetSelectedTag(cmbType, fRecord.Type);
             txtScientificName.Text = fRecord.ScientificName;
 
             txtTempMin.Text = ALCore.GetDecimalStr(fRecord.TempMin);
@@ -82,7 +90,7 @@ namespace AquaLog.UI
         {
             fRecord.Name = txtName.Text;
             fRecord.Description = txtDesc.Text;
-            fRecord.Type = (SpeciesType)cmbType.SelectedIndex;
+            fRecord.Type = UIHelper.GetSelectedTag<SpeciesType>(cmbType);
             fRecord.ScientificName = txtScientificName.Text;
 
             fRecord.TempMin = (float)ALCore.GetDecimalVal(txtTempMin.Text);
@@ -105,7 +113,8 @@ namespace AquaLog.UI
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var type = (SpeciesType)cmbType.SelectedIndex;
+            var type = UIHelper.GetSelectedTag<SpeciesType>(cmbType);
+            tabControl1.SelectedIndex = (int)type;
             switch (type) {
                 case SpeciesType.Fish:
                     break;

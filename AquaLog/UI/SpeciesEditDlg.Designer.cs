@@ -29,6 +29,7 @@
         private System.Windows.Forms.Label lblGHMax;
         private System.Windows.Forms.TextBox txtGHMin;
         private System.Windows.Forms.TextBox txtGHMax;
+        private System.Windows.Forms.TabPage tabCoral;
         
         protected override void Dispose(bool disposing)
         {
@@ -68,6 +69,7 @@
             this.lblGHMax = new System.Windows.Forms.Label();
             this.txtGHMin = new System.Windows.Forms.TextBox();
             this.txtGHMax = new System.Windows.Forms.TextBox();
+            this.tabCoral = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -155,6 +157,7 @@
             this.tabControl1.Controls.Add(this.tabFish);
             this.tabControl1.Controls.Add(this.tabInvertebrate);
             this.tabControl1.Controls.Add(this.tabPlant);
+            this.tabControl1.Controls.Add(this.tabCoral);
             this.tabControl1.Location = new System.Drawing.Point(10, 219);
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.tabControl1.Name = "tabControl1";
@@ -313,6 +316,16 @@
             this.txtGHMax.Name = "txtGHMax";
             this.txtGHMax.Size = new System.Drawing.Size(60, 22);
             this.txtGHMax.TabIndex = 19;
+            // 
+            // tabCoral
+            // 
+            this.tabCoral.BackColor = System.Drawing.SystemColors.Control;
+            this.tabCoral.Location = new System.Drawing.Point(4, 22);
+            this.tabCoral.Name = "tabCoral";
+            this.tabCoral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCoral.Size = new System.Drawing.Size(493, 105);
+            this.tabCoral.TabIndex = 3;
+            this.tabCoral.Text = "Coral";
             // 
             // SpeciesEditDlg
             // 

@@ -18,5 +18,6 @@ Features:
 - Expenses;
 - Embedded "nano"-TSDB with "swinging door" compression;
 - Simple data monitor via Arduino and COM-port;
+- Multilingual: English, Russian;
 
 The application is simple and minimal. Clean, the most basic functionality.

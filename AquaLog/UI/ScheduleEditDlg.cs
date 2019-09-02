@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
@@ -47,14 +48,6 @@ namespace AquaLog.UI
             btnAccept.Image = ALCore.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = ALCore.LoadResourceImage("btn_cancel.gif");
 
-            for (ScheduleType ts = ScheduleType.Single; ts <= ScheduleType.Yearly; ts++) {
-                cmbSchedule.Items.Add(ts.ToString());
-            }
-
-            for (TaskStatus status = TaskStatus.ToDo; status <= TaskStatus.Closed; status++) {
-                cmbStatus.Items.Add(status.ToString());
-            }
-
             SetLocale();
         }
 
@@ -63,6 +56,16 @@ namespace AquaLog.UI
             Text = Localizer.LS(LSID.ScheduleS);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            cmbSchedule.Items.Clear();
+            for (ScheduleType ts = ScheduleType.Single; ts <= ScheduleType.Yearly; ts++) {
+                cmbSchedule.Items.Add(new ComboItem<ScheduleType>(Localizer.LS(ALCore.ScheduleTypes[(int)ts]), ts));
+            }
+
+            cmbStatus.Items.Clear();
+            for (TaskStatus status = TaskStatus.ToDo; status <= TaskStatus.Closed; status++) {
+                cmbStatus.Items.Add(new ComboItem<TaskStatus>(Localizer.LS(ALCore.TaskStatuses[(int)status]), status));
+            }
 
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblDate.Text = Localizer.LS(LSID.Date);
@@ -93,8 +96,8 @@ namespace AquaLog.UI
 
                 txtEvent.Text = fRecord.Event;
                 chkReminder.Checked = fRecord.Reminder;
-                cmbSchedule.SelectedIndex = (int)fRecord.Type;
-                cmbStatus.SelectedIndex = (int)fRecord.Status;
+                UIHelper.SetSelectedTag(cmbSchedule, fRecord.Type);
+                UIHelper.SetSelectedTag(cmbStatus, fRecord.Status);
                 txtNote.Text = fRecord.Note;
             }
         }
@@ -107,8 +110,8 @@ namespace AquaLog.UI
             fRecord.DateTime = dtpDateTime.Value;
             fRecord.Event = txtEvent.Text;
             fRecord.Reminder = chkReminder.Checked;
-            fRecord.Type = (ScheduleType)cmbSchedule.SelectedIndex;
-            fRecord.Status = (TaskStatus)cmbStatus.SelectedIndex;
+            fRecord.Type = UIHelper.GetSelectedTag<ScheduleType>(cmbSchedule);
+            fRecord.Status = UIHelper.GetSelectedTag<TaskStatus>(cmbStatus);
             fRecord.Note = txtNote.Text;
         }
 

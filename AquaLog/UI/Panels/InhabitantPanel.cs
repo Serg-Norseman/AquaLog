@@ -36,10 +36,10 @@ namespace AquaLog.Panels
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Name), 200, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Sex), 50, HorizontalAlignment.Left);
-            ListView.Columns.Add("Qty", 50, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.Quantity), 50, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.SpeciesS), 150, HorizontalAlignment.Left);
-            ListView.Columns.Add("Current Aquarium", 150, HorizontalAlignment.Left);
-            ListView.Columns.Add("Introduction date", 150, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 150, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.IntroductionDate), 150, HorizontalAlignment.Left);
             ListView.Columns.Add("Temp", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("PH", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("GH", 100, HorizontalAlignment.Left);
@@ -47,7 +47,7 @@ namespace AquaLog.Panels
             IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
-                string sx = ALCore.IsAnimal(spc.Type) ? rec.Sex.ToString() : string.Empty;
+                string sx = ALCore.IsAnimal(spc.Type) ? Localizer.LS(ALCore.SexNames[(int)rec.Sex]) : string.Empty;
                 SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
                 ItemType itemType = ALCore.GetItemType(speciesType);
                 int currAqmId = 0;

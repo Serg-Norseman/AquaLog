@@ -12,6 +12,6 @@ namespace AquaLog.Core.Types
         Daily,
         Weekly,
         Monthly,
-        Yearly
+        Yearly,
     }
 }
