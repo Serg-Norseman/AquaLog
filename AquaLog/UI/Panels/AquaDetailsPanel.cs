@@ -13,7 +13,7 @@ using AquaLog.Core.Model;
 using AquaLog.Core.Types;
 using AquaLog.UI;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 
@@ -144,7 +144,7 @@ namespace AquaLog.Panels
                 fInhabitantsLV.Items.Add(item);
             }
 
-            fInhabitantsLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            fInhabitantsLV.AutoResizeColumns();
             fInhabitantsLV.EndUpdate();
         }
 
@@ -165,7 +165,7 @@ namespace AquaLog.Panels
                 fMeasuresLV.Items.Add(item);
             }
 
-            fMeasuresLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            fMeasuresLV.AutoResizeColumns();
             fMeasuresLV.EndUpdate();
         }
 
@@ -186,7 +186,7 @@ namespace AquaLog.Panels
                 fNutritionLV.Items.Add(item);
             }
 
-            fNutritionLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            fNutritionLV.AutoResizeColumns();
             fNutritionLV.EndUpdate();
         }
 
@@ -211,7 +211,7 @@ namespace AquaLog.Panels
                 fDevicesLV.Items.Add(item);
             }
 
-            fDevicesLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            fDevicesLV.AutoResizeColumns();
             fDevicesLV.EndUpdate();
         }
 
@@ -234,7 +234,7 @@ namespace AquaLog.Panels
                 fMaintenanceLV.Items.Add(item);
             }
 
-            fMaintenanceLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            fMaintenanceLV.AutoResizeColumns();
             fMaintenanceLV.EndUpdate();
         }
 
@@ -259,7 +259,7 @@ namespace AquaLog.Panels
         {
             fCompatibilityLV.BeginUpdate();
             fCompatibilityLV.Clear();
-            fCompatibilityLV.Columns.Add("SpeciesType", 200, HorizontalAlignment.Left);
+            fCompatibilityLV.Columns.Add(Localizer.LS(LSID.SpeciesS), 200, HorizontalAlignment.Left);
             fCompatibilityLV.Columns.Add("Req Temp", 100, HorizontalAlignment.Left);
             fCompatibilityLV.Columns.Add("Cur Temp", 100, HorizontalAlignment.Right);
             fCompatibilityLV.Columns.Add("Req PH", 100, HorizontalAlignment.Left);
@@ -269,10 +269,10 @@ namespace AquaLog.Panels
 
             SpeciesTypeData[] stData;
             stData = new SpeciesTypeData[4];
-            stData[0] = new SpeciesTypeData(SpeciesType.Fish.ToString());
-            stData[1] = new SpeciesTypeData(SpeciesType.Invertebrate.ToString());
-            stData[2] = new SpeciesTypeData(SpeciesType.Plant.ToString());
-            stData[3] = new SpeciesTypeData(SpeciesType.Coral.ToString());
+            stData[0] = new SpeciesTypeData(Localizer.LS(LSID.Fish));
+            stData[1] = new SpeciesTypeData(Localizer.LS(LSID.Invertebrate));
+            stData[2] = new SpeciesTypeData(Localizer.LS(LSID.Plant));
+            stData[3] = new SpeciesTypeData(Localizer.LS(LSID.Coral));
 
             IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
@@ -302,17 +302,22 @@ namespace AquaLog.Panels
             curGH = fModel.GetCurrentMeasureValue(fAquarium, "GH");
 
             foreach (var data in stData) {
+                string rangeTemp = ALCore.GetRangeStr(data.TempMin.GetResult(), data.TempMax.GetResult());
+                string rangePH = ALCore.GetRangeStr(data.PHMin.GetResult(), data.PHMax.GetResult());
+                string rangeGH = ALCore.GetRangeStr(data.GHMin.GetResult(), data.GHMax.GetResult());
+                if (string.IsNullOrEmpty(rangeTemp) && string.IsNullOrEmpty(rangePH) && string.IsNullOrEmpty(rangeGH)) continue;
+
                 var item = new ListViewItem(data.Name);
-                item.SubItems.Add(ALCore.GetRangeStr(data.TempMin.GetResult(), data.TempMax.GetResult()));
+                item.SubItems.Add(rangeTemp);
                 item.SubItems.Add(ALCore.GetDecimalStr(curTemp));
-                item.SubItems.Add(ALCore.GetRangeStr(data.PHMin.GetResult(), data.PHMax.GetResult()));
+                item.SubItems.Add(rangePH);
                 item.SubItems.Add(ALCore.GetDecimalStr(curPH));
-                item.SubItems.Add(ALCore.GetRangeStr(data.GHMin.GetResult(), data.GHMax.GetResult()));
+                item.SubItems.Add(rangeGH);
                 item.SubItems.Add(ALCore.GetDecimalStr(curGH));
                 fCompatibilityLV.Items.Add(item);
             }
 
-            fCompatibilityLV.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            fCompatibilityLV.AutoResizeColumns();
             fCompatibilityLV.EndUpdate();
         }
     }

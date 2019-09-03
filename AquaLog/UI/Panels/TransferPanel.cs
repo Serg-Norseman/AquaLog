@@ -8,9 +8,9 @@ using System;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
-using AquaLog.UI;
+using AquaLog.UI.Dialogs;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 
@@ -28,7 +28,7 @@ namespace AquaLog.Panels
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
         }
 
-        public override void UpdateContent()
+        protected override void UpdateListView()
         {
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Item), 140, HorizontalAlignment.Left);
@@ -47,7 +47,7 @@ namespace AquaLog.Panels
                 Aquarium aqmTarg = fModel.GetRecord<Aquarium>(rec.TargetId);
 
                 string itName = fModel.GetRecordName(rec.ItemType, rec.ItemId);
-                string strType = Localizer.LS(ALCore.TransferTypes[(int)rec.Type]);
+                string strType = Localizer.LS(ALData.TransferTypes[(int)rec.Type]);
 
                 var item = new ListViewItem(itName);
                 item.Tag = rec;

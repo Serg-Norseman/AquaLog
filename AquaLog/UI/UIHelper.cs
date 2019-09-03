@@ -5,10 +5,13 @@
  */
 
 using System;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Windows.Forms;
-using AquaLog.Components;
 using AquaLog.Core;
+using Microsoft.Win32;
 
 namespace AquaLog.UI
 {
@@ -46,26 +49,74 @@ namespace AquaLog.UI
             return listView;
         }
 
-        public static T GetSelectedTag<T>(ComboBox comboBox)
+        public static ListViewItem GetSelectedItem(ListView listView)
         {
-            object selectedItem = comboBox.SelectedItem;
-            ComboItem<T> comboItem = (ComboItem<T>)selectedItem;
-            T itemTag = (comboItem == null) ? default(T) : (T)comboItem.Tag;
-            return itemTag;
-        }
+            ListViewItem result;
 
-        public static void SetSelectedTag<T>(ComboBox comboBox, T tagValue)
-        {
-            foreach (object item in comboBox.Items) {
-                ComboItem<T> comboItem = (ComboItem<T>)item;
-                T itemTag = (T)comboItem.Tag;
-
-                if (tagValue.Equals(itemTag)) {
-                    comboBox.SelectedItem = item;
-                    return;
-                }
+            if (listView.SelectedItems.Count <= 0) {
+                result = null;
+            } else {
+                result = (listView.SelectedItems[0] as ListViewItem);
             }
-            comboBox.SelectedIndex = 0;
+
+            return result;
         }
+
+        public static Color CreateColor(int rgb)
+        {
+            int red = (rgb >> 16) & 0xFF;
+            int green = (rgb >> 8) & 0xFF;
+            int blue = (rgb >> 0) & 0xFF;
+            return Color.FromArgb(red, green, blue);
+        }
+
+        public static Stream LoadResourceStream(string resName)
+        {
+            return LoadResourceStream(typeof(ALCore), resName);
+        }
+
+        public static Stream LoadResourceStream(Type baseType, string resName)
+        {
+            Assembly assembly = baseType.Assembly;
+            return assembly.GetManifestResourceStream(resName);
+        }
+
+        public static Bitmap LoadResourceImage(string resName)
+        {
+            return new Bitmap(LoadResourceStream("AquaLog.Resources." + resName));
+        }
+
+        #region Application's autorun
+
+        public static void RegisterStartup()
+        {
+            if (!IsStartupItem()) {
+                RegistryKey rkApp = GetRunKey();
+                string trayPath = ALCore.GetAppPath() + "AquaLog.exe";
+                rkApp.SetValue(ALCore.AppName, trayPath);
+            }
+        }
+
+        public static void UnregisterStartup()
+        {
+            if (IsStartupItem()) {
+                RegistryKey rkApp = GetRunKey();
+                rkApp.DeleteValue(ALCore.AppName, false);
+            }
+        }
+
+        public static bool IsStartupItem()
+        {
+            RegistryKey rkApp = GetRunKey();
+            return (rkApp.GetValue(ALCore.AppName) != null);
+        }
+
+        private static RegistryKey GetRunKey()
+        {
+            RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            return rkApp;
+        }
+
+        #endregion
     }
 }

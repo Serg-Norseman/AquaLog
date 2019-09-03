@@ -9,8 +9,9 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
+using AquaLog.UI.Dialogs;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 
@@ -21,7 +22,7 @@ namespace AquaLog.Panels
         {
         }
 
-        public override void UpdateContent()
+        protected override void UpdateListView()
         {
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 120, HorizontalAlignment.Left);

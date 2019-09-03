@@ -10,7 +10,7 @@ using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.UI;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 
@@ -41,7 +41,7 @@ namespace AquaLog.Panels
 
             if (fModel != null) {
                 UpdateListView();
-                ListView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                ListView.AutoResizeColumns();
             }
 
             ListView.EndUpdate();
@@ -84,7 +84,7 @@ namespace AquaLog.Panels
 
         protected override void EditHandler(object sender, EventArgs e)
         {
-            var record = ALCore.GetSelectedTag<R>(ListView);
+            var record = ListView.GetSelectedTag<R>();
             if (record == null) return;
 
             using (var dlg = new D()) {
@@ -99,7 +99,7 @@ namespace AquaLog.Panels
 
         protected override void DeleteHandler(object sender, EventArgs e)
         {
-            var record = ALCore.GetSelectedTag<R>(ListView);
+            var record = ListView.GetSelectedTag<R>();
             if (record == null) return;
 
             if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), record.ToString()))) return;

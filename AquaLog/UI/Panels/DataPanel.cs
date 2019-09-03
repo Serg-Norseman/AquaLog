@@ -12,7 +12,7 @@ using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.UI;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 

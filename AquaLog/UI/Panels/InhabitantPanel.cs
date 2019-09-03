@@ -11,8 +11,9 @@ using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
 using AquaLog.UI;
+using AquaLog.UI.Dialogs;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 
@@ -47,7 +48,7 @@ namespace AquaLog.Panels
             IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
-                string sx = ALCore.IsAnimal(spc.Type) ? Localizer.LS(ALCore.SexNames[(int)rec.Sex]) : string.Empty;
+                string sx = ALCore.IsAnimal(spc.Type) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : string.Empty;
                 SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
                 ItemType itemType = ALCore.GetItemType(speciesType);
                 int currAqmId = 0;
@@ -77,7 +78,7 @@ namespace AquaLog.Panels
 
         private void TransferInhabitantHandler(object sender, EventArgs e)
         {
-            var record = ALCore.GetSelectedTag<Inhabitant>(ListView);
+            var record = ListView.GetSelectedTag<Inhabitant>();
             if (record == null) return;
 
             SpeciesType speciesType = fModel.GetSpeciesType(record.SpeciesId);

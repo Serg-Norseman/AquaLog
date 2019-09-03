@@ -10,8 +10,9 @@ using AquaLog.Core;
 using AquaLog.DataCollection;
 using AquaLog.TSDB;
 using AquaLog.UI;
+using AquaLog.UI.Dialogs;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 
@@ -32,7 +33,7 @@ namespace AquaLog.Panels
             AddAction("Data Monitor", LSID.DataMonitor, "", ShowMonitor);
         }
 
-        public override void UpdateContent()
+        protected override void UpdateListView()
         {
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Name), 140, HorizontalAlignment.Left);
@@ -70,7 +71,7 @@ namespace AquaLog.Panels
 
         protected override void EditHandler(object sender, EventArgs e)
         {
-            var record = ALCore.GetSelectedTag<TSPoint>(ListView);
+            var record = ListView.GetSelectedTag<TSPoint>();
             if (record == null) return;
 
             using (var dlg = new TSPointEditDlg()) {
@@ -85,7 +86,7 @@ namespace AquaLog.Panels
 
         protected override void DeleteHandler(object sender, EventArgs e)
         {
-            var record = ALCore.GetSelectedTag<TSPoint>(ListView);
+            var record = ListView.GetSelectedTag<TSPoint>();
             if (record == null) return;
 
             fModel.TSDB.DeletePoint(record);
@@ -94,7 +95,7 @@ namespace AquaLog.Panels
 
         private void ViewDataHandler(object sender, EventArgs e)
         {
-            var record = ALCore.GetSelectedTag<TSPoint>(ListView);
+            var record = ListView.GetSelectedTag<TSPoint>();
             if (record == null) return;
 
             Browser.SetView(MainView.TSValues, record.Id);
@@ -102,7 +103,7 @@ namespace AquaLog.Panels
 
         private void ViewTrendHandler(object sender, EventArgs e)
         {
-            var record = ALCore.GetSelectedTag<TSPoint>(ListView);
+            var record = ListView.GetSelectedTag<TSPoint>();
             if (record == null) return;
 
             Browser.SetView(MainView.TSTrend, record.Id);

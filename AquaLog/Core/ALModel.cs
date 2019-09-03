@@ -289,7 +289,7 @@ namespace AquaLog.Core
                     result = rec.Value;
                 } else {
                     int idx = (int)rec.Type;
-                    int factor = ALCore.WaterChangeFactors[idx];
+                    int factor = ALData.WaterChangeFactors[idx];
                     result += (rec.Value * factor);
                 }
             }
@@ -448,7 +448,7 @@ namespace AquaLog.Core
             measures.Add(tval);
         }
 
-        private ValueBounds CheckValue(double value, List<ValueBounds> ranges)
+        private static ValueBounds CheckValue(double value, List<ValueBounds> ranges)
         {
             foreach (var bounds in ranges) {
                 if (value >= bounds.Min && value <= bounds.Max) {

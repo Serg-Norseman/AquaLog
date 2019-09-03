@@ -16,6 +16,94 @@ namespace AquaLog.Core
     /// </summary>
     public static class ALData
     {
+        public static int[] WaterChangeFactors = new int[] {
+             0, // Restart
+            +1, // WaterAdded
+             0, // WaterReplaced
+            -1, // WaterRemoved
+             0, // Other
+        };
+
+        public static readonly DeviceProps[] DeviceProps = new DeviceProps[] {
+            new DeviceProps(LSID.Light, false), // Light
+            new DeviceProps(LSID.Pump, false), // Pump
+            new DeviceProps(LSID.Thermometer, true), // Thermometer
+            new DeviceProps(LSID.Filter, false), // Filter
+            new DeviceProps(LSID.Heater, false), // Heater
+        };
+
+        public static readonly LSID[] InventoryTypes = new LSID[] {
+            LSID.Additive,
+            LSID.Chemistry,
+            LSID.Equipment,
+            LSID.Maintenance,
+            LSID.Furniture,
+            LSID.Decoration,
+        };
+
+        public static readonly LSID[] TransferTypes = new LSID[] {
+            LSID.Relocation,
+            LSID.Purchase,
+            LSID.Sale,
+            LSID.Birth,
+            LSID.Death
+        };
+
+        public static readonly LSID[] MaintenanceTypes = new LSID[] {
+            LSID.Restart,
+            LSID.WaterAdded,
+            LSID.WaterReplaced,
+            LSID.WaterRemoved,
+            LSID.Clean,
+            LSID.Other,
+        };
+
+        public static readonly LSID[] SpeciesTypes = new LSID[] {
+            LSID.Fish,
+            LSID.Invertebrate,
+            LSID.Plant,
+            LSID.Coral,
+        };
+
+        public static readonly LSID[] SexNames = new LSID[] {
+            LSID.None,
+            LSID.Female,
+            LSID.Male,
+            LSID.Hermaphrodite,
+        };
+
+        public static readonly LSID[] WaterTypes = new LSID[] {
+            LSID.FreshWater,
+            LSID.BrackishWater,
+            LSID.SeaWater,
+        };
+
+        public static readonly LSID[] TankShapes = new LSID[] {
+            LSID.None,
+            LSID.Bowl,
+            LSID.Cube,
+            LSID.Rectangular,
+            LSID.BowFront,
+            LSID.PlateFrontCorner,
+            LSID.BowFrontCorner,
+        };
+
+        public static readonly LSID[] ScheduleTypes = new LSID[] {
+            LSID.Single,
+            LSID.Daily,
+            LSID.Weekly,
+            LSID.Monthly,
+            LSID.Yearly,
+        };
+
+        public static readonly LSID[] TaskStatuses = new LSID[] {
+            LSID.ToDo,
+            LSID.Canceled,
+            LSID.Snoozed,
+            LSID.Late,
+            LSID.Closed,
+        };
+
         /// <summary>
         /// NH3 levels (ppm)
         /// </summary>

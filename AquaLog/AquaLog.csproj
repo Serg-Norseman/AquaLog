@@ -86,10 +86,6 @@
     <Compile Include="Core\UnitConverter.cs" />
     <Compile Include="DataCollection\BaseService.cs" />
     <Compile Include="DataCollection\CommunicationLEDService.cs" />
-    <Compile Include="DataCollection\DataMonitor.cs" />
-    <Compile Include="DataCollection\DataMonitor.Designer.cs">
-      <DependentUpon>DataMonitor.cs</DependentUpon>
-    </Compile>
     <Compile Include="DataCollection\IChannel.cs" />
     <Compile Include="DataCollection\SerialChannel.cs" />
     <Compile Include="DataCollection\TemperatureService.cs" />
@@ -97,6 +93,7 @@
     <Compile Include="TSDB\SDCompression.cs" />
     <Compile Include="TSDB\TSDatabase.cs" />
     <Compile Include="TSDB\TSValue.cs" />
+    <Compile Include="UI\ALTray.cs" />
     <Compile Include="UI\Components\UserAction.cs" />
     <Compile Include="UI\Components\ComboItem.cs" />
     <Compile Include="UI\Components\WizardPages.cs" />
@@ -126,60 +123,87 @@
     <Compile Include="Core\Types\Temperament.cs" />
     <Compile Include="Core\Types\TransferType.cs" />
     <Compile Include="Core\Types\MaintenanceType.cs" />
-    <Compile Include="ALTray.cs" />
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Log4NetHelper.cs" />
     <Compile Include="Logging\LogManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
-    <Compile Include="UI\AboutDlg.cs" />
-    <Compile Include="UI\AboutDlg.Designer.cs">
+    <Compile Include="UI\Dialogs\AboutDlg.cs" />
+    <Compile Include="UI\Dialogs\AboutDlg.Designer.cs">
       <DependentUpon>AboutDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\AquariumEditDlg.cs" />
-    <Compile Include="UI\AquariumEditDlg.Designer.cs">
+    <Compile Include="UI\Dialogs\AquariumEditDlg.cs" />
+    <Compile Include="UI\Dialogs\AquariumEditDlg.Designer.cs">
       <DependentUpon>AquariumEditDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\DeviceEditDlg.cs" />
-    <Compile Include="UI\DeviceEditDlg.Designer.cs">
+    <Compile Include="UI\Dialogs\DataMonitor.cs" />
+    <Compile Include="UI\Dialogs\DataMonitor.Designer.cs">
+      <DependentUpon>DataMonitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\DeviceEditDlg.cs" />
+    <Compile Include="UI\Dialogs\DeviceEditDlg.Designer.cs">
       <DependentUpon>DeviceEditDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\HistoryEditDlg.cs" />
-    <Compile Include="UI\HistoryEditDlg.Designer.cs">
+    <Compile Include="UI\Dialogs\HistoryEditDlg.cs" />
+    <Compile Include="UI\Dialogs\HistoryEditDlg.Designer.cs">
       <DependentUpon>HistoryEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\InhabitantEditDlg.cs" />
+    <Compile Include="UI\Dialogs\InhabitantEditDlg.Designer.cs">
+      <DependentUpon>InhabitantEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\InventoryEditDlg.cs" />
+    <Compile Include="UI\Dialogs\InventoryEditDlg.Designer.cs">
+      <DependentUpon>InventoryEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\MaintenanceEditDlg.cs" />
+    <Compile Include="UI\Dialogs\MaintenanceEditDlg.Designer.cs">
+      <DependentUpon>MaintenanceEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\MeasureEditDlg.cs" />
+    <Compile Include="UI\Dialogs\MeasureEditDlg.Designer.cs">
+      <DependentUpon>MeasureEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\NoteEditDlg.cs" />
+    <Compile Include="UI\Dialogs\NoteEditDlg.Designer.cs">
+      <DependentUpon>NoteEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\NutritionEditDlg.cs" />
+    <Compile Include="UI\Dialogs\NutritionEditDlg.Designer.cs">
+      <DependentUpon>NutritionEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\ScheduleEditDlg.cs" />
+    <Compile Include="UI\Dialogs\ScheduleEditDlg.Designer.cs">
+      <DependentUpon>ScheduleEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\SettingsDlg.cs" />
+    <Compile Include="UI\Dialogs\SettingsDlg.Designer.cs">
+      <DependentUpon>SettingsDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\SpeciesEditDlg.cs" />
+    <Compile Include="UI\Dialogs\SpeciesEditDlg.Designer.cs">
+      <DependentUpon>SpeciesEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\TransferEditDlg.cs" />
+    <Compile Include="UI\Dialogs\TransferEditDlg.Designer.cs">
+      <DependentUpon>TransferEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\TSPointEditDlg.cs" />
+    <Compile Include="UI\Dialogs\TSPointEditDlg.Designer.cs">
+      <DependentUpon>TSPointEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\TSValueEditDlg.cs" />
+    <Compile Include="UI\Dialogs\TSValueEditDlg.Designer.cs">
+      <DependentUpon>TSValueEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\IBrowser.cs" />
     <Compile Include="UI\IEditDialog.cs" />
-    <Compile Include="UI\InhabitantEditDlg.cs" />
-    <Compile Include="UI\InhabitantEditDlg.Designer.cs">
-      <DependentUpon>InhabitantEditDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\InventoryEditDlg.cs" />
-    <Compile Include="UI\InventoryEditDlg.Designer.cs">
-      <DependentUpon>InventoryEditDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\MainForm.cs" />
     <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MaintenanceEditDlg.cs" />
-    <Compile Include="UI\MaintenanceEditDlg.Designer.cs">
-      <DependentUpon>MaintenanceEditDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\MainView.cs" />
-    <Compile Include="UI\MeasureEditDlg.cs" />
-    <Compile Include="UI\MeasureEditDlg.Designer.cs">
-      <DependentUpon>MeasureEditDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\NoteEditDlg.cs" />
-    <Compile Include="UI\NoteEditDlg.Designer.cs">
-      <DependentUpon>NoteEditDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\NutritionEditDlg.cs" />
-    <Compile Include="UI\NutritionEditDlg.Designer.cs">
-      <DependentUpon>NutritionEditDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
     <Compile Include="UI\Panels\InventoryPanel.cs" />
     <Compile Include="UI\Panels\MeasurePanel.cs" />
@@ -187,30 +211,6 @@
     <Compile Include="UI\Panels\NutritionPanel.cs" />
     <Compile Include="UI\Panels\SchedulePanel.cs" />
     <Compile Include="UI\Panels\TSTrendPanel.cs" />
-    <Compile Include="UI\ScheduleEditDlg.cs" />
-    <Compile Include="UI\ScheduleEditDlg.Designer.cs">
-      <DependentUpon>ScheduleEditDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SettingsDlg.cs" />
-    <Compile Include="UI\SettingsDlg.Designer.cs">
-      <DependentUpon>SettingsDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\SpeciesEditDlg.cs" />
-    <Compile Include="UI\SpeciesEditDlg.Designer.cs">
-      <DependentUpon>SpeciesEditDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\TransferEditDlg.cs" />
-    <Compile Include="UI\TransferEditDlg.Designer.cs">
-      <DependentUpon>TransferEditDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\TSPointEditDlg.cs" />
-    <Compile Include="UI\TSPointEditDlg.Designer.cs">
-      <DependentUpon>TSPointEditDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\TSValueEditDlg.cs" />
-    <Compile Include="UI\TSValueEditDlg.Designer.cs">
-      <DependentUpon>TSValueEditDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Panels\BudgetPanel.cs" />
     <Compile Include="UI\Panels\DataPanel.cs" />
     <Compile Include="UI\Panels\DevicePanel.cs" />
@@ -225,6 +225,7 @@
     <Compile Include="UI\Panels\TransferPanel.cs" />
     <Compile Include="UI\Panels\TSDBPanel.cs" />
     <Compile Include="UI\Panels\TSValuePanel.cs" />
+    <Compile Include="UI\UIExtensions.cs" />
     <Compile Include="UI\UIHelper.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -258,6 +259,7 @@
     <Folder Include="Logging" />
     <Folder Include="Resources" />
     <Folder Include="UI" />
+    <Folder Include="UI\Dialogs" />
     <Folder Include="UI\Panels" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

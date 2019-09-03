@@ -45,6 +45,7 @@ namespace AquaLog.UI
             ClickToolStripButton("btnSpecies", fMainWin);
             ClickToolStripButton("btnNutrition", fMainWin);
             ClickToolStripButton("btnDevices", fMainWin);
+            ClickToolStripButton("btnInventory", fMainWin);
             ClickToolStripButton("btnMaintenance", fMainWin);
             ClickToolStripButton("btnNotes", fMainWin);
             ClickToolStripButton("btnHistory", fMainWin);
@@ -52,6 +53,7 @@ namespace AquaLog.UI
             ClickToolStripButton("btnSchedule", fMainWin);
             ClickToolStripButton("btnTransfers", fMainWin);
             ClickToolStripButton("btnBudget", fMainWin);
+            ClickToolStripButton("btnTSDB", fMainWin);
 
             ClickToolStripButton("btnPrev", fMainWin);
             ClickToolStripButton("btnNext", fMainWin);
@@ -213,6 +215,37 @@ namespace AquaLog.UI
         }
 
         [Test]
+        public void Test_InventoryPanel()
+        {
+            fMainWin = new MainForm();
+
+            ClickToolStripButton("btnInventory", fMainWin);
+
+            ModalFormHandler = Dialog_Cancel_Handler;
+            ClickButton("btnAdd", fMainWin);
+
+            ModalFormHandler = Inventory_Accept_Handler;
+            ClickButton("btnAdd", fMainWin);
+
+            SelectListView("ListView", fMainWin, 0);
+            ModalFormHandler = Inventory_Accept_Handler;
+            ClickButton("btnEdit", fMainWin);
+
+            SelectListView("ListView", fMainWin, 0);
+            ModalFormHandler = MessageBox_YesHandler;
+            ClickButton("btnDelete", fMainWin);
+
+            ClickToolStripMenuItem("miExit", fMainWin);
+        }
+
+        public static void Inventory_Accept_Handler(string name, IntPtr ptr, Form form)
+        {
+            EnterText("txtName", form, "sample inventory");
+
+            ClickButton("btnAccept", form);
+        }
+
+        [Test]
         public void Test_MaintenancePanel()
         {
             fMainWin = new MainForm();
@@ -336,6 +369,41 @@ namespace AquaLog.UI
             //ClickButton("btnDelete", fMainWin);
 
             ClickToolStripMenuItem("miExit", fMainWin);
+        }
+
+        [Test]
+        public void Test_TSDBPanel()
+        {
+            fMainWin = new MainForm();
+
+            ClickToolStripButton("btnTSDB", fMainWin);
+
+            ModalFormHandler = Dialog_Cancel_Handler;
+            ClickButton("btnAdd", fMainWin);
+
+            /*ModalFormHandler = TSPoint_Accept_Handler;
+            ClickButton("btnAdd", fMainWin);
+
+            SelectListView("ListView", fMainWin, 0);
+            ModalFormHandler = TSPoint_Accept_Handler;
+            ClickButton("btnEdit", fMainWin);
+
+            SelectListView("ListView", fMainWin, 0);
+            ClickButton("btnData", fMainWin);
+            ClickToolStripButton("btnPrev", fMainWin);
+
+            SelectListView("ListView", fMainWin, 0);
+            ModalFormHandler = MessageBox_YesHandler;
+            ClickButton("btnDelete", fMainWin);*/
+
+            ClickToolStripMenuItem("miExit", fMainWin);
+        }
+
+        public static void TSPoint_Accept_Handler(string name, IntPtr ptr, Form form)
+        {
+            EnterText("txtName", form, "sample point");
+
+            ClickButton("btnAccept", form);
         }
     }
 }

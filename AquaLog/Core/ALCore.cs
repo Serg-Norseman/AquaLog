@@ -6,11 +6,9 @@
 
 using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
-using System.Windows.Forms;
 using AquaLog.Core.Types;
 using BSLib;
 
@@ -40,97 +38,9 @@ namespace AquaLog.Core
 
         public const string AppName = "AquaLog";
 
-        public static int[] WaterChangeFactors = new int[] {
-             0, // Restart
-            +1, // WaterAdded
-             0, // WaterReplaced
-            -1, // WaterRemoved
-             0, // Other
-        };
-
         private static readonly NumberFormatInfo SQLITE_NFI = new NumberFormatInfo {
             NumberDecimalSeparator = ".",
             NumberGroupSeparator = ""
-        };
-
-        public static readonly DeviceProps[] DeviceProps = new DeviceProps[] {
-            new DeviceProps(LSID.Light, false), // Light
-            new DeviceProps(LSID.Pump, false), // Pump
-            new DeviceProps(LSID.Thermometer, true), // Thermometer
-            new DeviceProps(LSID.Filter, false), // Filter
-            new DeviceProps(LSID.Heater, false), // Heater
-        };
-
-        public static readonly LSID[] InventoryTypes = new LSID[] {
-            LSID.Additive,
-            LSID.Chemistry,
-            LSID.Equipment,
-            LSID.Maintenance,
-            LSID.Furniture,
-            LSID.Decoration,
-        };
-
-        public static readonly LSID[] TransferTypes = new LSID[] {
-            LSID.Relocation,
-            LSID.Purchase,
-            LSID.Sale,
-            LSID.Birth,
-            LSID.Death
-        };
-
-        public static readonly LSID[] MaintenanceTypes = new LSID[] {
-            LSID.Restart,
-            LSID.WaterAdded,
-            LSID.WaterReplaced,
-            LSID.WaterRemoved,
-            LSID.Clean,
-            LSID.Other,
-        };
-
-        public static readonly LSID[] SpeciesTypes = new LSID[] {
-            LSID.Fish,
-            LSID.Invertebrate,
-            LSID.Plant,
-            LSID.Coral,
-        };
-
-        public static readonly LSID[] SexNames = new LSID[] {
-            LSID.None,
-            LSID.Female,
-            LSID.Male,
-            LSID.Hermaphrodite,
-        };
-
-        public static readonly LSID[] WaterTypes = new LSID[] {
-            LSID.FreshWater,
-            LSID.BrackishWater,
-            LSID.SeaWater,
-        };
-
-        public static readonly LSID[] TankShapes = new LSID[] {
-            LSID.None,
-            LSID.Bowl,
-            LSID.Cube,
-            LSID.Rectangular,
-            LSID.BowFront,
-            LSID.PlateFrontCorner,
-            LSID.BowFrontCorner,
-        };
-
-        public static readonly LSID[] ScheduleTypes = new LSID[] {
-            LSID.Single,
-            LSID.Daily,
-            LSID.Weekly,
-            LSID.Monthly,
-            LSID.Yearly,
-        };
-
-        public static readonly LSID[] TaskStatuses = new LSID[] {
-            LSID.ToDo,
-            LSID.Canceled,
-            LSID.Snoozed,
-            LSID.Late,
-            LSID.Closed,
         };
 
 
@@ -165,49 +75,6 @@ namespace AquaLog.Core
             return speciesType == SpeciesType.Fish || speciesType == SpeciesType.Invertebrate;
         }
 
-        public static Stream LoadResourceStream(string resName)
-        {
-            return LoadResourceStream(typeof(ALCore), resName);
-        }
-
-        public static Stream LoadResourceStream(Type baseType, string resName)
-        {
-            Assembly assembly = baseType.Assembly;
-            return assembly.GetManifestResourceStream(resName);
-        }
-
-        public static Bitmap LoadResourceImage(string resName)
-        {
-            return new Bitmap(LoadResourceStream("AquaLog.Resources." + resName));
-        }
-
-        public static T GetSelectedTag<T>(ListView listView) where T : class
-        {
-            var selectedItem = ALCore.GetSelectedItem(listView);
-            return (selectedItem == null) ? default(T) : selectedItem.Tag as T;
-        }
-
-        public static ListViewItem GetSelectedItem(ListView listView)
-        {
-            ListViewItem result;
-
-            if (listView.SelectedItems.Count <= 0) {
-                result = null;
-            } else {
-                result = (listView.SelectedItems[0] as ListViewItem);
-            }
-
-            return result;
-        }
-
-        public static Color CreateColor(int rgb)
-        {
-            int red = (rgb >> 16) & 0xFF;
-            int green = (rgb >> 8) & 0xFF;
-            int blue = (rgb >> 0) & 0xFF;
-            return Color.FromArgb(red, green, blue);
-        }
-
         public static double GetDecimalVal(string strVal, double defaultValue = 0.0d)
         {
             return ConvertHelper.ParseFloat(strVal, defaultValue, true);
@@ -236,8 +103,6 @@ namespace AquaLog.Core
             return ALCore.GetDecimalStr(min) + " - " + ALCore.GetDecimalStr(max);
         }
 
-        #region Application Runtime
-
         public static void LoadExtFile(string fileName, string args = "")
         {
             #if !CI_MODE
@@ -248,6 +113,8 @@ namespace AquaLog.Core
             }
             #endif
         }
+
+        #region Application Runtime
 
         private static Assembly GetAssembly()
         {

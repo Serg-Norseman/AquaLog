@@ -9,8 +9,9 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.TSDB;
 using AquaLog.UI;
+using AquaLog.UI.Dialogs;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 
@@ -43,7 +44,7 @@ namespace AquaLog.Panels
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
         }
 
-        public override void UpdateContent()
+        protected override void UpdateListView()
         {
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Timestamp), 140, HorizontalAlignment.Left);
@@ -74,7 +75,7 @@ namespace AquaLog.Panels
 
         protected override void EditHandler(object sender, EventArgs e)
         {
-            var record = ALCore.GetSelectedTag<TSValue>(ListView);
+            var record = ListView.GetSelectedTag<TSValue>();
             if (record == null) return;
 
             using (var dlg = new TSValueEditDlg()) {
@@ -88,7 +89,7 @@ namespace AquaLog.Panels
 
         protected override void DeleteHandler(object sender, EventArgs e)
         {
-            var record = ALCore.GetSelectedTag<TSValue>(ListView);
+            var record = ListView.GetSelectedTag<TSValue>();
             if (record == null) return;
 
             fModel.TSDB.DeleteValue(fPointId, record.Timestamp);

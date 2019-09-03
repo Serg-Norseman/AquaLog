@@ -12,7 +12,8 @@ using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Logging;
-using AquaLog.Panels;
+using AquaLog.UI.Dialogs;
+using AquaLog.UI.Panels;
 
 namespace AquaLog.UI
 {
@@ -49,11 +50,11 @@ namespace AquaLog.UI
             SetSettings();
             UpdateControls();
 
-            Icon = new Icon(ALCore.LoadResourceStream("AquaLog.Resources.icon_aqualog.ico"));
-            btnPrev.Image = ALCore.LoadResourceImage("btn_left.gif");
-            btnNext.Image = ALCore.LoadResourceImage("btn_right.gif");
-            miExit.Image = ALCore.LoadResourceImage("btn_exit.gif");
-            miSettings.Image = ALCore.LoadResourceImage("btn_tools.gif");
+            Icon = new Icon(UIHelper.LoadResourceStream("AquaLog.Resources.icon_aqualog.ico"));
+            btnPrev.Image = UIHelper.LoadResourceImage("btn_left.gif");
+            btnNext.Image = UIHelper.LoadResourceImage("btn_right.gif");
+            miExit.Image = UIHelper.LoadResourceImage("btn_exit.gif");
+            miSettings.Image = UIHelper.LoadResourceImage("btn_tools.gif");
 
             btnPrev.Tag = MainView.Prev;
             btnNext.Tag = MainView.Next;
@@ -201,9 +202,7 @@ namespace AquaLog.UI
                 }
             }
 
-            for (int i = 0; i < browser.Actions.Count; i++) {
-                var action = browser.Actions[i];
-
+            foreach (var action in browser.Actions) {
                 var btn = new Button();
                 btn.Dock = DockStyle.Top;
                 btn.Name = "btn" + action.BtnName;

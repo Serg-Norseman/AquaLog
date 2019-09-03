@@ -13,6 +13,7 @@ namespace AquaLog.Core.Types
         SeaWater,
     }
 
+    // FIXME
     public enum AquariumTemperatureType
     {
         Coldwater,

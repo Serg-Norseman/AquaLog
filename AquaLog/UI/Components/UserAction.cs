@@ -7,6 +7,7 @@
 using System;
 using System.Drawing;
 using AquaLog.Core;
+using AquaLog.UI;
 
 namespace AquaLog.Components
 {
@@ -24,7 +25,7 @@ namespace AquaLog.Components
         {
             BtnName = btnName;
             BtnText = btnText;
-            Image = string.IsNullOrEmpty(imageName) ? null : ALCore.LoadResourceImage(imageName);
+            Image = string.IsNullOrEmpty(imageName) ? null : UIHelper.LoadResourceImage(imageName);
             Click = clickHandler;
         }
     }

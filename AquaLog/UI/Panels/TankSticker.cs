@@ -11,8 +11,9 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
+using AquaLog.UI;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     public enum TankState
     {
@@ -105,7 +106,7 @@ namespace AquaLog.Panels
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            BackColor = ALCore.CreateColor(color);
+            BackColor = UIHelper.CreateColor(color);
         }
 
         public void UpdateView()

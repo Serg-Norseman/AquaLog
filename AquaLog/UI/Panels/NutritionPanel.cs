@@ -8,9 +8,9 @@ using System;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
-using AquaLog.UI;
+using AquaLog.UI.Dialogs;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 

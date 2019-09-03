@@ -8,9 +8,9 @@ using System;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
-using AquaLog.UI;
+using AquaLog.UI.Dialogs;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 
@@ -21,7 +21,7 @@ namespace AquaLog.Panels
         {
         }
 
-        public override void UpdateContent()
+        protected override void UpdateListView()
         {
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 120, HorizontalAlignment.Left);
@@ -36,8 +36,8 @@ namespace AquaLog.Panels
             foreach (Schedule rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
-                string strType = Localizer.LS(ALCore.ScheduleTypes[(int)rec.Type]);
-                string strStatus = Localizer.LS(ALCore.TaskStatuses[(int)rec.Status]);
+                string strType = Localizer.LS(ALData.ScheduleTypes[(int)rec.Type]);
+                string strStatus = Localizer.LS(ALData.TaskStatuses[(int)rec.Status]);
 
                 var item = new ListViewItem(aqmName);
                 item.Tag = rec;

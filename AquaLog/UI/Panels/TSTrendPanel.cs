@@ -13,7 +13,7 @@ using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.TSDB;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 

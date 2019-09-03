@@ -10,8 +10,9 @@ using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.DataCollection;
 using AquaLog.UI;
+using AquaLog.UI.Dialogs;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 
@@ -49,7 +50,7 @@ namespace AquaLog.Panels
             foreach (Device rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
-                string strType = Localizer.LS(ALCore.DeviceProps[(int)rec.Type].Text);
+                string strType = Localizer.LS(ALData.DeviceProps[(int)rec.Type].Text);
 
                 var item = new ListViewItem(aqmName);
                 item.Tag = rec;
@@ -67,7 +68,7 @@ namespace AquaLog.Panels
 
         private void ViewDataHandler(object sender, EventArgs e)
         {
-            var device = ALCore.GetSelectedTag<Device>(ListView);
+            var device = ListView.GetSelectedTag<Device>();
             if (device == null || device.PointId == 0) return;
 
             Browser.SetView(MainView.TSValues, device.PointId);
@@ -75,7 +76,7 @@ namespace AquaLog.Panels
 
         private void ViewTrendHandler(object sender, EventArgs e)
         {
-            var device = ALCore.GetSelectedTag<Device>(ListView);
+            var device = ListView.GetSelectedTag<Device>();
             if (device == null || device.PointId == 0) return;
 
             Browser.SetView(MainView.TSTrend, device.PointId);

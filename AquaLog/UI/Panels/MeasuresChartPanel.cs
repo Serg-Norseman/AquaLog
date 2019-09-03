@@ -11,7 +11,7 @@ using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core.Model;
 
-namespace AquaLog.Panels
+namespace AquaLog.UI.Panels
 {
     public class Trend
     {
