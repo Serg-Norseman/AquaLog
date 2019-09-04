@@ -37,6 +37,8 @@
         private System.Windows.Forms.ToolStripButton btnMeasures;
         private System.Windows.Forms.ToolStripButton btnSchedule;
         private System.Windows.Forms.ToolStripButton btnInventory;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem miCalculator;
 
         private void InitializeComponent()
         {
@@ -75,6 +77,8 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.miCalculator = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.menuMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlTools.SuspendLayout();
@@ -90,7 +94,7 @@
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuMain.Size = new System.Drawing.Size(989, 24);
+            this.menuMain.Size = new System.Drawing.Size(989, 28);
             this.menuMain.TabIndex = 2;
             this.menuMain.Text = "menuStrip1";
             // 
@@ -100,40 +104,42 @@
             this.miCleanSpace,
             this.toolStripMenuItem1,
             this.miSettings,
+            this.toolStripMenuItem3,
+            this.miCalculator,
             this.toolStripMenuItem2,
             this.miExit});
             this.miFile.Name = "miFile";
-            this.miFile.Size = new System.Drawing.Size(37, 20);
+            this.miFile.Size = new System.Drawing.Size(44, 24);
             this.miFile.Text = "File";
             // 
             // miCleanSpace
             // 
             this.miCleanSpace.Name = "miCleanSpace";
-            this.miCleanSpace.Size = new System.Drawing.Size(135, 22);
+            this.miCleanSpace.Size = new System.Drawing.Size(181, 26);
             this.miCleanSpace.Text = "CleanSpace";
             this.miCleanSpace.Click += new System.EventHandler(this.miCleanSpace_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(132, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(178, 6);
             // 
             // miSettings
             // 
             this.miSettings.Name = "miSettings";
-            this.miSettings.Size = new System.Drawing.Size(135, 22);
+            this.miSettings.Size = new System.Drawing.Size(181, 26);
             this.miSettings.Text = "Settings";
             this.miSettings.Click += new System.EventHandler(this.miSettings_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(132, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(178, 6);
             // 
             // miExit
             // 
             this.miExit.Name = "miExit";
-            this.miExit.Size = new System.Drawing.Size(135, 22);
+            this.miExit.Size = new System.Drawing.Size(181, 26);
             this.miExit.Text = "Exit";
             this.miExit.Click += new System.EventHandler(this.miExit_Click);
             // 
@@ -142,13 +148,13 @@
             this.miHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.miAbout});
             this.miHelp.Name = "miHelp";
-            this.miHelp.Size = new System.Drawing.Size(44, 20);
+            this.miHelp.Size = new System.Drawing.Size(53, 24);
             this.miHelp.Text = "Help";
             // 
             // miAbout
             // 
             this.miAbout.Name = "miAbout";
-            this.miAbout.Size = new System.Drawing.Size(107, 22);
+            this.miAbout.Size = new System.Drawing.Size(125, 26);
             this.miAbout.Text = "About";
             this.miAbout.Click += new System.EventHandler(this.miAbout_Click);
             // 
@@ -175,9 +181,9 @@
             this.btnTransfers,
             this.btnBudget,
             this.btnTSDB});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 28);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(989, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(989, 27);
             this.toolStrip1.TabIndex = 3;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -187,7 +193,7 @@
             this.btnPrev.Enabled = false;
             this.btnPrev.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnPrev.Name = "btnPrev";
-            this.btnPrev.Size = new System.Drawing.Size(23, 22);
+            this.btnPrev.Size = new System.Drawing.Size(23, 24);
             this.btnPrev.Text = "Prev";
             this.btnPrev.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnPrev.Click += new System.EventHandler(this.btnMainView_Click);
@@ -198,7 +204,7 @@
             this.btnNext.Enabled = false;
             this.btnNext.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(23, 22);
+            this.btnNext.Size = new System.Drawing.Size(23, 24);
             this.btnNext.Text = "Next";
             this.btnNext.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnNext.Click += new System.EventHandler(this.btnMainView_Click);
@@ -207,7 +213,7 @@
             // 
             this.btnTanks.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnTanks.Name = "btnTanks";
-            this.btnTanks.Size = new System.Drawing.Size(44, 22);
+            this.btnTanks.Size = new System.Drawing.Size(54, 24);
             this.btnTanks.Text = "Home";
             this.btnTanks.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnTanks.Click += new System.EventHandler(this.btnMainView_Click);
@@ -215,13 +221,13 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // btnInhabitants
             // 
             this.btnInhabitants.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnInhabitants.Name = "btnInhabitants";
-            this.btnInhabitants.Size = new System.Drawing.Size(70, 22);
+            this.btnInhabitants.Size = new System.Drawing.Size(86, 24);
             this.btnInhabitants.Text = "Inhabitants";
             this.btnInhabitants.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnInhabitants.Click += new System.EventHandler(this.btnMainView_Click);
@@ -230,7 +236,7 @@
             // 
             this.btnSpecies.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSpecies.Name = "btnSpecies";
-            this.btnSpecies.Size = new System.Drawing.Size(50, 22);
+            this.btnSpecies.Size = new System.Drawing.Size(63, 24);
             this.btnSpecies.Text = "Species";
             this.btnSpecies.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSpecies.Click += new System.EventHandler(this.btnMainView_Click);
@@ -238,13 +244,13 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
             // btnNutrition
             // 
             this.btnNutrition.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNutrition.Name = "btnNutrition";
-            this.btnNutrition.Size = new System.Drawing.Size(59, 22);
+            this.btnNutrition.Size = new System.Drawing.Size(72, 24);
             this.btnNutrition.Text = "Nutrition";
             this.btnNutrition.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnNutrition.Click += new System.EventHandler(this.btnMainView_Click);
@@ -253,7 +259,7 @@
             // 
             this.btnDevices.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnDevices.Name = "btnDevices";
-            this.btnDevices.Size = new System.Drawing.Size(51, 22);
+            this.btnDevices.Size = new System.Drawing.Size(64, 24);
             this.btnDevices.Text = "Devices";
             this.btnDevices.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnDevices.Click += new System.EventHandler(this.btnMainView_Click);
@@ -262,7 +268,7 @@
             // 
             this.btnInventory.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnInventory.Name = "btnInventory";
-            this.btnInventory.Size = new System.Drawing.Size(61, 22);
+            this.btnInventory.Size = new System.Drawing.Size(74, 24);
             this.btnInventory.Text = "Inventory";
             this.btnInventory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnInventory.Click += new System.EventHandler(this.btnMainView_Click);
@@ -270,13 +276,13 @@
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 27);
             // 
             // btnMaintenance
             // 
             this.btnMaintenance.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMaintenance.Name = "btnMaintenance";
-            this.btnMaintenance.Size = new System.Drawing.Size(80, 22);
+            this.btnMaintenance.Size = new System.Drawing.Size(98, 24);
             this.btnMaintenance.Text = "Maintenance";
             this.btnMaintenance.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMaintenance.Click += new System.EventHandler(this.btnMainView_Click);
@@ -285,7 +291,7 @@
             // 
             this.btnNotes.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnNotes.Name = "btnNotes";
-            this.btnNotes.Size = new System.Drawing.Size(42, 22);
+            this.btnNotes.Size = new System.Drawing.Size(52, 24);
             this.btnNotes.Text = "Notes";
             this.btnNotes.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnNotes.Click += new System.EventHandler(this.btnMainView_Click);
@@ -294,7 +300,7 @@
             // 
             this.btnHistory.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnHistory.Name = "btnHistory";
-            this.btnHistory.Size = new System.Drawing.Size(49, 22);
+            this.btnHistory.Size = new System.Drawing.Size(60, 24);
             this.btnHistory.Text = "History";
             this.btnHistory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHistory.Click += new System.EventHandler(this.btnMainView_Click);
@@ -303,7 +309,7 @@
             // 
             this.btnMeasures.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnMeasures.Name = "btnMeasures";
-            this.btnMeasures.Size = new System.Drawing.Size(61, 22);
+            this.btnMeasures.Size = new System.Drawing.Size(75, 24);
             this.btnMeasures.Text = "Measures";
             this.btnMeasures.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMeasures.Click += new System.EventHandler(this.btnMainView_Click);
@@ -312,7 +318,7 @@
             // 
             this.btnSchedule.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnSchedule.Name = "btnSchedule";
-            this.btnSchedule.Size = new System.Drawing.Size(59, 22);
+            this.btnSchedule.Size = new System.Drawing.Size(73, 24);
             this.btnSchedule.Text = "Schedule";
             this.btnSchedule.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSchedule.Click += new System.EventHandler(this.btnMainView_Click);
@@ -321,7 +327,7 @@
             // 
             this.btnTransfers.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnTransfers.Name = "btnTransfers";
-            this.btnTransfers.Size = new System.Drawing.Size(58, 22);
+            this.btnTransfers.Size = new System.Drawing.Size(71, 24);
             this.btnTransfers.Text = "Transfers";
             this.btnTransfers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnTransfers.Click += new System.EventHandler(this.btnMainView_Click);
@@ -330,7 +336,7 @@
             // 
             this.btnBudget.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnBudget.Name = "btnBudget";
-            this.btnBudget.Size = new System.Drawing.Size(49, 22);
+            this.btnBudget.Size = new System.Drawing.Size(61, 24);
             this.btnBudget.Text = "Budget";
             this.btnBudget.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnBudget.Click += new System.EventHandler(this.btnMainView_Click);
@@ -339,7 +345,7 @@
             // 
             this.btnTSDB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnTSDB.Name = "btnTSDB";
-            this.btnTSDB.Size = new System.Drawing.Size(39, 22);
+            this.btnTSDB.Size = new System.Drawing.Size(49, 24);
             this.btnTSDB.Text = "TSDB";
             this.btnTSDB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnTSDB.Click += new System.EventHandler(this.btnMainView_Click);
@@ -349,10 +355,10 @@
             this.pnlTools.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.pnlTools.Controls.Add(this.pnlDate);
             this.pnlTools.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlTools.Location = new System.Drawing.Point(0, 49);
+            this.pnlTools.Location = new System.Drawing.Point(0, 55);
             this.pnlTools.Name = "pnlTools";
             this.pnlTools.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlTools.Size = new System.Drawing.Size(210, 361);
+            this.pnlTools.Size = new System.Drawing.Size(210, 355);
             this.pnlTools.TabIndex = 4;
             // 
             // pnlDate
@@ -383,10 +389,10 @@
             // 
             this.pnlClient.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.pnlClient.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlClient.Location = new System.Drawing.Point(210, 49);
+            this.pnlClient.Location = new System.Drawing.Point(210, 55);
             this.pnlClient.Name = "pnlClient";
             this.pnlClient.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlClient.Size = new System.Drawing.Size(779, 361);
+            this.pnlClient.Size = new System.Drawing.Size(779, 355);
             this.pnlClient.TabIndex = 5;
             // 
             // timer1
@@ -394,9 +400,21 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
             // 
+            // miCalculator
+            // 
+            this.miCalculator.Name = "miCalculator";
+            this.miCalculator.Size = new System.Drawing.Size(181, 26);
+            this.miCalculator.Text = "Calculator";
+            this.miCalculator.Click += new System.EventHandler(this.miCalculator_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(178, 6);
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(989, 410);
             this.Controls.Add(this.pnlClient);

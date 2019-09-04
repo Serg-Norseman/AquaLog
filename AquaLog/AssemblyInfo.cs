@@ -5,5 +5,5 @@ using System.Reflection;
 [assembly: AssemblyDescription("Home aquariums manager")]
 [assembly: AssemblyProduct("AquaLog")]
 [assembly: AssemblyCopyright("Copyright © 2019 by Sergey V. Zhdanovskih")]
-[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyVersion("1.1.0.0")]
 [assembly: AssemblyCulture("")]

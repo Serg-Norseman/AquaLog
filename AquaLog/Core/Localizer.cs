@@ -155,8 +155,10 @@ namespace AquaLog.Core
         /* 133 */ Snoozed,
         /* 134 */ Late,
         /* 135 */ Closed,
+        /* 136 */ Calculator,
+        /* 137 */ Calculate,
 
-        /* 000 */ Last = Closed
+        /* 000 */ Last = Calculate
     }
 
 
@@ -302,6 +304,8 @@ namespace AquaLog.Core
             /* 133 */ "Snoozed",
             /* 134 */ "Late",
             /* 135 */ "Closed",
+            /* 136 */ "Calculator",
+            /* 137 */ "Calculate",
         };
 
 

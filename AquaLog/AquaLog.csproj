@@ -70,6 +70,7 @@
     <Compile Include="Core\ALData.cs" />
     <Compile Include="Core\ALSettings.cs" />
     <Compile Include="Core\Average.cs" />
+    <Compile Include="Core\Calculations.cs" />
     <Compile Include="Core\ILocalizable.cs" />
     <Compile Include="Core\Localizer.cs" />
     <Compile Include="Core\Model\Inventory.cs" />
@@ -136,6 +137,10 @@
     <Compile Include="UI\Dialogs\AquariumEditDlg.cs" />
     <Compile Include="UI\Dialogs\AquariumEditDlg.Designer.cs">
       <DependentUpon>AquariumEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\CalculatorDlg.cs" />
+    <Compile Include="UI\Dialogs\CalculatorDlg.Designer.cs">
+      <DependentUpon>CalculatorDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialogs\DataMonitor.cs" />
     <Compile Include="UI\Dialogs\DataMonitor.Designer.cs">

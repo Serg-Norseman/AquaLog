@@ -109,6 +109,8 @@ namespace AquaLog.UI
             miAbout.Text = Localizer.LS(LSID.About);
             miSettings.Text = Localizer.LS(LSID.Settings);
             miCleanSpace.Text = Localizer.LS(LSID.CleanSpace);
+            miCalculator.Text = Localizer.LS(LSID.Calculator);
+
             btnTanks.Text = Localizer.LS(LSID.Aquariums);
             btnInhabitants.Text = Localizer.LS(LSID.Inhabitants);
             btnSpecies.Text = Localizer.LS(LSID.Species);
@@ -187,6 +189,13 @@ namespace AquaLog.UI
                     ChangeLocale();
                     fCurrentPanel.UpdateView();
                 }
+            }
+        }
+
+        private void miCalculator_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new CalculatorDlg()) {
+                dlg.ShowDialog();
             }
         }
 
