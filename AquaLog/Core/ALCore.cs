@@ -70,6 +70,32 @@ namespace AquaLog.Core
             }
         }
 
+        public static ItemType GetItemType(InventoryType inventoryType)
+        {
+            switch (inventoryType) {
+                case InventoryType.Additive:
+                    return ItemType.Additive;
+
+                case InventoryType.Chemistry:
+                    return ItemType.Chemistry;
+
+                case InventoryType.Equipment:
+                    return ItemType.Equipment;
+
+                case InventoryType.Maintenance:
+                    return ItemType.Maintenance;
+
+                case InventoryType.Furniture:
+                    return ItemType.Furniture;
+
+                case InventoryType.Decoration:
+                    return ItemType.Decoration;
+
+                default:
+                    return ItemType.None;
+            }
+        }
+
         public static bool IsAnimal(SpeciesType speciesType)
         {
             return speciesType == SpeciesType.Fish || speciesType == SpeciesType.Invertebrate;

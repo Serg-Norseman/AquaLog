@@ -8,6 +8,7 @@ using System;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 using AquaLog.DataCollection;
 using AquaLog.UI;
 using AquaLog.UI.Dialogs;
@@ -28,6 +29,7 @@ namespace AquaLog.UI.Panels
             AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
+            AddAction("Transfer", LSID.Transfer, null, TransferHandler);
 
             AddAction("Data", LSID.Data, "", ViewDataHandler);
             AddAction("Trend", LSID.Trend, "", ViewTrendHandler);
@@ -38,11 +40,11 @@ namespace AquaLog.UI.Panels
         {
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 200, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Enabled), 60, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Digital), 60, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Wattage), 100, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.WorkTime), 100, HorizontalAlignment.Right);
 
@@ -54,11 +56,11 @@ namespace AquaLog.UI.Panels
 
                 var item = new ListViewItem(aqmName);
                 item.Tag = rec;
-                item.SubItems.Add(strType);
                 item.SubItems.Add(rec.Name);
+                item.SubItems.Add(rec.Brand);
+                item.SubItems.Add(strType);
                 item.SubItems.Add(rec.Enabled.ToString());
                 item.SubItems.Add(rec.Digital.ToString());
-                item.SubItems.Add(rec.Brand);
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.Wattage));
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.WorkTime));
                 ListView.Items.Add(item);
@@ -86,6 +88,27 @@ namespace AquaLog.UI.Panels
         {
             using (var monitor = new DataMonitor()) {
                 monitor.ShowDialog();
+            }
+        }
+
+        private void TransferHandler(object sender, EventArgs e)
+        {
+            var record = ListView.GetSelectedTag<Device>();
+            if (record == null) return;
+
+            ItemType itemType = ItemType.Device;
+
+            var transfer = new Transfer();
+            transfer.ItemType = itemType;
+            transfer.ItemId = record.Id;
+
+            using (var dlg = new TransferEditDlg()) {
+                dlg.Model = fModel;
+                dlg.Record = transfer;
+                if (dlg.ShowDialog() == DialogResult.OK) {
+                    fModel.AddRecord(dlg.Record);
+                    UpdateContent();
+                }
             }
         }
     }

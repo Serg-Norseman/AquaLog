@@ -483,7 +483,7 @@ namespace AquaLog.Core
 
         public IEnumerable<Transfer> QueryExpenses()
         {
-            return fDB.Query<Transfer>("select Date, ItemType, ItemId, Type, Quantity, UnitPrice, Shop from Transfer");
+            return fDB.Query<Transfer>("select Date, ItemType, ItemId, Type, Quantity, UnitPrice, Shop from Transfer order by Date");
         }
 
         public IList<QString> QueryShops()

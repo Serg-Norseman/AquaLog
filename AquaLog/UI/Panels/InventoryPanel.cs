@@ -8,6 +8,7 @@ using System;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -26,6 +27,7 @@ namespace AquaLog.UI.Panels
             AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
+            AddAction("Transfer", LSID.Transfer, null, TransferHandler);
         }
 
         protected override void UpdateListView()
@@ -46,6 +48,27 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(strType);
                 item.SubItems.Add(rec.Note);
                 ListView.Items.Add(item);
+            }
+        }
+
+        private void TransferHandler(object sender, EventArgs e)
+        {
+            var record = ListView.GetSelectedTag<Inventory>();
+            if (record == null) return;
+
+            ItemType itemType = ALCore.GetItemType(record.Type);
+
+            var transfer = new Transfer();
+            transfer.ItemType = itemType;
+            transfer.ItemId = record.Id;
+
+            using (var dlg = new TransferEditDlg()) {
+                dlg.Model = fModel;
+                dlg.Record = transfer;
+                if (dlg.ShowDialog() == DialogResult.OK) {
+                    fModel.AddRecord(dlg.Record);
+                    UpdateContent();
+                }
             }
         }
     }

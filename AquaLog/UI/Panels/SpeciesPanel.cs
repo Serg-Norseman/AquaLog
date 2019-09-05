@@ -37,6 +37,8 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add("Temp", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("PH", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("GH", 100, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.AdultSize), 100, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.LifeSpan), 100, HorizontalAlignment.Right);
 
             var records = fModel.QuerySpecies();
             foreach (Species rec in records) {
@@ -48,6 +50,8 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(rec.GetTempRange());
                 item.SubItems.Add(rec.GetPHRange());
                 item.SubItems.Add(rec.GetGHRange());
+                item.SubItems.Add(ALCore.GetDecimalStr(rec.AdultSize));
+                item.SubItems.Add(ALCore.GetDecimalStr(rec.LifeSpan));
                 item.Tag = rec;
                 ListView.Items.Add(item);
             }

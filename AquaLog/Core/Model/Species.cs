@@ -45,14 +45,14 @@ namespace AquaLog.Core.Model
 
         #region Fish/Invertebrate properties
 
+        public float AdultSize { get; set; }
         public string Biology { get; set; }
         public string Climate { get; set; }
         public string Dangerous { get; set; }
         public string Diagnosis { get; set; }
         public string Diet { get; set; }
         public string Environment { get; set; }
-        public string LifeSpan { get; set; }
-        public int MaxSize { get; set; }
+        public float LifeSpan { get; set; }
         public string SwimLevel { get; set; }
 
         #endregion

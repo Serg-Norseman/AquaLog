@@ -29,7 +29,7 @@ namespace AquaLog.UI.Panels
             AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
-            AddAction("Transfer", LSID.Transfer, null, TransferInhabitantHandler);
+            AddAction("Transfer", LSID.Transfer, null, TransferHandler);
         }
 
         protected override void UpdateListView()
@@ -76,7 +76,7 @@ namespace AquaLog.UI.Panels
             }
         }
 
-        private void TransferInhabitantHandler(object sender, EventArgs e)
+        private void TransferHandler(object sender, EventArgs e)
         {
             var record = ListView.GetSelectedTag<Inhabitant>();
             if (record == null) return;

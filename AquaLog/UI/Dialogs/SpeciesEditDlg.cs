@@ -68,6 +68,9 @@ namespace AquaLog.UI.Dialogs
             tabInvertebrate.Text = Localizer.LS(LSID.Invertebrate);
             tabPlant.Text = Localizer.LS(LSID.Plant);
             tabCoral.Text = Localizer.LS(LSID.Coral);
+
+            lblAdultSize.Text = Localizer.LS(LSID.AdultSize);
+            lblLifeSpan.Text = Localizer.LS(LSID.LifeSpan);
         }
 
         private void UpdateView()
@@ -83,6 +86,11 @@ namespace AquaLog.UI.Dialogs
             txtPHMax.Text = ALCore.GetDecimalStr(fRecord.PHMax);
             txtGHMin.Text = ALCore.GetDecimalStr(fRecord.GHMin);
             txtGHMax.Text = ALCore.GetDecimalStr(fRecord.GHMax);
+
+            if (fRecord.Type == SpeciesType.Fish) {
+                txtAdultSize.Text = ALCore.GetDecimalStr(fRecord.AdultSize);
+                txtLifeSpan.Text = ALCore.GetDecimalStr(fRecord.LifeSpan);
+            }
         }
 
         private void ApplyChanges()
@@ -98,6 +106,11 @@ namespace AquaLog.UI.Dialogs
             fRecord.PHMax = (float)ALCore.GetDecimalVal(txtPHMax.Text);
             fRecord.GHMin = (float)ALCore.GetDecimalVal(txtGHMin.Text);
             fRecord.GHMax = (float)ALCore.GetDecimalVal(txtGHMax.Text);
+
+            if (fRecord.Type == SpeciesType.Fish) {
+                fRecord.AdultSize = (float)ALCore.GetDecimalVal(txtAdultSize.Text);
+                fRecord.LifeSpan = (float)ALCore.GetDecimalVal(txtLifeSpan.Text);
+            }
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
@@ -114,6 +127,11 @@ namespace AquaLog.UI.Dialogs
         {
             var type = cmbType.GetSelectedTag<SpeciesType>();
             tabControl1.SelectedIndex = (int)type;
+
+            bool isFish = (type == SpeciesType.Fish);
+            txtAdultSize.Enabled = isFish;
+            txtLifeSpan.Enabled = isFish;
+
             switch (type) {
                 case SpeciesType.Fish:
                     break;

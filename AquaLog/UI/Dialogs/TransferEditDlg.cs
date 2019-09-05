@@ -63,7 +63,7 @@ namespace AquaLog.UI.Dialogs
                 cmbType.AddItem<TransferType>(Localizer.LS(ALData.TransferTypes[(int)type]), type);
             }
 
-            lblName.Text = Localizer.LS(LSID.Inhabitant);
+            lblName.Text = Localizer.LS(LSID.Item);
             lblSource.Text = Localizer.LS(LSID.SourceTank);
             lblTarget.Text = Localizer.LS(LSID.TargetTank);
             lblDate.Text = Localizer.LS(LSID.Date);
@@ -107,18 +107,17 @@ namespace AquaLog.UI.Dialogs
                 cmbType.SetSelectedTag(fRecord.Type);
                 txtCause.Text = fRecord.Cause;
 
+                cmbShop.Items.Clear();
+                var shops = fModel.QueryShops();
+                foreach (var shp in shops) {
+                    if (!string.IsNullOrEmpty(shp.element)) {
+                        cmbShop.Items.Add(shp.element);
+                    }
+                }
+
                 txtQty.Text = fRecord.Quantity.ToString();
                 if (fRecord.Type == TransferType.Purchase || fRecord.Type == TransferType.Sale) {
                     txtUnitPrice.Text = ALCore.GetDecimalStr(fRecord.UnitPrice);
-
-                    cmbShop.Items.Clear();
-                    var shops = fModel.QueryShops();
-                    foreach (var shp in shops) {
-                        if (!string.IsNullOrEmpty(shp.element)) {
-                            cmbShop.Items.Add(shp.element);
-                        }
-                    }
-
                     cmbShop.Text = fRecord.Shop;
                 }
             }

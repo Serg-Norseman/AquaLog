@@ -22,5 +22,10 @@ namespace AquaLog.Core.Model
         public Nutrition()
         {
         }
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

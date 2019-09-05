@@ -30,6 +30,10 @@
         private System.Windows.Forms.TextBox txtGHMin;
         private System.Windows.Forms.TextBox txtGHMax;
         private System.Windows.Forms.TabPage tabCoral;
+        private System.Windows.Forms.TextBox txtAdultSize;
+        private System.Windows.Forms.Label lblAdultSize;
+        private System.Windows.Forms.TextBox txtLifeSpan;
+        private System.Windows.Forms.Label lblLifeSpan;
         
         protected override void Dispose(bool disposing)
         {
@@ -53,8 +57,13 @@
             this.txtDesc = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabFish = new System.Windows.Forms.TabPage();
+            this.txtLifeSpan = new System.Windows.Forms.TextBox();
+            this.txtAdultSize = new System.Windows.Forms.TextBox();
+            this.lblLifeSpan = new System.Windows.Forms.Label();
+            this.lblAdultSize = new System.Windows.Forms.Label();
             this.tabInvertebrate = new System.Windows.Forms.TabPage();
             this.tabPlant = new System.Windows.Forms.TabPage();
+            this.tabCoral = new System.Windows.Forms.TabPage();
             this.lblScientificName = new System.Windows.Forms.Label();
             this.txtScientificName = new System.Windows.Forms.TextBox();
             this.lblTempMin = new System.Windows.Forms.Label();
@@ -69,8 +78,8 @@
             this.lblGHMax = new System.Windows.Forms.Label();
             this.txtGHMin = new System.Windows.Forms.TextBox();
             this.txtGHMax = new System.Windows.Forms.TextBox();
-            this.tabCoral = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
+            this.tabFish.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAccept
@@ -126,7 +135,7 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(94, 10);
+            this.txtName.Location = new System.Drawing.Point(94, 9);
             this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(238, 22);
@@ -168,13 +177,51 @@
             // tabFish
             // 
             this.tabFish.BackColor = System.Drawing.SystemColors.Control;
+            this.tabFish.Controls.Add(this.txtLifeSpan);
+            this.tabFish.Controls.Add(this.txtAdultSize);
+            this.tabFish.Controls.Add(this.lblLifeSpan);
+            this.tabFish.Controls.Add(this.lblAdultSize);
             this.tabFish.Location = new System.Drawing.Point(4, 22);
             this.tabFish.Margin = new System.Windows.Forms.Padding(2);
             this.tabFish.Name = "tabFish";
-            this.tabFish.Padding = new System.Windows.Forms.Padding(2);
+            this.tabFish.Padding = new System.Windows.Forms.Padding(7);
             this.tabFish.Size = new System.Drawing.Size(493, 105);
             this.tabFish.TabIndex = 0;
             this.tabFish.Text = "Fish";
+            // 
+            // txtLifeSpan
+            // 
+            this.txtLifeSpan.Location = new System.Drawing.Point(135, 40);
+            this.txtLifeSpan.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
+            this.txtLifeSpan.Name = "txtLifeSpan";
+            this.txtLifeSpan.Size = new System.Drawing.Size(60, 22);
+            this.txtLifeSpan.TabIndex = 11;
+            // 
+            // txtAdultSize
+            // 
+            this.txtAdultSize.Location = new System.Drawing.Point(135, 9);
+            this.txtAdultSize.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
+            this.txtAdultSize.Name = "txtAdultSize";
+            this.txtAdultSize.Size = new System.Drawing.Size(60, 22);
+            this.txtAdultSize.TabIndex = 11;
+            // 
+            // lblLifeSpan
+            // 
+            this.lblLifeSpan.Location = new System.Drawing.Point(9, 43);
+            this.lblLifeSpan.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblLifeSpan.Name = "lblLifeSpan";
+            this.lblLifeSpan.Size = new System.Drawing.Size(122, 17);
+            this.lblLifeSpan.TabIndex = 10;
+            this.lblLifeSpan.Text = "LifeSpan";
+            // 
+            // lblAdultSize
+            // 
+            this.lblAdultSize.Location = new System.Drawing.Point(9, 12);
+            this.lblAdultSize.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblAdultSize.Name = "lblAdultSize";
+            this.lblAdultSize.Size = new System.Drawing.Size(122, 17);
+            this.lblAdultSize.TabIndex = 10;
+            this.lblAdultSize.Text = "AdultSize";
             // 
             // tabInvertebrate
             // 
@@ -197,6 +244,16 @@
             this.tabPlant.Size = new System.Drawing.Size(493, 105);
             this.tabPlant.TabIndex = 2;
             this.tabPlant.Text = "Plant";
+            // 
+            // tabCoral
+            // 
+            this.tabCoral.BackColor = System.Drawing.SystemColors.Control;
+            this.tabCoral.Location = new System.Drawing.Point(4, 22);
+            this.tabCoral.Name = "tabCoral";
+            this.tabCoral.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCoral.Size = new System.Drawing.Size(493, 105);
+            this.tabCoral.TabIndex = 3;
+            this.tabCoral.Text = "Coral";
             // 
             // lblScientificName
             // 
@@ -317,16 +374,6 @@
             this.txtGHMax.Size = new System.Drawing.Size(60, 22);
             this.txtGHMax.TabIndex = 19;
             // 
-            // tabCoral
-            // 
-            this.tabCoral.BackColor = System.Drawing.SystemColors.Control;
-            this.tabCoral.Location = new System.Drawing.Point(4, 22);
-            this.tabCoral.Name = "tabCoral";
-            this.tabCoral.Padding = new System.Windows.Forms.Padding(3);
-            this.tabCoral.Size = new System.Drawing.Size(493, 105);
-            this.tabCoral.TabIndex = 3;
-            this.tabCoral.Text = "Coral";
-            // 
             // SpeciesEditDlg
             // 
             this.AcceptButton = this.btnAccept;
@@ -368,6 +415,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Species";
             this.tabControl1.ResumeLayout(false);
+            this.tabFish.ResumeLayout(false);
+            this.tabFish.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

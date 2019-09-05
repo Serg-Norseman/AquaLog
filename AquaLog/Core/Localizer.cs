@@ -157,8 +157,10 @@ namespace AquaLog.Core
         /* 135 */ Closed,
         /* 136 */ Calculator,
         /* 137 */ Calculate,
+        /* 138 */ AdultSize,
+        /* 139 */ LifeSpan,
 
-        /* 000 */ Last = Calculate
+        /* 000 */ Last = LifeSpan
     }
 
 
@@ -306,6 +308,8 @@ namespace AquaLog.Core
             /* 135 */ "Closed",
             /* 136 */ "Calculator",
             /* 137 */ "Calculate",
+            /* 138 */ "Adult size",
+            /* 139 */ "Life span",
         };
 
 
