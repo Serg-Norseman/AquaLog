@@ -16,6 +16,7 @@ namespace AquaLog.Components
     {
         Bar,
         Point,
+        Pie,
     }
 
     public sealed class ChartPoint
@@ -23,11 +24,19 @@ namespace AquaLog.Components
         public string Caption;
         public DateTime Timestamp;
         public double Value;
+        public Color Color;
 
         public ChartPoint(string caption, double value)
         {
             Caption = caption;
             Value = value;
+        }
+
+        public ChartPoint(string caption, double value, Color color)
+        {
+            Caption = caption;
+            Value = value;
+            Color = color;
         }
 
         public ChartPoint(DateTime timestamp, double value)
@@ -87,8 +96,7 @@ namespace AquaLog.Components
 
                 gPane.YAxis.Title.Text = yAxis;
 
-                //if (style != ChartStyle.ClusterBar)
-                {
+                if (style != ChartStyle.Pie) {
                     PointPairList ppList = new PointPairList();
 
                     int num = vals.Count;
@@ -113,6 +121,15 @@ namespace AquaLog.Components
                             gPane.AddCurve(title, ppList, color, SymbolType.Diamond).Symbol.Size = 3;
                             break;
                     }
+                } else {
+                    int num = vals.Count;
+                    for (int i = 0; i < num; i++) {
+                        ChartPoint item = vals[i];
+
+                        PieItem ps = gPane.AddPieSlice(item.Value, item.Color, 0F, item.Caption);
+                        //ps.LabelType = PieLabelType.None;
+                    }
+                    gPane.Legend.IsVisible = false;
                 }
             } finally {
                 fGraph.AxisChange();

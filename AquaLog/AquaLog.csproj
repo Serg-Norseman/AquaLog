@@ -83,6 +83,7 @@
     <Compile Include="Core\Types\MeasureValue.cs" />
     <Compile Include="Core\Types\QDecimal.cs" />
     <Compile Include="Core\Types\QString.cs" />
+    <Compile Include="Core\Types\ItemState.cs" />
     <Compile Include="Core\Types\ValueBounds.cs" />
     <Compile Include="Core\UnitConverter.cs" />
     <Compile Include="DataCollection\BaseService.cs" />
@@ -210,6 +211,7 @@
     </Compile>
     <Compile Include="UI\MainView.cs" />
     <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
+    <Compile Include="UI\Panels\BudgetChartPanel.cs" />
     <Compile Include="UI\Panels\InventoryPanel.cs" />
     <Compile Include="UI\Panels\MeasurePanel.cs" />
     <Compile Include="UI\Panels\MeasuresChartPanel.cs" />

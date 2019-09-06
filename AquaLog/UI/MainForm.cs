@@ -291,6 +291,9 @@ namespace AquaLog.UI
                 case MainView.Inventory:
                     SetView<InventoryPanel>(extData);
                     break;
+                case MainView.BudgetChartPanel:
+                    SetView<BudgetChartPanel>(extData);
+                    break;
             }
         }
 

@@ -139,4 +139,5 @@
   <string id="137">Calculate</string>
   <string id="138">Adult size</string>
   <string id="139">Life span</string>
+  <string id="140">Expenses: {0:0.00}, Incomes: {1:0.00}, Balance: {2:0.00}</string>
 </resources>

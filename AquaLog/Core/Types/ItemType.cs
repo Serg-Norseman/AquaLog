@@ -12,17 +12,21 @@ namespace AquaLog.Core.Types
 
         Aquarium,
 
+        // Inhabitants
         Fish,
         Invertebrate,
         Plant,
         Coral,
 
+        // Lifesupport
         Nutrition,
-
         Device,
 
+        // Inventory, Lifesupport
         Additive,
         Chemistry,
+
+        // Inventory
         Equipment,
         Maintenance,
         Furniture,

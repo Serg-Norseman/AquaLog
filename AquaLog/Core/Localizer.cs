@@ -159,8 +159,9 @@ namespace AquaLog.Core
         /* 137 */ Calculate,
         /* 138 */ AdultSize,
         /* 139 */ LifeSpan,
+        /* 140 */ BalanceStr,
 
-        /* 000 */ Last = LifeSpan
+        /* 000 */ Last = BalanceStr
     }
 
 
@@ -310,6 +311,7 @@ namespace AquaLog.Core
             /* 137 */ "Calculate",
             /* 138 */ "Adult size",
             /* 139 */ "Life span",
+            /* 140 */ "Expenses: {0:0.00}, Incomes: {1:0.00}, Balance: {2:0.00}",
         };
 
 

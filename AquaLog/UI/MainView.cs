@@ -28,5 +28,6 @@ namespace AquaLog.UI
         Schedule,
         AquariumDetails,
         Inventory,
+        BudgetChartPanel,
     }
 }

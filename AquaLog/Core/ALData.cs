@@ -8,9 +8,22 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using AquaLog.Core.Types;
+using BSLib;
 
 namespace AquaLog.Core
 {
+    public sealed class ItemProps
+    {
+        public LSID Name;
+        public EnumSet<ItemState> States;
+
+        public ItemProps(LSID name, EnumSet<ItemState> states)
+        {
+            Name = name;
+            States = states;
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -21,7 +34,45 @@ namespace AquaLog.Core
             +1, // WaterAdded
              0, // WaterReplaced
             -1, // WaterRemoved
+             0, // Clean
              0, // Other
+        };
+
+        public static readonly ItemProps[] ItemTypes = new ItemProps[] {
+            new ItemProps(LSID.None,
+                          EnumSet<ItemState>.Create()),
+
+            new ItemProps(LSID.Aquarium,
+                          EnumSet<ItemState>.Create()),
+
+            new ItemProps(LSID.Fish,
+                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick)),
+            new ItemProps(LSID.Invertebrate,
+                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick)),
+            new ItemProps(LSID.Plant,
+                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick)),
+            new ItemProps(LSID.Coral,
+                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick)),
+
+            new ItemProps(LSID.Nutrition,
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Finished)),
+
+            new ItemProps(LSID.Device,
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Stopped, ItemState.Broken)),
+
+            new ItemProps(LSID.Additive,
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Finished)),
+            new ItemProps(LSID.Chemistry,
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Finished)),
+
+            new ItemProps(LSID.Equipment,
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
+            new ItemProps(LSID.Maintenance,
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
+            new ItemProps(LSID.Furniture,
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
+            new ItemProps(LSID.Decoration,
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
         };
 
         public static readonly DeviceProps[] DeviceProps = new DeviceProps[] {

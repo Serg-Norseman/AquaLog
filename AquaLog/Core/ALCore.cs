@@ -101,6 +101,16 @@ namespace AquaLog.Core
             return speciesType == SpeciesType.Fish || speciesType == SpeciesType.Invertebrate;
         }
 
+        public static bool IsInhabitant(ItemType itemType)
+        {
+            return (itemType >= ItemType.Fish && itemType <= ItemType.Coral);
+        }
+
+        public static bool IsLifesupport(ItemType itemType)
+        {
+            return (itemType >= ItemType.Nutrition && itemType <= ItemType.Chemistry);
+        }
+
         public static double GetDecimalVal(string strVal, double defaultValue = 0.0d)
         {
             return ConvertHelper.ParseFloat(strVal, defaultValue, true);
