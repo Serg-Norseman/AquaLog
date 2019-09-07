@@ -66,6 +66,7 @@ namespace AquaLog.UI.Dialogs
             lblBrand.Text = Localizer.LS(LSID.Brand);
             lblType.Text = Localizer.LS(LSID.Type);
             lblNote.Text = Localizer.LS(LSID.Note);
+            lblState.Text = Localizer.LS(LSID.State);
         }
 
         private void UpdateView()
@@ -81,6 +82,8 @@ namespace AquaLog.UI.Dialogs
                 txtName.Text = fRecord.Name;
                 cmbType.SetSelectedTag(fRecord.Type);
                 txtNote.Text = fRecord.Note;
+
+                UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(fRecord.Type), fRecord.State);
             }
         }
 
@@ -90,6 +93,7 @@ namespace AquaLog.UI.Dialogs
             fRecord.Brand = cmbBrand.Text;
             fRecord.Type = cmbType.GetSelectedTag<InventoryType>();
             fRecord.Note = txtNote.Text;
+            fRecord.State = cmbState.GetSelectedTag<ItemState>();
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
@@ -105,6 +109,7 @@ namespace AquaLog.UI.Dialogs
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
             var invType = cmbType.GetSelectedTag<InventoryType>();
+            UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(invType), fRecord.State);
             if (invType >= 0) {
             }
         }

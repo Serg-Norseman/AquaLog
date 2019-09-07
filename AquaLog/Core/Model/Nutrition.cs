@@ -5,16 +5,19 @@
  */
 
 using System;
+using AquaLog.Core.Types;
 
 namespace AquaLog.Core.Model
 {
-    public class Nutrition : AquariumDetails
+    public class Nutrition : AquariumDetails, IStateItem
     {
         public string Name { get; set; }
         public string Brand { get; set; }
 
         public float Amount { get; set; }
         public string Note { get; set; }
+
+        public ItemState State { get; set; }
 
         public int InhabitantId { get; set; }
 

@@ -65,6 +65,7 @@ namespace AquaLog.UI.Dialogs
             lblNote.Text = Localizer.LS(LSID.Note);
             lblSpecies.Text = Localizer.LS(LSID.SpeciesS);
             lblSex.Text = Localizer.LS(LSID.Sex);
+            lblState.Text = Localizer.LS(LSID.State);
         }
 
         private void UpdateView()
@@ -79,6 +80,8 @@ namespace AquaLog.UI.Dialogs
             txtNote.Text = fRecord.Note;
             cmbSpecies.SelectedItem = species;
             cmbSex.SetSelectedTag(fRecord.Sex);
+
+            UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(species.Type), fRecord.State);
         }
 
         private void ApplyChanges()
@@ -89,6 +92,7 @@ namespace AquaLog.UI.Dialogs
             fRecord.Note = txtNote.Text;
             fRecord.SpeciesId = spc.Id;
             fRecord.Sex = cmbSex.GetSelectedTag<Sex>();
+            fRecord.State = cmbState.GetSelectedTag<ItemState>();
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
@@ -105,6 +109,8 @@ namespace AquaLog.UI.Dialogs
         {
             var species = cmbSpecies.SelectedItem as Species;
             bool hasSex = (species != null && ALCore.IsAnimal(species.Type));
+
+            UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(species.Type), fRecord.State);
 
             lblSex.Visible = hasSex;
             cmbSex.Visible = hasSex;

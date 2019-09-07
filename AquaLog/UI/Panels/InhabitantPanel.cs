@@ -39,6 +39,7 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.Sex), 50, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Quantity), 50, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.SpeciesS), 150, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 150, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.IntroductionDate), 150, HorizontalAlignment.Left);
             ListView.Columns.Add("Temp", 100, HorizontalAlignment.Left);
@@ -67,6 +68,7 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(sx);
                 item.SubItems.Add(fModel.QueryInhabitantsCount(rec.Id, itemType).ToString());
                 item.SubItems.Add(spc.Name);
+                item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
                 item.SubItems.Add(aqmName);
                 item.SubItems.Add(strIntrDate);
                 item.SubItems.Add(spc.GetTempRange());

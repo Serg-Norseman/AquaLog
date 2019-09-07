@@ -23,6 +23,8 @@
         private System.Windows.Forms.ComboBox cmbTSDBPoint;
         private System.Windows.Forms.TextBox txtWorkTime;
         private System.Windows.Forms.Label lblWorkTime;
+        private System.Windows.Forms.ComboBox cmbState;
+        private System.Windows.Forms.Label lblState;
         
         protected override void Dispose(bool disposing)
         {
@@ -56,11 +58,13 @@
             this.cmbTSDBPoint = new System.Windows.Forms.ComboBox();
             this.txtWorkTime = new System.Windows.Forms.TextBox();
             this.lblWorkTime = new System.Windows.Forms.Label();
+            this.cmbState = new System.Windows.Forms.ComboBox();
+            this.lblState = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(134, 345);
+            this.btnAccept.Location = new System.Drawing.Point(135, 370);
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
@@ -73,7 +77,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(234, 345);
+            this.btnCancel.Location = new System.Drawing.Point(235, 370);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
@@ -248,13 +252,34 @@
             this.lblWorkTime.TabIndex = 12;
             this.lblWorkTime.Text = "Work time (h / d)";
             // 
+            // cmbState
+            // 
+            this.cmbState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbState.FormattingEnabled = true;
+            this.cmbState.Location = new System.Drawing.Point(118, 336);
+            this.cmbState.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
+            this.cmbState.Name = "cmbState";
+            this.cmbState.Size = new System.Drawing.Size(136, 21);
+            this.cmbState.TabIndex = 21;
+            // 
+            // lblState
+            // 
+            this.lblState.Location = new System.Drawing.Point(10, 339);
+            this.lblState.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblState.Name = "lblState";
+            this.lblState.Size = new System.Drawing.Size(80, 17);
+            this.lblState.TabIndex = 20;
+            this.lblState.Text = "State";
+            // 
             // DeviceEditDlg
             // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(342, 378);
+            this.ClientSize = new System.Drawing.Size(342, 405);
+            this.Controls.Add(this.cmbState);
+            this.Controls.Add(this.lblState);
             this.Controls.Add(this.txtWorkTime);
             this.Controls.Add(this.lblWorkTime);
             this.Controls.Add(this.chkDigital);

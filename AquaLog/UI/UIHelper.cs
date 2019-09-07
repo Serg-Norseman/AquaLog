@@ -11,6 +11,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 using AquaLog.Core;
+using AquaLog.Core.Types;
 using Microsoft.Win32;
 
 namespace AquaLog.UI
@@ -30,6 +31,18 @@ namespace AquaLog.UI
                 }
             }
             comboBox.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == selectedId);
+        }
+
+        public static void FillItemStatesCombo(ComboBox comboBox, ItemType itemType, ItemState selectedState)
+        {
+            ItemProps props = ALData.ItemTypes[(int)itemType];
+            comboBox.Items.Clear();
+            for (ItemState state = ItemState.Unknown; state <= ItemState.Broken; state++) {
+                if (state == ItemState.Unknown || props.States.Contains(state)) {
+                    comboBox.AddItem<ItemState>(Localizer.LS(ALData.ItemStates[(int)state]), state);
+                }
+            }
+            comboBox.SetSelectedTag<ItemState>(selectedState);
         }
 
         public static bool ShowQuestionYN(string msg)

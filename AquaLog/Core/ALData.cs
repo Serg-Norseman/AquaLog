@@ -75,6 +75,17 @@ namespace AquaLog.Core
                           EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
         };
 
+        public static readonly LSID[] ItemStates = new LSID[] {
+            LSID.None,
+            LSID.Alive,
+            LSID.Dead,
+            LSID.Sick,
+            LSID.InUse,
+            LSID.Stopped,
+            LSID.Finished,
+            LSID.Broken,
+        };
+
         public static readonly DeviceProps[] DeviceProps = new DeviceProps[] {
             new DeviceProps(LSID.Light, false), // Light
             new DeviceProps(LSID.Pump, false), // Pump

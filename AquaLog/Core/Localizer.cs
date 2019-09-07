@@ -160,8 +160,16 @@ namespace AquaLog.Core
         /* 138 */ AdultSize,
         /* 139 */ LifeSpan,
         /* 140 */ BalanceStr,
+        /* 141 */ Alive,
+        /* 142 */ Dead,
+        /* 143 */ Sick,
+        /* 144 */ InUse,
+        /* 145 */ Stopped,
+        /* 146 */ Finished,
+        /* 147 */ Broken,
+        /* 148 */ State,
 
-        /* 000 */ Last = BalanceStr
+        /* 000 */ Last = State
     }
 
 
@@ -312,6 +320,14 @@ namespace AquaLog.Core
             /* 138 */ "Adult size",
             /* 139 */ "Life span",
             /* 140 */ "Expenses: {0:0.00}, Incomes: {1:0.00}, Balance: {2:0.00}",
+            /* 141 */ "Alive",
+            /* 142 */ "Dead",
+            /* 143 */ "Sick",
+            /* 144 */ "In Use",
+            /* 145 */ "Stopped",
+            /* 146 */ "Finished",
+            /* 147 */ "Broken",
+            /* 148 */ "State",
         };
 
 

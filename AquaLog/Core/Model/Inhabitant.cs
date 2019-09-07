@@ -13,7 +13,7 @@ namespace AquaLog.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public class Inhabitant : AquariumDetails
+    public class Inhabitant : AquariumDetails, IStateItem
     {
         [Indexed]
         public int SpeciesId { get; set; }
@@ -22,6 +22,8 @@ namespace AquaLog.Core.Model
         public Sex Sex { get; set; }
 
         public string Note { get; set; }
+
+        public ItemState State { get; set; }
 
 
         public Inhabitant()

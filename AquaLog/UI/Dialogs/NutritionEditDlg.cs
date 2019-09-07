@@ -63,6 +63,7 @@ namespace AquaLog.UI.Dialogs
             lblAmount.Text = Localizer.LS(LSID.Amount);
             lblNote.Text = Localizer.LS(LSID.Note);
             lblInhabitant.Text = Localizer.LS(LSID.Inhabitant);
+            lblState.Text = Localizer.LS(LSID.State);
         }
 
         private void UpdateView()
@@ -88,6 +89,8 @@ namespace AquaLog.UI.Dialogs
                 txtName.Text = fRecord.Name;
                 txtAmount.Text = ALCore.GetDecimalStr(fRecord.Amount);
                 txtNote.Text = fRecord.Note;
+
+                UIHelper.FillItemStatesCombo(cmbState, ItemType.Nutrition, fRecord.State);
             }
         }
 
@@ -103,6 +106,7 @@ namespace AquaLog.UI.Dialogs
             fRecord.Brand = cmbBrand.Text;
             fRecord.Amount = (float)ALCore.GetDecimalVal(txtAmount.Text);
             fRecord.Note = txtNote.Text;
+            fRecord.State = cmbState.GetSelectedTag<ItemState>();
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

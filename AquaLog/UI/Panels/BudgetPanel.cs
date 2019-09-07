@@ -54,6 +54,7 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.UnitPrice), 80, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.Sum), 80, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.Shop), 180, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
 
             double totalSum = 0.0d, expenses = 0.0d, incomes = 0.0d;
             var records = fModel.QueryExpenses();
@@ -69,7 +70,11 @@ namespace AquaLog.UI.Panels
                 }
 
                 if (factor != 0) {
-                    string itName = fModel.GetRecordName(rec.ItemType, rec.ItemId);
+                    var itemRec = fModel.GetRecord(rec.ItemType, rec.ItemId);
+                    string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
+                    ItemState itState = (itemRec is IStateItem) ? ((IStateItem)itemRec).State : ItemState.Unknown;
+                    string stateStr = Localizer.LS(ALData.ItemStates[(int)itState]);
+
                     double sum = rec.Quantity * rec.UnitPrice;
                     if (factor > 0) {
                         incomes += sum;
@@ -86,6 +91,7 @@ namespace AquaLog.UI.Panels
                     item.SubItems.Add(ALCore.GetDecimalStr(rec.UnitPrice));
                     item.SubItems.Add(ALCore.GetDecimalStr(sum));
                     item.SubItems.Add(rec.Shop);
+                    item.SubItems.Add(stateStr);
                     ListView.Items.Add(item);
 
                     totalSum += sum;

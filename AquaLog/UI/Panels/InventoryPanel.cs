@@ -37,6 +37,7 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Type), 75, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Note), 50, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
 
             var records = fModel.QueryInventory();
             foreach (Inventory rec in records) {
@@ -47,6 +48,7 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(rec.Brand);
                 item.SubItems.Add(strType);
                 item.SubItems.Add(rec.Note);
+                item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
                 ListView.Items.Add(item);
             }
         }

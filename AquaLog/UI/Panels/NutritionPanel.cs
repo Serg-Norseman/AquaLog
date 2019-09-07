@@ -39,6 +39,7 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.Amount), 100, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.Note), 80, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Inhabitant), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
 
             var records = fModel.QueryNutritions();
             foreach (Nutrition rec in records) {
@@ -55,6 +56,7 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.Amount));
                 item.SubItems.Add(rec.Note);
                 item.SubItems.Add(inhabName);
+                item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
                 ListView.Items.Add(item);
             }
         }

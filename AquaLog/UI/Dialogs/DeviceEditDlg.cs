@@ -73,6 +73,7 @@ namespace AquaLog.UI.Dialogs
             lblWorkTime.Text = Localizer.LS(LSID.WorkTime);
             lblNote.Text = Localizer.LS(LSID.Note);
             lblTSDBPoint.Text = Localizer.LS(LSID.TSDBPoint);
+            lblState.Text = Localizer.LS(LSID.State);
         }
 
         private void UpdateView()
@@ -103,6 +104,8 @@ namespace AquaLog.UI.Dialogs
                 txtWattage.Text = ALCore.GetDecimalStr(fRecord.Wattage);
                 txtWorkTime.Text = ALCore.GetDecimalStr(fRecord.WorkTime);
                 txtNote.Text = fRecord.Note;
+
+                UIHelper.FillItemStatesCombo(cmbState, ItemType.Device, fRecord.State);
             }
         }
 
@@ -122,6 +125,7 @@ namespace AquaLog.UI.Dialogs
             fRecord.Wattage = ALCore.GetDecimalVal(txtWattage.Text);
             fRecord.WorkTime = ALCore.GetDecimalVal(txtWorkTime.Text);
             fRecord.Note = txtNote.Text;
+            fRecord.State = cmbState.GetSelectedTag<ItemState>();
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
