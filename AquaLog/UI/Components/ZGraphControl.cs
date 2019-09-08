@@ -127,7 +127,7 @@ namespace AquaLog.Components
                         ChartPoint item = vals[i];
 
                         PieItem ps = gPane.AddPieSlice(item.Value, item.Color, 0F, item.Caption);
-                        //ps.LabelType = PieLabelType.None;
+                        ps.LabelType = PieLabelType.Name_Value_Percent;
                     }
                     gPane.Legend.IsVisible = false;
                 }

@@ -45,7 +45,7 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Enabled), 60, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Digital), 60, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Wattage), 100, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.Power), 100, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.WorkTime), 100, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
 
@@ -62,7 +62,7 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(strType);
                 item.SubItems.Add(rec.Enabled.ToString());
                 item.SubItems.Add(rec.Digital.ToString());
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Wattage));
+                item.SubItems.Add(ALCore.GetDecimalStr(rec.Power));
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.WorkTime));
                 item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
                 ListView.Items.Add(item);

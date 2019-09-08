@@ -7,8 +7,8 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblAquarium;
         private System.Windows.Forms.ComboBox cmbAquarium;
-        private System.Windows.Forms.Label lblWattage;
-        private System.Windows.Forms.TextBox txtWattage;
+        private System.Windows.Forms.Label lblPower;
+        private System.Windows.Forms.TextBox txtPower;
         private System.Windows.Forms.Label lblNote;
         private System.Windows.Forms.TextBox txtNote;
         private System.Windows.Forms.ComboBox cmbType;
@@ -42,8 +42,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblAquarium = new System.Windows.Forms.Label();
             this.cmbAquarium = new System.Windows.Forms.ComboBox();
-            this.lblWattage = new System.Windows.Forms.Label();
-            this.txtWattage = new System.Windows.Forms.TextBox();
+            this.lblPower = new System.Windows.Forms.Label();
+            this.txtPower = new System.Windows.Forms.TextBox();
             this.lblNote = new System.Windows.Forms.Label();
             this.txtNote = new System.Windows.Forms.TextBox();
             this.cmbType = new System.Windows.Forms.ComboBox();
@@ -104,22 +104,22 @@
             this.cmbAquarium.Size = new System.Drawing.Size(213, 21);
             this.cmbAquarium.TabIndex = 1;
             // 
-            // lblWattage
+            // lblPower
             // 
-            this.lblWattage.Location = new System.Drawing.Point(10, 194);
-            this.lblWattage.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblWattage.Name = "lblWattage";
-            this.lblWattage.Size = new System.Drawing.Size(103, 17);
-            this.lblWattage.TabIndex = 10;
-            this.lblWattage.Text = "Wattage";
+            this.lblPower.Location = new System.Drawing.Point(10, 194);
+            this.lblPower.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPower.Name = "lblPower";
+            this.lblPower.Size = new System.Drawing.Size(103, 17);
+            this.lblPower.TabIndex = 10;
+            this.lblPower.Text = "Power";
             // 
-            // txtWattage
+            // txtPower
             // 
-            this.txtWattage.Location = new System.Drawing.Point(118, 191);
-            this.txtWattage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
-            this.txtWattage.Name = "txtWattage";
-            this.txtWattage.Size = new System.Drawing.Size(213, 22);
-            this.txtWattage.TabIndex = 11;
+            this.txtPower.Location = new System.Drawing.Point(118, 191);
+            this.txtPower.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
+            this.txtPower.Name = "txtPower";
+            this.txtPower.Size = new System.Drawing.Size(213, 22);
+            this.txtPower.TabIndex = 11;
             // 
             // lblNote
             // 
@@ -295,8 +295,8 @@
             this.Controls.Add(this.lblBrand);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.lblName);
-            this.Controls.Add(this.txtWattage);
-            this.Controls.Add(this.lblWattage);
+            this.Controls.Add(this.txtPower);
+            this.Controls.Add(this.lblPower);
             this.Controls.Add(this.lblAquarium);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);

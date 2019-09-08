@@ -74,7 +74,7 @@
   <string id="072">Timestamp</string>
   <string id="073">Enabled</string>
   <string id="074">Digital</string>
-  <string id="075">Wattage</string>
+  <string id="075">Power</string>
   <string id="076">Work time (h/d)</string>
   <string id="077">TSDB Point</string>
   <string id="078">Data</string>

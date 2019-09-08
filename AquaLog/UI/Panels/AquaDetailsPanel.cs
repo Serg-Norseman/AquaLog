@@ -198,7 +198,7 @@ namespace AquaLog.UI.Panels
             fDevicesLV.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
             fDevicesLV.Columns.Add(Localizer.LS(LSID.Enabled), 60, HorizontalAlignment.Left);
             fDevicesLV.Columns.Add(Localizer.LS(LSID.Digital), 60, HorizontalAlignment.Left);
-            fDevicesLV.Columns.Add(Localizer.LS(LSID.Wattage), 100, HorizontalAlignment.Right);
+            fDevicesLV.Columns.Add(Localizer.LS(LSID.Power), 100, HorizontalAlignment.Right);
 
             var records = fModel.QueryDevices(fAquarium);
             foreach (Device rec in records) {
@@ -207,7 +207,7 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(rec.Brand);
                 item.SubItems.Add(rec.Enabled.ToString());
                 item.SubItems.Add(rec.Digital.ToString());
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Wattage));
+                item.SubItems.Add(ALCore.GetDecimalStr(rec.Power));
                 fDevicesLV.Items.Add(item);
             }
 

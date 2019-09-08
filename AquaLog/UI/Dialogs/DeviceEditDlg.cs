@@ -69,7 +69,7 @@ namespace AquaLog.UI.Dialogs
             chkEnabled.Text = Localizer.LS(LSID.Enabled);
             chkDigital.Text = Localizer.LS(LSID.Digital);
             lblType.Text = Localizer.LS(LSID.Type);
-            lblWattage.Text = Localizer.LS(LSID.Wattage);
+            lblPower.Text = Localizer.LS(LSID.Power);
             lblWorkTime.Text = Localizer.LS(LSID.WorkTime);
             lblNote.Text = Localizer.LS(LSID.Note);
             lblTSDBPoint.Text = Localizer.LS(LSID.TSDBPoint);
@@ -101,7 +101,7 @@ namespace AquaLog.UI.Dialogs
                 txtName.Text = fRecord.Name;
                 chkEnabled.Checked = fRecord.Enabled;
                 chkDigital.Checked = fRecord.Digital;
-                txtWattage.Text = ALCore.GetDecimalStr(fRecord.Wattage);
+                txtPower.Text = ALCore.GetDecimalStr(fRecord.Power);
                 txtWorkTime.Text = ALCore.GetDecimalStr(fRecord.WorkTime);
                 txtNote.Text = fRecord.Note;
 
@@ -122,7 +122,7 @@ namespace AquaLog.UI.Dialogs
             fRecord.Enabled = chkEnabled.Checked;
             fRecord.Digital = chkDigital.Checked;
             fRecord.Type = cmbType.GetSelectedTag<DeviceType>();
-            fRecord.Wattage = ALCore.GetDecimalVal(txtWattage.Text);
+            fRecord.Power = ALCore.GetDecimalVal(txtPower.Text);
             fRecord.WorkTime = ALCore.GetDecimalVal(txtWorkTime.Text);
             fRecord.Note = txtNote.Text;
             fRecord.State = cmbState.GetSelectedTag<ItemState>();

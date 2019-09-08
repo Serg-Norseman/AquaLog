@@ -22,7 +22,7 @@ namespace AquaLog.Core.Model
 
         public bool Enabled { get; set; }
         public bool Digital { get; set; }
-        public double Wattage { get; set; }
+        public double Power { get; set; }
         public double WorkTime { get; set; }
 
         public ItemState State { get; set; }
@@ -37,6 +37,12 @@ namespace AquaLog.Core.Model
         #endregion
 
         #region Light properties
+
+        // UoM: K
+        public float LightTemperature { get; set; }
+
+        // UoM: lum
+        public float LuminousFlux { get; set; }
 
         // Photosynthetically Active Radiation
         public float PAR { get; set; }
