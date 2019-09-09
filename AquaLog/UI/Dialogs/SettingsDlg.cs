@@ -60,6 +60,7 @@ namespace AquaLog.UI.Dialogs
             chkExitOnClose.Text = Localizer.LS(LSID.ExitOnClose);
             lblLocale.Text = Localizer.LS(LSID.Language);
             chkAutorun.Text = Localizer.LS(LSID.Autorun);
+            chkHideAtStartup.Text = Localizer.LS(LSID.HideAtStartup);
         }
 
         private void UpdateView()
@@ -68,6 +69,7 @@ namespace AquaLog.UI.Dialogs
                 chkHideClosedTanks.Checked = fSettings.HideClosedTanks;
                 chkExitOnClose.Checked = fSettings.ExitOnClose;
                 cmbLocale.SelectedItem = Localizer.Locales.FirstOrDefault(loc => loc.Code == fSettings.CurrentLocale);
+                chkHideAtStartup.Checked = fSettings.HideAtStartup;
             }
 
             chkAutorun.Checked = UIHelper.IsStartupItem();
@@ -78,6 +80,7 @@ namespace AquaLog.UI.Dialogs
             fSettings.HideClosedTanks = chkHideClosedTanks.Checked;
             fSettings.ExitOnClose = chkExitOnClose.Checked;
             fSettings.CurrentLocale = (cmbLocale.SelectedItem as LocaleFile).Code;
+            fSettings.HideAtStartup = chkHideAtStartup.Checked;
 
             if (chkAutorun.Checked) {
                 UIHelper.RegisterStartup();

@@ -20,6 +20,7 @@ namespace AquaLog.Core
         private bool fHideClosedTanks;
         private bool fExitOnClose;
         private int fInterfaceLang;
+        private bool fHideAtStartup;
 
 
         public bool HideClosedTanks
@@ -38,6 +39,12 @@ namespace AquaLog.Core
         {
             get { return fInterfaceLang; }
             set { fInterfaceLang = value; }
+        }
+
+        public bool HideAtStartup
+        {
+            get { return fHideAtStartup; }
+            set { fHideAtStartup = value; }
         }
 
 
@@ -63,6 +70,7 @@ namespace AquaLog.Core
             fHideClosedTanks = true;
             fExitOnClose = true;
             fInterfaceLang = Localizer.LS_DEF_CODE;
+            fHideAtStartup = false;
         }
 
         public void LoadFromFile(IniFile ini)
@@ -73,6 +81,7 @@ namespace AquaLog.Core
             fHideClosedTanks = ini.ReadBool("Common", "HideClosedTanks", true);
             fExitOnClose = ini.ReadBool("Common", "ExitOnClose", true);
             fInterfaceLang = ini.ReadInteger("Common", "InterfaceLang", 0);
+            fHideAtStartup = ini.ReadBool("Common", "HideAtStartup", false);
         }
 
         public void SaveToFile(IniFile ini)
@@ -83,6 +92,7 @@ namespace AquaLog.Core
             ini.WriteBool("Common", "HideClosedTanks", fHideClosedTanks);
             ini.WriteBool("Common", "ExitOnClose", fExitOnClose);
             ini.WriteInteger("Common", "InterfaceLang", fInterfaceLang);
+            ini.WriteBool("Common", "HideAtStartup", fHideAtStartup);
         }
 
 

@@ -161,6 +161,15 @@ namespace AquaLog.UI
             }
         }
 
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            if (ALSettings.Instance.HideAtStartup) {
+                BeginInvoke(new MethodInvoker(delegate {
+                    Hide();
+                }));
+            }
+        }
+
         private void btnMainView_Click(object sender, EventArgs e)
         {
             var btn = sender as ToolStripButton;

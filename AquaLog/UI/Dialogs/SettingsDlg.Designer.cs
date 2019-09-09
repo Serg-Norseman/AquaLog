@@ -10,6 +10,7 @@
         private System.Windows.Forms.ComboBox cmbLocale;
         private System.Windows.Forms.Label lblLocale;
         private System.Windows.Forms.CheckBox chkAutorun;
+        private System.Windows.Forms.CheckBox chkHideAtStartup;
         
         protected override void Dispose(bool disposing)
         {
@@ -30,11 +31,12 @@
             this.cmbLocale = new System.Windows.Forms.ComboBox();
             this.lblLocale = new System.Windows.Forms.Label();
             this.chkAutorun = new System.Windows.Forms.CheckBox();
+            this.chkHideAtStartup = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(171, 167);
+            this.btnAccept.Location = new System.Drawing.Point(171, 195);
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(120, 30);
@@ -47,7 +49,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(297, 167);
+            this.btnCancel.Location = new System.Drawing.Point(297, 195);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(120, 30);
@@ -58,7 +60,7 @@
             // 
             // chkHideClosedTanks
             // 
-            this.chkHideClosedTanks.Location = new System.Drawing.Point(11, 46);
+            this.chkHideClosedTanks.Location = new System.Drawing.Point(11, 81);
             this.chkHideClosedTanks.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
             this.chkHideClosedTanks.Name = "chkHideClosedTanks";
             this.chkHideClosedTanks.Size = new System.Drawing.Size(406, 24);
@@ -68,7 +70,7 @@
             // 
             // chkExitOnClose
             // 
-            this.chkExitOnClose.Location = new System.Drawing.Point(11, 81);
+            this.chkExitOnClose.Location = new System.Drawing.Point(11, 116);
             this.chkExitOnClose.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
             this.chkExitOnClose.Name = "chkExitOnClose";
             this.chkExitOnClose.Size = new System.Drawing.Size(406, 24);
@@ -80,7 +82,7 @@
             // 
             this.cmbLocale.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLocale.FormattingEnabled = true;
-            this.cmbLocale.Location = new System.Drawing.Point(115, 116);
+            this.cmbLocale.Location = new System.Drawing.Point(115, 151);
             this.cmbLocale.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
             this.cmbLocale.Name = "cmbLocale";
             this.cmbLocale.Size = new System.Drawing.Size(185, 27);
@@ -88,7 +90,7 @@
             // 
             // lblLocale
             // 
-            this.lblLocale.Location = new System.Drawing.Point(11, 119);
+            this.lblLocale.Location = new System.Drawing.Point(11, 154);
             this.lblLocale.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblLocale.Name = "lblLocale";
             this.lblLocale.Size = new System.Drawing.Size(100, 21);
@@ -105,16 +107,27 @@
             this.chkAutorun.Text = "Autorun";
             this.chkAutorun.UseVisualStyleBackColor = true;
             // 
+            // chkHideAtStartup
+            // 
+            this.chkHideAtStartup.Location = new System.Drawing.Point(11, 46);
+            this.chkHideAtStartup.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
+            this.chkHideAtStartup.Name = "chkHideAtStartup";
+            this.chkHideAtStartup.Size = new System.Drawing.Size(406, 24);
+            this.chkHideAtStartup.TabIndex = 0;
+            this.chkHideAtStartup.Text = "HideAtStartup";
+            this.chkHideAtStartup.UseVisualStyleBackColor = true;
+            // 
             // SettingsDlg
             // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(428, 208);
+            this.ClientSize = new System.Drawing.Size(428, 236);
             this.Controls.Add(this.cmbLocale);
             this.Controls.Add(this.lblLocale);
             this.Controls.Add(this.chkExitOnClose);
+            this.Controls.Add(this.chkHideAtStartup);
             this.Controls.Add(this.chkAutorun);
             this.Controls.Add(this.chkHideClosedTanks);
             this.Controls.Add(this.btnCancel);
