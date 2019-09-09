@@ -56,15 +56,8 @@ namespace AquaLog.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbSchedule.Items.Clear();
-            for (ScheduleType ts = ScheduleType.Single; ts <= ScheduleType.Yearly; ts++) {
-                cmbSchedule.AddItem<ScheduleType>(Localizer.LS(ALData.ScheduleTypes[(int)ts]), ts);
-            }
-
-            cmbStatus.Items.Clear();
-            for (TaskStatus status = TaskStatus.ToDo; status <= TaskStatus.Closed; status++) {
-                cmbStatus.AddItem<TaskStatus>(Localizer.LS(ALData.TaskStatuses[(int)status]), status);
-            }
+            cmbSchedule.FillCombo<ScheduleType>(ALData.ScheduleTypes, false);
+            cmbStatus.FillCombo<TaskStatus>(ALData.TaskStatuses, false);
 
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblDate.Text = Localizer.LS(LSID.Date);

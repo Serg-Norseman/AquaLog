@@ -57,11 +57,7 @@ namespace AquaLog.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbType.Items.Clear();
-            cmbType.Sorted = true;
-            for (TransferType type = TransferType.Relocation; type <= TransferType.Death; type++) {
-                cmbType.AddItem<TransferType>(Localizer.LS(ALData.TransferTypes[(int)type]), type);
-            }
+            cmbType.FillCombo<TransferType>(ALData.TransferTypes, true);
 
             lblName.Text = Localizer.LS(LSID.Item);
             lblSource.Text = Localizer.LS(LSID.SourceTank);

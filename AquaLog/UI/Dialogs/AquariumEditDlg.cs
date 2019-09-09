@@ -53,15 +53,8 @@ namespace AquaLog.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbShape.Items.Clear();
-            for (TankShape shape = TankShape.Unknown; shape <= TankShape.BowFrontCorner; shape++) {
-                cmbShape.AddItem<TankShape>(Localizer.LS(ALData.TankShapes[(int)shape]), shape);
-            }
-
-            cmbWaterType.Items.Clear();
-            for (AquariumWaterType awt = AquariumWaterType.FreshWater; awt <= AquariumWaterType.SeaWater; awt++) {
-                cmbWaterType.AddItem<AquariumWaterType>(Localizer.LS(ALData.WaterTypes[(int)awt]), awt);
-            }
+            cmbShape.FillCombo<TankShape>(ALData.TankShapes, false);
+            cmbWaterType.FillCombo<AquariumWaterType>(ALData.WaterTypes, false);
 
             tabCommon.Text = Localizer.LS(LSID.Common);
             tabTank.Text = Localizer.LS(LSID.Tank);

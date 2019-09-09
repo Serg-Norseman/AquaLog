@@ -54,12 +54,7 @@ namespace AquaLog.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbType.Items.Clear();
-            cmbType.Sorted = true;
-            for (SpeciesType type = SpeciesType.Fish; type <= SpeciesType.Coral; type++) {
-                cmbType.AddItem<SpeciesType>(Localizer.LS(ALData.SpeciesTypes[(int)type]), type);
-            }
-
+            cmbType.FillCombo<SpeciesType>(ALData.SpeciesTypes, true);
             cmbSwimLevel.FillCombo<SwimLevel>(ALData.SwimLevels, false);
 
             lblName.Text = Localizer.LS(LSID.Name);

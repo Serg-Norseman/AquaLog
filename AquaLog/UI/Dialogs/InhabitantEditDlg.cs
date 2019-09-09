@@ -56,10 +56,7 @@ namespace AquaLog.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbSex.Items.Clear();
-            for (Sex sex = Sex.None; sex <= Sex.Hermaphrodite; sex++) {
-                cmbSex.AddItem<Sex>(Localizer.LS(ALData.SexNames[(int)sex]), sex);
-            }
+            cmbSex.FillCombo<Sex>(ALData.SexNames, false);
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblNote.Text = Localizer.LS(LSID.Note);
@@ -81,7 +78,11 @@ namespace AquaLog.UI.Dialogs
             cmbSpecies.SelectedItem = species;
             cmbSex.SetSelectedTag(fRecord.Sex);
 
-            UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(species.Type), fRecord.State);
+            if (species != null) {
+                UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(species.Type), fRecord.State);
+            } else {
+                cmbState.Items.Clear();
+            }
         }
 
         private void ApplyChanges()

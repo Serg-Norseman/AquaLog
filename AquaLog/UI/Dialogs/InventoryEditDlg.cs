@@ -56,11 +56,7 @@ namespace AquaLog.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbType.Items.Clear();
-            cmbType.Sorted = true;
-            for (InventoryType type = InventoryType.Additive; type <= InventoryType.Decoration; type++) {
-                cmbType.AddItem<InventoryType>(Localizer.LS(ALData.InventoryTypes[(int)type]), type);
-            }
+            cmbType.FillCombo<InventoryType>(ALData.InventoryTypes, true);
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblBrand.Text = Localizer.LS(LSID.Brand);

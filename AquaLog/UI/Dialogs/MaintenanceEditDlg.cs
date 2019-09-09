@@ -55,11 +55,7 @@ namespace AquaLog.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbType.Items.Clear();
-            cmbType.Sorted = true;
-            for (MaintenanceType type = MaintenanceType.Restart; type <= MaintenanceType.Other; type++) {
-                cmbType.AddItem<MaintenanceType>(Localizer.LS(ALData.MaintenanceTypes[(int)type]), type);
-            }
+            cmbType.FillCombo<MaintenanceType>(ALData.MaintenanceTypes, true);
 
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblDateTime.Text = Localizer.LS(LSID.Date);
