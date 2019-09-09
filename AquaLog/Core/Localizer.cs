@@ -168,8 +168,16 @@ namespace AquaLog.Core
         /* 146 */ Finished,
         /* 147 */ Broken,
         /* 148 */ State,
+        /* 149 */ HideAtStartup,
+        /* 150 */ SL_Any,
+        /* 151 */ SL_Top,
+        /* 152 */ SL_Top_and_Mid,
+        /* 153 */ SL_Mid,
+        /* 154 */ SL_Mid_and_Bottom,
+        /* 155 */ SL_Bottom,
+        /* 156 */ SwimLevel,
 
-        /* 000 */ Last = State
+        /* 000 */ Last = SwimLevel
     }
 
 
@@ -328,6 +336,14 @@ namespace AquaLog.Core
             /* 146 */ "Finished",
             /* 147 */ "Broken",
             /* 148 */ "State",
+            /* 149 */ "Hide at startup",
+            /* 150 */ "Any",
+            /* 151 */ "Top",
+            /* 152 */ "Top and Mid",
+            /* 153 */ "Mid",
+            /* 154 */ "Mid and Bottom",
+            /* 155 */ "Bottom",
+            /* 156 */ "Swim Level",
         };
 
 

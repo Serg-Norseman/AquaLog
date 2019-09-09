@@ -10,12 +10,14 @@ Features:
 - Nutritions;
 - Devices;
 - Inventory (additives, chemistry, equipments, maintenance, furnitures, decorations);
-- Maintenance;
+- Maintenance (water changes and other);
 - Notes and history events;
-- Measures of water quality;
+- Measures of water quality (+chart);
 - Schedule;
 - Transfers of inhabitants between aquariums;
-- Expenses;
+- Expenses and incomes (+chart);
+- Calculator (converters of units of measure);
+- Tray (+autorun, +hide at startup, +minimize on close);
 - Embedded "nano"-TSDB with "swinging door" compression;
 - Simple data monitor via Arduino and COM-port;
 - Multilingual: English, Russian;

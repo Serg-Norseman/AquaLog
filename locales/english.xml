@@ -148,4 +148,12 @@
   <string id="146">Finished</string>
   <string id="147">Broken</string>
   <string id="148">State</string>
+  <string id="149">Hide at startup</string>
+  <string id="150">Any</string>
+  <string id="151">Top</string>
+  <string id="152">Top and Mid</string>
+  <string id="153">Mid</string>
+  <string id="154">Mid and Bottom</string>
+  <string id="155">Bottom</string>
+  <string id="156">Swim Level</string>
 </resources>

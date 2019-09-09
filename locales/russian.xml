@@ -148,4 +148,12 @@
   <string id="146">Закончено</string>
   <string id="147">Сломано</string>
   <string id="148">Состояние</string>
+  <string id="149">Скрывать окно при запуске</string>
+  <string id="150">Любой</string>
+  <string id="151">Верхний</string>
+  <string id="152">Верхний и Средний</string>
+  <string id="153">Средний</string>
+  <string id="154">Средний и Нижний</string>
+  <string id="155">Нижний</string>
+  <string id="156">Уровень</string>
 </resources>
