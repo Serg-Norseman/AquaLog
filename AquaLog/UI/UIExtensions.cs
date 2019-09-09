@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Components;
+using AquaLog.Core;
 
 namespace AquaLog.UI
 {
@@ -41,6 +42,18 @@ namespace AquaLog.UI
                 }
             }
             comboBox.SelectedIndex = 0;
+        }
+
+        public static void FillCombo<T>(this ComboBox comboBox, LSID[] names, bool sorted) where T : struct
+        {
+            T[] array = (T[])Enum.GetValues(typeof(T));
+
+            comboBox.Items.Clear();
+            comboBox.Sorted = sorted;
+            foreach (var enm in array) {
+                int eIdx = Convert.ToInt32(enm);
+                comboBox.AddItem<T>(Localizer.LS(names[(int)eIdx]), enm);
+            }
         }
 
         public static T GetSelectedTag<T>(this ListView listView) where T : class

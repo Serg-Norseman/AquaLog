@@ -127,6 +127,15 @@ namespace AquaLog.Core
             LSID.Coral,
         };
 
+        public static readonly LSID[] SwimLevels = new LSID[] {
+            LSID.SL_Any,
+            LSID.SL_Top,
+            LSID.SL_Top_and_Mid,
+            LSID.SL_Mid,
+            LSID.SL_Mid_and_Bottom,
+            LSID.SL_Bottom,
+        };
+
         public static readonly LSID[] SexNames = new LSID[] {
             LSID.None,
             LSID.Female,

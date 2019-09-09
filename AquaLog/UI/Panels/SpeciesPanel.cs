@@ -39,10 +39,12 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add("GH", 100, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.AdultSize), 100, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.LifeSpan), 100, HorizontalAlignment.Right);
+            ListView.Columns.Add(Localizer.LS(LSID.SwimLevel), 100, HorizontalAlignment.Right);
 
             var records = fModel.QuerySpecies();
             foreach (Species rec in records) {
                 string strType = Localizer.LS(ALData.SpeciesTypes[(int)rec.Type]);
+                string strLevel = Localizer.LS(ALData.SwimLevels[(int)rec.SwimLevel]);
 
                 var item = new ListViewItem(rec.Name);
                 item.SubItems.Add(rec.ScientificName);
@@ -52,6 +54,7 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(rec.GetGHRange());
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.AdultSize));
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.LifeSpan));
+                item.SubItems.Add(strLevel);
                 item.Tag = rec;
                 ListView.Items.Add(item);
             }

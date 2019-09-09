@@ -60,6 +60,8 @@ namespace AquaLog.UI.Dialogs
                 cmbType.AddItem<SpeciesType>(Localizer.LS(ALData.SpeciesTypes[(int)type]), type);
             }
 
+            cmbSwimLevel.FillCombo<SwimLevel>(ALData.SwimLevels, false);
+
             lblName.Text = Localizer.LS(LSID.Name);
             lblDesc.Text = Localizer.LS(LSID.Description);
             lblType.Text = Localizer.LS(LSID.Type);
@@ -71,6 +73,7 @@ namespace AquaLog.UI.Dialogs
 
             lblAdultSize.Text = Localizer.LS(LSID.AdultSize);
             lblLifeSpan.Text = Localizer.LS(LSID.LifeSpan);
+            lblSwimLevel.Text = Localizer.LS(LSID.SwimLevel);
         }
 
         private void UpdateView()
@@ -90,6 +93,7 @@ namespace AquaLog.UI.Dialogs
             if (fRecord.Type == SpeciesType.Fish) {
                 txtAdultSize.Text = ALCore.GetDecimalStr(fRecord.AdultSize);
                 txtLifeSpan.Text = ALCore.GetDecimalStr(fRecord.LifeSpan);
+                cmbSwimLevel.SetSelectedTag(fRecord.SwimLevel);
             }
         }
 
@@ -110,6 +114,7 @@ namespace AquaLog.UI.Dialogs
             if (fRecord.Type == SpeciesType.Fish) {
                 fRecord.AdultSize = (float)ALCore.GetDecimalVal(txtAdultSize.Text);
                 fRecord.LifeSpan = (float)ALCore.GetDecimalVal(txtLifeSpan.Text);
+                fRecord.SwimLevel = cmbSwimLevel.GetSelectedTag<SwimLevel>();
             }
         }
 

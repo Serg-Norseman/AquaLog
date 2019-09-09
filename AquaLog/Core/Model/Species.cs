@@ -53,12 +53,12 @@ namespace AquaLog.Core.Model
         public string Diet { get; set; }
         public string Environment { get; set; }
         public float LifeSpan { get; set; }
-        public string SwimLevel { get; set; }
 
         #endregion
 
         #region Fish properties
 
+        public SwimLevel SwimLevel { get; set; }
         public Temperament Temperament { get; set; }
 
         #endregion
