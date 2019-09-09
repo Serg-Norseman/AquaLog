@@ -207,5 +207,22 @@ namespace AquaLog.Core
         {
             return 0.056 * ppmKH;
         }
+
+        /// <summary>
+        /// Convert KH(ppm, mg/L) to KH(meq/l):  1 meq/l = KH(ppm) / 50
+        /// </summary>
+        public static double ConvKHppm2KHmeql(double ppmKH)
+        {
+            return ppmKH / 50;
+        }
+
+
+        /// <summary>
+        /// Convert GH(ppm, mg/L) to GH(degrees):  1 °GH = GH(ppm) / 16.7
+        /// </summary>
+        public static double ConvGHppm2GHdeg(double ppmGH)
+        {
+            return ppmGH / 16.7;
+        }
     }
 }

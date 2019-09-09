@@ -39,9 +39,11 @@ namespace AquaLog.Core
         Units_C2K,
         Units_K2C,
         Units_ConvKHppm2KHdeg,
+        Units_ConvKHppm2KHmeql,
+        Units_ConvGHppm2GHdeg,
 
         First = Units_cm2inch,
-        Last = Units_ConvKHppm2KHdeg
+        Last = Units_ConvGHppm2GHdeg
     }
 
 
@@ -159,9 +161,18 @@ namespace AquaLog.Core
             new CalculationProps("Convert Kelvin to Celsius", "1 °C = K − 273.15",
                                  new [] { new CalcParam("SourceValue", "Source Value (K)") },
                                  new CalcParam("ResultValue", "Result (C)"), UnitConverter.K2C),
+
             new CalculationProps("Convert KH(ppm, mg/L) to KH(degrees)", "1 °KH = 0.056 * KH(ppm)",
                                  new [] { new CalcParam("SourceValue", "Source Value (KHppm)") },
                                  new CalcParam("ResultValue", "Result (KHdeg)"), UnitConverter.ConvKHppm2KHdeg),
+            new CalculationProps("Convert KH(ppm, mg/L) to KH(meq/l)", "1 meq/l = KH(ppm) / 50",
+                                 new [] { new CalcParam("SourceValue", "Source Value (KHppm)") },
+                                 new CalcParam("ResultValue", "Result (meq/l)"), UnitConverter.ConvKHppm2KHmeql),
+
+
+            new CalculationProps("Convert GH(ppm, mg/L) to GH(degrees)", "1 °GH = GH(ppm) / 16.7",
+                                 new [] { new CalcParam("SourceValue", "Source Value (GHppm)") },
+                                 new CalcParam("ResultValue", "Result (GHdeg)"), UnitConverter.ConvGHppm2GHdeg),
         };
 
 

@@ -41,7 +41,7 @@ namespace AquaLog.UI.Dialogs
         {
             var calcType = cmbType.GetSelectedTag<CalculationType>();
 
-            if (calcType >= CalculationType.Units_cm2inch && calcType <= CalculationType.Units_ConvKHppm2KHdeg) {
+            if (calcType >= CalculationType.Units_cm2inch && calcType <= CalculationType.Units_ConvGHppm2GHdeg) {
                 fCalculation = new UnitsCalculation(calcType);
             } else {
                 
