@@ -263,7 +263,10 @@ namespace AquaLog.Core
 
         public static double CalcNH3(double pH, double temperature, double totalNH)
         {
-            return totalNH / (1 + Math.Pow(10, (0.0902 - pH + (2730 / (273.2 + temperature)))));
+            // https://rdrr.io/cran/AmmoniaConcentration/man/ammonia.html
+            // f = 1 / (1 + 10^(0.09018 - pH + (2727.92 / T)))
+
+            return totalNH / (1 + Math.Pow(10, (0.0901821 - pH + (2729.92 / (273.15 + temperature)))));
         }
 
         /// <summary>
@@ -296,6 +299,25 @@ namespace AquaLog.Core
         public static double CalcPH(double degKH, double CO)
         {
             return 7.5 + Math.Log10(degKH) - Math.Log10(CO);
+        }
+
+        /// <summary>
+        /// (all ppm)
+        /// </summary>
+        public static double CalcTDS(double GH, double KH, double nitrate, double nitrite, double chlorine, double other)
+        {
+            return (GH + KH + nitrate + nitrite + chlorine + other);
+        }
+
+        /// <summary>
+        /// Treating nitrite calculator
+        /// </summary>
+        /// <param name="volume">Tank volume in litres</param>
+        /// <param name="nitrite">Nitrite level (NO2, mg/l)</param>
+        /// <returns>grams of salt to aquarium</returns>
+        public static double CalcSalt(double volume, double nitrite)
+        {
+            return (volume * nitrite * 0.0075);
         }
     }
 }

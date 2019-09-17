@@ -38,7 +38,7 @@ namespace AquaLog.UI
         {
             InitializeComponent();
 
-            int XS = 64;
+            int XS = 68;
             ClientSize = new Size(XS * 16, XS * 9);
 
             fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");

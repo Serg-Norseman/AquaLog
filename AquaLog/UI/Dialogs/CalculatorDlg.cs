@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
+using AquaLog.Core.Calculations;
 
 namespace AquaLog.UI.Dialogs
 {
@@ -44,7 +45,11 @@ namespace AquaLog.UI.Dialogs
             if (calcType >= CalculationType.Units_cm2inch && calcType <= CalculationType.Units_ConvGHppm2GHdeg) {
                 fCalculation = new UnitsCalculation(calcType);
             } else {
-                
+                switch (calcType) {
+                    case CalculationType.NitriteSaltCalculator:
+                        fCalculation = new SaltCalculation(calcType);
+                        break;
+                }
             }
 
             pgArgs.SelectedObject = fCalculation;

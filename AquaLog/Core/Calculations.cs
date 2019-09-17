@@ -10,7 +10,7 @@ using System.Linq;
 using System.Reflection;
 using AquaLog.Core;
 
-namespace AquaLog.Core
+namespace AquaLog.Core.Calculations
 {
     public enum CalculationType
     {
@@ -42,8 +42,10 @@ namespace AquaLog.Core
         Units_ConvKHppm2KHmeql,
         Units_ConvGHppm2GHdeg,
 
+        NitriteSaltCalculator,
+
         First = Units_cm2inch,
-        Last = Units_ConvGHppm2GHdeg
+        Last = NitriteSaltCalculator
     }
 
 
@@ -173,13 +175,21 @@ namespace AquaLog.Core
             new CalculationProps("Convert GH(ppm, mg/L) to GH(degrees)", "1 °GH = GH(ppm) / 16.7",
                                  new [] { new CalcParam("SourceValue", "Source Value (GHppm)") },
                                  new CalcParam("ResultValue", "Result (GHdeg)"), UnitConverter.ConvGHppm2GHdeg),
+
+
+            new CalculationProps("Treating nitrite calculator", "grams of salt to aquarium",
+                                 new [] { new CalcParam("Volume", "volume (litres)"), new CalcParam("Nitrite", "nitrite (NO2, mg/l)") },
+                                 new CalcParam("ResultValue", "Result (grams of salt)"), null),
         };
 
 
         [Browsable(false)]
         public virtual string Description
         {
-            get { return string.Empty; }
+            get {
+                var calcProps = CalculationData[(int)Type];
+                return calcProps.Description;
+            }
         }
 
         [Browsable(true), DisplayName("Result"), Category("Results"), Description("Value of result"), ReadOnly(true)]
@@ -208,6 +218,14 @@ namespace AquaLog.Core
 
         public virtual void SetLocale()
         {
+            var calcProps = CalculationData[(int)Type];
+
+            foreach (var argParam in calcProps.Args) {
+                SetDisplayNameValue(argParam.PropName, argParam.DispName);
+            }
+
+            var resultParam = calcProps.Result;
+            SetDisplayNameValue(resultParam.PropName, resultParam.DispName);
         }
 
         protected void SetDisplayNameValue(string propName, string value)
@@ -235,26 +253,10 @@ namespace AquaLog.Core
     }
 
 
-    public class UnitsCalculation : BaseCalculation
+    public sealed class UnitsCalculation : BaseCalculation
     {
-        private double fSourceValue;
-
-
-        public override string Description
-        {
-            get {
-                var calcProps = CalculationData[(int)Type];
-                return calcProps.Description;
-            }
-        }
-
         [Browsable(true), DisplayName("SourceValue"), Category("Arguments"), Description("Value of argument")]
-        public double SourceValue
-        {
-            get { return fSourceValue; }
-            set { fSourceValue = value; }
-        }
-
+        public double SourceValue { get; set; }
 
         public UnitsCalculation(CalculationType type) : base(type)
         {
@@ -262,22 +264,27 @@ namespace AquaLog.Core
 
         public override void Calculate()
         {
-            int idx = (int)Type;
-            var calcProps = CalculationData[idx];
-            ResultValue = calcProps.Handler(fSourceValue);
+            var calcProps = CalculationData[(int)Type];
+            ResultValue = calcProps.Handler(SourceValue);
+        }
+    }
+
+
+    public sealed class SaltCalculation : BaseCalculation
+    {
+        [Browsable(true), DisplayName("Volume"), Category("Arguments"), Description("")]
+        public double Volume { get; set; }
+
+        [Browsable(true), DisplayName("Nitrite"), Category("Arguments"), Description("")]
+        public double Nitrite { get; set; }
+
+        public SaltCalculation(CalculationType type) : base(type)
+        {
         }
 
-        public override void SetLocale()
+        public override void Calculate()
         {
-            var calcProps = CalculationData[(int)Type];
-
-            if (calcProps.Args.Length > 0) {
-                var argParam = calcProps.Args[0];
-                SetDisplayNameValue(argParam.PropName, argParam.DispName);
-            }
-
-            var resultParam = calcProps.Result;
-            SetDisplayNameValue(resultParam.PropName, resultParam.DispName);
+            ResultValue = ALData.CalcSalt(Volume, Nitrite);
         }
     }
 }

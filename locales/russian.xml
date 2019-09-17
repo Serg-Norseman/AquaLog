@@ -156,4 +156,7 @@
   <string id="154">Средний и Нижний</string>
   <string id="155">Нижний</string>
   <string id="156">Уровень</string>
+  <string id="157">Полная мощность (кВт/дн): {0:0.00}, стоимость э/энергии: {1:C2}/дн</string>
+  <string id="158">Работал с {0} по {1} [{2} дн]</string>
+  <string id="159">Работает с {0} [{1} дн]</string>
 </resources>

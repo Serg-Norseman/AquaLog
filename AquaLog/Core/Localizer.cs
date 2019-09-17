@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Xml;
+using AquaLog.Logging;
 
 namespace AquaLog.Core
 {
@@ -159,7 +160,7 @@ namespace AquaLog.Core
         /* 137 */ Calculate,
         /* 138 */ AdultSize,
         /* 139 */ LifeSpan,
-        /* 140 */ BalanceStr,
+        /* 140 */ BalanceFooter,
         /* 141 */ Alive,
         /* 142 */ Dead,
         /* 143 */ Sick,
@@ -176,8 +177,11 @@ namespace AquaLog.Core
         /* 154 */ SL_Mid_and_Bottom,
         /* 155 */ SL_Bottom,
         /* 156 */ SwimLevel,
+        /* 157 */ PowerFooter,
+        /* 158 */ AquaWorked,
+        /* 159 */ AquaWorks,
 
-        /* 000 */ Last = SwimLevel
+        /* 000 */ Last = AquaWorks
     }
 
 
@@ -344,9 +348,13 @@ namespace AquaLog.Core
             /* 154 */ "Mid and Bottom",
             /* 155 */ "Bottom",
             /* 156 */ "Swim Level",
+            /* 157 */ "Total power (kW/d): {0:0.00}, Electric cost: {1:C2}/d",
+            /* 158 */ "Worked from {0} to {1} [{2} d]",
+            /* 159 */ "Works from {0} [{1} d]",
         };
 
 
+        private static readonly ILogger fLogger;
         private static readonly List<LocaleFile> fLocales;
         private static readonly Dictionary<int, string> fList;
 
@@ -358,6 +366,7 @@ namespace AquaLog.Core
 
         static Localizer()
         {
+            fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "Localizer");
             fLocales = new List<LocaleFile>();
             fList = new Dictionary<int, string>();
         }
@@ -440,7 +449,7 @@ namespace AquaLog.Core
                     }
                 }
             } catch (Exception ex) {
-                //Logger.LogWrite("LangMan.PrepareLocaleFile("+fileName+"): " + ex.Message);
+                fLogger.WriteError("PrepareLocaleFile(" + fileName + ")", ex);
             }
         }
 
@@ -451,7 +460,7 @@ namespace AquaLog.Core
                 string[] localeFiles = Directory.GetFiles(path, "*.xml", SearchOption.TopDirectoryOnly);
                 for (int i = 0; i < localeFiles.Length; i++) PrepareLocaleFile(localeFiles[i]);
             } catch (Exception ex) {
-                //Logger.LogWrite("LangMan.FindLocales(): " + ex.Message);
+                fLogger.WriteError("FindLocales()", ex);
             }
         }
 

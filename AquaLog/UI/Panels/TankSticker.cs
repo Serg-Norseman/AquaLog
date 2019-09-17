@@ -154,16 +154,15 @@ namespace AquaLog.UI.Panels
             DrawText(gfx, volumes, font, ForeColor, layoutRect);
 
             string works;
-            TimeSpan span;
             if (fAquarium.IsInactive()) {
-                span = fAquarium.StopDate - fAquarium.StartDate;
-                works = "Worked from " + fAquarium.StartDate.ToString("dd/MM/yyyy") + " to " + fAquarium.StopDate.ToString("dd/MM/yyyy");
+                TimeSpan span = fAquarium.StopDate - fAquarium.StartDate;
+                int days = span.Days;
+                works = string.Format(Localizer.LS(LSID.AquaWorked), fAquarium.StartDate.ToString("dd/MM/yyyy"), fAquarium.StopDate.ToString("dd/MM/yyyy"), days);
             } else {
-                span = DateTime.Now - fAquarium.StartDate;
-                works = "Works from " + fAquarium.StartDate.ToString("dd/MM/yyyy");
+                TimeSpan span = DateTime.Now - fAquarium.StartDate;
+                int days = span.Days;
+                works = string.Format(Localizer.LS(LSID.AquaWorks), fAquarium.StartDate.ToString("dd/MM/yyyy"), days);
             }
-            int days = span.Days;
-            works += " [" + days + " d]";
 
             int x = layoutRect.Left;
             int y = layoutRect.Top + (int)(Font.Height * 1.6f);

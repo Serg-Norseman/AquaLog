@@ -326,6 +326,8 @@ namespace AquaLog.UI
             //ModalFormHandler = Dialog_Cancel_Handler;
             //ClickButton("btnDelete", fMainWin);
 
+            ClickButton("btnChart", fMainWin);
+
             ClickToolStripMenuItem("miExit", fMainWin);
         }
 
@@ -372,6 +374,18 @@ namespace AquaLog.UI
         }
 
         [Test]
+        public void Test_BudgetPanel()
+        {
+            fMainWin = new MainForm();
+
+            ClickToolStripButton("btnBudget", fMainWin);
+
+            ClickButton("btnChart", fMainWin);
+
+            ClickToolStripMenuItem("miExit", fMainWin);
+        }
+
+        [Test]
         public void Test_TSDBPanel()
         {
             fMainWin = new MainForm();
@@ -381,10 +395,10 @@ namespace AquaLog.UI
             ModalFormHandler = Dialog_Cancel_Handler;
             ClickButton("btnAdd", fMainWin);
 
-            /*ModalFormHandler = TSPoint_Accept_Handler;
+            ModalFormHandler = TSPoint_Accept_Handler;
             ClickButton("btnAdd", fMainWin);
 
-            SelectListView("ListView", fMainWin, 0);
+            /*SelectListView("ListView", fMainWin, 0);
             ModalFormHandler = TSPoint_Accept_Handler;
             ClickButton("btnEdit", fMainWin);
 
@@ -395,6 +409,9 @@ namespace AquaLog.UI
             SelectListView("ListView", fMainWin, 0);
             ModalFormHandler = MessageBox_YesHandler;
             ClickButton("btnDelete", fMainWin);*/
+
+            SelectListView("ListView", fMainWin, 0);
+            ClickButton("btnTrend", fMainWin);
 
             ClickToolStripMenuItem("miExit", fMainWin);
         }

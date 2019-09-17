@@ -98,7 +98,7 @@ namespace AquaLog.UI.Panels
                 }
             }
 
-            fFooter.Text = string.Format(Localizer.LS(LSID.BalanceStr), expenses, incomes, totalSum);
+            fFooter.Text = string.Format(Localizer.LS(LSID.BalanceFooter), expenses, incomes, totalSum);
         }
 
         private void ViewChartHandler(object sender, EventArgs e)

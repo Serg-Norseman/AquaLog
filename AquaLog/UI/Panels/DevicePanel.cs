@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -20,8 +21,19 @@ namespace AquaLog.UI.Panels
     /// </summary>
     public class DevicePanel : ListPanel<Device, DeviceEditDlg>
     {
+        private Label fFooter;
+
         public DevicePanel()
         {
+            fFooter = new Label();
+            fFooter.BorderStyle = BorderStyle.Fixed3D;
+            fFooter.Dock = DockStyle.Bottom;
+            fFooter.Font = new Font(this.Font.FontFamily, this.Font.Size, FontStyle.Bold, this.Font.Unit);
+            fFooter.TextAlign = ContentAlignment.MiddleLeft;
+            Controls.Add(fFooter);
+
+            Controls.SetChildIndex(ListView, 0);
+            Controls.SetChildIndex(fFooter, 1);
         }
 
         protected override void InitActions()
@@ -49,6 +61,10 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.WorkTime), 100, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
 
+            // TODO: Enter cost in settings
+            const double kWhCost = 2.76;
+
+            double totalPow = 0.0d;
             var records = fModel.QueryDevices();
             foreach (Device rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
@@ -66,7 +82,13 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.WorkTime));
                 item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
                 ListView.Items.Add(item);
+
+                totalPow += (rec.Power /* W/h */ * rec.WorkTime /* h/day */);
             }
+
+            totalPow /= 1000.0d;
+            double electricCost = totalPow * kWhCost;
+            fFooter.Text = string.Format(Localizer.LS(LSID.PowerFooter), totalPow, electricCost);
         }
 
 
