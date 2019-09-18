@@ -82,7 +82,7 @@
             // 
             // dtpDateTime
             // 
-            this.dtpDateTime.CustomFormat = "dd.MM.yyyy HH:mm";
+            this.dtpDateTime.CustomFormat = "dd.MM.yyyy HH:mm:ss";
             this.dtpDateTime.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpDateTime.Location = new System.Drawing.Point(118, 41);
             this.dtpDateTime.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);

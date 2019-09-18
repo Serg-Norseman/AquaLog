@@ -186,9 +186,9 @@
             this.btnInventory,
             this.toolStripSeparator3,
             this.btnMaintenance,
+            this.btnMeasures,
             this.btnNotes,
             this.btnHistory,
-            this.btnMeasures,
             this.btnSchedule,
             this.btnTransfers,
             this.btnBudget,
@@ -339,7 +339,7 @@
             // 
             this.btnTransfers.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnTransfers.Name = "btnTransfers";
-            this.btnTransfers.Size = new System.Drawing.Size(58, 22);
+            this.btnTransfers.Size = new System.Drawing.Size(57, 22);
             this.btnTransfers.Text = "Transfers";
             this.btnTransfers.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnTransfers.Click += new System.EventHandler(this.btnMainView_Click);
@@ -357,7 +357,7 @@
             // 
             this.btnTSDB.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.btnTSDB.Name = "btnTSDB";
-            this.btnTSDB.Size = new System.Drawing.Size(39, 22);
+            this.btnTSDB.Size = new System.Drawing.Size(38, 22);
             this.btnTSDB.Text = "TSDB";
             this.btnTSDB.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnTSDB.Click += new System.EventHandler(this.btnMainView_Click);

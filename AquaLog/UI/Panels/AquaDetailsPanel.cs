@@ -120,7 +120,7 @@ namespace AquaLog.UI.Panels
             IEnumerable<Inhabitant> records = fModel.QueryInhabitants(fAquarium);
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
-                string sex = ALCore.IsAnimal(spc.Type) ? rec.Sex.ToString() : string.Empty;
+                string sex = ALCore.IsAnimal(spc.Type) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : string.Empty;
                 ItemType itemType = ALCore.GetItemType(spc.Type);
                 int qty = fModel.QueryInhabitantsCount(rec.Id, itemType);
 
@@ -226,9 +226,11 @@ namespace AquaLog.UI.Panels
 
             var records = fModel.QueryMaintenances(fAquarium.Id);
             foreach (Maintenance rec in records) {
+                string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type]);
+
                 var item = new ListViewItem(rec.DateTime.ToString());
                 item.Tag = rec;
-                item.SubItems.Add(rec.Type.ToString());
+                item.SubItems.Add(strType);
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.Value));
                 item.SubItems.Add(rec.Note);
                 fMaintenanceLV.Items.Add(item);
