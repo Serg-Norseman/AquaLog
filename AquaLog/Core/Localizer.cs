@@ -181,8 +181,9 @@ namespace AquaLog.Core
         /* 158 */ AquaWorked,
         /* 159 */ AquaWorks,
         /* 160 */ Export,
+        /* 161 */ LogBook,
 
-        /* 000 */ Last = Export
+        /* 000 */ Last = LogBook
     }
 
 
@@ -353,6 +354,7 @@ namespace AquaLog.Core
             /* 158 */ "Worked from {0} to {1} [{2} d]",
             /* 159 */ "Works from {0} [{1} d]",
             /* 160 */ "Export",
+            /* 161 */ "Log book",
         };
 
 

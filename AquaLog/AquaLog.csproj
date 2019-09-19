@@ -76,6 +76,9 @@
     <Reference Include="BSLib">
       <HintPath>..\libs\BSLib.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetRtfWriter">
+      <HintPath>..\libs\DotNetRtfWriter.dll</HintPath>
+    </Reference>
     <Reference Include="ExcelLibrary">
       <HintPath>..\libs\ExcelLibrary.dll</HintPath>
     </Reference>
@@ -99,6 +102,7 @@
     <Compile Include="Core\Calculations.cs" />
     <Compile Include="Core\Export\CSVExporter.cs" />
     <Compile Include="Core\Export\ExcelExporter.cs" />
+    <Compile Include="Core\Export\RTFLogBook.cs" />
     <Compile Include="Core\ILocalizable.cs" />
     <Compile Include="Core\Localizer.cs" />
     <Compile Include="Core\Model\Inventory.cs" />

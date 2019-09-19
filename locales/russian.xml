@@ -160,4 +160,5 @@
   <string id="158">Работал с {0} по {1} [{2} дн]</string>
   <string id="159">Работает с {0} [{1} дн]</string>
   <string id="160">Экспорт</string>
+  <string id="161">Журнал</string>
 </resources>

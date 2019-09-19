@@ -21,5 +21,7 @@ Features:
 - Embedded "nano"-TSDB with "swinging door" compression;
 - Simple data monitor via Arduino and COM-port;
 - Multilingual: English, Russian;
+- Export to XLS and CSV (measures and maintenance);
+- Export to RTF (aquarium's logbook);
 
 The application is simple and minimal. Clean, the most basic functionality.
