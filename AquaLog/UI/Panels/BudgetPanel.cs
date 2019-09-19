@@ -56,6 +56,7 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.Shop), 180, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
 
+            DateTime firstDate = ALCore.ZeroDate, lastDate = ALCore.ZeroDate;
             double totalSum = 0.0d, expenses = 0.0d, incomes = 0.0d;
             var records = fModel.QueryExpenses();
             foreach (Transfer rec in records) {
@@ -95,10 +96,17 @@ namespace AquaLog.UI.Panels
                     ListView.Items.Add(item);
 
                     totalSum += sum;
+
+                    if (firstDate.Equals(ALCore.ZeroDate)) {
+                        firstDate = rec.Date;
+                    }
+                    lastDate = rec.Date;
                 }
             }
 
-            fFooter.Text = string.Format(Localizer.LS(LSID.BalanceFooter), expenses, incomes, totalSum);
+            double days = (lastDate - firstDate).TotalDays;
+            double avgExpense = expenses / days;
+            fFooter.Text = string.Format(Localizer.LS(LSID.BalanceFooter), expenses, avgExpense, incomes, totalSum);
         }
 
         private void ViewChartHandler(object sender, EventArgs e)

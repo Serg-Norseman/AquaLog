@@ -332,7 +332,7 @@ namespace AquaLog.Core
             /* 137 */ "Calculate",
             /* 138 */ "Adult size",
             /* 139 */ "Life span",
-            /* 140 */ "Expenses: {0:0.00}, Incomes: {1:0.00}, Balance: {2:0.00}",
+            /* 140 */ "Expenses: {0:C2} ({1:C2}/d), Incomes: {2:C2}, Balance: {3:C2}",
             /* 141 */ "Alive",
             /* 142 */ "Dead",
             /* 143 */ "Sick",

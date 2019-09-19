@@ -139,7 +139,7 @@
   <string id="137">Рассчитать</string>
   <string id="138">Взрослый размер</string>
   <string id="139">Лет жизни</string>
-  <string id="140">Расходы: {0:0.00}, Доходы: {1:0.00}, Баланс: {2:0.00}</string>
+  <string id="140">Расходы: {0:C2} ({1:C2}/дн), Доходы: {2:C2}, Баланс: {3:C2}</string>
   <string id="141">Живой</string>
   <string id="142">Мертв</string>
   <string id="143">Болен</string>
