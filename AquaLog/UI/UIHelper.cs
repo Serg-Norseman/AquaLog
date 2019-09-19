@@ -99,6 +99,84 @@ namespace AquaLog.UI
             return new Bitmap(LoadResourceStream("AquaLog.Resources." + resName));
         }
 
+        #region Open/Save dialogs
+
+        public static string GetOpenFile(string title, string context, string filter, int filterIndex, string defaultExt)
+        {
+            using (OpenFileDialog ofd = CreateOpenFileDialog(title, context, filter, filterIndex, defaultExt, false)) {
+                return (ofd.ShowDialog() == DialogResult.OK) ? ofd.FileName : string.Empty;
+            }
+        }
+
+        private static OpenFileDialog CreateOpenFileDialog(string title, string context, string filter,
+            int filterIndex, string defaultExt, bool multiSelect)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+
+            if (!string.IsNullOrEmpty(title))
+                ofd.Title = title;
+
+            if (!string.IsNullOrEmpty(context))
+                ofd.InitialDirectory = context;
+
+            if (!string.IsNullOrEmpty(filter)) {
+                ofd.Filter = filter;
+
+                if (filterIndex > 0)
+                    ofd.FilterIndex = filterIndex;
+            }
+
+            if (!string.IsNullOrEmpty(defaultExt))
+                ofd.DefaultExt = defaultExt;
+
+            ofd.Multiselect = multiSelect;
+
+            return ofd;
+        }
+
+        public static string GetSaveFile(string filter)
+        {
+            return GetSaveFile("", "", filter, 1, "", "");
+        }
+
+        public static string GetSaveFile(string title, string context, string filter, int filterIndex, string defaultExt,
+            string suggestedFileName, bool overwritePrompt = true)
+        {
+            using (SaveFileDialog sfd = CreateSaveFileDialog(title, context, filter, filterIndex, defaultExt, suggestedFileName)) {
+                sfd.OverwritePrompt = overwritePrompt;
+                return (sfd.ShowDialog() == DialogResult.OK) ? sfd.FileName : string.Empty;
+            }
+        }
+
+        private static SaveFileDialog CreateSaveFileDialog(string title, string context, string filter,
+            int filterIndex, string defaultExt, string suggestedFileName)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+
+            if (!string.IsNullOrEmpty(title))
+                sfd.Title = title;
+
+            if (!string.IsNullOrEmpty(context))
+                sfd.InitialDirectory = context;
+
+            if (!string.IsNullOrEmpty(filter)) {
+                sfd.Filter = filter;
+
+                if (filterIndex > 0)
+                    sfd.FilterIndex = filterIndex;
+            }
+
+            if (!string.IsNullOrEmpty(defaultExt))
+                sfd.DefaultExt = defaultExt;
+
+            if (!string.IsNullOrEmpty(suggestedFileName))
+                sfd.FileName = suggestedFileName;
+
+            return sfd;
+        }
+
+        #endregion
+
         #region Application's autorun
 
         public static void RegisterStartup()

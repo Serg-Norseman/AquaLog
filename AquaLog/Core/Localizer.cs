@@ -180,8 +180,9 @@ namespace AquaLog.Core
         /* 157 */ PowerFooter,
         /* 158 */ AquaWorked,
         /* 159 */ AquaWorks,
+        /* 160 */ Export,
 
-        /* 000 */ Last = AquaWorks
+        /* 000 */ Last = Export
     }
 
 
@@ -351,6 +352,7 @@ namespace AquaLog.Core
             /* 157 */ "Total power (kW/d): {0:0.00}, Electric cost: {1:C2}/d",
             /* 158 */ "Worked from {0} to {1} [{2} d]",
             /* 159 */ "Works from {0} [{1} d]",
+            /* 160 */ "Export",
         };
 
 

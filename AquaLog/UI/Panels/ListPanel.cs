@@ -7,8 +7,10 @@
 using System;
 using System.Windows.Forms;
 using AquaLog.Core;
+using AquaLog.Core.Export;
 using AquaLog.Core.Model;
 using AquaLog.UI;
+using BSLib;
 
 namespace AquaLog.UI.Panels
 {
@@ -61,6 +63,28 @@ namespace AquaLog.UI.Panels
 
         protected virtual void DeleteHandler(object sender, EventArgs e)
         {
+        }
+
+        protected void Export()
+        {
+            string fileName = UIHelper.GetSaveFile("Excel files (*.xls)|*.xls|CSV files (*.csv)|*.csv");
+            if (string.IsNullOrEmpty(fileName)) return;
+
+            string ext = FileHelper.GetFileExtension(fileName);
+            switch (ext) {
+                case ".xls":
+                    ExcelExporter.Generate(fListView, fileName);
+                    break;
+
+                case ".csv":
+                    CSVExporter.Generate(fListView, fileName);
+                    break;
+
+                default:
+                    return;
+            }
+
+            ALCore.LoadExtFile(fileName);
         }
     }
 

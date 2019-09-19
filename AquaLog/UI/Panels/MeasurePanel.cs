@@ -67,12 +67,18 @@ namespace AquaLog.UI.Panels
             AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
-            AddAction("Chart", LSID.Chart, "", ViewChartHandler);
+            AddAction("Chart", LSID.Chart, "btn_chart.gif", ViewChartHandler);
+            AddAction("Export", LSID.Export, "btn_excel.gif", ExportHandler);
         }
 
         private void ViewChartHandler(object sender, EventArgs e)
         {
             Browser.SetView(MainView.MeasuresChart, null);
+        }
+
+        private void ExportHandler(object sender, EventArgs e)
+        {
+            Export();
         }
     }
 }

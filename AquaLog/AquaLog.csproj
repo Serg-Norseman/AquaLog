@@ -53,6 +53,9 @@
     <Reference Include="BSLib">
       <HintPath>..\libs\BSLib.dll</HintPath>
     </Reference>
+    <Reference Include="ExcelLibrary">
+      <HintPath>..\libs\ExcelLibrary.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\libs\log4net.dll</HintPath>
     </Reference>
@@ -71,6 +74,8 @@
     <Compile Include="Core\ALSettings.cs" />
     <Compile Include="Core\Average.cs" />
     <Compile Include="Core\Calculations.cs" />
+    <Compile Include="Core\Export\CSVExporter.cs" />
+    <Compile Include="Core\Export\ExcelExporter.cs" />
     <Compile Include="Core\ILocalizable.cs" />
     <Compile Include="Core\Localizer.cs" />
     <Compile Include="Core\Model\Inventory.cs" />
@@ -259,6 +264,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core" />
+    <Folder Include="Core\Export" />
     <Folder Include="DataCollection" />
     <Folder Include="TSDB" />
     <Folder Include="UI\Components" />

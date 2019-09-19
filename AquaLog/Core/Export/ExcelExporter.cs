@@ -1,0 +1,49 @@
+﻿/*
+ *  This file is part of the "AquaLog".
+ *  Copyright (C) 2019 by Sergey V. Zhdanovskih.
+ *  This program is licensed under the GNU General Public License.
+ */
+
+using System.Windows.Forms;
+using ExcelLibrary.SpreadSheet;
+
+namespace AquaLog.Core.Export
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class ExcelExporter
+    {
+        public ExcelExporter()
+        {
+        }
+
+        public static void Generate(ListView listView, string fileName)
+        {
+            Workbook workbook = new Workbook();
+            Worksheet worksheet = new Worksheet("First Sheet");
+
+            try {
+                for (int i = 0; i < listView.Columns.Count; i++) {
+                    ColumnHeader columnHeader = listView.Columns[i];
+                    worksheet.Cells[0, i] = new Cell(columnHeader.Text);
+                }
+
+                int num = listView.Items.Count;
+                for (int i = 0; i < num; i++) {
+                    ListViewItem item = listView.Items[i];
+                    int row = i + 1;
+
+                    for (int k = 0; k < item.SubItems.Count; k++) {
+                        string val = item.SubItems[k].Text;
+                        worksheet.Cells[row, k] = new Cell(val);
+                    }
+                }
+
+                workbook.Worksheets.Add(worksheet);
+                workbook.Save(fileName);
+            } finally {
+            }
+        }
+    }
+}
