@@ -82,8 +82,8 @@ namespace AquaLog.UI.Dialogs
                 cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.AquariumId);
                 cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
-                if (!fRecord.DateTime.Equals(ALCore.ZeroDate)) {
-                    dtpDateTime.Value = fRecord.DateTime;
+                if (!fRecord.Timestamp.Equals(ALCore.ZeroDate)) {
+                    dtpDateTime.Value = fRecord.Timestamp;
                 }
 
                 txtEvent.Text = fRecord.Event;
@@ -99,7 +99,7 @@ namespace AquaLog.UI.Dialogs
             var aqm = cmbAquarium.SelectedItem as Aquarium;
             fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
-            fRecord.DateTime = dtpDateTime.Value;
+            fRecord.Timestamp = dtpDateTime.Value;
             fRecord.Event = txtEvent.Text;
             fRecord.Reminder = chkReminder.Checked;
             fRecord.Type = cmbSchedule.GetSelectedTag<ScheduleType>();

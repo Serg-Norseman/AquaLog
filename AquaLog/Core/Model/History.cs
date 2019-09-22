@@ -5,17 +5,15 @@
  */
 
 using System;
-using AquaLog.Core.Types;
-using SQLite;
 
 namespace AquaLog.Core.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    public class History : AquariumDetails
+    public class History : AquariumDetails, IEventEntity
     {
-        public DateTime DateTime { get; set; }
+        public DateTime Timestamp { get; set; }
         public string Event { get; set; }
         public string Note { get; set; }
 

@@ -51,7 +51,7 @@ namespace AquaLog.UI.Panels
 
                 var item = new ListViewItem(itName);
                 item.Tag = rec;
-                item.SubItems.Add(ALCore.GetDateStr(rec.Date));
+                item.SubItems.Add(ALCore.GetDateStr(rec.Timestamp));
                 item.SubItems.Add(strType);
                 item.SubItems.Add((aqmSour == null) ? string.Empty : aqmSour.Name);
                 item.SubItems.Add((aqmTarg == null) ? string.Empty : aqmTarg.Name);

@@ -38,7 +38,7 @@ namespace AquaLog.UI.Panels
 
                 var item = new ListViewItem(aqmName);
                 item.Tag = rec;
-                item.SubItems.Add(rec.DateTime.ToString());
+                item.SubItems.Add(rec.Timestamp.ToString());
                 item.SubItems.Add(strType);
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.Value));
                 item.SubItems.Add(rec.Note);

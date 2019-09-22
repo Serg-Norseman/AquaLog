@@ -4,8 +4,10 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System.Collections.Generic;
 using System.Drawing;
 using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 using Elistia.DotNetRtfWriter;
 
 namespace AquaLog.Core.Export
@@ -41,10 +43,17 @@ namespace AquaLog.Core.Export
                 AddParagraphChunk(Localizer.LS(LSID.LogBook), titleFont);
                 EndParagraph();
 
+                var events = new List<IEventEntity>();
+                events.AddRange(model.QueryTransfers(aquarium.Id));
+                events.AddRange(model.QueryNotes(aquarium.Id));
+                events.AddRange(model.QueryHistory(aquarium.Id));
+                events.AddRange(model.QueryMaintenances(aquarium.Id));
+                events.AddRange(model.QueryMeasures(aquarium.Id));
+                events.Sort((x, y) => { return x.Timestamp.CompareTo(y.Timestamp); });
+
                 string prevDate = string.Empty, curDate;
-                var records = model.QueryTransfers();
-                foreach (Transfer rec in records) {
-                    curDate = ALCore.GetDateStr(rec.Date);
+                foreach (IEventEntity evnt in events) {
+                    curDate = ALCore.GetDateStr(evnt.Timestamp);
                     if (!prevDate.Equals(curDate)) {
                         BeginParagraph(Align.Left, 6.0f, 6.0f);
                         AddParagraphChunk(curDate, dateFont);
@@ -53,14 +62,42 @@ namespace AquaLog.Core.Export
                         prevDate = curDate;
                     }
 
-                    string strType = Localizer.LS(ALData.TransferTypes[(int)rec.Type]);
-                    string itName = model.GetRecordName(rec.ItemType, rec.ItemId);
-                    AddListItem(string.Format("{0}: {1} ({2} x {3:C2})", strType, itName, rec.Quantity, rec.UnitPrice), textFont);
+                    if (evnt is Transfer) {
+                        Transfer rec = (Transfer)evnt;
+                        string strType = Localizer.LS(ALData.TransferTypes[(int)rec.Type]);
+                        string itName = model.GetRecordName(rec.ItemType, rec.ItemId);
+                        if (rec.Type == TransferType.Purchase || rec.Type == TransferType.Sale) {
+                            AddListItem(string.Format("{0}: {1} ({2} x {3:C2})", strType, itName, rec.Quantity, rec.UnitPrice), textFont);
+                        } else {
+                            AddListItem(string.Format("{0}: {1} ({2})", strType, itName, rec.Quantity), textFont);
+                        }
 
-                    /*Aquarium aqmSour = model.GetRecord<Aquarium>(rec.SourceId);
-                    Aquarium aqmTarg = model.GetRecord<Aquarium>(rec.TargetId);
-                    item.SubItems.Add((aqmSour == null) ? string.Empty : aqmSour.Name);
-                    item.SubItems.Add((aqmTarg == null) ? string.Empty : aqmTarg.Name);*/
+                        /*string aqmSour = model.GetRecordName(ItemType.Aquarium, rec.SourceId);
+                        string aqmTarg = model.GetRecordName(ItemType.Aquarium, rec.TargetId);*/
+                    }
+
+                    if (evnt is Note) {
+                        Note note = (Note)evnt;
+                        AddListItem(string.Format("{0}: {1}", Localizer.LS(LSID.Note), note.Content), textFont);
+                    }
+
+                    if (evnt is History) {
+                        History hist = (History)evnt;
+                        AddListItem(string.Format("{0}: {1}", hist.Event, hist.Note), textFont);
+                    }
+
+                    if (evnt is Maintenance) {
+                        Maintenance mnt = (Maintenance)evnt;
+                        //string aqmName = model.GetRecordName(ItemType.Aquarium, mnt.AquariumId);
+                        string strType = Localizer.LS(ALData.MaintenanceTypes[(int)mnt.Type]);
+                        string notes = (string.IsNullOrEmpty(mnt.Note)) ? string.Empty : " (" + mnt.Note + ")";
+                        AddListItem(string.Format("{0}: {1}{2}", strType, ALCore.GetDecimalStr(mnt.Value), notes), textFont);
+                    }
+
+                    if (evnt is Measure) {
+                        Measure msr = (Measure)evnt;
+                        AddListItem(string.Format("{0}: {1}", Localizer.LS(LSID.Measure), msr.ToString()), textFont);
+                    }
                 }
             } finally {
                 fDocument.save(fileName);

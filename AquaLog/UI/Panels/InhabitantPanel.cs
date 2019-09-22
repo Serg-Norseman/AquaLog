@@ -57,7 +57,7 @@ namespace AquaLog.UI.Panels
                 IList<Transfer> lastTransfers = fModel.QueryLastTransfers(rec.Id, (int)itemType);
                 if (lastTransfers.Count > 0) {
                     currAqmId = lastTransfers[0].TargetId;
-                    intrDate = lastTransfers[0].Date;
+                    intrDate = lastTransfers[0].Timestamp;
                 }
                 Aquarium aqm = fModel.GetRecord<Aquarium>(currAqmId);
                 string aqmName = (aqm == null) ? string.Empty : aqm.Name;

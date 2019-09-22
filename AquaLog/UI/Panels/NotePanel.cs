@@ -35,7 +35,7 @@ namespace AquaLog.UI.Panels
 
                 var item = new ListViewItem(aqmName);
                 item.Tag = rec;
-                item.SubItems.Add(rec.PublishDate.ToString());
+                item.SubItems.Add(rec.Timestamp.ToString());
                 item.SubItems.Add(rec.Content);
                 ListView.Items.Add(item);
             }

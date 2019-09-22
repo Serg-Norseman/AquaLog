@@ -102,6 +102,7 @@ namespace AquaLog.Core
             Entity result = null;
             switch (itemType) {
                 case ItemType.Aquarium:
+                    result = GetRecord<Aquarium>(itemId);
                     break;
 
                 case ItemType.Fish:
@@ -147,14 +148,34 @@ namespace AquaLog.Core
         public int QueryInhabitantsCount(int aquariumId)
         {
             int result = 0;
-            var qv = fDB.Query<Transfer>("select ItemType, ItemId, Type, Quantity from Transfer where TargetId = ?", aquariumId);
+            var qv = fDB.Query<Transfer>("select * from Transfer where SourceId = ? or TargetId = ?", aquariumId, aquariumId);
             foreach (var val in qv) {
-                // FIXME: transfer types +/- birth, death and etc
+                int factor = 0;
+                switch (val.Type) {
+                    case TransferType.Relocation:
+                        if (val.SourceId == aquariumId) {
+                            factor = -1;
+                        } else if (val.TargetId == aquariumId) {
+                            factor = +1;
+                        }
+                        break;
+
+                    case TransferType.Purchase:
+                    case TransferType.Birth:
+                        factor = +1;
+                        break;
+
+                    case TransferType.Sale:
+                    case TransferType.Death:
+                        factor = -1;
+                        break;
+                }
+
                 switch (val.ItemType) {
                     case ItemType.Fish:
                     case ItemType.Invertebrate:
                     case ItemType.Plant:
-                        result += val.Quantity;
+                        result += (val.Quantity * factor);
                         break;
                 }
             }
@@ -195,7 +216,7 @@ namespace AquaLog.Core
 
         public IEnumerable<Inhabitant> QueryInhabitants(Aquarium aquarium)
         {
-            return fDB.Query<Inhabitant>("select inh.Id, inh.SpeciesId, inh.Sex, inh.Name from Inhabitant inh, Transfer tran where (inh.Id = tran.ItemId and tran.ItemType in (2, 3, 5) and TargetId = ?)", aquarium.Id);
+            return fDB.Query<Inhabitant>("select inh.Id, inh.SpeciesId, inh.Sex, inh.Name from Inhabitant inh, Transfer tran where (inh.Id = tran.ItemId and tran.ItemType in (2, 3, 4, 5) and TargetId = ?)", aquarium.Id);
         }
 
         #endregion
@@ -257,7 +278,12 @@ namespace AquaLog.Core
 
         public IList<History> QueryHistory()
         {
-            return fDB.Query<History>("select * from History order by [DateTime]");
+            return fDB.Query<History>("select * from History order by [Timestamp]");
+        }
+
+        public IList<History> QueryHistory(int aquariumId)
+        {
+            return fDB.Query<History>("select * from History where (AquariumId = ?) order by [Timestamp]", aquariumId);
         }
 
         #endregion
@@ -266,17 +292,17 @@ namespace AquaLog.Core
 
         public IList<Maintenance> QueryMaintenances()
         {
-            return fDB.Query<Maintenance>("select * from Maintenance order by [DateTime]");
+            return fDB.Query<Maintenance>("select * from Maintenance order by [Timestamp]");
         }
 
         public IList<Maintenance> QueryMaintenances(int aquariumId)
         {
-            return fDB.Query<Maintenance>("select * from Maintenance where (AquariumId = ?) order by [DateTime]", aquariumId);
+            return fDB.Query<Maintenance>("select * from Maintenance where (AquariumId = ?) order by [Timestamp]", aquariumId);
         }
 
         public IList<Maintenance> QueryWaterChanges(int aquariumId)
         {
-            return fDB.Query<Maintenance>("select * from Maintenance where (AquariumId = ? and Type between 0 and 3) order by [DateTime]", aquariumId);
+            return fDB.Query<Maintenance>("select * from Maintenance where (AquariumId = ? and Type between 0 and 3) order by [Timestamp]", aquariumId);
         }
 
         public double GetWaterVolume(int aquariumId)
@@ -306,11 +332,11 @@ namespace AquaLog.Core
             var records = QueryWaterChanges(aquariumId);
             foreach (Maintenance rec in records) {
                 if (!dtPrev.Equals(ALCore.ZeroDate)) {
-                    int days = (rec.DateTime.Date - dtPrev).Days;
+                    int days = (rec.Timestamp.Date - dtPrev).Days;
                     result += days;
                     count += 1;
                 }
-                dtPrev = rec.DateTime.Date;
+                dtPrev = rec.Timestamp.Date;
             }
 
             return result / count;
@@ -321,7 +347,7 @@ namespace AquaLog.Core
             DateTime dtPrev = ALCore.ZeroDate;
             var records = QueryWaterChanges(aquariumId);
             foreach (Maintenance rec in records) {
-                dtPrev = rec.DateTime.Date;
+                dtPrev = rec.Timestamp.Date;
             }
             return (DateTime.Now.Date - dtPrev).Days;
         }
@@ -332,7 +358,7 @@ namespace AquaLog.Core
 
         public IList<Schedule> QuerySchedule()
         {
-            return fDB.Query<Schedule>("select * from Schedule order by [DateTime]");
+            return fDB.Query<Schedule>("select * from Schedule order by [Timestamp]");
         }
 
         #endregion
@@ -341,22 +367,22 @@ namespace AquaLog.Core
 
         public IList<Transfer> QueryTransfers()
         {
-            return fDB.Query<Transfer>("select * from Transfer order by [Date]");
+            return fDB.Query<Transfer>("select * from Transfer order by [Timestamp]");
         }
 
         public IList<Transfer> QueryTransfers(int aquariumId)
         {
-            return fDB.Query<Transfer>("select * from Transfer where (SourceId = ? or TargetId = ?) order by [Date]", aquariumId, aquariumId);
+            return fDB.Query<Transfer>("select * from Transfer where (SourceId = ? or TargetId = ?) order by [Timestamp]", aquariumId, aquariumId);
         }
 
         public IList<Transfer> QueryTransfers(int itemId, int itemType)
         {
-            return fDB.Query<Transfer>("select * from Transfer where (ItemId = ? and ItemType = ?) order by [Date]", itemId, itemType);
+            return fDB.Query<Transfer>("select * from Transfer where (ItemId = ? and ItemType = ?) order by [Timestamp]", itemId, itemType);
         }
 
         public IList<Transfer> QueryLastTransfers(int itemId, int itemType)
         {
-            return fDB.Query<Transfer>("select * from Transfer where (ItemId = ? and ItemType = ?) order by [Date] desc", itemId, itemType);
+            return fDB.Query<Transfer>("select * from Transfer where (ItemId = ? and ItemType = ?) order by [Timestamp] desc", itemId, itemType);
         }
 
         #endregion
@@ -368,9 +394,9 @@ namespace AquaLog.Core
             return fDB.Query<Note>("select * from Note");
         }
 
-        public IEnumerable<Note> QueryNotes(Aquarium aquarium)
+        public IEnumerable<Note> QueryNotes(int aquariumId)
         {
-            return fDB.Query<Note>("select * from Note where AquariumId = ?", aquarium.Id);
+            return fDB.Query<Note>("select * from Note where AquariumId = ?", aquariumId);
         }
 
         #endregion
@@ -379,17 +405,17 @@ namespace AquaLog.Core
 
         public IEnumerable<Measure> QueryMeasures()
         {
-            return fDB.Query<Measure>("select * from Measure order by Timestamp");
+            return fDB.Query<Measure>("select * from Measure order by [Timestamp]");
         }
 
-        public IEnumerable<Measure> QueryMeasures(Aquarium aquarium)
+        public IEnumerable<Measure> QueryMeasures(int aquariumId)
         {
-            return fDB.Query<Measure>("select * from Measure where AquariumId = ? order by Timestamp", aquarium.Id);
+            return fDB.Query<Measure>("select * from Measure where AquariumId = ? order by [Timestamp]", aquariumId);
         }
 
         public QDecimal QueryLastMeasure(Aquarium aquarium, string field)
         {
-            string query = string.Format("select [{0}] as value from Measure where AquariumId = {1} and [{2}] <> 0.00000 order by Timestamp desc limit 1", field, aquarium.Id, field);
+            string query = string.Format("select [{0}] as value from Measure where AquariumId = {1} and [{2}] <> 0.00000 order by [Timestamp] desc limit 1", field, aquarium.Id, field);
             List<QDecimal> list = fDB.Query<QDecimal>(query);
             return (list != null && list.Count > 0) ? list[0] : null;
         }
@@ -483,7 +509,7 @@ namespace AquaLog.Core
 
         public IEnumerable<Transfer> QueryExpenses()
         {
-            return fDB.Query<Transfer>("select Date, ItemType, ItemId, Type, Quantity, UnitPrice, Shop from Transfer order by Date");
+            return fDB.Query<Transfer>("select Timestamp, ItemType, ItemId, Type, Quantity, UnitPrice, Shop from Transfer order by [Timestamp]");
         }
 
         public IList<QString> QueryShops()

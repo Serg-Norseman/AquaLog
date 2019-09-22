@@ -121,15 +121,17 @@ namespace AquaLog.UI.Panels
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
                 string sex = ALCore.IsAnimal(spc.Type) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : string.Empty;
+
                 ItemType itemType = ALCore.GetItemType(spc.Type);
                 int qty = fModel.QueryInhabitantsCount(rec.Id, itemType);
+                if (qty == 0) continue; // death, sale or gift?
 
                 int currAqmId = 0;
                 DateTime intrDate = ALCore.ZeroDate;
                 IList<Transfer> lastTransfers = fModel.QueryLastTransfers(rec.Id, (int)itemType);
                 if (lastTransfers.Count > 0) {
                     currAqmId = lastTransfers[0].TargetId;
-                    intrDate = lastTransfers[0].Date;
+                    intrDate = lastTransfers[0].Timestamp;
                 }
                 string strIntrDate = (intrDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetDateStr(intrDate);
 
@@ -228,7 +230,7 @@ namespace AquaLog.UI.Panels
             foreach (Maintenance rec in records) {
                 string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type]);
 
-                var item = new ListViewItem(rec.DateTime.ToString());
+                var item = new ListViewItem(rec.Timestamp.ToString());
                 item.Tag = rec;
                 item.SubItems.Add(strType);
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.Value));

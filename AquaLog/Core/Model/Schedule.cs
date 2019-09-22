@@ -14,7 +14,7 @@ namespace AquaLog.Core.Model
     /// </summary>
     public class Schedule : AquariumDetails
     {
-        public DateTime DateTime { get; set; }
+        public DateTime Timestamp { get; set; }
         public string Event { get; set; }
         public string Note { get; set; }
         public bool Reminder { get; set; }

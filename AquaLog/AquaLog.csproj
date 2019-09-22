@@ -105,6 +105,7 @@
     <Compile Include="Core\Export\RTFLogBook.cs" />
     <Compile Include="Core\ILocalizable.cs" />
     <Compile Include="Core\Localizer.cs" />
+    <Compile Include="Core\Model\IEventEntity.cs" />
     <Compile Include="Core\Model\Inventory.cs" />
     <Compile Include="Core\Model\Measure.cs" />
     <Compile Include="Core\Model\Nutrition.cs" />

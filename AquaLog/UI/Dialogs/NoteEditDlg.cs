@@ -75,8 +75,8 @@ namespace AquaLog.UI.Dialogs
                 cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.AquariumId);
                 cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
-                if (!fRecord.PublishDate.Equals(ALCore.ZeroDate)) {
-                    dtpDateTime.Value = fRecord.PublishDate;
+                if (!fRecord.Timestamp.Equals(ALCore.ZeroDate)) {
+                    dtpDateTime.Value = fRecord.Timestamp;
                 }
 
                 txtNote.Text = fRecord.Content;
@@ -88,7 +88,7 @@ namespace AquaLog.UI.Dialogs
             var aqm = cmbAquarium.SelectedItem as Aquarium;
             fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
-            fRecord.PublishDate = dtpDateTime.Value;
+            fRecord.Timestamp = dtpDateTime.Value;
             fRecord.Content = txtNote.Text;
         }
 

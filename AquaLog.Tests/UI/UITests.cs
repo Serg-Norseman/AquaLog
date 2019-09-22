@@ -395,10 +395,10 @@ namespace AquaLog.UI
             ModalFormHandler = Dialog_Cancel_Handler;
             ClickButton("btnAdd", fMainWin);
 
-            ModalFormHandler = TSPoint_Accept_Handler;
+            /*ModalFormHandler = TSPoint_Accept_Handler;
             ClickButton("btnAdd", fMainWin);
 
-            /*SelectListView("ListView", fMainWin, 0);
+            SelectListView("ListView", fMainWin, 0);
             ModalFormHandler = TSPoint_Accept_Handler;
             ClickButton("btnEdit", fMainWin);
 

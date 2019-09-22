@@ -8,14 +8,11 @@ using System;
 
 namespace AquaLog.Core.Model
 {
-    public class Note : AquariumDetails, IEventEntity
+    /// <summary>
+    /// 
+    /// </summary>
+    public interface IEventEntity
     {
-        public DateTime Timestamp { get; set; }
-        public string Content { get; set; }
-
-
-        public Note()
-        {
-        }
+        DateTime Timestamp { get; set; }
     }
 }

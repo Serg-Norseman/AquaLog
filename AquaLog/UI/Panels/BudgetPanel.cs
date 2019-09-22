@@ -56,7 +56,7 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.Shop), 180, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
 
-            DateTime firstDate = ALCore.ZeroDate, lastDate = ALCore.ZeroDate;
+            DateTime firstDate = ALCore.ZeroDate, lastDate = DateTime.Now.Date;
             double totalSum = 0.0d, expenses = 0.0d, incomes = 0.0d;
             var records = fModel.QueryExpenses();
             foreach (Transfer rec in records) {
@@ -84,7 +84,7 @@ namespace AquaLog.UI.Panels
                     }
                     sum *= factor;
 
-                    var item = new ListViewItem(ALCore.GetDateStr(rec.Date));
+                    var item = new ListViewItem(ALCore.GetDateStr(rec.Timestamp));
                     item.Tag = rec;
                     item.SubItems.Add(Localizer.LS(ALData.ItemTypes[(int)rec.ItemType].Name));
                     item.SubItems.Add(itName);
@@ -98,9 +98,8 @@ namespace AquaLog.UI.Panels
                     totalSum += sum;
 
                     if (firstDate.Equals(ALCore.ZeroDate)) {
-                        firstDate = rec.Date;
+                        firstDate = rec.Timestamp;
                     }
-                    lastDate = rec.Date;
                 }
             }
 

@@ -96,8 +96,8 @@ namespace AquaLog.UI.Dialogs
                 cmbSource.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.SourceId);
                 cmbTarget.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.TargetId);
 
-                if (!fRecord.Date.Equals(ALCore.ZeroDate)) {
-                    dtpDate.Value = fRecord.Date;
+                if (!fRecord.Timestamp.Equals(ALCore.ZeroDate)) {
+                    dtpDate.Value = fRecord.Timestamp;
                 }
 
                 cmbType.SetSelectedTag(fRecord.Type);
@@ -129,7 +129,7 @@ namespace AquaLog.UI.Dialogs
 
             //fTransfer.ItemId = fInhabitant.Id;
             //fTransfer.ItemType = ALCore.GetItemType(fInhabitant.GetSpeciesType());
-            fRecord.Date = dtpDate.Value;
+            fRecord.Timestamp = dtpDate.Value;
             fRecord.Type = cmbType.GetSelectedTag<TransferType>();
             fRecord.Cause = txtCause.Text;
 

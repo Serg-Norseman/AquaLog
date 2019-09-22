@@ -13,7 +13,7 @@ namespace AquaLog.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public class Transfer : Entity
+    public class Transfer : Entity, IEventEntity
     {
         [Indexed]
         public int ItemId { get; set; }
@@ -22,7 +22,7 @@ namespace AquaLog.Core.Model
         public ItemType ItemType { get; set; }
 
         [Indexed]
-        public DateTime Date { get; set; }
+        public DateTime Timestamp { get; set; }
 
         public TransferType Type { get; set; }
         public string Cause { get; set; }

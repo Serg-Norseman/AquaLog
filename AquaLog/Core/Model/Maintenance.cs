@@ -12,9 +12,9 @@ namespace AquaLog.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public class Maintenance : AquariumDetails
+    public class Maintenance : AquariumDetails, IEventEntity
     {
-        public DateTime DateTime { get; set; }
+        public DateTime Timestamp { get; set; }
         public MaintenanceType Type { get; set; }
         public double Value { get; set; }
         public string Note { get; set; }
