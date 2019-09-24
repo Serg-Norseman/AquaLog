@@ -89,7 +89,7 @@ namespace AquaLog.Core
 
         public T GetRecord<T>(int objId) where T : new()
         {
-            return (objId == 0) ? default(T) : fDB.Get<T>(objId);
+            return (objId <= 0) ? default(T) : fDB.Get<T>(objId);
         }
 
         public IEnumerable<T> QueryRecords<T>(string query, params object[] args) where T : new()
@@ -203,6 +203,39 @@ namespace AquaLog.Core
                 result += (val.Quantity * factor);
             }
             return result;
+        }
+
+        public void GetInhabitantDates(int recId, int itemType, out DateTime inclusionDate, out DateTime exclusionDate, out int currAqmId)
+        {
+            currAqmId = -1;
+            inclusionDate = ALCore.ZeroDate;
+            exclusionDate = ALCore.ZeroDate;
+
+            IList<Transfer> transfers = QueryTransfers(recId, itemType);
+            foreach (var trf in transfers) {
+                switch (trf.Type) {
+                    case TransferType.Relocation:
+                        break;
+
+                    case TransferType.Purchase:
+                    case TransferType.Birth:
+                        if (inclusionDate.Equals(ALCore.ZeroDate)) {
+                            inclusionDate = trf.Timestamp;
+                        }
+                        break;
+
+                    case TransferType.Sale:
+                    case TransferType.Death:
+                        if (exclusionDate.Equals(ALCore.ZeroDate)) {
+                            exclusionDate = trf.Timestamp;
+                        }
+                        break;
+                }
+
+                if (trf.TargetId > 0) {
+                    currAqmId = trf.TargetId;
+                }
+            }
         }
 
         #endregion

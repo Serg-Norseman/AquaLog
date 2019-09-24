@@ -98,7 +98,7 @@
   <string id="096">Water: Removed</string>
   <string id="097">Clean</string>
   <string id="098">Other</string>
-  <string id="099">Introduction date</string>
+  <string id="099">Inclusion date</string>
   <string id="100">Fish</string>
   <string id="101">Invertebrate</string>
   <string id="102">Plant</string>
@@ -161,4 +161,8 @@
   <string id="159">Works from {0} [{1} d]</string>
   <string id="160">Export</string>
   <string id="161">Log book</string>
+  <string id="162">Exclusion date</string>
+  <string id="163">{0} ds</string>
+  <string id="164">{0} ms</string>
+  <string id="165">{0} ys</string>
 </resources>

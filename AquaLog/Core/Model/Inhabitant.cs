@@ -26,6 +26,13 @@ namespace AquaLog.Core.Model
         public ItemState State { get; set; }
 
 
+        /// <summary>
+        /// Runtime property for rendering.
+        /// </summary>
+        [Ignore]
+        public int Quantity { get; set; }
+
+
         public Inhabitant()
         {
         }

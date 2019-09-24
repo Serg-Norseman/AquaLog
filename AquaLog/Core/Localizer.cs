@@ -119,7 +119,7 @@ namespace AquaLog.Core
         /* 096 */ WaterRemoved,
         /* 097 */ Clean,
         /* 098 */ Other,
-        /* 099 */ IntroductionDate,
+        /* 099 */ InclusionDate,
         /* 100 */ Fish,
         /* 101 */ Invertebrate,
         /* 102 */ Plant,
@@ -182,8 +182,12 @@ namespace AquaLog.Core
         /* 159 */ AquaWorks,
         /* 160 */ Export,
         /* 161 */ LogBook,
+        /* 162 */ ExclusionDate,
+        /* 163 */ DaysStr,
+        /* 164 */ MonthsStr,
+        /* 165 */ YearsStr,
 
-        /* 000 */ Last = LogBook
+        /* 000 */ Last = YearsStr
     }
 
 
@@ -292,7 +296,7 @@ namespace AquaLog.Core
             /* 096 */ "WaterRemoved",
             /* 097 */ "Clean",
             /* 098 */ "Other",
-            /* 099 */ "Introduction date",
+            /* 099 */ "Inclusion date",
             /* 100 */ "Fish",
             /* 101 */ "Invertebrate",
             /* 102 */ "Plant",
@@ -355,6 +359,10 @@ namespace AquaLog.Core
             /* 159 */ "Works from {0} [{1} d]",
             /* 160 */ "Export",
             /* 161 */ "Log book",
+            /* 162 */ "Exclusion date",
+            /* 163 */ "{0} ds",
+            /* 164 */ "{0} ms",
+            /* 165 */ "{0} ys",
         };
 
 

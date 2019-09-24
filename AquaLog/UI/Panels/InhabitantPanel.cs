@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -41,7 +42,9 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.SpeciesS), 150, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 150, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.IntroductionDate), 150, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.InclusionDate), 150, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.ExclusionDate), 150, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.LifeSpan), 150, HorizontalAlignment.Left);
             ListView.Columns.Add("Temp", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("PH", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("GH", 100, HorizontalAlignment.Left);
@@ -52,28 +55,38 @@ namespace AquaLog.UI.Panels
                 string sx = ALCore.IsAnimal(spc.Type) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : string.Empty;
                 SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
                 ItemType itemType = ALCore.GetItemType(speciesType);
+
                 int currAqmId = 0;
-                DateTime intrDate = ALCore.ZeroDate;
-                IList<Transfer> lastTransfers = fModel.QueryLastTransfers(rec.Id, (int)itemType);
-                if (lastTransfers.Count > 0) {
-                    currAqmId = lastTransfers[0].TargetId;
-                    intrDate = lastTransfers[0].Timestamp;
-                }
-                Aquarium aqm = fModel.GetRecord<Aquarium>(currAqmId);
-                string aqmName = (aqm == null) ? string.Empty : aqm.Name;
-                string strIntrDate = (intrDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetDateStr(intrDate);
+                DateTime inclusionDate, exclusionDate;
+                fModel.GetInhabitantDates(rec.Id, (int)itemType, out inclusionDate, out exclusionDate, out currAqmId);
+
+                string aqmName = fModel.GetRecordName(ItemType.Aquarium, currAqmId);
+                string strInclusDate = (inclusionDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetDateStr(inclusionDate);
+                string strExclusDate = (exclusionDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetDateStr(exclusionDate);
+
+                DateTime endDate = (exclusionDate.Equals(ALCore.ZeroDate)) ? DateTime.Now.Date : exclusionDate;
+                string strLifespan = (inclusionDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetTimespanText(inclusionDate, endDate);
+
+                rec.Quantity = fModel.QueryInhabitantsCount(rec.Id, itemType);
 
                 var item = new ListViewItem(rec.Name);
                 item.Tag = rec;
                 item.SubItems.Add(sx);
-                item.SubItems.Add(fModel.QueryInhabitantsCount(rec.Id, itemType).ToString());
+                item.SubItems.Add(rec.Quantity.ToString());
                 item.SubItems.Add(spc.Name);
                 item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
                 item.SubItems.Add(aqmName);
-                item.SubItems.Add(strIntrDate);
+                item.SubItems.Add(strInclusDate);
+                item.SubItems.Add(strExclusDate);
+                item.SubItems.Add(strLifespan);
                 item.SubItems.Add(spc.GetTempRange());
                 item.SubItems.Add(spc.GetPHRange());
                 item.SubItems.Add(spc.GetGHRange());
+
+                if (rec.Quantity == 0) {
+                    item.ForeColor = Color.Gray; // death, sale or gift?
+                }
+
                 ListView.Items.Add(item);
             }
         }

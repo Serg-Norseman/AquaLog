@@ -112,7 +112,7 @@ namespace AquaLog.UI.Panels
             fInhabitantsLV.Columns.Add(Localizer.LS(LSID.Name), 200, HorizontalAlignment.Left);
             fInhabitantsLV.Columns.Add(Localizer.LS(LSID.Sex), 50, HorizontalAlignment.Left);
             fInhabitantsLV.Columns.Add(Localizer.LS(LSID.Quantity), 50, HorizontalAlignment.Right);
-            fInhabitantsLV.Columns.Add(Localizer.LS(LSID.IntroductionDate), 150, HorizontalAlignment.Left);
+            fInhabitantsLV.Columns.Add(Localizer.LS(LSID.InclusionDate), 150, HorizontalAlignment.Left);
             fInhabitantsLV.Columns.Add("Temp", 100, HorizontalAlignment.Left);
             fInhabitantsLV.Columns.Add("PH", 100, HorizontalAlignment.Left);
             fInhabitantsLV.Columns.Add("GH", 100, HorizontalAlignment.Left);
