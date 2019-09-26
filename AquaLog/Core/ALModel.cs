@@ -175,7 +175,7 @@ namespace AquaLog.Core
                     case ItemType.Fish:
                     case ItemType.Invertebrate:
                     case ItemType.Plant:
-                        result += (val.Quantity * factor);
+                        result += ((int)val.Quantity * factor);
                         break;
                 }
             }
@@ -200,7 +200,7 @@ namespace AquaLog.Core
                         factor = -1;
                         break;
                 }
-                result += (val.Quantity * factor);
+                result += ((int)val.Quantity * factor);
             }
             return result;
         }

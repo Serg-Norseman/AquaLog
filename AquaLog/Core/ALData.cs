@@ -249,16 +249,54 @@ namespace AquaLog.Core
             return depth * width;
         }
 
-        public static double CalcTankVolume(double depth, double width, double height)
+        /// <summary>
+        /// Calculate the volume of a cube tank (all sizes in cm).
+        /// </summary>
+        public static double CalcCubeTankVolume(double size, double glassThickness = 0.0d)
         {
+            var depth = size;
+            var width = size;
+            var height = size;
+
+            return CalcRectangularTankVolume(depth, width, height, glassThickness);
+        }
+
+        /// <summary>
+        /// Calculate the volume of a rectangular tank (all sizes in cm).
+        /// </summary>
+        public static double CalcRectangularTankVolume(double depth, double width, double height, double glassThickness = 0.0d)
+        {
+            if (glassThickness > 0.0d) {
+                double glassThicknessS2 = glassThickness * 2.0d;
+
+                depth -= glassThicknessS2; // two sides
+                width -= glassThicknessS2; // two sides
+                height -= glassThickness; // only bottom
+            }
+
             double ccVolume = depth * width * height; // cubic cm (cc)
             return UnitConverter.cc2l(ccVolume);
         }
 
+        /// <summary>
+        /// Estimated standard water volume (85% of tank volume).
+        /// </summary>
         public static double CalcWaterVolume(double tankVolume)
         {
             // estimated water volume is 85% of tank volume
-            return 0.85 * tankVolume;
+            return tankVolume * 0.85d;
+        }
+
+        public static double CalcWaterHeight(double depth, double width, double waterVolume, double glassThickness = 0.0d)
+        {
+            if (glassThickness > 0.0d) {
+                double glassThicknessS2 = glassThickness * 2.0d;
+
+                depth -= glassThicknessS2; // two sides
+                width -= glassThicknessS2; // two sides
+            }
+
+            return UnitConverter.l2cc(waterVolume) / (depth * width);
         }
 
         public static double CalcNH3(double pH, double temperature, double totalNH)

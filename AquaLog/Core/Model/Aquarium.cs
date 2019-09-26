@@ -78,7 +78,7 @@ namespace AquaLog.Core.Model
             Depth = depth;
             Width = width;
             Height = height;
-            TankVolume = ALData.CalcTankVolume(depth, width, height);
+            TankVolume = ALData.CalcRectangularTankVolume(depth, width, height);
         }
 
         public bool IsSalt()

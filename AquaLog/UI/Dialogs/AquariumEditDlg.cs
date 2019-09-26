@@ -163,11 +163,15 @@ namespace AquaLog.UI.Dialogs
             }
         }
 
-        private void txtSizes_TextChanged(object sender, EventArgs e)
+        private void txtValue_TextChanged(object sender, EventArgs e)
+        {
+            RecalcValues();
+        }
+
+        private void RecalcValues()
         {
             double glassThickness = ALCore.GetDecimalVal(txtGlassThickness.Text, -1.0d);
-            // two sides
-            glassThickness *= 2.0;
+            double tankVolume;
 
             var tankShape = cmbShape.GetSelectedTag<TankShape>();
             switch (tankShape) {
@@ -176,34 +180,38 @@ namespace AquaLog.UI.Dialogs
                 case TankShape.BowFront:
                 case TankShape.PlateFrontCorner:
                 case TankShape.BowFrontCorner:
+                    tankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
                     break;
 
                 case TankShape.Cube:
                     var size = ALCore.GetDecimalVal(txtWidth.Text);
-                    if (glassThickness > 0.0d) {
-                        size -= glassThickness;
-                    }
-                    txtTankVolume.Text = ALCore.GetDecimalStr(size * size * size);
+                    tankVolume = ALData.CalcCubeTankVolume(size, glassThickness);
+                    txtTankVolume.Text = ALCore.GetDecimalStr(tankVolume);
                     break;
 
                 case TankShape.Rectangular:
                     var depth = ALCore.GetDecimalVal(txtDepth.Text);
                     var width = ALCore.GetDecimalVal(txtWidth.Text);
                     var height = ALCore.GetDecimalVal(txtHeigth.Text);
-                    if (glassThickness > 0.0d) {
-                        depth -= glassThickness;
-                        width -= glassThickness;
-                        height -= glassThickness;
-                    }
-                    txtTankVolume.Text = ALCore.GetDecimalStr(ALData.CalcTankVolume(depth, width, height));
+                    tankVolume = ALData.CalcRectangularTankVolume(depth, width, height, glassThickness);
+                    txtTankVolume.Text = ALCore.GetDecimalStr(tankVolume);
+                    break;
+
+                default:
+                    tankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
                     break;
             }
-        }
 
-        private void txtTankVolume_TextChanged(object sender, EventArgs e)
-        {
-            var tankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
-            txtWaterVolume.Text = ALCore.GetDecimalStr(ALData.CalcWaterVolume(tankVolume));
+            double waterVolume = ALData.CalcWaterVolume(tankVolume);
+            txtWaterVolume.Text = ALCore.GetDecimalStr(waterVolume);
+
+            double waterHeight = 0.0d;
+            if (tankShape == TankShape.Rectangular) {
+                double depth = ALCore.GetDecimalVal(txtDepth.Text);
+                double width = ALCore.GetDecimalVal(txtWidth.Text);
+                waterHeight = ALData.CalcWaterHeight(depth, width, waterVolume, glassThickness);
+            }
+            lblWaterHeight.Text = string.Format("wH = {0:0.00}", waterHeight);
         }
     }
 }

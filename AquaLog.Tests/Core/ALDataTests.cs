@@ -21,7 +21,7 @@ namespace AquaLog.Core
         [Test]
         public void CalcTankVolume()
         {
-            Assert.AreEqual(9.506875, ALData.CalcTankVolume(17.5, 20.5, 26.5));
+            Assert.AreEqual(9.506875, ALData.CalcRectangularTankVolume(17.5, 20.5, 26.5));
         }
 
         [Test]

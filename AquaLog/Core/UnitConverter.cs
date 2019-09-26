@@ -224,5 +224,22 @@ namespace AquaLog.Core
         {
             return ppmGH / 16.7;
         }
+
+
+        /// <summary>
+        /// Convert millilitre (ml) to drops:  1 ml = 20 drops
+        /// </summary>
+        public static double ml2drops(double ml)
+        {
+            return ml * 20.0d;
+        }
+
+        /// <summary>
+        /// Convert drops to millilitre (ml):  1 drop = 0.05 ml
+        /// </summary>
+        public static double drops2ml(double drops)
+        {
+            return drops * 0.05;
+        }
     }
 }

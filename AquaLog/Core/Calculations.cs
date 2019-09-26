@@ -22,6 +22,8 @@ namespace AquaLog.Core.Calculations
         Units_l2gal,
         Units_cc2l,
         Units_l2cc,
+        Units_ml2drops,
+        Units_drops2ml,
         Units_tsp2cc,
         Units_cc2tsp,
         Units_mg2g,
@@ -115,6 +117,14 @@ namespace AquaLog.Core.Calculations
             new CalculationProps("Convert liters to cubic cm (cc)", "1 liter = 1000 cc",
                                  new [] { new CalcParam("SourceValue", "Source Value (l)") },
                                  new CalcParam("ResultValue", "Result (cc)"), UnitConverter.l2cc),
+
+            new CalculationProps("Convert millilitre (ml) to drops", "1 ml = 20 drops",
+                                 new [] { new CalcParam("SourceValue", "Source Value (ml)") },
+                                 new CalcParam("ResultValue", "Result (drops)"), UnitConverter.ml2drops),
+            new CalculationProps("Convert drops to millilitre (ml)", "1 drop = 0.05 ml",
+                                 new [] { new CalcParam("SourceValue", "Source Value (drops)") },
+                                 new CalcParam("ResultValue", "Result (ml)"), UnitConverter.drops2ml),
+
             new CalculationProps("Convert table spoons (tsp) to cubic cm (cc)", "1 tsp = 14.786765 cc",
                                  new [] { new CalcParam("SourceValue", "Source Value (tsp)") },
                                  new CalcParam("ResultValue", "Result (cc)"), UnitConverter.tsp2cc),

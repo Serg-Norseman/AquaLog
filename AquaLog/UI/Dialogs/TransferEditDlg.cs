@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
+using AquaLog.Logging;
 
 namespace AquaLog.UI.Dialogs
 {
@@ -19,6 +20,8 @@ namespace AquaLog.UI.Dialogs
     /// </summary>
     public partial class TransferEditDlg : Form, IEditDialog<Transfer>
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "TransferEditDlg");
+
         private ALModel fModel;
         private Transfer fRecord;
 
@@ -133,7 +136,7 @@ namespace AquaLog.UI.Dialogs
             fRecord.Type = cmbType.GetSelectedTag<TransferType>();
             fRecord.Cause = txtCause.Text;
 
-            fRecord.Quantity = int.Parse(txtQty.Text);
+            fRecord.Quantity = (float)ALCore.GetDecimalVal(txtQty.Text);
             if (fRecord.Type == TransferType.Purchase || fRecord.Type == TransferType.Sale) {
                 fRecord.UnitPrice = (float)ALCore.GetDecimalVal(txtUnitPrice.Text);
                 fRecord.Shop = cmbShop.Text;
@@ -145,7 +148,8 @@ namespace AquaLog.UI.Dialogs
             try {
                 ApplyChanges();
                 DialogResult = DialogResult.OK;
-            } catch {
+            } catch (Exception ex) {
+                fLogger.WriteError("ApplyChanges()", ex);
                 DialogResult = DialogResult.None;
             }
         }
