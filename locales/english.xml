@@ -165,4 +165,7 @@
   <string id="163">{0} ds</string>
   <string id="164">{0} ms</string>
   <string id="165">{0} ys</string>
+  <string id="166">Chart (item types)</string>
+  <string id="167">Chart (shops)</string>
+  <string id="168">Chart (brands)</string>
 </resources>

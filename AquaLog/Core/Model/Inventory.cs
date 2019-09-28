@@ -12,7 +12,7 @@ namespace AquaLog.Core.Model
     /// <summary>
     /// Inventory: additive, chemistry, equipment, maintenance, furniture, decoration.
     /// </summary>
-    public class Inventory : Entity, IStateItem
+    public class Inventory : Entity, IStateItem, IBrandedItem
     {
         public string Name { get; set; }
         public string Brand { get; set; }

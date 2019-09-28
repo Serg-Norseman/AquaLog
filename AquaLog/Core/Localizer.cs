@@ -186,8 +186,11 @@ namespace AquaLog.Core
         /* 163 */ DaysStr,
         /* 164 */ MonthsStr,
         /* 165 */ YearsStr,
+        /* 166 */ ChartItemTypes,
+        /* 167 */ ChartShops,
+        /* 168 */ ChartBrands,
 
-        /* 000 */ Last = YearsStr
+        /* 000 */ Last = ChartBrands
     }
 
 
@@ -363,6 +366,9 @@ namespace AquaLog.Core
             /* 163 */ "{0} ds",
             /* 164 */ "{0} ms",
             /* 165 */ "{0} ys",
+            /* 166 */ "Chart (item types)",
+            /* 167 */ "Chart (shops)",
+            /* 168 */ "Chart (brands)",
         };
 
 

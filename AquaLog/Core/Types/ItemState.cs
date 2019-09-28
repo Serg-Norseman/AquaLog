@@ -29,4 +29,10 @@ namespace AquaLog.Core.Types
     {
         ItemState State { get; set; }
     }
+
+
+    public interface IBrandedItem
+    {
+        string Brand { get; set; }
+    }
 }

@@ -315,9 +315,9 @@ namespace AquaLog.UI
             if (!exists) {
                 panel = new T();
                 panel.Browser = this;
-                panel.SetExtData(extData);
                 panel.Model = fModel;
             }
+            panel.SetExtData(extData);
 
             fNavigationStack.Current = panel;
             SetView(panel);

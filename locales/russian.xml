@@ -165,4 +165,7 @@
   <string id="163">{0} дн</string>
   <string id="164">{0} мес</string>
   <string id="165">{0} лет</string>
+  <string id="166">Диаграмма (типы)</string>
+  <string id="167">Диаграмма (магазины)</string>
+  <string id="168">Диаграмма (бренды)</string>
 </resources>

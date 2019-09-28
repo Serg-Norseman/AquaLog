@@ -15,8 +15,9 @@ namespace AquaLog.UI.Panels
 {
     public enum BudgetChartType
     {
-        AllCategories,
-        EnlargedCategories,
+        ItemTypes,
+        Shops,
+        Brands,
     }
 
     /// <summary>
@@ -41,7 +42,9 @@ namespace AquaLog.UI.Panels
 
         protected override void InitActions()
         {
-            AddAction("Chart", LSID.Chart, "", ViewChartHandler);
+            AddAction("ChartTypes", LSID.ChartItemTypes, "", ViewChartTypesHandler);
+            AddAction("ChartShops", LSID.ChartShops, "", ViewChartShopsHandler);
+            AddAction("ChartBrands", LSID.ChartBrands, "", ViewChartBrandsHandler);
         }
 
         protected override void UpdateListView()
@@ -108,9 +111,19 @@ namespace AquaLog.UI.Panels
             fFooter.Text = string.Format(Localizer.LS(LSID.BalanceFooter), expenses, avgExpense, incomes, totalSum);
         }
 
-        private void ViewChartHandler(object sender, EventArgs e)
+        private void ViewChartTypesHandler(object sender, EventArgs e)
         {
-            Browser.SetView(MainView.BudgetChartPanel, BudgetChartType.AllCategories);
+            Browser.SetView(MainView.BudgetChartPanel, BudgetChartType.ItemTypes);
+        }
+
+        private void ViewChartShopsHandler(object sender, EventArgs e)
+        {
+            Browser.SetView(MainView.BudgetChartPanel, BudgetChartType.Shops);
+        }
+
+        private void ViewChartBrandsHandler(object sender, EventArgs e)
+        {
+            Browser.SetView(MainView.BudgetChartPanel, BudgetChartType.Brands);
         }
     }
 }

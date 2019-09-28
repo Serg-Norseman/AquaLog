@@ -12,7 +12,7 @@ namespace AquaLog.Core.Model
     /// <summary>
     /// Electrical and/or measurement equipments.
     /// </summary>
-    public class Device : AquariumDetails, IStateItem
+    public class Device : AquariumDetails, IStateItem, IBrandedItem
     {
         public string Name { get; set; }
         public string Brand { get; set; }

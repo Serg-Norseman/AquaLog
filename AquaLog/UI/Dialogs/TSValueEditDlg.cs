@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
+using AquaLog.Logging;
 using AquaLog.TSDB;
 
 namespace AquaLog.UI.Dialogs
@@ -17,6 +18,8 @@ namespace AquaLog.UI.Dialogs
     /// </summary>
     public partial class TSValueEditDlg : Form
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "TSValueEditDlg");
+
         private TSValue fValue;
 
         public TSValue Value
@@ -72,7 +75,8 @@ namespace AquaLog.UI.Dialogs
             try {
                 ApplyChanges();
                 DialogResult = DialogResult.OK;
-            } catch {
+            } catch (Exception ex) {
+                fLogger.WriteError("ApplyChanges()", ex);
                 DialogResult = DialogResult.None;
             }
         }

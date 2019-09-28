@@ -10,6 +10,7 @@ using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.Logging;
 
 namespace AquaLog.UI.Dialogs
 {
@@ -18,6 +19,8 @@ namespace AquaLog.UI.Dialogs
     /// </summary>
     public partial class NoteEditDlg : Form, IEditDialog<Note>
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "NoteEditDlg");
+
         private ALModel fModel;
         private Note fRecord;
 
@@ -97,7 +100,8 @@ namespace AquaLog.UI.Dialogs
             try {
                 ApplyChanges();
                 DialogResult = DialogResult.OK;
-            } catch {
+            } catch (Exception ex) {
+                fLogger.WriteError("ApplyChanges()", ex);
                 DialogResult = DialogResult.None;
             }
         }

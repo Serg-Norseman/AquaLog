@@ -9,7 +9,7 @@ using AquaLog.Core.Types;
 
 namespace AquaLog.Core.Model
 {
-    public class Nutrition : AquariumDetails, IStateItem
+    public class Nutrition : AquariumDetails, IStateItem, IBrandedItem
     {
         public string Name { get; set; }
         public string Brand { get; set; }

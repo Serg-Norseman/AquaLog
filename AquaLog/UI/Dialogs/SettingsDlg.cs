@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
+using AquaLog.Logging;
 
 namespace AquaLog.UI.Dialogs
 {
@@ -16,6 +17,8 @@ namespace AquaLog.UI.Dialogs
     /// </summary>
     public partial class SettingsDlg : Form, ILocalizable
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "SettingsDlg");
+
         private ALModel fModel;
         private ALSettings fSettings;
 
@@ -94,7 +97,8 @@ namespace AquaLog.UI.Dialogs
             try {
                 ApplyChanges();
                 DialogResult = DialogResult.OK;
-            } catch {
+            } catch (Exception ex) {
+                fLogger.WriteError("ApplyChanges()", ex);
                 DialogResult = DialogResult.None;
             }
         }

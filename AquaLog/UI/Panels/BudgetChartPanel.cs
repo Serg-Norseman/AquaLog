@@ -44,21 +44,44 @@ namespace AquaLog.UI.Panels
             fGraph.Clear();
             if (fModel == null) return;
 
-            float[] itemTypeSums = new float[((int)ItemType.Decoration) + 1];
+            Dictionary<string, double> itemSums = new Dictionary<string, double>();
+
             var records = fModel.QueryExpenses();
             foreach (Transfer rec in records) {
                 if (rec.Type != TransferType.Purchase) continue;
+                double trnSum = (rec.Quantity * rec.UnitPrice);
+                var itemRec = fModel.GetRecord(rec.ItemType, rec.ItemId);
 
-                int itType = (int)rec.ItemType;
-                itemTypeSums[itType] += (rec.Quantity * rec.UnitPrice);
+                string key;
+                switch (fChartType) {
+                    case BudgetChartType.ItemTypes:
+                        ItemType itType = (itemRec is Inventory) ? ALCore.GetItemType(((Inventory)itemRec).Type) : rec.ItemType; // FIXME
+                        key = Localizer.LS(ALData.ItemTypes[(int)itType].Name);
+                        break;
+                    case BudgetChartType.Shops:
+                        key = rec.Shop;
+                        break;
+                    case BudgetChartType.Brands:
+                        var brandedItem = itemRec as IBrandedItem;
+                        key = (brandedItem == null) ? "-" : brandedItem.Brand;
+                        break;
+                    default:
+                        key = "";
+                        break;
+                }
+
+                double iSum;
+                if (itemSums.TryGetValue(key, out iSum)) {
+                    iSum += trnSum;
+                    itemSums[key] = iSum;
+                } else {
+                    itemSums.Add(key, trnSum);
+                }
             }
 
             List<ChartPoint> vals = new List<ChartPoint>();
-            for (int i = 0; i < itemTypeSums.Length; i++) {
-                float val = itemTypeSums[i];
-                if (val > 0) {
-                    vals.Add(new ChartPoint(Localizer.LS(ALData.ItemTypes[i].Name), val));
-                }
+            foreach (var valPair in itemSums) {
+                vals.Add(new ChartPoint(valPair.Key, valPair.Value));
             }
             fGraph.PrepareArray("Expenses", "Category", "Expenses", ChartStyle.Pie, vals, Color.Transparent);
         }
