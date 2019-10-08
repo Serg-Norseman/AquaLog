@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
+using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Types;
 using Microsoft.Win32;
@@ -52,7 +53,7 @@ namespace AquaLog.UI
 
         public static ListView CreateListView(string name)
         {
-            var listView = new ListView();
+            var listView = new ZListView();
             listView.Dock = DockStyle.Fill;
             listView.Name = name;
             listView.HideSelection = false;

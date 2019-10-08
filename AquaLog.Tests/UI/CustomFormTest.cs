@@ -174,6 +174,11 @@ namespace AquaLog.UI
             ClickButton("btnCancel", form);
         }
 
+        public static void Dialog_Accept_Handler(string name, IntPtr ptr, Form form)
+        {
+            ClickButton("btnAccept", form);
+        }
+
         #endregion
 
         #region InputBox Handlers

@@ -38,6 +38,9 @@ namespace AquaLog.UI
             ModalFormHandler = Dialog_Cancel_Handler;
             ClickToolStripMenuItem("miSettings", fMainWin);
 
+            ModalFormHandler = Dialog_Accept_Handler;
+            ClickToolStripMenuItem("miSettings", fMainWin);
+
             ClickToolStripMenuItem("miCleanSpace", fMainWin);
 
             ClickToolStripButton("btnTanks", fMainWin);
@@ -380,7 +383,7 @@ namespace AquaLog.UI
 
             ClickToolStripButton("btnBudget", fMainWin);
 
-            ClickButton("btnChart", fMainWin);
+            ClickButton("btnChartTypes", fMainWin);
 
             ClickToolStripMenuItem("miExit", fMainWin);
         }
@@ -408,10 +411,10 @@ namespace AquaLog.UI
 
             SelectListView("ListView", fMainWin, 0);
             ModalFormHandler = MessageBox_YesHandler;
-            ClickButton("btnDelete", fMainWin);*/
+            ClickButton("btnDelete", fMainWin);
 
             SelectListView("ListView", fMainWin, 0);
-            ClickButton("btnTrend", fMainWin);
+            ClickButton("btnTrend", fMainWin);*/
 
             ClickToolStripMenuItem("miExit", fMainWin);
         }

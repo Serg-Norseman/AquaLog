@@ -230,7 +230,7 @@ namespace AquaLog.UI.Panels
             foreach (Maintenance rec in records) {
                 string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type]);
 
-                var item = new ListViewItem(rec.Timestamp.ToString());
+                var item = new ListViewItem(ALCore.GetTimeStr(rec.Timestamp));
                 item.Tag = rec;
                 item.SubItems.Add(strType);
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.Value));

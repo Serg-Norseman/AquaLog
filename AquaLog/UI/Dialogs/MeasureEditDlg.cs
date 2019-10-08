@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Logging;
+using BSLib;
 
 namespace AquaLog.UI.Dialogs
 {

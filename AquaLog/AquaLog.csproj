@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>AquaLog</RootNamespace>
     <AssemblyName>AquaLog</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <TargetFrameworkProfile />
     <NoWin32Manifest>False</NoWin32Manifest>
@@ -159,12 +159,12 @@
     <Compile Include="Core\Types\Temperament.cs" />
     <Compile Include="Core\Types\TransferType.cs" />
     <Compile Include="Core\Types\MaintenanceType.cs" />
-    <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\Log4NetHelper.cs" />
     <Compile Include="Logging\LogManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
+    <Compile Include="UI\Components\ZListView.cs" />
     <Compile Include="UI\Dialogs\AboutDlg.cs" />
     <Compile Include="UI\Dialogs\AboutDlg.Designer.cs">
       <DependentUpon>AboutDlg.cs</DependentUpon>

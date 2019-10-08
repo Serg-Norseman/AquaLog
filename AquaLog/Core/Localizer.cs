@@ -10,6 +10,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using AquaLog.Logging;
+using BSLib;
 
 namespace AquaLog.Core
 {

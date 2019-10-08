@@ -1,0 +1,10 @@
+language: csharp
+solution: AquaLog.sln
+
+install:
+  - sudo apt-get install nunit-console
+  - nuget restore ./AquaLog.sln
+
+script:
+  - xbuild /p:Configuration=Debug /p:CIMode=true /p:MonoCS=true ./AquaLog.sln
+  - nunit-console ./AquaLog.Tests/bin/Debug/AquaLog.Tests.dll

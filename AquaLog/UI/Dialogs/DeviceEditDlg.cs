@@ -13,6 +13,7 @@ using AquaLog.Core.Model;
 using AquaLog.Core.Types;
 using AquaLog.Logging;
 using AquaLog.TSDB;
+using BSLib;
 
 namespace AquaLog.UI.Dialogs
 {

@@ -5,6 +5,7 @@
  */
 
 using System;
+using BSLib;
 
 namespace AquaLog.Logging
 {

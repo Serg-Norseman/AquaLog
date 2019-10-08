@@ -14,6 +14,7 @@ using AquaLog.Core;
 using AquaLog.Logging;
 using AquaLog.UI.Dialogs;
 using AquaLog.UI.Panels;
+using BSLib;
 
 namespace AquaLog.UI
 {

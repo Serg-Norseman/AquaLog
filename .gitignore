@@ -14,8 +14,10 @@
 /*.exe*
 /*.dll
 /*.xml
-/AquaLog/packages/**/
 /appdata/
 /temp/
 /bsl_copy.cmd
 /deploy.cmd
+
+/AquaLog/packages/**/
+/packages/**/

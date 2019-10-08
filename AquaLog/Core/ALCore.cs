@@ -128,7 +128,12 @@ namespace AquaLog.Core
 
         public static string GetDateStr(DateTime value)
         {
-            return value.ToString("dd/MM/yyyy");
+            return value.ToString("yyyy/MM/dd");
+        }
+
+        public static string GetTimeStr(DateTime value)
+        {
+            return value.ToString("yyyy/MM/dd HH:mm:ss");
         }
 
         public static string GetRangeStr(double min, double max)
@@ -218,24 +223,21 @@ namespace AquaLog.Core
             return asm;
         }
 
-        public static T GetAssemblyAttribute<T>(Assembly assembly) where T : Attribute
+        public static string GetAppPath()
         {
-            if (assembly == null)
-                throw new ArgumentNullException("assembly");
-
-            object[] attributes = assembly.GetCustomAttributes(typeof(T), false);
-            T result;
-            if (attributes == null || attributes.Length == 0) {
-                result = null;
-            } else {
-                result = attributes[0] as T;
+            Assembly asm = Assembly.GetEntryAssembly();
+            if (asm == null) {
+                asm = Assembly.GetExecutingAssembly();
             }
-            return result;
+
+            Module[] mods = asm.GetModules();
+            string fn = mods[0].FullyQualifiedName;
+            return Path.GetDirectoryName(fn) + Path.DirectorySeparatorChar;
         }
 
         public static string GetAppCopyright()
         {
-            var attr = GetAssemblyAttribute<AssemblyCopyrightAttribute>(GetAssembly());
+            var attr = ReflectionHelper.GetAssemblyAttribute<AssemblyCopyrightAttribute>(GetAssembly());
             return (attr == null) ? string.Empty : attr.Copyright;
         }
 
@@ -268,18 +270,6 @@ namespace AquaLog.Core
         {
             string appPath = GetAppPath();
             return appPath + "locales" + Path.DirectorySeparatorChar;
-        }
-
-        public static string GetAppPath()
-        {
-            Assembly asm = Assembly.GetEntryAssembly();
-            if (asm == null) {
-                asm = Assembly.GetExecutingAssembly();
-            }
-
-            Module[] mods = asm.GetModules();
-            string fn = mods[0].FullyQualifiedName;
-            return Path.GetDirectoryName(fn) + Path.DirectorySeparatorChar;
         }
 
         public static void CheckPortable(string[] args)
