@@ -501,8 +501,6 @@ namespace AquaLog.Core
             if (localeCode == Localizer.LS_DEF_CODE) {
                 DefInit();
             }
-
-            //fInterfaceLang = (ushort)langCode;
         }
 
         public static LocaleFile GetLocaleByCode(int code)

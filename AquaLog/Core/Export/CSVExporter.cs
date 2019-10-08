@@ -36,7 +36,6 @@ namespace AquaLog.Core.Export
                 num = listView.Items.Count;
                 for (int i = 0; i < num; i++) {
                     ListViewItem item = listView.Items[i];
-                    int row = i + 1;
 
                     line = string.Empty;
                     int colNum = item.SubItems.Count;

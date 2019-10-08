@@ -21,7 +21,7 @@ namespace AquaLog.Core
     public class ALModel
     {
         private readonly SQLiteConnection fDB;
-        private TSDatabase fTSDB;
+        private readonly TSDatabase fTSDB;
 
 
         public TSDatabase TSDB

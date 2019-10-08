@@ -15,9 +15,9 @@ namespace AquaLog.UI.Panels
 {
     public class Trend
     {
-        public string Name;
-        public Color Color;
-        public List<ChartPoint> Points;
+        public string Name { get; private set; }
+        public Color Color { get; private set; }
+        public List<ChartPoint> Points { get; private set; }
 
         public Trend(string name, Color color)
         {

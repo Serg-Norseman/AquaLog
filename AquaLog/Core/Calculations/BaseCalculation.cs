@@ -182,7 +182,7 @@ namespace AquaLog.Core.Calculations
         private void SetAttributeValue(string propName, Type attrType, string fieldName, string value)
         {
             PropertyDescriptor prop = TypeDescriptor.GetProperties(GetType())[propName];
-            Attribute att = prop.Attributes[attrType] as Attribute;
+            Attribute att = prop.Attributes[attrType];
             FieldInfo cat = att.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
             cat.SetValue(att, value);
         }

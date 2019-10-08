@@ -17,7 +17,7 @@ namespace AquaLog.Core
     /// </summary>
     public static class ALData
     {
-        public static int[] WaterChangeFactors = new int[] {
+        public static readonly int[] WaterChangeFactors = new int[] {
              0, // Restart
             +1, // WaterAdded
              0, // WaterReplaced

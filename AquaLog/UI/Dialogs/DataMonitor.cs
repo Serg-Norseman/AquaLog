@@ -9,11 +9,15 @@ using System.Windows.Forms;
 using System.Timers;
 using AquaLog.Core;
 using AquaLog.DataCollection;
+using AquaLog.Logging;
+using BSLib;
 
 namespace AquaLog.UI.Dialogs
 {
     public partial class DataMonitor : Form
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "DataMonitor");
+
         private IChannel fChannel;
         private BaseService fCommunicationLED;
         private BaseService fTemperatureService;
@@ -57,7 +61,8 @@ namespace AquaLog.UI.Dialogs
                     string strFromPort = fChannel.ReadLine();
                     textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), strFromPort);
                 }
-            } catch {
+            } catch (Exception ex) {
+                fLogger.WriteError("OnTimedEvent()", ex);
             }
         }
 
@@ -68,7 +73,8 @@ namespace AquaLog.UI.Dialogs
                     textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), ALCore.GetDecimalStr(((TemperatureService)fTemperatureService).Temperature));
                     //textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), (((TemperatureService)fTemperatureService).Temperature));
                 }
-            } catch {
+            } catch (Exception ex) {
+                fLogger.WriteError("OnReceivedData()", ex);
             }
         }
 

@@ -114,10 +114,13 @@ namespace AquaLog.UI.Dialogs
         private void cmbSpecies_SelectedIndexChanged(object sender, EventArgs e)
         {
             var species = cmbSpecies.SelectedItem as Species;
-            bool hasSex = (species != null && ALCore.IsAnimal(species.Type));
+            bool itemIsNull = (species == null);
 
-            UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(species.Type), fRecord.State);
+            if (!itemIsNull) {
+                UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(species.Type), fRecord.State);
+            }
 
+            bool hasSex = (!itemIsNull && ALCore.IsAnimal(species.Type));
             lblSex.Visible = hasSex;
             cmbSex.Visible = hasSex;
         }

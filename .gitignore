@@ -21,3 +21,7 @@
 
 /AquaLog/packages/**/
 /packages/**/
+
+/.sonarqube/
+*.xml
+build_sonarqube.cmd
