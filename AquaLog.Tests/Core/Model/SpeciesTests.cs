@@ -37,7 +37,7 @@ namespace AquaLog.Core.Model
 
             species.GHMin = 5.5f;
             species.GHMax = 8.5f;
-            Assert.AreEqual("5,50 - 8,50", species.GetGHRange());
+            Assert.AreEqual("5.50 - 8.50", species.GetGHRange());
         }
 
         [Test]
@@ -51,7 +51,7 @@ namespace AquaLog.Core.Model
 
             species.PHMin = 5.5f;
             species.PHMax = 8.5f;
-            Assert.AreEqual("5,50 - 8,50", species.GetPHRange());
+            Assert.AreEqual("5.50 - 8.50", species.GetPHRange());
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace AquaLog.Core.Model
 
             species.TempMin = 5.5f;
             species.TempMax = 8.5f;
-            Assert.AreEqual("5,50 - 8,50", species.GetTempRange());
+            Assert.AreEqual("5.50 - 8.50", species.GetTempRange());
         }
     }
 }

@@ -123,7 +123,7 @@ namespace AquaLog.Core
             }
 
             string fmt = "0.".PadRight(2 + decimalDigits, '0');
-            return value.ToString(fmt);
+            return value.ToString(fmt, SQLITE_NFI);
         }
 
         public static string GetDateStr(DateTime value)

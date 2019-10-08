@@ -81,9 +81,11 @@ namespace AquaLog.UI.Dialogs
 
         private void ApplyChanges()
         {
+            LocaleFile currentLocale = (cmbLocale.SelectedItem as LocaleFile);
+
             fSettings.HideClosedTanks = chkHideClosedTanks.Checked;
             fSettings.ExitOnClose = chkExitOnClose.Checked;
-            fSettings.CurrentLocale = (cmbLocale.SelectedItem as LocaleFile).Code;
+            fSettings.CurrentLocale = (currentLocale != null) ? currentLocale.Code : Localizer.LS_DEF_CODE;
             fSettings.HideAtStartup = chkHideAtStartup.Checked;
 
             if (chkAutorun.Checked) {

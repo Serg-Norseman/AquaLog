@@ -91,7 +91,6 @@ namespace AquaLog.UI.Panels
 
     public class ListPanel<R, D> : ListPanel where R : Entity, new() where D : IEditDialog<R>, new()
     {
-
         protected override void AddHandler(object sender, EventArgs e)
         {
             R record = new R();

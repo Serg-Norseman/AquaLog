@@ -202,20 +202,20 @@ namespace AquaLog.UI.Panels
 
             y = y + (int)(Font.Height * 1.6f);
             DrawMeasure(gfx, 0, font, x, y);
-            DrawMeasure(gfx, 1, font, x + xoffset * 1, y);
-            DrawMeasure(gfx, 2, font, x + xoffset * 2, y);
-            DrawMeasure(gfx, 3, font, x + xoffset * 3, y);
+            DrawMeasure(gfx, 1, font, x + (xoffset * 1), y);
+            DrawMeasure(gfx, 2, font, x + (xoffset * 2), y);
+            DrawMeasure(gfx, 3, font, x + (xoffset * 3), y);
 
             y = y + (int)(Font.Height * 1.6f);
             DrawMeasure(gfx, 4, font, x, y);
-            DrawMeasure(gfx, 5, font, x + xoffset * 1, y);
-            DrawMeasure(gfx, 6, font, x + xoffset * 2, y);
-            DrawMeasure(gfx, 7, font, x + xoffset * 3, y);
+            DrawMeasure(gfx, 5, font, x + (xoffset * 1), y);
+            DrawMeasure(gfx, 6, font, x + (xoffset * 2), y);
+            DrawMeasure(gfx, 7, font, x + (xoffset * 3), y);
 
             y = y + (int)(Font.Height * 1.6f);
             DrawMeasure(gfx, 8, font, x, y);
-            DrawMeasure(gfx, 9, font, x + xoffset * 1, y);
-            DrawMeasure(gfx, 10, font, x + xoffset * 2, y);
+            DrawMeasure(gfx, 9, font, x + (xoffset * 1), y);
+            DrawMeasure(gfx, 10, font, x + (xoffset * 2), y);
         }
 
         private void DrawMeasure(Graphics gfx, int index, Font font, int x, int y)

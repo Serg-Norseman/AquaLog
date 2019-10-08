@@ -72,6 +72,12 @@
     <LangVersion>5</LangVersion>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(CIMode)' == 'true' ">
+    <DefineConstants>$(DefineConstants);CI_MODE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(MonoCS)' == 'true' ">
+    <DefineConstants>$(DefineConstants);__MonoCS__</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BSLib">
       <HintPath>..\libs\BSLib.dll</HintPath>

@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/Serg-Norseman/AquaLog.svg?branch=master)](https://travis-ci.org/Serg-Norseman/AquaLog)
 [![Build status](https://ci.appveyor.com/api/projects/status/h0u8iwr3kvy6o9x1?svg=true)](https://ci.appveyor.com/project/Serg-Norseman/AquaLog)
 [![codecov.io](https://codecov.io/github/Serg-Norseman/AquaLog/coverage.svg?branch=master)](https://codecov.io/github/Serg-Norseman/AquaLog?branch=master)
-[![BCH compliance](https://bettercodehub.com/edge/badge/Serg-Norseman/AquaLog?branch=master)](https://bettercodehub.com/)
+[![BCH compliance](https://bettercodehub.com/edge/badge/Serg-Norseman/AquaLog?branch=master)](https://bettercodehub.com/results/Serg-Norseman/AquaLog)
 [![CodeFactor](https://www.codefactor.io/repository/github/serg-norseman/aqualog/badge)](https://www.codefactor.io/repository/github/serg-norseman/aqualog)
 
 Home aquariums manager. A simple program for monitoring and maintaining aquariums.

@@ -6,5 +6,5 @@ install:
   - nuget restore ./AquaLog.sln
 
 script:
-  - xbuild /p:Configuration=Debug /p:CIMode=true /p:MonoCS=true ./AquaLog.sln
+  - xbuild ./AquaLog.sln /p:Configuration=Debug /p:Platform="x86" /p:CIMode=true /p:MonoCS=true /verbosity:minimal
   - nunit-console ./AquaLog.Tests/bin/Debug/AquaLog.Tests.dll

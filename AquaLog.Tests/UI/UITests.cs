@@ -4,6 +4,8 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+#if !__MonoCS__
+
 using System;
 using System.Windows.Forms;
 using AquaLog.Core;
@@ -427,3 +429,5 @@ namespace AquaLog.UI
         }
     }
 }
+
+#endif

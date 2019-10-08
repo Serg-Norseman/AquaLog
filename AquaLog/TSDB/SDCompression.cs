@@ -87,7 +87,6 @@ namespace AquaLog.TSDB
                 result = true;
             } else {
                 if ((fPrevPoint.Timestamp != fCorridorStartPoint.Timestamp) && (fPrevPoint.Value != fCorridorStartPoint.Value)) {
-
                     // calculate the slope of the corridor doors
                     switch (CalculateCurrentSlopes()) {
                         case SlopesRelation.srNone: // the received point enters the corridor
