@@ -12,18 +12,6 @@ using BSLib;
 
 namespace AquaLog.Core
 {
-    public sealed class ItemProps
-    {
-        public LSID Name;
-        public EnumSet<ItemState> States;
-
-        public ItemProps(LSID name, EnumSet<ItemState> states)
-        {
-            Name = name;
-            States = states;
-        }
-    }
-
     /// <summary>
     /// 
     /// </summary>

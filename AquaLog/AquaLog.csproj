@@ -72,10 +72,10 @@
     <LangVersion>5</LangVersion>
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(CIMode)' == 'true' ">
+  <PropertyGroup Condition="'$(CIMode)'=='true'">
     <DefineConstants>$(DefineConstants);CI_MODE</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(MonoCS)' == 'true' ">
+  <PropertyGroup Condition="'$(MonoCS)'=='true'">
     <DefineConstants>$(DefineConstants);__MonoCS__</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
@@ -105,11 +105,16 @@
     <Compile Include="Core\ALData.cs" />
     <Compile Include="Core\ALSettings.cs" />
     <Compile Include="Core\Average.cs" />
-    <Compile Include="Core\Calculations.cs" />
+    <Compile Include="Core\Calculations\CalculationProps.cs" />
+    <Compile Include="Core\Calculations\BaseCalculation.cs" />
+    <Compile Include="Core\Calculations\CalculationType.cs" />
+    <Compile Include="Core\Calculations\SaltCalculation.cs" />
+    <Compile Include="Core\Calculations\UnitsCalculation.cs" />
     <Compile Include="Core\Export\CSVExporter.cs" />
     <Compile Include="Core\Export\ExcelExporter.cs" />
     <Compile Include="Core\Export\RTFLogBook.cs" />
     <Compile Include="Core\ILocalizable.cs" />
+    <Compile Include="Core\LocaleFile.cs" />
     <Compile Include="Core\Localizer.cs" />
     <Compile Include="Core\Model\IEventEntity.cs" />
     <Compile Include="Core\Model\Inventory.cs" />
@@ -119,6 +124,7 @@
     <Compile Include="Core\Types\DeviceProps.cs" />
     <Compile Include="Core\Types\DeviceType.cs" />
     <Compile Include="Core\Types\InventoryType.cs" />
+    <Compile Include="Core\Types\ItemProps.cs" />
     <Compile Include="Core\Types\MeasureValue.cs" />
     <Compile Include="Core\Types\QDecimal.cs" />
     <Compile Include="Core\Types\QString.cs" />
@@ -299,6 +305,7 @@
   <ItemGroup>
     <Folder Include="Core" />
     <Folder Include="Core\Export" />
+    <Folder Include="Core\Calculations" />
     <Folder Include="DataCollection" />
     <Folder Include="TSDB" />
     <Folder Include="UI\Components" />

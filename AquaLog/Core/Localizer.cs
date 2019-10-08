@@ -515,25 +515,4 @@ namespace AquaLog.Core
             return null;
         }
     }
-
-    public sealed class LocaleFile
-    {
-        public readonly int Code;
-        public readonly string Sign;
-        public readonly string Name;
-        public readonly string FileName;
-
-        public LocaleFile(int code, string sign, string name, string fileName)
-        {
-            Code = code;
-            Sign = sign;
-            Name = name;
-            FileName = fileName;
-        }
-
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
 }

@@ -236,7 +236,7 @@ namespace AquaLog.Components
                 if (arrow != "") {
                     using (var fnt = new Font(Font.FontFamily, Font.SizeInPoints * 0.6f, FontStyle.Regular)) {
                         float aw = gfx.MeasureString(arrow, fnt).Width;
-                        float x = rt.Left + (rt.Width - aw) / 2.0f;
+                        float x = rt.Left + ((rt.Width - aw) / 2.0f);
                         gfx.TextRenderingHint = TextRenderingHint.AntiAlias;
                         gfx.DrawString(arrow, fnt, Brushes.Black, x, rt.Top);
                     }

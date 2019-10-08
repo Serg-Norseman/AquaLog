@@ -12,80 +12,6 @@ using AquaLog.Core;
 
 namespace AquaLog.Core.Calculations
 {
-    public enum CalculationType
-    {
-        Units_cm2inch,
-        Units_inch2cm,
-        Units_feet2cm,
-        Units_cm2feet,
-        Units_gal2l,
-        Units_l2gal,
-        Units_cc2l,
-        Units_l2cc,
-        Units_ml2drops,
-        Units_drops2ml,
-        Units_tsp2cc,
-        Units_cc2tsp,
-        Units_mg2g,
-        Units_g2mg,
-        Units_tsp2g,
-        Units_g2tsp,
-        Units_g2oz,
-        Units_oz2g,
-        Units_kg2lb,
-        Units_lb2kg,
-        Units_C2F,
-        Units_F2C,
-        Units_K2F,
-        Units_F2K,
-        Units_C2K,
-        Units_K2C,
-        Units_ConvKHppm2KHdeg,
-        Units_ConvKHppm2KHmeql,
-        Units_ConvGHppm2GHdeg,
-
-        NitriteSaltCalculator,
-
-        First = Units_cm2inch,
-        Last = NitriteSaltCalculator
-    }
-
-
-    public class CalcParam
-    {
-        public readonly string PropName;
-        public readonly string DispName;
-
-        public CalcParam(string propName, string dispName)
-        {
-            PropName = propName;
-            DispName = dispName;
-        }
-    }
-
-
-    public delegate double CalcHandler(double arg);
-
-
-    public class CalculationProps
-    {
-        public readonly string Name;
-        public readonly string Description;
-        public readonly CalcParam[] Args;
-        public readonly CalcParam Result;
-        public readonly CalcHandler Handler;
-
-        public CalculationProps(string name, string description, CalcParam[] args, CalcParam result, CalcHandler calcHandler)
-        {
-            Name = name;
-            Description = description;
-            Args = args;
-            Result = result;
-            Handler = calcHandler;
-        }
-    }
-
-
     public class BaseCalculation : ILocalizable
     {
         private double fResultValue;
@@ -259,42 +185,6 @@ namespace AquaLog.Core.Calculations
             Attribute att = prop.Attributes[attrType] as Attribute;
             FieldInfo cat = att.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
             cat.SetValue(att, value);
-        }
-    }
-
-
-    public sealed class UnitsCalculation : BaseCalculation
-    {
-        [Browsable(true), DisplayName("SourceValue"), Category("Arguments"), Description("Value of argument")]
-        public double SourceValue { get; set; }
-
-        public UnitsCalculation(CalculationType type) : base(type)
-        {
-        }
-
-        public override void Calculate()
-        {
-            var calcProps = CalculationData[(int)Type];
-            ResultValue = calcProps.Handler(SourceValue);
-        }
-    }
-
-
-    public sealed class SaltCalculation : BaseCalculation
-    {
-        [Browsable(true), DisplayName("Volume"), Category("Arguments"), Description("")]
-        public double Volume { get; set; }
-
-        [Browsable(true), DisplayName("Nitrite"), Category("Arguments"), Description("")]
-        public double Nitrite { get; set; }
-
-        public SaltCalculation(CalculationType type) : base(type)
-        {
-        }
-
-        public override void Calculate()
-        {
-            ResultValue = ALData.CalcSalt(Volume, Nitrite);
         }
     }
 }
