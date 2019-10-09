@@ -5,7 +5,7 @@
  */
 
 using System;
-using System.Collections.Generic;
+using AquaLog.Core.Model.Tanks;
 using AquaLog.Core.Types;
 using SQLite;
 
@@ -28,6 +28,26 @@ namespace AquaLog.Core.Model
         public DateTime StopDate { get; set; }
 
         public TankShape TankShape { get; set; }
+
+        [Ignore]
+        public string TankProperties { get; set; }
+
+        private ITankProps fTank;
+
+        [Ignore]
+        public ITankProps Tank
+        {
+            get {
+                if (fTank == null) {
+                    fTank = Deserialize(TankProperties);
+                }
+                return fTank;
+            }
+            set {
+                fTank = value;
+                TankProperties = StringSerializer.Serialize(fTank);
+            }
+        }
 
         /// <summary>
         /// The depth of an aquarium is the distance from front to back (cm).
@@ -99,9 +119,73 @@ namespace AquaLog.Core.Model
             return ALData.CalcArea(Width, Depth);
         }
 
+        public double CalcTankVolume()
+        {
+            double result;
+
+            switch (TankShape) {
+                case TankShape.Unknown:
+                case TankShape.Bowl:
+                    result = 0.0f;
+                    break;
+
+                case TankShape.Cube:
+                    result = ALData.CalcCubeTankVolume((CubeTank)Tank, GlassThickness);
+                    break;
+
+                case TankShape.Rectangular:
+                    result = ALData.CalcRectangularTankVolume((RectangularTank)Tank, GlassThickness);
+                    break;
+
+                case TankShape.BowFront:
+                    result = ALData.CalcBowFrontTankVolume((BowFrontTank)Tank, GlassThickness);
+                    break;
+
+                case TankShape.PlateFrontCorner:
+                case TankShape.BowFrontCorner:
+                default:
+                    result = 0.0f;
+                    break;
+            }
+
+            return result;
+        }
+
         public override string ToString()
         {
             return Name;
+        }
+
+        private ITankProps Deserialize(string str)
+        {
+            ITankProps result;
+
+            switch (TankShape) {
+                case TankShape.Unknown:
+                case TankShape.Bowl:
+                    result = StringSerializer.Deserialize<UnknownTank>(str);
+                    break;
+
+                case TankShape.Cube:
+                    result = StringSerializer.Deserialize<CubeTank>(str);
+                    break;
+
+                case TankShape.Rectangular:
+                    result = StringSerializer.Deserialize<RectangularTank>(str);
+                    break;
+
+                case TankShape.BowFront:
+                    result = StringSerializer.Deserialize<BowFrontTank>(str);
+                    break;
+
+                case TankShape.PlateFrontCorner:
+                case TankShape.BowFrontCorner:
+                default:
+                    result = StringSerializer.Deserialize<UnknownTank>(str);
+                    break;
+            }
+
+            return result;
         }
     }
 }

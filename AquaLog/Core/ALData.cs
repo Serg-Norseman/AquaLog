@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using AquaLog.Core.Model.Tanks;
 using AquaLog.Core.Types;
 using BSLib;
 
@@ -240,6 +241,14 @@ namespace AquaLog.Core
         /// <summary>
         /// Calculate the volume of a cube tank (all sizes in cm).
         /// </summary>
+        public static double CalcCubeTankVolume(CubeTank tank, double glassThickness = 0.0d)
+        {
+            return CalcCubeTankVolume(tank.EdgeSize, glassThickness);
+        }
+
+        /// <summary>
+        /// Calculate the volume of a cube tank (all sizes in cm).
+        /// </summary>
         public static double CalcCubeTankVolume(double size, double glassThickness = 0.0d)
         {
             var depth = size;
@@ -247,6 +256,14 @@ namespace AquaLog.Core
             var height = size;
 
             return CalcRectangularTankVolume(depth, width, height, glassThickness);
+        }
+
+        /// <summary>
+        /// Calculate the volume of a rectangular tank (all sizes in cm).
+        /// </summary>
+        public static double CalcRectangularTankVolume(RectangularTank tank, double glassThickness = 0.0d)
+        {
+            return CalcRectangularTankVolume(tank.Depth, tank.Width, tank.Height, glassThickness);
         }
 
         /// <summary>
@@ -263,6 +280,43 @@ namespace AquaLog.Core
             }
 
             double ccVolume = depth * width * height; // cubic cm (cc)
+            return UnitConverter.cc2l(ccVolume);
+        }
+
+        /// <summary>
+        /// Calculate the volume of a bow front tank (all sizes in cm).
+        /// </summary>
+        public static double CalcBowFrontTankVolume(BowFrontTank tank, double glassThickness = 0.0d)
+        {
+            return CalcBowFrontTankVolume(tank.Depth, tank.CentreDepth, tank.Width, tank.Height, glassThickness);
+        }
+
+        /// <summary>
+        /// Calculate the volume of a bow front tank (all sizes in cm).
+        /// </summary>
+        public static double CalcBowFrontTankVolume(double sideDepth, double centreDepth, double width, double height, double glassThickness = 0.0d)
+        {
+            if (glassThickness > 0.0d) {
+                double glassThicknessS2 = glassThickness * 2.0d;
+
+                sideDepth -= glassThicknessS2; // two sides
+                centreDepth -= glassThicknessS2; // two sides
+                width -= glassThicknessS2; // two sides
+                height -= glassThickness; // only bottom
+            }
+
+            double ae = ((width / 2.0f));
+            double ed = ((centreDepth - sideDepth));
+            double ce = ((ae * ae / ed));
+            double ao = (((ed + ce) / 2.0f));
+            double oe = ((ao - ed));
+            double aob = ((2.0f * Math.Atan2(ae, oe)));
+            double areasector = ((aob * ao * ao / 2.0f));
+            double areatriangle = ((oe * ae));
+            double areasegment = ((areasector - areatriangle));
+            double volsegment = ((areasegment * height));
+            double ccVolume = ((width * sideDepth * height + volsegment)); // cubic cm (cc)
+
             return UnitConverter.cc2l(ccVolume);
         }
 

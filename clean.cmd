@@ -15,3 +15,5 @@ rmdir .\AquaLog.Tests\obj /s /q
 rmdir .\AquaLog.Tests\OpenCover /s /q
 
 del msbuild.log
+
+rmdir .\.sonarqube /s /q
