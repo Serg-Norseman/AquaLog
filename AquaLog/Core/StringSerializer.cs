@@ -42,6 +42,9 @@ namespace AquaLog.Core
 
         public static string Serialize(object obj)
         {
+            if (obj == null)
+                return string.Empty;
+
             var str = new StringBuilder();
             //str.Append("{");
 
@@ -82,8 +85,10 @@ namespace AquaLog.Core
                     string propValue = (++i < props.Length) ? props[i] : string.Empty;
 
                     var propInfo = objType.GetProperty(propName);
-                    IFormatProvider fmt = IsDecimal(propInfo.PropertyType) ? STD_NFI : null;
-                    propInfo.SetValue(result, Convert.ChangeType(propValue, propInfo.PropertyType, fmt), null);
+                    if (propInfo != null) {
+                        IFormatProvider fmt = IsDecimal(propInfo.PropertyType) ? STD_NFI : null;
+                        propInfo.SetValue(result, Convert.ChangeType(propValue, propInfo.PropertyType, fmt), null);
+                    }
 
                     i += 1;
                 }

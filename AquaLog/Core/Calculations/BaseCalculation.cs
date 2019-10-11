@@ -7,7 +7,6 @@
 using System;
 using System.ComponentModel;
 using System.Linq;
-using System.Reflection;
 using AquaLog.Core;
 
 namespace AquaLog.Core.Calculations
@@ -157,34 +156,11 @@ namespace AquaLog.Core.Calculations
             var calcProps = CalculationData[(int)Type];
 
             foreach (var argParam in calcProps.Args) {
-                SetDisplayNameValue(argParam.PropName, argParam.DispName);
+                ALCore.SetDisplayNameValue(this, argParam.PropName, argParam.DispName);
             }
 
             var resultParam = calcProps.Result;
-            SetDisplayNameValue(resultParam.PropName, resultParam.DispName);
-        }
-
-        protected void SetDisplayNameValue(string propName, string value)
-        {
-            SetAttributeValue(propName, typeof(DisplayNameAttribute), "_displayName", value);
-        }
-
-        protected void SetCategoryValue(string propName, string value)
-        {
-            SetAttributeValue(propName, typeof(CategoryAttribute), "categoryValue", value);
-        }
-
-        protected void SetDescriptionValue(string propName, string value)
-        {
-            SetAttributeValue(propName, typeof(DescriptionAttribute), "description", value);
-        }
-
-        private void SetAttributeValue(string propName, Type attrType, string fieldName, string value)
-        {
-            PropertyDescriptor prop = TypeDescriptor.GetProperties(GetType())[propName];
-            Attribute att = prop.Attributes[attrType];
-            FieldInfo cat = att.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
-            cat.SetValue(att, value);
+            ALCore.SetDisplayNameValue(this, resultParam.PropName, resultParam.DispName);
         }
     }
 }

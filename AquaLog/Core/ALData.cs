@@ -241,9 +241,9 @@ namespace AquaLog.Core
         /// <summary>
         /// Calculate the volume of a cube tank (all sizes in cm).
         /// </summary>
-        public static double CalcCubeTankVolume(CubeTank tank, double glassThickness = 0.0d)
+        public static double CalcCubeTankVolume(CubeTank tank)
         {
-            return CalcCubeTankVolume(tank.EdgeSize, glassThickness);
+            return CalcCubeTankVolume(tank.EdgeSize, tank.GlassThickness);
         }
 
         /// <summary>
@@ -261,9 +261,9 @@ namespace AquaLog.Core
         /// <summary>
         /// Calculate the volume of a rectangular tank (all sizes in cm).
         /// </summary>
-        public static double CalcRectangularTankVolume(RectangularTank tank, double glassThickness = 0.0d)
+        public static double CalcRectangularTankVolume(RectangularTank tank)
         {
-            return CalcRectangularTankVolume(tank.Depth, tank.Width, tank.Height, glassThickness);
+            return CalcRectangularTankVolume(tank.Depth, tank.Width, tank.Height, tank.GlassThickness);
         }
 
         /// <summary>
@@ -286,9 +286,9 @@ namespace AquaLog.Core
         /// <summary>
         /// Calculate the volume of a bow front tank (all sizes in cm).
         /// </summary>
-        public static double CalcBowFrontTankVolume(BowFrontTank tank, double glassThickness = 0.0d)
+        public static double CalcBowFrontTankVolume(BowFrontTank tank)
         {
-            return CalcBowFrontTankVolume(tank.Depth, tank.CentreDepth, tank.Width, tank.Height, glassThickness);
+            return CalcBowFrontTankVolume(tank.Depth, tank.CentreDepth, tank.Width, tank.Height, tank.GlassThickness);
         }
 
         /// <summary>

@@ -13,18 +13,23 @@ namespace AquaLog.Core.Model.Tanks
     /// <summary>
     /// 
     /// </summary>
-    public class CubeTank : BaseTank
+    public class BaseTank : ITank
     {
-        [Browsable(true), DisplayName("EdgeSize")]
-        public double EdgeSize { get; set; }
+        [Browsable(true), DisplayName("GlassThickness")]
+        public double GlassThickness { get; set; }
 
-        public CubeTank()
+        public BaseTank()
         {
         }
 
-        public override TankShape GetTankShape()
+        public ITank Clone()
         {
-            return TankShape.Cube;
+            return (ITank)this.MemberwiseClone();
+        }
+
+        public virtual TankShape GetTankShape()
+        {
+            return TankShape.Unknown;
         }
     }
 }

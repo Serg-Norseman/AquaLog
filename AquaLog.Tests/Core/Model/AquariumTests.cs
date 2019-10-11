@@ -17,7 +17,8 @@ namespace AquaLog.Core.Model
         [Test]
         public void Test_ctorName()
         {
-            var tank = new Aquarium("Nano");
+            var tank = new Aquarium();
+            tank.Name = "Nano";
             Assert.IsNotNull(tank);
 
             Assert.AreEqual("Nano", tank.Name);
@@ -27,21 +28,32 @@ namespace AquaLog.Core.Model
         [Test]
         public void Test_ctor2a()
         {
-            var tank = new Aquarium(TankShape.Bowl, 2.5);
-            Assert.IsNotNull(tank);
+            var aquarium = new Aquarium();
+            aquarium.TankShape = TankShape.Bowl;
+            aquarium.TankVolume = 2.5;
+            Assert.IsNotNull(aquarium);
 
-            Assert.AreEqual(TankShape.Bowl, tank.TankShape);
-            Assert.AreEqual(2.5, tank.TankVolume);
+            Assert.AreEqual(TankShape.Bowl, aquarium.TankShape);
+            Assert.AreEqual(2.5, aquarium.TankVolume);
         }
 
         [Test]
         public void Test_ctor4a()
         {
-            var tank = new Aquarium(TankShape.Rectangular, 17.5, 20.5, 26.5);
-            Assert.IsNotNull(tank);
+            var aquarium = new Aquarium();
+            aquarium.TankShape = TankShape.Rectangular;
+            Assert.IsNotNull(aquarium);
 
-            Assert.AreEqual(TankShape.Rectangular, tank.TankShape);
-            Assert.AreEqual(9.506875, tank.TankVolume);
+            var rectTank = new RectangularTank() {
+                Width = 20.5f,
+                Depth = 17.5f,
+                Height = 26.5f,
+                GlassThickness = 0.0f,
+            };
+            aquarium.Tank = rectTank;
+
+            Assert.AreEqual(TankShape.Rectangular, aquarium.TankShape);
+            Assert.AreEqual(9.506875, aquarium.CalcTankVolume());
         }
 
         [Test]
@@ -69,10 +81,19 @@ namespace AquaLog.Core.Model
         [Test]
         public void Test_GetBaseArea()
         {
-            var tank = new Aquarium(TankShape.Rectangular, 17.5, 20.5, 26.5);
-            Assert.IsNotNull(tank);
+            var aquarium = new Aquarium();
+            aquarium.TankShape = TankShape.Rectangular;
+            Assert.IsNotNull(aquarium);
 
-            Assert.AreEqual(358.75, tank.GetBaseArea());
+            var rectTank = new RectangularTank() {
+                Width = 20.5f,
+                Depth = 17.5f,
+                Height = 26.5f,
+                GlassThickness = 0.0f,
+            };
+            aquarium.Tank = rectTank;
+
+            Assert.AreEqual(358.75, aquarium.GetBaseArea());
         }
 
         [Test]
@@ -87,16 +108,16 @@ namespace AquaLog.Core.Model
             Assert.IsInstanceOf(typeof(CubeTank), aquarium.Tank);
 
             CubeTank rectTank = new CubeTank() {
-                EdgeSize = 21.5f
+                EdgeSize = 21.5f,
+                GlassThickness = 0.5f,
             };
 
             aquarium.Tank = rectTank;
-            Assert.AreEqual("EdgeSize=21.5", aquarium.TankProperties);
+            Assert.AreEqual("EdgeSize=21.5;GlassThickness=0.5", aquarium.TankProperties);
 
             rectTank = (CubeTank)aquarium.Tank;
             Assert.AreEqual(21.5f, rectTank.EdgeSize);
 
-            aquarium.GlassThickness = 0.5f;
             Assert.AreEqual(8.82f, aquarium.CalcTankVolume(), 0.01);
         }
 
@@ -115,18 +136,18 @@ namespace AquaLog.Core.Model
             RectangularTank rectTank = new RectangularTank() {
                 Width = 21.5f,
                 Depth = 18.5f,
-                Height = 27.0f
+                Height = 27.0f,
+                GlassThickness = 0.5f,
             };
 
             aquarium.Tank = rectTank;
-            Assert.AreEqual("Depth=18.5;Width=21.5;Height=27", aquarium.TankProperties);
+            Assert.AreEqual("Depth=18.5;Width=21.5;Height=27;GlassThickness=0.5", aquarium.TankProperties);
 
             rectTank = (RectangularTank)aquarium.Tank;
             Assert.AreEqual(21.5f, rectTank.Width);
             Assert.AreEqual(18.5f, rectTank.Depth);
             Assert.AreEqual(27.0f, rectTank.Height);
 
-            aquarium.GlassThickness = 0.5f;
             Assert.AreEqual(9.51f, aquarium.CalcTankVolume(), 0.01);
         }
 
@@ -146,11 +167,12 @@ namespace AquaLog.Core.Model
                 CentreDepth = 41.0f,
                 Width = 92.0f,
                 Depth = 31.0f,
-                Height = 55.0f
+                Height = 55.0f,
+                GlassThickness = 0.6d,
             };
 
             aquarium.Tank = tank;
-            Assert.AreEqual("CentreDepth=41;Depth=31;Width=92;Height=55", aquarium.TankProperties);
+            Assert.AreEqual("CentreDepth=41;Depth=31;Width=92;Height=55;GlassThickness=0.6", aquarium.TankProperties);
 
             tank = (BowFrontTank)aquarium.Tank;
             Assert.AreEqual(41.0f, tank.CentreDepth);
@@ -158,7 +180,6 @@ namespace AquaLog.Core.Model
             Assert.AreEqual(31.0f, tank.Depth);
             Assert.AreEqual(55.0f, tank.Height);
 
-            aquarium.GlassThickness = 0.6f;
             Assert.AreEqual(180.445f, aquarium.CalcTankVolume(), 0.001);
         }
     }

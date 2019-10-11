@@ -5,14 +5,16 @@
  */
 
 using System;
+using AquaLog.Core.Types;
 
 namespace AquaLog.Core.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface ITankProps
+    public interface ITank
     {
-        
+        ITank Clone();
+        TankShape GetTankShape();
     }
 }

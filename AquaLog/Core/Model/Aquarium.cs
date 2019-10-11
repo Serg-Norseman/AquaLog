@@ -29,17 +29,16 @@ namespace AquaLog.Core.Model
 
         public TankShape TankShape { get; set; }
 
-        [Ignore]
         public string TankProperties { get; set; }
 
-        private ITankProps fTank;
+        private ITank fTank;
 
         [Ignore]
-        public ITankProps Tank
+        public ITank Tank
         {
             get {
                 if (fTank == null) {
-                    fTank = Deserialize(TankProperties);
+                    fTank = GetTank(TankShape, TankProperties);
                 }
                 return fTank;
             }
@@ -48,23 +47,6 @@ namespace AquaLog.Core.Model
                 TankProperties = StringSerializer.Serialize(fTank);
             }
         }
-
-        /// <summary>
-        /// The depth of an aquarium is the distance from front to back (cm).
-        /// </summary>
-        public double Depth { get; set; }
-
-        /// <summary>
-        /// The width of an aquarium is the distance across the front (cm).
-        /// </summary>
-        public double Width { get; set; }
-
-        /// <summary>
-        /// The height of an aquarium is the distance from top to bottom (cm).
-        /// </summary>
-        public double Height { get; set; }
-
-        public double GlassThickness { get; set; }
 
         /// <summary>
         /// The volume of an aquarium (litres).
@@ -79,26 +61,6 @@ namespace AquaLog.Core.Model
 
         public Aquarium()
         {
-        }
-
-        public Aquarium(string name)
-        {
-            Name = name;
-        }
-
-        public Aquarium(TankShape tankShape, double volume)
-        {
-            TankShape = tankShape;
-            TankVolume = volume;
-        }
-
-        public Aquarium(TankShape tankShape, double depth, double width, double height)
-        {
-            TankShape = tankShape;
-            Depth = depth;
-            Width = width;
-            Height = height;
-            TankVolume = ALData.CalcRectangularTankVolume(depth, width, height);
         }
 
         public bool IsSalt()
@@ -116,31 +78,92 @@ namespace AquaLog.Core.Model
         /// </summary>
         public double GetBaseArea()
         {
-            return ALData.CalcArea(Width, Depth);
+            double result = 0.0d;
+
+            switch (TankShape) {
+                case TankShape.Unknown:
+                case TankShape.Bowl:
+                    break;
+
+                case TankShape.Cube:
+                    break;
+
+                case TankShape.Rectangular:
+                    var rectTank = (RectangularTank)Tank;
+                    result = ALData.CalcArea(rectTank.Width, rectTank.Depth);
+                    break;
+
+                case TankShape.BowFront:
+                    break;
+
+                case TankShape.PlateFrontCorner:
+                case TankShape.BowFrontCorner:
+                default:
+                    break;
+            }
+
+            return result;
         }
 
         public double CalcTankVolume()
         {
+            return CalcTankVolume(TankShape);
+        }
+
+        public double CalcTankVolume(TankShape tankShape)
+        {
             double result;
 
-            switch (TankShape) {
+            switch (tankShape) {
                 case TankShape.Unknown:
                 case TankShape.Bowl:
                     result = 0.0f;
                     break;
 
                 case TankShape.Cube:
-                    result = ALData.CalcCubeTankVolume((CubeTank)Tank, GlassThickness);
+                    result = ALData.CalcCubeTankVolume((CubeTank)Tank);
                     break;
 
                 case TankShape.Rectangular:
-                    result = ALData.CalcRectangularTankVolume((RectangularTank)Tank, GlassThickness);
+                    result = ALData.CalcRectangularTankVolume((RectangularTank)Tank);
                     break;
 
                 case TankShape.BowFront:
-                    result = ALData.CalcBowFrontTankVolume((BowFrontTank)Tank, GlassThickness);
+                    result = ALData.CalcBowFrontTankVolume((BowFrontTank)Tank);
                     break;
 
+                case TankShape.PlateFrontCorner:
+                case TankShape.BowFrontCorner:
+                default:
+                    result = 0.0f;
+                    break;
+            }
+
+            return result;
+        }
+
+        public double CalcWaterHeight(double waterVolume)
+        {
+            return CalcWaterHeight(TankShape, waterVolume);
+        }
+
+        public double CalcWaterHeight(TankShape tankShape, double waterVolume)
+        {
+            double result;
+
+            switch (tankShape) {
+                case TankShape.Unknown:
+                case TankShape.Bowl:
+                case TankShape.Cube:
+                    result = 0.0f;
+                    break;
+
+                case TankShape.Rectangular:
+                    var rectTank = (RectangularTank)Tank;
+                    result = ALData.CalcWaterHeight(rectTank.Depth, rectTank.Width, waterVolume, rectTank.GlassThickness);
+                    break;
+
+                case TankShape.BowFront:
                 case TankShape.PlateFrontCorner:
                 case TankShape.BowFrontCorner:
                 default:
@@ -156,14 +179,14 @@ namespace AquaLog.Core.Model
             return Name;
         }
 
-        private ITankProps Deserialize(string str)
+        public ITank GetTank(TankShape tankShape, string str)
         {
-            ITankProps result;
+            ITank result;
 
-            switch (TankShape) {
+            switch (tankShape) {
                 case TankShape.Unknown:
                 case TankShape.Bowl:
-                    result = StringSerializer.Deserialize<UnknownTank>(str);
+                    result = StringSerializer.Deserialize<BaseTank>(str);
                     break;
 
                 case TankShape.Cube:
@@ -181,7 +204,7 @@ namespace AquaLog.Core.Model
                 case TankShape.PlateFrontCorner:
                 case TankShape.BowFrontCorner:
                 default:
-                    result = StringSerializer.Deserialize<UnknownTank>(str);
+                    result = StringSerializer.Deserialize<BaseTank>(str);
                     break;
             }
 

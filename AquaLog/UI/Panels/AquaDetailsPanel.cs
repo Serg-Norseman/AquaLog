@@ -91,18 +91,21 @@ namespace AquaLog.UI.Panels
         public override void SetExtData(object extData)
         {
             fAquarium = (Aquarium)extData;
+            UpdateContent();
         }
 
         public override void UpdateContent()
         {
-            fHeader.Text = fAquarium.Name;
+            if (fAquarium != null) {
+                fHeader.Text = fAquarium.Name;
 
-            FillInhabitantsList();
-            FillMeasuresList();
-            FillNutritionList();
-            FillDevicesList();
-            FillMaintenanceList();
-            FillCompatibilityList();
+                FillInhabitantsList();
+                FillMeasuresList();
+                FillNutritionList();
+                FillDevicesList();
+                FillMaintenanceList();
+                FillCompatibilityList();
+            }
         }
 
         private void FillInhabitantsList()

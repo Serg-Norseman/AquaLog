@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -210,6 +211,29 @@ namespace AquaLog.Core
                 Process.Start(fileName);
             }
             #endif
+        }
+
+        public static void SetDisplayNameValue(object obj, string propName, string value)
+        {
+            SetAttributeValue(obj, propName, typeof(DisplayNameAttribute), "_displayName", value);
+        }
+
+        public static void SetCategoryValue(object obj, string propName, string value)
+        {
+            SetAttributeValue(obj, propName, typeof(CategoryAttribute), "categoryValue", value);
+        }
+
+        public static void SetDescriptionValue(object obj, string propName, string value)
+        {
+            SetAttributeValue(obj, propName, typeof(DescriptionAttribute), "description", value);
+        }
+
+        private static void SetAttributeValue(object obj, string propName, Type attrType, string fieldName, string value)
+        {
+            PropertyDescriptor prop = TypeDescriptor.GetProperties(obj.GetType())[propName];
+            Attribute att = prop.Attributes[attrType];
+            FieldInfo cat = att.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+            cat.SetValue(att, value);
         }
 
         #region Application Runtime

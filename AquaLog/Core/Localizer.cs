@@ -58,7 +58,7 @@ namespace AquaLog.Core
         /* 034 */ WaterType,
         /* 035 */ Width,
         /* 036 */ Depth,
-        /* 037 */ Heigth,
+        /* 037 */ Height,
         /* 038 */ TankVolume,
         /* 039 */ WaterVolume,
         /* 040 */ GlassThickness,
@@ -190,8 +190,10 @@ namespace AquaLog.Core
         /* 166 */ ChartItemTypes,
         /* 167 */ ChartShops,
         /* 168 */ ChartBrands,
+        /* 169 */ EdgeSize,
+        /* 170 */ CentreDepth,
 
-        /* 000 */ Last = ChartBrands
+        /* 000 */ Last = CentreDepth
     }
 
 

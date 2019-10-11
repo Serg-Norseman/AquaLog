@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -69,12 +70,10 @@ namespace AquaLog.UI.Dialogs
             lblStopDate.Text = Localizer.LS(LSID.StopDate);
             lblShape.Text = Localizer.LS(LSID.Shape);
             lblWaterType.Text = Localizer.LS(LSID.WaterType);
-            lblDepth.Text = Localizer.LS(LSID.Depth);
-            lblWidth.Text = Localizer.LS(LSID.Width);
-            lblHeigth.Text = Localizer.LS(LSID.Heigth);
             lblVolume.Text = Localizer.LS(LSID.TankVolume);
             lblWaterVolume.Text = Localizer.LS(LSID.WaterVolume);
-            lblGlassThickness.Text = Localizer.LS(LSID.GlassThickness);
+
+            btnTank.Text = Localizer.LS(LSID.Tank) + "...";
         }
 
         private void UpdateView()
@@ -83,12 +82,7 @@ namespace AquaLog.UI.Dialogs
             txtDesc.Text = fRecord.Description;
             cmbShape.SetSelectedTag(fRecord.TankShape);
             cmbWaterType.SetSelectedTag(fRecord.WaterType);
-
-            txtDepth.Text = ALCore.GetDecimalStr(fRecord.Depth);
-            txtWidth.Text = ALCore.GetDecimalStr(fRecord.Width);
-            txtHeigth.Text = ALCore.GetDecimalStr(fRecord.Height);
             txtTankVolume.Text = ALCore.GetDecimalStr(fRecord.TankVolume);
-            txtGlassThickness.Text = ALCore.GetDecimalStr(fRecord.GlassThickness);
 
             dtpStartDate.Checked = !fRecord.StartDate.Equals(ALCore.ZeroDate);
             if (dtpStartDate.Checked) {
@@ -108,11 +102,7 @@ namespace AquaLog.UI.Dialogs
             fRecord.TankShape = cmbShape.GetSelectedTag<TankShape>();
             fRecord.WaterType = cmbWaterType.GetSelectedTag<AquariumWaterType>();
 
-            fRecord.Depth = ALCore.GetDecimalVal(txtDepth.Text);
-            fRecord.Width = ALCore.GetDecimalVal(txtWidth.Text);
-            fRecord.Height = ALCore.GetDecimalVal(txtHeigth.Text);
             fRecord.TankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
-            fRecord.GlassThickness = ALCore.GetDecimalVal(txtGlassThickness.Text);
 
             fRecord.StartDate = dtpStartDate.Checked ? dtpStartDate.Value : new DateTime(0);
             fRecord.StopDate = dtpStopDate.Checked ? dtpStopDate.Value : new DateTime(0);
@@ -131,41 +121,35 @@ namespace AquaLog.UI.Dialogs
 
         private void cmbShape_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtDepth.Text = "";
-            txtWidth.Text = "";
-            txtHeigth.Text = "";
             txtTankVolume.Text = "";
 
             var tankShape = cmbShape.GetSelectedTag<TankShape>();
             switch (tankShape) {
                 case TankShape.Unknown:
                 case TankShape.Bowl:
-                case TankShape.BowFront:
                 case TankShape.PlateFrontCorner:
                 case TankShape.BowFrontCorner:
-                    txtDepth.Enabled = false;
-                    txtWidth.Enabled = false;
-                    txtHeigth.Enabled = false;
                     txtTankVolume.Enabled = true;
-                    txtGlassThickness.Enabled = false;
                     break;
 
                 case TankShape.Cube:
-                    txtDepth.Enabled = false;
-                    txtWidth.Enabled = true;
-                    txtHeigth.Enabled = false;
-                    txtTankVolume.Enabled = false;
-                    txtGlassThickness.Enabled = true;
-                    break;
-
                 case TankShape.Rectangular:
-                    txtDepth.Enabled = true;
-                    txtWidth.Enabled = true;
-                    txtHeigth.Enabled = true;
+                case TankShape.BowFront:
                     txtTankVolume.Enabled = false;
-                    txtGlassThickness.Enabled = true;
                     break;
             }
+
+            RefreshProps(tankShape);
+        }
+
+        private void RefreshProps(TankShape tankShape)
+        {
+            ITank tank = fRecord.GetTank(tankShape, fRecord.TankProperties).Clone();
+            TypeDescriptor.AddAttributes(tank, new Attribute[] { new ReadOnlyAttribute(true) });
+            UIHelper.SetTankPropNames(tank);
+            pgProps.SelectedObject = tank;
+
+            RecalcValues();
         }
 
         private void txtValue_TextChanged(object sender, EventArgs e)
@@ -175,33 +159,21 @@ namespace AquaLog.UI.Dialogs
 
         private void RecalcValues()
         {
-            double glassThickness = ALCore.GetDecimalVal(txtGlassThickness.Text, -1.0d);
             double tankVolume;
 
             var tankShape = cmbShape.GetSelectedTag<TankShape>();
             switch (tankShape) {
+                case TankShape.Cube:
+                case TankShape.Rectangular:
+                case TankShape.BowFront:
+                    tankVolume = fRecord.CalcTankVolume(tankShape);
+                    txtTankVolume.Text = ALCore.GetDecimalStr(tankVolume);
+                    break;
+
                 case TankShape.Unknown:
                 case TankShape.Bowl:
-                case TankShape.BowFront:
                 case TankShape.PlateFrontCorner:
                 case TankShape.BowFrontCorner:
-                    tankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
-                    break;
-
-                case TankShape.Cube:
-                    var size = ALCore.GetDecimalVal(txtWidth.Text);
-                    tankVolume = ALData.CalcCubeTankVolume(size, glassThickness);
-                    txtTankVolume.Text = ALCore.GetDecimalStr(tankVolume);
-                    break;
-
-                case TankShape.Rectangular:
-                    var depth = ALCore.GetDecimalVal(txtDepth.Text);
-                    var width = ALCore.GetDecimalVal(txtWidth.Text);
-                    var height = ALCore.GetDecimalVal(txtHeigth.Text);
-                    tankVolume = ALData.CalcRectangularTankVolume(depth, width, height, glassThickness);
-                    txtTankVolume.Text = ALCore.GetDecimalStr(tankVolume);
-                    break;
-
                 default:
                     tankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
                     break;
@@ -210,13 +182,21 @@ namespace AquaLog.UI.Dialogs
             double waterVolume = ALData.CalcWaterVolume(tankVolume);
             txtWaterVolume.Text = ALCore.GetDecimalStr(waterVolume);
 
-            double waterHeight = 0.0d;
-            if (tankShape == TankShape.Rectangular) {
-                double depth = ALCore.GetDecimalVal(txtDepth.Text);
-                double width = ALCore.GetDecimalVal(txtWidth.Text);
-                waterHeight = ALData.CalcWaterHeight(depth, width, waterVolume, glassThickness);
-            }
+            double waterHeight = fRecord.CalcWaterHeight(tankShape, waterVolume);
             lblWaterHeight.Text = string.Format("wH = {0:0.00}", waterHeight);
+        }
+
+        private void btnTank_Click(object sender, EventArgs e)
+        {
+            var tankShape = cmbShape.GetSelectedTag<TankShape>();
+
+            using (var dlg = new TankEditDlg()) {
+                dlg.Record = fRecord.GetTank(tankShape, fRecord.TankProperties).Clone();
+                if (dlg.ShowDialog() == DialogResult.OK) {
+                    fRecord.Tank = dlg.Record;
+                    RefreshProps(tankShape);
+                }
+            }
         }
     }
 }

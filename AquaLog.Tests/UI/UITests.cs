@@ -97,10 +97,10 @@ namespace AquaLog.UI
             SelectCombo("cmbShape", form, 2);
 
             SelectCombo("cmbShape", form, 3);
-            EnterText("txtDepth", form, "10");
-            EnterText("txtWidth", form, "10");
-            EnterText("txtHeigth", form, "10");
-            EnterText("txtGlassThickness", form, "0.5");
+            //EnterText("txtDepth", form, "10");
+            //EnterText("txtWidth", form, "10");
+            //EnterText("txtHeigth", form, "10");
+            //EnterText("txtGlassThickness", form, "0.5");
 
             ClickButton("btnAccept", form);
         }

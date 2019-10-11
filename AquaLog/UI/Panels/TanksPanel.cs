@@ -109,7 +109,8 @@ namespace AquaLog.UI.Panels
 
         private void btnAddTank_Click(object sender, EventArgs e)
         {
-            var aqm = new Aquarium(ALCore.UnknownName);
+            var aqm = new Aquarium();
+            aqm.Name = ALCore.UnknownName;
 
             using (var dlg = new AquariumEditDlg()) {
                 dlg.Record = aqm;

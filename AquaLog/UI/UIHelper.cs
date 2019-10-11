@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core;
+using AquaLog.Core.Model;
 using AquaLog.Core.Types;
 using Microsoft.Win32;
 
@@ -98,6 +99,41 @@ namespace AquaLog.UI
         public static Bitmap LoadResourceImage(string resName)
         {
             return new Bitmap(LoadResourceStream("AquaLog.Resources." + resName));
+        }
+
+        public static void SetTankPropNames(ITank tank)
+        {
+            TankShape tankShape = tank.GetTankShape();
+
+            ALCore.SetDisplayNameValue(tank, "GlassThickness", Localizer.LS(LSID.GlassThickness));
+
+            switch (tankShape) {
+                case TankShape.Unknown:
+                case TankShape.Bowl:
+                    break;
+
+                case TankShape.Cube:
+                    ALCore.SetDisplayNameValue(tank, "EdgeSize", Localizer.LS(LSID.EdgeSize));
+                    break;
+
+                case TankShape.Rectangular:
+                    ALCore.SetDisplayNameValue(tank, "Depth", Localizer.LS(LSID.Depth));
+                    ALCore.SetDisplayNameValue(tank, "Width", Localizer.LS(LSID.Width));
+                    ALCore.SetDisplayNameValue(tank, "Height", Localizer.LS(LSID.Height));
+                    break;
+
+                case TankShape.BowFront:
+                    ALCore.SetDisplayNameValue(tank, "Depth", Localizer.LS(LSID.Depth));
+                    ALCore.SetDisplayNameValue(tank, "Width", Localizer.LS(LSID.Width));
+                    ALCore.SetDisplayNameValue(tank, "Height", Localizer.LS(LSID.Height));
+                    ALCore.SetDisplayNameValue(tank, "CentreDepth", Localizer.LS(LSID.CentreDepth));
+                    break;
+
+                case TankShape.PlateFrontCorner:
+                case TankShape.BowFrontCorner:
+                default:
+                    break;
+            }
         }
 
         #region Open/Save dialogs

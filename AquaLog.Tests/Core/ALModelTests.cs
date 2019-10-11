@@ -32,7 +32,7 @@ namespace AquaLog.Core
         {
             var instance = new ALModel();
 
-            var aqm = new Aquarium("test aquarium");
+            var aqm = new Aquarium();
 
             instance.AddRecord(aqm);
             Assert.IsNotNull(instance.GetRecord<Aquarium>(aqm.Id));
@@ -43,7 +43,8 @@ namespace AquaLog.Core
         {
             var instance = new ALModel();
 
-            var aqm = new Aquarium("test aquarium");
+            var aqm = new Aquarium();
+            aqm.Name = "test aquarium";
             instance.AddRecord(aqm);
             aqm = instance.GetRecord<Aquarium>(aqm.Id);
             Assert.AreEqual("test aquarium", aqm.Name);
