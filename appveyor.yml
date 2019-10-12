@@ -14,13 +14,12 @@ before_build:
   - nuget restore ./AquaLog.sln
 
 build_script:
-  - msbuild ./AquaLog.sln /p:Configuration=Debug /p:Platform="x86" /p:TargetFrameworkVersion=v4.0 /p:CIMode=true /p:MonoCS=true /verbosity:minimal
+  - msbuild ./AquaLog.sln /p:Configuration=Debug /p:Platform="x86" /p:CIMode=true /p:MonoCS=true /verbosity:minimal
 
 test_script:
-  - nunit-console-x86 ./AquaLog.Tests/bin/Debug/AquaLog.Tests.dll /framework:net-4.5
+  - .\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -target:"nunit-console-x86.exe" -targetdir:".\AquaLog.Tests\bin\Debug" -targetargs:"AquaLog.Tests.dll /noshadow" -output:"coverage.xml" -filter:"+[*]* "
 
 after_test:
-  - .\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -target:"nunit-console-x86.exe" -targetdir:"C:\projects\AquaLog\AquaLog.Tests\bin\Debug" -targetargs:"AquaLog.Tests.dll /noshadow /framework:net-4.5" -output:"coverage.xml" -filter:"+[*]* "
   - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"
   - pip install codecov
   - codecov -f "coverage.xml" -X gcov

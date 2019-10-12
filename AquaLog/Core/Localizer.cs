@@ -372,6 +372,8 @@ namespace AquaLog.Core
             /* 166 */ "Chart (item types)",
             /* 167 */ "Chart (shops)",
             /* 168 */ "Chart (brands)",
+            /* 169 */ "Edge size",
+            /* 170 */ "Centre depth",
         };
 
 
