@@ -477,6 +477,8 @@ namespace AquaLog.Core
             PrepareValue(aquarium, measures, "NH3", "NH3", "", ALData.NH3Ranges);
             PrepareValue(aquarium, measures, "NH4", "NH4", "", null);
 
+            PrepareValue(aquarium, measures, "PO4", "PO4", "", null);
+
             return measures;
         }
 

@@ -83,6 +83,7 @@ namespace AquaLog.UI.Dialogs
                 txtNHtot.Text = ALCore.GetDecimalStr(fRecord.NH);
                 txtNH3.Text = ALCore.GetDecimalStr(fRecord.NH3);
                 txtNH4.Text = ALCore.GetDecimalStr(fRecord.NH4);
+                txtPO4.Text = ALCore.GetDecimalStr(fRecord.PO4);
             }
         }
 
@@ -104,6 +105,7 @@ namespace AquaLog.UI.Dialogs
             fRecord.NH = (float)ALCore.GetDecimalVal(txtNHtot.Text);
             fRecord.NH3 = (float)ALCore.GetDecimalVal(txtNH3.Text);
             fRecord.NH4 = (float)ALCore.GetDecimalVal(txtNH4.Text);
+            fRecord.PO4 = (float)ALCore.GetDecimalVal(txtPO4.Text);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

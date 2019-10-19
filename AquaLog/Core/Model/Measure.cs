@@ -36,7 +36,7 @@ namespace AquaLog.Core.Model
         public float NO2 { get; set; } // dlg+
         public float NO3 { get; set; } // dlg+
         public float O2 { get; set; }
-        public float PO4 { get; set; }
+        public float PO4 { get; set; } // dlg+
 
         // chemical complex
         public float GH { get; set; } // dlg+

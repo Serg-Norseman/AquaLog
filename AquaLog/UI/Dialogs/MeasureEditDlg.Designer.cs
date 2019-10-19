@@ -34,6 +34,8 @@
         private System.Windows.Forms.TextBox txtNH4;
         private System.Windows.Forms.Button btnCalcNH4;
         private System.Windows.Forms.Button btnCalcNH3;
+        private System.Windows.Forms.Label lblPO4;
+        private System.Windows.Forms.TextBox txtPO4;
         
         protected override void Dispose(bool disposing)
         {
@@ -78,15 +80,17 @@
             this.txtNH4 = new System.Windows.Forms.TextBox();
             this.btnCalcNH4 = new System.Windows.Forms.Button();
             this.btnCalcNH3 = new System.Windows.Forms.Button();
+            this.lblPO4 = new System.Windows.Forms.Label();
+            this.txtPO4 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(104, 414);
+            this.btnAccept.Location = new System.Drawing.Point(104, 439);
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
-            this.btnAccept.TabIndex = 26;
+            this.btnAccept.TabIndex = 28;
             this.btnAccept.Text = "Accept";
             this.btnAccept.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnAccept.UseVisualStyleBackColor = true;
@@ -95,11 +99,11 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(204, 414);
+            this.btnCancel.Location = new System.Drawing.Point(204, 439);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
-            this.btnCancel.TabIndex = 27;
+            this.btnCancel.TabIndex = 29;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCancel.UseVisualStyleBackColor = true;
@@ -283,7 +287,7 @@
             this.btnCalcCO2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.btnCalcCO2.Name = "btnCalcCO2";
             this.btnCalcCO2.Size = new System.Drawing.Size(121, 22);
-            this.btnCalcCO2.TabIndex = 28;
+            this.btnCalcCO2.TabIndex = 30;
             this.btnCalcCO2.Text = "<= Calc(KH, pH)";
             this.btnCalcCO2.UseVisualStyleBackColor = true;
             this.btnCalcCO2.Click += new System.EventHandler(this.btnCalcCO2_Click);
@@ -341,11 +345,11 @@
             // 
             // btnCalcNH4
             // 
-            this.btnCalcNH4.Location = new System.Drawing.Point(179, 374);
+            this.btnCalcNH4.Location = new System.Drawing.Point(179, 377);
             this.btnCalcNH4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.btnCalcNH4.Name = "btnCalcNH4";
             this.btnCalcNH4.Size = new System.Drawing.Size(121, 22);
-            this.btnCalcNH4.TabIndex = 30;
+            this.btnCalcNH4.TabIndex = 32;
             this.btnCalcNH4.Text = "<= Calc(NHtot,NH3)";
             this.btnCalcNH4.UseVisualStyleBackColor = true;
             this.btnCalcNH4.Click += new System.EventHandler(this.btnCalcNH4_Click);
@@ -356,10 +360,27 @@
             this.btnCalcNH3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.btnCalcNH3.Name = "btnCalcNH3";
             this.btnCalcNH3.Size = new System.Drawing.Size(121, 22);
-            this.btnCalcNH3.TabIndex = 29;
+            this.btnCalcNH3.TabIndex = 31;
             this.btnCalcNH3.Text = "<= Calc(NHtot,pH,T)";
             this.btnCalcNH3.UseVisualStyleBackColor = true;
             this.btnCalcNH3.Click += new System.EventHandler(this.btnCalcNH3_Click);
+            // 
+            // lblPO4
+            // 
+            this.lblPO4.Location = new System.Drawing.Point(11, 411);
+            this.lblPO4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblPO4.Name = "lblPO4";
+            this.lblPO4.Size = new System.Drawing.Size(80, 17);
+            this.lblPO4.TabIndex = 26;
+            this.lblPO4.Text = "PO4";
+            // 
+            // txtPO4
+            // 
+            this.txtPO4.Location = new System.Drawing.Point(101, 408);
+            this.txtPO4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
+            this.txtPO4.Name = "txtPO4";
+            this.txtPO4.Size = new System.Drawing.Size(74, 22);
+            this.txtPO4.TabIndex = 27;
             // 
             // MeasureEditDlg
             // 
@@ -367,13 +388,15 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(311, 449);
+            this.ClientSize = new System.Drawing.Size(311, 474);
             this.Controls.Add(this.btnCalcNH3);
             this.Controls.Add(this.btnCalcNH4);
             this.Controls.Add(this.btnCalcCO2);
             this.Controls.Add(this.cmbAquarium);
             this.Controls.Add(this.lblAquarium);
+            this.Controls.Add(this.txtPO4);
             this.Controls.Add(this.txtNH4);
+            this.Controls.Add(this.lblPO4);
             this.Controls.Add(this.dtpTimestamp);
             this.Controls.Add(this.lblNH4);
             this.Controls.Add(this.txtCO2);

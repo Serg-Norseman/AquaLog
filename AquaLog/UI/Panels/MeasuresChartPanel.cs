@@ -70,6 +70,7 @@ namespace AquaLog.UI.Panels
             fTrends.Add("NH", new Trend("NHtot", Color.Violet));
             fTrends.Add("NH3", new Trend("NH3", Color.PaleVioletRed));
             fTrends.Add("NH4", new Trend("NH4", Color.MediumVioletRed));
+            fTrends.Add("PO4", new Trend("PO4", Color.BlueViolet));
 
             foreach (Measure rec in fMeasures) {
                 AddTrendValue("Temp", rec.Timestamp, rec.Temperature);
@@ -83,6 +84,7 @@ namespace AquaLog.UI.Panels
                 AddTrendValue("NH", rec.Timestamp, rec.NH);
                 AddTrendValue("NH3", rec.Timestamp, rec.NH3);
                 AddTrendValue("NH4", rec.Timestamp, rec.NH4);
+                AddTrendValue("PO4", rec.Timestamp, rec.PO4);
             }
 
             foreach (var trendPair in fTrends) {

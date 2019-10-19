@@ -38,6 +38,7 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add("NHtot", 60, HorizontalAlignment.Right);
             ListView.Columns.Add("NH3", 60, HorizontalAlignment.Right);
             ListView.Columns.Add("NH4", 60, HorizontalAlignment.Right);
+            ListView.Columns.Add("PO4", 60, HorizontalAlignment.Right);
 
             var records = fModel.QueryMeasures();
             foreach (Measure rec in records) {
@@ -58,6 +59,7 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.NH, 2, true));
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.NH3, 2, true));
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.NH4, 2, true));
+                item.SubItems.Add(ALCore.GetDecimalStr(rec.PO4, 2, true));
                 ListView.Items.Add(item);
             }
         }
