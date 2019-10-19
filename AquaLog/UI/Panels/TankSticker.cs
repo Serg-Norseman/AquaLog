@@ -216,12 +216,33 @@ namespace AquaLog.UI.Panels
             DrawMeasure(gfx, 8, font, x, y);
             DrawMeasure(gfx, 9, font, x + (xoffset * 1), y);
             DrawMeasure(gfx, 10, font, x + (xoffset * 2), y);
+            DrawMeasure(gfx, 11, font, x + (xoffset * 3), y);
+
+            double NO3 = FindMeasure("NO3");
+            double PO4 = FindMeasure("PO4");
+            if (!double.IsNaN(PO4) && PO4 != 0.0001) {
+                double redfield = ALData.CalcRedfield(NO3, PO4);
+                y = y + (int)(Font.Height * 1.6f);
+                DrawText(gfx, "Redfield: " + ALCore.GetDecimalStr(redfield), Font, ForeColor, x, y);
+            }
         }
 
         private void DrawMeasure(Graphics gfx, int index, Font font, int x, int y)
         {
             MeasureValue tVal = fValues[index];
-            DrawText(gfx, tVal.Text, font, tVal.Color, x, y);
+            if (!string.IsNullOrEmpty(tVal.Text) && !double.IsNaN(tVal.Value)) {
+                DrawText(gfx, tVal.Text, font, tVal.Color, x, y);
+            }
+        }
+
+        private double FindMeasure(string sign)
+        {
+            foreach (MeasureValue tVal in fValues) {
+                if (tVal.Name == sign) {
+                    return tVal.Value;
+                }
+            }
+            return 0.0001;
         }
 
         private void DrawText(Graphics gfx, string text, Font font, Color color, int x, int y)

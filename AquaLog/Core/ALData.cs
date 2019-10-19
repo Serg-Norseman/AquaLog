@@ -233,6 +233,15 @@ namespace AquaLog.Core
         };
 
 
+        public static readonly List<ValueBounds> RedfieldRanges = new List<ValueBounds>() {
+            new ValueBounds(0, 5, Color.Green, "high (Cianobacter)"),
+            new ValueBounds(5, 10, Color.Red, "media (Cianobacter)"),
+            new ValueBounds(10, 20, Color.Green, "low"),
+            new ValueBounds(20, 25, Color.Red, "media (green algae)"),
+            new ValueBounds(25, 30, Color.Green, "high (green algae)"),
+        };
+
+
         public static double CalcArea(double depth, double width)
         {
             return depth * width;
@@ -398,6 +407,11 @@ namespace AquaLog.Core
         public static double CalcSalt(double volume, double nitrite)
         {
             return (volume * nitrite * 0.0075);
+        }
+
+        public static double CalcRedfield(double NO3, double PO4)
+        {
+            return (NO3 / PO4) / 1.45;
         }
     }
 }
