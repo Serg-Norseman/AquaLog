@@ -10,6 +10,14 @@ pull_requests:
 environment:
   CIMode: true
 
+skip_commits:
+  files:
+    - ALSketch/*
+    - deploy/*
+    - libs/*
+    - locales/*
+    - '**/*.md'
+
 before_build:
   - nuget restore ./AquaLog.sln
 
