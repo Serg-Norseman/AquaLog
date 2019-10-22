@@ -73,6 +73,7 @@ namespace AquaLog.UI
             btnMeasures.Tag = MainView.Measures;
             btnSchedule.Tag = MainView.Schedule;
             btnInventory.Tag = MainView.Inventory;
+            btnSnapshots.Tag = MainView.Snapshots;
 
             SetView(MainView.Tanks, null);
 
@@ -125,6 +126,7 @@ namespace AquaLog.UI
             btnTransfers.Text = Localizer.LS(LSID.Transfers);
             btnBudget.Text = Localizer.LS(LSID.Budget);
             btnInventory.Text = Localizer.LS(LSID.Inventory);
+            btnSnapshots.Text = Localizer.LS(LSID.Snapshots);
 
             btnPrev.ToolTipText = Localizer.LS(LSID.NavPrev);
             btnNext.ToolTipText = Localizer.LS(LSID.NavNext);
@@ -306,6 +308,9 @@ namespace AquaLog.UI
                     break;
                 case MainView.LifeLinesChart:
                     SetView<LifeLinesPanel>(extData);
+                    break;
+                case MainView.Snapshots:
+                    SetView<SnapshotPanel>(extData);
                     break;
             }
         }

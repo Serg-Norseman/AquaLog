@@ -30,5 +30,6 @@ namespace AquaLog.UI
         Inventory,
         BudgetChart,
         LifeLinesChart,
+        Snapshots,
     }
 }

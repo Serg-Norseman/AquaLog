@@ -214,6 +214,32 @@ namespace AquaLog.UI
 
         #endregion
 
+        #region Images
+
+        public static Image LoadImage()
+        {
+            Image image = null;
+
+            string fileName = GetOpenFile("title", "context",
+                          "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.tiff)|*.jpg;*.jpeg;*.png;*.gif;*.tiff",
+                          1, "");
+
+            if (string.IsNullOrEmpty(fileName))
+                return image;
+
+            if (File.Exists(fileName)) {
+                using (FileStream stream = File.Open(fileName, FileMode.Open)) {
+                    BinaryReader br = new BinaryReader(stream);
+                    byte[] data = br.ReadBytes((int)stream.Length);
+                    image = ALModel.ByteToImage(data);
+                }
+            }
+
+            return image;
+        }
+
+        #endregion
+
         #region Application's autorun
 
         public static void RegisterStartup()

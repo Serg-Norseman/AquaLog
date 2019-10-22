@@ -192,8 +192,10 @@ namespace AquaLog.Core
         /* 168 */ ChartBrands,
         /* 169 */ EdgeSize,
         /* 170 */ CentreDepth,
+        /* 171 */ Snapshot,
+        /* 172 */ Snapshots,
 
-        /* 000 */ Last = CentreDepth
+        /* 000 */ Last = Snapshots
     }
 
 
@@ -374,6 +376,8 @@ namespace AquaLog.Core
             /* 168 */ "Chart (brands)",
             /* 169 */ "Edge size",
             /* 170 */ "Centre depth",
+            /* 171 */ "Snapshot",
+            /* 172 */ "Snapshots",
         };
 
 

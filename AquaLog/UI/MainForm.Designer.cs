@@ -39,6 +39,7 @@
         private System.Windows.Forms.ToolStripButton btnInventory;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem miCalculator;
+        private System.Windows.Forms.ToolStripButton btnSnapshots;
 
         private void InitializeComponent()
         {
@@ -67,9 +68,9 @@
             this.btnInventory = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.btnMaintenance = new System.Windows.Forms.ToolStripButton();
+            this.btnMeasures = new System.Windows.Forms.ToolStripButton();
             this.btnNotes = new System.Windows.Forms.ToolStripButton();
             this.btnHistory = new System.Windows.Forms.ToolStripButton();
-            this.btnMeasures = new System.Windows.Forms.ToolStripButton();
             this.btnSchedule = new System.Windows.Forms.ToolStripButton();
             this.btnTransfers = new System.Windows.Forms.ToolStripButton();
             this.btnBudget = new System.Windows.Forms.ToolStripButton();
@@ -79,6 +80,7 @@
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.btnSnapshots = new System.Windows.Forms.ToolStripButton();
             this.menuMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlTools.SuspendLayout();
@@ -192,6 +194,7 @@
             this.btnSchedule,
             this.btnTransfers,
             this.btnBudget,
+            this.btnSnapshots,
             this.btnTSDB});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
@@ -299,6 +302,15 @@
             this.btnMaintenance.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnMaintenance.Click += new System.EventHandler(this.btnMainView_Click);
             // 
+            // btnMeasures
+            // 
+            this.btnMeasures.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnMeasures.Name = "btnMeasures";
+            this.btnMeasures.Size = new System.Drawing.Size(61, 22);
+            this.btnMeasures.Text = "Measures";
+            this.btnMeasures.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnMeasures.Click += new System.EventHandler(this.btnMainView_Click);
+            // 
             // btnNotes
             // 
             this.btnNotes.ImageTransparentColor = System.Drawing.Color.Magenta;
@@ -316,15 +328,6 @@
             this.btnHistory.Text = "History";
             this.btnHistory.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnHistory.Click += new System.EventHandler(this.btnMainView_Click);
-            // 
-            // btnMeasures
-            // 
-            this.btnMeasures.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnMeasures.Name = "btnMeasures";
-            this.btnMeasures.Size = new System.Drawing.Size(61, 22);
-            this.btnMeasures.Text = "Measures";
-            this.btnMeasures.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnMeasures.Click += new System.EventHandler(this.btnMainView_Click);
             // 
             // btnSchedule
             // 
@@ -411,6 +414,15 @@
             // 
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
+            // 
+            // btnSnapshots
+            // 
+            this.btnSnapshots.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSnapshots.Name = "btnSnapshots";
+            this.btnSnapshots.Size = new System.Drawing.Size(65, 22);
+            this.btnSnapshots.Text = "Snapshots";
+            this.btnSnapshots.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSnapshots.Click += new System.EventHandler(this.btnMainView_Click);
             // 
             // MainForm
             // 

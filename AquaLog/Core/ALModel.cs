@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
@@ -51,6 +52,8 @@ namespace AquaLog.Core
             fDB.CreateTable<Measure>();
             fDB.CreateTable<Schedule>();
             fDB.CreateTable<Inventory>();
+
+            fDB.CreateTable<Snapshot>();
         }
 
         /// <summary>
@@ -550,6 +553,36 @@ namespace AquaLog.Core
         public IList<QString> QueryShops()
         {
             return fDB.Query<QString>("select distinct Shop as element from Transfer");
+        }
+
+        #endregion
+
+        #region Image helpers
+
+        public static byte[] ImageToByte(Image image, ImageFormat format)
+        {
+            using (MemoryStream ms = new MemoryStream()) {
+                image.Save(ms, format);
+                byte[] imageBytes = ms.ToArray();
+                return imageBytes;
+            }
+        }
+
+        public static Image ByteToImage(byte[] imageBytes)
+        {
+            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            Image image = new Bitmap(ms);
+            return image;
+        }
+
+        #endregion
+
+        #region Snapshot functions
+
+        public IEnumerable<Snapshot> QuerySnapshots()
+        {
+            return fDB.Query<Snapshot>("select * from Snapshot");
         }
 
         #endregion

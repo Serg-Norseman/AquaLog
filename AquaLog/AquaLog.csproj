@@ -122,6 +122,7 @@
     <Compile Include="Core\Model\Measure.cs" />
     <Compile Include="Core\Model\Nutrition.cs" />
     <Compile Include="Core\Model\Schedule.cs" />
+    <Compile Include="Core\Model\Snapshot.cs" />
     <Compile Include="Core\Model\Tanks\BowFrontTank.cs" />
     <Compile Include="Core\Model\Tanks\CubeTank.cs" />
     <Compile Include="Core\Model\Tanks\RectangularTank.cs" />
@@ -239,6 +240,10 @@
     <Compile Include="UI\Dialogs\SettingsDlg.Designer.cs">
       <DependentUpon>SettingsDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\SnapshotEditDlg.cs" />
+    <Compile Include="UI\Dialogs\SnapshotEditDlg.Designer.cs">
+      <DependentUpon>SnapshotEditDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\SpeciesEditDlg.cs" />
     <Compile Include="UI\Dialogs\SpeciesEditDlg.Designer.cs">
       <DependentUpon>SpeciesEditDlg.cs</DependentUpon>
@@ -274,6 +279,7 @@
     <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
     <Compile Include="UI\Panels\NutritionPanel.cs" />
     <Compile Include="UI\Panels\SchedulePanel.cs" />
+    <Compile Include="UI\Panels\SnapshotPanel.cs" />
     <Compile Include="UI\Panels\TSTrendPanel.cs" />
     <Compile Include="UI\Panels\BudgetPanel.cs" />
     <Compile Include="UI\Panels\DataPanel.cs" />
