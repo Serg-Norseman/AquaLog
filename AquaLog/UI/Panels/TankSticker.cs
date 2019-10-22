@@ -12,6 +12,7 @@ using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
 using AquaLog.UI;
+using BSLib;
 
 namespace AquaLog.UI.Panels
 {
@@ -220,7 +221,7 @@ namespace AquaLog.UI.Panels
 
             double NO3 = FindMeasure("NO3");
             double PO4 = FindMeasure("PO4");
-            if (!double.IsNaN(PO4) && PO4 != 0.0001) {
+            if (!double.IsNaN(PO4) && !DoubleHelper.Equals(PO4, 0.0001, 0.0001)) {
                 double redfield = ALData.CalcRedfield(NO3, PO4);
                 y = y + (int)(Font.Height * 1.6f);
                 DrawText(gfx, "Redfield: " + ALCore.GetDecimalStr(redfield), Font, ForeColor, x, y);

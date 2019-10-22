@@ -269,6 +269,7 @@
     <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
     <Compile Include="UI\Panels\BudgetChartPanel.cs" />
     <Compile Include="UI\Panels\InventoryPanel.cs" />
+    <Compile Include="UI\Panels\LifeLinesPanel.cs" />
     <Compile Include="UI\Panels\MeasurePanel.cs" />
     <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
     <Compile Include="UI\Panels\NutritionPanel.cs" />
@@ -326,6 +327,12 @@
     <Folder Include="UI" />
     <Folder Include="UI\Dialogs" />
     <Folder Include="UI\Panels" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BSLib.Timeline\BSLib.Timeline.csproj">
+      <Project>{5f95b084-2bf9-4a8d-8d83-f50fbe1b959c}</Project>
+      <Name>BSLib.Timeline</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

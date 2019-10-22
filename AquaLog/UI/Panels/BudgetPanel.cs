@@ -113,17 +113,17 @@ namespace AquaLog.UI.Panels
 
         private void ViewChartTypesHandler(object sender, EventArgs e)
         {
-            Browser.SetView(MainView.BudgetChartPanel, BudgetChartType.ItemTypes);
+            Browser.SetView(MainView.BudgetChart, BudgetChartType.ItemTypes);
         }
 
         private void ViewChartShopsHandler(object sender, EventArgs e)
         {
-            Browser.SetView(MainView.BudgetChartPanel, BudgetChartType.Shops);
+            Browser.SetView(MainView.BudgetChart, BudgetChartType.Shops);
         }
 
         private void ViewChartBrandsHandler(object sender, EventArgs e)
         {
-            Browser.SetView(MainView.BudgetChartPanel, BudgetChartType.Brands);
+            Browser.SetView(MainView.BudgetChart, BudgetChartType.Brands);
         }
     }
 }

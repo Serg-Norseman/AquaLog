@@ -31,6 +31,7 @@ namespace AquaLog.UI.Panels
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
             AddAction("Transfer", LSID.Transfer, null, TransferHandler);
+            AddAction("Chart", LSID.Chart, "", ViewLifeLinesHandler);
         }
 
         protected override void UpdateListView()
@@ -111,6 +112,11 @@ namespace AquaLog.UI.Panels
                     UpdateContent();
                 }
             }
+        }
+
+        private void ViewLifeLinesHandler(object sender, EventArgs e)
+        {
+            Browser.SetView(MainView.LifeLinesChart, null);
         }
     }
 }
