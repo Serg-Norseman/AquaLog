@@ -40,7 +40,7 @@ namespace AquaLog.UI
 
             fNotifyIcon = new NotifyIcon();
             fNotifyIcon.DoubleClick += Icon_DoubleClick;
-            fNotifyIcon.Icon = new Icon(UIHelper.LoadResourceStream("AquaLog.Resources.icon_aqualog.ico"));
+            fNotifyIcon.Icon = new Icon(UIHelper.LoadResourceStream("icon_aqualog.ico"));
             fNotifyIcon.ContextMenu = fMenu;
             fNotifyIcon.Visible = true;
 

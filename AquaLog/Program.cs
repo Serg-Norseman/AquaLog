@@ -19,6 +19,10 @@ namespace AquaLog
         {
             ALCore.CheckPortable(args);
 
+            #if NETCOREAPP30
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            #endif
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

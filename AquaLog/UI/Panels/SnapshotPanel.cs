@@ -25,10 +25,12 @@ namespace AquaLog.UI.Panels
         {
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Name), 120, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
 
             var records = fModel.QuerySnapshots();
             foreach (Snapshot rec in records) {
                 var item = new ListViewItem(rec.Name);
+                item.SubItems.Add(ALCore.GetTimeStr(rec.Timestamp));
                 item.Tag = rec;
                 ListView.Items.Add(item);
             }

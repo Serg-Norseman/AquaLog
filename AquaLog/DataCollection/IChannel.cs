@@ -8,6 +8,8 @@ using System;
 
 namespace AquaLog.DataCollection
 {
+    public delegate void UpdateDelegate(string text);
+
     /// <summary>
     /// 
     /// </summary>

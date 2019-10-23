@@ -51,7 +51,7 @@ namespace AquaLog.UI
             SetSettings();
             UpdateControls();
 
-            Icon = new Icon(UIHelper.LoadResourceStream("AquaLog.Resources.icon_aqualog.ico"));
+            Icon = new Icon(UIHelper.LoadResourceStream("icon_aqualog.ico"));
             btnPrev.Image = UIHelper.LoadResourceImage("btn_left.gif");
             btnNext.Image = UIHelper.LoadResourceImage("btn_right.gif");
             miExit.Image = UIHelper.LoadResourceImage("btn_exit.gif");

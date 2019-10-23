@@ -87,6 +87,12 @@ namespace AquaLog.UI
 
         public static Stream LoadResourceStream(string resName)
         {
+            #if !NETCOREAPP30
+            resName = "AquaLog.Resources." + resName;
+            #else
+            resName = "Resources." + resName;
+            #endif
+
             return LoadResourceStream(typeof(ALCore), resName);
         }
 
@@ -98,7 +104,7 @@ namespace AquaLog.UI
 
         public static Bitmap LoadResourceImage(string resName)
         {
-            return new Bitmap(LoadResourceStream("AquaLog.Resources." + resName));
+            return new Bitmap(LoadResourceStream(resName));
         }
 
         public static void SetTankPropNames(ITank tank)

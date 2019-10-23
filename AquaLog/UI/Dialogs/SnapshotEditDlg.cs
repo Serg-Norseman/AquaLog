@@ -61,6 +61,7 @@ namespace AquaLog.UI.Dialogs
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
             lblName.Text = Localizer.LS(LSID.Name);
+            lblDate.Text = Localizer.LS(LSID.Date);
         }
 
         private void UpdateView()
@@ -69,6 +70,10 @@ namespace AquaLog.UI.Dialogs
                 txtName.Text = fRecord.Name;
                 if (fRecord.Image != null) {
                     pictureBox1.Image = ALModel.ByteToImage(fRecord.Image);
+                }
+
+                if (!fRecord.Timestamp.Equals(ALCore.ZeroDate)) {
+                    dtpDateTime.Value = fRecord.Timestamp;
                 }
             }
         }
@@ -79,6 +84,7 @@ namespace AquaLog.UI.Dialogs
             if (pictureBox1.Image != null) {
                 fRecord.Image = ALModel.ImageToByte(pictureBox1.Image, ImageFormat.Jpeg);
             }
+            fRecord.Timestamp = dtpDateTime.Value;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

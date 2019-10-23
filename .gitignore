@@ -6,6 +6,7 @@
 *.pdb
 *.mdb
 *.suo
+*.user
 *.userprefs
 *.DotSettings.user
 *.log

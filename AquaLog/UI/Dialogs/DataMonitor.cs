@@ -26,7 +26,9 @@ namespace AquaLog.UI.Dialogs
         {
             InitializeComponent();
 
+            #if !NETCOREAPP30
             fChannel = new SerialChannel();
+            #endif
 
             fCommunicationLED = new CommunicationLEDService();
             fCommunicationLED.SetChannel(fChannel);

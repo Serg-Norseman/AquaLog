@@ -4,6 +4,8 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+#if !NETCOREAPP30
+
 using System;
 using System.IO.Ports;
 using System.Threading;
@@ -11,8 +13,6 @@ using BSLib;
 
 namespace AquaLog.DataCollection
 {
-    public delegate void UpdateDelegate(string text);
-
     /// <summary>
     /// 
     /// </summary>
@@ -78,3 +78,5 @@ namespace AquaLog.DataCollection
         }
     }
 }
+
+#endif

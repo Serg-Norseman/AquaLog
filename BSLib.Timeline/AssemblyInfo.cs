@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 
+#if !NETCOREAPP30
+
 [assembly: AssemblyTitle("BSLib.Timeline")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyProduct("BSLib.Timeline")]
@@ -7,3 +9,5 @@
 [assembly: AssemblyCulture("")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+
+#endif
