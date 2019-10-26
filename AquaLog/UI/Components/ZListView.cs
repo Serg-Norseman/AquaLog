@@ -291,7 +291,7 @@ namespace AquaLog.Components
 
         public ListViewItem GetSelectedItem()
         {
-            ListViewItem result = (SelectedItems.Count <= 0) ? null : (SelectedItems[0] as ListViewItem);
+            ListViewItem result = (SelectedItems.Count <= 0) ? null : SelectedItems[0];
             return result;
         }
 

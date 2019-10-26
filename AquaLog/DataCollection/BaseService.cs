@@ -82,7 +82,7 @@ namespace AquaLog.DataCollection
         protected void ReceiveData()
         {
             EventHandler handler = ReceivedData;
-            if (handler != null) handler(this, null);
+            if (handler != null) handler(this, EventArgs.Empty);
         }
     }
 }

@@ -41,8 +41,8 @@ namespace AquaLog.Core.Export
                 }
 
                 workbook.Worksheets.Add(worksheet);
-                workbook.Save(fileName);
             } finally {
+                workbook.Save(fileName);
             }
         }
     }

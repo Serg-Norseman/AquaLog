@@ -8,7 +8,6 @@ using System;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.TSDB;
-using AquaLog.UI;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -16,7 +15,7 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class TSValuePanel : ListPanel
+    public sealed class TSValuePanel : ListPanel
     {
         private int fPointId;
 

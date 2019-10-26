@@ -15,7 +15,7 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class TransferPanel : ListPanel<Transfer, TransferEditDlg>
+    public sealed class TransferPanel : ListPanel<Transfer, TransferEditDlg>
     {
         public TransferPanel()
         {

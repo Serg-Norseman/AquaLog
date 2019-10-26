@@ -11,14 +11,13 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
-using AquaLog.UI;
 
 namespace AquaLog.UI.Panels
 {
     /// <summary>
     /// 
     /// </summary>
-    public class AquaDetailsPanel : DataPanel
+    public sealed class AquaDetailsPanel : DataPanel
     {
         private Aquarium fAquarium;
         private Label fHeader;

@@ -8,7 +8,6 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
-using AquaLog.UI;
 using AquaLog.UI.Dialogs;
 using BSLib;
 
@@ -24,7 +23,7 @@ namespace AquaLog.UI
         private MenuItem fAutorunItem;
         private MenuItem fAboutItem;
         private MenuItem fExitItem;
-        private Form fMainForm;
+        private readonly Form fMainForm;
         private readonly ContextMenu fMenu;
         private readonly NotifyIcon fNotifyIcon;
         private readonly StringList fTipsList;

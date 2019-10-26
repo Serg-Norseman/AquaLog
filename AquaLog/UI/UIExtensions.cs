@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core;
@@ -26,7 +25,7 @@ namespace AquaLog.UI
         {
             object selectedItem = comboBox.SelectedItem;
             ComboItem<T> comboItem = (ComboItem<T>)selectedItem;
-            T itemTag = (comboItem == null) ? default(T) : (T)comboItem.Tag;
+            T itemTag = (comboItem == null) ? default(T) : comboItem.Tag;
             return itemTag;
         }
 
@@ -34,7 +33,7 @@ namespace AquaLog.UI
         {
             foreach (object item in comboBox.Items) {
                 ComboItem<T> comboItem = (ComboItem<T>)item;
-                T itemTag = (T)comboItem.Tag;
+                T itemTag = comboItem.Tag;
 
                 if (tagValue.Equals(itemTag)) {
                     comboBox.SelectedItem = item;
@@ -52,7 +51,7 @@ namespace AquaLog.UI
             comboBox.Sorted = sorted;
             foreach (var enm in array) {
                 int eIdx = Convert.ToInt32(enm);
-                comboBox.AddItem<T>(Localizer.LS(names[(int)eIdx]), enm);
+                comboBox.AddItem<T>(Localizer.LS(names[eIdx]), enm);
             }
         }
 

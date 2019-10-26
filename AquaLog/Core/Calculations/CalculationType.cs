@@ -4,9 +4,6 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-using System;
-using System.Linq;
-
 namespace AquaLog.Core.Calculations
 {
     public enum CalculationType

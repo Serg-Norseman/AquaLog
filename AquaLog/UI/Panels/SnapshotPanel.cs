@@ -4,7 +4,6 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-using System;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -15,7 +14,7 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class SnapshotPanel : ListPanel<Snapshot, SnapshotEditDlg>
+    public sealed class SnapshotPanel : ListPanel<Snapshot, SnapshotEditDlg>
     {
         public SnapshotPanel()
         {

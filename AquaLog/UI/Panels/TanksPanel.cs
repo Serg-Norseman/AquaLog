@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Export;
 using AquaLog.Core.Model;
-using AquaLog.UI;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -17,7 +16,7 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class TanksPanel : DataPanel
+    public sealed class TanksPanel : DataPanel
     {
         private ContextMenu fContextMenu;
         private FlowLayoutPanel fLayoutPanel;

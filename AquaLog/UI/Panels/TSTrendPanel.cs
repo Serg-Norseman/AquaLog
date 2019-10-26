@@ -18,10 +18,10 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class TSTrendPanel : DataPanel
+    public sealed class TSTrendPanel : DataPanel
     {
+        private readonly ZGraphControl fGraph;
         private int fPointId;
-        private ZGraphControl fGraph;
 
         public int PointId
         {

@@ -16,7 +16,7 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class InventoryPanel : ListPanel<Inventory, InventoryEditDlg>
+    public sealed class InventoryPanel : ListPanel<Inventory, InventoryEditDlg>
     {
         public InventoryPanel()
         {

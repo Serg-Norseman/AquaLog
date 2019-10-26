@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Export;
 using AquaLog.Core.Model;
-using AquaLog.UI;
 using BSLib;
 
 namespace AquaLog.UI.Panels

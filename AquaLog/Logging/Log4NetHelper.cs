@@ -44,7 +44,6 @@ namespace AquaLog.Logging
         {
             var s = "<?xml version=\"1.0\"?>" + "<log4net>";
             s = s + "<appender name=\"Logs\" type=\"log4net.Appender.RollingFileAppender\">";
-            //s = s + "<bufferSize value=\"1\"/>";
             s = s + "<file value=\"" + fileName.Replace("\\", "\\\\") + "\"/>";
             s = s + "<appendToFile value=\"true\"/>";
             s = s + "<rollingStyle value=\"Size\"/>";
@@ -78,16 +77,14 @@ namespace AquaLog.Logging
             j.Load(configFileName);
 
             var n = j.SelectSingleNode("configuration/log4net/appender/file");
-            if (n != null) {
-                if (n.Attributes != null) {
-                    var s = n.Attributes["value"].Value;
-                    if (s.IndexOf("xxx") > -1) {
-                        n.Attributes["value"].Value = s.Replace("xxx", logFileName);
-                    } else {
-                        var jj = s.LastIndexOf('\\');
-                        var hh = s.Substring(0, jj + 1);
-                        n.Attributes["value"].Value = hh + logFileName + ".log";
-                    }
+            if (n != null && n.Attributes != null) {
+                var s = n.Attributes["value"].Value;
+                if (s.IndexOf("xxx") > -1) {
+                    n.Attributes["value"].Value = s.Replace("xxx", logFileName);
+                } else {
+                    var jj = s.LastIndexOf('\\');
+                    var hh = s.Substring(0, jj + 1);
+                    n.Attributes["value"].Value = hh + logFileName + ".log";
                 }
             }
             XmlConfigurator.Configure((XmlElement)j.SelectSingleNode("configuration/log4net"));

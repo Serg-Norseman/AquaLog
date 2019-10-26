@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
-using AquaLog.UI;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -19,7 +18,7 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class InhabitantPanel : ListPanel<Inhabitant, InhabitantEditDlg>
+    public sealed class InhabitantPanel : ListPanel<Inhabitant, InhabitantEditDlg>
     {
         public InhabitantPanel() : base()
         {

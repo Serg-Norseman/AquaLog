@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using AquaLog.Core.Model.Tanks;
 using AquaLog.Core.Types;
@@ -167,7 +166,7 @@ namespace AquaLog.Core
         /// <summary>
         /// NH3 levels (ppm)
         /// </summary>
-        public static readonly List<ValueBounds> NH3Ranges = new List<ValueBounds>() {
+        public static readonly ValueBounds[] NH3Ranges = new ValueBounds[] {
             new ValueBounds(0.000, 0.020, Color.Green, ""),
             new ValueBounds(0.020, 0.050, Color.YellowGreen, "Alert"),
             new ValueBounds(0.050, 0.200, Color.Orange, "Alarm"),
@@ -184,7 +183,7 @@ namespace AquaLog.Core
         /// 31 -> 40 mg/l    yellow [high for fish - adjust]
         ///     > 40 mg/l    red [toxic for fish - adjust immediately] 
         /// </summary>
-        public static readonly List<ValueBounds> CO2Ranges = new List<ValueBounds>() {
+        public static readonly ValueBounds[] CO2Ranges = new ValueBounds[] {
             new ValueBounds(0, 12, Color.DeepPink, "very_low_adjust"),
             new ValueBounds(12, 20, Color.YellowGreen, "low_adjust"),
             new ValueBounds(20, 30, Color.Green, ""),
@@ -193,47 +192,47 @@ namespace AquaLog.Core
         };
 
 
-        public static readonly List<ValueBounds> NO3Ranges = new List<ValueBounds>() {
+        public static readonly ValueBounds[] NO3Ranges = new ValueBounds[] {
             new ValueBounds(0, 25, Color.Green, "Safe"),
             new ValueBounds(25, 100, Color.Orange, "Warn"),
             new ValueBounds(100, 250, Color.Red, "Alarm"),
         };
 
 
-        public static readonly List<ValueBounds> NO2Ranges = new List<ValueBounds>() {
+        public static readonly ValueBounds[] NO2Ranges = new ValueBounds[] {
             new ValueBounds(0, 1, Color.Green, "Safe"),
             new ValueBounds(1, 5, Color.Orange, "Warn"),
             new ValueBounds(5, 10, Color.Red, "Alarm"),
         };
 
 
-        public static readonly List<ValueBounds> GHRanges = new List<ValueBounds>() {
+        public static readonly ValueBounds[] GHRanges = new ValueBounds[] {
             new ValueBounds(0, 4, Color.Orange, "Warn"),
             new ValueBounds(4, 16, Color.Green, "Safe"),
         };
 
 
-        public static readonly List<ValueBounds> KHRanges = new List<ValueBounds>() {
+        public static readonly ValueBounds[] KHRanges = new ValueBounds[] {
             new ValueBounds(0, 3, Color.Red, "Alarm"),
             new ValueBounds(3, 10, Color.Green, "Safe"),
             new ValueBounds(10, 20, Color.Orange, "Warn"),
         };
 
 
-        public static readonly List<ValueBounds> pHRanges = new List<ValueBounds>() {
+        public static readonly ValueBounds[] pHRanges = new ValueBounds[] {
             new ValueBounds(0, 6.4, Color.Orange, "Warn"),
             new ValueBounds(6.4, 8.4, Color.Green, "Safe"),
             new ValueBounds(8.4, 10, Color.Red, "Alarm"),
         };
 
 
-        public static readonly List<ValueBounds> Cl2Ranges = new List<ValueBounds>() {
+        public static readonly ValueBounds[] Cl2Ranges = new ValueBounds[] {
             new ValueBounds(0, 0.8, Color.Green, "Safe"),
             new ValueBounds(0.8, 3.0, Color.Red, "Alarm"),
         };
 
 
-        public static readonly List<ValueBounds> RedfieldRanges = new List<ValueBounds>() {
+        public static readonly ValueBounds[] RedfieldRanges = new ValueBounds[] {
             new ValueBounds(0, 5, Color.Green, "high (Cianobacter)"),
             new ValueBounds(5, 10, Color.Red, "media (Cianobacter)"),
             new ValueBounds(10, 20, Color.Green, "low"),
@@ -314,17 +313,17 @@ namespace AquaLog.Core
                 height -= glassThickness; // only bottom
             }
 
-            double ae = ((width / 2.0f));
-            double ed = ((centreDepth - sideDepth));
-            double ce = ((ae * ae / ed));
-            double ao = (((ed + ce) / 2.0f));
-            double oe = ((ao - ed));
-            double aob = ((2.0f * Math.Atan2(ae, oe)));
-            double areasector = ((aob * ao * ao / 2.0f));
-            double areatriangle = ((oe * ae));
-            double areasegment = ((areasector - areatriangle));
-            double volsegment = ((areasegment * height));
-            double ccVolume = ((width * sideDepth * height + volsegment)); // cubic cm (cc)
+            double ae = (width / 2.0f);
+            double ed = (centreDepth - sideDepth);
+            double ce = (ae * ae / ed);
+            double ao = ((ed + ce) / 2.0f);
+            double oe = (ao - ed);
+            double aob = (2.0f * Math.Atan2(ae, oe));
+            double areasector = (aob * ao * ao / 2.0f);
+            double areatriangle = (oe * ae);
+            double areasegment = (areasector - areatriangle);
+            double volsegment = (areasegment * height);
+            double ccVolume = (width * sideDepth * height + volsegment); // cubic cm (cc)
 
             return UnitConverter.cc2l(ccVolume);
         }
@@ -363,12 +362,10 @@ namespace AquaLog.Core
         /// </summary>
         public static double CalcCO2(double degKH, double PH)
         {
-            // common variant: CO2 = 3 * KH * 10(7-pH) (KH in degrees) [1 source]
-            // return 3 * degKH * Math.Pow(10, 7 - PH);
-
+            // common variant: CO2 = 3 * degKH * 10^(7 - pH) [1 source]
             // CO2 = 12.839 * dKH * 10^(6.37 - pH) [2 source]
 
-            // corrected variants
+            // corrected variants:
             // CO2 = 15.65 * dKH * 10^(6.35-pH)
             // CO2 = 15.65 * dKH * 10^(6.37-pH)
             return 15.65 * degKH * Math.Pow(10, 6.37 - PH); // 3 source

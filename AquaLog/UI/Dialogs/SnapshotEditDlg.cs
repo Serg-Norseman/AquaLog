@@ -6,7 +6,6 @@
 
 using System;
 using System.Drawing.Imaging;
-using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;

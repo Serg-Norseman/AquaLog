@@ -21,10 +21,10 @@ namespace AquaLog.Components
 
     public sealed class ChartPoint
     {
-        public string Caption;
-        public DateTime Timestamp;
-        public double Value;
-        public Color Color;
+        public string Caption { get; private set; }
+        public DateTime Timestamp { get; private set; }
+        public double Value { get; private set; }
+        public Color Color { get; private set; }
 
         public ChartPoint(string caption, double value)
         {
@@ -83,16 +83,14 @@ namespace AquaLog.Components
             GraphPane gPane = fGraph.GraphPane;
             try {
                 //gPane.Title.Text = title;
-                gPane.XAxis.Title.Text = xAxis;
 
+                gPane.XAxis.Title.Text = xAxis;
                 gPane.XAxis.Type = AxisType.Date;
                 gPane.XAxis.Scale.Format = "yy-MM-dd HH:mm:ss";
                 gPane.XAxis.Scale.FontSpec.Angle = 60;
                 gPane.XAxis.Scale.FontSpec.Size = 12;
                 gPane.XAxis.Scale.MajorUnit = DateUnit.Year;
-                //gPane.XAxis.Scale.MajorStep = 500;
                 gPane.XAxis.Scale.MinorUnit = DateUnit.Second;
-                //gPane.XAxis.Scale.MinorStep = 250;
 
                 gPane.YAxis.Title.Text = yAxis;
 
@@ -102,13 +100,7 @@ namespace AquaLog.Components
                     int num = vals.Count;
                     for (int i = 0; i < num; i++) {
                         ChartPoint item = vals[i];
-
-                        //string s = item.Caption;
-                        //double lab = (s == "?") ? 0.0f : ConvertHelper.ParseFloat(s, 0.0f, true);
-
-                        //if (lab != 0.0d || !excludeUnknowns) {
-                            ppList.Add(new XDate(item.Timestamp), item.Value);
-                        //}
+                        ppList.Add(new XDate(item.Timestamp), item.Value);
                     }
                     ppList.Sort();
 

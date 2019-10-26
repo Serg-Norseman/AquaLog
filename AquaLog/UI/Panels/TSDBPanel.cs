@@ -7,9 +7,7 @@
 using System;
 using System.Windows.Forms;
 using AquaLog.Core;
-using AquaLog.DataCollection;
 using AquaLog.TSDB;
-using AquaLog.UI;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -17,7 +15,7 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class TSDBPanel : ListPanel
+    public sealed class TSDBPanel : ListPanel
     {
         public TSDBPanel()
         {

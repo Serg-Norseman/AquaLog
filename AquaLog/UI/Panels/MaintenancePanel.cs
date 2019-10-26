@@ -15,7 +15,7 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class MaintenancePanel : ListPanel<Maintenance, MaintenanceEditDlg>
+    public sealed class MaintenancePanel : ListPanel<Maintenance, MaintenanceEditDlg>
     {
         public MaintenancePanel()
         {

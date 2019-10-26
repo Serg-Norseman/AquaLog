@@ -37,8 +37,8 @@ namespace AquaLog.TSDB
     public class SDCompression
     {
         private bool fIsNeedInit;
-        private double fDeviation; // inaccuracy of measurements
-        private long fCorridorTimeSec; // maximum time in seconds during which at least one point must be stored
+        private readonly double fDeviation; // inaccuracy of measurements
+        private readonly long fCorridorTimeSec; // maximum time in seconds during which at least one point must be stored
         private DateTime fLastRetainDate; // timestamp of the last data record
         private DataPoint fCurrPoint; // current point from the device
         private DataPoint fPrevPoint; // previous point from the device

@@ -10,8 +10,6 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
-using AquaLog.DataCollection;
-using AquaLog.UI;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -19,9 +17,9 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class DevicePanel : ListPanel<Device, DeviceEditDlg>
+    public sealed class DevicePanel : ListPanel<Device, DeviceEditDlg>
     {
-        private Label fFooter;
+        private readonly Label fFooter;
 
         public DevicePanel()
         {

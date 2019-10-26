@@ -30,9 +30,9 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class MeasuresChartPanel : DataPanel
+    public sealed class MeasuresChartPanel : DataPanel
     {
-        private ZGraphControl fGraph;
+        private readonly ZGraphControl fGraph;
         private IEnumerable<Measure> fMeasures;
         private Dictionary<string, Trend> fTrends;
 

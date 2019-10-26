@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
-using AquaLog.UI;
 using BSLib;
 
 namespace AquaLog.UI.Panels
@@ -28,12 +27,12 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class TankSticker : UserControl
+    public sealed class TankSticker : UserControl
     {
         private Aquarium fAquarium;
         private ALModel fModel;
         private bool fSelected;
-        private StringFormat fStrFormat;
+        private readonly StringFormat fStrFormat;
         private SolidBrush fTextBrush;
         private List<MeasureValue> fValues;
 

@@ -84,18 +84,6 @@ namespace AquaLog.Core
             fHideAtStartup = ini.ReadBool("Common", "HideAtStartup", false);
         }
 
-        public void SaveToFile(IniFile ini)
-        {
-            if (ini == null)
-                throw new ArgumentNullException("ini");
-
-            ini.WriteBool("Common", "HideClosedTanks", fHideClosedTanks);
-            ini.WriteBool("Common", "ExitOnClose", fExitOnClose);
-            ini.WriteInteger("Common", "InterfaceLang", fInterfaceLang);
-            ini.WriteBool("Common", "HideAtStartup", fHideAtStartup);
-        }
-
-
         public void LoadFromFile(string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
@@ -111,6 +99,18 @@ namespace AquaLog.Core
             } catch (Exception ex) {
                 fLogger.WriteError("ALSettings.LoadFromFile(): " + ex.Message);
             }
+        }
+
+
+        public void SaveToFile(IniFile ini)
+        {
+            if (ini == null)
+                throw new ArgumentNullException("ini");
+
+            ini.WriteBool("Common", "HideClosedTanks", fHideClosedTanks);
+            ini.WriteBool("Common", "ExitOnClose", fExitOnClose);
+            ini.WriteInteger("Common", "InterfaceLang", fInterfaceLang);
+            ini.WriteBool("Common", "HideAtStartup", fHideAtStartup);
         }
 
         public void SaveToFile(string fileName)

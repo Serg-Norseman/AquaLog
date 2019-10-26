@@ -18,7 +18,7 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class LifeLinesPanel : DataPanel
+    public sealed class LifeLinesPanel : DataPanel
     {
         private readonly TimelineViewer fGraph;
 
@@ -26,7 +26,7 @@ namespace AquaLog.UI.Panels
         {
             fGraph = new TimelineViewer();
             fGraph.Dock = DockStyle.Fill;
-            fGraph.BackColor = Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            fGraph.BackColor = Color.FromArgb(64, 64, 64);
             fGraph.BackgroundColor = Color.Black;
             fGraph.Dock = DockStyle.Fill;
             fGraph.GridAlpha = 40;
@@ -43,7 +43,6 @@ namespace AquaLog.UI.Panels
 
             IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
-                Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
                 SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
                 ItemType itemType = ALCore.GetItemType(speciesType);
 

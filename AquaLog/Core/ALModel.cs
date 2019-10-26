@@ -95,11 +95,6 @@ namespace AquaLog.Core
             return (objId <= 0) ? default(T) : fDB.Get<T>(objId);
         }
 
-        public IEnumerable<T> QueryRecords<T>(string query, params object[] args) where T : new()
-        {
-            return fDB.Query<T>(query, args);
-        }
-
         public Entity GetRecord(ItemType itemType, int itemId)
         {
             Entity result = null;
@@ -139,6 +134,11 @@ namespace AquaLog.Core
         {
             Entity itemRec = GetRecord(itemType, itemId);
             return (itemRec == null) ? string.Empty : itemRec.ToString();
+        }
+
+        public IEnumerable<T> QueryRecords<T>(string query, params object[] args) where T : new()
+        {
+            return fDB.Query<T>(query, args);
         }
 
         #region Aquarium functions
@@ -485,7 +485,7 @@ namespace AquaLog.Core
             return measures;
         }
 
-        private void PrepareValue(Aquarium aquarium, List<MeasureValue> measures, string field, string sign, string uom, List<ValueBounds> ranges)
+        private void PrepareValue(Aquarium aquarium, List<MeasureValue> measures, string field, string sign, string uom, ValueBounds[] ranges)
         {
             QDecimal measure = QueryLastMeasure(aquarium, field);
             double mVal = (measure != null) ? measure.value : double.NaN;
@@ -512,7 +512,7 @@ namespace AquaLog.Core
             measures.Add(tval);
         }
 
-        private static ValueBounds CheckValue(double value, List<ValueBounds> ranges)
+        private static ValueBounds CheckValue(double value, ValueBounds[] ranges)
         {
             foreach (var bounds in ranges) {
                 if (value >= bounds.Min && value <= bounds.Max) {

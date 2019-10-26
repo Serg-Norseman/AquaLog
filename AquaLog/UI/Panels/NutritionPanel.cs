@@ -16,7 +16,7 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class NutritionPanel : ListPanel<Nutrition, NutritionEditDlg>
+    public sealed class NutritionPanel : ListPanel<Nutrition, NutritionEditDlg>
     {
         public NutritionPanel()
         {

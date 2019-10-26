@@ -11,7 +11,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
-using BSLib;
 
 namespace BSLib.Timeline
 {
@@ -87,8 +86,8 @@ namespace BSLib.Timeline
         private Pen fGridPen;
         private EventFrame fHighlightedFrame;
         private ExtSize fImageSize;
-        private Font fLabelFont;
-        private StringFormat fLabelsFormat;
+        private readonly Font fLabelFont;
+        private readonly StringFormat fLabelsFormat;
         private Pen fMinorGridPen;
         private PointF fPanOrigin;
         private SizeF fPlayheadExtents;
@@ -97,9 +96,9 @@ namespace BSLib.Timeline
         private float fRenderingScale;
         private readonly List<EventFrame> fSelectedFrames;
         private Point fSelectionOrigin;
-        private Pen fSelectionPen;
+        private readonly Pen fSelectionPen;
         private Rectangle fSelectionRectangle;
-        private ToolTip fToolTip;
+        private readonly ToolTip fToolTip;
         private List<string> fToolTipText;
         private int fTrackBorderSize;
         private List<Color> fTrackColors;
@@ -146,7 +145,7 @@ namespace BSLib.Timeline
         ///   Invoked when the selection of track elements changed.
         ///   Inspect <see cref="SelectedFrames"/> to see the current selection.
         /// </summary>
-        public EventHandler<SelectionChangedEventArgs> SelectionChanged;
+        public event EventHandler<SelectionChangedEventArgs> SelectionChanged;
 
         /// <summary>
         ///   How high a single track should be.
@@ -911,7 +910,7 @@ namespace BSLib.Timeline
         /// <param name="eventArgs">The arguments to pass with the event.</param>
         private void InvokeSelectionChanged(SelectionChangedEventArgs eventArgs = null)
         {
-            if (null != SelectionChanged) {
+            if (SelectionChanged != null) {
                 SelectionChanged.Invoke(this, eventArgs ?? SelectionChangedEventArgs.Empty);
             }
         }

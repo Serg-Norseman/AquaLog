@@ -4,7 +4,6 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -18,9 +17,9 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class BudgetChartPanel : DataPanel
+    public sealed class BudgetChartPanel : DataPanel
     {
-        private ZGraphControl fGraph;
+        private readonly ZGraphControl fGraph;
         private BudgetChartType fChartType;
 
         public BudgetChartPanel()

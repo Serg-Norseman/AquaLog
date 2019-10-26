@@ -10,7 +10,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core;
-using AquaLog.UI;
 
 namespace AquaLog.UI.Panels
 {

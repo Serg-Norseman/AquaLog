@@ -4,15 +4,14 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-using System;
 using BSLib;
 
 namespace AquaLog.Core.Types
 {
     public sealed class ItemProps
     {
-        public LSID Name;
-        public EnumSet<ItemState> States;
+        public LSID Name { get; private set; }
+        public EnumSet<ItemState> States { get; private set; }
 
         public ItemProps(LSID name, EnumSet<ItemState> states)
         {

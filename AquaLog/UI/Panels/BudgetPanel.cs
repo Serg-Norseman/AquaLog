@@ -23,9 +23,9 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class BudgetPanel : ListPanel
+    public sealed class BudgetPanel : ListPanel
     {
-        private Label fFooter;
+        private readonly Label fFooter;
 
         public BudgetPanel()
         {

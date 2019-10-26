@@ -4,8 +4,6 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-using System;
-
 namespace AquaLog.Core
 {
     /// <summary>

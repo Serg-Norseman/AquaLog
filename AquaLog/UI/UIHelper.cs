@@ -66,14 +66,7 @@ namespace AquaLog.UI
 
         public static ListViewItem GetSelectedItem(ListView listView)
         {
-            ListViewItem result;
-
-            if (listView.SelectedItems.Count <= 0) {
-                result = null;
-            } else {
-                result = (listView.SelectedItems[0] as ListViewItem);
-            }
-
+            ListViewItem result = (listView.SelectedItems.Count <= 0) ? null : listView.SelectedItems[0];
             return result;
         }
 
