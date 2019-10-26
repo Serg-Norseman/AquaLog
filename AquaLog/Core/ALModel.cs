@@ -585,6 +585,11 @@ namespace AquaLog.Core
             return fDB.Query<Snapshot>("select * from Snapshot");
         }
 
+        public IList<Snapshot> QuerySnapshots(int itemId, int itemType)
+        {
+            return fDB.Query<Snapshot>("select * from Snapshot where (ItemId = ? and ItemType = ?) order by [Timestamp]", itemId, itemType);
+        }
+
         #endregion
     }
 }

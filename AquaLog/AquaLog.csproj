@@ -149,6 +149,7 @@
     <Compile Include="TSDB\TSDatabase.cs" />
     <Compile Include="TSDB\TSValue.cs" />
     <Compile Include="UI\ALTray.cs" />
+    <Compile Include="UI\Components\ImageViewer.cs" />
     <Compile Include="UI\Components\UserAction.cs" />
     <Compile Include="UI\Components\ComboItem.cs" />
     <Compile Include="UI\Components\WizardPages.cs" />

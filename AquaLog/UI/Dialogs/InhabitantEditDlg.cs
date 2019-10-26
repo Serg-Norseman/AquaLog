@@ -82,11 +82,17 @@ namespace AquaLog.UI.Dialogs
             cmbSpecies.SelectedItem = species;
             cmbSex.SetSelectedTag(fRecord.Sex);
 
+            ItemType itemType;
+
             if (species != null) {
-                UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(species.Type), fRecord.State);
+                itemType = ALCore.GetItemType(species.Type);
+                UIHelper.FillItemStatesCombo(cmbState, itemType, fRecord.State);
             } else {
+                itemType = ItemType.None;
                 cmbState.Items.Clear();
             }
+
+            imgViewer.SetRecord(fModel, fRecord.Id, itemType);
         }
 
         private void ApplyChanges()

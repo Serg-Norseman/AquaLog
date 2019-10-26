@@ -30,5 +30,6 @@ Features:
 - Multilingual: English, Russian;
 - Export to XLS and CSV (measures and maintenance);
 - Export to RTF (aquarium's logbook);
+- Snapshots of inhabitants;
 
 The application is simple and minimal. Clean, the most basic functionality.

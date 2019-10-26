@@ -15,6 +15,7 @@
         private System.Windows.Forms.ComboBox cmbSpecies;
         private System.Windows.Forms.ComboBox cmbState;
         private System.Windows.Forms.Label lblState;
+        private AquaLog.Components.ImageViewer imgViewer;
         
         protected override void Dispose(bool disposing)
         {
@@ -40,11 +41,12 @@
             this.cmbSpecies = new System.Windows.Forms.ComboBox();
             this.cmbState = new System.Windows.Forms.ComboBox();
             this.lblState = new System.Windows.Forms.Label();
+            this.imgViewer = new AquaLog.Components.ImageViewer();
             this.SuspendLayout();
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(315, 161);
+            this.btnAccept.Location = new System.Drawing.Point(566, 161);
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
@@ -57,7 +59,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(415, 161);
+            this.btnCancel.Location = new System.Drawing.Point(666, 161);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
@@ -68,7 +70,7 @@
             // 
             // lblName
             // 
-            this.lblName.Location = new System.Drawing.Point(11, 14);
+            this.lblName.Location = new System.Drawing.Point(262, 14);
             this.lblName.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(80, 17);
@@ -77,7 +79,7 @@
             // 
             // lblSex
             // 
-            this.lblSex.Location = new System.Drawing.Point(337, 13);
+            this.lblSex.Location = new System.Drawing.Point(588, 14);
             this.lblSex.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSex.Name = "lblSex";
             this.lblSex.Size = new System.Drawing.Size(80, 17);
@@ -86,7 +88,7 @@
             // 
             // lblNote
             // 
-            this.lblNote.Location = new System.Drawing.Point(11, 74);
+            this.lblNote.Location = new System.Drawing.Point(262, 75);
             this.lblNote.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNote.Name = "lblNote";
             this.lblNote.Size = new System.Drawing.Size(80, 17);
@@ -95,7 +97,7 @@
             // 
             // txtName
             // 
-            this.txtName.Location = new System.Drawing.Point(94, 10);
+            this.txtName.Location = new System.Drawing.Point(345, 11);
             this.txtName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(239, 22);
@@ -105,7 +107,7 @@
             // 
             this.cmbSex.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSex.FormattingEnabled = true;
-            this.cmbSex.Location = new System.Drawing.Point(387, 10);
+            this.cmbSex.Location = new System.Drawing.Point(638, 11);
             this.cmbSex.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbSex.Name = "cmbSex";
             this.cmbSex.Size = new System.Drawing.Size(124, 21);
@@ -113,7 +115,7 @@
             // 
             // txtNote
             // 
-            this.txtNote.Location = new System.Drawing.Point(94, 71);
+            this.txtNote.Location = new System.Drawing.Point(345, 72);
             this.txtNote.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtNote.Multiline = true;
             this.txtNote.Name = "txtNote";
@@ -122,7 +124,7 @@
             // 
             // lblSpecies
             // 
-            this.lblSpecies.Location = new System.Drawing.Point(11, 43);
+            this.lblSpecies.Location = new System.Drawing.Point(262, 45);
             this.lblSpecies.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblSpecies.Name = "lblSpecies";
             this.lblSpecies.Size = new System.Drawing.Size(88, 17);
@@ -131,7 +133,7 @@
             // 
             // cmbSpecies
             // 
-            this.cmbSpecies.Location = new System.Drawing.Point(94, 40);
+            this.cmbSpecies.Location = new System.Drawing.Point(345, 42);
             this.cmbSpecies.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbSpecies.Name = "cmbSpecies";
             this.cmbSpecies.Size = new System.Drawing.Size(239, 21);
@@ -142,7 +144,7 @@
             // 
             this.cmbState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbState.FormattingEnabled = true;
-            this.cmbState.Location = new System.Drawing.Point(94, 128);
+            this.cmbState.Location = new System.Drawing.Point(345, 129);
             this.cmbState.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.cmbState.Name = "cmbState";
             this.cmbState.Size = new System.Drawing.Size(136, 21);
@@ -150,12 +152,21 @@
             // 
             // lblState
             // 
-            this.lblState.Location = new System.Drawing.Point(11, 131);
+            this.lblState.Location = new System.Drawing.Point(262, 132);
             this.lblState.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblState.Name = "lblState";
             this.lblState.Size = new System.Drawing.Size(80, 17);
             this.lblState.TabIndex = 24;
             this.lblState.Text = "State";
+            // 
+            // imgViewer
+            // 
+            this.imgViewer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.imgViewer.Location = new System.Drawing.Point(12, 12);
+            this.imgViewer.Name = "imgViewer";
+            this.imgViewer.Size = new System.Drawing.Size(245, 172);
+            this.imgViewer.TabIndex = 26;
+            this.imgViewer.TabStop = false;
             // 
             // InhabitantEditDlg
             // 
@@ -163,7 +174,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(522, 196);
+            this.ClientSize = new System.Drawing.Size(773, 196);
+            this.Controls.Add(this.imgViewer);
             this.Controls.Add(this.cmbState);
             this.Controls.Add(this.lblState);
             this.Controls.Add(this.txtNote);
