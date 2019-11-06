@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
@@ -113,17 +114,60 @@ namespace AquaLog.UI.Panels
 
         private void ViewChartTypesHandler(object sender, EventArgs e)
         {
-            Browser.SetView(MainView.BudgetChart, BudgetChartType.ItemTypes);
+            var chartData = GetChartData(BudgetChartType.ItemTypes);
+            Browser.SetView(MainView.PieChart, chartData);
         }
 
         private void ViewChartShopsHandler(object sender, EventArgs e)
         {
-            Browser.SetView(MainView.BudgetChart, BudgetChartType.Shops);
+            var chartData = GetChartData(BudgetChartType.Shops);
+            Browser.SetView(MainView.PieChart, chartData);
         }
 
         private void ViewChartBrandsHandler(object sender, EventArgs e)
         {
-            Browser.SetView(MainView.BudgetChart, BudgetChartType.Brands);
+            var chartData = GetChartData(BudgetChartType.Brands);
+            Browser.SetView(MainView.PieChart, chartData);
+        }
+
+        private Dictionary<string, double> GetChartData(BudgetChartType chartType)
+        {
+            Dictionary<string, double> result = new Dictionary<string, double>();
+
+            var records = fModel.QueryExpenses();
+            foreach (Transfer rec in records) {
+                if (rec.Type != TransferType.Purchase) continue;
+                double trnSum = (rec.Quantity * rec.UnitPrice);
+                var itemRec = fModel.GetRecord(rec.ItemType, rec.ItemId);
+
+                string key;
+                switch (chartType) {
+                    case BudgetChartType.ItemTypes:
+                        ItemType itType = (itemRec is Inventory) ? ALCore.GetItemType(((Inventory)itemRec).Type) : rec.ItemType; // FIXME
+                        key = Localizer.LS(ALData.ItemTypes[(int)itType].Name);
+                        break;
+                    case BudgetChartType.Shops:
+                        key = rec.Shop;
+                        break;
+                    case BudgetChartType.Brands:
+                        var brandedItem = itemRec as IBrandedItem;
+                        key = (brandedItem == null) ? "-" : brandedItem.Brand;
+                        break;
+                    default:
+                        key = "";
+                        break;
+                }
+
+                double iSum;
+                if (result.TryGetValue(key, out iSum)) {
+                    iSum += trnSum;
+                    result[key] = iSum;
+                } else {
+                    result.Add(key, trnSum);
+                }
+            }
+
+            return result;
         }
     }
 }

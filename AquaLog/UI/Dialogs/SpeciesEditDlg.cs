@@ -64,6 +64,8 @@ namespace AquaLog.UI.Dialogs
             lblName.Text = Localizer.LS(LSID.Name);
             lblDesc.Text = Localizer.LS(LSID.Description);
             lblType.Text = Localizer.LS(LSID.Type);
+            lblScientificName.Text = Localizer.LS(LSID.ScientificName);
+            lblFamily.Text = Localizer.LS(LSID.BioFamily);
 
             tabFish.Text = Localizer.LS(LSID.Fish);
             tabInvertebrate.Text = Localizer.LS(LSID.Invertebrate);
@@ -94,6 +96,14 @@ namespace AquaLog.UI.Dialogs
                 txtLifeSpan.Text = ALCore.GetDecimalStr(fRecord.LifeSpan);
                 cmbSwimLevel.SetSelectedTag(fRecord.SwimLevel);
             }
+
+            cmbFamily.Items.Clear();
+            var families = fModel.QuerySpeciesFamilies();
+            foreach (QString bqs in families) {
+                if (!string.IsNullOrEmpty(bqs.element))
+                    cmbFamily.Items.Add(bqs.element);
+            }
+            cmbFamily.Text = fRecord.BioFamily;
         }
 
         private void ApplyChanges()
@@ -115,6 +125,8 @@ namespace AquaLog.UI.Dialogs
                 fRecord.LifeSpan = (float)ALCore.GetDecimalVal(txtLifeSpan.Text);
                 fRecord.SwimLevel = cmbSwimLevel.GetSelectedTag<SwimLevel>();
             }
+
+            fRecord.BioFamily = cmbFamily.Text;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

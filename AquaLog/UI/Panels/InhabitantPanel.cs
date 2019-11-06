@@ -31,6 +31,7 @@ namespace AquaLog.UI.Panels
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
             AddAction("Transfer", LSID.Transfer, null, TransferHandler);
             AddAction("Chart", LSID.Chart, "", ViewLifeLinesHandler);
+            AddAction("ChartFamilies", LSID.ChartFamilies, "", ViewChartFamiliesHandler);
         }
 
         protected override void UpdateListView()
@@ -116,6 +117,38 @@ namespace AquaLog.UI.Panels
         private void ViewLifeLinesHandler(object sender, EventArgs e)
         {
             Browser.SetView(MainView.LifeLinesChart, null);
+        }
+
+        private void ViewChartFamiliesHandler(object sender, EventArgs e)
+        {
+            var chartData = GetChartData();
+            Browser.SetView(MainView.PieChart, chartData);
+        }
+
+        private Dictionary<string, double> GetChartData()
+        {
+            Dictionary<string, double> result = new Dictionary<string, double>();
+
+            IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
+            foreach (Inhabitant rec in records) {
+                Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
+                SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
+                ItemType itemType = ALCore.GetItemType(speciesType);
+                var qty = fModel.QueryInhabitantsCount(rec.Id, itemType);
+
+                string key = spc.BioFamily;
+                if (!string.IsNullOrEmpty(key)) {
+                    double iSum;
+                    if (result.TryGetValue(key, out iSum)) {
+                        iSum += qty;
+                        result[key] = iSum;
+                    } else {
+                        result.Add(key, qty);
+                    }
+                }
+            }
+
+            return result;
         }
     }
 }

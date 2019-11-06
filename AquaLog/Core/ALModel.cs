@@ -275,6 +275,11 @@ namespace AquaLog.Core
             return (species != null && species.Count > 0) ? species[0].Type : SpeciesType.Fish;
         }
 
+        public IList<QString> QuerySpeciesFamilies()
+        {
+            return fDB.Query<QString>("select distinct BioFamily as element from Species");
+        }
+
         #endregion
 
         #region Device functions

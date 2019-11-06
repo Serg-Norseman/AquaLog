@@ -31,7 +31,8 @@ namespace AquaLog.UI.Panels
         {
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Name), 200, HorizontalAlignment.Left);
-            ListView.Columns.Add("ScientificName", 200, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.ScientificName), 200, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.BioFamily), 200, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
             ListView.Columns.Add("Temp", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("PH", 100, HorizontalAlignment.Left);
@@ -47,6 +48,7 @@ namespace AquaLog.UI.Panels
 
                 var item = new ListViewItem(rec.Name);
                 item.SubItems.Add(rec.ScientificName);
+                item.SubItems.Add(rec.BioFamily);
                 item.SubItems.Add(strType);
                 item.SubItems.Add(rec.GetTempRange());
                 item.SubItems.Add(rec.GetPHRange());

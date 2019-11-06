@@ -194,8 +194,11 @@ namespace AquaLog.Core
         /* 170 */ CentreDepth,
         /* 171 */ Snapshot,
         /* 172 */ Snapshots,
+        /* 173 */ ScientificName,
+        /* 174 */ BioFamily,
+        /* 175 */ ChartFamilies,
 
-        /* 000 */ Last = Snapshots
+        /* 000 */ Last = ChartFamilies
     }
 
 
@@ -378,6 +381,9 @@ namespace AquaLog.Core
             /* 170 */ "Centre depth",
             /* 171 */ "Snapshot",
             /* 172 */ "Snapshots",
+            /* 173 */ "Scientific Name",
+            /* 174 */ "Family",
+            /* 175 */ "Chart (families)",
         };
 
 

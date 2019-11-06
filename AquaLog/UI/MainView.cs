@@ -28,7 +28,7 @@ namespace AquaLog.UI
         Schedule,
         AquariumDetails,
         Inventory,
-        BudgetChart,
+        PieChart,
         LifeLinesChart,
         Snapshots,
     }

@@ -273,7 +273,7 @@
     </Compile>
     <Compile Include="UI\MainView.cs" />
     <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
-    <Compile Include="UI\Panels\BudgetChartPanel.cs" />
+    <Compile Include="UI\Panels\ChartPanel.cs" />
     <Compile Include="UI\Panels\InventoryPanel.cs" />
     <Compile Include="UI\Panels\LifeLinesPanel.cs" />
     <Compile Include="UI\Panels\MeasurePanel.cs" />
