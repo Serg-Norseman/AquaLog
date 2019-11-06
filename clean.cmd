@@ -17,6 +17,9 @@ rmdir .\AquaLog.Tests\OpenCover /s /q
 rmdir .\BSLib.Timeline\bin /s /q
 rmdir .\BSLib.Timeline\obj /s /q
 
+rmdir .\M3DViewerTest\bin /s /q
+rmdir .\M3DViewerTest\obj /s /q
+
 del msbuild.log
 
 rmdir .\.sonarqube /s /q
