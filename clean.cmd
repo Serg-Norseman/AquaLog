@@ -20,6 +20,9 @@ rmdir .\BSLib.Timeline\obj /s /q
 rmdir .\M3DViewerTest\bin /s /q
 rmdir .\M3DViewerTest\obj /s /q
 
+rmdir .\M3DViewerGL\bin /s /q
+rmdir .\M3DViewerGL\obj /s /q
+
 del msbuild.log
 
 rmdir .\.sonarqube /s /q

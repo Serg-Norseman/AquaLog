@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3DViewerTest", "M3DViewerTest\M3DViewerTest.csproj", "{C4DF47F7-B1B0-4D53-81E4-7522832F03CB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3DViewerGL", "M3DViewerGL\M3DViewerGL.csproj", "{5FF1C209-4A1E-4471-A771-4993F62B6ED5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -58,5 +60,13 @@ Global
 		{C4DF47F7-B1B0-4D53-81E4-7522832F03CB}.Release|x86.Build.0 = Release|x86
 		{C4DF47F7-B1B0-4D53-81E4-7522832F03CB}.Release|x64.ActiveCfg = Release|x64
 		{C4DF47F7-B1B0-4D53-81E4-7522832F03CB}.Release|x64.Build.0 = Release|x64
+		{5FF1C209-4A1E-4471-A771-4993F62B6ED5}.Debug|x86.ActiveCfg = Debug|x86
+		{5FF1C209-4A1E-4471-A771-4993F62B6ED5}.Debug|x86.Build.0 = Debug|x86
+		{5FF1C209-4A1E-4471-A771-4993F62B6ED5}.Debug|x64.ActiveCfg = Debug|x64
+		{5FF1C209-4A1E-4471-A771-4993F62B6ED5}.Debug|x64.Build.0 = Debug|x64
+		{5FF1C209-4A1E-4471-A771-4993F62B6ED5}.Release|x86.ActiveCfg = Release|x86
+		{5FF1C209-4A1E-4471-A771-4993F62B6ED5}.Release|x86.Build.0 = Release|x86
+		{5FF1C209-4A1E-4471-A771-4993F62B6ED5}.Release|x64.ActiveCfg = Release|x64
+		{5FF1C209-4A1E-4471-A771-4993F62B6ED5}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal
