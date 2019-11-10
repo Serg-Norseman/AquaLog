@@ -78,6 +78,8 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="M3DHelper.cs" />
+    <Compile Include="M3DTanks.cs" />
     <Compile Include="M3DViewer.cs" />
     <Compile Include="MainWindow.cs" />
   </ItemGroup>
