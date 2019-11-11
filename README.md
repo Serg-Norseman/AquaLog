@@ -31,5 +31,6 @@ Features:
 - Export to XLS and CSV (measures and maintenance);
 - Export to RTF (aquarium's logbook);
 - Snapshots of inhabitants;
+- 3D viewer of tanks (OpenGL, only rectangular and bowfront);
 
 The application is simple and minimal. Clean, the most basic functionality.

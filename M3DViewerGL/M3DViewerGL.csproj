@@ -71,23 +71,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="csgl">
-      <HintPath>csgl.dll</HintPath>
+      <HintPath>..\libs\csgl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="M3DHelper.cs" />
-    <Compile Include="M3DTanks.cs" />
-    <Compile Include="M3DViewer.cs" />
     <Compile Include="MainWindow.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="csgl.native.dll">
-      <HintPath>csgl.native.dll</HintPath>
+    <None Include="..\libs\csgl.native.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AquaLog.GLViewer\AquaLog.GLViewer.csproj">
+      <Project>{d40a4442-0bf4-4189-a914-2d9037faeb92}</Project>
+      <Name>AquaLog.GLViewer</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

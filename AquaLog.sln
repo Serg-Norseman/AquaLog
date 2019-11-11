@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3DViewerTest", "M3DViewerT
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "M3DViewerGL", "M3DViewerGL\M3DViewerGL.csproj", "{5FF1C209-4A1E-4471-A771-4993F62B6ED5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaLog.GLViewer", "AquaLog.GLViewer\AquaLog.GLViewer.csproj", "{D40A4442-0BF4-4189-A914-2D9037FAEB92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -68,5 +70,13 @@ Global
 		{5FF1C209-4A1E-4471-A771-4993F62B6ED5}.Release|x86.Build.0 = Release|x86
 		{5FF1C209-4A1E-4471-A771-4993F62B6ED5}.Release|x64.ActiveCfg = Release|x64
 		{5FF1C209-4A1E-4471-A771-4993F62B6ED5}.Release|x64.Build.0 = Release|x64
+		{D40A4442-0BF4-4189-A914-2D9037FAEB92}.Debug|x86.ActiveCfg = Debug|x86
+		{D40A4442-0BF4-4189-A914-2D9037FAEB92}.Debug|x86.Build.0 = Debug|x86
+		{D40A4442-0BF4-4189-A914-2D9037FAEB92}.Debug|x64.ActiveCfg = Debug|x64
+		{D40A4442-0BF4-4189-A914-2D9037FAEB92}.Debug|x64.Build.0 = Debug|x64
+		{D40A4442-0BF4-4189-A914-2D9037FAEB92}.Release|x86.ActiveCfg = Release|x86
+		{D40A4442-0BF4-4189-A914-2D9037FAEB92}.Release|x86.Build.0 = Release|x86
+		{D40A4442-0BF4-4189-A914-2D9037FAEB92}.Release|x64.ActiveCfg = Release|x64
+		{D40A4442-0BF4-4189-A914-2D9037FAEB92}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal

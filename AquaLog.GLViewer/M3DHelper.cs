@@ -5,11 +5,22 @@
  */
 
 using System;
-using System.Drawing;
+using System.Collections.Generic;
 using CsGL.OpenGL;
 
-namespace M3DViewerGL
+namespace AquaLog.GLViewer
 {
+    [Flags]
+    public enum BoxSide
+    {
+        Top,
+        Bottom,
+        Left,
+        Right,
+        Back,
+        Front
+    }
+
     public struct Point3D
     {
         public float X;
@@ -27,6 +38,8 @@ namespace M3DViewerGL
     public static class M3DHelper
     {
         public const float DEG2RAD = 3.14159F / 180;
+        public const BoxSide AllSides = BoxSide.Top | BoxSide.Bottom | BoxSide.Left | BoxSide.Right | BoxSide.Back | BoxSide.Front;
+        public const BoxSide AllSidesWF = BoxSide.Top | BoxSide.Bottom | BoxSide.Left | BoxSide.Right | BoxSide.Back;
 
 
         public static void SetMaterial(float[] diffParams, float[] specParams, float shin)
@@ -114,13 +127,6 @@ namespace M3DViewerGL
             return M3DHelper.GetAngle(v1, v2);
         }
 
-        public static PointF GetLineMidpoint(float x1, float y1, float x2, float y2)
-        {
-            float mx = x1 + (x2 - x1) / 2;
-            float my = y1 + (y2 - y1) / 2;
-            return new PointF(mx, my);
-        }
-
         public static Point3D GetLineMidpoint(Point3D p1, Point3D p2)
         {
             float mx = (p1.X + p2.X) / 2.0f;
@@ -129,54 +135,51 @@ namespace M3DViewerGL
             return new Point3D(mx, my, mz);
         }
 
-        public static PointF[] GetArcPoints(PointF center, int count, float radius, float startAngle, float endAngle)
+        public static IList<Point3D> GetArcPoints(int slices, float radius, float startAngle, float wedgeAngle)
         {
-            PointF[] result = new PointF[count];
+            var points = new List<Point3D>();
 
-            if (count > 0) {
-                float delta = endAngle - startAngle;
-                // size of the circle's partition, grad
-                float degSection = delta / count;
-
-                for (int i = 0; i < count; i++) {
-                    float degInRad = (startAngle + i * degSection) * DEG2RAD;
-                    float dx = (float)Math.Cos(degInRad) * radius;
-                    float dy = (float)Math.Sin(degInRad) * radius;
-
-                    result[i] = new PointF(center.X + dx, center.Y + dy);
-                }
+            float angleStep = wedgeAngle / slices;
+            for (int j = 0; j <= slices; ++j) {
+                double a = (startAngle + j * angleStep) * DEG2RAD;
+                float x = radius * (float)Math.Cos(a);
+                float z = radius * (float)Math.Sin(a);
+                points.Add(new Point3D(x, 0.0f, z));
             }
 
-            return result;
+            return points;
         }
 
-        public static void DrawCylinder(int slices, float height, float radius, float startAngle, float wedgeAngle)
+        public static void DrawCylinder(IList<Point3D> points, float height, float radius)
         {
-            float angleStep = wedgeAngle / slices;
             float y1 = 0.0f;
             float y2 = y1 + height;
 
             OpenGL.glBegin(OpenGL.GL_TRIANGLE_STRIP);
-            for (int j = 0; j <= slices; ++j) {
-                double a = (startAngle + j * angleStep) * DEG2RAD;
+            for (int j = 0; j < points.Count; ++j) {
+                var pt = points[j];
 
-                float x = radius * (float)Math.Cos(a);
-                float z = radius * (float)Math.Sin(a);
+                OpenGL.glNormal3f(pt.X / radius, 0.0f, pt.Z / radius);
+                OpenGL.glVertex3f(pt.X, y1, pt.Z);
 
-                OpenGL.glNormal3f(x / radius, 0.0f, z / radius);
-                OpenGL.glVertex3f(x, y1, z);
-
-                OpenGL.glNormal3f(x / radius, 0.0f, z / radius);
-                OpenGL.glVertex3f(x, y2, z);
+                OpenGL.glNormal3f(pt.X / radius, 0.0f, pt.Z / radius);
+                OpenGL.glVertex3f(pt.X, y2, pt.Z);
             }
             OpenGL.glEnd();
         }
 
-        public static double Dist(PointF pt1, PointF pt2)
+        public static void DrawCylinder(int slices, float height, float radius, float startAngle, float wedgeAngle)
+        {
+            var points = GetArcPoints(slices, radius, startAngle, wedgeAngle);
+            DrawCylinder(points, height, radius);
+        }
+
+        public static double Dist(Point3D pt1, Point3D pt2)
         {
             float dx = pt2.X - pt1.X;
             float dy = pt2.Y - pt1.Y;
-            return Math.Sqrt(dx * dx + dy * dy);
+            float dz = pt2.Z - pt1.Z;
+            return Math.Sqrt(dx * dx + dy * dy + dz * dz);
         }
 
         public static void DrawTriangle(Point3D point1, Point3D point2, Point3D point3)
@@ -235,18 +238,19 @@ namespace M3DViewerGL
         }
 
         public static void DrawBox(Point3D p1, Point3D p2, Point3D p3, Point3D p4,
-                                   Point3D p5, Point3D p6, Point3D p7, Point3D p8)
+                                   Point3D p5, Point3D p6, Point3D p7, Point3D p8,
+                                   BoxSide sides = AllSides)
         {
             // GL_CCW(default), GL_CW
             //GL.glFrontFace(GL.GL_CW);
 
-            DrawRect(p1, p2, p3, p4);
-            DrawRect(p5, p6, p7, p8);
+            if (sides.HasFlag(BoxSide.Top)) DrawRect(p1, p2, p3, p4);
+            if (sides.HasFlag(BoxSide.Bottom)) DrawRect(p5, p6, p7, p8);
 
-            DrawRect(p1, p2, p6, p5);
-            DrawRect(p2, p3, p7, p6);
-            DrawRect(p3, p4, p8, p7);
-            DrawRect(p1, p4, p8, p5);
+            if (sides.HasFlag(BoxSide.Back)) DrawRect(p1, p2, p6, p5);
+            if (sides.HasFlag(BoxSide.Right)) DrawRect(p2, p3, p7, p6);
+            if (sides.HasFlag(BoxSide.Front)) DrawRect(p3, p4, p8, p7);
+            if (sides.HasFlag(BoxSide.Left)) DrawRect(p1, p4, p8, p5);
         }
     }
 }

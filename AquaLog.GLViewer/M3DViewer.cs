@@ -5,14 +5,12 @@
  */
 
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Timers;
 using System.Windows.Forms;
 using CsGL.OpenGL;
 using glx = CsGL.OpenGL.OpenGL;
 
-namespace M3DViewerGL
+namespace AquaLog.GLViewer
 {
     public sealed class M3DViewer : OpenGLControl
     {
@@ -55,12 +53,14 @@ namespace M3DViewerGL
         private bool fBusy;
 
 
+        public bool Debug { get; set; }
+
+        public event EventHandler Draw;
+
+
         public M3DViewer()
         {
-            xrot = +45.0f;
-            yrot = 35.0f;
-            zrot = 0;
-            z = -2f;
+            Reset();
             fFreeRotate = true;
 
             OpenGL.glClearColor(0.25f, 0.25f, 0.25f, 0.0f);
@@ -88,6 +88,14 @@ namespace M3DViewerGL
             base.Dispose(disposing);
         }
 
+        public void Reset()
+        {
+            xrot = +45.0f;
+            yrot = 35.0f;
+            zrot = 0;
+            z = -2f;
+        }
+
         protected override OpenGLContext CreateContext()
         {
             ControlGLContext context = new ControlGLContext(this);
@@ -100,7 +108,7 @@ namespace M3DViewerGL
         {
             GrabContext();
 
-            Size sz = Size;
+            var sz = Size;
             if (sz.Width != 0 && sz.Height != 0) {
                 fHeight = sz.Height;
                 fWidth = sz.Width;
@@ -146,11 +154,20 @@ namespace M3DViewerGL
             OpenGL.glRotatef(yrot, 0.0f, 1.0f, 0.0f);
             OpenGL.glRotatef(zrot, 0.0f, 0.0f, 1.0f);
 
-            M3DTanks.DrawRectTank(92f, 31f, /*41f*/0.0f, 53f, 0.5f, false);
-            //DrawBubble();
+            if (Debug) {
+                // debug only
+                M3DTanks.DrawBowfrontTank(92f, 31f, 41f, 53f, 0.5f, true);
+                //M3DTanks.DrawRectangularTank(92f, 31f, 53f, 0.5f, true);
+                //DrawBubble();
+            } else {
+                var drawHandler = Draw;
+                if (drawHandler != null)
+                    drawHandler(this, EventArgs.Empty);
+            }
         }
 
         private float fBubblesY;
+        //private const int BubblesCount = 5;
 
         private void DrawBubble()
         {
@@ -159,6 +176,15 @@ namespace M3DViewerGL
             glx.glColor4f(0.0f, 0.3f, 0.99f, 0.15f);
             GLUT.glutSolidSphere(0.003f, 16, 16);
             glx.glPopMatrix();
+        }
+
+        private void UpdateBubbles()
+        {
+                if (fBubblesY > 0.53f) {
+                    fBubblesY = 0.0f;
+                } else {
+                    fBubblesY += 0.001f;
+                }
         }
 
         #region Control functions
@@ -172,11 +198,7 @@ namespace M3DViewerGL
                     yrot -= 0.3f;
                 }
 
-                if (fBubblesY > 0.53f) {
-                    fBubblesY = 0.0f;
-                } else {
-                    fBubblesY += 0.001f;
-                }
+                UpdateBubbles();
 
                 Invalidate(false);
 
@@ -189,10 +211,6 @@ namespace M3DViewerGL
             base.OnKeyDown(e);
 
             switch (e.KeyCode) {
-                case Keys.F5:
-                    Screenshot();
-                    break;
-
                 case Keys.PageDown:
                     z -= 0.5f;
                     break;
@@ -256,17 +274,6 @@ namespace M3DViewerGL
 
             if (e.Delta != 0) {
                 z += 0.001f * e.Delta;
-            }
-        }
-
-        private void Screenshot()
-        {
-            try {
-                using (Image image = Context.ToImage()) {
-                    image.Save(@"d:\Screenshot.jpg", ImageFormat.Jpeg);
-                }
-            } catch (Exception e) {
-                MessageBox.Show(e.Message, @"Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
 

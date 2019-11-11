@@ -61,6 +61,7 @@ namespace AquaLog.UI.Panels
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", btnEditTank_Click);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", btnDeleteTank_Click);
             AddAction("LogBook", LSID.LogBook, "", btnLogBook_Click);
+            AddAction("M3DViewer", LSID.M3DViewer, "", btnM3DViewer_Click);
         }
 
         public override void UpdateContent()
@@ -163,6 +164,15 @@ namespace AquaLog.UI.Panels
             RTFLogBook.Generate(fModel, record, fileName);
 
             ALCore.LoadExtFile(fileName);
+        }
+
+        private void btnM3DViewer_Click(object sender, EventArgs e)
+        {
+            var selectedItem = SelectedTank;
+            if (selectedItem == null) return;
+
+            var record = selectedItem.Aquarium;
+            Browser.SetView(MainView.M3DViewer, record.Tank);
         }
     }
 }

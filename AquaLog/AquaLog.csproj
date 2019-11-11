@@ -82,6 +82,9 @@
     <Reference Include="BSLib">
       <HintPath>..\libs\BSLib.dll</HintPath>
     </Reference>
+    <Reference Include="csgl">
+      <HintPath>..\libs\csgl.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetRtfWriter">
       <HintPath>..\libs\DotNetRtfWriter.dll</HintPath>
     </Reference>
@@ -276,6 +279,7 @@
     <Compile Include="UI\Panels\ChartPanel.cs" />
     <Compile Include="UI\Panels\InventoryPanel.cs" />
     <Compile Include="UI\Panels\LifeLinesPanel.cs" />
+    <Compile Include="UI\Panels\M3DViewerPanel.cs" />
     <Compile Include="UI\Panels\MeasurePanel.cs" />
     <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
     <Compile Include="UI\Panels\NutritionPanel.cs" />
@@ -336,6 +340,10 @@
     <Folder Include="UI\Panels" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AquaLog.GLViewer\AquaLog.GLViewer.csproj">
+      <Project>{d40a4442-0bf4-4189-a914-2d9037faeb92}</Project>
+      <Name>AquaLog.GLViewer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BSLib.Timeline\BSLib.Timeline.csproj">
       <Project>{5f95b084-2bf9-4a8d-8d83-f50fbe1b959c}</Project>
       <Name>BSLib.Timeline</Name>

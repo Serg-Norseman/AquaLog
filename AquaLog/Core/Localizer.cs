@@ -197,8 +197,9 @@ namespace AquaLog.Core
         /* 173 */ ScientificName,
         /* 174 */ BioFamily,
         /* 175 */ ChartFamilies,
+        /* 176 */ M3DViewer,
 
-        /* 000 */ Last = ChartFamilies
+        /* 000 */ Last = M3DViewer
     }
 
 
@@ -384,6 +385,7 @@ namespace AquaLog.Core
             /* 173 */ "Scientific Name",
             /* 174 */ "Family",
             /* 175 */ "Chart (families)",
+            /* 176 */ "3D Viewer",
         };
 
 

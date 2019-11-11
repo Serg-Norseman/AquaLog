@@ -31,5 +31,6 @@ namespace AquaLog.UI
         PieChart,
         LifeLinesChart,
         Snapshots,
+        M3DViewer,
     }
 }

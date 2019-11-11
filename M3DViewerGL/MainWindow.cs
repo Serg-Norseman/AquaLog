@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using AquaLog.GLViewer;
 
 [assembly: AssemblyTitle("M3DViewerGL")]
 [assembly: AssemblyDescription("")]
@@ -41,6 +42,7 @@ namespace M3DViewerGL
 
             fViewer = new M3DViewer();
             fViewer.Dock = DockStyle.Fill;
+            fViewer.Debug = true;
 
             Controls.AddRange(new Control[] { fViewer, statusBar });
             Size = new Size(800, 600);
