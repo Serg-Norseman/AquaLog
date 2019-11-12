@@ -90,10 +90,10 @@ namespace AquaLog.GLViewer
 
         public void Reset()
         {
-            xrot = +45.0f;
-            yrot = 35.0f;
-            zrot = 0;
-            z = -2f;
+            xrot = +25.0f;
+            yrot = +25.0f;
+            zrot = 0.0f;
+            z = -2.0f;
         }
 
         protected override OpenGLContext CreateContext()

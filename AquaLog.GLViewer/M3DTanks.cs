@@ -148,69 +148,66 @@ namespace AquaLog.GLViewer
             DrawBox(x1, x2, y1, y2, z1, z2);
 
             // front
-            DrawBowfrontPlate(length, width, fullWidth, height, thickness, x1s, x2s);
+            DrawBowfrontPlate(x1s, x2s, 0.0f, width, fullWidth, height, thickness);
 
             if (showWater) {
                 M3DHelper.SetMaterial(WaterDiffuse, WaterDiffuse, 32.0f);
 
-                // FIXME: bug in calculations!
-                // debugging at bottom and front plates disabled!
                 var x1w = x1s + thickness;
                 var x2w = x2s - thickness;
                 var y1w = height - thickness * 4;
                 var y2w = 0.0f;
-                var z1w = 0 + thickness;
-                var z2w = 0 + width;
+                var z1w = 0.0f + thickness;
+                var z2w = 0.0f + width;
                 DrawBowBox(x1w, x2w, y1w, y2w, z1w, z2w, fullWidth - width - thickness);
             }
 
             OpenGL.glPopMatrix();
         }
 
-        private static void DrawBowfrontPlate(float length, float width, float fullWidth, float height, float thickness, float x1s, float x2s)
+        private static void DrawBowfrontPlate(float x1, float x2, float z1, float width, float fullWidth, float height, float thickness)
         {
             IList<Point3D> points1, points2;
-            float centerZ;
+            float centerZ1, centerZ2;
 
             // outer plate
-            DrawBowfront(length, width, fullWidth, height, x1s, x2s, out centerZ, out points1);
+            DrawBowfront(x1, x2, z1, width, fullWidth, height, out centerZ1, out points1);
             // inner plate
-            DrawBowfront(length - thickness * 2, width - thickness, fullWidth - thickness, height, x1s + thickness, x2s - thickness, out centerZ, out points2);
+            DrawBowfront(x1 + thickness, x2 - thickness, z1, width - thickness, fullWidth - thickness, height, out centerZ2, out points2);
 
-            // FIXME: bug (very wide facets)!
-            //float y1 = 0.0f;
-            //float y2 = y1 + height;
-            //DrawBowfrontFace(points1, points2, y2, centerZ);
-            //DrawBowfrontFace(points1, points2, y1, centerZ);
+            float y1 = 0.0f;
+            float y2 = y1 + height;
+            DrawBowfrontFace(points1, points2, y1, centerZ1, centerZ2);
+            DrawBowfrontFace(points1, points2, y2, centerZ1, centerZ2);
         }
 
-        private static void DrawBowfrontFace(IList<Point3D> points1, IList<Point3D> points2, float y, float centerZ)
+        private static void DrawBowfrontFace(IList<Point3D> points1, IList<Point3D> points2, float y, float centerZ1, float centerZ2)
         {
             OpenGL.glPushMatrix();
-            OpenGL.glTranslatef(0.0f, 0.0f, centerZ);
             OpenGL.glBegin(OpenGL.GL_TRIANGLE_STRIP);
             for (int j = 0; j < points1.Count; ++j) {
                 var pt1 = points1[j];
                 var pt2 = points2[j];
                 //OpenGL.glNormal3f(pt.X / radius, 0.0f, pt.Z / radius);
-                OpenGL.glVertex3f(pt1.X, y, pt1.Z);
+                OpenGL.glVertex3f(pt1.X, y, centerZ1 + pt1.Z);
                 //OpenGL.glNormal3f(pt.X / radius, 0.0f, pt.Z / radius);
-                OpenGL.glVertex3f(pt2.X, y, pt2.Z);
+                OpenGL.glVertex3f(pt2.X, y, centerZ2 + pt2.Z);
             }
             OpenGL.glEnd();
             OpenGL.glPopMatrix();
         }
 
         // Draw an arc strip of a given height from y=0
-        private static void DrawBowfront(float length, float width, float fullWidth, float height, float x1s, float x2s, out float centerZ, out IList<Point3D> points)
+        private static void DrawBowfront(float x1, float x2, float z1, float width, float fullWidth, float height, out float centerZ, out IList<Point3D> points)
         {
+            float length = x2 - x1;
             float chordWidth, radius, wedgeAngle, /*centerZ, */startAngle;
 
             chordWidth = fullWidth - width;
-            radius = (chordWidth / 2) + (length * length) / (8 * chordWidth);
-            wedgeAngle = (float)(2 * Math.Asin(length / (2 * radius))) / M3DHelper.DEG2RAD;
-            centerZ = (0.0f + fullWidth - radius);
-            startAngle = M3DHelper.GetAngle(new Point3D(0.0f, 0.0f, centerZ), new Point3D(x2s, 0.0f, centerZ), new Point3D(x2s, 0.0f, width));
+            radius = (chordWidth / 2.0f) + (length * length) / (8.0f * chordWidth);
+            wedgeAngle = (float)(2.0f * Math.Asin(length / (2.0f * radius))) / M3DHelper.DEG2RAD;
+            centerZ = (z1 + fullWidth - radius);
+            startAngle = M3DHelper.GetAngle(new Point3D(0.0f, 0.0f, centerZ), new Point3D(x2, 0.0f, centerZ), new Point3D(x2, 0.0f, z1 + width));
 
             OpenGL.glPushMatrix();
             OpenGL.glTranslatef(0.0f, 0.0f, centerZ);
@@ -242,7 +239,7 @@ namespace AquaLog.GLViewer
 
             OpenGL.glPushMatrix();
             OpenGL.glTranslatef(0.0f, -height, 0.0f);
-            DrawBowfront(x2 - x1, width, width + bowWidth, height, x1, x2, out centerZ, out points);
+            DrawBowfront(x1, x2, z1, width, width + bowWidth, height, out centerZ, out points);
             OpenGL.glPopMatrix();
 
             // top

@@ -22,12 +22,21 @@ namespace AquaLog.UI.Panels
 
         public M3DViewerPanel()
         {
+            var infoPanel = new StatusBarPanel();
+            infoPanel.AutoSize = StatusBarPanelAutoSize.Contents;
+            infoPanel.Text = "Free-rotate (R); Water visible (W)";
+
+            var statusBar = new StatusBar();
+            statusBar.Panels.AddRange(new StatusBarPanel[] { infoPanel });
+            statusBar.ShowPanels = true;
+
             fViewer = new M3DViewer();
             fViewer.Dock = DockStyle.Fill;
-            Controls.Add(fViewer);
-
             fViewer.VisibleChanged += Panel_VisibleChanged;
             fViewer.Draw += Viewer_Draw;
+            fViewer.KeyDown += Viewer_KeyDown;
+
+            Controls.AddRange(new Control[] { fViewer, statusBar });
         }
 
         public override void SetExtData(object extData)
@@ -42,6 +51,16 @@ namespace AquaLog.UI.Panels
         public override void UpdateContent()
         {
             fViewer.Reset();
+        }
+
+        private void Viewer_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode) {
+                case Keys.W:
+                    fWaterVisible = !fWaterVisible;
+                    fViewer.Invalidate(false);
+                    break;
+            }
         }
 
         private void Panel_VisibleChanged(object sender, EventArgs e)
@@ -61,6 +80,9 @@ namespace AquaLog.UI.Panels
             } else if (fTank is RectangularTank) {
                 var rectTank = (RectangularTank)fTank;
                 M3DTanks.DrawRectangularTank((float)rectTank.Width, (float)rectTank.Depth, (float)rectTank.Height, (float)rectTank.GlassThickness, fWaterVisible);
+            } else if (fTank is CubeTank) {
+                var cubeTank = (CubeTank)fTank;
+                M3DTanks.DrawRectangularTank((float)cubeTank.EdgeSize, (float)cubeTank.EdgeSize, (float)cubeTank.EdgeSize, (float)cubeTank.GlassThickness, fWaterVisible);
             }
         }
     }

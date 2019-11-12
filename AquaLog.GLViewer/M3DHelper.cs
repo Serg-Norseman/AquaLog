@@ -37,7 +37,7 @@ namespace AquaLog.GLViewer
 
     public static class M3DHelper
     {
-        public const float DEG2RAD = 3.14159F / 180;
+        public const float DEG2RAD = (float)Math.PI / 180.0f;
         public const BoxSide AllSides = BoxSide.Top | BoxSide.Bottom | BoxSide.Left | BoxSide.Right | BoxSide.Back | BoxSide.Front;
         public const BoxSide AllSidesWF = BoxSide.Top | BoxSide.Bottom | BoxSide.Left | BoxSide.Right | BoxSide.Back;
 

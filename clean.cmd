@@ -17,14 +17,8 @@ rmdir .\AquaLog.Tests\OpenCover /s /q
 rmdir .\BSLib.Timeline\bin /s /q
 rmdir .\BSLib.Timeline\obj /s /q
 
-rmdir .\M3DViewerTest\bin /s /q
-rmdir .\M3DViewerTest\obj /s /q
-
 rmdir .\AquaLog.GLViewer\bin /s /q
 rmdir .\AquaLog.GLViewer\obj /s /q
-
-rmdir .\M3DViewerGL\bin /s /q
-rmdir .\M3DViewerGL\obj /s /q
 
 del msbuild.log
 
