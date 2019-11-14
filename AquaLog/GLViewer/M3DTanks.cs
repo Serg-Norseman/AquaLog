@@ -47,21 +47,21 @@ namespace AquaLog.GLViewer
             var y2 = y1 - thickness;
             var z1 = 0.0f;
             var z2 = z1 + width;
-            DrawBox(x1, x2, y1, y2, z1, z2);
+            M3DHelper.DrawBox(x1, x2, y1, y2, z1, z2);
 
             // front
             y1 = 0.0f + height;
             y2 = 0.0f;
             z1 = 0.0f + width;
             z2 = z1 - thickness;
-            DrawBox(x1, x2, y1, y2, z1, z2);
+            M3DHelper.DrawBox(x1, x2, y1, y2, z1, z2);
 
             // back
             y1 = 0.0f + height;
             y2 = 0.0f;
             z1 = 0.0f;
             z2 = z1 + thickness;
-            DrawBox(x1, x2, y1, y2, z1, z2);
+            M3DHelper.DrawBox(x1, x2, y1, y2, z1, z2);
 
             // sides
             y1 = 0.0f + height;
@@ -72,12 +72,12 @@ namespace AquaLog.GLViewer
             // left side
             x1 = x1s;
             x2 = x1s + thickness;
-            DrawBox(x1, x2, y1, y2, z1, z2);
+            M3DHelper.DrawBox(x1, x2, y1, y2, z1, z2);
 
             // right side
             x1 = x2s;
             x2 = x2s - thickness;
-            DrawBox(x1, x2, y1, y2, z1, z2);
+            M3DHelper.DrawBox(x1, x2, y1, y2, z1, z2);
 
             if (showWater) {
                 M3DHelper.SetMaterial(WaterDiffuse, WaterDiffuse, 32.0f);
@@ -88,7 +88,7 @@ namespace AquaLog.GLViewer
                 var y2w = 0 + height - thickness * 4;
                 var z1w = 0 + thickness;
                 var z2w = 0 + width - thickness;
-                DrawBox(x1w, x2w, y1w, y2w, z1w, z2w);
+                M3DHelper.DrawBox(x1w, x2w, y1w, y2w, z1w, z2w);
             }
 
             OpenGL.glPopMatrix();
@@ -129,7 +129,7 @@ namespace AquaLog.GLViewer
             y2 = 0.0f;
             z1 = 0.0f;
             z2 = z1 + thickness;
-            DrawBox(x1, x2, y1, y2, z1, z2);
+            M3DHelper.DrawBox(x1, x2, y1, y2, z1, z2);
 
             // sides
             y1 = 0.0f + height;
@@ -140,12 +140,12 @@ namespace AquaLog.GLViewer
             // left side
             x1 = x1s;
             x2 = x1s + thickness;
-            DrawBox(x1, x2, y1, y2, z1, z2);
+            M3DHelper.DrawBox(x1, x2, y1, y2, z1, z2);
 
             // right side
             x1 = x2s;
             x2 = x2s - thickness;
-            DrawBox(x1, x2, y1, y2, z1, z2);
+            M3DHelper.DrawBox(x1, x2, y1, y2, z1, z2);
 
             // front
             DrawBowfrontPlate(x1s, x2s, 0.0f, width, fullWidth, height, thickness);
@@ -216,7 +216,7 @@ namespace AquaLog.GLViewer
             OpenGL.glPopMatrix();
         }
 
-        public static void DrawBowBox(float x1, float x2, float y1, float y2, float z1, float z2, float bowWidth)
+        private static void DrawBowBox(float x1, float x2, float y1, float y2, float z1, float z2, float bowWidth)
         {
             var p1 = new Point3D(x1, y1, z1);
             var p2 = new Point3D(x2, y1, z1);
@@ -227,9 +227,9 @@ namespace AquaLog.GLViewer
             var p7 = new Point3D(x2, y2, z2);
             var p8 = new Point3D(x1, y2, z2);
 
-            M3DHelper.DrawRect(p1, p2, p6, p5); // back
-            M3DHelper.DrawRect(p2, p3, p7, p6); // right
-            M3DHelper.DrawRect(p1, p4, p8, p5); // left
+            M3DHelper.DrawRect(p1, p2, p6, p5, new Point3D(0.0f, 0.0f, -1.0f)); // back
+            M3DHelper.DrawRect(p2, p3, p7, p6, new Point3D(+1.0f, 0.0f, 0.0f)); // right
+            M3DHelper.DrawRect(p1, p4, p8, p5, new Point3D(-1.0f, 0.0f, 0.0f)); // left
 
             float height = y2 - y1;
             float width = z2 - z1;
@@ -265,13 +265,6 @@ namespace AquaLog.GLViewer
                 OpenGL.glVertex3f(pt.X, y2, pt.Z + centerZ);
             }
             OpenGL.glEnd();
-        }
-
-        public static void DrawBox(float x1, float x2, float y1, float y2, float z1, float z2, BoxSide sides = M3DHelper.AllSides)
-        {
-            M3DHelper.DrawBox(
-                new Point3D(x1, y1, z1), new Point3D(x2, y1, z1), new Point3D(x2, y1, z2), new Point3D(x1, y1, z2),
-                new Point3D(x1, y2, z1), new Point3D(x2, y2, z1), new Point3D(x2, y2, z2), new Point3D(x1, y2, z2), sides);
         }
     }
 }

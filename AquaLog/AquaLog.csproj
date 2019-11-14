@@ -147,6 +147,10 @@
     <Compile Include="DataCollection\IChannel.cs" />
     <Compile Include="DataCollection\SerialChannel.cs" />
     <Compile Include="DataCollection\TemperatureService.cs" />
+    <Compile Include="GLViewer\M3DAeration.cs" />
+    <Compile Include="GLViewer\M3DHelper.cs" />
+    <Compile Include="GLViewer\M3DTanks.cs" />
+    <Compile Include="GLViewer\M3DViewer.cs" />
     <Compile Include="TSDB\TSPoint.cs" />
     <Compile Include="TSDB\SDCompression.cs" />
     <Compile Include="TSDB\TSDatabase.cs" />
@@ -329,6 +333,7 @@
     <Folder Include="Core\Export" />
     <Folder Include="Core\Calculations" />
     <Folder Include="DataCollection" />
+    <Folder Include="GLViewer" />
     <Folder Include="TSDB" />
     <Folder Include="UI\Components" />
     <Folder Include="Core\Model" />
@@ -338,6 +343,11 @@
     <Folder Include="UI" />
     <Folder Include="UI\Dialogs" />
     <Folder Include="UI\Panels" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\libs\csgl.native.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AquaLog.GLViewer\AquaLog.GLViewer.csproj">

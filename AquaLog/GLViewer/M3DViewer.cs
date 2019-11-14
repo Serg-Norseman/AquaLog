@@ -8,7 +8,6 @@ using System;
 using System.Timers;
 using System.Windows.Forms;
 using CsGL.OpenGL;
-using glx = CsGL.OpenGL.OpenGL;
 
 namespace AquaLog.GLViewer
 {
@@ -51,6 +50,7 @@ namespace AquaLog.GLViewer
         private bool fFreeRotate;
         private System.Timers.Timer fAnimTimer;
         private bool fBusy;
+        private bool fAeration;
 
 
         public bool Debug { get; set; }
@@ -164,27 +164,13 @@ namespace AquaLog.GLViewer
                 if (drawHandler != null)
                     drawHandler(this, EventArgs.Empty);
             }
-        }
 
-        private float fBubblesY;
-        //private const int BubblesCount = 5;
-
-        private void DrawBubble()
-        {
-            glx.glPushMatrix();
-            glx.glTranslatef(0.4f, fBubblesY, 0.155f);
-            glx.glColor4f(0.0f, 0.3f, 0.99f, 0.15f);
-            GLUT.glutSolidSphere(0.003f, 16, 16);
-            glx.glPopMatrix();
-        }
-
-        private void UpdateBubbles()
-        {
-                if (fBubblesY > 0.53f) {
-                    fBubblesY = 0.0f;
-                } else {
-                    fBubblesY += 0.001f;
-                }
+            if (fAeration) {
+                OpenGL.glPushMatrix();
+                OpenGL.glTranslatef(0.0f, -(53f / 100.0f) / 2, -(31.0f / 100) / 2);
+                M3DAeration.Draw();
+                OpenGL.glPopMatrix();
+            }
         }
 
         #region Control functions
@@ -198,7 +184,9 @@ namespace AquaLog.GLViewer
                     yrot -= 0.3f;
                 }
 
-                UpdateBubbles();
+                if (fAeration) {
+                    M3DAeration.DoStep();
+                }
 
                 Invalidate(false);
 
@@ -221,6 +209,11 @@ namespace AquaLog.GLViewer
 
                 case Keys.R:
                     fFreeRotate = !fFreeRotate;
+                    break;
+
+                case Keys.A:
+                    M3DAeration.Init(0.52f);
+                    fAeration = !fAeration;
                     break;
             }
         }

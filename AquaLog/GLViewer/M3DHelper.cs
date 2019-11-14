@@ -23,6 +23,8 @@ namespace AquaLog.GLViewer
 
     public struct Point3D
     {
+        public static readonly Point3D Zero = new Point3D(0, 0, 0);
+
         public float X;
         public float Y;
         public float Z;
@@ -32,6 +34,20 @@ namespace AquaLog.GLViewer
             X = x;
             Y = y;
             Z = z;
+        }
+
+        public bool IsZero()
+        {
+            return (X == 0.0f && Y == 0.0f && Z == 0.0f);
+        }
+
+        public Point3D Sub(Point3D p0)
+        {
+            Point3D res;
+            res.X = X - p0.X;
+            res.Y = Y - p0.Y;
+            res.Z = Z - p0.Z;
+            return res;
         }
     }
 
@@ -77,26 +93,20 @@ namespace AquaLog.GLViewer
 
         public static Point3D CalculateSurfaceNormal(Point3D p1, Point3D p2, Point3D p3)
         {
-            Point3D U, V, Normal;
+            Point3D u = p2.Sub(p1);
+            Point3D v = p3.Sub(p1);
 
-            U.X = p2.X - p1.X;
-            U.Y = p2.Y - p1.Y;
-            U.Z = p2.Z - p1.Z;
+            Point3D normal;
+            normal.X = (u.Y * v.Z) - (u.Z * v.Y);
+            normal.Y = (u.Z * v.X) - (u.X * v.Z);
+            normal.Z = (u.X * v.Y) - (u.Y * v.X);
 
-            V.X = p3.X - p1.X;
-            V.Y = p3.Y - p1.Y;
-            V.Z = p3.Z - p1.Z;
-
-            Normal.X = (U.Y * V.Z) - (U.Z * V.Y);
-            Normal.Y = (U.Z * V.X) - (U.X * V.Z);
-            Normal.Z = (U.X * V.Y) - (U.Y * V.X);
-
-            float distance = (float)Math.Sqrt((Normal.X * Normal.X) + (Normal.Y * Normal.Y) + (Normal.Z * Normal.Z));
-            Normal.X = Normal.X / distance;
-            Normal.Y = Normal.Y / distance;
-            Normal.Z = Normal.Z / distance;
+            float distance = (float)Math.Sqrt((normal.X * normal.X) + (normal.Y * normal.Y) + (normal.Z * normal.Z));
+            normal.X = normal.X / distance;
+            normal.Y = normal.Y / distance;
+            normal.Z = normal.Z / distance;
     
-            return Normal;
+            return normal;
         }
 
         /*public static Point3D ScaleVector(Point3D vector, double length)
@@ -104,15 +114,6 @@ namespace AquaLog.GLViewer
             double scale = length / vector.Length;
             return new Point3D(vector.X * scale, vector.Y * scale, vector.Z * scale);
         }*/
-
-        public static Point3D GetVector(Point3D p1, Point3D p2)
-        {
-            Point3D res;
-            res.X = p2.X - p1.X;
-            res.Y = p2.Y - p1.Y;
-            res.Z = p2.Z - p1.Z;
-            return res;
-        }
 
         public static float GetAngle(Point3D v1, Point3D v2)
         {
@@ -122,8 +123,8 @@ namespace AquaLog.GLViewer
 
         public static float GetAngle(Point3D p0, Point3D p1, Point3D p2)
         {
-            var v1 = M3DHelper.GetVector(p0, p1);
-            var v2 = M3DHelper.GetVector(p0, p2);
+            var v1 = p1.Sub(p0);
+            var v2 = p2.Sub(p0);
             return M3DHelper.GetAngle(v1, v2);
         }
 
@@ -184,17 +185,24 @@ namespace AquaLog.GLViewer
 
         public static void DrawTriangle(Point3D point1, Point3D point2, Point3D point3)
         {
-            var n = CalculateSurfaceNormal(point1, point2, point3);
+            DrawTriangle(point1, point2, point3, Point3D.Zero);
+        }
+
+        public static void DrawTriangle(Point3D point1, Point3D point2, Point3D point3, Point3D normal)
+        {
+            if (normal.IsZero()) {
+                normal = CalculateSurfaceNormal(point1, point2, point3);
+            }
 
             OpenGL.glBegin(OpenGL.GL_TRIANGLES);
 
-            OpenGL.glNormal3f(n.X, n.Y, n.Z);
+            OpenGL.glNormal3f(normal.X, normal.Y, normal.Z);
             OpenGL.glVertex3f(point1.X, point1.Y, point1.Z);
 
-            OpenGL.glNormal3f(n.X, n.Y, n.Z);
+            OpenGL.glNormal3f(normal.X, normal.Y, normal.Z);
             OpenGL.glVertex3f(point2.X, point2.Y, point2.Z);
 
-            OpenGL.glNormal3f(n.X, n.Y, n.Z);
+            OpenGL.glNormal3f(normal.X, normal.Y, normal.Z);
             OpenGL.glVertex3f(point3.X, point3.Y, point3.Z);
 
             OpenGL.glEnd();
@@ -222,12 +230,17 @@ namespace AquaLog.GLViewer
 
         public static void DrawRect(Point3D p1, Point3D p2, Point3D p3, Point3D p4)
         {
+            DrawRect(p1, p2, p3, p4, Point3D.Zero);
+        }
+
+        public static void DrawRect(Point3D p1, Point3D p2, Point3D p3, Point3D p4, Point3D normal)
+        {
             Point3D pm = GetLineMidpoint(p1, p3);
 
-            DrawTriangle(p1, pm, p2);
-            DrawTriangle(p2, pm, p3);
-            DrawTriangle(p3, pm, p4);
-            DrawTriangle(p4, pm, p1);
+            DrawTriangle(p1, pm, p2, normal);
+            DrawTriangle(p2, pm, p3, normal);
+            DrawTriangle(p3, pm, p4, normal);
+            DrawTriangle(p4, pm, p1, normal);
 
             /*OpenGL.glBegin(OpenGL.GL_POLYGON);
             OpenGL.glVertex3f(p1.X, p1.Y, p1.Z);
@@ -244,13 +257,20 @@ namespace AquaLog.GLViewer
             // GL_CCW(default), GL_CW
             //GL.glFrontFace(GL.GL_CW);
 
-            if (sides.HasFlag(BoxSide.Top)) DrawRect(p1, p2, p3, p4);
-            if (sides.HasFlag(BoxSide.Bottom)) DrawRect(p5, p6, p7, p8);
+            if (sides.HasFlag(BoxSide.Top)) DrawRect(p1, p2, p3, p4, new Point3D(0.0f, 1.0f, 0.0f));
+            if (sides.HasFlag(BoxSide.Bottom)) DrawRect(p5, p6, p7, p8, new Point3D(0.0f, -1.0f, 0.0f));
 
-            if (sides.HasFlag(BoxSide.Back)) DrawRect(p1, p2, p6, p5);
-            if (sides.HasFlag(BoxSide.Right)) DrawRect(p2, p3, p7, p6);
-            if (sides.HasFlag(BoxSide.Front)) DrawRect(p3, p4, p8, p7);
-            if (sides.HasFlag(BoxSide.Left)) DrawRect(p1, p4, p8, p5);
+            if (sides.HasFlag(BoxSide.Back)) DrawRect(p1, p2, p6, p5, new Point3D(0.0f, 0.0f, -1.0f));
+            if (sides.HasFlag(BoxSide.Right)) DrawRect(p2, p3, p7, p6, new Point3D(+1.0f, 0.0f, 0.0f));
+            if (sides.HasFlag(BoxSide.Front)) DrawRect(p3, p4, p8, p7, new Point3D(0.0f, 0.0f, +1.0f));
+            if (sides.HasFlag(BoxSide.Left)) DrawRect(p1, p4, p8, p5, new Point3D(-1.0f, 0.0f, 0.0f));
+        }
+
+        public static void DrawBox(float x1, float x2, float y1, float y2, float z1, float z2, BoxSide sides = M3DHelper.AllSides)
+        {
+            M3DHelper.DrawBox(
+                new Point3D(x1, y1, z1), new Point3D(x2, y1, z1), new Point3D(x2, y1, z2), new Point3D(x1, y1, z2),
+                new Point3D(x1, y2, z1), new Point3D(x2, y2, z1), new Point3D(x2, y2, z2), new Point3D(x1, y2, z2), sides);
         }
     }
 }
