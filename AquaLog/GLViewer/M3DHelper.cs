@@ -11,51 +11,22 @@ using CsGL.OpenGL;
 namespace AquaLog.GLViewer
 {
     [Flags]
-    public enum BoxSide
+    public enum BoxSides
     {
-        Top,
-        Bottom,
-        Left,
-        Right,
-        Back,
-        Front
+        Top = 0,
+        Bottom = 1,
+        Left = 2,
+        Right = 4,
+        Back = 8,
+        Front = 16,
     }
 
-    public struct Point3D
-    {
-        public static readonly Point3D Zero = new Point3D(0, 0, 0);
-
-        public float X;
-        public float Y;
-        public float Z;
-
-        public Point3D(float x, float y, float z)
-        {
-            X = x;
-            Y = y;
-            Z = z;
-        }
-
-        public bool IsZero()
-        {
-            return (X == 0.0f && Y == 0.0f && Z == 0.0f);
-        }
-
-        public Point3D Sub(Point3D p0)
-        {
-            Point3D res;
-            res.X = X - p0.X;
-            res.Y = Y - p0.Y;
-            res.Z = Z - p0.Z;
-            return res;
-        }
-    }
 
     public static class M3DHelper
     {
         public const float DEG2RAD = (float)Math.PI / 180.0f;
-        public const BoxSide AllSides = BoxSide.Top | BoxSide.Bottom | BoxSide.Left | BoxSide.Right | BoxSide.Back | BoxSide.Front;
-        public const BoxSide AllSidesWF = BoxSide.Top | BoxSide.Bottom | BoxSide.Left | BoxSide.Right | BoxSide.Back;
+        public const BoxSides AllSides = BoxSides.Top | BoxSides.Bottom | BoxSides.Left | BoxSides.Right | BoxSides.Back | BoxSides.Front;
+        public const BoxSides AllSidesWF = BoxSides.Top | BoxSides.Bottom | BoxSides.Left | BoxSides.Right | BoxSides.Back;
 
 
         public static void SetMaterial(float[] diffParams, float[] specParams, float shin)
@@ -68,7 +39,7 @@ namespace AquaLog.GLViewer
 
         public static void SetLight(uint index, float[] ambiParams, float[] diffParams, float[] specParams, float[] pos)
         {
-            uint light = (uint)(OpenGL.GL_LIGHT0 + index);
+            uint light = OpenGL.GL_LIGHT0 + index;
             OpenGL.glEnable(light);
 
             if (ambiParams != null) {
@@ -86,9 +57,6 @@ namespace AquaLog.GLViewer
             if (pos != null) {
                 GL.glLightfv(light, OpenGL.GL_POSITION, pos);
             }
-
-            //OpenGL.glLightf(OpenGL.GL_LIGHT1, OpenGL.GL_LINEAR_ATTENUATION, 1.0f / 32.0f);
-            //OpenGL.glLightf(OpenGL.GL_LIGHT1, OpenGL.GL_QUADRATIC_ATTENUATION, 1.0f / 64.0f);
         }
 
         public static Point3D CalculateSurfaceNormal(Point3D p1, Point3D p2, Point3D p3)
@@ -109,15 +77,15 @@ namespace AquaLog.GLViewer
             return normal;
         }
 
-        /*public static Point3D ScaleVector(Point3D vector, double length)
+        public static Vector3D ScaleVector(Vector3D vector, float length)
         {
-            double scale = length / vector.Length;
-            return new Point3D(vector.X * scale, vector.Y * scale, vector.Z * scale);
-        }*/
+            float scale = length / vector.Length();
+            return new Vector3D(vector.X * scale, vector.Y * scale, vector.Z * scale);
+        }
 
         public static float GetAngle(Point3D v1, Point3D v2)
         {
-            float radAngle = (float)Math.Acos((v1.X * v2.X + v1.Y * v2.Y + v1.Z * v2.Z) / ((Math.Sqrt(v1.X * v1.X + v1.Y * v1.Y + v1.Z * v1.Z) * Math.Sqrt(v2.X * v2.X + v2.Y * v2.Y + v2.Z * v2.Z))));
+            float radAngle = (float)Math.Acos((v1.X * v2.X + v1.Y * v2.Y + v1.Z * v2.Z) / (Math.Sqrt(v1.X * v1.X + v1.Y * v1.Y + v1.Z * v1.Z) * Math.Sqrt(v2.X * v2.X + v2.Y * v2.Y + v2.Z * v2.Z)));
             return radAngle / M3DHelper.DEG2RAD;
         }
 
@@ -252,21 +220,21 @@ namespace AquaLog.GLViewer
 
         public static void DrawBox(Point3D p1, Point3D p2, Point3D p3, Point3D p4,
                                    Point3D p5, Point3D p6, Point3D p7, Point3D p8,
-                                   BoxSide sides = AllSides)
+                                   BoxSides sides = AllSides)
         {
             // GL_CCW(default), GL_CW
             //GL.glFrontFace(GL.GL_CW);
 
-            if (sides.HasFlag(BoxSide.Top)) DrawRect(p1, p2, p3, p4, new Point3D(0.0f, 1.0f, 0.0f));
-            if (sides.HasFlag(BoxSide.Bottom)) DrawRect(p5, p6, p7, p8, new Point3D(0.0f, -1.0f, 0.0f));
+            if (sides.HasFlag(BoxSides.Top)) DrawRect(p1, p2, p3, p4, new Point3D(0.0f, 1.0f, 0.0f));
+            if (sides.HasFlag(BoxSides.Bottom)) DrawRect(p5, p6, p7, p8, new Point3D(0.0f, -1.0f, 0.0f));
 
-            if (sides.HasFlag(BoxSide.Back)) DrawRect(p1, p2, p6, p5, new Point3D(0.0f, 0.0f, -1.0f));
-            if (sides.HasFlag(BoxSide.Right)) DrawRect(p2, p3, p7, p6, new Point3D(+1.0f, 0.0f, 0.0f));
-            if (sides.HasFlag(BoxSide.Front)) DrawRect(p3, p4, p8, p7, new Point3D(0.0f, 0.0f, +1.0f));
-            if (sides.HasFlag(BoxSide.Left)) DrawRect(p1, p4, p8, p5, new Point3D(-1.0f, 0.0f, 0.0f));
+            if (sides.HasFlag(BoxSides.Back)) DrawRect(p1, p2, p6, p5, new Point3D(0.0f, 0.0f, -1.0f));
+            if (sides.HasFlag(BoxSides.Right)) DrawRect(p2, p3, p7, p6, new Point3D(+1.0f, 0.0f, 0.0f));
+            if (sides.HasFlag(BoxSides.Front)) DrawRect(p3, p4, p8, p7, new Point3D(0.0f, 0.0f, +1.0f));
+            if (sides.HasFlag(BoxSides.Left)) DrawRect(p1, p4, p8, p5, new Point3D(-1.0f, 0.0f, 0.0f));
         }
 
-        public static void DrawBox(float x1, float x2, float y1, float y2, float z1, float z2, BoxSide sides = M3DHelper.AllSides)
+        public static void DrawBox(float x1, float x2, float y1, float y2, float z1, float z2, BoxSides sides = M3DHelper.AllSides)
         {
             M3DHelper.DrawBox(
                 new Point3D(x1, y1, z1), new Point3D(x2, y1, z1), new Point3D(x2, y1, z2), new Point3D(x1, y1, z2),

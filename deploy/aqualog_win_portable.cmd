@@ -4,7 +4,7 @@ rem "AquaLog", Home aquariums manager.
 rem Copyright (C) 2019 by Sergey V. Zhdanovskih.
 
 set lstfile=".\listfile.txt"
-set out_fn="aqualog_1.0.0_win_portable"
+set out_fn="aqualog_1.1.0_win_portable"
 set zip_fn=".\%out_fn%.zip"
 set log_fn=".\%out_fn%.log"
 
@@ -17,6 +17,11 @@ echo "..\AquaLog.exe" > %lstfile%
 echo "..\AquaLog.exe.config" >> %lstfile%
 
 echo "..\BSLib.dll" >> %lstfile%
+echo "..\BSLib.Timeline.dll" >> %lstfile%
+echo "..\csgl.dll" >> %lstfile%
+echo "..\csgl.native.dll" >> %lstfile%
+echo "..\DotNetRtfWriter.dll" >> %lstfile%
+echo "..\ExcelLibrary.dll" >> %lstfile%
 echo "..\log4net.dll" >> %lstfile%
 echo "..\sqlite3.dll" >> %lstfile%
 echo "..\ZedGraph.dll" >> %lstfile%

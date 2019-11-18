@@ -28,12 +28,12 @@ namespace AquaLog.GLViewer
             }
         }
 
-        private const int BUBBLES_COUNT = 50;
+        private const int BUBBLES_COUNT = 150;
 
         private static Bubble[] fBubbles;
         private static float fWaterHeight;
 
-        public static void Init(float waterHeight)
+        public static void InitBubbles(float waterHeight)
         {
             fWaterHeight = waterHeight;
 
@@ -44,7 +44,7 @@ namespace AquaLog.GLViewer
             }
         }
 
-        public static void DoStep()
+        public static void UpdateBubbles()
         {
             foreach (Bubble bubble in fBubbles) {
                 float vel = bubble.Size;
@@ -76,7 +76,7 @@ namespace AquaLog.GLViewer
             }
         }
 
-        public static void Draw()
+        public static void DrawBubbles()
         {
             foreach (Bubble bubble in fBubbles) {
                 OpenGL.glPushMatrix();

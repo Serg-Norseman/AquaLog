@@ -15,5 +15,16 @@ namespace AquaLog.Core.Model
     {
         ITank Clone();
         TankShape GetTankShape();
+
+
+        /// <summary>
+        /// The base area of an aquarium (cm2).
+        /// </summary>
+        double CalcBaseArea();
+
+        /// <summary>
+        /// Calculate the volume of a tank (litres, all sizes in cm).
+        /// </summary>
+        double CalcTankVolume();
     }
 }

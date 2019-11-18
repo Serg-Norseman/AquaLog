@@ -169,11 +169,12 @@
   <string id="167">Chart (shops)</string>
   <string id="168">Chart (brands)</string>
   <string id="169">Edge size</string>
-  <string id="170">Centre depth</string>
+  <string id="170">Centre width</string>
   <string id="171">Snapshot</string>
   <string id="172">Snapshots</string>
   <string id="173">Scientific Name</string>
   <string id="174">Family</string>
   <string id="175">Chart (families)</string>
   <string id="176">3D Viewer</string>
+  <string id="177">Length</string>
 </resources>

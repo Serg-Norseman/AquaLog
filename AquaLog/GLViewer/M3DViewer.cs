@@ -7,6 +7,7 @@
 using System;
 using System.Timers;
 using System.Windows.Forms;
+using AquaLog.Core.Model.Tanks;
 using CsGL.OpenGL;
 
 namespace AquaLog.GLViewer
@@ -22,18 +23,14 @@ namespace AquaLog.GLViewer
         private const double FOV_Y = 45.0f;         // GLU's Field Of View Angle, In Degrees, In The Y Direction.
 
         // spot light
-        private float[] LightAmbient = {0.5f, 0.5f, 0.5f, 0.95f};
-        private float[] LightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};
-        private float[] LightSpecular = {1.0f, 1.0f, 1.0f, 1.0f};
-        private float[] LightPosition = {0.0f, 5.0f, -5.0f, 1.0f};
+        private readonly float[] LightAmbient = {0.5f, 0.5f, 0.5f, 0.95f};
+        private readonly float[] LightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};
+        private readonly float[] LightSpecular = {1.0f, 1.0f, 1.0f, 1.0f};
+        private readonly float[] LightPosition = {0.0f, 5.0f, -5.0f, 1.0f};
 
-        //private float[] LightAmbient = {0.5f, 0.5f, 0.5f, 0.95f};
-        private float[] LightDiffuse2 = {1.0f, 0.0f, 0.0f, 1.0f};
-        private float[] LightPosition2 = {2.0f, 2.0f, 0.0f, 1.0f};
-
-        //private float[] LightAmbient = {0.5f, 0.5f, 0.5f, 0.95f};
-        private float[] LightDiffuse3 = {0.0f, 0.0f, 1.0f, 1.0f};
-        private float[] LightPosition3 = {-2.0f, 2.0f, 0.0f, 1.0f};
+        //private readonly float[] LightAmbient2 = {0.5f, 0.5f, 0.5f, 0.95f};
+        //private readonly float[] LightDiffuse2 = {1.0f, 0.0f, 0.0f, 1.0f};
+        //private readonly float[] LightPosition2 = {2.0f, 2.0f, 0.0f, 1.0f};
 
         // rendering
         private float xrot;
@@ -42,8 +39,6 @@ namespace AquaLog.GLViewer
         private float z;
 
         // control
-        private int fHeight;
-        private int fWidth;
         private bool fMouseDrag;
         private int fLastX;
         private int fLastY;
@@ -51,11 +46,20 @@ namespace AquaLog.GLViewer
         private System.Timers.Timer fAnimTimer;
         private bool fBusy;
         private bool fAeration;
+        private BaseTank fTank;
+        private bool fWaterVisible = true;
 
 
-        public bool Debug { get; set; }
-
-        public event EventHandler Draw;
+        public BaseTank Tank
+        {
+            get {
+                return fTank;
+            }
+            set {
+                fTank = value;
+                Reset();
+            }
+        }
 
 
         public M3DViewer()
@@ -109,19 +113,14 @@ namespace AquaLog.GLViewer
             GrabContext();
 
             var sz = Size;
-            if (sz.Width != 0 && sz.Height != 0) {
-                fHeight = sz.Height;
-                fWidth = sz.Width;
-
-                if (fHeight == 0) {
-                    fHeight = 1;
-                }
-
-                OpenGL.glViewport(0, 0, fWidth, fHeight);
+            var height = sz.Height;
+            var width = sz.Width;
+            if (width > 0 && height > 0) {
+                OpenGL.glViewport(0, 0, width, height);
                 OpenGL.glMatrixMode(OpenGL.GL_PROJECTION);
                 OpenGL.glLoadIdentity();
 
-                GLU.gluPerspective(FOV_Y, (float)fWidth / fHeight, NEAR_CLIPPING_PLANE, FAR_CLIPPING_PLANE);
+                GLU.gluPerspective(FOV_Y, (float)width / height, NEAR_CLIPPING_PLANE, FAR_CLIPPING_PLANE);
 
                 OpenGL.glMatrixMode(OpenGL.GL_MODELVIEW);
                 OpenGL.glLoadIdentity();
@@ -137,14 +136,9 @@ namespace AquaLog.GLViewer
 
             M3DHelper.SetLight(0, new float[] { 0.5f, 0.5f, 0.5f, 1.0f }, null, LightSpecular, null);
             M3DHelper.SetLight(1, LightAmbient, LightDiffuse, LightSpecular, LightPosition);
-            //M3DHelper.SetLight(2, LightDiffuse2, LightPosition2);
-            //M3DHelper.SetLight(3, LightDiffuse3, LightPosition3);
 
             OpenGL.glEnable(OpenGL.GL_NORMALIZE);
             OpenGL.glLightModelf(OpenGL.GL_LIGHT_MODEL_TWO_SIDE, (int)GL.GL_TRUE);
-
-            //OpenGL.glDepthFunc(OpenGL.GL_LEQUAL);
-            //OpenGL.glLightModeli(OpenGL.GL_LIGHT_MODEL_LOCAL_VIEWER, (int)GL.GL_TRUE);
 
             OpenGL.glEnable(OpenGL.GL_BLEND);
             OpenGL.glBlendFunc(OpenGL.GL_SRC_ALPHA, OpenGL.GL_ONE_MINUS_SRC_ALPHA);
@@ -154,22 +148,39 @@ namespace AquaLog.GLViewer
             OpenGL.glRotatef(yrot, 0.0f, 1.0f, 0.0f);
             OpenGL.glRotatef(zrot, 0.0f, 0.0f, 1.0f);
 
-            if (Debug) {
-                // debug only
-                M3DTanks.DrawBowfrontTank(92f, 31f, 41f, 53f, 0.5f, true);
-                //M3DTanks.DrawRectangularTank(92f, 31f, 53f, 0.5f, true);
-                //DrawBubble();
-            } else {
-                var drawHandler = Draw;
-                if (drawHandler != null)
-                    drawHandler(this, EventArgs.Empty);
+            DrawTank();
+        }
+
+        private void DrawTank()
+        {
+            Point3D aeraPt = Point3D.Zero;
+
+            if (fTank is BowFrontTank) {
+                var bowTank = (BowFrontTank)fTank;
+                M3DTanks.DrawBowfrontTank(bowTank.Length, bowTank.Width, bowTank.CentreWidth, bowTank.Height, bowTank.GlassThickness, fWaterVisible);
+                aeraPt = new Point3D(0.0f, -(bowTank.Height / 200.0f), +(bowTank.Width / 200.0f));
+            } else if (fTank is RectangularTank) {
+                var rectTank = (RectangularTank)fTank;
+                M3DTanks.DrawRectangularTank(rectTank.Length, rectTank.Width, rectTank.Height, rectTank.GlassThickness, fWaterVisible);
+                aeraPt = new Point3D(0.0f, -(rectTank.Height / 200.0f), +(rectTank.Width / 200.0f));
+            } else if (fTank is CubeTank) {
+                var cubeTank = (CubeTank)fTank;
+                M3DTanks.DrawRectangularTank(cubeTank.EdgeSize, cubeTank.EdgeSize, cubeTank.EdgeSize, cubeTank.GlassThickness, fWaterVisible);
+                aeraPt = new Point3D(0.0f, -(cubeTank.EdgeSize / 200.0f), +(cubeTank.EdgeSize / 200.0f));
             }
 
             if (fAeration) {
                 OpenGL.glPushMatrix();
-                OpenGL.glTranslatef(0.0f, -(53f / 100.0f) / 2, -(31.0f / 100) / 2);
-                M3DAeration.Draw();
+                OpenGL.glTranslatef(aeraPt.X, aeraPt.Y, aeraPt.Z);
+                M3DAeration.DrawBubbles();
                 OpenGL.glPopMatrix();
+            }
+        }
+
+        private void UpdateTank()
+        {
+            if (fAeration) {
+                M3DAeration.UpdateBubbles();
             }
         }
 
@@ -184,9 +195,7 @@ namespace AquaLog.GLViewer
                     yrot -= 0.3f;
                 }
 
-                if (fAeration) {
-                    M3DAeration.DoStep();
-                }
+                UpdateTank();
 
                 Invalidate(false);
 
@@ -212,14 +221,15 @@ namespace AquaLog.GLViewer
                     break;
 
                 case Keys.A:
-                    M3DAeration.Init(0.52f);
+                    M3DAeration.InitBubbles(0.52f);
                     fAeration = !fAeration;
                     break;
-            }
-        }
 
-        protected override void OnKeyUp(KeyEventArgs e)
-        {
+                case Keys.W:
+                    fWaterVisible = !fWaterVisible;
+                    Invalidate(false);
+                    break;
+            }
         }
 
         protected override void OnMouseDown(MouseEventArgs e)

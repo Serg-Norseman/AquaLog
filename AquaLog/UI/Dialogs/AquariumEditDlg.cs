@@ -121,8 +121,6 @@ namespace AquaLog.UI.Dialogs
 
         private void cmbShape_SelectedIndexChanged(object sender, EventArgs e)
         {
-            txtTankVolume.Text = "";
-
             var tankShape = cmbShape.GetSelectedTag<TankShape>();
             switch (tankShape) {
                 case TankShape.Unknown:
@@ -144,7 +142,7 @@ namespace AquaLog.UI.Dialogs
 
         private void RefreshProps(TankShape tankShape)
         {
-            ITank tank = fRecord.GetTank(tankShape, fRecord.TankProperties).Clone();
+            ITank tank = fRecord.GetTank(tankShape, fRecord.TankProperties);
             TypeDescriptor.AddAttributes(tank, new Attribute[] { new ReadOnlyAttribute(true) });
             UIHelper.SetTankPropNames(tank);
             pgProps.SelectedObject = tank;
@@ -191,7 +189,7 @@ namespace AquaLog.UI.Dialogs
             var tankShape = cmbShape.GetSelectedTag<TankShape>();
 
             using (var dlg = new TankEditDlg()) {
-                dlg.Record = fRecord.GetTank(tankShape, fRecord.TankProperties).Clone();
+                dlg.Record = fRecord.GetTank(tankShape, fRecord.TankProperties);
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fRecord.Tank = dlg.Record;
                     RefreshProps(tankShape);

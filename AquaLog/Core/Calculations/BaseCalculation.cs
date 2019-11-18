@@ -11,7 +11,7 @@ namespace AquaLog.Core.Calculations
     public class BaseCalculation : ILocalizable
     {
         private double fResultValue;
-        private CalculationType fType;
+        private readonly CalculationType fType;
 
 
         public static readonly CalculationProps[] CalculationData = new CalculationProps[] {

@@ -76,32 +76,9 @@ namespace AquaLog.Core.Model
         /// <summary>
         /// The base area of an aquarium (cm2).
         /// </summary>
-        public double GetBaseArea()
+        public double CalcBaseArea()
         {
-            double result = 0.0d;
-
-            switch (TankShape) {
-                case TankShape.Unknown:
-                case TankShape.Bowl:
-                    break;
-
-                case TankShape.Cube:
-                    break;
-
-                case TankShape.Rectangular:
-                    var rectTank = (RectangularTank)Tank;
-                    result = ALData.CalcArea(rectTank.Width, rectTank.Depth);
-                    break;
-
-                case TankShape.BowFront:
-                    break;
-
-                case TankShape.PlateFrontCorner:
-                case TankShape.BowFrontCorner:
-                default:
-                    break;
-            }
-
+            double result = Tank.CalcBaseArea();
             return result;
         }
 
@@ -112,33 +89,8 @@ namespace AquaLog.Core.Model
 
         public double CalcTankVolume(TankShape tankShape)
         {
-            double result;
-
-            switch (tankShape) {
-                case TankShape.Unknown:
-                case TankShape.Bowl:
-                    result = 0.0f;
-                    break;
-
-                case TankShape.Cube:
-                    result = ALData.CalcCubeTankVolume((CubeTank)Tank);
-                    break;
-
-                case TankShape.Rectangular:
-                    result = ALData.CalcRectangularTankVolume((RectangularTank)Tank);
-                    break;
-
-                case TankShape.BowFront:
-                    result = ALData.CalcBowFrontTankVolume((BowFrontTank)Tank);
-                    break;
-
-                case TankShape.PlateFrontCorner:
-                case TankShape.BowFrontCorner:
-                default:
-                    result = 0.0f;
-                    break;
-            }
-
+            ITank tank = GetTank(tankShape, TankProperties);
+            double result = tank.CalcTankVolume();
             return result;
         }
 
@@ -151,23 +103,17 @@ namespace AquaLog.Core.Model
         {
             double result;
 
+            ITank tank = GetTank(tankShape, TankProperties);
+            double baseArea = tank.CalcBaseArea();
+
             switch (tankShape) {
                 case TankShape.Unknown:
                 case TankShape.Bowl:
-                case TankShape.Cube:
                     result = 0.0f;
                     break;
 
-                case TankShape.Rectangular:
-                    var rectTank = (RectangularTank)Tank;
-                    result = ALData.CalcWaterHeight(rectTank.Depth, rectTank.Width, waterVolume, rectTank.GlassThickness);
-                    break;
-
-                case TankShape.BowFront:
-                case TankShape.PlateFrontCorner:
-                case TankShape.BowFrontCorner:
                 default:
-                    result = 0.0f;
+                    result = UnitConverter.l2cc(waterVolume) / baseArea;
                     break;
             }
 

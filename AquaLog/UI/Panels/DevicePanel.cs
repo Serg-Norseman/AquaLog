@@ -59,9 +59,6 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.WorkTime), 100, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
 
-            // TODO: Enter cost in settings
-            const double kWhCost = 2.76;
-
             double totalPow = 0.0d;
             var records = fModel.QueryDevices();
             foreach (Device rec in records) {
@@ -81,11 +78,13 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
                 ListView.Items.Add(item);
 
-                totalPow += (rec.Power /* W/h */ * rec.WorkTime /* h/day */);
+                if (rec.Enabled) {
+                    totalPow += (rec.Power /* W/h */ * rec.WorkTime /* h/day */);
+                }
             }
 
             totalPow /= 1000.0d;
-            double electricCost = totalPow * kWhCost;
+            double electricCost = totalPow * ALData.kWhCost;
             fFooter.Text = string.Format(Localizer.LS(LSID.PowerFooter), totalPow, electricCost);
         }
 

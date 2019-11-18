@@ -5,6 +5,7 @@
  */
 
 using System;
+using AquaLog.Core.Model.Tanks;
 using NUnit.Framework;
 
 namespace AquaLog.Core
@@ -15,13 +16,15 @@ namespace AquaLog.Core
         [Test]
         public void Test_CalcArea()
         {
-            Assert.AreEqual(358.75, ALData.CalcArea(17.5, 20.5));
+            var tank = new RectangularTank(17.5f, 20.5f, 26.5f);
+            Assert.AreEqual(358.75d, tank.CalcBaseArea());
         }
 
         [Test]
         public void CalcTankVolume()
         {
-            Assert.AreEqual(9.506875, ALData.CalcRectangularTankVolume(17.5, 20.5, 26.5));
+            var tank = new RectangularTank(17.5f, 20.5f, 26.5f);
+            Assert.AreEqual(9.506875d, tank.CalcTankVolume());
         }
 
         [Test]

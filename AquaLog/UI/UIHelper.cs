@@ -116,16 +116,16 @@ namespace AquaLog.UI
                     break;
 
                 case TankShape.Rectangular:
-                    ALCore.SetDisplayNameValue(tank, "Depth", Localizer.LS(LSID.Depth));
+                    ALCore.SetDisplayNameValue(tank, "Length", Localizer.LS(LSID.Length));
                     ALCore.SetDisplayNameValue(tank, "Width", Localizer.LS(LSID.Width));
                     ALCore.SetDisplayNameValue(tank, "Height", Localizer.LS(LSID.Height));
                     break;
 
                 case TankShape.BowFront:
-                    ALCore.SetDisplayNameValue(tank, "Depth", Localizer.LS(LSID.Depth));
+                    ALCore.SetDisplayNameValue(tank, "Length", Localizer.LS(LSID.Length));
                     ALCore.SetDisplayNameValue(tank, "Width", Localizer.LS(LSID.Width));
                     ALCore.SetDisplayNameValue(tank, "Height", Localizer.LS(LSID.Height));
-                    ALCore.SetDisplayNameValue(tank, "CentreDepth", Localizer.LS(LSID.CentreDepth));
+                    ALCore.SetDisplayNameValue(tank, "CentreWidth", Localizer.LS(LSID.CentreWidth));
                     break;
 
                 case TankShape.PlateFrontCorner:

@@ -15,10 +15,6 @@ namespace AquaLog.Core.Export
     /// </summary>
     public sealed class CSVExporter
     {
-        public CSVExporter()
-        {
-        }
-
         public static void Generate(ListView listView, string fileName)
         {
             using (StreamWriter sw = new StreamWriter(fileName, false, Encoding.UTF8)) {

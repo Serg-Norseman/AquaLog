@@ -14,10 +14,6 @@ namespace AquaLog.Core.Export
     /// </summary>
     public sealed class ExcelExporter
     {
-        public ExcelExporter()
-        {
-        }
-
         public static void Generate(ListView listView, string fileName)
         {
             Workbook workbook = new Workbook();

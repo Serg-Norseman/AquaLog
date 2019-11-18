@@ -16,18 +16,14 @@ namespace AquaLog.Core
         [Test]
         public void Test_Common()
         {
-            var tank = new RectangularTank() {
-                Width = 10.5f,
-                Depth = 20.5f,
-                Height = 30.5f,
-            };
+            var tank = new RectangularTank(10.5f, 20.5f, 30.5f);
 
             string result = StringSerializer.Serialize(tank);
-            Assert.AreEqual("Depth=20.5;Width=10.5;Height=30.5;GlassThickness=0", result);
+            Assert.AreEqual("Width=20.5;Length=10.5;Height=30.5;GlassThickness=0", result);
 
             var tank2 = StringSerializer.Deserialize<RectangularTank>(result);
-            Assert.AreEqual(10.5f, tank2.Width);
-            Assert.AreEqual(20.5f, tank2.Depth);
+            Assert.AreEqual(10.5f, tank2.Length);
+            Assert.AreEqual(20.5f, tank2.Width);
             Assert.AreEqual(30.5f, tank2.Height);
         }
     }

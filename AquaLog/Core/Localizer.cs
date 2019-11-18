@@ -191,15 +191,16 @@ namespace AquaLog.Core
         /* 167 */ ChartShops,
         /* 168 */ ChartBrands,
         /* 169 */ EdgeSize,
-        /* 170 */ CentreDepth,
+        /* 170 */ CentreWidth,
         /* 171 */ Snapshot,
         /* 172 */ Snapshots,
         /* 173 */ ScientificName,
         /* 174 */ BioFamily,
         /* 175 */ ChartFamilies,
         /* 176 */ M3DViewer,
+        /* 177 */ Length,
 
-        /* 000 */ Last = M3DViewer
+        /* 000 */ Last = Length
     }
 
 
@@ -379,13 +380,14 @@ namespace AquaLog.Core
             /* 167 */ "Chart (shops)",
             /* 168 */ "Chart (brands)",
             /* 169 */ "Edge size",
-            /* 170 */ "Centre depth",
+            /* 170 */ "Centre width",
             /* 171 */ "Snapshot",
             /* 172 */ "Snapshots",
             /* 173 */ "Scientific Name",
             /* 174 */ "Family",
             /* 175 */ "Chart (families)",
             /* 176 */ "3D Viewer",
+            /* 177 */ "Length",
         };
 
 

@@ -15,30 +15,75 @@ namespace AquaLog.Core.Model.Tanks
     public class RectangularTank : BaseTank
     {
         /// <summary>
-        /// The depth of an aquarium is the distance from front to back (cm).
-        /// </summary>
-        [Browsable(true), DisplayName("Depth")]
-        public double Depth { get; set; }
-
-        /// <summary>
-        /// The width of an aquarium is the distance across the front (cm).
+        /// The width of an aquarium is the distance from front to back (cm).
         /// </summary>
         [Browsable(true), DisplayName("Width")]
-        public double Width { get; set; }
+        public float Width { get; set; }
+
+        /// <summary>
+        /// The length of an aquarium is the distance across the front (cm).
+        /// </summary>
+        [Browsable(true), DisplayName("Length")]
+        public float Length { get; set; }
 
         /// <summary>
         /// The height of an aquarium is the distance from top to bottom (cm).
         /// </summary>
         [Browsable(true), DisplayName("Height")]
-        public double Height { get; set; }
+        public float Height { get; set; }
+
 
         public RectangularTank()
         {
         }
 
+        public RectangularTank(float length, float width, float height, float glassThickness = 0.0f)
+        {
+            Length = length;
+            Width = width;
+            Height = height;
+            GlassThickness = glassThickness;
+        }
+
         public override TankShape GetTankShape()
         {
             return TankShape.Rectangular;
+        }
+
+        /// <summary>
+        /// The base area of an aquarium (cm2).
+        /// </summary>
+        public override double CalcBaseArea()
+        {
+            double glassThickness = GlassThickness;
+            double width = Width;
+            double length = Length;
+
+            if (glassThickness > 0.0d) {
+                double thicknessX2 = glassThickness * 2.0d;
+
+                width -= thicknessX2; // two sides
+                length -= thicknessX2; // two sides
+            }
+
+            return width * length;
+        }
+
+        /// <summary>
+        /// Calculate the volume of a tank (litres, all sizes in cm).
+        /// </summary>
+        public override double CalcTankVolume()
+        {
+            double glassThickness = GlassThickness;
+            double height = Height;
+
+            if (glassThickness > 0.0d) {
+                height -= glassThickness; // only bottom
+            }
+
+            double baseArea = CalcBaseArea();
+            double ccVolume = baseArea * height; // cubic cm (cc)
+            return UnitConverter.cc2l(ccVolume);
         }
     }
 }

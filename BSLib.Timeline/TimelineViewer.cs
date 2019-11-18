@@ -81,7 +81,6 @@ namespace BSLib.Timeline
         private double fClockValue;
         private BehaviorMode fCurrentMode;
         private Range<float> fDataRange;
-        private PointF fDragOrigin;
         private int fGridAlpha;
         private Pen fGridPen;
         private EventFrame fHighlightedFrame;
@@ -730,9 +729,6 @@ namespace BSLib.Timeline
                         fSelectedFrames.Remove(focusedFrame);
                         InvokeSelectionChanged(new SelectionChangedEventArgs(null, focusedFrame.Yield()));
                     }
-
-                    // Store the current mouse position. It'll be used later to calculate the movement delta.
-                    fDragOrigin = location;
                 } else if (location.Y < fPlayheadExtents.Height) {
                     fCurrentMode = BehaviorMode.TimeScrub;
                     SetClockFromMousePosition(location);

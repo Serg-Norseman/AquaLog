@@ -168,12 +168,13 @@
   <string id="166">Диаграмма (типы)</string>
   <string id="167">Диаграмма (магазины)</string>
   <string id="168">Диаграмма (бренды)</string>
-  <string id="169">Длина грани</string>
-  <string id="170">Глубина в центре</string>
+  <string id="169">Ширина грани</string>
+  <string id="170">Ширина в центре</string>
   <string id="171">Снимок</string>
   <string id="172">Снимки</string>
   <string id="173">Научное название</string>
   <string id="174">Семейство</string>
   <string id="175">Диаграмма (семейства)</string>
   <string id="176">3D Просмотр</string>
+  <string id="177">Длина</string>
 </resources>

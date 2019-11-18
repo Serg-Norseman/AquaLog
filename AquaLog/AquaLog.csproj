@@ -151,6 +151,8 @@
     <Compile Include="GLViewer\M3DHelper.cs" />
     <Compile Include="GLViewer\M3DTanks.cs" />
     <Compile Include="GLViewer\M3DViewer.cs" />
+    <Compile Include="GLViewer\Point3D.cs" />
+    <Compile Include="GLViewer\Vector3D.cs" />
     <Compile Include="TSDB\TSPoint.cs" />
     <Compile Include="TSDB\SDCompression.cs" />
     <Compile Include="TSDB\TSDatabase.cs" />

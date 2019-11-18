@@ -16,7 +16,7 @@ namespace AquaLog.DataCollection
     public abstract class BaseService : BaseObject
     {
         private IChannel fChannel;
-        private Timer fTimer;
+        private readonly Timer fTimer;
 
 
         public event ElapsedEventHandler Elapsed;

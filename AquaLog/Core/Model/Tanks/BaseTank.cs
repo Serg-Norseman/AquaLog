@@ -15,7 +15,7 @@ namespace AquaLog.Core.Model.Tanks
     public class BaseTank : ITank
     {
         [Browsable(true), DisplayName("GlassThickness")]
-        public double GlassThickness { get; set; }
+        public float GlassThickness { get; set; }
 
         public BaseTank()
         {
@@ -29,6 +29,22 @@ namespace AquaLog.Core.Model.Tanks
         public virtual TankShape GetTankShape()
         {
             return TankShape.Unknown;
+        }
+
+        /// <summary>
+        /// The base area of an aquarium (cm2).
+        /// </summary>
+        public virtual double CalcBaseArea()
+        {
+            return 0.0d;
+        }
+
+        /// <summary>
+        /// Calculate the volume of a tank (litres, all sizes in cm).
+        /// </summary>
+        public virtual double CalcTankVolume()
+        {
+            return 0.0d;
         }
     }
 }

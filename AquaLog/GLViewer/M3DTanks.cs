@@ -6,7 +6,7 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using AquaLog.Core;
 using CsGL.OpenGL;
 
 namespace AquaLog.GLViewer
@@ -16,9 +16,9 @@ namespace AquaLog.GLViewer
         private const float ScaleFactor = 0.01f;
 
         // materials
-        private static float[] GlassDiffuse = new float[] { 0.878f, 1.0f, 1.0f, 0.5f };
-        private static float[] GlassSpecular = new float[] { 0.95f, 0.95f, 0.95f, 1.0f };
-        private static float[] WaterDiffuse = new float[] { 0.0f, 0.3f, 1.0f, 0.5f };
+        private static readonly float[] GlassDiffuse = new float[] { 0.878f, 1.0f, 1.0f, 0.5f };
+        private static readonly float[] GlassSpecular = new float[] { 0.95f, 0.95f, 0.95f, 1.0f };
+        private static readonly float[] WaterDiffuse = new float[] { 0.0f, 0.3f, 1.0f, 0.5f };
 
 
         public static void DrawRectangularTank(float length, float width, float height, float thickness,
@@ -85,7 +85,7 @@ namespace AquaLog.GLViewer
                 var x1w = x1s + thickness;
                 var x2w = x2s - thickness;
                 var y1w = 0;
-                var y2w = 0 + height - thickness * 4;
+                var y2w = 0 + height - thickness - (ALData.StdWaterOffset * ScaleFactor);
                 var z1w = 0 + thickness;
                 var z2w = 0 + width - thickness;
                 M3DHelper.DrawBox(x1w, x2w, y1w, y2w, z1w, z2w);
@@ -155,7 +155,7 @@ namespace AquaLog.GLViewer
 
                 var x1w = x1s + thickness;
                 var x2w = x2s - thickness;
-                var y1w = height - thickness * 4;
+                var y1w = height - thickness - (ALData.StdWaterOffset * ScaleFactor);
                 var y2w = 0.0f;
                 var z1w = 0.0f + thickness;
                 var z2w = 0.0f + width;
@@ -200,14 +200,15 @@ namespace AquaLog.GLViewer
         // Draw an arc strip of a given height from y=0
         private static void DrawBowfront(float x1, float x2, float z1, float width, float fullWidth, float height, out float centerZ, out IList<Point3D> points)
         {
-            float length = x2 - x1;
-            float chordWidth, radius, wedgeAngle, /*centerZ, */startAngle;
+            float chordLength = x2 - x1;
+            float chordWidth = fullWidth - width;
 
-            chordWidth = fullWidth - width;
-            radius = (chordWidth / 2.0f) + (length * length) / (8.0f * chordWidth);
-            wedgeAngle = (float)(2.0f * Math.Asin(length / (2.0f * radius))) / M3DHelper.DEG2RAD;
+            float radius, wedgeAngle;
+            ALData.CalcSegmentParams(chordWidth, chordLength, out radius, out wedgeAngle);
+            wedgeAngle /= M3DHelper.DEG2RAD;
+
             centerZ = (z1 + fullWidth - radius);
-            startAngle = M3DHelper.GetAngle(new Point3D(0.0f, 0.0f, centerZ), new Point3D(x2, 0.0f, centerZ), new Point3D(x2, 0.0f, z1 + width));
+            float startAngle = M3DHelper.GetAngle(new Point3D(0.0f, 0.0f, centerZ), new Point3D(x2, 0.0f, centerZ), new Point3D(x2, 0.0f, z1 + width));
 
             OpenGL.glPushMatrix();
             OpenGL.glTranslatef(0.0f, 0.0f, centerZ);

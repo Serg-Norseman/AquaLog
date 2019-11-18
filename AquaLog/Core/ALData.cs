@@ -6,7 +6,6 @@
 
 using System;
 using System.Drawing;
-using AquaLog.Core.Model.Tanks;
 using AquaLog.Core.Types;
 using BSLib;
 
@@ -17,6 +16,13 @@ namespace AquaLog.Core
     /// </summary>
     public static class ALData
     {
+        // TODO: Move to aquarium's props
+        public const float StdWaterOffset = 2.0f;
+
+        // TODO: Move cost to settings
+        public const double kWhCost = 2.76;
+
+
         public static readonly int[] WaterChangeFactors = new int[] {
              0, // Restart
             +1, // WaterAdded
@@ -241,91 +247,10 @@ namespace AquaLog.Core
         };
 
 
-        public static double CalcArea(double depth, double width)
+        public static void CalcSegmentParams(float chordWidth, float chordLength, out float radius, out float wedgeAngle)
         {
-            return depth * width;
-        }
-
-        /// <summary>
-        /// Calculate the volume of a cube tank (all sizes in cm).
-        /// </summary>
-        public static double CalcCubeTankVolume(CubeTank tank)
-        {
-            return CalcCubeTankVolume(tank.EdgeSize, tank.GlassThickness);
-        }
-
-        /// <summary>
-        /// Calculate the volume of a cube tank (all sizes in cm).
-        /// </summary>
-        public static double CalcCubeTankVolume(double size, double glassThickness = 0.0d)
-        {
-            var depth = size;
-            var width = size;
-            var height = size;
-
-            return CalcRectangularTankVolume(depth, width, height, glassThickness);
-        }
-
-        /// <summary>
-        /// Calculate the volume of a rectangular tank (all sizes in cm).
-        /// </summary>
-        public static double CalcRectangularTankVolume(RectangularTank tank)
-        {
-            return CalcRectangularTankVolume(tank.Depth, tank.Width, tank.Height, tank.GlassThickness);
-        }
-
-        /// <summary>
-        /// Calculate the volume of a rectangular tank (all sizes in cm).
-        /// </summary>
-        public static double CalcRectangularTankVolume(double depth, double width, double height, double glassThickness = 0.0d)
-        {
-            if (glassThickness > 0.0d) {
-                double glassThicknessS2 = glassThickness * 2.0d;
-
-                depth -= glassThicknessS2; // two sides
-                width -= glassThicknessS2; // two sides
-                height -= glassThickness; // only bottom
-            }
-
-            double ccVolume = depth * width * height; // cubic cm (cc)
-            return UnitConverter.cc2l(ccVolume);
-        }
-
-        /// <summary>
-        /// Calculate the volume of a bow front tank (all sizes in cm).
-        /// </summary>
-        public static double CalcBowFrontTankVolume(BowFrontTank tank)
-        {
-            return CalcBowFrontTankVolume(tank.Depth, tank.CentreDepth, tank.Width, tank.Height, tank.GlassThickness);
-        }
-
-        /// <summary>
-        /// Calculate the volume of a bow front tank (all sizes in cm).
-        /// </summary>
-        public static double CalcBowFrontTankVolume(double sideDepth, double centreDepth, double width, double height, double glassThickness = 0.0d)
-        {
-            if (glassThickness > 0.0d) {
-                double glassThicknessS2 = glassThickness * 2.0d;
-
-                sideDepth -= glassThicknessS2; // two sides
-                centreDepth -= glassThicknessS2; // two sides
-                width -= glassThicknessS2; // two sides
-                height -= glassThickness; // only bottom
-            }
-
-            double ae = (width / 2.0f);
-            double ed = (centreDepth - sideDepth);
-            double ce = (ae * ae / ed);
-            double ao = ((ed + ce) / 2.0f);
-            double oe = (ao - ed);
-            double aob = (2.0f * Math.Atan2(ae, oe));
-            double areasector = (aob * ao * ao / 2.0f);
-            double areatriangle = (oe * ae);
-            double areasegment = (areasector - areatriangle);
-            double volsegment = (areasegment * height);
-            double ccVolume = (width * sideDepth * height + volsegment); // cubic cm (cc)
-
-            return UnitConverter.cc2l(ccVolume);
+            radius = (chordWidth / 2.0f) + (chordLength * chordLength) / (8.0f * chordWidth);
+            wedgeAngle = (2.0f * (float)Math.Asin(chordLength / (2.0f * radius)));
         }
 
         /// <summary>

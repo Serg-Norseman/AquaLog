@@ -143,7 +143,8 @@ namespace AquaLog.UI.Panels
                 string key;
                 switch (chartType) {
                     case BudgetChartType.ItemTypes:
-                        ItemType itType = (itemRec is Inventory) ? ALCore.GetItemType(((Inventory)itemRec).Type) : rec.ItemType; // FIXME
+                        Inventory inventRec = itemRec as Inventory;
+                        ItemType itType = (inventRec != null) ? ALCore.GetItemType(inventRec.Type) : rec.ItemType;
                         key = Localizer.LS(ALData.ItemTypes[(int)itType].Name);
                         break;
                     case BudgetChartType.Shops:

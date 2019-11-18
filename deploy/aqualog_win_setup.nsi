@@ -8,7 +8,7 @@
 
 Unicode true
 Name "AquaLog"
-OutFile "aqualog_1.0.0_winsetup.exe"
+OutFile "aqualog_1.1.0_winsetup.exe"
 InstallDir $PROGRAMFILES\AquaLog
 
 CRCCheck on
@@ -60,6 +60,11 @@ Section "$(al_req)"
     File "..\AquaLog.exe.config"
 
     File "..\BSLib.dll"
+    File "..\BSLib.Timeline.dll"
+    File "..\csgl.dll"
+    File "..\csgl.native.dll"
+    File "..\DotNetRtfWriter.dll"
+    File "..\ExcelLibrary.dll"
     File "..\log4net.dll"
     File "..\sqlite3.dll"
     File "..\ZedGraph.dll"
@@ -113,6 +118,11 @@ Section "Uninstall"
     Delete $INSTDIR\AquaLog.exe.config
 
     Delete $INSTDIR\BSLib.dll
+    Delete $INSTDIR\BSLib.Timeline.dll
+    Delete $INSTDIR\csgl.dll
+    Delete $INSTDIR\csgl.native.dll
+    Delete $INSTDIR\DotNetRtfWriter.dll
+    Delete $INSTDIR\ExcelLibrary.dll
     Delete $INSTDIR\log4net.dll
     Delete $INSTDIR\sqlite3.dll
     Delete $INSTDIR\ZedGraph.dll
