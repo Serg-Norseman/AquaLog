@@ -31,6 +31,11 @@ namespace AquaLog.Core.Model.Tanks
             return TankShape.Unknown;
         }
 
+        public virtual void SetPropNames()
+        {
+            ALCore.SetDisplayNameValue(this, "GlassThickness", ALData.GetLSuom(LSID.GlassThickness, MeasurementType.Length));
+        }
+
         /// <summary>
         /// The base area of an aquarium (cm2).
         /// </summary>
@@ -43,6 +48,11 @@ namespace AquaLog.Core.Model.Tanks
         /// Calculate the volume of a tank (litres, all sizes in cm).
         /// </summary>
         public virtual double CalcTankVolume()
+        {
+            return 0.0d;
+        }
+
+        public virtual double CalcWaterVolume(double underfillHeight, double soilHeight)
         {
             return 0.0d;
         }

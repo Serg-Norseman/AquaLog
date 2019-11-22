@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using AquaLog.Core;
+using AquaLog.Core.Model.Tanks;
 using CsGL.OpenGL;
 
 namespace AquaLog.GLViewer
@@ -21,10 +22,133 @@ namespace AquaLog.GLViewer
         private static readonly float[] WaterDiffuse = new float[] { 0.0f, 0.3f, 1.0f, 0.5f };
 
 
-        public static void DrawRectangularTank(float length, float width, float height, float thickness,
-            bool showWater = true)
+        public static void DrawCylinderTank(CylinderTank tank, bool showWater = true, bool aeration = false)
         {
             OpenGL.glPushMatrix();
+
+            float height = tank.Height;
+            float bottomDiameter = tank.BottomDiameter;
+            float thickness = tank.GlassThickness;
+
+            bottomDiameter *= ScaleFactor;
+            height *= ScaleFactor;
+            thickness *= ScaleFactor;
+
+            OpenGL.glTranslatef(0.0f, -height / 2, 0.0f);
+
+            M3DHelper.SetMaterial(GlassDiffuse, GlassSpecular, 128.0f);
+
+            // bottom
+            var points = M3DHelper.GetArcPoints(36, bottomDiameter / 2.0f, 0.0f, 360.0f);
+            M3DHelper.DrawDisk(points, 0.0f);
+            M3DHelper.DrawDisk(points, 0.0f + thickness);
+
+            OpenGL.glPushMatrix();
+            // cylinder
+            OpenGL.glTranslatef(0.0f, +thickness, 0.0f);
+            var radI = (bottomDiameter / 2.0f) - thickness;
+            var points1i = M3DHelper.GetArcPoints(36, radI, 0.0f, 360.0f);
+            M3DHelper.DrawCylinder(points1i, height - thickness, radI);
+            OpenGL.glPopMatrix();
+
+            var radO = bottomDiameter / 2.0f;
+            var points1o = M3DHelper.GetArcPoints(36, radO, 0.0f, 360.0f);
+            M3DHelper.DrawCylinder(points1o, height, radO);
+
+            DrawCylinderFace(points1i, points1o, 0.0f + height);
+
+            if (showWater) {
+                M3DHelper.SetMaterial(WaterDiffuse, WaterDiffuse, 32.0f);
+                float watHeight = height - thickness - (ALData.StdWaterOffset * ScaleFactor);
+
+                M3DHelper.DrawDisk(points1i, 0.0f + thickness);
+                M3DHelper.DrawDisk(points1i, 0.0f + thickness + watHeight);
+
+                OpenGL.glTranslatef(0.0f, +thickness, 0.0f);
+                M3DHelper.DrawCylinder(36, watHeight, radI, 0.0f, 360.0f);
+
+                if (aeration) {
+                    var aeraPt = new Point3D(0.0f, 0.0f, bottomDiameter / 2.0f);
+                    M3DAeration.DrawBubbles(aeraPt, watHeight);
+                }
+            }
+
+            OpenGL.glPopMatrix();
+        }
+
+        public static void DrawBowlTank(BowlTank tank, bool showWater = true, bool aeration = false)
+        {
+            OpenGL.glPushMatrix();
+
+            float height = tank.Height;
+            float bottomDiameter = tank.BottomDiameter;
+            float topDiameter = tank.TopDiameter;
+            float thickness = tank.GlassThickness;
+
+            bottomDiameter *= ScaleFactor;
+            topDiameter *= ScaleFactor;
+            height *= ScaleFactor;
+            thickness *= ScaleFactor;
+
+            OpenGL.glTranslatef(0.0f, -height / 2, 0.0f);
+
+            M3DHelper.SetMaterial(GlassDiffuse, GlassSpecular, 128.0f);
+
+            // bottom
+            var points = M3DHelper.GetArcPoints(36, bottomDiameter / 2.0f, 0.0f, 360.0f);
+            M3DHelper.DrawDisk(points, 0.0f);
+            M3DHelper.DrawDisk(points, 0.0f + thickness);
+
+            // top face
+            var points1i = M3DHelper.GetArcPoints(36, (topDiameter / 2.0f) - thickness, 0.0f, 360.0f);
+            var points1o = M3DHelper.GetArcPoints(36, topDiameter / 2.0f, 0.0f, 360.0f);
+            DrawCylinderFace(points1i, points1o, 0.0f + height);
+
+            if (showWater) {
+                M3DHelper.SetMaterial(WaterDiffuse, WaterDiffuse, 32.0f);
+                float watHeight = height - thickness - (ALData.StdWaterOffset * ScaleFactor);
+
+                //M3DHelper.DrawCylinder(36, height, bottomDiameter / 2.0f, 0.0f, 360.0f);
+
+                if (aeration) {
+                    var aeraPt = new Point3D(0.0f, 0.0f, bottomDiameter / 2.0f);
+                    M3DAeration.DrawBubbles(aeraPt, watHeight);
+                }
+            }
+
+            OpenGL.glPopMatrix();
+        }
+
+        private static void DrawCylinderFace(IList<Point3D> points1, IList<Point3D> points2, float y)
+        {
+            OpenGL.glPushMatrix();
+            OpenGL.glBegin(OpenGL.GL_TRIANGLE_STRIP);
+            for (int j = 0; j < points1.Count; ++j) {
+                var pt1 = points1[j];
+                var pt2 = points2[j];
+                //OpenGL.glNormal3f(pt.X / radius, 0.0f, pt.Z / radius);
+                OpenGL.glVertex3f(pt1.X, y, pt1.Z);
+                //OpenGL.glNormal3f(pt.X / radius, 0.0f, pt.Z / radius);
+                OpenGL.glVertex3f(pt2.X, y, pt2.Z);
+            }
+            OpenGL.glEnd();
+            OpenGL.glPopMatrix();
+        }
+
+        public static void DrawRectangularTank(CubeTank tank, bool showWater = true, bool aeration = false)
+        {
+            var rectTank = new RectangularTank(tank.EdgeSize, tank.EdgeSize, tank.EdgeSize, tank.GlassThickness);
+            DrawRectangularTank(rectTank, showWater);
+        }
+
+        public static void DrawRectangularTank(RectangularTank tank, bool showWater = true, bool aeration = false)
+        {
+            OpenGL.glPushMatrix();
+
+            float length = tank.Length;
+            float width = tank.Width;
+            float height = tank.Height;
+            float thickness = tank.GlassThickness;
 
             length *= ScaleFactor;
             width *= ScaleFactor;
@@ -81,24 +205,35 @@ namespace AquaLog.GLViewer
 
             if (showWater) {
                 M3DHelper.SetMaterial(WaterDiffuse, WaterDiffuse, 32.0f);
+                float watHeight = height - thickness - (ALData.StdWaterOffset * ScaleFactor);
 
                 var x1w = x1s + thickness;
                 var x2w = x2s - thickness;
                 var y1w = 0;
-                var y2w = 0 + height - thickness - (ALData.StdWaterOffset * ScaleFactor);
+                var y2w = 0 + watHeight;
                 var z1w = 0 + thickness;
                 var z2w = 0 + width - thickness;
                 M3DHelper.DrawBox(x1w, x2w, y1w, y2w, z1w, z2w);
+
+                if (aeration) {
+                    var aeraPt = new Point3D(0.0f, 0.0f, width / 2.0f);
+                    M3DAeration.DrawBubbles(aeraPt, watHeight);
+                }
             }
 
             OpenGL.glPopMatrix();
         }
 
 
-        public static void DrawBowfrontTank(float length, float width, float fullWidth, float height, float thickness,
-            bool showWater = true)
+        public static void DrawBowfrontTank(BowFrontTank tank, bool showWater = true, bool aeration = false)
         {
             OpenGL.glPushMatrix();
+
+            float length = tank.Length;
+            float width = tank.Width;
+            float fullWidth = tank.CentreWidth;
+            float height = tank.Height;
+            float thickness = tank.GlassThickness;
 
             length *= ScaleFactor;
             width *= ScaleFactor;
@@ -152,14 +287,20 @@ namespace AquaLog.GLViewer
 
             if (showWater) {
                 M3DHelper.SetMaterial(WaterDiffuse, WaterDiffuse, 32.0f);
+                float watHeight = height - thickness - (ALData.StdWaterOffset * ScaleFactor);
 
                 var x1w = x1s + thickness;
                 var x2w = x2s - thickness;
-                var y1w = height - thickness - (ALData.StdWaterOffset * ScaleFactor);
+                var y1w = watHeight;
                 var y2w = 0.0f;
                 var z1w = 0.0f + thickness;
                 var z2w = 0.0f + width;
                 DrawBowBox(x1w, x2w, y1w, y2w, z1w, z2w, fullWidth - width - thickness);
+
+                if (aeration) {
+                    var aeraPt = new Point3D(0.0f, 0.0f, width / 2.0f);
+                    M3DAeration.DrawBubbles(aeraPt, watHeight);
+                }
             }
 
             OpenGL.glPopMatrix();

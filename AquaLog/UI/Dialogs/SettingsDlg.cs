@@ -8,6 +8,7 @@ using System;
 using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
+using AquaLog.Core.Types;
 using AquaLog.Logging;
 using BSLib;
 
@@ -52,6 +53,23 @@ namespace AquaLog.UI.Dialogs
                 cmbLocale.Items.Add(locale);
             }
 
+            for (MeasurementUnit unit = MeasurementUnit.First; unit <= MeasurementUnit.Last; unit++) {
+                var uom = ALData.MeasurementUnits[(int)unit];
+
+                if (uom.MeasurementType == MeasurementType.Length) {
+                    cmbLengthUoM.AddItem<MeasurementUnit>(uom.StrName, unit);
+                }
+                if (uom.MeasurementType == MeasurementType.Volume) {
+                    if (unit == MeasurementUnit.UKGallon) continue; // TODO: UKGallon not yet supported
+
+                    cmbVolumeUoM.AddItem<MeasurementUnit>(uom.StrName, unit);
+                }
+            }
+
+            // TODO: UOM changes not yet supported
+            cmbLengthUoM.Enabled = false;
+            cmbVolumeUoM.Enabled = false;
+
             SetLocale();
         }
 
@@ -65,6 +83,10 @@ namespace AquaLog.UI.Dialogs
             lblLocale.Text = Localizer.LS(LSID.Language);
             chkAutorun.Text = Localizer.LS(LSID.Autorun);
             chkHideAtStartup.Text = Localizer.LS(LSID.HideAtStartup);
+            tabCommon.Text = Localizer.LS(LSID.Common);
+            tabData.Text = Localizer.LS(LSID.Data);
+            lblLengthUoM.Text = Localizer.LS(LSID.Length);
+            lblVolumeUoM.Text = Localizer.LS(LSID.Volume);
         }
 
         private void UpdateView()
@@ -74,6 +96,9 @@ namespace AquaLog.UI.Dialogs
                 chkExitOnClose.Checked = fSettings.ExitOnClose;
                 cmbLocale.SelectedItem = Localizer.Locales.FirstOrDefault(loc => loc.Code == fSettings.CurrentLocale);
                 chkHideAtStartup.Checked = fSettings.HideAtStartup;
+
+                cmbLengthUoM.SetSelectedTag<MeasurementUnit>(fSettings.LengthUoM);
+                cmbVolumeUoM.SetSelectedTag<MeasurementUnit>(fSettings.VolumeUoM);
             }
 
             chkAutorun.Checked = UIHelper.IsStartupItem();
@@ -87,6 +112,9 @@ namespace AquaLog.UI.Dialogs
             fSettings.ExitOnClose = chkExitOnClose.Checked;
             fSettings.CurrentLocale = (currentLocale != null) ? currentLocale.Code : Localizer.LS_DEF_CODE;
             fSettings.HideAtStartup = chkHideAtStartup.Checked;
+
+            fSettings.LengthUoM = cmbLengthUoM.GetSelectedTag<MeasurementUnit>();
+            fSettings.VolumeUoM = cmbVolumeUoM.GetSelectedTag<MeasurementUnit>();
 
             if (chkAutorun.Checked) {
                 UIHelper.RegisterStartup();

@@ -143,6 +143,16 @@ namespace AquaLog.GLViewer
             DrawCylinder(points, height, radius);
         }
 
+        public static void DrawDisk(IList<Point3D> points, float y)
+        {
+            OpenGL.glBegin(OpenGL.GL_TRIANGLE_FAN);
+            for (int j = 0; j < points.Count; ++j) {
+                var pt = points[j];
+                OpenGL.glVertex3f(pt.X, y, pt.Z);
+            }
+            OpenGL.glEnd();
+        }
+
         public static double Dist(Point3D pt1, Point3D pt2)
         {
             float dx = pt2.X - pt1.X;

@@ -4,6 +4,7 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
 using System.ComponentModel;
 using AquaLog.Core.Types;
 
@@ -12,50 +13,42 @@ namespace AquaLog.Core.Model.Tanks
     /// <summary>
     /// 
     /// </summary>
-    public class RectangularTank : BaseTank
+    public class CylinderTank : BaseTank
     {
-        /// <summary>
-        /// The width of an aquarium is the distance from front to back (cm).
-        /// </summary>
-        [Browsable(true), DisplayName("Width")]
-        public float Width { get; set; }
-
-        /// <summary>
-        /// The length of an aquarium is the distance across the front (cm).
-        /// </summary>
-        [Browsable(true), DisplayName("Length")]
-        public float Length { get; set; }
-
         /// <summary>
         /// The height of an aquarium is the distance from top to bottom (cm).
         /// </summary>
         [Browsable(true), DisplayName("Height")]
         public float Height { get; set; }
 
+        /// <summary>
+        ///  (cm).
+        /// </summary>
+        [Browsable(true), DisplayName("BottomDiameter")]
+        public float BottomDiameter { get; set; }
 
-        public RectangularTank()
+
+        public CylinderTank()
         {
         }
 
-        public RectangularTank(float length, float width, float height, float glassThickness = 0.0f)
+        public CylinderTank(float height, float bottomDiameter, float glassThickness = 0.0f)
         {
-            Length = length;
-            Width = width;
             Height = height;
+            BottomDiameter = bottomDiameter;
             GlassThickness = glassThickness;
         }
 
         public override TankShape GetTankShape()
         {
-            return TankShape.Rectangular;
+            return TankShape.Cylinder;
         }
 
         public override void SetPropNames()
         {
             base.SetPropNames();
-            ALCore.SetDisplayNameValue(this, "Length", ALData.GetLSuom(LSID.Length, MeasurementType.Length));
-            ALCore.SetDisplayNameValue(this, "Width", ALData.GetLSuom(LSID.Width, MeasurementType.Length));
             ALCore.SetDisplayNameValue(this, "Height", ALData.GetLSuom(LSID.Height, MeasurementType.Length));
+            ALCore.SetDisplayNameValue(this, "BottomDiameter", ALData.GetLSuom(LSID.BottomDiameter, MeasurementType.Length));
         }
 
         /// <summary>
@@ -64,17 +57,13 @@ namespace AquaLog.Core.Model.Tanks
         public override double CalcBaseArea()
         {
             double glassThickness = GlassThickness;
-            double width = Width;
-            double length = Length;
+            double bottomRadius = BottomDiameter / 2.0f;
 
             if (glassThickness > 0.0d) {
-                double thicknessX2 = glassThickness * 2.0d;
-
-                width -= thicknessX2; // two sides
-                length -= thicknessX2; // two sides
+                bottomRadius -= glassThickness;
             }
 
-            return width * length;
+            return Math.PI * bottomRadius * bottomRadius;
         }
 
         /// <summary>
@@ -84,13 +73,15 @@ namespace AquaLog.Core.Model.Tanks
         {
             double glassThickness = GlassThickness;
             double height = Height;
+            double bottomRadius = BottomDiameter / 2.0f;
 
             if (glassThickness > 0.0d) {
-                height -= glassThickness; // only bottom
+                height -= glassThickness;
+                bottomRadius -= glassThickness;
             }
 
-            double baseArea = CalcBaseArea();
-            double ccVolume = baseArea * height; // cubic cm (cc)
+            var baseArea = CalcBaseArea();
+            double ccVolume = baseArea * height;
             return UnitConverter.cc2l(ccVolume);
         }
 

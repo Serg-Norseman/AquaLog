@@ -127,7 +127,9 @@
     <Compile Include="Core\Model\Schedule.cs" />
     <Compile Include="Core\Model\Snapshot.cs" />
     <Compile Include="Core\Model\Tanks\BowFrontTank.cs" />
+    <Compile Include="Core\Model\Tanks\BowlTank.cs" />
     <Compile Include="Core\Model\Tanks\CubeTank.cs" />
+    <Compile Include="Core\Model\Tanks\CylinderTank.cs" />
     <Compile Include="Core\Model\Tanks\RectangularTank.cs" />
     <Compile Include="Core\Model\Tanks\BaseTank.cs" />
     <Compile Include="Core\StringSerializer.cs" />
@@ -135,6 +137,8 @@
     <Compile Include="Core\Types\DeviceType.cs" />
     <Compile Include="Core\Types\InventoryType.cs" />
     <Compile Include="Core\Types\ItemProps.cs" />
+    <Compile Include="Core\Types\MeasurementUnit.cs" />
+    <Compile Include="Core\Types\MeasurementUnitProps.cs" />
     <Compile Include="Core\Types\MeasureValue.cs" />
     <Compile Include="Core\Types\QDecimal.cs" />
     <Compile Include="Core\Types\QString.cs" />

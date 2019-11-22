@@ -31,12 +31,9 @@ namespace AquaLog.GLViewer
         private const int BUBBLES_COUNT = 150;
 
         private static Bubble[] fBubbles;
-        private static float fWaterHeight;
 
-        public static void InitBubbles(float waterHeight)
+        public static void InitBubbles()
         {
-            fWaterHeight = waterHeight;
-
             fBubbles = new Bubble[BUBBLES_COUNT];
             for (int i = 0; i < fBubbles.Length; i++) {
                 fBubbles[i] = new Bubble();
@@ -44,7 +41,7 @@ namespace AquaLog.GLViewer
             }
         }
 
-        public static void UpdateBubbles()
+        private static void UpdateBubbles(float waterHeight)
         {
             foreach (Bubble bubble in fBubbles) {
                 float vel = bubble.Size;
@@ -70,14 +67,19 @@ namespace AquaLog.GLViewer
                 bubble.Y += dy;
                 bubble.Z += dz;
 
-                if (bubble.Y >= fWaterHeight) {
+                if (bubble.Y >= waterHeight) {
                     bubble.Init();
                 }
             }
         }
 
-        public static void DrawBubbles()
+        public static void DrawBubbles(Point3D aeraPt, float waterHeight)
         {
+            UpdateBubbles(waterHeight);
+
+            OpenGL.glPushMatrix();
+            OpenGL.glTranslatef(aeraPt.X, aeraPt.Y, aeraPt.Z);
+
             foreach (Bubble bubble in fBubbles) {
                 OpenGL.glPushMatrix();
                 OpenGL.glTranslatef(bubble.X, bubble.Y, bubble.Z);
@@ -85,6 +87,8 @@ namespace AquaLog.GLViewer
                 GLUT.glutSolidSphere(bubble.Size, 16, 16);
                 OpenGL.glPopMatrix();
             }
+
+            OpenGL.glPopMatrix();
         }
     }
 }

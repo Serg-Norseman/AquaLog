@@ -24,9 +24,12 @@
         private System.Windows.Forms.Label lblWaterType;
         private System.Windows.Forms.TextBox txtWaterVolume;
         private System.Windows.Forms.Label lblWaterVolume;
-        private System.Windows.Forms.Label lblWaterHeight;
         private System.Windows.Forms.PropertyGrid pgProps;
         private System.Windows.Forms.Button btnTank;
+        private System.Windows.Forms.TextBox txtSoilHeight;
+        private System.Windows.Forms.TextBox txtUnderfillHeight;
+        private System.Windows.Forms.Label lblSoilHeight;
+        private System.Windows.Forms.Label lblUnderfillHeight;
         
         protected override void Dispose(bool disposing)
         {
@@ -59,8 +62,11 @@
             this.tabTank = new System.Windows.Forms.TabPage();
             this.btnTank = new System.Windows.Forms.Button();
             this.pgProps = new System.Windows.Forms.PropertyGrid();
-            this.lblWaterHeight = new System.Windows.Forms.Label();
+            this.txtSoilHeight = new System.Windows.Forms.TextBox();
+            this.txtUnderfillHeight = new System.Windows.Forms.TextBox();
+            this.lblSoilHeight = new System.Windows.Forms.Label();
             this.txtWaterVolume = new System.Windows.Forms.TextBox();
+            this.lblUnderfillHeight = new System.Windows.Forms.Label();
             this.txtTankVolume = new System.Windows.Forms.TextBox();
             this.lblWaterVolume = new System.Windows.Forms.Label();
             this.lblVolume = new System.Windows.Forms.Label();
@@ -71,7 +77,7 @@
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(317, 268);
+            this.btnAccept.Location = new System.Drawing.Point(318, 307);
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
@@ -84,7 +90,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(415, 268);
+            this.btnCancel.Location = new System.Drawing.Point(417, 307);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
@@ -156,7 +162,7 @@
             this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(501, 160);
+            this.tabControl1.Size = new System.Drawing.Size(501, 201);
             this.tabControl1.TabIndex = 6;
             // 
             // tabCommon
@@ -171,8 +177,8 @@
             this.tabCommon.Location = new System.Drawing.Point(4, 22);
             this.tabCommon.Margin = new System.Windows.Forms.Padding(2);
             this.tabCommon.Name = "tabCommon";
-            this.tabCommon.Padding = new System.Windows.Forms.Padding(7);
-            this.tabCommon.Size = new System.Drawing.Size(493, 134);
+            this.tabCommon.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.tabCommon.Size = new System.Drawing.Size(493, 175);
             this.tabCommon.TabIndex = 0;
             this.tabCommon.Text = "Common";
             // 
@@ -238,22 +244,25 @@
             this.tabTank.BackColor = System.Drawing.SystemColors.Control;
             this.tabTank.Controls.Add(this.btnTank);
             this.tabTank.Controls.Add(this.pgProps);
-            this.tabTank.Controls.Add(this.lblWaterHeight);
+            this.tabTank.Controls.Add(this.txtSoilHeight);
+            this.tabTank.Controls.Add(this.txtUnderfillHeight);
+            this.tabTank.Controls.Add(this.lblSoilHeight);
             this.tabTank.Controls.Add(this.txtWaterVolume);
+            this.tabTank.Controls.Add(this.lblUnderfillHeight);
             this.tabTank.Controls.Add(this.txtTankVolume);
             this.tabTank.Controls.Add(this.lblWaterVolume);
             this.tabTank.Controls.Add(this.lblVolume);
             this.tabTank.Location = new System.Drawing.Point(4, 22);
             this.tabTank.Margin = new System.Windows.Forms.Padding(2);
             this.tabTank.Name = "tabTank";
-            this.tabTank.Padding = new System.Windows.Forms.Padding(7);
-            this.tabTank.Size = new System.Drawing.Size(493, 134);
+            this.tabTank.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.tabTank.Size = new System.Drawing.Size(493, 175);
             this.tabTank.TabIndex = 1;
             this.tabTank.Text = "Tank";
             // 
             // btnTank
             // 
-            this.btnTank.Location = new System.Drawing.Point(216, 97);
+            this.btnTank.Location = new System.Drawing.Point(216, 145);
             this.btnTank.Name = "btnTank";
             this.btnTank.Size = new System.Drawing.Size(75, 23);
             this.btnTank.TabIndex = 14;
@@ -268,29 +277,57 @@
             this.pgProps.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.pgProps.Name = "pgProps";
             this.pgProps.PropertySort = System.Windows.Forms.PropertySort.NoSort;
-            this.pgProps.Size = new System.Drawing.Size(203, 111);
+            this.pgProps.Size = new System.Drawing.Size(203, 159);
             this.pgProps.TabIndex = 13;
             this.pgProps.ToolbarVisible = false;
             // 
-            // lblWaterHeight
+            // txtSoilHeight
             // 
-            this.lblWaterHeight.Location = new System.Drawing.Point(417, 43);
-            this.lblWaterHeight.Name = "lblWaterHeight";
-            this.lblWaterHeight.Size = new System.Drawing.Size(66, 17);
-            this.lblWaterHeight.TabIndex = 12;
-            this.lblWaterHeight.Text = "wH = 0";
+            this.txtSoilHeight.Location = new System.Drawing.Point(361, 39);
+            this.txtSoilHeight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
+            this.txtSoilHeight.Name = "txtSoilHeight";
+            this.txtSoilHeight.Size = new System.Drawing.Size(82, 22);
+            this.txtSoilHeight.TabIndex = 9;
+            this.txtSoilHeight.TextChanged += new System.EventHandler(this.txtValue_TextChanged);
+            // 
+            // txtUnderfillHeight
+            // 
+            this.txtUnderfillHeight.Location = new System.Drawing.Point(361, 9);
+            this.txtUnderfillHeight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
+            this.txtUnderfillHeight.Name = "txtUnderfillHeight";
+            this.txtUnderfillHeight.Size = new System.Drawing.Size(82, 22);
+            this.txtUnderfillHeight.TabIndex = 9;
+            this.txtUnderfillHeight.TextChanged += new System.EventHandler(this.txtValue_TextChanged);
+            // 
+            // lblSoilHeight
+            // 
+            this.lblSoilHeight.Location = new System.Drawing.Point(223, 42);
+            this.lblSoilHeight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblSoilHeight.Name = "lblSoilHeight";
+            this.lblSoilHeight.Size = new System.Drawing.Size(134, 17);
+            this.lblSoilHeight.TabIndex = 8;
+            this.lblSoilHeight.Text = "Soil height";
             // 
             // txtWaterVolume
             // 
-            this.txtWaterVolume.Location = new System.Drawing.Point(330, 40);
+            this.txtWaterVolume.Location = new System.Drawing.Point(361, 98);
             this.txtWaterVolume.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtWaterVolume.Name = "txtWaterVolume";
             this.txtWaterVolume.Size = new System.Drawing.Size(82, 22);
             this.txtWaterVolume.TabIndex = 9;
             // 
+            // lblUnderfillHeight
+            // 
+            this.lblUnderfillHeight.Location = new System.Drawing.Point(223, 12);
+            this.lblUnderfillHeight.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblUnderfillHeight.Name = "lblUnderfillHeight";
+            this.lblUnderfillHeight.Size = new System.Drawing.Size(134, 17);
+            this.lblUnderfillHeight.TabIndex = 8;
+            this.lblUnderfillHeight.Text = "Underfill height";
+            // 
             // txtTankVolume
             // 
-            this.txtTankVolume.Location = new System.Drawing.Point(330, 9);
+            this.txtTankVolume.Location = new System.Drawing.Point(361, 68);
             this.txtTankVolume.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
             this.txtTankVolume.Name = "txtTankVolume";
             this.txtTankVolume.Size = new System.Drawing.Size(82, 22);
@@ -299,19 +336,19 @@
             // 
             // lblWaterVolume
             // 
-            this.lblWaterVolume.Location = new System.Drawing.Point(216, 43);
+            this.lblWaterVolume.Location = new System.Drawing.Point(223, 101);
             this.lblWaterVolume.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblWaterVolume.Name = "lblWaterVolume";
-            this.lblWaterVolume.Size = new System.Drawing.Size(110, 17);
+            this.lblWaterVolume.Size = new System.Drawing.Size(134, 17);
             this.lblWaterVolume.TabIndex = 8;
             this.lblWaterVolume.Text = "Water volume";
             // 
             // lblVolume
             // 
-            this.lblVolume.Location = new System.Drawing.Point(216, 12);
+            this.lblVolume.Location = new System.Drawing.Point(223, 71);
             this.lblVolume.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblVolume.Name = "lblVolume";
-            this.lblVolume.Size = new System.Drawing.Size(110, 17);
+            this.lblVolume.Size = new System.Drawing.Size(134, 17);
             this.lblVolume.TabIndex = 6;
             this.lblVolume.Text = "Tank volume";
             // 
@@ -321,7 +358,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(522, 303);
+            this.ClientSize = new System.Drawing.Size(522, 340);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.txtDesc);
             this.Controls.Add(this.cmbShape);

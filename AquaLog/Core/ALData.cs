@@ -6,6 +6,7 @@
 
 using System;
 using System.Drawing;
+using AquaLog.Core.Model.Tanks;
 using AquaLog.Core.Types;
 using BSLib;
 
@@ -22,6 +23,17 @@ namespace AquaLog.Core
         // TODO: Move cost to settings
         public const double kWhCost = 2.76;
 
+
+        public static readonly MeasurementUnitProps[] MeasurementUnits = new MeasurementUnitProps[] {
+            new MeasurementUnitProps(LSID.None, MeasurementType.Length),
+
+            new MeasurementUnitProps(LSID.Centimeter, MeasurementType.Length),
+            new MeasurementUnitProps(LSID.Inch, MeasurementType.Length),
+
+            new MeasurementUnitProps(LSID.Litre, MeasurementType.Volume),
+            new MeasurementUnitProps(LSID.UKGallon, MeasurementType.Volume),
+            new MeasurementUnitProps(LSID.USGallon, MeasurementType.Volume),
+        };
 
         public static readonly int[] WaterChangeFactors = new int[] {
              0, // Restart
@@ -151,6 +163,18 @@ namespace AquaLog.Core
             LSID.BowFront,
             LSID.PlateFrontCorner,
             LSID.BowFrontCorner,
+            LSID.Cylinder,
+        };
+
+        public static readonly Type[] TankTypes = new Type[] {
+            typeof(BaseTank), // Unknown
+            typeof(BowlTank), // Bowl
+            typeof(CubeTank), // Cube
+            typeof(RectangularTank), // Rectangular
+            typeof(BowFrontTank), // BowFront
+            typeof(BaseTank), // PlateFrontCorner
+            typeof(BaseTank), // BowFrontCorner
+            typeof(CylinderTank), // Cylinder
         };
 
         public static readonly LSID[] ScheduleTypes = new LSID[] {
@@ -247,31 +271,33 @@ namespace AquaLog.Core
         };
 
 
+        public static string GetLSuom(LSID lsid, MeasurementType measurementType)
+        {
+            string result = Localizer.LS(lsid);
+
+            MeasurementUnit mUnit = MeasurementUnit.Unknown;
+            if (measurementType == MeasurementType.Volume) {
+                mUnit = ALSettings.Instance.VolumeUoM;
+            } else if (measurementType == MeasurementType.Length) {
+                mUnit = ALSettings.Instance.LengthUoM;
+            }
+
+            if (mUnit != MeasurementUnit.Unknown) {
+                var props = ALData.MeasurementUnits[(int)mUnit];
+                var uom = props.StrAbbreviation;
+
+                if (!string.IsNullOrEmpty(uom)) {
+                    result += ", " + uom;
+                }
+            }
+
+            return result;
+        }
+
         public static void CalcSegmentParams(float chordWidth, float chordLength, out float radius, out float wedgeAngle)
         {
             radius = (chordWidth / 2.0f) + (chordLength * chordLength) / (8.0f * chordWidth);
             wedgeAngle = (2.0f * (float)Math.Asin(chordLength / (2.0f * radius)));
-        }
-
-        /// <summary>
-        /// Estimated standard water volume (85% of tank volume).
-        /// </summary>
-        public static double CalcWaterVolume(double tankVolume)
-        {
-            // estimated water volume is 85% of tank volume
-            return tankVolume * 0.85d;
-        }
-
-        public static double CalcWaterHeight(double depth, double width, double waterVolume, double glassThickness = 0.0d)
-        {
-            if (glassThickness > 0.0d) {
-                double glassThicknessS2 = glassThickness * 2.0d;
-
-                depth -= glassThicknessS2; // two sides
-                width -= glassThicknessS2; // two sides
-            }
-
-            return UnitConverter.l2cc(waterVolume) / (depth * width);
         }
 
         public static double CalcNH3(double pH, double temperature, double totalNH)

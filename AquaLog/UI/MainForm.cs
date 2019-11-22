@@ -101,6 +101,13 @@ namespace AquaLog.UI
             SetActions(fCurrentPanel);
 
             if (fTray != null) fTray.SetLocale();
+
+            // other
+            foreach (var props in ALData.MeasurementUnits) {
+                string[] mes = Localizer.LS(props.Name).Split(new char[] {','});
+                props.StrName = (mes.Length > 0) ? mes[0] : string.Empty;
+                props.StrAbbreviation = (mes.Length > 1) ? mes[1] : string.Empty;
+            }
         }
 
         public void SetLocale()

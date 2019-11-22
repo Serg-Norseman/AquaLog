@@ -5,6 +5,7 @@
  */
 
 using System;
+using AquaLog.Core.Types;
 using AquaLog.Logging;
 using BSLib;
 
@@ -21,6 +22,8 @@ namespace AquaLog.Core
         private bool fExitOnClose;
         private int fInterfaceLang;
         private bool fHideAtStartup;
+        private MeasurementUnit fLengthUoM;
+        private MeasurementUnit fVolumeUoM;
 
 
         public bool HideClosedTanks
@@ -45,6 +48,18 @@ namespace AquaLog.Core
         {
             get { return fHideAtStartup; }
             set { fHideAtStartup = value; }
+        }
+
+        public MeasurementUnit LengthUoM
+        {
+            get { return fLengthUoM; }
+            set { fLengthUoM = value; }
+        }
+
+        public MeasurementUnit VolumeUoM
+        {
+            get { return fVolumeUoM; }
+            set { fVolumeUoM = value; }
         }
 
 
@@ -82,6 +97,9 @@ namespace AquaLog.Core
             fExitOnClose = ini.ReadBool("Common", "ExitOnClose", true);
             fInterfaceLang = ini.ReadInteger("Common", "InterfaceLang", 0);
             fHideAtStartup = ini.ReadBool("Common", "HideAtStartup", false);
+
+            fLengthUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "LengthUoM", "Centimeter"), true, MeasurementUnit.Centimeter);
+            fVolumeUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "VolumeUoM", "Litre"), true, MeasurementUnit.Litre);
         }
 
         public void LoadFromFile(string fileName)
@@ -111,6 +129,9 @@ namespace AquaLog.Core
             ini.WriteBool("Common", "ExitOnClose", fExitOnClose);
             ini.WriteInteger("Common", "InterfaceLang", fInterfaceLang);
             ini.WriteBool("Common", "HideAtStartup", fHideAtStartup);
+
+            ini.WriteString("Data", "LengthUoM", fLengthUoM.ToString());
+            ini.WriteString("Data", "VolumeUoM", fVolumeUoM.ToString());
         }
 
         public void SaveToFile(string fileName)

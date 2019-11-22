@@ -177,4 +177,15 @@
   <string id="175">Диаграмма (семейства)</string>
   <string id="176">3D Просмотр</string>
   <string id="177">Длина</string>
+  <string id="178">Объем</string>
+  <string id="179">Сантиметр,см</string>
+  <string id="180">Дюйм,дюйм</string>
+  <string id="181">Литр,л</string>
+  <string id="182">UK галлон,гал</string>
+  <string id="183">US галлон,гал</string>
+  <string id="184">Диаметр дна</string>
+  <string id="185">Диаметр верха</string>
+  <string id="186">Цилиндр</string>
+  <string id="187">Недолив</string>
+  <string id="188">Высота грунта</string>
 </resources>

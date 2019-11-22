@@ -4,17 +4,24 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
+
 namespace AquaLog.Core.Types
 {
-    public enum TankShape
+    public enum MeasurementUnit
     {
         Unknown,
-        Bowl,
-        Cube,
-        Rectangular,
-        BowFront,
-        PlateFrontCorner,
-        BowFrontCorner,
-        Cylinder,
+
+        // Length
+        Centimeter,
+        Inch,
+
+        // Volume
+        Litre,
+        UKGallon,
+        USGallon,
+
+        First = Centimeter,
+        Last = USGallon
     }
 }

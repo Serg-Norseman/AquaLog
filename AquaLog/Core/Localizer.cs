@@ -199,8 +199,19 @@ namespace AquaLog.Core
         /* 175 */ ChartFamilies,
         /* 176 */ M3DViewer,
         /* 177 */ Length,
+        /* 178 */ Volume,
+        /* 179 */ Centimeter,
+        /* 180 */ Inch,
+        /* 181 */ Litre,
+        /* 182 */ UKGallon,
+        /* 183 */ USGallon,
+        /* 184 */ BottomDiameter,
+        /* 185 */ TopDiameter,
+        /* 186 */ Cylinder,
+        /* 187 */ UnderfillHeight,
+        /* 188 */ SoilHeight,
 
-        /* 000 */ Last = Length
+        /* 000 */ Last = SoilHeight
     }
 
 
@@ -388,6 +399,17 @@ namespace AquaLog.Core
             /* 175 */ "Chart (families)",
             /* 176 */ "3D Viewer",
             /* 177 */ "Length",
+            /* 178 */ "Volume",
+            /* 179 */ "Centimeter,cm",
+            /* 180 */ "Inch,in",
+            /* 181 */ "Litre,l",
+            /* 182 */ "UK Gallon,gal",
+            /* 183 */ "US Gallon,gal",
+            /* 184 */ "Bottom diameter",
+            /* 185 */ "Top diameter",
+            /* 186 */ "Cylinder",
+            /* 187 */ "Underfill height",
+            /* 188 */ "Soil height",
         };
 
 

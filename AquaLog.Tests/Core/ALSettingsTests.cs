@@ -20,6 +20,15 @@ namespace AquaLog.Core
 
             instance.HideClosedTanks = true;
             Assert.AreEqual(true, instance.HideClosedTanks);
+
+            instance.ExitOnClose = true;
+            Assert.AreEqual(true, instance.ExitOnClose);
+
+            instance.CurrentLocale = 1033;
+            Assert.AreEqual(1033, instance.CurrentLocale);
+
+            instance.HideAtStartup = true;
+            Assert.AreEqual(true, instance.HideAtStartup);
         }
     }
 }

@@ -87,6 +87,30 @@ namespace AquaLog.Core.Model
         }
 
         [Test]
+        public void Test_BowlTankProperties()
+        {
+            var aquarium = new Aquarium() {
+                TankShape = TankShape.Bowl
+            };
+            Assert.IsNotNull(aquarium);
+
+            Assert.IsNotNull(aquarium.Tank);
+            Assert.IsInstanceOf(typeof(BowlTank), aquarium.Tank);
+
+            BowlTank tank = new BowlTank(14.5f, 9.0f, 12.4f, 0.5f);
+
+            aquarium.Tank = tank;
+            Assert.AreEqual("Height=14.5;BottomDiameter=9;TopDiameter=12.4;GlassThickness=0.5", aquarium.TankProperties);
+
+            tank = (BowlTank)aquarium.Tank;
+            Assert.AreEqual(14.5f, tank.Height);
+            Assert.AreEqual(9.0f, tank.BottomDiameter);
+            Assert.AreEqual(12.4f, tank.TopDiameter);
+
+            Assert.AreEqual(2.5f, aquarium.CalcTankVolume(), 0.01);
+        }
+
+        [Test]
         public void Test_CubeTankProperties()
         {
             var aquarium = new Aquarium() {

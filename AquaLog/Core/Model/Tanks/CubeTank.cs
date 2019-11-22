@@ -33,6 +33,12 @@ namespace AquaLog.Core.Model.Tanks
             return TankShape.Cube;
         }
 
+        public override void SetPropNames()
+        {
+            base.SetPropNames();
+            ALCore.SetDisplayNameValue(this, "EdgeSize", ALData.GetLSuom(LSID.EdgeSize, MeasurementType.Length));
+        }
+
         /// <summary>
         /// The base area of an aquarium (cm2).
         /// </summary>
@@ -64,6 +70,13 @@ namespace AquaLog.Core.Model.Tanks
 
             double baseArea = CalcBaseArea();
             double ccVolume = baseArea * height; // cubic cm (cc)
+            return UnitConverter.cc2l(ccVolume);
+        }
+
+        public override double CalcWaterVolume(double underfillHeight, double soilHeight)
+        {
+            double waterHeight = (EdgeSize - GlassThickness) - underfillHeight - soilHeight;
+            double ccVolume = CalcBaseArea() * waterHeight;
             return UnitConverter.cc2l(ccVolume);
         }
     }

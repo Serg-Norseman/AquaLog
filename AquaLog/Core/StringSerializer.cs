@@ -75,7 +75,19 @@ namespace AquaLog.Core
         public static T Deserialize<T>(Type objType, string str) where T : class, new()
         {
             T result = new T();
+            Deserialize(objType, result, str);
+            return result;
+        }
 
+        public static object Deserialize(Type objType, string str)
+        {
+            object result = Activator.CreateInstance(objType);
+            Deserialize(objType, result, str);
+            return result;
+        }
+
+        public static void Deserialize(Type objType, object obj, string str)
+        {
             if (!string.IsNullOrEmpty(str)) {
                 string[] props = str.Split(new char[] { ';', '=' }, Int32.MaxValue, StringSplitOptions.None);
 
@@ -87,14 +99,12 @@ namespace AquaLog.Core
                     var propInfo = objType.GetProperty(propName);
                     if (propInfo != null) {
                         IFormatProvider fmt = IsDecimal(propInfo.PropertyType) ? STD_NFI : null;
-                        propInfo.SetValue(result, Convert.ChangeType(propValue, propInfo.PropertyType, fmt), null);
+                        propInfo.SetValue(obj, Convert.ChangeType(propValue, propInfo.PropertyType, fmt), null);
                     }
 
                     i += 1;
                 }
             }
-
-            return result;
         }
     }
 }

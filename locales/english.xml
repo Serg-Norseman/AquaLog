@@ -177,4 +177,15 @@
   <string id="175">Chart (families)</string>
   <string id="176">3D Viewer</string>
   <string id="177">Length</string>
+  <string id="178">Volume</string>
+  <string id="179">Centimeter,cm</string>
+  <string id="180">Inch,in</string>
+  <string id="181">Litre,l</string>
+  <string id="182">UK Gallon,gal</string>
+  <string id="183">US Gallon,gal</string>
+  <string id="184">Bottom diameter</string>
+  <string id="185">Top diameter</string>
+  <string id="186">Cylinder</string>
+  <string id="187">Underfill height</string>
+  <string id="188">Soil height</string>
 </resources>

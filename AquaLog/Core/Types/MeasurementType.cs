@@ -8,6 +8,7 @@ namespace AquaLog.Core.Types
 {
     public enum MeasurementType
     {
+        // public
         Ca, // -> GH
         CO2,
         Cu,
@@ -25,5 +26,9 @@ namespace AquaLog.Core.Types
         PH,
         PO4, // Phosphate (PO4 3-)
         Temperature,
+
+        // hidden, application's specific
+        Length,
+        Volume,
     }
 }

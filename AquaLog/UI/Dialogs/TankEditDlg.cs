@@ -55,7 +55,7 @@ namespace AquaLog.UI.Dialogs
         private void UpdateView()
         {
             if (fRecord != null) {
-                UIHelper.SetTankPropNames(fRecord);
+                fRecord.SetPropNames();
                 pgProps.SelectedObject = fRecord;
             }
         }

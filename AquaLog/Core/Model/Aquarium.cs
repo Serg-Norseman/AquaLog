@@ -5,7 +5,6 @@
  */
 
 using System;
-using AquaLog.Core.Model.Tanks;
 using AquaLog.Core.Types;
 using SQLite;
 
@@ -59,6 +58,17 @@ namespace AquaLog.Core.Model
         public double WaterVolume { get; set; }
 
 
+        /// <summary>
+        /// The height (offset) of an underfill from top of aquarium to water level (cm).
+        /// </summary>
+        public double UnderfillHeight { get; set; }
+
+        /// <summary>
+        /// The height (thickness) of an soil from bottom of aquarium (cm).
+        /// </summary>
+        public double SoilHeight { get; set; }
+
+
         public Aquarium()
         {
         }
@@ -94,29 +104,20 @@ namespace AquaLog.Core.Model
             return result;
         }
 
-        public double CalcWaterHeight(double waterVolume)
+        public double CalcWaterVolume()
         {
-            return CalcWaterHeight(TankShape, waterVolume);
+            return CalcWaterVolume(TankShape);
         }
 
-        public double CalcWaterHeight(TankShape tankShape, double waterVolume)
+        public double CalcWaterVolume(TankShape tankShape)
         {
-            double result;
+            return CalcWaterVolume(tankShape, UnderfillHeight, SoilHeight);
+        }
 
+        public double CalcWaterVolume(TankShape tankShape, double underfillHeight, double soilHeight)
+        {
             ITank tank = GetTank(tankShape, TankProperties);
-            double baseArea = tank.CalcBaseArea();
-
-            switch (tankShape) {
-                case TankShape.Unknown:
-                case TankShape.Bowl:
-                    result = 0.0f;
-                    break;
-
-                default:
-                    result = UnitConverter.l2cc(waterVolume) / baseArea;
-                    break;
-            }
-
+            double result = tank.CalcWaterVolume(underfillHeight, soilHeight);
             return result;
         }
 
@@ -127,33 +128,8 @@ namespace AquaLog.Core.Model
 
         public ITank GetTank(TankShape tankShape, string str)
         {
-            ITank result;
-
-            switch (tankShape) {
-                case TankShape.Unknown:
-                case TankShape.Bowl:
-                    result = StringSerializer.Deserialize<BaseTank>(str);
-                    break;
-
-                case TankShape.Cube:
-                    result = StringSerializer.Deserialize<CubeTank>(str);
-                    break;
-
-                case TankShape.Rectangular:
-                    result = StringSerializer.Deserialize<RectangularTank>(str);
-                    break;
-
-                case TankShape.BowFront:
-                    result = StringSerializer.Deserialize<BowFrontTank>(str);
-                    break;
-
-                case TankShape.PlateFrontCorner:
-                case TankShape.BowFrontCorner:
-                default:
-                    result = StringSerializer.Deserialize<BaseTank>(str);
-                    break;
-            }
-
+            Type tankType = ALData.TankTypes[(int)tankShape];
+            ITank result = (ITank)StringSerializer.Deserialize(tankType, str);
             return result;
         }
     }

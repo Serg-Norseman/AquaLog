@@ -100,41 +100,6 @@ namespace AquaLog.UI
             return new Bitmap(LoadResourceStream(resName));
         }
 
-        public static void SetTankPropNames(ITank tank)
-        {
-            TankShape tankShape = tank.GetTankShape();
-
-            ALCore.SetDisplayNameValue(tank, "GlassThickness", Localizer.LS(LSID.GlassThickness));
-
-            switch (tankShape) {
-                case TankShape.Unknown:
-                case TankShape.Bowl:
-                    break;
-
-                case TankShape.Cube:
-                    ALCore.SetDisplayNameValue(tank, "EdgeSize", Localizer.LS(LSID.EdgeSize));
-                    break;
-
-                case TankShape.Rectangular:
-                    ALCore.SetDisplayNameValue(tank, "Length", Localizer.LS(LSID.Length));
-                    ALCore.SetDisplayNameValue(tank, "Width", Localizer.LS(LSID.Width));
-                    ALCore.SetDisplayNameValue(tank, "Height", Localizer.LS(LSID.Height));
-                    break;
-
-                case TankShape.BowFront:
-                    ALCore.SetDisplayNameValue(tank, "Length", Localizer.LS(LSID.Length));
-                    ALCore.SetDisplayNameValue(tank, "Width", Localizer.LS(LSID.Width));
-                    ALCore.SetDisplayNameValue(tank, "Height", Localizer.LS(LSID.Height));
-                    ALCore.SetDisplayNameValue(tank, "CentreWidth", Localizer.LS(LSID.CentreWidth));
-                    break;
-
-                case TankShape.PlateFrontCorner:
-                case TankShape.BowFrontCorner:
-                default:
-                    break;
-            }
-        }
-
         #region Open/Save dialogs
 
         public static string GetOpenFile(string title, string context, string filter, int filterIndex, string defaultExt)

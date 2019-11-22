@@ -15,6 +15,7 @@ namespace AquaLog.Core.Model
     {
         ITank Clone();
         TankShape GetTankShape();
+        void SetPropNames();
 
 
         /// <summary>
@@ -26,5 +27,10 @@ namespace AquaLog.Core.Model
         /// Calculate the volume of a tank (litres, all sizes in cm).
         /// </summary>
         double CalcTankVolume();
+
+        /// <summary>
+        /// Estimated water volume.
+        /// </summary>
+        double CalcWaterVolume(double underfillHeight, double soilHeight);
     }
 }

@@ -8,6 +8,7 @@ using System;
 using System.Timers;
 using System.Windows.Forms;
 using AquaLog.Core.Model.Tanks;
+using AquaLog.Core.Types;
 using CsGL.OpenGL;
 
 namespace AquaLog.GLViewer
@@ -153,35 +154,40 @@ namespace AquaLog.GLViewer
 
         private void DrawTank()
         {
-            Point3D aeraPt = Point3D.Zero;
+            switch (fTank.GetTankShape()) {
+                case TankShape.Unknown:
+                    break;
 
-            if (fTank is BowFrontTank) {
-                var bowTank = (BowFrontTank)fTank;
-                M3DTanks.DrawBowfrontTank(bowTank.Length, bowTank.Width, bowTank.CentreWidth, bowTank.Height, bowTank.GlassThickness, fWaterVisible);
-                aeraPt = new Point3D(0.0f, -(bowTank.Height / 200.0f), +(bowTank.Width / 200.0f));
-            } else if (fTank is RectangularTank) {
-                var rectTank = (RectangularTank)fTank;
-                M3DTanks.DrawRectangularTank(rectTank.Length, rectTank.Width, rectTank.Height, rectTank.GlassThickness, fWaterVisible);
-                aeraPt = new Point3D(0.0f, -(rectTank.Height / 200.0f), +(rectTank.Width / 200.0f));
-            } else if (fTank is CubeTank) {
-                var cubeTank = (CubeTank)fTank;
-                M3DTanks.DrawRectangularTank(cubeTank.EdgeSize, cubeTank.EdgeSize, cubeTank.EdgeSize, cubeTank.GlassThickness, fWaterVisible);
-                aeraPt = new Point3D(0.0f, -(cubeTank.EdgeSize / 200.0f), +(cubeTank.EdgeSize / 200.0f));
-            }
+                case TankShape.Bowl:
+                    M3DTanks.DrawBowlTank((BowlTank)fTank, fWaterVisible, fAeration);
+                    break;
 
-            if (fAeration) {
-                OpenGL.glPushMatrix();
-                OpenGL.glTranslatef(aeraPt.X, aeraPt.Y, aeraPt.Z);
-                M3DAeration.DrawBubbles();
-                OpenGL.glPopMatrix();
+                case TankShape.Cube:
+                    M3DTanks.DrawRectangularTank((CubeTank)fTank, fWaterVisible, fAeration);
+                    break;
+
+                case TankShape.Rectangular:
+                    M3DTanks.DrawRectangularTank((RectangularTank)fTank, fWaterVisible, fAeration);
+                    break;
+
+                case TankShape.BowFront:
+                    M3DTanks.DrawBowfrontTank((BowFrontTank)fTank, fWaterVisible, fAeration);
+                    break;
+
+                case TankShape.PlateFrontCorner:
+                    break;
+
+                case TankShape.BowFrontCorner:
+                    break;
+
+                case TankShape.Cylinder:
+                    M3DTanks.DrawCylinderTank((CylinderTank)fTank, fWaterVisible, fAeration);
+                    break;
             }
         }
 
         private void UpdateTank()
         {
-            if (fAeration) {
-                M3DAeration.UpdateBubbles();
-            }
         }
 
         #region Control functions
@@ -221,7 +227,7 @@ namespace AquaLog.GLViewer
                     break;
 
                 case Keys.A:
-                    M3DAeration.InitBubbles(0.52f);
+                    M3DAeration.InitBubbles();
                     fAeration = !fAeration;
                     break;
 

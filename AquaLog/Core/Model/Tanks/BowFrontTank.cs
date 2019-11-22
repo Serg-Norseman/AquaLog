@@ -40,6 +40,15 @@ namespace AquaLog.Core.Model.Tanks
             return TankShape.BowFront;
         }
 
+        public override void SetPropNames()
+        {
+            base.SetPropNames();
+            ALCore.SetDisplayNameValue(this, "Length", ALData.GetLSuom(LSID.Length, MeasurementType.Length));
+            ALCore.SetDisplayNameValue(this, "Width", ALData.GetLSuom(LSID.Width, MeasurementType.Length));
+            ALCore.SetDisplayNameValue(this, "Height", ALData.GetLSuom(LSID.Height, MeasurementType.Length));
+            ALCore.SetDisplayNameValue(this, "CentreWidth", ALData.GetLSuom(LSID.CentreWidth, MeasurementType.Length));
+        }
+
         /// <summary>
         /// The base area of an aquarium (cm2).
         /// </summary>
