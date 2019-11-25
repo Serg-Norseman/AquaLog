@@ -18,6 +18,10 @@ namespace AquaLog.Core.Model
             var nutrition = new Nutrition();
             Assert.IsNotNull(nutrition);
 
+            nutrition.Name = "nutrition";
+            Assert.AreEqual("nutrition", nutrition.Name);
+            Assert.AreEqual("nutrition", nutrition.ToString());
+
             nutrition.Amount = 2.5f;
             Assert.AreEqual(2.5f, nutrition.Amount);
         }

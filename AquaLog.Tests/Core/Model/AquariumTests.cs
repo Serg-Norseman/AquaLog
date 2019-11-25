@@ -62,6 +62,36 @@ namespace AquaLog.Core.Model
         }
 
         [Test]
+        public void Test_Description()
+        {
+            var tank = new Aquarium();
+            Assert.IsNotNull(tank);
+
+            tank.Description = "test description";
+            Assert.AreEqual("test description", tank.Description);
+        }
+
+        [Test]
+        public void Test_Name()
+        {
+            var tank = new Aquarium();
+            Assert.IsNotNull(tank);
+
+            tank.Name = "test name";
+            Assert.AreEqual("test name", tank.Name);
+        }
+
+        [Test]
+        public void Test_WaterType()
+        {
+            var tank = new Aquarium();
+            Assert.IsNotNull(tank);
+
+            tank.WaterType = AquariumWaterType.FreshWater;
+            Assert.AreEqual(AquariumWaterType.FreshWater, tank.WaterType);
+        }
+
+        [Test]
         public void Test_IsInactive()
         {
             var tank = new Aquarium();
@@ -101,13 +131,40 @@ namespace AquaLog.Core.Model
 
             aquarium.Tank = tank;
             Assert.AreEqual("Height=14.5;BottomDiameter=9;TopDiameter=12.4;GlassThickness=0.5", aquarium.TankProperties);
+            tank.SetPropNames();
 
             tank = (BowlTank)aquarium.Tank;
             Assert.AreEqual(14.5f, tank.Height);
             Assert.AreEqual(9.0f, tank.BottomDiameter);
             Assert.AreEqual(12.4f, tank.TopDiameter);
+            Assert.AreEqual(TankShape.Bowl, tank.GetTankShape());
 
             Assert.AreEqual(2.5f, aquarium.CalcTankVolume(), 0.01);
+        }
+
+        [Test]
+        public void Test_CylinderTankProperties()
+        {
+            var aquarium = new Aquarium() {
+                TankShape = TankShape.Cylinder
+            };
+            Assert.IsNotNull(aquarium);
+
+            Assert.IsNotNull(aquarium.Tank);
+            Assert.IsInstanceOf(typeof(CylinderTank), aquarium.Tank);
+
+            CylinderTank tank = new CylinderTank(10.0f, 10.0f, 0.5f);
+
+            aquarium.Tank = tank;
+            Assert.AreEqual("Height=10;BottomDiameter=10;GlassThickness=0.5", aquarium.TankProperties);
+            tank.SetPropNames();
+
+            tank = (CylinderTank)aquarium.Tank;
+            Assert.AreEqual(10.0f, tank.Height);
+            Assert.AreEqual(10.0f, tank.BottomDiameter);
+            Assert.AreEqual(TankShape.Cylinder, tank.GetTankShape());
+
+            Assert.AreEqual(0.6f, aquarium.CalcTankVolume(), 0.01);
         }
 
         [Test]
@@ -125,9 +182,11 @@ namespace AquaLog.Core.Model
 
             aquarium.Tank = tank;
             Assert.AreEqual("EdgeSize=21.5;GlassThickness=0.5", aquarium.TankProperties);
+            tank.SetPropNames();
 
             tank = (CubeTank)aquarium.Tank;
             Assert.AreEqual(21.5f, tank.EdgeSize);
+            Assert.AreEqual(TankShape.Cube, tank.GetTankShape());
 
             Assert.AreEqual(8.82f, aquarium.CalcTankVolume(), 0.01);
         }
@@ -148,13 +207,23 @@ namespace AquaLog.Core.Model
 
             aquarium.Tank = tank;
             Assert.AreEqual("Width=18.5;Length=21.5;Height=27;GlassThickness=0.5", aquarium.TankProperties);
+            tank.SetPropNames();
 
             tank = (RectangularTank)aquarium.Tank;
             Assert.AreEqual(21.5f, tank.Length);
             Assert.AreEqual(18.5f, tank.Width);
             Assert.AreEqual(27.0f, tank.Height);
+            Assert.AreEqual(TankShape.Rectangular, tank.GetTankShape());
 
             Assert.AreEqual(9.51f, aquarium.CalcTankVolume(), 0.01);
+
+            aquarium.UnderfillHeight = 0.0f;
+            aquarium.SoilHeight = 0.0f;
+            Assert.AreEqual(9.51f, aquarium.CalcWaterVolume(), 0.01);
+
+            aquarium.UnderfillHeight = 4.0f;
+            aquarium.SoilHeight = 2.0f;
+            Assert.AreEqual(7.35f, aquarium.CalcWaterVolume(), 0.01);
         }
 
         [Test]
@@ -173,12 +242,14 @@ namespace AquaLog.Core.Model
 
             aquarium.Tank = tank;
             Assert.AreEqual("CentreWidth=41;Width=31;Length=92;Height=55;GlassThickness=0.6", aquarium.TankProperties);
+            tank.SetPropNames();
 
             tank = (BowFrontTank)aquarium.Tank;
             Assert.AreEqual(41.0f, tank.CentreWidth);
             Assert.AreEqual(92.0f, tank.Length);
             Assert.AreEqual(31.0f, tank.Width);
             Assert.AreEqual(55.0f, tank.Height);
+            Assert.AreEqual(TankShape.BowFront, tank.GetTankShape());
 
             Assert.AreEqual(180.445f, aquarium.CalcTankVolume(), 0.001);
         }

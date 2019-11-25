@@ -33,6 +33,8 @@ namespace AquaLog.Core.Export
 
         public static void Generate(ALModel model, Aquarium aquarium, string fileName)
         {
+            if (model == null || aquarium == null) return;
+
             fDocument = new RtfDocument(PaperSize.A4, PaperOrientation.Portrait, Lcid.English);
             try {
                 var titleFont = CreateFont("", 16.0f, true, false, Color.Black);

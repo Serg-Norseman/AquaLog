@@ -20,6 +20,11 @@ namespace AquaLog.Core.Model
 
             measure.Temperature = 2.5f;
             Assert.AreEqual(2.5f, measure.Temperature);
+
+            measure.pH = 7.5f;
+            Assert.AreEqual(7.5f, measure.pH);
+
+            Assert.AreEqual("T=2.50, pH=7.50", measure.ToString());
         }
     }
 }

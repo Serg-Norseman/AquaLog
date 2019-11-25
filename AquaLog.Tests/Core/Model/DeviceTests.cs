@@ -5,6 +5,7 @@
  */
 
 using System;
+using AquaLog.Core.Types;
 using NUnit.Framework;
 
 namespace AquaLog.Core.Model
@@ -20,6 +21,22 @@ namespace AquaLog.Core.Model
 
             light.Name = "Light";
             Assert.AreEqual("Light", light.Name);
+            Assert.AreEqual("Light", light.ToString());
+
+            light.Brand = "brand";
+            Assert.AreEqual("brand", light.Brand);
+
+            light.Digital = true;
+            Assert.AreEqual(true, light.Digital);
+
+            light.Enabled = true;
+            Assert.AreEqual(true, light.Enabled);
+
+            light.Power = 8.0d;
+            Assert.AreEqual(8.0d, light.Power);
+
+            light.State = ItemState.InUse;
+            Assert.AreEqual(ItemState.InUse, light.State);
         }
     }
 }

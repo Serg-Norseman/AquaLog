@@ -5,9 +5,11 @@
  */
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -41,12 +43,17 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.Shop), 180, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Cause), 80, HorizontalAlignment.Left);
 
+            Font defFont = ListView.Font;
+            Font boldFont = new Font(defFont, FontStyle.Bold);
+
             var records = fModel.QueryTransfers();
             foreach (Transfer rec in records) {
+                ItemType itemType = rec.ItemType;
+
                 Aquarium aqmSour = fModel.GetRecord<Aquarium>(rec.SourceId);
                 Aquarium aqmTarg = fModel.GetRecord<Aquarium>(rec.TargetId);
 
-                string itName = fModel.GetRecordName(rec.ItemType, rec.ItemId);
+                string itName = fModel.GetRecordName(itemType, rec.ItemId);
                 string strType = Localizer.LS(ALData.TransferTypes[(int)rec.Type]);
 
                 var item = new ListViewItem(itName);
@@ -59,6 +66,11 @@ namespace AquaLog.UI.Panels
                 item.SubItems.Add(ALCore.GetDecimalStr(rec.UnitPrice));
                 item.SubItems.Add(rec.Shop);
                 item.SubItems.Add(rec.Cause);
+
+                if (itemType == ItemType.Aquarium) {
+                    item.Font = boldFont;
+                }
+
                 ListView.Items.Add(item);
             }
         }

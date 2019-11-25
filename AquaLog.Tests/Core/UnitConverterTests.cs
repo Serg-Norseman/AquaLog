@@ -73,6 +73,66 @@ namespace AquaLog.Core
         }
 
         [Test]
+        public void Test_tsp2cc()
+        {
+            Assert.AreEqual(14.786765, UnitConverter.tsp2cc(1.0f));
+        }
+
+        [Test]
+        public void Test_cc2tsp()
+        {
+            Assert.AreEqual(0.067628, UnitConverter.cc2tsp(1.0f));
+        }
+
+        [Test]
+        public void Test_tsp2g()
+        {
+            Assert.AreEqual(5.0, UnitConverter.tsp2g(1.0f));
+        }
+
+        [Test]
+        public void Test_g2tsp()
+        {
+            Assert.AreEqual(0.2, UnitConverter.g2tsp(1.0f));
+        }
+
+        [Test]
+        public void Test_g2oz()
+        {
+            Assert.AreEqual(0.035274, UnitConverter.g2oz(1.0f));
+        }
+
+        [Test]
+        public void Test_oz2g()
+        {
+            Assert.AreEqual(28.3495, UnitConverter.oz2g(1.0f));
+        }
+
+        [Test]
+        public void Test_kg2lb()
+        {
+            Assert.AreEqual(2.204623, UnitConverter.kg2lb(1.0f));
+        }
+
+        [Test]
+        public void Test_lb2kg()
+        {
+            Assert.AreEqual(0.9071839, UnitConverter.lb2kg(2.0f), 0.0000001);
+        }
+
+        [Test]
+        public void Test_ml2drops()
+        {
+            Assert.AreEqual(20.0, UnitConverter.ml2drops(1.0f));
+        }
+
+        [Test]
+        public void Test_drops2ml()
+        {
+            Assert.AreEqual(0.05, UnitConverter.drops2ml(1.0f));
+        }
+
+        [Test]
         public void Test_C2K()
         {
             Assert.AreEqual(274.15, UnitConverter.C2K(1.0f));

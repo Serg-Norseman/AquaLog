@@ -60,6 +60,9 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.Shop), 180, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
 
+            Font defFont = ListView.Font;
+            Font boldFont = new Font(defFont, FontStyle.Bold);
+
             DateTime firstDate = ALCore.ZeroDate, lastDate = DateTime.Now.Date;
             double totalSum = 0.0d, expenses = 0.0d, incomes = 0.0d;
             var records = fModel.QueryExpenses();
@@ -75,7 +78,8 @@ namespace AquaLog.UI.Panels
                 }
 
                 if (factor != 0) {
-                    var itemRec = fModel.GetRecord(rec.ItemType, rec.ItemId);
+                    ItemType itemType = rec.ItemType;
+                    var itemRec = fModel.GetRecord(itemType, rec.ItemId);
                     string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
                     ItemState itState = (itemRec is IStateItem) ? ((IStateItem)itemRec).State : ItemState.Unknown;
                     string stateStr = Localizer.LS(ALData.ItemStates[(int)itState]);
@@ -97,6 +101,11 @@ namespace AquaLog.UI.Panels
                     item.SubItems.Add(ALCore.GetDecimalStr(sum));
                     item.SubItems.Add(rec.Shop);
                     item.SubItems.Add(stateStr);
+
+                    if (itemType == ItemType.Aquarium) {
+                        item.Font = boldFont;
+                    }
+
                     ListView.Items.Add(item);
 
                     totalSum += sum;

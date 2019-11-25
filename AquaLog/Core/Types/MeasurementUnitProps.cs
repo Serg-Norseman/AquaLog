@@ -4,9 +4,6 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-using System;
-using AquaLog.Core.Types;
-
 namespace AquaLog.Core.Types
 {
     public sealed class MeasurementUnitProps

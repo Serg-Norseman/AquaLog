@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Export;
 using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -18,12 +19,12 @@ namespace AquaLog.UI.Panels
     /// </summary>
     public sealed class TanksPanel : DataPanel
     {
-        private ContextMenu fContextMenu;
-        private FlowLayoutPanel fLayoutPanel;
-        private TankSticker fSelectedTank;
+        private readonly ContextMenu fContextMenu;
+        private readonly MenuItem fEditItem;
+        private readonly MenuItem fDeleteItem;
+        private readonly FlowLayoutPanel fLayoutPanel;
 
-        private MenuItem fEditItem;
-        private MenuItem fDeleteItem;
+        private TankSticker fSelectedTank;
 
 
         public TankSticker SelectedTank
@@ -60,6 +61,7 @@ namespace AquaLog.UI.Panels
             AddAction("Add", LSID.Add, "btn_rec_new.gif", btnAddTank_Click);
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", btnEditTank_Click);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", btnDeleteTank_Click);
+            AddAction("Transfer", LSID.Transfer, null, TransferHandler);
             AddAction("LogBook", LSID.LogBook, "", btnLogBook_Click);
             AddAction("M3DViewer", LSID.M3DViewer, "", btnM3DViewer_Click);
         }
@@ -173,6 +175,27 @@ namespace AquaLog.UI.Panels
 
             var record = selectedItem.Aquarium;
             Browser.SetView(MainView.M3DViewer, record.Tank);
+        }
+
+        private void TransferHandler(object sender, EventArgs e)
+        {
+            var selectedItem = SelectedTank;
+            if (selectedItem == null) return;
+
+            var record = selectedItem.Aquarium;
+
+            var transfer = new Transfer();
+            transfer.ItemType = ItemType.Aquarium;
+            transfer.ItemId = record.Id;
+
+            using (var dlg = new TransferEditDlg()) {
+                dlg.Model = fModel;
+                dlg.Record = transfer;
+                if (dlg.ShowDialog() == DialogResult.OK) {
+                    fModel.AddRecord(dlg.Record);
+                    UpdateContent();
+                }
+            }
         }
     }
 }

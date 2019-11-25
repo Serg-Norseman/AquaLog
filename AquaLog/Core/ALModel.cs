@@ -492,6 +492,8 @@ namespace AquaLog.Core
 
         private void PrepareValue(Aquarium aquarium, List<MeasureValue> measures, string field, string sign, string uom, ValueBounds[] ranges)
         {
+            if (aquarium == null) return;
+
             QDecimal measure = QueryLastMeasure(aquarium, field);
             double mVal = (measure != null) ? measure.value : double.NaN;
 

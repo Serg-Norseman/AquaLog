@@ -5,6 +5,8 @@
  */
 
 using System;
+using AquaLog.Core.Types;
+using BSLib;
 using NUnit.Framework;
 
 namespace AquaLog.Core
@@ -29,6 +31,26 @@ namespace AquaLog.Core
 
             instance.HideAtStartup = true;
             Assert.AreEqual(true, instance.HideAtStartup);
+
+
+            instance.LengthUoM = MeasurementUnit.Inch;
+            Assert.AreEqual(MeasurementUnit.Inch, instance.LengthUoM);
+
+            instance.VolumeUoM = MeasurementUnit.USGallon;
+            Assert.AreEqual(MeasurementUnit.USGallon, instance.VolumeUoM);
+
+            var ini = new IniFile();
+
+            instance.SaveToFile(ini);
+            instance.LoadFromFile(ini);
+
+            ini = null;
+            Assert.Throws(typeof(ArgumentNullException), () => { instance.SaveToFile(ini); });
+            Assert.Throws(typeof(ArgumentNullException), () => { instance.LoadFromFile(ini); });
+
+            string iniFile = null;
+            Assert.Throws(typeof(ArgumentNullException), () => { instance.SaveToFile(iniFile); });
+            Assert.Throws(typeof(ArgumentNullException), () => { instance.LoadFromFile(iniFile); });
         }
     }
 }

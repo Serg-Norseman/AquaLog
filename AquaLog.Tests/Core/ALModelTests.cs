@@ -54,5 +54,19 @@ namespace AquaLog.Core
             var aqm2 = instance.GetRecord<Aquarium>(aqm.Id);
             Assert.AreEqual("test2", aqm2.Name);
         }
+
+        [Test]
+        public void Test_CollectData()
+        {
+            var instance = new ALModel();
+
+            instance.CollectData(null);
+
+            var aqm = new Aquarium();
+            aqm.Name = "test aquarium";
+            instance.AddRecord(aqm);
+
+            instance.CollectData(aqm);
+        }
     }
 }

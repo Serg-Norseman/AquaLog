@@ -33,7 +33,6 @@ namespace AquaLog.UI.Panels
     public sealed class MeasuresChartPanel : DataPanel
     {
         private readonly ZGraphControl fGraph;
-        private IEnumerable<Measure> fMeasures;
         private Dictionary<string, Trend> fTrends;
 
 
@@ -44,20 +43,12 @@ namespace AquaLog.UI.Panels
             Controls.Add(fGraph);
         }
 
-        public override void SetExtData(object extData)
-        {
-        }
-
-        protected override void InitActions()
-        {
-        }
-
         public override void UpdateContent()
         {
             fGraph.Clear();
             if (fModel == null) return;
 
-            fMeasures = fModel.QueryMeasures();
+            var measures = fModel.QueryMeasures();
             fTrends = new Dictionary<string, Trend>();
             fTrends.Add("Temp", new Trend("Temp (°C)", Color.Red));
             fTrends.Add("NO3", new Trend("NO3 (mg/l)", Color.BlueViolet));
@@ -72,7 +63,7 @@ namespace AquaLog.UI.Panels
             fTrends.Add("NH4", new Trend("NH4", Color.MediumVioletRed));
             fTrends.Add("PO4", new Trend("PO4", Color.BlueViolet));
 
-            foreach (Measure rec in fMeasures) {
+            foreach (Measure rec in measures) {
                 AddTrendValue("Temp", rec.Timestamp, rec.Temperature);
                 AddTrendValue("NO3", rec.Timestamp, rec.NO3);
                 AddTrendValue("NO2", rec.Timestamp, rec.NO2);

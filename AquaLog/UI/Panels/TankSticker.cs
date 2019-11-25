@@ -104,7 +104,8 @@ namespace AquaLog.UI.Panels
                     color = ALCore.InactiveState;
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    color = ALCore.NormalState;
+                    break;
             }
             BackColor = UIHelper.CreateColor(color);
         }
@@ -120,14 +121,6 @@ namespace AquaLog.UI.Panels
             fValues = fModel.CollectData(fAquarium);
 
             Refresh();
-        }
-
-        private string GetMeasureVal(string field, string sign, string uom)
-        {
-            QDecimal val = fModel.QueryLastMeasure(fAquarium, field);
-            string str = (val != null) ? ALCore.GetDecimalStr(val.value) : string.Empty;
-            str = string.Format("{0}={1} {2}", sign, str, uom);
-            return str;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -148,10 +141,12 @@ namespace AquaLog.UI.Panels
             fStrFormat.Alignment = StringAlignment.Near;
             DrawText(gfx, fAquarium.Name, font, ForeColor, layoutRect);
 
+            double normalWaterVolume = fAquarium.CalcWaterVolume();
             double waterVolume = fModel.GetWaterVolume(fAquarium.Id);
             string volumes = ALCore.GetDecimalStr(waterVolume) + " / " + ALCore.GetDecimalStr(fAquarium.TankVolume);
             fStrFormat.Alignment = StringAlignment.Far;
-            DrawText(gfx, volumes, font, ForeColor, layoutRect);
+            Color wvColor = (DoubleHelper.Equals(normalWaterVolume, waterVolume, 0.5)) ? Color.Green : Color.Orange;
+            DrawText(gfx, volumes, font, wvColor, layoutRect);
 
             string works;
             if (fAquarium.IsInactive()) {

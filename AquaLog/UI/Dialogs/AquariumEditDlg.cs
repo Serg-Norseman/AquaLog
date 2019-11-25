@@ -155,11 +155,8 @@ namespace AquaLog.UI.Dialogs
 
             txtTankVolume.Enabled = (tankShape == TankShape.Unknown);
 
-            double tankVolume;
-            if (tankShape == TankShape.Unknown) {
-                tankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
-            } else {
-                tankVolume = fRecord.CalcTankVolume(tankShape);
+            if (tankShape != TankShape.Unknown) {
+                double tankVolume = fRecord.CalcTankVolume(tankShape);
                 txtTankVolume.Text = ALCore.GetDecimalStr(tankVolume);
             }
 

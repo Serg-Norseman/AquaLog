@@ -43,10 +43,6 @@ namespace AquaLog.UI.Panels
             fPointId = pointId;
         }
 
-        protected override void InitActions()
-        {
-        }
-
         public override void UpdateContent()
         {
             fGraph.Clear();

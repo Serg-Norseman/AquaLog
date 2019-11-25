@@ -16,6 +16,8 @@ namespace AquaLog.Core.Export
     {
         public static void Generate(ListView listView, string fileName)
         {
+            if (listView == null || string.IsNullOrEmpty(fileName)) return;
+
             Workbook workbook = new Workbook();
             Worksheet worksheet = new Worksheet("First Sheet");
 

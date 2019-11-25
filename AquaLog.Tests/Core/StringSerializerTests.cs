@@ -18,7 +18,10 @@ namespace AquaLog.Core
         {
             var tank = new RectangularTank(10.5f, 20.5f, 30.5f);
 
-            string result = StringSerializer.Serialize(tank);
+            string result = StringSerializer.Serialize(null);
+            Assert.AreEqual(string.Empty, result);
+
+            result = StringSerializer.Serialize(tank);
             Assert.AreEqual("Width=20.5;Length=10.5;Height=30.5;GlassThickness=0", result);
 
             var tank2 = StringSerializer.Deserialize<RectangularTank>(result);

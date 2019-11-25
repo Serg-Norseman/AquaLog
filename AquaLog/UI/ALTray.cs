@@ -24,7 +24,6 @@ namespace AquaLog.UI
         private MenuItem fAboutItem;
         private MenuItem fExitItem;
         private readonly Form fMainForm;
-        private readonly ContextMenu fMenu;
         private readonly NotifyIcon fNotifyIcon;
         private readonly StringList fTipsList;
         private readonly System.Threading.Timer fTipsTimer;
@@ -34,14 +33,13 @@ namespace AquaLog.UI
         {
             fMainForm = mainForm;
 
-            fMenu = new ContextMenu(InitializeMenu());
-            fAutorunItem.Checked = UIHelper.IsStartupItem();
-
             fNotifyIcon = new NotifyIcon();
             fNotifyIcon.DoubleClick += Icon_DoubleClick;
             fNotifyIcon.Icon = new Icon(UIHelper.LoadResourceStream("icon_aqualog.ico"));
-            fNotifyIcon.ContextMenu = fMenu;
+            fNotifyIcon.ContextMenu = InitializeMenu();
             fNotifyIcon.Visible = true;
+
+            fAutorunItem.Checked = UIHelper.IsStartupItem();
 
             fTipsList = new StringList();
 
@@ -60,7 +58,7 @@ namespace AquaLog.UI
             base.Dispose(disposing);
         }
 
-        private MenuItem[] InitializeMenu()
+        private ContextMenu InitializeMenu()
         {
             var appItem = new MenuItem(ALCore.AppName, Icon_DoubleClick);
             appItem.DefaultItem = true;
@@ -69,7 +67,7 @@ namespace AquaLog.UI
             fAboutItem = new MenuItem("About", miAbout_Click);
             fExitItem = new MenuItem("Exit", miExit_Click);
 
-            MenuItem[] menu = new MenuItem[] {
+            MenuItem[] menuItems = new MenuItem[] {
                 appItem,
                 new MenuItem("-"),
                 fAutorunItem,
@@ -77,7 +75,8 @@ namespace AquaLog.UI
                 fAboutItem,
                 fExitItem
             };
-            return menu;
+
+            return new ContextMenu(menuItems);
         }
 
         public void SetLocale()

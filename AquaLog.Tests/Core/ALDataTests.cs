@@ -14,14 +14,14 @@ namespace AquaLog.Core
     public class ALDataTests
     {
         [Test]
-        public void Test_CalcArea()
+        public void Test_CalcBaseArea()
         {
             var tank = new RectangularTank(17.5f, 20.5f, 26.5f);
             Assert.AreEqual(358.75d, tank.CalcBaseArea());
         }
 
         [Test]
-        public void CalcTankVolume()
+        public void Test_CalcTankVolume()
         {
             var tank = new RectangularTank(17.5f, 20.5f, 26.5f);
             Assert.AreEqual(9.506875d, tank.CalcTankVolume());

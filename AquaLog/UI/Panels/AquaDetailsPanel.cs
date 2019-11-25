@@ -20,14 +20,15 @@ namespace AquaLog.UI.Panels
     public sealed class AquaDetailsPanel : DataPanel
     {
         private Aquarium fAquarium;
-        private Label fHeader;
-        private TableLayoutPanel fLayoutPanel;
-        private ListView fInhabitantsLV;
-        private ListView fMeasuresLV;
-        private ListView fNutritionLV;
-        private ListView fDevicesLV;
-        private ListView fMaintenanceLV;
-        private ListView fCompatibilityLV;
+
+        private readonly Label fHeader;
+        private readonly TableLayoutPanel fLayoutPanel;
+        private readonly ListView fInhabitantsLV;
+        private readonly ListView fMeasuresLV;
+        private readonly ListView fNutritionLV;
+        private readonly ListView fDevicesLV;
+        private readonly ListView fMaintenanceLV;
+        private readonly ListView fCompatibilityLV;
 
 
         public AquaDetailsPanel() : base()

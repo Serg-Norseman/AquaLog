@@ -463,16 +463,14 @@ namespace AquaLog.Core
                     settings.DtdProcessing = DtdProcessing.Ignore;
 
                     int lsId = -1;
-                    string lsText;
                     using (XmlReader xr = XmlReader.Create(reader, settings)) {
                         while (xr.Read()) {
                             if (xr.NodeType == XmlNodeType.Element && xr.Name == "string") {
                                 if (!int.TryParse(xr.GetAttribute("id"), out lsId)) {
                                     lsId = -1;
                                 }
-                                lsText = string.Empty;
                             } else if (xr.NodeType == XmlNodeType.Text && lsId != -1) {
-                                lsText = xr.Value;
+                                string lsText = xr.Value;
                                 fList.Add(lsId, lsText);
                             }
                         }

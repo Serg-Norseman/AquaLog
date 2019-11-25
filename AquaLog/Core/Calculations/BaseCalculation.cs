@@ -8,7 +8,7 @@ using System.ComponentModel;
 
 namespace AquaLog.Core.Calculations
 {
-    public class BaseCalculation : ILocalizable
+    public abstract class BaseCalculation : ILocalizable
     {
         private double fResultValue;
         private readonly CalculationType fType;
@@ -138,15 +138,13 @@ namespace AquaLog.Core.Calculations
         }
 
 
-        public BaseCalculation(CalculationType type)
+        protected BaseCalculation(CalculationType type)
         {
             fType = type;
             SetLocale();
         }
 
-        public virtual void Calculate()
-        {
-        }
+        public abstract void Calculate();
 
         public virtual void SetLocale()
         {

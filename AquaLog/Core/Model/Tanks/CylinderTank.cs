@@ -73,11 +73,9 @@ namespace AquaLog.Core.Model.Tanks
         {
             double glassThickness = GlassThickness;
             double height = Height;
-            double bottomRadius = BottomDiameter / 2.0f;
 
             if (glassThickness > 0.0d) {
                 height -= glassThickness;
-                bottomRadius -= glassThickness;
             }
 
             var baseArea = CalcBaseArea();

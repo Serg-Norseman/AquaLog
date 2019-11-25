@@ -638,11 +638,11 @@ namespace BSLib.Timeline
             DrawPlayhead(gfx);
         }
 
-        protected override void OnResize(EventArgs e)
+        protected override void OnResize(EventArgs eventargs)
         {
             Recalculate();
 
-            base.OnResize(e);
+            base.OnResize(eventargs);
         }
 
         /// <summary>
@@ -1175,10 +1175,7 @@ namespace BSLib.Timeline
 
         private void ToolTip_Popup(Object sender, PopupEventArgs e)
         {
-            if (fToolTipText == null || fToolTipText.Count == 0) {
-                e.ToolTipSize = new Size(0, 0);
-                return;
-            } else if (fToolTipText[0].Length == 0) {
+            if (fToolTipText == null || fToolTipText.Count == 0 || fToolTipText[0].Length == 0) {
                 e.ToolTipSize = new Size(0, 0);
                 return;
             }

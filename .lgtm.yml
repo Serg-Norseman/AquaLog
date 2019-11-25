@@ -1,0 +1,25 @@
+
+path_classifiers:
+  docs:
+    - "LICENSE*"
+    - "*.md"
+  ci:
+    - "appveyor.yml"
+    - ".codecov.yml"
+    - ".travis.yml"
+    - ".gitlab-ci.yml"
+    - ".lgtm.yml"
+  configuration:
+    - ".editorconfig"
+    - ".gitattributes"
+    - ".gitignore"
+    - ".gitmodules"
+
+extraction: 
+  csharp:
+    index:
+      solution: "AquaLog.sln"
+      nuget_restore: true
+      msbuild:
+        configuration: debug
+        platform: x86

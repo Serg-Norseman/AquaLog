@@ -133,7 +133,7 @@ namespace AquaLog.Core
         /// </summary>
         public static double oz2g(double oz)
         {
-            return oz * 0.035274;
+            return oz * 28.3495;
         }
 
         /// <summary>
@@ -141,7 +141,7 @@ namespace AquaLog.Core
         /// </summary>
         public static double kg2lb(double kg)
         {
-            return kg * 0.453592;
+            return kg * 2.204623;
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace AquaLog.Core
         /// </summary>
         public static double lb2kg(double lb)
         {
-            return lb * 2.204623;
+            return lb * 0.453592;
         }
 
         /// <summary>

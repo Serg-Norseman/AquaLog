@@ -20,7 +20,8 @@ namespace AquaLog.UI
 {
     public partial class MainForm : Form, IBrowser, ILocalizable
     {
-        private readonly ILogger fLogger;
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");
+
         private ALModel fModel;
         private NavigationStack<DataPanel> fNavigationStack;
         private Dictionary<Type, DataPanel> fPanels;
@@ -42,7 +43,6 @@ namespace AquaLog.UI
             int XS = 68;
             ClientSize = new Size(XS * 16, XS * 9);
 
-            fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");
             fModel = new ALModel();
             fNavigationStack = new NavigationStack<DataPanel>();
             fPanels = new Dictionary<Type, DataPanel>();
@@ -327,39 +327,47 @@ namespace AquaLog.UI
 
         private void SetView<T>(object extData) where T : DataPanel, new()
         {
-            Type type = typeof(T);
-            DataPanel panel;
-            bool exists = fPanels.TryGetValue(type, out panel);
+            try {
+                Type type = typeof(T);
+                DataPanel panel;
+                bool exists = fPanels.TryGetValue(type, out panel);
 
-            if (!exists) {
-                panel = new T();
-                panel.Browser = this;
-                panel.Model = fModel;
-            }
-            panel.SetExtData(extData);
+                if (!exists) {
+                    panel = new T();
+                    panel.Browser = this;
+                    panel.Model = fModel;
+                }
+                panel.SetExtData(extData);
 
-            fNavigationStack.Current = panel;
-            SetView(panel);
+                fNavigationStack.Current = panel;
+                SetView(panel);
 
-            if (!exists) {
-                fPanels.Add(type, panel);
+                if (!exists) {
+                    fPanels.Add(type, panel);
+                }
+            } catch (Exception ex) {
+                fLogger.WriteError("SetView.1()", ex);
             }
         }
 
         private void SetView(DataPanel view)
         {
-            pnlClient.Controls.Clear();
-            if (view == null) {
-                return;
+            try {
+                pnlClient.Controls.Clear();
+                if (view == null) {
+                    return;
+                }
+                pnlClient.Controls.Add(view);
+
+                SetActions(view);
+
+                fCurrentPanel = view;
+                fCurrentPanel.UpdateView();
+
+                UpdateNavControls();
+            } catch (Exception ex) {
+                fLogger.WriteError("SetView.2()", ex);
             }
-            pnlClient.Controls.Add(view);
-
-            SetActions(view);
-
-            fCurrentPanel = view;
-            fCurrentPanel.UpdateView();
-
-            UpdateNavControls();
         }
 
         private void UpdateNavControls()
