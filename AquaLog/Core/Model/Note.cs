@@ -17,5 +17,10 @@ namespace AquaLog.Core.Model
         public Note()
         {
         }
+
+        public override string ToString()
+        {
+            return Content;
+        }
     }
 }

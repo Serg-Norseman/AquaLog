@@ -12,6 +12,12 @@ namespace AquaLog.Core.Calculations
     [TestFixture]
     public class SaltCalculationTests
     {
+        [TestFixtureSetUp]
+        public void SetUp()
+        {
+            Localizer.DefInit();
+        }
+
         [Test]
         public void Test_Common()
         {
@@ -22,6 +28,8 @@ namespace AquaLog.Core.Calculations
             instance.Nitrite = 57.0f;
             instance.Calculate();
             Assert.AreEqual(4.275f, instance.ResultValue, 0.001);
+
+            Assert.IsNotNullOrEmpty(instance.Description);
         }
     }
 }

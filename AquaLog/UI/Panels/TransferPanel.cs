@@ -25,7 +25,7 @@ namespace AquaLog.UI.Panels
 
         protected override void InitActions()
         {
-            AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
+            // "Add" - only from other panels
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
         }

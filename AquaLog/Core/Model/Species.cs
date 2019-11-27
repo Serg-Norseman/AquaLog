@@ -29,36 +29,36 @@ namespace AquaLog.Core.Model
 
         public CareLevel CareLevel { get; set; }
         public string BioClass { get; set; } // BioClassification: ClassName
-        public string BioFamily { get; set; } // BioClassification: FamilyName
+        public string BioFamily { get; set; } // BioClassification: FamilyName (dlg+)
         public string Distribution { get; set; }
         public int MinTankSize { get; set; }
-        public float PHMin { get; set; }
-        public float PHMax { get; set; }
-        public float GHMin { get; set; }
-        public float GHMax { get; set; }
+        public float PHMin { get; set; } // (dlg+)
+        public float PHMax { get; set; } // (dlg+)
+        public float GHMin { get; set; } // (dlg+)
+        public float GHMax { get; set; } // (dlg+)
         public bool ReefCompatible { get; set; }
-        public string ScientificName { get; set; } // BioClassification: SpeciesName
-        public float TempMin { get; set; }
-        public float TempMax { get; set; }
+        public string ScientificName { get; set; } // BioClassification: SpeciesName (dlg+)
+        public float TempMin { get; set; } // (dlg+)
+        public float TempMax { get; set; } // (dlg+)
 
         #endregion
 
         #region Fish/Invertebrate properties
 
-        public float AdultSize { get; set; }
+        public float AdultSize { get; set; } // (dlg+)
         public string Biology { get; set; }
         public string Climate { get; set; }
         public string Dangerous { get; set; }
         public string Diagnosis { get; set; }
         public string Diet { get; set; }
         public string Environment { get; set; }
-        public float LifeSpan { get; set; }
+        public float LifeSpan { get; set; } // (dlg+)
 
         #endregion
 
         #region Fish properties
 
-        public SwimLevel SwimLevel { get; set; }
+        public SwimLevel SwimLevel { get; set; } // (dlg+)
         public Temperament Temperament { get; set; }
 
         #endregion

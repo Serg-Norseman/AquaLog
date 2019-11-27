@@ -26,25 +26,10 @@ namespace AquaLog.GLViewer
                 Y = 0.0f;
                 Z = 0.0f;
             }
-        }
 
-        private const int BUBBLES_COUNT = 150;
-
-        private static Bubble[] fBubbles;
-
-        public static void InitBubbles()
-        {
-            fBubbles = new Bubble[BUBBLES_COUNT];
-            for (int i = 0; i < fBubbles.Length; i++) {
-                fBubbles[i] = new Bubble();
-                fBubbles[i].Init();
-            }
-        }
-
-        private static void UpdateBubbles(float waterHeight)
-        {
-            foreach (Bubble bubble in fBubbles) {
-                float vel = bubble.Size;
+            public void Update(float waterHeight)
+            {
+                float vel = Size;
 
                 float dx = (1 - RandomHelper.GetRandom(3)) / 1000.0f;
                 float dz = (1 - RandomHelper.GetRandom(3)) / 1000.0f;
@@ -63,24 +48,37 @@ namespace AquaLog.GLViewer
                         break;
                 }
 
-                bubble.X += dx;
-                bubble.Y += dy;
-                bubble.Z += dz;
+                X += dx;
+                Y += dy;
+                Z += dz;
 
-                if (bubble.Y >= waterHeight) {
-                    bubble.Init();
+                if (Y >= waterHeight) {
+                    Init();
                 }
+            }
+        }
+
+        private const int BUBBLES_COUNT = 150;
+
+        private static Bubble[] fBubbles;
+
+        public static void InitBubbles()
+        {
+            fBubbles = new Bubble[BUBBLES_COUNT];
+            for (int i = 0; i < fBubbles.Length; i++) {
+                fBubbles[i] = new Bubble();
+                fBubbles[i].Init();
             }
         }
 
         public static void DrawBubbles(Point3D aeraPt, float waterHeight)
         {
-            UpdateBubbles(waterHeight);
-
             OpenGL.glPushMatrix();
             OpenGL.glTranslatef(aeraPt.X, aeraPt.Y, aeraPt.Z);
 
             foreach (Bubble bubble in fBubbles) {
+                bubble.Update(waterHeight);
+
                 OpenGL.glPushMatrix();
                 OpenGL.glTranslatef(bubble.X, bubble.Y, bubble.Z);
                 OpenGL.glColor4f(1.0f, 1.0f, 1.0f, 0.45f);

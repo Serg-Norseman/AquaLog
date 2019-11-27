@@ -14,6 +14,12 @@ namespace AquaLog.Core.Model
     [TestFixture]
     public class AquariumTests
     {
+        [TestFixtureSetUp]
+        public void SetUp()
+        {
+            Localizer.DefInit();
+        }
+
         [Test]
         public void Test_ctorName()
         {
@@ -140,6 +146,11 @@ namespace AquaLog.Core.Model
             Assert.AreEqual(TankShape.Bowl, tank.GetTankShape());
 
             Assert.AreEqual(2.5f, aquarium.CalcTankVolume(), 0.01);
+
+            // FIXME: not implemented yet
+            aquarium.UnderfillHeight = 4.0f;
+            aquarium.SoilHeight = 2.0f;
+            Assert.AreEqual(0.0f, aquarium.CalcWaterVolume(), 0.01);
         }
 
         [Test]
@@ -165,6 +176,10 @@ namespace AquaLog.Core.Model
             Assert.AreEqual(TankShape.Cylinder, tank.GetTankShape());
 
             Assert.AreEqual(0.6f, aquarium.CalcTankVolume(), 0.01);
+
+            aquarium.UnderfillHeight = 4.0f;
+            aquarium.SoilHeight = 2.0f;
+            Assert.AreEqual(0.22f, aquarium.CalcWaterVolume(), 0.01);
         }
 
         [Test]
@@ -189,6 +204,10 @@ namespace AquaLog.Core.Model
             Assert.AreEqual(TankShape.Cube, tank.GetTankShape());
 
             Assert.AreEqual(8.82f, aquarium.CalcTankVolume(), 0.01);
+
+            aquarium.UnderfillHeight = 4.0f;
+            aquarium.SoilHeight = 2.0f;
+            Assert.AreEqual(6.3f, aquarium.CalcWaterVolume(), 0.01);
         }
 
         [Test]
@@ -252,6 +271,10 @@ namespace AquaLog.Core.Model
             Assert.AreEqual(TankShape.BowFront, tank.GetTankShape());
 
             Assert.AreEqual(180.445f, aquarium.CalcTankVolume(), 0.001);
+
+            aquarium.UnderfillHeight = 3.0f;
+            aquarium.SoilHeight = 2.0f;
+            Assert.AreEqual(163.86f, aquarium.CalcWaterVolume(), 0.001);
         }
     }
 }

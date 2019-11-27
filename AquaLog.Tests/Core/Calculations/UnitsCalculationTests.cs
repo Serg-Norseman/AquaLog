@@ -12,6 +12,12 @@ namespace AquaLog.Core.Calculations
     [TestFixture]
     public class UnitsCalculationTests
     {
+        [TestFixtureSetUp]
+        public void SetUp()
+        {
+            Localizer.DefInit();
+        }
+
         [Test]
         public void Test_Common()
         {
@@ -21,6 +27,8 @@ namespace AquaLog.Core.Calculations
             instance.SourceValue = 1.0f;
             instance.Calculate();
             Assert.AreEqual(2.54f, instance.ResultValue, 0.01);
+
+            Assert.IsNotNullOrEmpty(instance.Description);
         }
     }
 }

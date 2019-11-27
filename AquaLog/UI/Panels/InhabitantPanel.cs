@@ -50,10 +50,28 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add("PH", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("GH", 100, HorizontalAlignment.Left);
 
+            // TODO: need to add protection of item adding and cells filling
             IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
-                string sx = ALCore.IsAnimal(spc.Type) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : string.Empty;
+
+                SpeciesType spType;
+                string spName, spTemp, spGH, spPH;
+                if (spc == null) {
+                    spType = SpeciesType.Fish;
+                    spName = string.Empty;
+                    spTemp = string.Empty;
+                    spGH = string.Empty;
+                    spPH = string.Empty;
+                } else {
+                    spType = spc.Type;
+                    spName = spc.Name;
+                    spTemp = spc.GetTempRange();
+                    spGH = spc.GetGHRange();
+                    spPH = spc.GetPHRange();
+                }
+
+                string sx = ALCore.IsAnimal(spType) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : string.Empty;
                 SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
                 ItemType itemType = ALCore.GetItemType(speciesType);
 
@@ -74,15 +92,15 @@ namespace AquaLog.UI.Panels
                 item.Tag = rec;
                 item.SubItems.Add(sx);
                 item.SubItems.Add(rec.Quantity.ToString());
-                item.SubItems.Add(spc.Name);
+                item.SubItems.Add(spName);
                 item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
                 item.SubItems.Add(aqmName);
                 item.SubItems.Add(strInclusDate);
                 item.SubItems.Add(strExclusDate);
                 item.SubItems.Add(strLifespan);
-                item.SubItems.Add(spc.GetTempRange());
-                item.SubItems.Add(spc.GetPHRange());
-                item.SubItems.Add(spc.GetGHRange());
+                item.SubItems.Add(spTemp);
+                item.SubItems.Add(spPH);
+                item.SubItems.Add(spGH);
 
                 if (rec.Quantity == 0) {
                     item.ForeColor = Color.Gray; // death, sale or gift?

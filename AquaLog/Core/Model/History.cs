@@ -21,5 +21,10 @@ namespace AquaLog.Core.Model
         public History()
         {
         }
+
+        public override string ToString()
+        {
+            return Event;
+        }
     }
 }

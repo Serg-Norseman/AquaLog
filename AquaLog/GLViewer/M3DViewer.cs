@@ -7,8 +7,10 @@
 using System;
 using System.Timers;
 using System.Windows.Forms;
+using AquaLog.Core.Model;
 using AquaLog.Core.Model.Tanks;
 using AquaLog.Core.Types;
+using AquaLog.GLViewer.Tanks;
 using CsGL.OpenGL;
 
 namespace AquaLog.GLViewer
@@ -49,6 +51,7 @@ namespace AquaLog.GLViewer
         private bool fAeration;
         private BaseTank fTank;
         private bool fWaterVisible = true;
+        private ITankRenderer fRenderer;
 
 
         public BaseTank Tank
@@ -99,6 +102,38 @@ namespace AquaLog.GLViewer
             yrot = +25.0f;
             zrot = 0.0f;
             z = -2.0f;
+
+            fRenderer = null;
+            if (fTank == null) return;
+
+            switch (fTank.GetTankShape()) {
+                case TankShape.Unknown:
+                    break;
+
+                case TankShape.Bowl:
+                    fRenderer = new BowlTankRenderer((BowlTank)fTank);
+                    break;
+
+                case TankShape.Cube:
+                    fRenderer = new CubeTankRenderer((CubeTank)fTank);
+                    break;
+
+                case TankShape.Rectangular:
+                    fRenderer = new RectangularTankRenderer((RectangularTank)fTank);
+                    break;
+
+                case TankShape.BowFront:
+                    fRenderer = new BowfrontTankRenderer((BowFrontTank)fTank);
+                    break;
+
+                case TankShape.PlateFrontCorner:
+                case TankShape.BowFrontCorner:
+                    break;
+
+                case TankShape.Cylinder:
+                    fRenderer = new CylinderTankRenderer((CylinderTank)fTank);
+                    break;
+            }
         }
 
         protected override OpenGLContext CreateContext()
@@ -149,45 +184,9 @@ namespace AquaLog.GLViewer
             OpenGL.glRotatef(yrot, 0.0f, 1.0f, 0.0f);
             OpenGL.glRotatef(zrot, 0.0f, 0.0f, 1.0f);
 
-            DrawTank();
-        }
-
-        private void DrawTank()
-        {
-            switch (fTank.GetTankShape()) {
-                case TankShape.Unknown:
-                    break;
-
-                case TankShape.Bowl:
-                    M3DTanks.DrawBowlTank((BowlTank)fTank, fWaterVisible, fAeration);
-                    break;
-
-                case TankShape.Cube:
-                    M3DTanks.DrawRectangularTank((CubeTank)fTank, fWaterVisible, fAeration);
-                    break;
-
-                case TankShape.Rectangular:
-                    M3DTanks.DrawRectangularTank((RectangularTank)fTank, fWaterVisible, fAeration);
-                    break;
-
-                case TankShape.BowFront:
-                    M3DTanks.DrawBowfrontTank((BowFrontTank)fTank, fWaterVisible, fAeration);
-                    break;
-
-                case TankShape.PlateFrontCorner:
-                    break;
-
-                case TankShape.BowFrontCorner:
-                    break;
-
-                case TankShape.Cylinder:
-                    M3DTanks.DrawCylinderTank((CylinderTank)fTank, fWaterVisible, fAeration);
-                    break;
+            if (fRenderer != null) {
+                fRenderer.Render(fWaterVisible, fAeration);
             }
-        }
-
-        private void UpdateTank()
-        {
         }
 
         #region Control functions
@@ -200,8 +199,6 @@ namespace AquaLog.GLViewer
                 if (!fFreeRotate) {
                     yrot -= 0.3f;
                 }
-
-                UpdateTank();
 
                 Invalidate(false);
 

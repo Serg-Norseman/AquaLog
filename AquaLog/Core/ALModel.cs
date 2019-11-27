@@ -90,9 +90,21 @@ namespace AquaLog.Core
             fDB.Delete<T>(objId);
         }
 
+        // TODO: need to add control of keys of deleted records
         public T GetRecord<T>(int objId) where T : new()
         {
-            return (objId <= 0) ? default(T) : fDB.Get<T>(objId);
+            T result;
+            if (objId <= 0) {
+                result = default(T);
+            } else {
+                try {
+                    result = fDB.Get<T>(objId);
+                } catch (InvalidOperationException) {
+                    // record not exists
+                    result = default(T);
+                }
+            }
+            return result;
         }
 
         public Entity GetRecord(ItemType itemType, int itemId)

@@ -67,10 +67,10 @@ namespace AquaLog.UI.Dialogs
             lblScientificName.Text = Localizer.LS(LSID.ScientificName);
             lblFamily.Text = Localizer.LS(LSID.BioFamily);
 
-            tabFish.Text = Localizer.LS(LSID.Fish);
+            /*tabFish.Text = Localizer.LS(LSID.Fish);
             tabInvertebrate.Text = Localizer.LS(LSID.Invertebrate);
             tabPlant.Text = Localizer.LS(LSID.Plant);
-            tabCoral.Text = Localizer.LS(LSID.Coral);
+            tabCoral.Text = Localizer.LS(LSID.Coral);*/
 
             lblAdultSize.Text = Localizer.LS(LSID.AdultSize);
             lblLifeSpan.Text = Localizer.LS(LSID.LifeSpan);
@@ -143,11 +143,13 @@ namespace AquaLog.UI.Dialogs
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
             var type = cmbType.GetSelectedTag<SpeciesType>();
-            tabControl1.SelectedIndex = (int)type;
 
             bool isFish = (type == SpeciesType.Fish);
-            txtAdultSize.Enabled = isFish;
-            txtLifeSpan.Enabled = isFish;
+            bool isInvertebrate = (type == SpeciesType.Invertebrate);
+
+            txtAdultSize.Enabled = isFish || isInvertebrate;
+            txtLifeSpan.Enabled = isFish || isInvertebrate;
+            cmbSwimLevel.Enabled = isFish;
 
             switch (type) {
                 case SpeciesType.Fish:
