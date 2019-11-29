@@ -20,16 +20,12 @@ namespace AquaLog.GLViewer
         private const float w = 0.01f;
         private const float b = 0.01f;
 
-        private readonly float[] mat_diffuse = new float[] { 0.1f, 0.4f, 1.0f, 1.0f };
-        private readonly float[] mat_specular = new float[] { 1.0f, 1.0f, 1.0f, 1.0f };
-        private readonly float[] mat_shininess = new float[] { 50f };
-
         private int fSize;
         private Cell[] fCells;
         private Vector3D[] fNormals;
         private Random fRandom;
 
-        public M3DWater(int size = 100)
+        public M3DWater(int size = 200)
         {
             fSize = size;
             int nx2 = fSize + 2;
@@ -61,12 +57,7 @@ namespace AquaLog.GLViewer
                 }
             }
 
-            OpenGL.glEnable(OpenGL.GL_NORMALIZE);
-            OpenGL.glEnable(OpenGL.GL_LIGHTING);
-
-            GL.glMaterialfv(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_DIFFUSE, mat_diffuse);
-            GL.glMaterialfv(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_SPECULAR, mat_specular);
-            GL.glMaterialfv(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_SHININESS, mat_shininess);
+            M3DHelper.SetMaterial(M3DHelper.WaterDiffuse, M3DHelper.WaterSpecular, M3DHelper.WaterShininess);
 
             for (int i = 1; i <= fSize - 1; i++) {
                 OpenGL.glBegin(OpenGL.GL_TRIANGLE_STRIP);
@@ -92,9 +83,6 @@ namespace AquaLog.GLViewer
 
                 OpenGL.glEnd();
             }
-
-            OpenGL.glDisable(OpenGL.GL_NORMALIZE);
-            OpenGL.glDisable(OpenGL.GL_LIGHTING);
         }
 
         public void Bubbles()

@@ -234,8 +234,14 @@ namespace AquaLog.Core
                 return;
 
             PropertyDescriptor prop = TypeDescriptor.GetProperties(obj.GetType())[propName];
+            if (prop == null) return;
+
             Attribute att = prop.Attributes[attrType];
+            if (att == null) return;
+
             FieldInfo cat = att.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+            if (cat == null) return;
+
             cat.SetValue(att, value);
         }
 
