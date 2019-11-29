@@ -154,6 +154,7 @@
     <Compile Include="GLViewer\M3DAeration.cs" />
     <Compile Include="GLViewer\M3DHelper.cs" />
     <Compile Include="GLViewer\M3DViewer.cs" />
+    <Compile Include="GLViewer\M3DWater.cs" />
     <Compile Include="GLViewer\Point3D.cs" />
     <Compile Include="GLViewer\Tanks\BowfrontTankRenderer.cs" />
     <Compile Include="GLViewer\Tanks\BowlTankRenderer.cs" />
@@ -362,10 +363,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AquaLog.GLViewer\AquaLog.GLViewer.csproj">
-      <Project>{d40a4442-0bf4-4189-a914-2d9037faeb92}</Project>
-      <Name>AquaLog.GLViewer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BSLib.Timeline\BSLib.Timeline.csproj">
       <Project>{5f95b084-2bf9-4a8d-8d83-f50fbe1b959c}</Project>
       <Name>BSLib.Timeline</Name>

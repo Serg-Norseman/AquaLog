@@ -14,6 +14,7 @@ namespace AquaLog.GLViewer.Tanks
 {
     public interface ITankRenderer
     {
+        M3DWater Water { get; }
         void Render(bool showWater = true, bool aeration = false);
     }
 
@@ -31,15 +32,22 @@ namespace AquaLog.GLViewer.Tanks
 
 
         protected readonly T fTank;
+        protected readonly M3DWater fWater;
 
         public T Tank
         {
             get { return fTank; }
         }
 
+        public M3DWater Water
+        {
+            get { return fWater; }
+        }
+
         protected TankRenderer(T tank)
         {
             fTank = tank;
+            fWater = new M3DWater();
         }
 
         public abstract void Render(bool showWater = true, bool aeration = false);

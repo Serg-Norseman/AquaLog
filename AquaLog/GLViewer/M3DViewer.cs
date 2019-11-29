@@ -4,10 +4,11 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+//#define WATER_TEST
+
 using System;
 using System.Timers;
 using System.Windows.Forms;
-using AquaLog.Core.Model;
 using AquaLog.Core.Model.Tanks;
 using AquaLog.Core.Types;
 using AquaLog.GLViewer.Tanks;
@@ -161,8 +162,14 @@ namespace AquaLog.GLViewer
                 OpenGL.glMatrixMode(OpenGL.GL_MODELVIEW);
                 OpenGL.glLoadIdentity();
             }
+
+            start_time = DateTime.Now.Ticks;
+            time = 0;
         }
 
+        private long start_time;
+        private float last_time, time;
+ 
         public override void glDraw()
         {
             OpenGL.glClear(OpenGL.GL_COLOR_BUFFER_BIT | OpenGL.GL_DEPTH_BUFFER_BIT);
@@ -185,7 +192,15 @@ namespace AquaLog.GLViewer
             OpenGL.glRotatef(zrot, 0.0f, 0.0f, 1.0f);
 
             if (fRenderer != null) {
+                #if !WATER_TEST
                 fRenderer.Render(fWaterVisible, fAeration);
+                #else
+                last_time = time;
+                time = (DateTime.Now.Ticks - start_time) / 1000.0f;
+                float dt = (-last_time + time) / 100.0f;
+                fRenderer.Water.Draw();
+                fRenderer.Water.Next(dt);
+                #endif
             }
         }
 

@@ -230,6 +230,9 @@ namespace AquaLog.Core
 
         private static void SetAttributeValue(object obj, string propName, Type attrType, string fieldName, string value)
         {
+            if (obj == null || string.IsNullOrEmpty(propName) || string.IsNullOrEmpty(fieldName))
+                return;
+
             PropertyDescriptor prop = TypeDescriptor.GetProperties(obj.GetType())[propName];
             Attribute att = prop.Attributes[attrType];
             FieldInfo cat = att.GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
