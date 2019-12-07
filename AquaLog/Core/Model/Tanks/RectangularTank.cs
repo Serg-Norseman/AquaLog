@@ -12,7 +12,7 @@ namespace AquaLog.Core.Model.Tanks
     /// <summary>
     /// 
     /// </summary>
-    public class RectangularTank : BaseTank
+    public class RectangularTank : RegularShapeTank
     {
         /// <summary>
         /// The width of an aquarium is the distance from front to back (cm).

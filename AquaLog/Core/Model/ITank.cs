@@ -32,5 +32,10 @@ namespace AquaLog.Core.Model
         /// Estimated water volume.
         /// </summary>
         double CalcWaterVolume(double underfillHeight, double soilHeight);
+
+        /// <summary>
+        /// Estimated soil volume.
+        /// </summary>
+        double CalcSoilVolume(double soilHeight);
     }
 }

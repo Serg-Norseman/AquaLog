@@ -20,6 +20,7 @@ namespace AquaLog.Components
         public readonly LSID BtnText;
         public readonly Image Image;
         public readonly EventHandler Click;
+        public string[] Choices;
 
         public UserAction(string btnName, LSID btnText, string imageName, EventHandler clickHandler)
         {
@@ -27,6 +28,13 @@ namespace AquaLog.Components
             BtnText = btnText;
             Image = string.IsNullOrEmpty(imageName) ? null : UIHelper.LoadResourceImage(imageName);
             Click = clickHandler;
+        }
+
+        public UserAction(string actionName, string[] choices, EventHandler changeHandler)
+        {
+            BtnName = actionName;
+            Choices = choices;
+            Click = changeHandler;
         }
     }
 }

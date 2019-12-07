@@ -60,6 +60,11 @@ namespace AquaLog.UI.Panels
         {
         }
 
+        protected void ClearActions()
+        {
+            fActions.Clear();
+        }
+
         protected virtual void InitActions()
         {
         }
@@ -71,16 +76,25 @@ namespace AquaLog.UI.Panels
         public void UpdateView()
         {
             SetLocale();
+
             UpdateContent();
+
+            ClearActions();
+            InitActions();
         }
 
         public virtual void SetExtData(object extData)
         {
         }
 
-        public void AddAction(string btnName, LSID btnText, string imageName, EventHandler clickHandler)
+        public void AddAction(string actionName, LSID btnText, string imageName, EventHandler clickHandler)
         {
-            fActions.Add(new UserAction(btnName, btnText, imageName, clickHandler));
+            fActions.Add(new UserAction(actionName, btnText, imageName, clickHandler));
+        }
+
+        public void AddAction(string actionName, string[] choices, EventHandler changeHandler)
+        {
+            fActions.Add(new UserAction(actionName, choices, changeHandler));
         }
     }
 }

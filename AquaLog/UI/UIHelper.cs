@@ -14,6 +14,7 @@ using AquaLog.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
+using BSLib.Controls;
 using Microsoft.Win32;
 
 namespace AquaLog.UI
@@ -23,6 +24,36 @@ namespace AquaLog.UI
     /// </summary>
     public static class UIHelper
     {
+        public static void AddPanelButton(Panel panel, string actionName, string actionText, Image image, EventHandler handler)
+        {
+            var btn = new Button();
+            btn.Dock = DockStyle.Top;
+            btn.Name = "btn" + actionName;
+            btn.Text = actionText;
+            btn.Image = image;
+            btn.ImageAlign = ContentAlignment.MiddleCenter;
+            btn.TextAlign = ContentAlignment.MiddleCenter;
+            btn.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btn.Margin = new Padding(0, 0, 0, 10);
+            btn.Size = new Size(190, 30);
+            btn.Click += handler;
+            btn.BackColor = SystemColors.Control;
+            panel.Controls.Add(btn);
+        }
+
+        public static void AddPanelCombo(Panel panel, string actionName, string[] choices, EventHandler handler)
+        {
+            var picker = new OptionsPicker();
+            picker.Dock = DockStyle.Top;
+            picker.Name = "opt" + actionName;
+            picker.Margin = new Padding(0, 0, 0, 10);
+            picker.Size = new Size(190, 30);
+            picker.Click += handler;
+            picker.BackColor = SystemColors.Control;
+            picker.Items = choices;
+            panel.Controls.Add(picker);
+        }
+
         public static void FillAquariumsCombo(ComboBox comboBox, ALModel model, int selectedId)
         {
             comboBox.Items.Clear();

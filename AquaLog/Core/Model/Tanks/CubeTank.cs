@@ -12,7 +12,7 @@ namespace AquaLog.Core.Model.Tanks
     /// <summary>
     /// 
     /// </summary>
-    public class CubeTank : BaseTank
+    public class CubeTank : RegularShapeTank
     {
         [Browsable(true), DisplayName("EdgeSize")]
         public float EdgeSize { get; set; }

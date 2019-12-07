@@ -210,8 +210,10 @@ namespace AquaLog.Core
         /* 186 */ Cylinder,
         /* 187 */ UnderfillHeight,
         /* 188 */ SoilHeight,
+        /* 189 */ SoilVolume,
+        /* 190 */ SoilMass,
 
-        /* 000 */ Last = SoilHeight
+        /* 000 */ Last = SoilMass
     }
 
 
@@ -410,6 +412,8 @@ namespace AquaLog.Core
             /* 186 */ "Cylinder",
             /* 187 */ "Underfill height",
             /* 188 */ "Soil height",
+            /* 189 */ "Soil volume",
+            /* 190 */ "Soil mass",
         };
 
 

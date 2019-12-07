@@ -57,7 +57,7 @@ namespace AquaLog.GLViewer
                 }
             }
 
-            M3DHelper.SetMaterial(M3DHelper.WaterDiffuse, M3DHelper.WaterSpecular, M3DHelper.WaterShininess);
+            M3DHelper.SetMaterial(M3DHelper.Water2Diffuse, M3DHelper.Water2Specular, M3DHelper.Water2Shininess);
 
             for (int i = 1; i <= fSize - 1; i++) {
                 OpenGL.glBegin(OpenGL.GL_TRIANGLE_STRIP);

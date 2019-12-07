@@ -57,7 +57,7 @@ namespace AquaLog.GLViewer.Tanks
 
             OpenGL.glTranslatef(0.0f, -height / 2, -width / 2);
 
-            M3DHelper.SetMaterial(M3DHelper.GlassDiffuse, M3DHelper.GlassSpecular, M3DHelper.GlassShininess);
+            M3DHelper.SetGlassMaterial();
 
             var ld2 = length / 2.0f;
             var x1s = 0 - ld2;
@@ -104,7 +104,7 @@ namespace AquaLog.GLViewer.Tanks
             M3DHelper.DrawBox(x1, x2, y1, y2, z1, z2);
 
             if (showWater) {
-                M3DHelper.SetMaterial(M3DHelper.WaterDiffuse, M3DHelper.WaterSpecular, M3DHelper.WaterShininess);
+                M3DHelper.SetWaterMaterial();
                 float watHeight = height - thickness - (ALData.StdWaterOffset * ScaleFactor);
 
                 var x1w = x1s + thickness;

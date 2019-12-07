@@ -56,5 +56,13 @@ namespace AquaLog.Core.Model.Tanks
         {
             return 0.0d;
         }
+
+        /// <summary>
+        /// Estimated soil volume.
+        /// </summary>
+        public virtual double CalcSoilVolume(double soilHeight)
+        {
+            return 0.0d;
+        }
     }
 }

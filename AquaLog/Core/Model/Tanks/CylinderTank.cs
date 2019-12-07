@@ -13,7 +13,7 @@ namespace AquaLog.Core.Model.Tanks
     /// <summary>
     /// 
     /// </summary>
-    public class CylinderTank : BaseTank
+    public class CylinderTank : RegularShapeTank
     {
         /// <summary>
         /// The height of an aquarium is the distance from top to bottom (cm).

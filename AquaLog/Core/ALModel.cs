@@ -12,6 +12,7 @@ using System.IO;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
 using AquaLog.TSDB;
+using BSLib;
 using SQLite;
 
 namespace AquaLog.Core
@@ -513,11 +514,9 @@ namespace AquaLog.Core
             string text = string.Format("{0}={1} {2}", sign, strVal, uom);
 
             Color color = Color.Black;
-            if (!double.IsNaN(mVal) && mVal != 0.0d && ranges != null) {
-                ValueBounds bounds = CheckValue(mVal, ranges);
-                if (bounds != null) {
-                    color = bounds.Color;
-                }
+            ValueBounds bounds = CheckValue(mVal, ranges);
+            if (bounds != null) {
+                color = bounds.Color;
             }
 
             var tval = new MeasureValue() {
@@ -531,13 +530,18 @@ namespace AquaLog.Core
             measures.Add(tval);
         }
 
-        private static ValueBounds CheckValue(double value, ValueBounds[] ranges)
+        public static ValueBounds CheckValue(double value, ValueBounds[] ranges)
         {
+            if (double.IsNaN(value) || DoubleHelper.Equals(value, 0.0d, 0.0000000001d) || ranges == null) {
+                return null;
+            }
+
             foreach (var bounds in ranges) {
                 if (value >= bounds.Min && value <= bounds.Max) {
                     return bounds;
                 }
             }
+
             return null;
         }
 

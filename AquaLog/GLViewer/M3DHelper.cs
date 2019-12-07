@@ -29,9 +29,11 @@ namespace AquaLog.GLViewer
         public static readonly float[] GlassSpecular = new float[] { 0.95f, 0.95f, 0.95f, 1.0f };
         public static readonly float[] GlassShininess = new float[] { 128.0f };
 
-        public static readonly float[] WaterDiffuse = new float[] { 0.1f, 0.4f, 1.0f, 1.0f };
-        public static readonly float[] WaterSpecular = new float[] { 1.0f, 1.0f, 1.0f, 1.0f };
-        public static readonly float[] WaterShininess = new float[] { 50f };
+        public static readonly float[] Water1Diffuse = new float[] { 0.0f, 0.3f, 1.0f, 0.5f };
+
+        public static readonly float[] Water2Diffuse = new float[] { 0.1f, 0.4f, 1.0f, 1.0f };
+        public static readonly float[] Water2Specular = new float[] { 1.0f, 1.0f, 1.0f, 1.0f };
+        public static readonly float[] Water2Shininess = new float[] { 32.0f }; // 50f
 
         public const float DEG2RAD = (float)Math.PI / 180.0f;
         public const BoxSides AllSides = BoxSides.Top | BoxSides.Bottom | BoxSides.Left | BoxSides.Right | BoxSides.Back | BoxSides.Front;
@@ -40,10 +42,26 @@ namespace AquaLog.GLViewer
 
         public static void SetMaterial(float[] diffParams, float[] specParams, float[] shin)
         {
-            GL.glMaterialfv(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_DIFFUSE, diffParams);
-            GL.glMaterialfv(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_SPECULAR, specParams);
-            GL.glMaterialfv(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_SHININESS, shin);
+            if (diffParams != null) {
+                GL.glMaterialfv(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_DIFFUSE, diffParams);
+            }
+            if (specParams != null) {
+                GL.glMaterialfv(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_SPECULAR, specParams);
+            }
+            if (shin != null) {
+                GL.glMaterialfv(OpenGL.GL_FRONT_AND_BACK, OpenGL.GL_SHININESS, shin);
+            }
             //GL.glMaterialfv(GL.GL_FRONT_AND_BACK, GL.GL_EMISSION, new float[] { 0.7f, 0.7f, 0.7f, 0.1f });
+        }
+
+        public static void SetGlassMaterial()
+        {
+            M3DHelper.SetMaterial(M3DHelper.GlassDiffuse, M3DHelper.GlassSpecular, M3DHelper.GlassShininess);
+        }
+
+        public static void SetWaterMaterial()
+        {
+            M3DHelper.SetMaterial(M3DHelper.Water1Diffuse, null, null);
         }
 
         public static void SetLight(uint index, float[] ambiParams, float[] diffParams, float[] specParams, float[] pos)

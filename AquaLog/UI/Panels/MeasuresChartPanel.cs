@@ -7,9 +7,11 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Components;
 using AquaLog.Core.Model;
+using BSLib.Controls;
 
 namespace AquaLog.UI.Panels
 {
@@ -91,6 +93,30 @@ namespace AquaLog.UI.Panels
             Trend trend;
             if (fTrends.TryGetValue(key, out trend)) {
                 trend.Points.Add(new ChartPoint(timestamp, value));
+            }
+        }
+
+        protected override void InitActions()
+        {
+            ClearActions();
+
+            if (fTrends != null) {
+                string[] items = fTrends.Keys.ToArray();
+                AddAction("TrendSelector", items, ItemChangeHandler);
+            }
+        }
+
+        private void ItemChangeHandler(object sender, EventArgs e)
+        {
+            var picker = sender as OptionsPicker;
+            string[] selected = picker.Text.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+
+            fGraph.Clear();
+            foreach (string key in selected) {
+                Trend trend;
+                if (fTrends.TryGetValue(key, out trend)) {
+                    fGraph.PrepareArray(key, "Time", "Value", ChartStyle.Point, trend.Points, trend.Color);
+                }
             }
         }
     }

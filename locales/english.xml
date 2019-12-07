@@ -188,4 +188,6 @@
   <string id="186">Cylinder</string>
   <string id="187">Underfill height</string>
   <string id="188">Soil height</string>
+  <string id="189">Soil volume</string>
+  <string id="190">Soil mass</string>
 </resources>

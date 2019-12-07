@@ -78,6 +78,8 @@ namespace AquaLog.UI.Dialogs
 
             lblUnderfillHeight.Text = ALData.GetLSuom(LSID.UnderfillHeight, MeasurementType.Length);
             lblSoilHeight.Text = ALData.GetLSuom(LSID.SoilHeight, MeasurementType.Length);
+            lblSoilVolume.Text = ALData.GetLSuom(LSID.SoilVolume, MeasurementType.Volume);
+            lblSoilMass.Text = Localizer.LS(LSID.SoilMass);
         }
 
         private void UpdateView()
@@ -165,6 +167,12 @@ namespace AquaLog.UI.Dialogs
 
             double waterVolume = fRecord.CalcWaterVolume(tankShape, underfillHeight, soilHeight);
             txtWaterVolume.Text = ALCore.GetDecimalStr(waterVolume);
+
+            double soilVolume = fRecord.CalcSoilVolume(tankShape, soilHeight);
+            txtSoilVolume.Text = ALCore.GetDecimalStr(soilVolume);
+
+            double soilMass = soilVolume * ALData.Soils[0].Density;
+            txtSoilMass.Text = ALCore.GetDecimalStr(soilMass);
         }
 
         private void btnTank_Click(object sender, EventArgs e)

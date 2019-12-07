@@ -188,4 +188,6 @@
   <string id="186">Цилиндр</string>
   <string id="187">Недолив</string>
   <string id="188">Высота грунта</string>
+  <string id="189">Объем грунта</string>
+  <string id="190">Масса грунта</string>
 </resources>

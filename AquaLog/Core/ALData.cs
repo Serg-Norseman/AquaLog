@@ -24,6 +24,10 @@ namespace AquaLog.Core
         public const double kWhCost = 2.76;
 
 
+        public static readonly SoilProps[] Soils = new SoilProps[] {
+            new SoilProps(LSID.None, 1.66f),
+        };
+
         public static readonly MeasurementUnitProps[] MeasurementUnits = new MeasurementUnitProps[] {
             new MeasurementUnitProps(LSID.None, MeasurementType.Length),
 
@@ -263,11 +267,11 @@ namespace AquaLog.Core
 
 
         public static readonly ValueBounds[] RedfieldRanges = new ValueBounds[] {
-            new ValueBounds(0, 5, Color.Green, "high (Cianobacter)"),
-            new ValueBounds(5, 10, Color.Red, "media (Cianobacter)"),
+            new ValueBounds(0, 5, Color.Red, "high (Cianobacter)"),
+            new ValueBounds(5, 10, Color.Orange, "media (Cianobacter)"),
             new ValueBounds(10, 20, Color.Green, "low"),
-            new ValueBounds(20, 25, Color.Red, "media (green algae)"),
-            new ValueBounds(25, 30, Color.Green, "high (green algae)"),
+            new ValueBounds(20, 25, Color.Orange, "media (green algae)"),
+            new ValueBounds(25, 30, Color.Red, "high (green algae)"),
         };
 
 

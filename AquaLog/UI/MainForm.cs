@@ -15,6 +15,7 @@ using AquaLog.Logging;
 using AquaLog.UI.Dialogs;
 using AquaLog.UI.Panels;
 using BSLib;
+using BSLib.Controls;
 
 namespace AquaLog.UI
 {
@@ -225,25 +226,21 @@ namespace AquaLog.UI
         private void SetActions(DataPanel browser)
         {
             for (int i = pnlTools.Controls.Count - 1; i >= 0; i--) {
-                if (pnlTools.Controls[i] is Button) {
+                var ctl = pnlTools.Controls[i];
+
+                if (ctl is Button) {
+                    pnlTools.Controls.RemoveAt(i);
+                } else if (ctl is OptionsPicker) {
                     pnlTools.Controls.RemoveAt(i);
                 }
             }
 
             foreach (var action in browser.Actions) {
-                var btn = new Button();
-                btn.Dock = DockStyle.Top;
-                btn.Name = "btn" + action.BtnName;
-                btn.Text = Localizer.LS(action.BtnText);
-                btn.Image = action.Image;
-                btn.ImageAlign = ContentAlignment.MiddleCenter;
-                btn.TextAlign = ContentAlignment.MiddleCenter;
-                btn.TextImageRelation = TextImageRelation.ImageBeforeText;
-                btn.Margin = new Padding(0, 0, 0, 10);
-                btn.Size = new Size(190, 30);
-                btn.Click += action.Click;
-                btn.BackColor = SystemColors.Control;
-                pnlTools.Controls.Add(btn);
+                if (action.Choices == null) {
+                    UIHelper.AddPanelButton(pnlTools, action.BtnName, Localizer.LS(action.BtnText), action.Image, action.Click);
+                } else {
+                    UIHelper.AddPanelCombo(pnlTools, action.BtnName, action.Choices, action.Click);
+                }
             }
         }
 
@@ -359,10 +356,10 @@ namespace AquaLog.UI
                 }
                 pnlClient.Controls.Add(view);
 
-                SetActions(view);
-
                 fCurrentPanel = view;
                 fCurrentPanel.UpdateView();
+
+                SetActions(view);
 
                 UpdateNavControls();
             } catch (Exception ex) {

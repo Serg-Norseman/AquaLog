@@ -218,7 +218,7 @@ namespace AquaLog.UI.Panels
             if (!double.IsNaN(PO4) && !DoubleHelper.Equals(PO4, 0.0001, 0.0001)) {
                 double redfield = ALData.CalcRedfield(NO3, PO4);
                 y = y + (int)(Font.Height * 1.6f);
-                DrawText(gfx, "Redfield: " + ALCore.GetDecimalStr(redfield), Font, ForeColor, x, y);
+                DrawMeasure(gfx, "Redfield: {0} {1}", redfield, ALData.RedfieldRanges, Font, x, y);
             }
         }
 
@@ -227,6 +227,21 @@ namespace AquaLog.UI.Panels
             MeasureValue tVal = fValues[index];
             if (!string.IsNullOrEmpty(tVal.Text) && !double.IsNaN(tVal.Value)) {
                 DrawText(gfx, tVal.Text, font, tVal.Color, x, y);
+            }
+        }
+
+        private void DrawMeasure(Graphics gfx, string text, double val, ValueBounds[] ranges, Font font, int x, int y)
+        {
+            if (!string.IsNullOrEmpty(text) && !double.IsNaN(val)) {
+                Color color = Color.Black;
+                string comment = string.Empty;
+                ValueBounds bounds = ALModel.CheckValue(val, ranges);
+                if (bounds != null) {
+                    color = bounds.Color;
+                    comment = bounds.Name;
+                }
+
+                DrawText(gfx, string.Format(text, ALCore.GetDecimalStr(val), comment), font, color, x, y);
             }
         }
 

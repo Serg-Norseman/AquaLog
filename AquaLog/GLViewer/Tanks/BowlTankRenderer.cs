@@ -36,7 +36,7 @@ namespace AquaLog.GLViewer.Tanks
 
             OpenGL.glTranslatef(0.0f, -height / 2, 0.0f);
 
-            M3DHelper.SetMaterial(M3DHelper.GlassDiffuse, M3DHelper.GlassSpecular, M3DHelper.GlassShininess);
+            M3DHelper.SetGlassMaterial();
 
             // bottom
             var points = M3DHelper.GetArcPoints(36, bottomDiameter / 2.0f, 0.0f, 360.0f);
@@ -49,7 +49,7 @@ namespace AquaLog.GLViewer.Tanks
             DrawCylinderFace(points1i, points1o, 0.0f + height);
 
             if (showWater) {
-                M3DHelper.SetMaterial(M3DHelper.WaterDiffuse, M3DHelper.WaterSpecular, M3DHelper.WaterShininess);
+                M3DHelper.SetWaterMaterial();
                 float watHeight = height - thickness - (ALData.StdWaterOffset * ScaleFactor);
 
                 //M3DHelper.DrawCylinder(36, height, bottomDiameter / 2.0f, 0.0f, 360.0f);
