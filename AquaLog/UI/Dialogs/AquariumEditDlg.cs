@@ -80,6 +80,7 @@ namespace AquaLog.UI.Dialogs
             lblSoilHeight.Text = ALData.GetLSuom(LSID.SoilHeight, MeasurementType.Length);
             lblSoilVolume.Text = ALData.GetLSuom(LSID.SoilVolume, MeasurementType.Volume);
             lblSoilMass.Text = Localizer.LS(LSID.SoilMass);
+            lblBrand.Text = Localizer.LS(LSID.Brand);
         }
 
         private void UpdateView()
@@ -91,6 +92,8 @@ namespace AquaLog.UI.Dialogs
             txtTankVolume.Text = ALCore.GetDecimalStr(fRecord.TankVolume);
             txtUnderfillHeight.Text = ALCore.GetDecimalStr(fRecord.UnderfillHeight);
             txtSoilHeight.Text = ALCore.GetDecimalStr(fRecord.SoilHeight);
+
+            UIHelper.FillStringsCombo(cmbBrand, fModel.QueryAquariumBrands(), fRecord.Brand);
 
             dtpStartDate.Checked = !fRecord.StartDate.Equals(ALCore.ZeroDate);
             if (dtpStartDate.Checked) {
@@ -109,6 +112,7 @@ namespace AquaLog.UI.Dialogs
             fRecord.Description = txtDesc.Text;
             fRecord.TankShape = cmbShape.GetSelectedTag<TankShape>();
             fRecord.WaterType = cmbWaterType.GetSelectedTag<AquariumWaterType>();
+            fRecord.Brand = cmbBrand.Text;
 
             fRecord.TankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
 

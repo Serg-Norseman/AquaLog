@@ -10,7 +10,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using ZedGraph;
 
-namespace AquaLog.Components
+namespace AquaLog.UI.Components
 {
     public enum ChartStyle
     {

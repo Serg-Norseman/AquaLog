@@ -13,7 +13,7 @@ using System.Drawing.Text;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
-namespace AquaLog.Components
+namespace AquaLog.UI.Components
 {
     /// <summary>
     /// 

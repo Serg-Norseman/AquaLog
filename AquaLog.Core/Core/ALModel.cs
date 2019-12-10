@@ -161,6 +161,11 @@ namespace AquaLog.Core
             return fDB.Query<Aquarium>("select * from Aquarium");
         }
 
+        public IList<QString> QueryAquariumBrands()
+        {
+            return fDB.Query<QString>("select distinct Brand as element from Aquarium");
+        }
+
         public int QueryInhabitantsCount(int aquariumId)
         {
             int result = 0;

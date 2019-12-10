@@ -4,7 +4,7 @@
     <ProjectGuid>{171ADA99-34C7-42D9-8501-37A66294BBA8}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <OutputType>Library</OutputType>
     <RootNamespace>AquaLog</RootNamespace>
     <AssemblyName>AquaLog.Tests</AssemblyName>
@@ -17,9 +17,6 @@
     <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -105,6 +102,10 @@
     <Compile Include="UI\UITests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AquaLog.Core\AquaLog.Core.csproj">
+      <Project>{44b1fec8-5adb-4b16-8dd6-80a3a2405d2d}</Project>
+      <Name>AquaLog.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AquaLog\AquaLog.csproj">
       <Project>{4bbeeab9-562b-4360-be8c-36e65b005593}</Project>
       <Name>AquaLog</Name>

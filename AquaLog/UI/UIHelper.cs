@@ -5,12 +5,13 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using AquaLog.Components;
+using AquaLog.UI.Components;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
@@ -78,6 +79,16 @@ namespace AquaLog.UI
             comboBox.SetSelectedTag<ItemState>(selectedState);
         }
 
+        public static void FillStringsCombo(ComboBox comboBox, IList<QString> strings, string selectedText)
+        {
+            comboBox.Items.Clear();
+            foreach (QString bqs in strings) {
+                if (!string.IsNullOrEmpty(bqs.element))
+                    comboBox.Items.Add(bqs.element);
+            }
+            comboBox.Text = selectedText;
+        }
+
         public static bool ShowQuestionYN(string msg)
         {
             return MessageBox.Show(msg, ALCore.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
@@ -117,7 +128,7 @@ namespace AquaLog.UI
             resName = "Resources." + resName;
             #endif
 
-            return LoadResourceStream(typeof(ALCore), resName);
+            return LoadResourceStream(typeof(UIHelper), resName);
         }
 
         public static Stream LoadResourceStream(Type baseType, string resName)
@@ -133,37 +144,30 @@ namespace AquaLog.UI
 
         #region Open/Save dialogs
 
-        public static string GetOpenFile(string title, string context, string filter, int filterIndex, string defaultExt)
+        public static string GetOpenFile(string title, string context, string filter,
+            int filterIndex, string defaultExt, bool multiSelect = false)
         {
-            using (OpenFileDialog ofd = CreateOpenFileDialog(title, context, filter, filterIndex, defaultExt, false)) {
+            using (OpenFileDialog ofd = new OpenFileDialog()) {
+                if (!string.IsNullOrEmpty(title))
+                    ofd.Title = title;
+
+                if (!string.IsNullOrEmpty(context))
+                    ofd.InitialDirectory = context;
+
+                if (!string.IsNullOrEmpty(filter)) {
+                    ofd.Filter = filter;
+
+                    if (filterIndex > 0)
+                        ofd.FilterIndex = filterIndex;
+                }
+
+                if (!string.IsNullOrEmpty(defaultExt))
+                    ofd.DefaultExt = defaultExt;
+
+                ofd.Multiselect = multiSelect;
+
                 return (ofd.ShowDialog() == DialogResult.OK) ? ofd.FileName : string.Empty;
             }
-        }
-
-        private static OpenFileDialog CreateOpenFileDialog(string title, string context, string filter,
-            int filterIndex, string defaultExt, bool multiSelect)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-
-            if (!string.IsNullOrEmpty(title))
-                ofd.Title = title;
-
-            if (!string.IsNullOrEmpty(context))
-                ofd.InitialDirectory = context;
-
-            if (!string.IsNullOrEmpty(filter)) {
-                ofd.Filter = filter;
-
-                if (filterIndex > 0)
-                    ofd.FilterIndex = filterIndex;
-            }
-
-            if (!string.IsNullOrEmpty(defaultExt))
-                ofd.DefaultExt = defaultExt;
-
-            ofd.Multiselect = multiSelect;
-
-            return ofd;
         }
 
         public static string GetSaveFile(string filter)
@@ -171,40 +175,33 @@ namespace AquaLog.UI
             return GetSaveFile("", "", filter, 1, "", "");
         }
 
-        public static string GetSaveFile(string title, string context, string filter, int filterIndex, string defaultExt,
-            string suggestedFileName, bool overwritePrompt = true)
+        public static string GetSaveFile(string title, string context, string filter,
+            int filterIndex, string defaultExt, string suggestedFileName, bool overwritePrompt = true)
         {
-            using (SaveFileDialog sfd = CreateSaveFileDialog(title, context, filter, filterIndex, defaultExt, suggestedFileName)) {
+            using (SaveFileDialog sfd = new SaveFileDialog()) {
+                if (!string.IsNullOrEmpty(title))
+                    sfd.Title = title;
+
+                if (!string.IsNullOrEmpty(context))
+                    sfd.InitialDirectory = context;
+
+                if (!string.IsNullOrEmpty(filter)) {
+                    sfd.Filter = filter;
+
+                    if (filterIndex > 0)
+                        sfd.FilterIndex = filterIndex;
+                }
+
+                if (!string.IsNullOrEmpty(defaultExt))
+                    sfd.DefaultExt = defaultExt;
+
+                if (!string.IsNullOrEmpty(suggestedFileName))
+                    sfd.FileName = suggestedFileName;
+
                 sfd.OverwritePrompt = overwritePrompt;
+
                 return (sfd.ShowDialog() == DialogResult.OK) ? sfd.FileName : string.Empty;
             }
-        }
-
-        private static SaveFileDialog CreateSaveFileDialog(string title, string context, string filter,
-            int filterIndex, string defaultExt, string suggestedFileName)
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-
-            if (!string.IsNullOrEmpty(title))
-                sfd.Title = title;
-
-            if (!string.IsNullOrEmpty(context))
-                sfd.InitialDirectory = context;
-
-            if (!string.IsNullOrEmpty(filter)) {
-                sfd.Filter = filter;
-
-                if (filterIndex > 0)
-                    sfd.FilterIndex = filterIndex;
-            }
-
-            if (!string.IsNullOrEmpty(defaultExt))
-                sfd.DefaultExt = defaultExt;
-
-            if (!string.IsNullOrEmpty(suggestedFileName))
-                sfd.FileName = suggestedFileName;
-
-            return sfd;
         }
 
         #endregion

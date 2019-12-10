@@ -15,7 +15,7 @@
         private System.Windows.Forms.ComboBox cmbSpecies;
         private System.Windows.Forms.ComboBox cmbState;
         private System.Windows.Forms.Label lblState;
-        private AquaLog.Components.ImageViewer imgViewer;
+        private AquaLog.UI.Components.ImageViewer imgViewer;
         
         protected override void Dispose(bool disposing)
         {
@@ -41,7 +41,7 @@
             this.cmbSpecies = new System.Windows.Forms.ComboBox();
             this.cmbState = new System.Windows.Forms.ComboBox();
             this.lblState = new System.Windows.Forms.Label();
-            this.imgViewer = new AquaLog.Components.ImageViewer();
+            this.imgViewer = new AquaLog.UI.Components.ImageViewer();
             this.SuspendLayout();
             // 
             // btnAccept

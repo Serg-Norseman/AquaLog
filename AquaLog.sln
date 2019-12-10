@@ -16,6 +16,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaLog.Tests", "AquaLog.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Timeline", "BSLib.Timeline\BSLib.Timeline.csproj", "{5F95B084-2BF9-4A8D-8D83-F50FBE1B959C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaLog.Core", "AquaLog.Core\AquaLog.Core.csproj", "{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -48,5 +50,13 @@ Global
 		{5F95B084-2BF9-4A8D-8D83-F50FBE1B959C}.Release|x86.Build.0 = Release|x86
 		{5F95B084-2BF9-4A8D-8D83-F50FBE1B959C}.Release|x64.ActiveCfg = Release|x64
 		{5F95B084-2BF9-4A8D-8D83-F50FBE1B959C}.Release|x64.Build.0 = Release|x64
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Debug|x86.ActiveCfg = Debug|x86
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Debug|x86.Build.0 = Debug|x86
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Debug|x64.ActiveCfg = Debug|x64
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Debug|x64.Build.0 = Debug|x64
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Release|x86.ActiveCfg = Release|x86
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Release|x86.Build.0 = Release|x86
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Release|x64.ActiveCfg = Release|x64
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal

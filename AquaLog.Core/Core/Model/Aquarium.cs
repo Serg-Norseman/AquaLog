@@ -13,12 +13,14 @@ namespace AquaLog.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public class Aquarium : Entity
+    public class Aquarium : Entity, IBrandedItem
     {
         [MaxLength(140)]
         public string Name { get; set; }
 
         public string Description { get; set; }
+
+        public string Brand { get; set; }
 
         public AquariumWaterType WaterType { get; set; }
 

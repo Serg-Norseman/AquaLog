@@ -71,12 +71,7 @@ namespace AquaLog.UI.Dialogs
         private void UpdateView()
         {
             if (fRecord != null) {
-                cmbBrand.Items.Clear();
-                var brands = fModel.QueryInventoryBrands();
-                foreach (QString bqs in brands) {
-                    cmbBrand.Items.Add(bqs.element);
-                }
-                cmbBrand.Text = fRecord.Brand;
+                UIHelper.FillStringsCombo(cmbBrand, fModel.QueryInventoryBrands(), fRecord.Brand);
 
                 txtName.Text = fRecord.Name;
                 cmbType.SetSelectedTag(fRecord.Type);

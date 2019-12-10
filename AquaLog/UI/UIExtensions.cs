@@ -6,7 +6,7 @@
 
 using System;
 using System.Windows.Forms;
-using AquaLog.Components;
+using AquaLog.UI.Components;
 using AquaLog.Core;
 
 namespace AquaLog.UI

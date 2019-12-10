@@ -80,25 +80,30 @@ namespace AquaLog.UI.Dialogs
                 string itName = fModel.GetRecordName(fRecord.ItemType, fRecord.ItemId);
                 txtName.Text = itName;
 
-                if (fRecord.Id == 0) {
-                    IList<Transfer> lastTransfers = fModel.QueryLastTransfers(fRecord.ItemId, (int)fRecord.ItemType);
-                    if (lastTransfers.Count > 0) {
-                        fRecord.SourceId = lastTransfers[0].TargetId;
+                if (fRecord.ItemType != ItemType.Aquarium) {
+                    if (fRecord.Id == 0) {
+                        IList<Transfer> lastTransfers = fModel.QueryLastTransfers(fRecord.ItemId, (int)fRecord.ItemType);
+                        if (lastTransfers.Count > 0) {
+                            fRecord.SourceId = lastTransfers[0].TargetId;
+                        }
                     }
-                }
 
-                cmbTarget.Items.Clear();
-                var aquariums = fModel.QueryAquariums();
-                foreach (var aqm in aquariums) {
-                    cmbSource.Items.Add(aqm);
+                    cmbTarget.Items.Clear();
+                    var aquariums = fModel.QueryAquariums();
+                    foreach (var aqm in aquariums) {
+                        cmbSource.Items.Add(aqm);
 
-                    if (aqm.Id != fRecord.SourceId) {
-                        cmbTarget.Items.Add(aqm);
+                        if (aqm.Id != fRecord.SourceId) {
+                            cmbTarget.Items.Add(aqm);
+                        }
                     }
-                }
 
-                cmbSource.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.SourceId);
-                cmbTarget.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.TargetId);
+                    cmbSource.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.SourceId);
+                    cmbTarget.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.TargetId);
+                } else {
+                    cmbSource.Enabled = false;
+                    cmbTarget.Enabled = false;
+                }
 
                 if (!fRecord.Timestamp.Equals(ALCore.ZeroDate)) {
                     dtpDate.Value = fRecord.Timestamp;
@@ -107,13 +112,7 @@ namespace AquaLog.UI.Dialogs
                 cmbType.SetSelectedTag(fRecord.Type);
                 txtCause.Text = fRecord.Cause;
 
-                cmbShop.Items.Clear();
-                var shops = fModel.QueryShops();
-                foreach (var shp in shops) {
-                    if (!string.IsNullOrEmpty(shp.element)) {
-                        cmbShop.Items.Add(shp.element);
-                    }
-                }
+                UIHelper.FillStringsCombo(cmbShop, fModel.QueryShops(), string.Empty);
 
                 txtQty.Text = fRecord.Quantity.ToString();
                 if (fRecord.Type == TransferType.Purchase || fRecord.Type == TransferType.Sale) {

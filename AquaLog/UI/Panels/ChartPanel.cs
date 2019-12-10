@@ -7,7 +7,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using AquaLog.Components;
+using AquaLog.UI.Components;
 
 namespace AquaLog.UI.Panels
 {

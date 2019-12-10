@@ -4,7 +4,7 @@
     <ProjectGuid>{4BBEEAB9-562B-4360-BE8C-36E65B005593}</ProjectGuid>
     <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <OutputType>WinExe</OutputType>
     <RootNamespace>AquaLog</RootNamespace>
     <AssemblyName>AquaLog</AssemblyName>
@@ -20,14 +20,6 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <ApplicationIcon>Resources\icon_aqualog.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <BaseAddress>4194304</BaseAddress>
-    <RegisterForComInterop>False</RegisterForComInterop>
-    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
-    <FileAlignment>4096</FileAlignment>
-    <Prefer32Bit>True</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>..\</OutputPath>
@@ -45,10 +37,6 @@
     <Optimize>True</Optimize>
     <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
     <DefineConstants>TRACE</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <LangVersion>5</LangVersion>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -88,15 +76,6 @@
     <Reference Include="csgl">
       <HintPath>..\libs\csgl.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetRtfWriter">
-      <HintPath>..\libs\DotNetRtfWriter.dll</HintPath>
-    </Reference>
-    <Reference Include="ExcelLibrary">
-      <HintPath>..\libs\ExcelLibrary.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\libs\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -108,54 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Core\ALData.cs" />
-    <Compile Include="Core\ALSettings.cs" />
-    <Compile Include="Core\Average.cs" />
-    <Compile Include="Core\Calculations\CalculationProps.cs" />
-    <Compile Include="Core\Calculations\BaseCalculation.cs" />
-    <Compile Include="Core\Calculations\CalculationType.cs" />
-    <Compile Include="Core\Calculations\SaltCalculation.cs" />
-    <Compile Include="Core\Calculations\UnitsCalculation.cs" />
-    <Compile Include="Core\Export\CSVExporter.cs" />
-    <Compile Include="Core\Export\ExcelExporter.cs" />
-    <Compile Include="Core\Export\RTFLogBook.cs" />
-    <Compile Include="Core\ILocalizable.cs" />
-    <Compile Include="Core\LocaleFile.cs" />
-    <Compile Include="Core\Localizer.cs" />
-    <Compile Include="Core\Model\IEventEntity.cs" />
-    <Compile Include="Core\Model\Inventory.cs" />
-    <Compile Include="Core\Model\ITank.cs" />
-    <Compile Include="Core\Model\Measure.cs" />
-    <Compile Include="Core\Model\Nutrition.cs" />
-    <Compile Include="Core\Model\Schedule.cs" />
-    <Compile Include="Core\Model\Snapshot.cs" />
-    <Compile Include="Core\Model\Tanks\BowFrontTank.cs" />
-    <Compile Include="Core\Model\Tanks\BowlTank.cs" />
-    <Compile Include="Core\Model\Tanks\CubeTank.cs" />
-    <Compile Include="Core\Model\Tanks\CylinderTank.cs" />
-    <Compile Include="Core\Model\Tanks\RectangularTank.cs" />
-    <Compile Include="Core\Model\Tanks\BaseTank.cs" />
-    <Compile Include="Core\Model\Tanks\RegularShapeTank.cs" />
-    <Compile Include="Core\StringSerializer.cs" />
-    <Compile Include="Core\Types\DeviceProps.cs" />
-    <Compile Include="Core\Types\DeviceType.cs" />
-    <Compile Include="Core\Types\InventoryType.cs" />
-    <Compile Include="Core\Types\ItemProps.cs" />
-    <Compile Include="Core\Types\MeasurementUnit.cs" />
-    <Compile Include="Core\Types\MeasurementUnitProps.cs" />
-    <Compile Include="Core\Types\MeasureValue.cs" />
-    <Compile Include="Core\Types\QDecimal.cs" />
-    <Compile Include="Core\Types\QString.cs" />
-    <Compile Include="Core\Types\ItemState.cs" />
-    <Compile Include="Core\Types\SoilProps.cs" />
-    <Compile Include="Core\Types\SwimLevel.cs" />
-    <Compile Include="Core\Types\ValueBounds.cs" />
-    <Compile Include="Core\UnitConverter.cs" />
-    <Compile Include="DataCollection\BaseService.cs" />
-    <Compile Include="DataCollection\CommunicationLEDService.cs" />
-    <Compile Include="DataCollection\IChannel.cs" />
-    <Compile Include="DataCollection\SerialChannel.cs" />
-    <Compile Include="DataCollection\TemperatureService.cs" />
     <Compile Include="GLViewer\M3DAeration.cs" />
     <Compile Include="GLViewer\M3DHelper.cs" />
     <Compile Include="GLViewer\M3DViewer.cs" />
@@ -168,46 +99,13 @@
     <Compile Include="GLViewer\Tanks\RectangularTankRenderer.cs" />
     <Compile Include="GLViewer\Tanks\TankRenderer.cs" />
     <Compile Include="GLViewer\Vector3D.cs" />
-    <Compile Include="TSDB\TSPoint.cs" />
-    <Compile Include="TSDB\SDCompression.cs" />
-    <Compile Include="TSDB\TSDatabase.cs" />
-    <Compile Include="TSDB\TSValue.cs" />
     <Compile Include="UI\ALTray.cs" />
     <Compile Include="UI\Components\ImageViewer.cs" />
     <Compile Include="UI\Components\UserAction.cs" />
     <Compile Include="UI\Components\ComboItem.cs" />
     <Compile Include="UI\Components\WizardPages.cs" />
     <Compile Include="UI\Components\ZGraphControl.cs" />
-    <Compile Include="Core\ALCore.cs" />
-    <Compile Include="Core\ALModel.cs" />
-    <Compile Include="Core\Model\Aquarium.cs" />
-    <Compile Include="Core\Model\AquariumDetails.cs" />
-    <Compile Include="Core\Model\Device.cs" />
-    <Compile Include="Core\Model\Entity.cs" />
-    <Compile Include="Core\Model\History.cs" />
-    <Compile Include="Core\Model\Inhabitant.cs" />
-    <Compile Include="Core\Model\Maintenance.cs" />
-    <Compile Include="Core\Model\Note.cs" />
-    <Compile Include="Core\Model\Species.cs" />
-    <Compile Include="Core\Model\Transfer.cs" />
-    <Compile Include="Core\NavigationStack.cs" />
-    <Compile Include="Core\Types\AquariumWaterType.cs" />
-    <Compile Include="Core\Types\CareLevel.cs" />
-    <Compile Include="Core\Types\ItemType.cs" />
-    <Compile Include="Core\Types\MeasurementType.cs" />
-    <Compile Include="Core\Types\Sex.cs" />
-    <Compile Include="Core\Types\SpeciesType.cs" />
-    <Compile Include="Core\Types\TankShape.cs" />
-    <Compile Include="Core\Types\ScheduleType.cs" />
-    <Compile Include="Core\Types\TaskStatus.cs" />
-    <Compile Include="Core\Types\Temperament.cs" />
-    <Compile Include="Core\Types\TransferType.cs" />
-    <Compile Include="Core\Types\MaintenanceType.cs" />
-    <Compile Include="Logging\Log4NetHelper.cs" />
-    <Compile Include="Logging\LogManager.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="SQLite.cs" />
-    <Compile Include="SQLiteAsync.cs" />
     <Compile Include="UI\Components\ZListView.cs" />
     <Compile Include="UI\Dialogs\AboutDlg.cs" />
     <Compile Include="UI\Dialogs\AboutDlg.Designer.cs">
@@ -326,10 +224,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="..\libs\win32\sqlite3.dll">
-      <Link>sqlite3.dll</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="packages.config" />
     <EmbeddedResource Include="Resources\btn_accept.gif" />
     <EmbeddedResource Include="Resources\btn_cancel.gif" />
@@ -346,17 +240,9 @@
     <EmbeddedResource Include="Resources\btn_tools.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core" />
-    <Folder Include="Core\Export" />
-    <Folder Include="Core\Calculations" />
-    <Folder Include="DataCollection" />
     <Folder Include="GLViewer" />
     <Folder Include="GLViewer\Tanks" />
-    <Folder Include="TSDB" />
     <Folder Include="UI\Components" />
-    <Folder Include="Core\Model" />
-    <Folder Include="Core\Types" />
-    <Folder Include="Logging" />
     <Folder Include="Resources" />
     <Folder Include="UI" />
     <Folder Include="UI\Dialogs" />
@@ -368,6 +254,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AquaLog.Core\AquaLog.Core.csproj">
+      <Project>{44b1fec8-5adb-4b16-8dd6-80a3a2405d2d}</Project>
+      <Name>AquaLog.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BSLib.Timeline\BSLib.Timeline.csproj">
       <Project>{5f95b084-2bf9-4a8d-8d83-f50fbe1b959c}</Project>
       <Name>BSLib.Timeline</Name>

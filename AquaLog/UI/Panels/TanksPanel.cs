@@ -115,6 +115,7 @@ namespace AquaLog.UI.Panels
             aqm.Name = ALCore.UnknownName;
 
             using (var dlg = new AquariumEditDlg()) {
+                dlg.Model = fModel;
                 dlg.Record = aqm;
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fModel.AddRecord(aqm);
@@ -132,6 +133,7 @@ namespace AquaLog.UI.Panels
             if (aqm == null) return;
 
             using (var dlg = new AquariumEditDlg()) {
+                dlg.Model = fModel;
                 dlg.Record = aqm;
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fModel.UpdateRecord(aqm);

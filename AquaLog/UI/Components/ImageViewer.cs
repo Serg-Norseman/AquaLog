@@ -15,7 +15,7 @@ using AquaLog.Core.Types;
 using AquaLog.UI;
 using AquaLog.UI.Dialogs;
 
-namespace AquaLog.Components
+namespace AquaLog.UI.Components
 {
     /// <summary>
     /// ImageViewer with the pop-up panel.

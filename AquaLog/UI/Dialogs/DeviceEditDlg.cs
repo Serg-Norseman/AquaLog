@@ -94,12 +94,7 @@ namespace AquaLog.UI.Dialogs
                 }
                 cmbTSDBPoint.SelectedItem = points.FirstOrDefault(pt => pt.Id == fRecord.PointId);
 
-                cmbBrand.Items.Clear();
-                var brands = fModel.QueryDeviceBrands();
-                foreach (QString bqs in brands) {
-                    cmbBrand.Items.Add(bqs.element);
-                }
-                cmbBrand.Text = fRecord.Brand;
+                UIHelper.FillStringsCombo(cmbBrand, fModel.QueryDeviceBrands(), fRecord.Brand);
 
                 cmbType.SetSelectedTag(fRecord.Type);
                 txtName.Text = fRecord.Name;

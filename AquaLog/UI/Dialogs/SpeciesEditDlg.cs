@@ -97,13 +97,7 @@ namespace AquaLog.UI.Dialogs
                 cmbSwimLevel.SetSelectedTag(fRecord.SwimLevel);
             }
 
-            cmbFamily.Items.Clear();
-            var families = fModel.QuerySpeciesFamilies();
-            foreach (QString bqs in families) {
-                if (!string.IsNullOrEmpty(bqs.element))
-                    cmbFamily.Items.Add(bqs.element);
-            }
-            cmbFamily.Text = fRecord.BioFamily;
+            UIHelper.FillStringsCombo(cmbFamily, fModel.QuerySpeciesFamilies(), fRecord.BioFamily);
         }
 
         private void ApplyChanges()

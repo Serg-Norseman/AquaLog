@@ -168,6 +168,10 @@ namespace AquaLog.UI.Panels
                         break;
                 }
 
+                if (string.IsNullOrEmpty(key)) {
+                    key = string.Empty;
+                }
+
                 double iSum;
                 if (result.TryGetValue(key, out iSum)) {
                     iSum += trnSum;

@@ -8,7 +8,7 @@ using System;
 using System.Security.Permissions;
 using System.Windows.Forms;
 
-namespace AquaLog.Components
+namespace AquaLog.UI.Components
 {
     /// <summary>
     /// 

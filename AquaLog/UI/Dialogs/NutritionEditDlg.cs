@@ -83,12 +83,7 @@ namespace AquaLog.UI.Dialogs
                 }
                 cmbInhabitant.SelectedItem = inhabitants.FirstOrDefault(inh => inh.Id == fRecord.InhabitantId);
 
-                cmbBrand.Items.Clear();
-                var brands = fModel.QueryNutritionBrands();
-                foreach (QString bqs in brands) {
-                    cmbBrand.Items.Add(bqs.element);
-                }
-                cmbBrand.Text = fRecord.Brand;
+                UIHelper.FillStringsCombo(cmbBrand, fModel.QueryNutritionBrands(), fRecord.Brand);
 
                 txtName.Text = fRecord.Name;
                 txtAmount.Text = ALCore.GetDecimalStr(fRecord.Amount);

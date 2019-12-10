@@ -364,8 +364,8 @@ namespace AquaLog.UI
 
             ClickToolStripButton("btnTransfers", fMainWin);
 
-            ModalFormHandler = Dialog_Cancel_Handler;
-            ClickButton("btnAdd", fMainWin);
+            //ModalFormHandler = Dialog_Cancel_Handler;
+            //ClickButton("btnAdd", fMainWin);
 
             // no selected item
             //ModalFormHandler = Dialog_Cancel_Handler;

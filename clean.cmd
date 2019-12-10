@@ -10,6 +10,9 @@ rmdir .\.vs /s /q
 rmdir .\AquaLog\bin /s /q
 rmdir .\AquaLog\obj /s /q
 
+rmdir .\AquaLog.Core\bin /s /q
+rmdir .\AquaLog.Core\obj /s /q
+
 rmdir .\AquaLog.Tests\bin /s /q
 rmdir .\AquaLog.Tests\obj /s /q
 rmdir .\AquaLog.Tests\OpenCover /s /q

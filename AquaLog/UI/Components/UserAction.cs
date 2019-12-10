@@ -9,7 +9,7 @@ using System.Drawing;
 using AquaLog.Core;
 using AquaLog.UI;
 
-namespace AquaLog.Components
+namespace AquaLog.UI.Components
 {
     /// <summary>
     /// 

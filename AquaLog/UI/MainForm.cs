@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using AquaLog.Components;
+using AquaLog.UI.Components;
 using AquaLog.Core;
 using AquaLog.Logging;
 using AquaLog.UI.Dialogs;
