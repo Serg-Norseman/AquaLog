@@ -30,5 +30,6 @@ namespace AquaLog.Core.Types
         // hidden, application's specific
         Length,
         Volume,
+        Mass,
     }
 }

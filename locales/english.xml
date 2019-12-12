@@ -190,4 +190,7 @@
   <string id="188">Soil height</string>
   <string id="189">Soil volume</string>
   <string id="190">Soil mass</string>
+  <string id="191">Mass</string>
+  <string id="192">Kilogram,kg</string>
+  <string id="193">Pound,lb</string>
 </resources>

@@ -37,6 +37,9 @@ namespace AquaLog.Core
             new MeasurementUnitProps(LSID.Litre, MeasurementType.Volume),
             new MeasurementUnitProps(LSID.UKGallon, MeasurementType.Volume),
             new MeasurementUnitProps(LSID.USGallon, MeasurementType.Volume),
+
+            new MeasurementUnitProps(LSID.Kilogram, MeasurementType.Mass),
+            new MeasurementUnitProps(LSID.Pound, MeasurementType.Mass),
         };
 
         public static readonly int[] WaterChangeFactors = new int[] {
@@ -284,6 +287,8 @@ namespace AquaLog.Core
                 mUnit = ALSettings.Instance.VolumeUoM;
             } else if (measurementType == MeasurementType.Length) {
                 mUnit = ALSettings.Instance.LengthUoM;
+            } else if (measurementType == MeasurementType.Mass) {
+                mUnit = ALSettings.Instance.MassUoM;
             }
 
             if (mUnit != MeasurementUnit.Unknown) {
@@ -296,6 +301,50 @@ namespace AquaLog.Core
             }
 
             return result;
+        }
+
+        public static string CastStr(double value, MeasurementType measurementType, int decimalDigits = 2, bool hideZero = false)
+        {
+            // sourceUoM = always only SI
+            MeasurementUnit targetUnit = MeasurementUnit.Unknown;
+
+            switch (measurementType) {
+                case MeasurementType.Length:
+                    targetUnit = ALSettings.Instance.LengthUoM;
+                    break;
+                case MeasurementType.Volume:
+                    targetUnit = ALSettings.Instance.VolumeUoM;
+                    break;
+                case MeasurementType.Mass:
+                    targetUnit = ALSettings.Instance.MassUoM;
+                    break;
+            }
+
+            switch (targetUnit) {
+                case MeasurementUnit.Centimeter:
+                    break;
+                case MeasurementUnit.Inch:
+                    value = UnitConverter.cm2inch(value);
+                    break;
+                case MeasurementUnit.Litre:
+                    break;
+                case MeasurementUnit.UKGallon:
+                    break;
+                case MeasurementUnit.USGallon:
+                    value = UnitConverter.l2gal(value);
+                    break;
+                case MeasurementUnit.Kilogram:
+                    break;
+                case MeasurementUnit.Pound:
+                    value = UnitConverter.kg2lb(value);
+                    break;
+
+                case MeasurementUnit.Unknown:
+                default:
+                    break;
+            }
+
+            return ALCore.GetDecimalStr(value, decimalDigits, hideZero);
         }
 
         public static void CalcSegmentParams(float chordWidth, float chordLength, out float radius, out float wedgeAngle)

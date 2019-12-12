@@ -35,7 +35,7 @@ namespace AquaLog.UI.Panels
             Controls.Add(fListView);
         }
 
-        public override void UpdateContent()
+        protected override void UpdateContent()
         {
             ListView.BeginUpdate();
             ListView.Items.Clear();

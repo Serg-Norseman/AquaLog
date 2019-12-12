@@ -19,7 +19,11 @@ namespace AquaLog.Core.Types
         UKGallon,
         USGallon,
 
+        // Mass
+        Kilogram,
+        Pound,
+
         First = Centimeter,
-        Last = USGallon
+        Last = Pound
     }
 }

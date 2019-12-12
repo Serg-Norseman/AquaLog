@@ -187,6 +187,7 @@
     <Compile Include="UI\Dialogs\TSValueEditDlg.Designer.cs">
       <DependentUpon>TSValueEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\DrawingHelper.cs" />
     <Compile Include="UI\IBrowser.cs" />
     <Compile Include="UI\IEditDialog.cs" />
     <Compile Include="UI\MainForm.cs" />

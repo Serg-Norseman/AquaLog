@@ -79,7 +79,7 @@ namespace AquaLog.UI.Dialogs
             lblUnderfillHeight.Text = ALData.GetLSuom(LSID.UnderfillHeight, MeasurementType.Length);
             lblSoilHeight.Text = ALData.GetLSuom(LSID.SoilHeight, MeasurementType.Length);
             lblSoilVolume.Text = ALData.GetLSuom(LSID.SoilVolume, MeasurementType.Volume);
-            lblSoilMass.Text = Localizer.LS(LSID.SoilMass);
+            lblSoilMass.Text = ALData.GetLSuom(LSID.SoilMass, MeasurementType.Mass);
             lblBrand.Text = Localizer.LS(LSID.Brand);
         }
 
@@ -170,13 +170,13 @@ namespace AquaLog.UI.Dialogs
             double soilHeight = ALCore.GetDecimalVal(txtSoilHeight.Text);
 
             double waterVolume = fRecord.CalcWaterVolume(tankShape, underfillHeight, soilHeight);
-            txtWaterVolume.Text = ALCore.GetDecimalStr(waterVolume);
+            txtWaterVolume.Text = ALData.CastStr(waterVolume, MeasurementType.Volume);
 
             double soilVolume = fRecord.CalcSoilVolume(tankShape, soilHeight);
-            txtSoilVolume.Text = ALCore.GetDecimalStr(soilVolume);
+            txtSoilVolume.Text = ALData.CastStr(soilVolume, MeasurementType.Volume);
 
             double soilMass = soilVolume * ALData.Soils[0].Density;
-            txtSoilMass.Text = ALCore.GetDecimalStr(soilMass);
+            txtSoilMass.Text = ALData.CastStr(soilMass, MeasurementType.Mass);
         }
 
         private void btnTank_Click(object sender, EventArgs e)

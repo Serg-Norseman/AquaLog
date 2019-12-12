@@ -24,6 +24,7 @@ namespace AquaLog.Core
         private bool fHideAtStartup;
         private MeasurementUnit fLengthUoM;
         private MeasurementUnit fVolumeUoM;
+        private MeasurementUnit fMassUoM;
 
 
         public bool HideClosedTanks
@@ -60,6 +61,12 @@ namespace AquaLog.Core
         {
             get { return fVolumeUoM; }
             set { fVolumeUoM = value; }
+        }
+
+        public MeasurementUnit MassUoM
+        {
+            get { return fMassUoM; }
+            set { fMassUoM = value; }
         }
 
 
@@ -100,6 +107,7 @@ namespace AquaLog.Core
 
             fLengthUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "LengthUoM", "Centimeter"), true, MeasurementUnit.Centimeter);
             fVolumeUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "VolumeUoM", "Litre"), true, MeasurementUnit.Litre);
+            fMassUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "MassUoM", "Kilogram"), true, MeasurementUnit.Kilogram);
         }
 
         public void LoadFromFile(string fileName)
@@ -132,6 +140,7 @@ namespace AquaLog.Core
 
             ini.WriteString("Data", "LengthUoM", fLengthUoM.ToString());
             ini.WriteString("Data", "VolumeUoM", fVolumeUoM.ToString());
+            ini.WriteString("Data", "MassUoM", fMassUoM.ToString());
         }
 
         public void SaveToFile(string fileName)

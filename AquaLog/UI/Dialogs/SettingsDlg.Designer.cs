@@ -18,6 +18,8 @@
         private System.Windows.Forms.Label lblVolumeUoM;
         private System.Windows.Forms.ComboBox cmbLengthUoM;
         private System.Windows.Forms.Label lblLengthUoM;
+        private System.Windows.Forms.ComboBox cmbMassUoM;
+        private System.Windows.Forms.Label lblMassUoM;
         
         protected override void Dispose(bool disposing)
         {
@@ -46,6 +48,8 @@
             this.lblVolumeUoM = new System.Windows.Forms.Label();
             this.cmbLengthUoM = new System.Windows.Forms.ComboBox();
             this.lblLengthUoM = new System.Windows.Forms.Label();
+            this.lblMassUoM = new System.Windows.Forms.Label();
+            this.cmbMassUoM = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabCommon.SuspendLayout();
             this.tabData.SuspendLayout();
@@ -164,6 +168,8 @@
             // tabData
             // 
             this.tabData.BackColor = System.Drawing.SystemColors.Control;
+            this.tabData.Controls.Add(this.cmbMassUoM);
+            this.tabData.Controls.Add(this.lblMassUoM);
             this.tabData.Controls.Add(this.cmbVolumeUoM);
             this.tabData.Controls.Add(this.lblVolumeUoM);
             this.tabData.Controls.Add(this.cmbLengthUoM);
@@ -213,6 +219,25 @@
             this.lblLengthUoM.Size = new System.Drawing.Size(164, 21);
             this.lblLengthUoM.TabIndex = 16;
             this.lblLengthUoM.Text = "LengthUoM";
+            // 
+            // lblMassUoM
+            // 
+            this.lblMassUoM.Location = new System.Drawing.Point(11, 90);
+            this.lblMassUoM.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMassUoM.Name = "lblMassUoM";
+            this.lblMassUoM.Size = new System.Drawing.Size(164, 21);
+            this.lblMassUoM.TabIndex = 16;
+            this.lblMassUoM.Text = "MassUoM";
+            // 
+            // cmbMassUoM
+            // 
+            this.cmbMassUoM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMassUoM.FormattingEnabled = true;
+            this.cmbMassUoM.Location = new System.Drawing.Point(179, 87);
+            this.cmbMassUoM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
+            this.cmbMassUoM.Name = "cmbMassUoM";
+            this.cmbMassUoM.Size = new System.Drawing.Size(185, 27);
+            this.cmbMassUoM.TabIndex = 17;
             // 
             // SettingsDlg
             // 

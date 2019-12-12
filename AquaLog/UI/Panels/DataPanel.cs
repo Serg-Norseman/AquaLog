@@ -40,7 +40,6 @@ namespace AquaLog.UI.Panels
             set {
                 if (fModel != value) {
                     fModel = value;
-                    UpdateContent();
                 }
             }
         }
@@ -69,7 +68,7 @@ namespace AquaLog.UI.Panels
         {
         }
 
-        public virtual void UpdateContent()
+        protected virtual void UpdateContent()
         {
         }
 

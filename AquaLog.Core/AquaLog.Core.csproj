@@ -66,6 +66,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Core\ALSettings.cs" />
     <Compile Include="Core\Average.cs" />
+    <Compile Include="Core\Cache.cs" />
     <Compile Include="Core\Calculations\BaseCalculation.cs" />
     <Compile Include="Core\Calculations\CalculationProps.cs" />
     <Compile Include="Core\Calculations\CalculationType.cs" />

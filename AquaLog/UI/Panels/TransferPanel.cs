@@ -50,8 +50,8 @@ namespace AquaLog.UI.Panels
             foreach (Transfer rec in records) {
                 ItemType itemType = rec.ItemType;
 
-                Aquarium aqmSour = fModel.GetRecord<Aquarium>(rec.SourceId);
-                Aquarium aqmTarg = fModel.GetRecord<Aquarium>(rec.TargetId);
+                Aquarium aqmSour = fModel.Cache.Get<Aquarium>(ItemType.Aquarium, rec.SourceId);
+                Aquarium aqmTarg = fModel.Cache.Get<Aquarium>(ItemType.Aquarium, rec.TargetId);
 
                 string itName = fModel.GetRecordName(itemType, rec.ItemId);
                 string strType = Localizer.LS(ALData.TransferTypes[(int)rec.Type]);

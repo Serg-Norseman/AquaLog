@@ -66,7 +66,7 @@ namespace AquaLog.UI.Panels
             AddAction("M3DViewer", LSID.M3DViewer, "", btnM3DViewer_Click);
         }
 
-        public override void UpdateContent()
+        protected override void UpdateContent()
         {
             fLayoutPanel.Controls.Clear();
             if (fModel == null) return;
@@ -119,6 +119,7 @@ namespace AquaLog.UI.Panels
                 dlg.Record = aqm;
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fModel.AddRecord(aqm);
+                    fModel.Cache.Put(ItemType.Aquarium, aqm.Id, aqm);
                     UpdateContent();
                 }
             }
@@ -137,6 +138,7 @@ namespace AquaLog.UI.Panels
                 dlg.Record = aqm;
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fModel.UpdateRecord(aqm);
+                    fModel.Cache.Put(ItemType.Aquarium, aqm.Id, aqm);
                     UpdateContent();
                 }
             }
@@ -151,6 +153,7 @@ namespace AquaLog.UI.Panels
 
             if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), record.ToString()))) return;
 
+            fModel.Cache.Remove(ItemType.Aquarium, record.Id);
             fModel.DeleteRecord(record);
             UpdateContent();
         }

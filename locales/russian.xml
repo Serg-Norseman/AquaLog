@@ -190,4 +190,7 @@
   <string id="188">Высота грунта</string>
   <string id="189">Объем грунта</string>
   <string id="190">Масса грунта</string>
+  <string id="191">Масса</string>
+  <string id="192">Килограмм,кг</string>
+  <string id="193">Фунт,lb</string>
 </resources>

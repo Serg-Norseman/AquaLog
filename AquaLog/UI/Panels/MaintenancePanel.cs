@@ -8,6 +8,7 @@ using System;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -32,7 +33,7 @@ namespace AquaLog.UI.Panels
 
             var records = fModel.QueryMaintenances();
             foreach (Maintenance rec in records) {
-                Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
+                Aquarium aqm = fModel.Cache.Get<Aquarium>(ItemType.Aquarium, rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
                 string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type]);
 

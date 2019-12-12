@@ -15,7 +15,7 @@ path_classifiers:
     - ".gitignore"
     - ".gitmodules"
 
-extraction: 
+extraction:
   csharp:
     index:
       solution: "AquaLog.sln"

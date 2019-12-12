@@ -212,8 +212,11 @@ namespace AquaLog.Core
         /* 188 */ SoilHeight,
         /* 189 */ SoilVolume,
         /* 190 */ SoilMass,
+        /* 191 */ Mass,
+        /* 192 */ Kilogram,
+        /* 193 */ Pound,
 
-        /* 000 */ Last = SoilMass
+        /* 000 */ Last = Pound
     }
 
 
@@ -414,6 +417,9 @@ namespace AquaLog.Core
             /* 188 */ "Soil height",
             /* 189 */ "Soil volume",
             /* 190 */ "Soil mass",
+            /* 191 */ "Mass",
+            /* 192 */ "Kilogram",
+            /* 193 */ "Pound",
         };
 
 

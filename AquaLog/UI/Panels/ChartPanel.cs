@@ -31,7 +31,7 @@ namespace AquaLog.UI.Panels
             fChartData = (Dictionary<string, double>)extData;
         }
 
-        public override void UpdateContent()
+        protected override void UpdateContent()
         {
             fGraph.Clear();
             if (fChartData == null) return;

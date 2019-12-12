@@ -94,7 +94,7 @@ namespace AquaLog.UI.Panels
             UpdateContent();
         }
 
-        public override void UpdateContent()
+        protected override void UpdateContent()
         {
             if (fAquarium != null) {
                 fHeader.Text = fAquarium.Name;

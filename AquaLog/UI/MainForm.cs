@@ -28,6 +28,7 @@ namespace AquaLog.UI
         private Dictionary<Type, DataPanel> fPanels;
         private DataPanel fCurrentPanel;
         private ALTray fTray;
+        private DrawingHelper fDrawingHelper;
 
 
         public ALTray Tray
@@ -75,6 +76,8 @@ namespace AquaLog.UI
             btnSchedule.Tag = MainView.Schedule;
             btnInventory.Tag = MainView.Inventory;
             btnSnapshots.Tag = MainView.Snapshots;
+
+            fDrawingHelper = new DrawingHelper(this);
 
             SetView(MainView.Tanks, null);
 
@@ -225,6 +228,8 @@ namespace AquaLog.UI
 
         private void SetActions(DataPanel browser)
         {
+            pnlTools.SuspendLayout();
+
             for (int i = pnlTools.Controls.Count - 1; i >= 0; i--) {
                 var ctl = pnlTools.Controls[i];
 
@@ -242,6 +247,8 @@ namespace AquaLog.UI
                     UIHelper.AddPanelCombo(pnlTools, action.BtnName, action.Choices, action.Click);
                 }
             }
+
+            pnlTools.ResumeLayout();
         }
 
         public void SetView(MainView mainView, object extData)
@@ -349,12 +356,16 @@ namespace AquaLog.UI
 
         private void SetView(DataPanel view)
         {
+            fDrawingHelper.SuspendDrawing();
+            SuspendLayout();
             try {
+                pnlClient.SuspendLayout();
                 pnlClient.Controls.Clear();
                 if (view == null) {
                     return;
                 }
                 pnlClient.Controls.Add(view);
+                pnlClient.ResumeLayout();
 
                 fCurrentPanel = view;
                 fCurrentPanel.UpdateView();
@@ -365,6 +376,8 @@ namespace AquaLog.UI
             } catch (Exception ex) {
                 fLogger.WriteError("SetView.2()", ex);
             }
+            ResumeLayout();
+            fDrawingHelper.ResumeDrawing(true);
         }
 
         private void UpdateNavControls()

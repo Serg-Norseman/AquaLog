@@ -64,11 +64,15 @@ namespace AquaLog.UI.Dialogs
 
                     cmbVolumeUoM.AddItem<MeasurementUnit>(uom.StrName, unit);
                 }
+                if (uom.MeasurementType == MeasurementType.Mass) {
+                    cmbMassUoM.AddItem<MeasurementUnit>(uom.StrName, unit);
+                }
             }
 
             // TODO: UOM changes not yet supported
             cmbLengthUoM.Enabled = false;
             cmbVolumeUoM.Enabled = false;
+            cmbMassUoM.Enabled = false;
 
             SetLocale();
         }
@@ -87,6 +91,7 @@ namespace AquaLog.UI.Dialogs
             tabData.Text = Localizer.LS(LSID.Data);
             lblLengthUoM.Text = Localizer.LS(LSID.Length);
             lblVolumeUoM.Text = Localizer.LS(LSID.Volume);
+            lblMassUoM.Text = Localizer.LS(LSID.Mass);
         }
 
         private void UpdateView()
@@ -99,6 +104,7 @@ namespace AquaLog.UI.Dialogs
 
                 cmbLengthUoM.SetSelectedTag<MeasurementUnit>(fSettings.LengthUoM);
                 cmbVolumeUoM.SetSelectedTag<MeasurementUnit>(fSettings.VolumeUoM);
+                cmbMassUoM.SetSelectedTag<MeasurementUnit>(fSettings.MassUoM);
             }
 
             chkAutorun.Checked = UIHelper.IsStartupItem();
@@ -115,6 +121,7 @@ namespace AquaLog.UI.Dialogs
 
             fSettings.LengthUoM = cmbLengthUoM.GetSelectedTag<MeasurementUnit>();
             fSettings.VolumeUoM = cmbVolumeUoM.GetSelectedTag<MeasurementUnit>();
+            fSettings.MassUoM = cmbMassUoM.GetSelectedTag<MeasurementUnit>();
 
             if (chkAutorun.Checked) {
                 UIHelper.RegisterStartup();

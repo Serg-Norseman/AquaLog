@@ -23,8 +23,14 @@ namespace AquaLog.Core
     public class ALModel
     {
         private readonly SQLiteConnection fDB;
+        private readonly EntitiesCache fCache;
         private readonly TSDatabase fTSDB;
 
+
+        public EntitiesCache Cache
+        {
+            get { return fCache; }
+        }
 
         public TSDatabase TSDB
         {
@@ -55,6 +61,8 @@ namespace AquaLog.Core
             fDB.CreateTable<Inventory>();
 
             fDB.CreateTable<Snapshot>();
+
+            fCache = new EntitiesCache(this);
         }
 
         /// <summary>
