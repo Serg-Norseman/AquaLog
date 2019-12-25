@@ -295,7 +295,7 @@ namespace AquaLog.UI.Components
             return result;
         }
 
-        private void SelectItem(ListViewItem item)
+        public void SelectItem(ListViewItem item)
         {
             if (item == null) return;
 
@@ -314,6 +314,8 @@ namespace AquaLog.UI.Components
 
         public void SelectItem(object rowData)
         {
+            if (rowData == null) return;
+
             try {
                 int num = Items.Count;
                 for (int i = 0; i < num; i++) {

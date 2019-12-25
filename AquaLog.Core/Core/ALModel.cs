@@ -61,6 +61,7 @@ namespace AquaLog.Core
             fDB.CreateTable<Inventory>();
 
             fDB.CreateTable<Snapshot>();
+            fDB.CreateTable<Brand>();
 
             fCache = new EntitiesCache(this);
         }
@@ -589,6 +590,20 @@ namespace AquaLog.Core
         public IList<QString> QueryShops()
         {
             return fDB.Query<QString>("select distinct Shop as element from Transfer");
+        }
+
+        #endregion
+
+        #region Brand functions
+
+        public IEnumerable<Brand> QueryBrands()
+        {
+            return fDB.Query<Brand>("select * from Brand");
+        }
+
+        public IList<QString> QueryBrandCountries()
+        {
+            return fDB.Query<QString>("select distinct Country as element from Brand");
         }
 
         #endregion

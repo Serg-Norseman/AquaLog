@@ -54,6 +54,8 @@ namespace AquaLog.UI
             if (disposing) {
                 fNotifyIcon.Icon = null;
                 fNotifyIcon.Dispose();
+                fTipsTimer.Dispose();
+                fTipsList.Dispose();
             }
             base.Dispose(disposing);
         }

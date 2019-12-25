@@ -16,7 +16,10 @@ rem del ..\appdata\*.* /q
 echo "..\AquaLog.exe" > %lstfile%
 echo "..\AquaLog.exe.config" >> %lstfile%
 
+echo "..\AquaLog.Core.dll" >> %lstfile%
+
 echo "..\BSLib.dll" >> %lstfile%
+echo "..\BSLib.Controls.dll" >> %lstfile%
 echo "..\BSLib.Timeline.dll" >> %lstfile%
 echo "..\csgl.dll" >> %lstfile%
 echo "..\csgl.native.dll" >> %lstfile%

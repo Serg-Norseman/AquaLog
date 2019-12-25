@@ -114,7 +114,7 @@ namespace AquaLog.UI.Dialogs
             fRecord.GHMin = (float)ALCore.GetDecimalVal(txtGHMin.Text);
             fRecord.GHMax = (float)ALCore.GetDecimalVal(txtGHMax.Text);
 
-            if (fRecord.Type == SpeciesType.Fish) {
+            if (ALCore.IsAnimal(fRecord.Type)) {
                 fRecord.AdultSize = (float)ALCore.GetDecimalVal(txtAdultSize.Text);
                 fRecord.LifeSpan = (float)ALCore.GetDecimalVal(txtLifeSpan.Text);
                 fRecord.SwimLevel = cmbSwimLevel.GetSelectedTag<SwimLevel>();
@@ -143,7 +143,7 @@ namespace AquaLog.UI.Dialogs
 
             txtAdultSize.Enabled = isFish || isInvertebrate;
             txtLifeSpan.Enabled = isFish || isInvertebrate;
-            cmbSwimLevel.Enabled = isFish;
+            cmbSwimLevel.Enabled = isFish || isInvertebrate;
 
             switch (type) {
                 case SpeciesType.Fish:

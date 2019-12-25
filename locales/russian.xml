@@ -100,7 +100,7 @@
   <string id="098">Прочее</string>
   <string id="099">Дата ввода</string>
   <string id="100">Рыба</string>
-  <string id="101">Моллюск</string>
+  <string id="101">Беспозвоночное</string>
   <string id="102">Растение</string>
   <string id="103">Коралл</string>
   <string id="104">Совместимость</string>
@@ -193,4 +193,7 @@
   <string id="191">Масса</string>
   <string id="192">Килограмм,кг</string>
   <string id="193">Фунт,lb</string>
+  <string id="194">Страна</string>
+  <string id="195">Бренды</string>
+  <string id="196">Диаграмма (страны)</string>
 </resources>

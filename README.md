@@ -22,7 +22,7 @@ Features:
 - Measures of water quality (+chart);
 - Schedule;
 - Transfers of inhabitants between aquariums;
-- Expenses and incomes (+chart);
+- Expenses and incomes (+charts: item types, shops, brands, countries);
 - Calculator (converters of units of measure);
 - Tray (+autorun, +hide at startup, +minimize on close);
 - Embedded "nano"-TSDB with "swinging door" compression;

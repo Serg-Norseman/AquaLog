@@ -13,16 +13,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Button btnOpen;
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing) {
-                if (components != null) {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
-        }
-
         private void InitializeComponent()
         {
             this.chkEnableCommLED = new System.Windows.Forms.CheckBox();

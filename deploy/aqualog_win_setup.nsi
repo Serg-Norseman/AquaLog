@@ -59,7 +59,10 @@ Section "$(al_req)"
     File "..\AquaLog.exe"
     File "..\AquaLog.exe.config"
 
+    File "..\AquaLog.Core.dll"
+
     File "..\BSLib.dll"
+    File "..\BSLib.Controls.dll"
     File "..\BSLib.Timeline.dll"
     File "..\csgl.dll"
     File "..\csgl.native.dll"

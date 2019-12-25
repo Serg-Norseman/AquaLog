@@ -43,6 +43,19 @@ namespace AquaLog.UI.Dialogs
             fTemperatureService.ReceivedData += OnReceivedData;
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) {
+                if (fChannel != null) {
+                    fChannel.Dispose();
+                }
+                if (components != null) {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
+        }
+
         private void MainFormLoad(object sender, EventArgs e)
         {
             cmbChannel.SelectedIndex = 0;

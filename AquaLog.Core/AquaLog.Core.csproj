@@ -75,6 +75,7 @@
     <Compile Include="Core\ILocalizable.cs" />
     <Compile Include="Core\LocaleFile.cs" />
     <Compile Include="Core\Localizer.cs" />
+    <Compile Include="Core\Model\Brand.cs" />
     <Compile Include="Core\NavigationStack.cs" />
     <Compile Include="Core\StringSerializer.cs" />
     <Compile Include="Core\UnitConverter.cs" />

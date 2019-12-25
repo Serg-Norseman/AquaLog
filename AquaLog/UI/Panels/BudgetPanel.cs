@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -19,6 +20,7 @@ namespace AquaLog.UI.Panels
         ItemTypes,
         Shops,
         Brands,
+        Countries,
     }
 
     /// <summary>
@@ -46,6 +48,8 @@ namespace AquaLog.UI.Panels
             AddAction("ChartTypes", LSID.ChartItemTypes, "", ViewChartTypesHandler);
             AddAction("ChartShops", LSID.ChartShops, "", ViewChartShopsHandler);
             AddAction("ChartBrands", LSID.ChartBrands, "", ViewChartBrandsHandler);
+            AddAction("ChartCountries", LSID.ChartCountries, "", ViewChartCountriesHandler);
+            AddAction("Brands", LSID.Brands, "", ViewBrandsHandler);
         }
 
         protected override void UpdateListView()
@@ -119,6 +123,13 @@ namespace AquaLog.UI.Panels
             double days = (lastDate - firstDate).TotalDays;
             double avgExpense = expenses / days;
             fFooter.Text = string.Format(Localizer.LS(LSID.BalanceFooter), expenses, avgExpense, incomes, totalSum);
+
+            CollectBrands(records);
+        }
+
+        private void ViewBrandsHandler(object sender, EventArgs e)
+        {
+            Browser.SetView(MainView.Brands, null);
         }
 
         private void ViewChartTypesHandler(object sender, EventArgs e)
@@ -139,14 +150,43 @@ namespace AquaLog.UI.Panels
             Browser.SetView(MainView.PieChart, chartData);
         }
 
+        private void ViewChartCountriesHandler(object sender, EventArgs e)
+        {
+            var chartData = GetChartData(BudgetChartType.Countries);
+            Browser.SetView(MainView.PieChart, chartData);
+        }
+
+        private void CollectBrands(IEnumerable<Transfer> transfers)
+        {
+            var brandRecords = fModel.QueryBrands();
+
+            foreach (Transfer rec in transfers) {
+                var itemRec = fModel.GetRecord(rec.ItemType, rec.ItemId);
+                var brandedItem = itemRec as IBrandedItem;
+                string brand = (brandedItem == null) ? null : brandedItem.Brand;
+
+                if (!string.IsNullOrEmpty(brand) && !brandRecords.Any(p => p.Name == brand)) {
+                    fModel.AddRecord(new Brand(brand));
+                }
+            }
+        }
+
         private Dictionary<string, double> GetChartData(BudgetChartType chartType)
         {
             Dictionary<string, double> result = new Dictionary<string, double>();
 
+            IEnumerable<Brand> brandRecords = null;
+            if (chartType == BudgetChartType.Countries) {
+                brandRecords = fModel.QueryBrands();
+            }
+
             var records = fModel.QueryExpenses();
             foreach (Transfer rec in records) {
                 if (rec.Type != TransferType.Purchase) continue;
+
                 double trnSum = (rec.Quantity * rec.UnitPrice);
+                if (trnSum == 0.0d) continue;
+
                 var itemRec = fModel.GetRecord(rec.ItemType, rec.ItemId);
 
                 string key;
@@ -162,6 +202,12 @@ namespace AquaLog.UI.Panels
                     case BudgetChartType.Brands:
                         var brandedItem = itemRec as IBrandedItem;
                         key = (brandedItem == null) ? "-" : brandedItem.Brand;
+                        break;
+                    case BudgetChartType.Countries:
+                        var brandedItem2 = itemRec as IBrandedItem;
+                        var brand = (brandedItem2 == null) ? "-" : brandedItem2.Brand;
+                        var brandRec = brandRecords.FirstOrDefault(p => p.Name == brand);
+                        key = (brandRec == null) ? "-" : brandRec.Country;
                         break;
                     default:
                         key = "";

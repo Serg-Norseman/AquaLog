@@ -326,6 +326,9 @@ namespace AquaLog.UI
                 case MainView.M3DViewer:
                     SetView<M3DViewerPanel>(extData);
                     break;
+                case MainView.Brands:
+                    SetView<BrandPanel>(extData);
+                    break;
             }
         }
 

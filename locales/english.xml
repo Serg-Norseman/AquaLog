@@ -193,4 +193,7 @@
   <string id="191">Mass</string>
   <string id="192">Kilogram,kg</string>
   <string id="193">Pound,lb</string>
+  <string id="194">Country</string>
+  <string id="195">Brands</string>
+  <string id="196">Chart (countries)</string>
 </resources>

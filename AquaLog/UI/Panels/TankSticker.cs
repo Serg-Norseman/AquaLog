@@ -143,7 +143,7 @@ namespace AquaLog.UI.Panels
 
             double normalWaterVolume = fAquarium.CalcWaterVolume();
             double waterVolume = fModel.GetWaterVolume(fAquarium.Id);
-            string volumes = ALCore.GetDecimalStr(waterVolume) + " / " + ALCore.GetDecimalStr(fAquarium.TankVolume);
+            string volumes = ALCore.GetDecimalStr(waterVolume) + " / " + ALCore.GetDecimalStr(normalWaterVolume) + " / " + ALCore.GetDecimalStr(fAquarium.TankVolume);
             fStrFormat.Alignment = StringAlignment.Far;
             Color wvColor = (DoubleHelper.Equals(normalWaterVolume, waterVolume, 0.5)) ? Color.Green : Color.Orange;
             DrawText(gfx, volumes, font, wvColor, layoutRect);

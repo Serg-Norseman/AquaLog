@@ -215,8 +215,11 @@ namespace AquaLog.Core
         /* 191 */ Mass,
         /* 192 */ Kilogram,
         /* 193 */ Pound,
+        /* 194 */ Country,
+        /* 195 */ Brands,
+        /* 196 */ ChartCountries,
 
-        /* 000 */ Last = Pound
+        /* 000 */ Last = ChartCountries
     }
 
 
@@ -420,6 +423,9 @@ namespace AquaLog.Core
             /* 191 */ "Mass",
             /* 192 */ "Kilogram",
             /* 193 */ "Pound",
+            /* 194 */ "Country",
+            /* 195 */ "Brands",
+            /* 196 */ "Chart (countries)",
         };
 
 

@@ -115,6 +115,10 @@
     <Compile Include="UI\Dialogs\AquariumEditDlg.Designer.cs">
       <DependentUpon>AquariumEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\BrandEditDlg.cs" />
+    <Compile Include="UI\Dialogs\BrandEditDlg.Designer.cs">
+      <DependentUpon>BrandEditDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\CalculatorDlg.cs" />
     <Compile Include="UI\Dialogs\CalculatorDlg.Designer.cs">
       <DependentUpon>CalculatorDlg.cs</DependentUpon>
@@ -196,6 +200,7 @@
     </Compile>
     <Compile Include="UI\MainView.cs" />
     <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
+    <Compile Include="UI\Panels\BrandPanel.cs" />
     <Compile Include="UI\Panels\ChartPanel.cs" />
     <Compile Include="UI\Panels\InventoryPanel.cs" />
     <Compile Include="UI\Panels\LifeLinesPanel.cs" />

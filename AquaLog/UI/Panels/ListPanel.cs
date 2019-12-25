@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Export;
 using AquaLog.Core.Model;
+using AquaLog.UI.Components;
 using BSLib;
 
 namespace AquaLog.UI.Panels
@@ -18,9 +19,9 @@ namespace AquaLog.UI.Panels
     /// </summary>
     public class ListPanel : DataPanel
     {
-        private readonly ListView fListView;
+        private readonly ZListView fListView;
 
-        public ListView ListView
+        public ZListView ListView
         {
             get { return fListView; }
         }
@@ -90,6 +91,22 @@ namespace AquaLog.UI.Panels
 
     public class ListPanel<R, D> : ListPanel where R : Entity, new() where D : IEditDialog<R>, new()
     {
+        private void SelectRecord(R record)
+        {
+            if (record == null) return;
+
+            var lvItems = ListView.Items;
+            int num = lvItems.Count;
+            for (int i = 0; i < num; i++) {
+                ListViewItem item = lvItems[i];
+                var rowData = item.Tag as R;
+                if (rowData.Id == record.Id) {
+                    ListView.SelectItem(item);
+                    return;
+                }
+            }
+        }
+
         protected override void AddHandler(object sender, EventArgs e)
         {
             R record = new R();
@@ -100,6 +117,7 @@ namespace AquaLog.UI.Panels
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fModel.AddRecord(record);
                     UpdateContent();
+                    SelectRecord(record);
                 }
             }
         }
@@ -115,6 +133,7 @@ namespace AquaLog.UI.Panels
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     fModel.UpdateRecord(record);
                     UpdateContent();
+                    SelectRecord(record);
                 }
             }
         }

@@ -177,6 +177,13 @@ namespace AquaLog.UI.Dialogs
 
             double soilMass = soilVolume * ALData.Soils[0].Density;
             txtSoilMass.Text = ALData.CastStr(soilMass, MeasurementType.Mass);
+
+            double waterVolumeM3 = waterVolume * 0.001d;
+            double waterDensity = 998.0d; // kg/m3
+            double waterMass = waterVolumeM3 * waterDensity;
+            //txtWaterMass.Text = ALData.CastStr(waterMass, MeasurementType.Mass);
+
+            double totalMass = waterMass + soilMass;
         }
 
         private void btnTank_Click(object sender, EventArgs e)

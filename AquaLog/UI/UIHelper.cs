@@ -81,11 +81,13 @@ namespace AquaLog.UI
 
         public static void FillStringsCombo(ComboBox comboBox, IList<QString> strings, string selectedText)
         {
+            comboBox.Sorted = false;
             comboBox.Items.Clear();
             foreach (QString bqs in strings) {
                 if (!string.IsNullOrEmpty(bqs.element))
                     comboBox.Items.Add(bqs.element);
             }
+            comboBox.Sorted = true;
             comboBox.Text = selectedText;
         }
 
@@ -94,7 +96,7 @@ namespace AquaLog.UI
             return MessageBox.Show(msg, ALCore.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
         }
 
-        public static ListView CreateListView(string name)
+        public static ZListView CreateListView(string name)
         {
             var listView = new ZListView();
             listView.Dock = DockStyle.Fill;
