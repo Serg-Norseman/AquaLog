@@ -22,8 +22,8 @@ namespace AquaLog.UI.Components
     public sealed class ChartPoint
     {
         public string Caption { get; private set; }
-        public DateTime Timestamp { get; private set; }
-        public double Value { get; private set; }
+        public DateTime Timestamp { get; set; }
+        public double Value { get; set; }
         public Color Color { get; private set; }
 
         public ChartPoint(string caption, double value)
@@ -63,7 +63,28 @@ namespace AquaLog.UI.Components
             fGraph = new ZedGraphControl();
             fGraph.IsShowPointValues = true;
             fGraph.Dock = DockStyle.Fill;
+            fGraph.PointValueEvent += Graph_PointValueEvent;
             Controls.Add(fGraph);
+        }
+
+        private string Graph_PointValueEvent(ZedGraphControl sender, GraphPane pane, CurveItem curve, int iPt)
+        {
+            var pieItem = curve as PieItem;
+            if (pieItem != null) {
+                return string.Format("{0}: {1:0.00}", pieItem.Label.Text, pieItem.Value);
+            }
+
+            var barItem = curve as BarItem;
+            if (barItem != null) {
+                return string.Format("{0}: {1:0.00}", DateTime.FromOADate(barItem[iPt].X), barItem[iPt].Y);
+            }
+
+            var lineItem = curve as LineItem;
+            if (lineItem != null) {
+                return string.Format("{0} ({1}): {2:0.00}", lineItem.Label.Text, DateTime.FromOADate(lineItem[iPt].X), lineItem[iPt].Y);
+            }
+
+            return string.Empty;
         }
 
         public void Clear()
@@ -78,7 +99,7 @@ namespace AquaLog.UI.Components
             fGraph.Invalidate();
         }
 
-        public void PrepareArray(string title, string xAxis, string yAxis, ChartStyle style, List<ChartPoint> vals, Color color)
+        public void PrepareArray(string title, string xAxis, string yAxis, ChartStyle style, IList<ChartPoint> vals, Color color)
         {
             GraphPane gPane = fGraph.GraphPane;
             try {

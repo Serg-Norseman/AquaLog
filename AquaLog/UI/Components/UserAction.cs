@@ -21,6 +21,7 @@ namespace AquaLog.UI.Components
         public readonly Image Image;
         public readonly EventHandler Click;
         public string[] Choices;
+        public bool MultiChoice;
 
         public UserAction(string btnName, LSID btnText, string imageName, EventHandler clickHandler)
         {
@@ -30,10 +31,11 @@ namespace AquaLog.UI.Components
             Click = clickHandler;
         }
 
-        public UserAction(string actionName, string[] choices, EventHandler changeHandler)
+        public UserAction(string actionName, string[] choices, bool multiChoice, EventHandler changeHandler)
         {
             BtnName = actionName;
             Choices = choices;
+            MultiChoice = multiChoice;
             Click = changeHandler;
         }
     }

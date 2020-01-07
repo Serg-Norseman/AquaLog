@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using AquaLog.Core.Types;
 using AquaLog.UI.Components;
 using AquaLog.Core.Model;
 using BSLib.Controls;
@@ -35,6 +36,7 @@ namespace AquaLog.UI.Panels
     public sealed class MeasuresChartPanel : DataPanel
     {
         private readonly ZGraphControl fGraph;
+        private string fSelectedAquarium;
         private Dictionary<string, Trend> fTrends;
 
 
@@ -43,6 +45,8 @@ namespace AquaLog.UI.Panels
             fGraph = new ZGraphControl();
             fGraph.Dock = DockStyle.Fill;
             Controls.Add(fGraph);
+
+            fSelectedAquarium = "*";
         }
 
         protected override void UpdateContent()
@@ -66,6 +70,10 @@ namespace AquaLog.UI.Panels
             fTrends.Add("PO4", new Trend("PO4", Color.BlueViolet));
 
             foreach (Measure rec in measures) {
+                Aquarium aqm = fModel.Cache.Get<Aquarium>(ItemType.Aquarium, rec.AquariumId);
+                string aqmName = (aqm == null) ? "" : aqm.Name;
+                if (fSelectedAquarium != "*" && fSelectedAquarium != aqmName) continue;
+
                 AddTrendValue("Temp", rec.Timestamp, rec.Temperature);
                 AddTrendValue("NO3", rec.Timestamp, rec.NO3);
                 AddTrendValue("NO2", rec.Timestamp, rec.NO2);
@@ -100,10 +108,27 @@ namespace AquaLog.UI.Panels
         {
             ClearActions();
 
-            if (fTrends != null) {
-                string[] items = fTrends.Keys.ToArray();
-                AddAction("TrendSelector", items, ItemChangeHandler);
+            var aquariums = fModel.QueryAquariums();
+            string[] items = new string[aquariums.Count + 1];
+            items[0] = "*";
+            int i = 1;
+            foreach (var aqm in aquariums) {
+                items[i] = aqm.Name;
+                i += 1;
             }
+            AddSingleSelector("AqmSelector", items, AquariumChangeHandler);
+
+            if (fTrends != null) {
+                string[] trendItems = fTrends.Keys.ToArray();
+                AddMultiSelector("TrendSelector", trendItems, ItemChangeHandler);
+            }
+        }
+
+        private void AquariumChangeHandler(object sender, EventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            fSelectedAquarium = (comboBox != null) ? comboBox.Text : "*";
+            UpdateContent();
         }
 
         private void ItemChangeHandler(object sender, EventArgs e)

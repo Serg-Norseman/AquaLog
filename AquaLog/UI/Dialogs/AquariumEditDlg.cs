@@ -175,12 +175,10 @@ namespace AquaLog.UI.Dialogs
             double soilVolume = fRecord.CalcSoilVolume(tankShape, soilHeight);
             txtSoilVolume.Text = ALData.CastStr(soilVolume, MeasurementType.Volume);
 
-            double soilMass = soilVolume * ALData.Soils[0].Density;
+            double soilMass = soilVolume * ALData.DefaultSoilDensity;
             txtSoilMass.Text = ALData.CastStr(soilMass, MeasurementType.Mass);
 
-            double waterVolumeM3 = waterVolume * 0.001d;
-            double waterDensity = 998.0d; // kg/m3
-            double waterMass = waterVolumeM3 * waterDensity;
+            double waterMass = waterVolume * ALData.WaterDensity;
             //txtWaterMass.Text = ALData.CastStr(waterMass, MeasurementType.Mass);
 
             double totalMass = waterMass + soilMass;

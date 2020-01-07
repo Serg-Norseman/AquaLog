@@ -33,5 +33,6 @@ namespace AquaLog.UI
         Snapshots,
         M3DViewer,
         Brands,
+        BarChart,
     }
 }

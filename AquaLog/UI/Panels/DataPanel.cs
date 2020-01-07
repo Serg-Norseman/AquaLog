@@ -52,7 +52,6 @@ namespace AquaLog.UI.Panels
             Dock = DockStyle.Fill;
 
             fActions = new List<UserAction>();
-            InitActions();
         }
 
         public virtual void SetLocale()
@@ -76,10 +75,10 @@ namespace AquaLog.UI.Panels
         {
             SetLocale();
 
-            UpdateContent();
-
             ClearActions();
             InitActions();
+
+            UpdateContent();
         }
 
         public virtual void SetExtData(object extData)
@@ -91,9 +90,14 @@ namespace AquaLog.UI.Panels
             fActions.Add(new UserAction(actionName, btnText, imageName, clickHandler));
         }
 
-        public void AddAction(string actionName, string[] choices, EventHandler changeHandler)
+        public void AddMultiSelector(string actionName, string[] choices, EventHandler changeHandler)
         {
-            fActions.Add(new UserAction(actionName, choices, changeHandler));
+            fActions.Add(new UserAction(actionName, choices, true, changeHandler));
+        }
+
+        public void AddSingleSelector(string actionName, string[] choices, EventHandler changeHandler)
+        {
+            fActions.Add(new UserAction(actionName, choices, false, changeHandler));
         }
     }
 }

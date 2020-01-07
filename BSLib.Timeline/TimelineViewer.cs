@@ -925,7 +925,8 @@ namespace BSLib.Timeline
 
             float xStart = frameStart - fDataRange.Start;
             float xEnd = frameEnd - fDataRange.Start;
-            RectangleF frameRect = new RectangleF(xStart, 0, xEnd - xStart, 0);
+            float xWidth = Math.Max(1, xEnd - xStart);
+            RectangleF frameRect = new RectangleF(xStart, 0, xWidth, 0);
 
             Rectangle trackAreaBounds = GetTracksAreaBounds();
 

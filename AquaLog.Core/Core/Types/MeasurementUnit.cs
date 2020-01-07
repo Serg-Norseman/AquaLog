@@ -23,7 +23,15 @@ namespace AquaLog.Core.Types
         Kilogram,
         Pound,
 
+        // Temperature
+        DegreeCelsius,
+        DegreeFahrenheit,
+        DegreeKelvin,
+
+        // Density
+        // -
+
         First = Centimeter,
-        Last = Pound
+        Last = DegreeKelvin
     }
 }

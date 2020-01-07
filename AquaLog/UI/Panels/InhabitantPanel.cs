@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
+using AquaLog.UI.Components;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -143,9 +144,9 @@ namespace AquaLog.UI.Panels
             Browser.SetView(MainView.PieChart, chartData);
         }
 
-        private Dictionary<string, double> GetChartData()
+        private IList<ChartPoint> GetChartData()
         {
-            Dictionary<string, double> result = new Dictionary<string, double>();
+            Dictionary<string, ChartPoint> result = new Dictionary<string, ChartPoint>();
 
             IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
@@ -156,17 +157,23 @@ namespace AquaLog.UI.Panels
 
                 string key = spc.BioFamily;
                 if (!string.IsNullOrEmpty(key)) {
-                    double iSum;
-                    if (result.TryGetValue(key, out iSum)) {
-                        iSum += qty;
-                        result[key] = iSum;
+                    ChartPoint chartPoint;
+                    if (result.TryGetValue(key, out chartPoint)) {
+                        chartPoint.Value += qty;
+                        result[key] = chartPoint;
                     } else {
-                        result.Add(key, qty);
+                        chartPoint = new ChartPoint(key, qty);
+                        result.Add(key, chartPoint);
                     }
                 }
             }
 
-            return result;
+            List<ChartPoint> vals = new List<ChartPoint>();
+            foreach (var valPair in result) {
+                vals.Add(valPair.Value);
+            }
+
+            return vals;
         }
     }
 }

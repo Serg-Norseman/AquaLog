@@ -165,7 +165,7 @@ namespace AquaLog.Core
 
         #region Aquarium functions
 
-        public IEnumerable<Aquarium> QueryAquariums()
+        public IList<Aquarium> QueryAquariums()
         {
             return fDB.Query<Aquarium>("select * from Aquarium");
         }

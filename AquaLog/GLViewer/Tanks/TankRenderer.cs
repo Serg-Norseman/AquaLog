@@ -25,6 +25,9 @@ namespace AquaLog.GLViewer.Tanks
     {
         protected const float ScaleFactor = 0.01f;
 
+        // TODO: Move to aquarium's props
+        protected const float StdWaterOffset = 2.0f;
+
         protected readonly T fTank;
         protected readonly M3DWater fWater;
 
@@ -105,7 +108,7 @@ namespace AquaLog.GLViewer.Tanks
 
             if (showWater) {
                 M3DHelper.SetWaterMaterial();
-                float watHeight = height - thickness - (ALData.StdWaterOffset * ScaleFactor);
+                float watHeight = height - thickness - (StdWaterOffset * ScaleFactor);
 
                 var x1w = x1s + thickness;
                 var x2w = x2s - thickness;

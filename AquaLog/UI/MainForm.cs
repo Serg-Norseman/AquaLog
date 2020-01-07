@@ -233,9 +233,7 @@ namespace AquaLog.UI
             for (int i = pnlTools.Controls.Count - 1; i >= 0; i--) {
                 var ctl = pnlTools.Controls[i];
 
-                if (ctl is Button) {
-                    pnlTools.Controls.RemoveAt(i);
-                } else if (ctl is OptionsPicker) {
+                if (ctl is Button || ctl is OptionsPicker || ctl is ComboBox) {
                     pnlTools.Controls.RemoveAt(i);
                 }
             }
@@ -244,7 +242,11 @@ namespace AquaLog.UI
                 if (action.Choices == null) {
                     UIHelper.AddPanelButton(pnlTools, action.BtnName, Localizer.LS(action.BtnText), action.Image, action.Click);
                 } else {
-                    UIHelper.AddPanelCombo(pnlTools, action.BtnName, action.Choices, action.Click);
+                    if (action.MultiChoice) {
+                        UIHelper.AddPanelOptionsPicker(pnlTools, action.BtnName, action.Choices, action.Click);
+                    } else {
+                        UIHelper.AddPanelComboBox(pnlTools, action.BtnName, action.Choices, action.Click);
+                    }
                 }
             }
 
@@ -315,7 +317,7 @@ namespace AquaLog.UI
                     SetView<InventoryPanel>(extData);
                     break;
                 case MainView.PieChart:
-                    SetView<ChartPanel>(extData);
+                    SetView<PieChartPanel>(extData);
                     break;
                 case MainView.LifeLinesChart:
                     SetView<LifeLinesPanel>(extData);
@@ -328,6 +330,9 @@ namespace AquaLog.UI
                     break;
                 case MainView.Brands:
                     SetView<BrandPanel>(extData);
+                    break;
+                case MainView.BarChart:
+                    SetView<BarChartPanel>(extData);
                     break;
             }
         }

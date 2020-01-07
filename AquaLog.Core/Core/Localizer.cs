@@ -218,8 +218,12 @@ namespace AquaLog.Core
         /* 194 */ Country,
         /* 195 */ Brands,
         /* 196 */ ChartCountries,
+        /* 197 */ ChartMonthes,
+        /* 198 */ DegreeCelsius,
+        /* 199 */ DegreeFahrenheit,
+        /* 200 */ DegreeKelvin,
 
-        /* 000 */ Last = ChartCountries
+        /* 000 */ Last = DegreeKelvin
     }
 
 
@@ -426,6 +430,10 @@ namespace AquaLog.Core
             /* 194 */ "Country",
             /* 195 */ "Brands",
             /* 196 */ "Chart (countries)",
+            /* 197 */ "Chart (monthes)",
+            /* 198 */ "Degree Celsius,°C",
+            /* 199 */ "Degree Fahrenheit,°F",
+            /* 200 */ "Kelvin,K",
         };
 
 

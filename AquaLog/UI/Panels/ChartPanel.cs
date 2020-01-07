@@ -14,12 +14,13 @@ namespace AquaLog.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public sealed class ChartPanel : DataPanel
+    public abstract class ChartPanel : DataPanel
     {
         private readonly ZGraphControl fGraph;
-        private Dictionary<string, double> fChartData;
+        private IList<ChartPoint> fChartData;
+        protected ChartStyle fChartStyle;
 
-        public ChartPanel()
+        protected ChartPanel()
         {
             fGraph = new ZGraphControl();
             fGraph.Dock = DockStyle.Fill;
@@ -28,7 +29,7 @@ namespace AquaLog.UI.Panels
 
         public override void SetExtData(object extData)
         {
-            fChartData = (Dictionary<string, double>)extData;
+            fChartData = (IList<ChartPoint>)extData;
         }
 
         protected override void UpdateContent()
@@ -36,11 +37,12 @@ namespace AquaLog.UI.Panels
             fGraph.Clear();
             if (fChartData == null) return;
 
-            List<ChartPoint> vals = new List<ChartPoint>();
-            foreach (var valPair in fChartData) {
-                vals.Add(new ChartPoint(valPair.Key, valPair.Value));
+            Color chartColor = Color.Transparent;
+            if (fChartStyle != ChartStyle.Pie) {
+                chartColor = Color.Green;
             }
-            fGraph.PrepareArray("", "Category", "Value", ChartStyle.Pie, vals, Color.Transparent);
+
+            fGraph.PrepareArray("", "Category", "Value", fChartStyle, fChartData, chartColor);
         }
     }
 }

@@ -75,6 +75,7 @@ namespace AquaLog.UI.Dialogs
             foreach (Species spc in speciesList) {
                 cmbSpecies.Items.Add(spc);
             }
+            cmbSpecies.Sorted = true;
             var species = speciesList.FirstOrDefault(sp => sp.Id == fRecord.SpeciesId);
 
             txtName.Text = fRecord.Name;

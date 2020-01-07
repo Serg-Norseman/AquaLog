@@ -42,16 +42,31 @@ namespace AquaLog.UI
             panel.Controls.Add(btn);
         }
 
-        public static void AddPanelCombo(Panel panel, string actionName, string[] choices, EventHandler handler)
+        public static void AddPanelOptionsPicker(Panel panel, string actionName, string[] choices, EventHandler handler)
         {
             var picker = new OptionsPicker();
             picker.Dock = DockStyle.Top;
             picker.Name = "opt" + actionName;
             picker.Margin = new Padding(0, 0, 0, 10);
             picker.Size = new Size(190, 30);
-            picker.Click += handler;
             picker.BackColor = SystemColors.Control;
             picker.Items = choices;
+            picker.Click += handler;
+            panel.Controls.Add(picker);
+        }
+
+        public static void AddPanelComboBox(Panel panel, string actionName, string[] choices, EventHandler handler)
+        {
+            var picker = new ComboBox();
+            picker.Dock = DockStyle.Top;
+            picker.Name = "cmb" + actionName;
+            picker.Margin = new Padding(0, 0, 0, 10);
+            picker.Size = new Size(190, 30);
+            picker.BackColor = SystemColors.Control;
+            picker.DropDownStyle = ComboBoxStyle.DropDownList;
+            picker.Items.AddRange(choices);
+            picker.SelectedIndex = 0;
+            picker.SelectedIndexChanged += handler;
             panel.Controls.Add(picker);
         }
 

@@ -17,16 +17,13 @@ namespace AquaLog.Core
     /// </summary>
     public static class ALData
     {
-        // TODO: Move to aquarium's props
-        public const float StdWaterOffset = 2.0f;
-
         // TODO: Move cost to settings
         public const double kWhCost = 2.76;
 
 
-        public static readonly SoilProps[] Soils = new SoilProps[] {
-            new SoilProps(LSID.None, 1.66f),
-        };
+        public const double DefaultSoilDensity = 1.66d; // kg/l
+        public const double WaterDensity = 0.9998d; // kg/l
+
 
         public static readonly MeasurementUnitProps[] MeasurementUnits = new MeasurementUnitProps[] {
             new MeasurementUnitProps(LSID.None, MeasurementType.Length),
@@ -40,7 +37,12 @@ namespace AquaLog.Core
 
             new MeasurementUnitProps(LSID.Kilogram, MeasurementType.Mass),
             new MeasurementUnitProps(LSID.Pound, MeasurementType.Mass),
+
+            new MeasurementUnitProps(LSID.DegreeCelsius, MeasurementType.Temperature),
+            new MeasurementUnitProps(LSID.DegreeFahrenheit, MeasurementType.Temperature),
+            new MeasurementUnitProps(LSID.DegreeKelvin, MeasurementType.Temperature),
         };
+
 
         public static readonly int[] WaterChangeFactors = new int[] {
              0, // Restart
@@ -50,6 +52,7 @@ namespace AquaLog.Core
              0, // Clean
              0, // Other
         };
+
 
         public static readonly ItemProps[] ItemTypes = new ItemProps[] {
             new ItemProps(LSID.None,
@@ -88,6 +91,7 @@ namespace AquaLog.Core
                           EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
         };
 
+
         public static readonly LSID[] ItemStates = new LSID[] {
             LSID.None,
             LSID.Alive,
@@ -99,6 +103,7 @@ namespace AquaLog.Core
             LSID.Broken,
         };
 
+
         public static readonly DeviceProps[] DeviceProps = new DeviceProps[] {
             new DeviceProps(LSID.Light, false), // Light
             new DeviceProps(LSID.Pump, false), // Pump
@@ -106,6 +111,7 @@ namespace AquaLog.Core
             new DeviceProps(LSID.Filter, false), // Filter
             new DeviceProps(LSID.Heater, false), // Heater
         };
+
 
         public static readonly LSID[] InventoryTypes = new LSID[] {
             LSID.Additive,
@@ -116,6 +122,7 @@ namespace AquaLog.Core
             LSID.Decoration,
         };
 
+
         public static readonly LSID[] TransferTypes = new LSID[] {
             LSID.Relocation,
             LSID.Purchase,
@@ -123,6 +130,7 @@ namespace AquaLog.Core
             LSID.Birth,
             LSID.Death
         };
+
 
         public static readonly LSID[] MaintenanceTypes = new LSID[] {
             LSID.Restart,
@@ -133,12 +141,14 @@ namespace AquaLog.Core
             LSID.Other,
         };
 
+
         public static readonly LSID[] SpeciesTypes = new LSID[] {
             LSID.Fish,
             LSID.Invertebrate,
             LSID.Plant,
             LSID.Coral,
         };
+
 
         public static readonly LSID[] SwimLevels = new LSID[] {
             LSID.SL_Any,
@@ -149,6 +159,7 @@ namespace AquaLog.Core
             LSID.SL_Bottom,
         };
 
+
         public static readonly LSID[] SexNames = new LSID[] {
             LSID.None,
             LSID.Female,
@@ -156,11 +167,13 @@ namespace AquaLog.Core
             LSID.Hermaphrodite,
         };
 
+
         public static readonly LSID[] WaterTypes = new LSID[] {
             LSID.FreshWater,
             LSID.BrackishWater,
             LSID.SeaWater,
         };
+
 
         public static readonly LSID[] TankShapes = new LSID[] {
             LSID.None,
@@ -173,6 +186,7 @@ namespace AquaLog.Core
             LSID.Cylinder,
         };
 
+
         public static readonly Type[] TankTypes = new Type[] {
             typeof(BaseTank), // Unknown
             typeof(BowlTank), // Bowl
@@ -184,6 +198,7 @@ namespace AquaLog.Core
             typeof(CylinderTank), // Cylinder
         };
 
+
         public static readonly LSID[] ScheduleTypes = new LSID[] {
             LSID.Single,
             LSID.Daily,
@@ -192,6 +207,7 @@ namespace AquaLog.Core
             LSID.Yearly,
         };
 
+
         public static readonly LSID[] TaskStatuses = new LSID[] {
             LSID.ToDo,
             LSID.Canceled,
@@ -199,6 +215,7 @@ namespace AquaLog.Core
             LSID.Late,
             LSID.Closed,
         };
+
 
         /// <summary>
         /// NH3 levels (ppm)

@@ -196,4 +196,8 @@
   <string id="194">Страна</string>
   <string id="195">Бренды</string>
   <string id="196">Диаграмма (страны)</string>
+  <string id="197">Диаграмма (помесячно)</string>
+  <string id="198">Градус Цельсия,°C</string>
+  <string id="199">Градус Фаренгейта,°F</string>
+  <string id="200">Кельвин,K</string>
 </resources>

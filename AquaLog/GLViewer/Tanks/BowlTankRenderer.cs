@@ -50,7 +50,7 @@ namespace AquaLog.GLViewer.Tanks
 
             if (showWater) {
                 M3DHelper.SetWaterMaterial();
-                float watHeight = height - thickness - (ALData.StdWaterOffset * ScaleFactor);
+                float watHeight = height - thickness - (StdWaterOffset * ScaleFactor);
 
                 //M3DHelper.DrawCylinder(36, height, bottomDiameter / 2.0f, 0.0f, 360.0f);
 

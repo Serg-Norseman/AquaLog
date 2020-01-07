@@ -83,7 +83,7 @@ namespace AquaLog.GLViewer.Tanks
 
             if (showWater) {
                 M3DHelper.SetWaterMaterial();
-                float watHeight = height - thickness - (ALData.StdWaterOffset * ScaleFactor);
+                float watHeight = height - thickness - (StdWaterOffset * ScaleFactor);
 
                 var x1w = x1s + thickness;
                 var x2w = x2s - thickness;
