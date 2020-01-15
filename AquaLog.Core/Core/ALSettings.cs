@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaLog".
- *  Copyright (C) 2019 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -25,6 +25,7 @@ namespace AquaLog.Core
         private MeasurementUnit fLengthUoM;
         private MeasurementUnit fVolumeUoM;
         private MeasurementUnit fMassUoM;
+        private MeasurementUnit fTemperatureUoM;
 
 
         public bool HideClosedTanks
@@ -69,6 +70,12 @@ namespace AquaLog.Core
             set { fMassUoM = value; }
         }
 
+        public MeasurementUnit TemperatureUoM
+        {
+            get { return fTemperatureUoM; }
+            set { fTemperatureUoM = value; }
+        }
+
 
         #region Instance
 
@@ -108,6 +115,7 @@ namespace AquaLog.Core
             fLengthUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "LengthUoM", "Centimeter"), true, MeasurementUnit.Centimeter);
             fVolumeUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "VolumeUoM", "Litre"), true, MeasurementUnit.Litre);
             fMassUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "MassUoM", "Kilogram"), true, MeasurementUnit.Kilogram);
+            fTemperatureUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "TemperatureUoM", "DegreeCelsius"), true, MeasurementUnit.DegreeCelsius);
         }
 
         public void LoadFromFile(string fileName)
@@ -141,6 +149,7 @@ namespace AquaLog.Core
             ini.WriteString("Data", "LengthUoM", fLengthUoM.ToString());
             ini.WriteString("Data", "VolumeUoM", fVolumeUoM.ToString());
             ini.WriteString("Data", "MassUoM", fMassUoM.ToString());
+            ini.WriteString("Data", "TemperatureUoM", fTemperatureUoM.ToString());
         }
 
         public void SaveToFile(string fileName)

@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaLog".
- *  Copyright (C) 2019 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -262,30 +262,19 @@ namespace AquaLog.UI.Components
 
         public object GetSelectedData()
         {
-            try {
-                object result = null;
-                ListViewItem item = GetSelectedItem();
-                if (item != null) result = item.Tag;
-
-                return result;
-            } catch (Exception ex) {
-                //Logger.LogWrite("GKListView.GetSelectedData(): " + ex.Message);
-                return null;
-            }
+            ListViewItem item = GetSelectedItem();
+            object result = (item != null) ? item.Tag : null;
+            return result;
         }
 
         public void ResizeColumn(int columnIndex)
         {
-            try {
-                if (columnIndex >= 0 && Items.Count > 0) {
-                    AutoResizeColumn(columnIndex, ColumnHeaderAutoResizeStyle.ColumnContent);
+            if (columnIndex >= 0 && Items.Count > 0) {
+                AutoResizeColumn(columnIndex, ColumnHeaderAutoResizeStyle.ColumnContent);
 
-                    if (Columns[columnIndex].Width < 20) {
-                        AutoResizeColumn(columnIndex, ColumnHeaderAutoResizeStyle.HeaderSize);
-                    }
+                if (Columns[columnIndex].Width < 20) {
+                    AutoResizeColumn(columnIndex, ColumnHeaderAutoResizeStyle.HeaderSize);
                 }
-            } catch (Exception ex) {
-                //Logger.LogWrite("GKListView.ResizeColumn(): " + ex.Message);
             }
         }
 
@@ -316,17 +305,13 @@ namespace AquaLog.UI.Components
         {
             if (rowData == null) return;
 
-            try {
-                int num = Items.Count;
-                for (int i = 0; i < num; i++) {
-                    var item = Items[i];
-                    if (item.Tag == rowData) {
-                        SelectItem(item);
-                        return;
-                    }
+            int num = Items.Count;
+            for (int i = 0; i < num; i++) {
+                var item = Items[i];
+                if (item.Tag == rowData) {
+                    SelectItem(item);
+                    return;
                 }
-            } catch (Exception ex) {
-                //Logger.LogWrite("GKListView.SelectItem(): " + ex.Message);
             }
         }
 

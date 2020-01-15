@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaLog".
- *  Copyright (C) 2019 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -18,8 +18,11 @@ namespace AquaLog.UI.Panels
     /// </summary>
     public sealed class MaintenancePanel : ListPanel<Maintenance, MaintenanceEditDlg>
     {
+        private string fSelectedAquarium;
+
         public MaintenancePanel()
         {
+            fSelectedAquarium = "*";
         }
 
         protected override void UpdateListView()
@@ -28,13 +31,15 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 120, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Value), 100, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Value), 100, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.Note), 250, HorizontalAlignment.Left);
 
             var records = fModel.QueryMaintenances();
             foreach (Maintenance rec in records) {
                 Aquarium aqm = fModel.Cache.Get<Aquarium>(ItemType.Aquarium, rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
+                if (fSelectedAquarium != "*" && fSelectedAquarium != aqmName) continue;
+
                 string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type]);
 
                 var item = new ListViewItem(aqmName);
@@ -53,6 +58,23 @@ namespace AquaLog.UI.Panels
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
             AddAction("Export", LSID.Export, "btn_excel.gif", ExportHandler);
+
+            var aquariums = fModel.QueryAquariums();
+            string[] items = new string[aquariums.Count + 1];
+            items[0] = "*";
+            int i = 1;
+            foreach (var aqm in aquariums) {
+                items[i] = aqm.Name;
+                i += 1;
+            }
+            AddSingleSelector("AqmSelector", items, AquariumChangeHandler);
+        }
+
+        private void AquariumChangeHandler(object sender, EventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            fSelectedAquarium = (comboBox != null) ? comboBox.Text : "*";
+            UpdateContent();
         }
 
         private void ExportHandler(object sender, EventArgs e)

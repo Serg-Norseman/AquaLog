@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaLog".
- *  Copyright (C) 2019 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -306,6 +306,8 @@ namespace AquaLog.Core
                 mUnit = ALSettings.Instance.LengthUoM;
             } else if (measurementType == MeasurementType.Mass) {
                 mUnit = ALSettings.Instance.MassUoM;
+            } else if (measurementType == MeasurementType.Temperature) {
+                mUnit = ALSettings.Instance.TemperatureUoM;
             }
 
             if (mUnit != MeasurementUnit.Unknown) {
@@ -335,6 +337,9 @@ namespace AquaLog.Core
                 case MeasurementType.Mass:
                     targetUnit = ALSettings.Instance.MassUoM;
                     break;
+                case MeasurementType.Temperature:
+                    targetUnit = ALSettings.Instance.TemperatureUoM;
+                    break;
             }
 
             switch (targetUnit) {
@@ -354,6 +359,14 @@ namespace AquaLog.Core
                     break;
                 case MeasurementUnit.Pound:
                     value = UnitConverter.kg2lb(value);
+                    break;
+                case MeasurementUnit.DegreeCelsius:
+                    break;
+                case MeasurementUnit.DegreeFahrenheit:
+                    value = UnitConverter.C2F(value);
+                    break;
+                case MeasurementUnit.DegreeKelvin:
+                    value = UnitConverter.C2K(value);
                     break;
 
                 case MeasurementUnit.Unknown:
@@ -387,9 +400,8 @@ namespace AquaLog.Core
             // CO2 = 12.839 * dKH * 10^(6.37 - pH) [2 source]
 
             // corrected variants:
-            // CO2 = 15.65 * dKH * 10^(6.35-pH)
-            // CO2 = 15.65 * dKH * 10^(6.37-pH)
-            return 15.65 * degKH * Math.Pow(10, 6.37 - PH); // 3 source
+            // CO2 = 15.65 * dKH * 10^(6.37 - pH) [3 source]
+            return 15.65 * degKH * Math.Pow(10, 6.37 - PH);
         }
 
         /// <summary>

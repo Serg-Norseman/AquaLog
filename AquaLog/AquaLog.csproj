@@ -199,6 +199,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainView.cs" />
+    <Compile Include="UI\Panels\AquaAnalysisPanel.cs" />
     <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
     <Compile Include="UI\Panels\BarChartPanel.cs" />
     <Compile Include="UI\Panels\BrandPanel.cs" />

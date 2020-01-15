@@ -200,4 +200,6 @@
   <string id="198">Degree Celsius,°C</string>
   <string id="199">Degree Fahrenheit,°F</string>
   <string id="200">Kelvin,K</string>
+  <string id="201">Temperature</string>
+  <string id="202">Analysis</string>
 </resources>

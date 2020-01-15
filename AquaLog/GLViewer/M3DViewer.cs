@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaLog".
- *  Copyright (C) 2019 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -162,13 +162,7 @@ namespace AquaLog.GLViewer
                 OpenGL.glMatrixMode(OpenGL.GL_MODELVIEW);
                 OpenGL.glLoadIdentity();
             }
-
-            start_time = DateTime.Now.Ticks;
-            time = 0;
         }
-
-        private long start_time;
-        private float last_time, time;
  
         public override void glDraw()
         {

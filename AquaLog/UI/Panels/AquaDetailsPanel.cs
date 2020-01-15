@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaLog".
- *  Copyright (C) 2019 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -226,7 +226,7 @@ namespace AquaLog.UI.Panels
             fMaintenanceLV.Clear();
             fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
             fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
-            fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Value), 100, HorizontalAlignment.Left);
+            fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Value), 100, HorizontalAlignment.Right);
             fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Note), 250, HorizontalAlignment.Left);
 
             var records = fModel.QueryMaintenances(fAquarium.Id);

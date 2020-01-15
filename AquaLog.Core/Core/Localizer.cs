@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaLog".
- *  Copyright (C) 2019 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -222,8 +222,10 @@ namespace AquaLog.Core
         /* 198 */ DegreeCelsius,
         /* 199 */ DegreeFahrenheit,
         /* 200 */ DegreeKelvin,
+        /* 201 */ Temperature,
+        /* 202 */ Analysis,
 
-        /* 000 */ Last = DegreeKelvin
+        /* 000 */ Last = Analysis
     }
 
 
@@ -434,6 +436,8 @@ namespace AquaLog.Core
             /* 198 */ "Degree Celsius,°C",
             /* 199 */ "Degree Fahrenheit,°F",
             /* 200 */ "Kelvin,K",
+            /* 201 */ "Temperature",
+            /* 202 */ "Analysis",
         };
 
 

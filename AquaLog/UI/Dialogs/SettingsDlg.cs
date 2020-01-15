@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaLog".
- *  Copyright (C) 2019 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -67,12 +67,16 @@ namespace AquaLog.UI.Dialogs
                 if (uom.MeasurementType == MeasurementType.Mass) {
                     cmbMassUoM.AddItem<MeasurementUnit>(uom.StrName, unit);
                 }
+                if (uom.MeasurementType == MeasurementType.Temperature) {
+                    cmbTemperatureUoM.AddItem<MeasurementUnit>(uom.StrName, unit);
+                }
             }
 
             // TODO: UOM changes not yet supported
             cmbLengthUoM.Enabled = false;
             cmbVolumeUoM.Enabled = false;
             cmbMassUoM.Enabled = false;
+            cmbTemperatureUoM.Enabled = false;
 
             SetLocale();
         }
@@ -92,6 +96,7 @@ namespace AquaLog.UI.Dialogs
             lblLengthUoM.Text = Localizer.LS(LSID.Length);
             lblVolumeUoM.Text = Localizer.LS(LSID.Volume);
             lblMassUoM.Text = Localizer.LS(LSID.Mass);
+            lblTemperatureUoM.Text = Localizer.LS(LSID.Temperature);
         }
 
         private void UpdateView()
@@ -105,6 +110,7 @@ namespace AquaLog.UI.Dialogs
                 cmbLengthUoM.SetSelectedTag<MeasurementUnit>(fSettings.LengthUoM);
                 cmbVolumeUoM.SetSelectedTag<MeasurementUnit>(fSettings.VolumeUoM);
                 cmbMassUoM.SetSelectedTag<MeasurementUnit>(fSettings.MassUoM);
+                cmbTemperatureUoM.SetSelectedTag<MeasurementUnit>(fSettings.TemperatureUoM);
             }
 
             chkAutorun.Checked = UIHelper.IsStartupItem();
@@ -122,6 +128,7 @@ namespace AquaLog.UI.Dialogs
             fSettings.LengthUoM = cmbLengthUoM.GetSelectedTag<MeasurementUnit>();
             fSettings.VolumeUoM = cmbVolumeUoM.GetSelectedTag<MeasurementUnit>();
             fSettings.MassUoM = cmbMassUoM.GetSelectedTag<MeasurementUnit>();
+            fSettings.TemperatureUoM = cmbMassUoM.GetSelectedTag<MeasurementUnit>();
 
             if (chkAutorun.Checked) {
                 UIHelper.RegisterStartup();

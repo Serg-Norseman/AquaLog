@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaLog".
- *  Copyright (C) 2019 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -264,7 +264,51 @@ namespace AquaLog.UI.Panels
                 vals.Add(valPair.Value);
             }
 
+            if (chartType != BudgetChartType.Monthes) {
+                vals = AlternateSort(vals);
+            }
+
             return vals;
+        }
+
+        public static List<ChartPoint> AlternateSort(List<ChartPoint> orig)
+        {
+            orig.Sort((x, y) => {
+                return x.Value.CompareTo(y.Value);
+            });
+
+            ChartPoint[] varr = new ChartPoint[orig.Count];
+
+            int t, b, lp, rp;
+            t = orig.Count - 1;
+            b = 0;
+            lp = t / 2 - 1;
+            rp = t / 2 + 1;
+            varr[t / 2] = orig[t];
+            t--;
+            while (b < t) {
+                varr[lp] = orig[b];
+                b++;
+                varr[rp] = orig[b];
+                b++;
+                lp--;
+                rp++;
+
+                if (b >= t) break;
+
+                varr[lp] = orig[t];
+                t--;
+                varr[rp] = orig[t];
+                t--;
+                lp--;
+                rp++;
+            }
+
+            List<ChartPoint> result = new List<ChartPoint>();
+            for (int i = 0; i < orig.Count; ++i)
+                result.Add(varr[i]);
+
+            return result;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaLog".
- *  Copyright (C) 2019 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -8,6 +8,7 @@ using System;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 using AquaLog.Logging;
 using BSLib;
 
@@ -59,6 +60,7 @@ namespace AquaLog.UI.Dialogs
 
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblTimestamp.Text = Localizer.LS(LSID.Timestamp);
+            lblTemperature.Text = ALData.GetLSuom(LSID.Temperature, MeasurementType.Temperature);
         }
 
         private void UpdateView()

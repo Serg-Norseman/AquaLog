@@ -20,6 +20,8 @@
         private System.Windows.Forms.Label lblLengthUoM;
         private System.Windows.Forms.ComboBox cmbMassUoM;
         private System.Windows.Forms.Label lblMassUoM;
+        private System.Windows.Forms.ComboBox cmbTemperatureUoM;
+        private System.Windows.Forms.Label lblTemperatureUoM;
         
         protected override void Dispose(bool disposing)
         {
@@ -44,12 +46,14 @@
             this.chkAutorun = new System.Windows.Forms.CheckBox();
             this.chkHideClosedTanks = new System.Windows.Forms.CheckBox();
             this.tabData = new System.Windows.Forms.TabPage();
+            this.cmbMassUoM = new System.Windows.Forms.ComboBox();
+            this.lblMassUoM = new System.Windows.Forms.Label();
             this.cmbVolumeUoM = new System.Windows.Forms.ComboBox();
             this.lblVolumeUoM = new System.Windows.Forms.Label();
             this.cmbLengthUoM = new System.Windows.Forms.ComboBox();
             this.lblLengthUoM = new System.Windows.Forms.Label();
-            this.lblMassUoM = new System.Windows.Forms.Label();
-            this.cmbMassUoM = new System.Windows.Forms.ComboBox();
+            this.lblTemperatureUoM = new System.Windows.Forms.Label();
+            this.cmbTemperatureUoM = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabCommon.SuspendLayout();
             this.tabData.SuspendLayout();
@@ -168,6 +172,8 @@
             // tabData
             // 
             this.tabData.BackColor = System.Drawing.SystemColors.Control;
+            this.tabData.Controls.Add(this.cmbTemperatureUoM);
+            this.tabData.Controls.Add(this.lblTemperatureUoM);
             this.tabData.Controls.Add(this.cmbMassUoM);
             this.tabData.Controls.Add(this.lblMassUoM);
             this.tabData.Controls.Add(this.cmbVolumeUoM);
@@ -181,6 +187,25 @@
             this.tabData.Size = new System.Drawing.Size(438, 196);
             this.tabData.TabIndex = 1;
             this.tabData.Text = "Data";
+            // 
+            // cmbMassUoM
+            // 
+            this.cmbMassUoM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbMassUoM.FormattingEnabled = true;
+            this.cmbMassUoM.Location = new System.Drawing.Point(179, 87);
+            this.cmbMassUoM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
+            this.cmbMassUoM.Name = "cmbMassUoM";
+            this.cmbMassUoM.Size = new System.Drawing.Size(185, 27);
+            this.cmbMassUoM.TabIndex = 17;
+            // 
+            // lblMassUoM
+            // 
+            this.lblMassUoM.Location = new System.Drawing.Point(11, 90);
+            this.lblMassUoM.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblMassUoM.Name = "lblMassUoM";
+            this.lblMassUoM.Size = new System.Drawing.Size(164, 21);
+            this.lblMassUoM.TabIndex = 16;
+            this.lblMassUoM.Text = "MassUoM";
             // 
             // cmbVolumeUoM
             // 
@@ -220,24 +245,24 @@
             this.lblLengthUoM.TabIndex = 16;
             this.lblLengthUoM.Text = "LengthUoM";
             // 
-            // lblMassUoM
+            // lblTemperatureUoM
             // 
-            this.lblMassUoM.Location = new System.Drawing.Point(11, 90);
-            this.lblMassUoM.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblMassUoM.Name = "lblMassUoM";
-            this.lblMassUoM.Size = new System.Drawing.Size(164, 21);
-            this.lblMassUoM.TabIndex = 16;
-            this.lblMassUoM.Text = "MassUoM";
+            this.lblTemperatureUoM.Location = new System.Drawing.Point(11, 128);
+            this.lblTemperatureUoM.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTemperatureUoM.Name = "lblTemperatureUoM";
+            this.lblTemperatureUoM.Size = new System.Drawing.Size(164, 21);
+            this.lblTemperatureUoM.TabIndex = 16;
+            this.lblTemperatureUoM.Text = "TemperatureUoM";
             // 
-            // cmbMassUoM
+            // cmbTemperatureUoM
             // 
-            this.cmbMassUoM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMassUoM.FormattingEnabled = true;
-            this.cmbMassUoM.Location = new System.Drawing.Point(179, 87);
-            this.cmbMassUoM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
-            this.cmbMassUoM.Name = "cmbMassUoM";
-            this.cmbMassUoM.Size = new System.Drawing.Size(185, 27);
-            this.cmbMassUoM.TabIndex = 17;
+            this.cmbTemperatureUoM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTemperatureUoM.FormattingEnabled = true;
+            this.cmbTemperatureUoM.Location = new System.Drawing.Point(179, 125);
+            this.cmbTemperatureUoM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
+            this.cmbTemperatureUoM.Name = "cmbTemperatureUoM";
+            this.cmbTemperatureUoM.Size = new System.Drawing.Size(185, 27);
+            this.cmbTemperatureUoM.TabIndex = 17;
             // 
             // SettingsDlg
             // 

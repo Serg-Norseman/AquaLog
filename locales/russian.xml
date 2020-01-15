@@ -200,4 +200,6 @@
   <string id="198">Градус Цельсия,°C</string>
   <string id="199">Градус Фаренгейта,°F</string>
   <string id="200">Кельвин,K</string>
+  <string id="201">Температура</string>
+  <string id="202">Анализ</string>
 </resources>
