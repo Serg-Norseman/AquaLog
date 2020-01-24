@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
-using AquaLog.UI.Components;
 using AquaLog.Core;
 using AquaLog.Logging;
+using AquaLog.UI.Components;
 using AquaLog.UI.Dialogs;
 using AquaLog.UI.Panels;
 using BSLib;
@@ -31,13 +31,6 @@ namespace AquaLog.UI
         private DrawingHelper fDrawingHelper;
 
 
-        public ALTray Tray
-        {
-            get { return fTray; }
-            set { fTray = value; }
-        }
-
-
         public MainForm()
         {
             InitializeComponent();
@@ -48,6 +41,8 @@ namespace AquaLog.UI
             fModel = new ALModel();
             fNavigationStack = new NavigationStack<DataPanel>();
             fPanels = new Dictionary<Type, DataPanel>();
+            fDrawingHelper = new DrawingHelper(this);
+            fTray = new ALTray(this);
 
             ALSettings.Instance.LoadFromFile(Path.Combine(ALCore.GetAppDataPath(), "AquaLog.ini"));
             SetSettings();
@@ -77,8 +72,6 @@ namespace AquaLog.UI
             btnInventory.Tag = MainView.Inventory;
             btnSnapshots.Tag = MainView.Snapshots;
 
-            fDrawingHelper = new DrawingHelper(this);
-
             SetView(MainView.Tanks, null);
 
             Localizer.FindLocales();
@@ -92,6 +85,7 @@ namespace AquaLog.UI
                     components.Dispose();
                 }
                 ALSettings.Instance.SaveToFile(Path.Combine(ALCore.GetAppDataPath(), "AquaLog.ini"));
+                fTray.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -181,6 +175,8 @@ namespace AquaLog.UI
                 BeginInvoke(new MethodInvoker(delegate {
                     Hide();
                 }));
+            } else {
+                Activate();
             }
         }
 
@@ -337,6 +333,9 @@ namespace AquaLog.UI
                 case MainView.Analysis:
                     SetView<AquaAnalysisPanel>(extData);
                     break;
+                case MainView.Quality:
+                    SetView<AquaQualityPanel>(extData);
+                    break;
             }
         }
 
@@ -395,6 +394,20 @@ namespace AquaLog.UI
         {
             btnPrev.Enabled = fNavigationStack.CanBackward();
             btnNext.Enabled = fNavigationStack.CanForward();
+        }
+
+        #endregion
+
+        #region Application's utilities
+
+        public static void AppInit()
+        {
+            #if NETCOREAPP30
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            #endif
+
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
         }
 
         #endregion

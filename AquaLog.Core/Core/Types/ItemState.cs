@@ -23,16 +23,4 @@ namespace AquaLog.Core.Types
         Finished, // Nutrition, Additive, Chemistry
         Broken, // Device, Equipment, Maintenance, Furniture, Decoration,
     }
-
-
-    public interface IStateItem
-    {
-        ItemState State { get; set; }
-    }
-
-
-    public interface IBrandedItem
-    {
-        string Brand { get; set; }
-    }
 }

@@ -8,14 +8,14 @@ using System.Drawing;
 
 namespace AquaLog.Core.Types
 {
-    public sealed class ValueBounds
+    public sealed class ValueRange
     {
         public double Min { get; private set; }
         public double Max { get; private set; }
         public Color Color { get; private set; }
         public string Name { get; private set; }
 
-        public ValueBounds(double min, double max, Color color, string name)
+        public ValueRange(double min, double max, Color color, string name)
         {
             Min = min;
             Max = max;

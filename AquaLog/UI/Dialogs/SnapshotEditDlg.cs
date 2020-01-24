@@ -71,7 +71,7 @@ namespace AquaLog.UI.Dialogs
                     pictureBox1.Image = ALModel.ByteToImage(fRecord.Image);
                 }
 
-                if (!fRecord.Timestamp.Equals(ALCore.ZeroDate)) {
+                if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
                     dtpDateTime.Value = fRecord.Timestamp;
                 }
             }

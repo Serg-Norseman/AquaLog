@@ -33,8 +33,9 @@ namespace AquaLog.UI.Panels
         protected override void UpdateListView()
         {
             ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Item), 140, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Date), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Item), 140, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Type), 80, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.SourceTank), 80, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.TargetTank), 80, HorizontalAlignment.Left);
@@ -53,12 +54,18 @@ namespace AquaLog.UI.Panels
                 Aquarium aqmSour = fModel.Cache.Get<Aquarium>(ItemType.Aquarium, rec.SourceId);
                 Aquarium aqmTarg = fModel.Cache.Get<Aquarium>(ItemType.Aquarium, rec.TargetId);
 
-                string itName = fModel.GetRecordName(itemType, rec.ItemId);
+                var itemRec = fModel.GetRecord(rec.ItemType, rec.ItemId);
+                string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
                 string strType = Localizer.LS(ALData.TransferTypes[(int)rec.Type]);
+                var brandedItem = itemRec as IBrandedItem;
+                string brand = (brandedItem == null) ? "-" : brandedItem.Brand;
+                //var stateItem = itemRec as IStateItem;
+                //var state = (stateItem == null) ? ItemState.Unknown : stateItem.State;
 
-                var item = new ListViewItem(itName);
+                var item = new ListViewItem(ALCore.GetDateStr(rec.Timestamp));
                 item.Tag = rec;
-                item.SubItems.Add(ALCore.GetDateStr(rec.Timestamp));
+                item.SubItems.Add(brand);
+                item.SubItems.Add(itName);
                 item.SubItems.Add(strType);
                 item.SubItems.Add((aqmSour == null) ? string.Empty : aqmSour.Name);
                 item.SubItems.Add((aqmTarg == null) ? string.Empty : aqmTarg.Name);
@@ -69,6 +76,10 @@ namespace AquaLog.UI.Panels
 
                 if (itemType == ItemType.Aquarium) {
                     item.Font = boldFont;
+                }
+
+                if (rec.Type == TransferType.Death /*|| state == ItemState.Dead || state == ItemState.Finished || state == ItemState.Broken*/) {
+                    item.ForeColor = Color.Gray; // death, sale or gift?
                 }
 
                 ListView.Items.Add(item);

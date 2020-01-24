@@ -63,6 +63,7 @@ namespace AquaLog.UI.Panels
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Date), 80, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Type), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Item), 140, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Quantity), 80, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.UnitPrice), 80, HorizontalAlignment.Right);
@@ -93,6 +94,8 @@ namespace AquaLog.UI.Panels
                     string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
                     ItemState itState = (itemRec is IStateItem) ? ((IStateItem)itemRec).State : ItemState.Unknown;
                     string stateStr = Localizer.LS(ALData.ItemStates[(int)itState]);
+                    var brandedItem = itemRec as IBrandedItem;
+                    string brand = (brandedItem == null) ? "-" : brandedItem.Brand;
 
                     double sum = rec.Quantity * rec.UnitPrice;
                     if (factor > 0) {
@@ -105,6 +108,7 @@ namespace AquaLog.UI.Panels
                     var item = new ListViewItem(ALCore.GetDateStr(rec.Timestamp));
                     item.Tag = rec;
                     item.SubItems.Add(Localizer.LS(ALData.ItemTypes[(int)rec.ItemType].Name));
+                    item.SubItems.Add(brand);
                     item.SubItems.Add(itName);
                     item.SubItems.Add(rec.Quantity.ToString());
                     item.SubItems.Add(ALCore.GetDecimalStr(rec.UnitPrice));
@@ -120,7 +124,7 @@ namespace AquaLog.UI.Panels
 
                     totalSum += sum;
 
-                    if (firstDate.Equals(ALCore.ZeroDate)) {
+                    if (ALCore.IsZeroDate(firstDate)) {
                         firstDate = rec.Timestamp;
                     }
                 }
@@ -264,14 +268,14 @@ namespace AquaLog.UI.Panels
                 vals.Add(valPair.Value);
             }
 
-            if (chartType != BudgetChartType.Monthes) {
+            if (chartType != BudgetChartType.Monthes && chartType != BudgetChartType.Days) {
                 vals = AlternateSort(vals);
             }
 
             return vals;
         }
 
-        public static List<ChartPoint> AlternateSort(List<ChartPoint> orig)
+        private static List<ChartPoint> AlternateSort(List<ChartPoint> orig)
         {
             orig.Sort((x, y) => {
                 return x.Value.CompareTo(y.Value);

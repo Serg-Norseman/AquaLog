@@ -65,6 +65,7 @@ namespace AquaLog.UI.Panels
             AddAction("LogBook", LSID.LogBook, "", btnLogBook_Click);
             AddAction("M3DViewer", LSID.M3DViewer, "", btnM3DViewer_Click);
             AddAction("Analysis", LSID.Analysis, "", btnAnalysis_Click);
+            AddAction("Quality", LSID.Quality, "", btnQuality_Click);
         }
 
         protected override void UpdateContent()
@@ -211,6 +212,15 @@ namespace AquaLog.UI.Panels
 
             var record = selectedItem.Aquarium;
             Browser.SetView(MainView.Analysis, record);
+        }
+
+        private void btnQuality_Click(object sender, EventArgs e)
+        {
+            var selectedItem = SelectedTank;
+            if (selectedItem == null) return;
+
+            var record = selectedItem.Aquarium;
+            Browser.SetView(MainView.Quality, record);
         }
     }
 }

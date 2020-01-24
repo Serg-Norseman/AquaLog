@@ -81,11 +81,11 @@ namespace AquaLog.UI.Panels
                 fModel.GetInhabitantDates(rec.Id, (int)itemType, out inclusionDate, out exclusionDate, out currAqmId);
 
                 string aqmName = fModel.GetRecordName(ItemType.Aquarium, currAqmId);
-                string strInclusDate = (inclusionDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetDateStr(inclusionDate);
-                string strExclusDate = (exclusionDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetDateStr(exclusionDate);
+                string strInclusDate = ALCore.IsZeroDate(inclusionDate) ? string.Empty : ALCore.GetDateStr(inclusionDate);
+                string strExclusDate = ALCore.IsZeroDate(exclusionDate) ? string.Empty : ALCore.GetDateStr(exclusionDate);
 
-                DateTime endDate = (exclusionDate.Equals(ALCore.ZeroDate)) ? DateTime.Now.Date : exclusionDate;
-                string strLifespan = (inclusionDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetTimespanText(inclusionDate, endDate);
+                DateTime endDate = ALCore.IsZeroDate(exclusionDate) ? DateTime.Now.Date : exclusionDate;
+                string strLifespan = ALCore.IsZeroDate(inclusionDate) ? string.Empty : ALCore.GetTimespanText(inclusionDate, endDate);
 
                 rec.Quantity = fModel.QueryInhabitantsCount(rec.Id, itemType);
 

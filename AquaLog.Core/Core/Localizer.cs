@@ -224,8 +224,9 @@ namespace AquaLog.Core
         /* 200 */ DegreeKelvin,
         /* 201 */ Temperature,
         /* 202 */ Analysis,
+        /* 203 */ Quality,
 
-        /* 000 */ Last = Analysis
+        /* 000 */ Last = Quality
     }
 
 
@@ -438,6 +439,7 @@ namespace AquaLog.Core
             /* 200 */ "Kelvin,K",
             /* 201 */ "Temperature",
             /* 202 */ "Analysis",
+            /* 203 */ "Quality",
         };
 
 

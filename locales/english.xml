@@ -202,4 +202,5 @@
   <string id="200">Kelvin,K</string>
   <string id="201">Temperature</string>
   <string id="202">Analysis</string>
+  <string id="203">Quality</string>
 </resources>

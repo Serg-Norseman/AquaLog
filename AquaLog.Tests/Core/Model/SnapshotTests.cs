@@ -27,7 +27,7 @@ namespace AquaLog.Core.Model
             Assert.AreEqual(null, snapshot.Image);
 
             snapshot.Timestamp = ALCore.ZeroDate;
-            Assert.AreEqual(ALCore.ZeroDate, snapshot.Timestamp);
+            Assert.IsTrue(ALCore.IsZeroDate(snapshot.Timestamp));
 
             snapshot.ItemType = ItemType.Maintenance;
             Assert.AreEqual(ItemType.Maintenance, snapshot.ItemType);

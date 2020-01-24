@@ -57,7 +57,7 @@ namespace AquaLog.UI.Dialogs
         private void UpdateView()
         {
             if (fValue != null) {
-                if (!fValue.Timestamp.Equals(ALCore.ZeroDate)) {
+                if (!ALCore.IsZeroDate(fValue.Timestamp)) {
                     dtpTimestamp.Value = fValue.Timestamp;
                 }
                 txtValue.Text = ALCore.GetDecimalStr(fValue.Value);

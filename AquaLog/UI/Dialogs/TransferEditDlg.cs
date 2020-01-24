@@ -105,7 +105,7 @@ namespace AquaLog.UI.Dialogs
                     cmbTarget.Enabled = false;
                 }
 
-                if (!fRecord.Timestamp.Equals(ALCore.ZeroDate)) {
+                if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
                     dtpDate.Value = fRecord.Timestamp;
                 }
 

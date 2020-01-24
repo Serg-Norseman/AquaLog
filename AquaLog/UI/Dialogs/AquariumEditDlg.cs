@@ -95,12 +95,12 @@ namespace AquaLog.UI.Dialogs
 
             UIHelper.FillStringsCombo(cmbBrand, fModel.QueryAquariumBrands(), fRecord.Brand);
 
-            dtpStartDate.Checked = !fRecord.StartDate.Equals(ALCore.ZeroDate);
+            dtpStartDate.Checked = !ALCore.IsZeroDate(fRecord.StartDate);
             if (dtpStartDate.Checked) {
                 dtpStartDate.Value = fRecord.StartDate;
             }
 
-            dtpStopDate.Checked = !fRecord.StopDate.Equals(ALCore.ZeroDate);
+            dtpStopDate.Checked = !ALCore.IsZeroDate(fRecord.StopDate);
             if (dtpStopDate.Checked) {
                 dtpStopDate.Value = fRecord.StopDate;
             }

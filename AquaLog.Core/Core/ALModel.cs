@@ -249,14 +249,14 @@ namespace AquaLog.Core
 
                     case TransferType.Purchase:
                     case TransferType.Birth:
-                        if (inclusionDate.Equals(ALCore.ZeroDate)) {
+                        if (ALCore.IsZeroDate(inclusionDate)) {
                             inclusionDate = trf.Timestamp;
                         }
                         break;
 
                     case TransferType.Sale:
                     case TransferType.Death:
-                        if (exclusionDate.Equals(ALCore.ZeroDate)) {
+                        if (ALCore.IsZeroDate(exclusionDate)) {
                             exclusionDate = trf.Timestamp;
                         }
                         break;
@@ -399,7 +399,7 @@ namespace AquaLog.Core
             DateTime dtPrev = ALCore.ZeroDate;
             var records = QueryWaterChanges(aquariumId);
             foreach (Maintenance rec in records) {
-                if (!dtPrev.Equals(ALCore.ZeroDate)) {
+                if (!ALCore.IsZeroDate(dtPrev)) {
                     int days = (rec.Timestamp.Date - dtPrev).Days;
                     result += days;
                     count += 1;
@@ -500,7 +500,7 @@ namespace AquaLog.Core
             List<MeasureValue> measures = new List<MeasureValue>();
 
             PrepareValue(aquarium, measures, "Temperature", "T", "°C", null);
-            PrepareValue(aquarium, measures, "NO3", "NO3", "mg/l", ALData.NO3Ranges);
+            double NO3 = PrepareValue(aquarium, measures, "NO3", "NO3", "mg/l", ALData.NO3Ranges);
             PrepareValue(aquarium, measures, "NO2", "NO2", "mg/l", ALData.NO2Ranges);
             PrepareValue(aquarium, measures, "Cl2", "Cl2", "mg/l", ALData.Cl2Ranges);
             PrepareValue(aquarium, measures, "GH", "GH", "°d", ALData.GHRanges);
@@ -512,23 +512,33 @@ namespace AquaLog.Core
             PrepareValue(aquarium, measures, "NH3", "NH3", "", ALData.NH3Ranges);
             PrepareValue(aquarium, measures, "NH4", "NH4", "", null);
 
-            PrepareValue(aquarium, measures, "PO4", "PO4", "", null);
+            double PO4 = PrepareValue(aquarium, measures, "PO4", "PO4", "", ALData.PO4Ranges);
+
+            double redfield = (!double.IsNaN(PO4) && !DoubleHelper.Equals(PO4, 0.0001, 0.0001)) ? ALData.CalcRedfield(NO3, PO4) : double.NaN;
+            PrepareValue(measures, redfield, "Redfield", "", ALData.RedfieldRanges);
 
             return measures;
         }
 
-        private void PrepareValue(Aquarium aquarium, List<MeasureValue> measures, string field, string sign, string uom, ValueBounds[] ranges)
+        private double PrepareValue(Aquarium aquarium, IList<MeasureValue> measures, string field, string sign, string uom, ValueRange[] ranges)
         {
-            if (aquarium == null) return;
+            if (aquarium == null) return double.NaN;
 
             QDecimal measure = QueryLastMeasure(aquarium, field);
             double mVal = (measure != null) ? measure.value : double.NaN;
 
+            PrepareValue(measures, mVal, sign, uom, ranges);
+
+            return mVal;
+        }
+
+        private void PrepareValue(IList<MeasureValue> measures, double mVal, string sign, string uom, ValueRange[] ranges)
+        {
             string strVal = !double.IsNaN(mVal) ? ALCore.GetDecimalStr(mVal) : string.Empty;
             string text = string.Format("{0}={1} {2}", sign, strVal, uom);
 
             Color color = Color.Black;
-            ValueBounds bounds = CheckValue(mVal, ranges);
+            ValueRange bounds = CheckValue(mVal, ranges);
             if (bounds != null) {
                 color = bounds.Color;
             }
@@ -539,12 +549,23 @@ namespace AquaLog.Core
                 Unit = uom,
                 ValText = strVal,
                 Text = text,
-                Color = color
+                Color = color,
+                Ranges = ranges
             };
             measures.Add(tval);
         }
 
-        public static ValueBounds CheckValue(double value, ValueBounds[] ranges)
+        private double FindMeasure(IList<MeasureValue> measures, string sign)
+        {
+            foreach (MeasureValue tVal in measures) {
+                if (tVal.Name == sign) {
+                    return tVal.Value;
+                }
+            }
+            return 0.0001;
+        }
+
+        public static ValueRange CheckValue(double value, ValueRange[] ranges)
         {
             if (double.IsNaN(value) || DoubleHelper.Equals(value, 0.0d, 0.0000000001d) || ranges == null) {
                 return null;

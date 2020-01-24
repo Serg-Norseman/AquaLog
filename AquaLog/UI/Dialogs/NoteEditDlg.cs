@@ -79,7 +79,7 @@ namespace AquaLog.UI.Dialogs
                 cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.AquariumId);
                 cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
-                if (!fRecord.Timestamp.Equals(ALCore.ZeroDate)) {
+                if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
                     dtpDateTime.Value = fRecord.Timestamp;
                 }
 

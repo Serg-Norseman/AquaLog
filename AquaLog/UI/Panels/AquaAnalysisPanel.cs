@@ -89,7 +89,7 @@ namespace AquaLog.UI.Panels
 
                         int days = -1;
                         if (mnt.Type >= MaintenanceType.Restart && mnt.Type <= MaintenanceType.WaterReplaced) {
-                            if (!dtPrev.Equals(ALCore.ZeroDate)) {
+                            if (!ALCore.IsZeroDate(dtPrev)) {
                                 days = (mnt.Timestamp.Date - dtPrev).Days;
                                 //result += days;
                                 //count += 1;

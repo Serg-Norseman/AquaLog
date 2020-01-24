@@ -45,6 +45,11 @@ namespace AquaLog.Core
         };
 
 
+        public static bool IsZeroDate(DateTime date)
+        {
+            return date.Equals(ALCore.ZeroDate);
+        }
+
         public static string FmtSQLiteDate(DateTime dateTime)
         {
             return dateTime.ToString("yyyy-MM-dd HH:mm:ss");

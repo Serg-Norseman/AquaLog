@@ -19,21 +19,13 @@ namespace AquaLog
         {
             ALCore.CheckPortable(args);
 
-            #if NETCOREAPP30
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            #endif
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
             bool isFirstInstance;
             using (Mutex mtx = new Mutex(true, "AquaLog", out isFirstInstance)) {
                 if (isFirstInstance) {
+                    MainForm.AppInit();
+
                     var mainForm = new MainForm();
-                    using (ALTray tray = new ALTray(mainForm)) {
-                        mainForm.Tray = tray;
-                        Application.Run(mainForm);
-                    }
+                    Application.Run(mainForm);
                 }
             }
         }

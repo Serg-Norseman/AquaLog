@@ -136,7 +136,7 @@ namespace AquaLog.UI.Panels
                     currAqmId = lastTransfers[0].TargetId;
                     intrDate = lastTransfers[0].Timestamp;
                 }
-                string strIntrDate = (intrDate.Equals(ALCore.ZeroDate)) ? string.Empty : ALCore.GetDateStr(intrDate);
+                string strIntrDate = ALCore.IsZeroDate(intrDate) ? string.Empty : ALCore.GetDateStr(intrDate);
 
                 var item = new ListViewItem(rec.Name);
                 item.Tag = rec;

@@ -101,6 +101,7 @@
     <Compile Include="GLViewer\Vector3D.cs" />
     <Compile Include="UI\ALTray.cs" />
     <Compile Include="UI\Components\ImageViewer.cs" />
+    <Compile Include="UI\Components\QualityControl.cs" />
     <Compile Include="UI\Components\UserAction.cs" />
     <Compile Include="UI\Components\ComboItem.cs" />
     <Compile Include="UI\Components\WizardPages.cs" />
@@ -201,6 +202,7 @@
     <Compile Include="UI\MainView.cs" />
     <Compile Include="UI\Panels\AquaAnalysisPanel.cs" />
     <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
+    <Compile Include="UI\Panels\AquaQualityPanel.cs" />
     <Compile Include="UI\Panels\BarChartPanel.cs" />
     <Compile Include="UI\Panels\BrandPanel.cs" />
     <Compile Include="UI\Panels\ChartPanel.cs" />

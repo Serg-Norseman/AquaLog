@@ -18,5 +18,7 @@ namespace AquaLog.Core.Types
         public string Text;
 
         public Color Color;
+
+        public ValueRange[] Ranges;
     }
 }

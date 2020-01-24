@@ -82,7 +82,7 @@ namespace AquaLog.Core.Model
 
         public bool IsInactive()
         {
-            return !StopDate.Equals(ALCore.ZeroDate);
+            return !ALCore.IsZeroDate(StopDate);
         }
 
         /// <summary>

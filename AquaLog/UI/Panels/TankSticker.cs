@@ -194,31 +194,15 @@ namespace AquaLog.UI.Panels
             DrawText(gfx, Localizer.LS(LSID.Inhabitants) + ": " + inhabCount.ToString(), Font, ForeColor, x, y);
 
             int xoffset = layoutRect.Width / 4;
+            int col = 0;
+            for (int i = 0; i < 13; i++) {
+                if (i % 4 == 0) {
+                    y = y + (int)(Font.Height * 1.6f);
+                    col = 0;
+                }
 
-            y = y + (int)(Font.Height * 1.6f);
-            DrawMeasure(gfx, 0, font, x, y);
-            DrawMeasure(gfx, 1, font, x + (xoffset * 1), y);
-            DrawMeasure(gfx, 2, font, x + (xoffset * 2), y);
-            DrawMeasure(gfx, 3, font, x + (xoffset * 3), y);
-
-            y = y + (int)(Font.Height * 1.6f);
-            DrawMeasure(gfx, 4, font, x, y);
-            DrawMeasure(gfx, 5, font, x + (xoffset * 1), y);
-            DrawMeasure(gfx, 6, font, x + (xoffset * 2), y);
-            DrawMeasure(gfx, 7, font, x + (xoffset * 3), y);
-
-            y = y + (int)(Font.Height * 1.6f);
-            DrawMeasure(gfx, 8, font, x, y);
-            DrawMeasure(gfx, 9, font, x + (xoffset * 1), y);
-            DrawMeasure(gfx, 10, font, x + (xoffset * 2), y);
-            DrawMeasure(gfx, 11, font, x + (xoffset * 3), y);
-
-            double NO3 = FindMeasure("NO3");
-            double PO4 = FindMeasure("PO4");
-            if (!double.IsNaN(PO4) && !DoubleHelper.Equals(PO4, 0.0001, 0.0001)) {
-                double redfield = ALData.CalcRedfield(NO3, PO4);
-                y = y + (int)(Font.Height * 1.6f);
-                DrawMeasure(gfx, "Redfield: {0} {1}", redfield, ALData.RedfieldRanges, Font, x, y);
+                DrawMeasure(gfx, i, font, x + (xoffset * col), y);
+                col += 1;
             }
         }
 
@@ -228,31 +212,6 @@ namespace AquaLog.UI.Panels
             if (!string.IsNullOrEmpty(tVal.Text) && !double.IsNaN(tVal.Value)) {
                 DrawText(gfx, tVal.Text, font, tVal.Color, x, y);
             }
-        }
-
-        private void DrawMeasure(Graphics gfx, string text, double val, ValueBounds[] ranges, Font font, int x, int y)
-        {
-            if (!string.IsNullOrEmpty(text) && !double.IsNaN(val)) {
-                Color color = Color.Black;
-                string comment = string.Empty;
-                ValueBounds bounds = ALModel.CheckValue(val, ranges);
-                if (bounds != null) {
-                    color = bounds.Color;
-                    comment = bounds.Name;
-                }
-
-                DrawText(gfx, string.Format(text, ALCore.GetDecimalStr(val), comment), font, color, x, y);
-            }
-        }
-
-        private double FindMeasure(string sign)
-        {
-            foreach (MeasureValue tVal in fValues) {
-                if (tVal.Name == sign) {
-                    return tVal.Value;
-                }
-            }
-            return 0.0001;
         }
 
         private void DrawText(Graphics gfx, string text, Font font, Color color, int x, int y)

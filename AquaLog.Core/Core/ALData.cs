@@ -220,12 +220,12 @@ namespace AquaLog.Core
         /// <summary>
         /// NH3 levels (ppm)
         /// </summary>
-        public static readonly ValueBounds[] NH3Ranges = new ValueBounds[] {
-            new ValueBounds(0.000, 0.020, Color.Green, ""),
-            new ValueBounds(0.020, 0.050, Color.YellowGreen, "Alert"),
-            new ValueBounds(0.050, 0.200, Color.Orange, "Alarm"),
-            new ValueBounds(0.200, 0.500, Color.Red, "Toxic"),
-            new ValueBounds(0.500, 99999, Color.Magenta, "Deadly"),
+        public static readonly ValueRange[] NH3Ranges = new ValueRange[] {
+            new ValueRange(0.00,  0.02, Color.Green, ""),
+            new ValueRange(0.02,  0.05, Color.YellowGreen, "Alert"),
+            new ValueRange(0.05,  0.20, Color.Orange, "Alarm"),
+            new ValueRange(0.20,  0.50, Color.Red, "Toxic"),
+            new ValueRange(0.50,  1.00, Color.Maroon, "Deadly"),
         };
 
 
@@ -237,61 +237,69 @@ namespace AquaLog.Core
         /// 31 -> 40 mg/l    yellow [high for fish - adjust]
         ///     > 40 mg/l    red [toxic for fish - adjust immediately] 
         /// </summary>
-        public static readonly ValueBounds[] CO2Ranges = new ValueBounds[] {
-            new ValueBounds(0, 12, Color.DeepPink, "very_low_adjust"),
-            new ValueBounds(12, 20, Color.YellowGreen, "low_adjust"),
-            new ValueBounds(20, 30, Color.Green, ""),
-            new ValueBounds(30, 40, Color.Orange, "alert_high"),
-            new ValueBounds(40, 9999, Color.Red, "Toxic"),
+        public static readonly ValueRange[] CO2Ranges = new ValueRange[] {
+            new ValueRange(0, 12, Color.DeepPink, "very_low_adjust"),
+            new ValueRange(12, 20, Color.YellowGreen, "low_adjust"),
+            new ValueRange(20, 30, Color.Green, ""),
+            new ValueRange(30, 40, Color.Orange, "alert_high"),
+            new ValueRange(40, 50, Color.Red, "Toxic"),
         };
 
 
-        public static readonly ValueBounds[] NO3Ranges = new ValueBounds[] {
-            new ValueBounds(0, 25, Color.Green, "Safe"),
-            new ValueBounds(25, 100, Color.Orange, "Warn"),
-            new ValueBounds(100, 250, Color.Red, "Alarm"),
+        public static readonly ValueRange[] NO3Ranges = new ValueRange[] {
+            new ValueRange(0, 25, Color.Green, "Safe"),
+            new ValueRange(25, 100, Color.Orange, "Warn"),
+            new ValueRange(100, 250, Color.Red, "Alarm"),
         };
 
 
-        public static readonly ValueBounds[] NO2Ranges = new ValueBounds[] {
-            new ValueBounds(0, 1, Color.Green, "Safe"),
-            new ValueBounds(1, 5, Color.Orange, "Warn"),
-            new ValueBounds(5, 10, Color.Red, "Alarm"),
+        public static readonly ValueRange[] NO2Ranges = new ValueRange[] {
+            new ValueRange(0, 1, Color.Green, "Safe"),
+            new ValueRange(1, 5, Color.Orange, "Warn"),
+            new ValueRange(5, 10, Color.Red, "Alarm"),
         };
 
 
-        public static readonly ValueBounds[] GHRanges = new ValueBounds[] {
-            new ValueBounds(0, 4, Color.Orange, "Warn"),
-            new ValueBounds(4, 16, Color.Green, "Safe"),
+        public static readonly ValueRange[] GHRanges = new ValueRange[] {
+            new ValueRange(0, 4, Color.Orange, "Warn"),
+            new ValueRange(4, 16, Color.Green, "Safe"),
         };
 
 
-        public static readonly ValueBounds[] KHRanges = new ValueBounds[] {
-            new ValueBounds(0, 3, Color.Red, "Alarm"),
-            new ValueBounds(3, 10, Color.Green, "Safe"),
-            new ValueBounds(10, 20, Color.Orange, "Warn"),
+        public static readonly ValueRange[] KHRanges = new ValueRange[] {
+            new ValueRange(0, 3, Color.Red, "Alarm"),
+            new ValueRange(3, 10, Color.Green, "Safe"),
+            new ValueRange(10, 20, Color.Orange, "Warn"),
         };
 
 
-        public static readonly ValueBounds[] pHRanges = new ValueBounds[] {
-            new ValueBounds(0, 6.4, Color.Orange, "Warn"),
-            new ValueBounds(6.4, 8.4, Color.Green, "Safe"),
-            new ValueBounds(8.4, 10, Color.Red, "Alarm"),
+        public static readonly ValueRange[] pHRanges = new ValueRange[] {
+            new ValueRange(0, 6.4, Color.Orange, "Warn"),
+            new ValueRange(6.4, 8.4, Color.Green, "Safe"),
+            new ValueRange(8.4, 10, Color.Red, "Alarm"),
         };
 
 
-        public static readonly ValueBounds[] Cl2Ranges = new ValueBounds[] {
-            new ValueBounds(0, 0.8, Color.Green, "Safe"),
-            new ValueBounds(0.8, 3.0, Color.Red, "Alarm"),
+        public static readonly ValueRange[] Cl2Ranges = new ValueRange[] {
+            new ValueRange(0, 0.8, Color.Green, "Safe"),
+            new ValueRange(0.8, 3.0, Color.Red, "Alarm"),
         };
 
 
-        public static readonly ValueBounds[] RedfieldRanges = new ValueBounds[] {
-            new ValueBounds(0, 5, Color.Red, "high (Cianobacter)"),
-            new ValueBounds(5, 10, Color.Orange, "media (Cianobacter)"),
-            new ValueBounds(10, 20, Color.Green, "low"),
-            new ValueBounds(20, 25, Color.Orange, "media (green algae)"),
-            new ValueBounds(25, 30, Color.Red, "high (green algae)"),
+        public static readonly ValueRange[] PO4Ranges = new ValueRange[] {
+            new ValueRange(0.00,  0.50, Color.YellowGreen, "not enough for plants"),
+            new ValueRange(0.50,  1.00, Color.Green, ""),
+            new ValueRange(1.00,  2.00, Color.Orange, "algae growth"),
+            new ValueRange(2.00,  5.00, Color.Red, "algae overgrowth"),
+        };
+
+
+        public static readonly ValueRange[] RedfieldRanges = new ValueRange[] {
+            new ValueRange(0, 5, Color.Red, "high (Cianobacter)"),
+            new ValueRange(5, 10, Color.Orange, "media (Cianobacter)"),
+            new ValueRange(10, 20, Color.Green, "low"),
+            new ValueRange(20, 25, Color.Orange, "media (green algae)"),
+            new ValueRange(25, 30, Color.Red, "high (green algae)"),
         };
 
 

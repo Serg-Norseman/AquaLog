@@ -35,5 +35,6 @@ namespace AquaLog.UI
         Brands,
         BarChart,
         Analysis,
+        Quality,
     }
 }

@@ -69,7 +69,7 @@ namespace AquaLog.UI.Dialogs
                 UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
                 cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
-                if (!fRecord.Timestamp.Equals(ALCore.ZeroDate)) {
+                if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
                     dtpTimestamp.Value = fRecord.Timestamp;
                 }
 

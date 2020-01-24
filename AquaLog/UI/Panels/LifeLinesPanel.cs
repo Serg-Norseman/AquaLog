@@ -49,7 +49,7 @@ namespace AquaLog.UI.Panels
                 int currAqmId = 0;
                 DateTime inclusionDate, exclusionDate;
                 fModel.GetInhabitantDates(rec.Id, (int)itemType, out inclusionDate, out exclusionDate, out currAqmId);
-                if (exclusionDate.Equals(ALCore.ZeroDate)) {
+                if (ALCore.IsZeroDate(exclusionDate)) {
                     exclusionDate = DateTime.Now;
                 }
 
