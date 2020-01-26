@@ -57,7 +57,7 @@ namespace AquaLog.UI.Panels
 
             if (fAquarium != null) {
                 var events = new List<IEventEntity>();
-                events.AddRange(fModel.QueryHistory(fAquarium.Id));
+                events.AddRange(fModel.QueryNotes(fAquarium.Id));
                 events.AddRange(fModel.QueryMaintenances(fAquarium.Id));
                 events.AddRange(fModel.QueryMeasures(fAquarium.Id));
                 events.Sort((x, y) => { return x.Timestamp.CompareTo(y.Timestamp); });
@@ -137,14 +137,14 @@ namespace AquaLog.UI.Panels
                         ListView.Items.Add(item);
                     }
 
-                    if (evnt is History) {
-                        History hist = (History)evnt;
+                    if (evnt is Note) {
+                        Note note = (Note)evnt;
 
                         var item = new ListViewItem(curTime);
-                        item.Tag = hist;
+                        item.Tag = note;
                         item.SubItems.Add(Localizer.LS(LSID.Event));
                         item.SubItems.Add(string.Empty);
-                        item.SubItems.Add(hist.Event);
+                        item.SubItems.Add(note.Event);
                         item.SubItems.Add(string.Empty);
                         item.SubItems.Add(string.Empty);
                         item.SubItems.Add(string.Empty);

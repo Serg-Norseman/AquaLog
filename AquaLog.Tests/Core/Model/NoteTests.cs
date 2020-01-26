@@ -15,11 +15,14 @@ namespace AquaLog.Core.Model
         [Test]
         public void Test_Common()
         {
-            var note = new Note();
-            Assert.IsNotNull(note);
+            var instance = new Note();
+            Assert.IsNotNull(instance);
 
-            note.Content = "note";
-            Assert.AreEqual("note", note.Content);
+            instance.Event = "event";
+            Assert.AreEqual("event", instance.Event);
+
+            instance.Content = "content";
+            Assert.AreEqual("content", instance.Content);
         }
     }
 }

@@ -104,7 +104,7 @@ namespace AquaLog.TSDB
             fDB.Execute(string.Format("delete from {0} where Timestamp = '{1}'", tableName, tsx));
         }
 
-        public IEnumerable<TSValue> QueryValues(int pointId, DateTime begTime, DateTime endTime)
+        public IList<TSValue> QueryValues(int pointId, DateTime begTime, DateTime endTime)
         {
             TSPoint point = fDB.Get<TSPoint>(pointId);
             string tableName = point.GetDataTableName();

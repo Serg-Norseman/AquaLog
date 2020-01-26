@@ -120,7 +120,7 @@ namespace AquaLog.UI.Panels
             fInhabitantsLV.Columns.Add("PH", 100, HorizontalAlignment.Left);
             fInhabitantsLV.Columns.Add("GH", 100, HorizontalAlignment.Left);
 
-            IEnumerable<Inhabitant> records = fModel.QueryInhabitants(fAquarium);
+            IList<Inhabitant> records = fModel.QueryInhabitants(fAquarium);
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
                 string sex = ALCore.IsAnimal(spc.Type) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : string.Empty;
@@ -281,7 +281,7 @@ namespace AquaLog.UI.Panels
             stData[2] = new SpeciesTypeData(Localizer.LS(LSID.Plant));
             stData[3] = new SpeciesTypeData(Localizer.LS(LSID.Coral));
 
-            IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
+            IList<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
                 int speciesType = (int)spc.Type;

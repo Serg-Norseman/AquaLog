@@ -178,7 +178,7 @@ namespace AquaLog.UI.Panels
             Browser.SetView(MainView.BarChart, chartData);
         }
 
-        private void CollectBrands(IEnumerable<Transfer> transfers)
+        private void CollectBrands(IList<Transfer> transfers)
         {
             var brandRecords = fModel.QueryBrands();
 
@@ -197,7 +197,7 @@ namespace AquaLog.UI.Panels
         {
             Dictionary<string, ChartPoint> result = new Dictionary<string, ChartPoint>();
 
-            IEnumerable<Brand> brandRecords = null;
+            IList<Brand> brandRecords = null;
             if (chartType == BudgetChartType.Countries) {
                 brandRecords = fModel.QueryBrands();
             }

@@ -52,7 +52,6 @@ namespace AquaLog.Core
 
             fDB.CreateTable<Device>();
             fDB.CreateTable<Note>();
-            fDB.CreateTable<History>();
             fDB.CreateTable<Maintenance>();
             fDB.CreateTable<Transfer>();
             fDB.CreateTable<Nutrition>();
@@ -158,7 +157,7 @@ namespace AquaLog.Core
             return (itemRec == null) ? string.Empty : itemRec.ToString();
         }
 
-        public IEnumerable<T> QueryRecords<T>(string query, params object[] args) where T : new()
+        public IList<T> QueryRecords<T>(string query, params object[] args) where T : new()
         {
             return fDB.Query<T>(query, args);
         }
@@ -272,12 +271,12 @@ namespace AquaLog.Core
 
         #region Inhabitant functions
 
-        public IEnumerable<Inhabitant> QueryInhabitants()
+        public IList<Inhabitant> QueryInhabitants()
         {
             return fDB.Query<Inhabitant>("select * from Inhabitant");
         }
 
-        public IEnumerable<Inhabitant> QueryInhabitants(Aquarium aquarium)
+        public IList<Inhabitant> QueryInhabitants(Aquarium aquarium)
         {
             return fDB.Query<Inhabitant>("select inh.Id, inh.SpeciesId, inh.Sex, inh.Name from Inhabitant inh, Transfer tran where (inh.Id = tran.ItemId and tran.ItemType in (2, 3, 4, 5) and TargetId = ?)", aquarium.Id);
         }
@@ -338,20 +337,6 @@ namespace AquaLog.Core
         public IList<QString> QueryInventoryBrands()
         {
             return fDB.Query<QString>("select distinct Brand as element from Inventory");
-        }
-
-        #endregion
-
-        #region History functions
-
-        public IList<History> QueryHistory()
-        {
-            return fDB.Query<History>("select * from History order by [Timestamp]");
-        }
-
-        public IList<History> QueryHistory(int aquariumId)
-        {
-            return fDB.Query<History>("select * from History where (AquariumId = ?) order by [Timestamp]", aquariumId);
         }
 
         #endregion
@@ -457,26 +442,26 @@ namespace AquaLog.Core
 
         #region Note functions
 
-        public IEnumerable<Note> QueryNotes()
+        public IList<Note> QueryNotes()
         {
-            return fDB.Query<Note>("select * from Note");
+            return fDB.Query<Note>("select * from Note order by [Timestamp]");
         }
 
-        public IEnumerable<Note> QueryNotes(int aquariumId)
+        public IList<Note> QueryNotes(int aquariumId)
         {
-            return fDB.Query<Note>("select * from Note where AquariumId = ?", aquariumId);
+            return fDB.Query<Note>("select * from Note where (AquariumId = ?) order by [Timestamp]", aquariumId);
         }
 
         #endregion
 
         #region Measure functions
 
-        public IEnumerable<Measure> QueryMeasures()
+        public IList<Measure> QueryMeasures()
         {
             return fDB.Query<Measure>("select * from Measure order by [Timestamp]");
         }
 
-        public IEnumerable<Measure> QueryMeasures(int aquariumId)
+        public IList<Measure> QueryMeasures(int aquariumId)
         {
             return fDB.Query<Measure>("select * from Measure where AquariumId = ? order by [Timestamp]", aquariumId);
         }
@@ -584,12 +569,12 @@ namespace AquaLog.Core
 
         #region Nutrition functions
 
-        public IEnumerable<Nutrition> QueryNutritions()
+        public IList<Nutrition> QueryNutritions()
         {
             return fDB.Query<Nutrition>("select * from Nutrition");
         }
 
-        public IEnumerable<Nutrition> QueryNutritions(Aquarium aquarium)
+        public IList<Nutrition> QueryNutritions(Aquarium aquarium)
         {
             return fDB.Query<Nutrition>("select * from Nutrition where AquariumId = ?", aquarium.Id);
         }
@@ -603,7 +588,7 @@ namespace AquaLog.Core
 
         #region Expense functions
 
-        public IEnumerable<Transfer> QueryExpenses()
+        public IList<Transfer> QueryExpenses()
         {
             return fDB.Query<Transfer>("select Timestamp, ItemType, ItemId, Type, Quantity, UnitPrice, Shop from Transfer order by [Timestamp]");
         }
@@ -617,7 +602,7 @@ namespace AquaLog.Core
 
         #region Brand functions
 
-        public IEnumerable<Brand> QueryBrands()
+        public IList<Brand> QueryBrands()
         {
             return fDB.Query<Brand>("select * from Brand");
         }
@@ -652,7 +637,7 @@ namespace AquaLog.Core
 
         #region Snapshot functions
 
-        public IEnumerable<Snapshot> QuerySnapshots()
+        public IList<Snapshot> QuerySnapshots()
         {
             return fDB.Query<Snapshot>("select * from Snapshot");
         }

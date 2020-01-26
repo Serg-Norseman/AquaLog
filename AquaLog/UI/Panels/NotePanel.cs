@@ -25,6 +25,7 @@ namespace AquaLog.UI.Panels
             ListView.Clear();
             ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 120, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Event), 100, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Text), 250, HorizontalAlignment.Left);
 
             var records = fModel.QueryNotes();
@@ -35,6 +36,7 @@ namespace AquaLog.UI.Panels
                 var item = new ListViewItem(aqmName);
                 item.Tag = rec;
                 item.SubItems.Add(ALCore.GetTimeStr(rec.Timestamp));
+                item.SubItems.Add(rec.Event);
                 item.SubItems.Add(rec.Content);
                 ListView.Items.Add(item);
             }

@@ -62,6 +62,7 @@ namespace AquaLog.UI.Dialogs
 
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblDate.Text = Localizer.LS(LSID.Date);
+            lblEvent.Text = Localizer.LS(LSID.Event);
             lblNote.Text = Localizer.LS(LSID.Note);
         }
 
@@ -83,6 +84,7 @@ namespace AquaLog.UI.Dialogs
                     dtpDateTime.Value = fRecord.Timestamp;
                 }
 
+                txtEvent.Text = fRecord.Event;
                 txtNote.Text = fRecord.Content;
             }
         }
@@ -93,6 +95,7 @@ namespace AquaLog.UI.Dialogs
             fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
 
             fRecord.Timestamp = dtpDateTime.Value;
+            fRecord.Event = txtEvent.Text;
             fRecord.Content = txtNote.Text;
         }
 

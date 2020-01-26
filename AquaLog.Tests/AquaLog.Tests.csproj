@@ -86,14 +86,13 @@
     <Compile Include="Core\Model\SnapshotTests.cs" />
     <Compile Include="Core\StringSerializerTests.cs" />
     <Compile Include="Core\UnitConverterTests.cs" />
-    <Compile Include="Core\Model\HistoryTests.cs" />
+    <Compile Include="Core\Model\NoteTests.cs" />
     <Compile Include="Core\Model\NutritionTests.cs" />
     <Compile Include="Core\Model\AquariumTests.cs" />
     <Compile Include="Core\Model\DeviceTests.cs" />
     <Compile Include="Core\Model\InhabitantTests.cs" />
     <Compile Include="Core\Model\MaintenanceTests.cs" />
     <Compile Include="Core\Model\MeasureTests.cs" />
-    <Compile Include="Core\Model\NoteTests.cs" />
     <Compile Include="Core\Model\ScheduleTests.cs" />
     <Compile Include="Core\Model\SpeciesTests.cs" />
     <Compile Include="Core\Model\TransferTests.cs" />

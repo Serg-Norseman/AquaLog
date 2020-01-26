@@ -48,7 +48,6 @@ namespace AquaLog.Core.Export
                 var events = new List<IEventEntity>();
                 events.AddRange(model.QueryTransfers(aquarium.Id));
                 events.AddRange(model.QueryNotes(aquarium.Id));
-                events.AddRange(model.QueryHistory(aquarium.Id));
                 events.AddRange(model.QueryMaintenances(aquarium.Id));
                 events.AddRange(model.QueryMeasures(aquarium.Id));
                 events.Sort((x, y) => { return x.Timestamp.CompareTo(y.Timestamp); });
@@ -80,12 +79,7 @@ namespace AquaLog.Core.Export
 
                     if (evnt is Note) {
                         Note note = (Note)evnt;
-                        AddListItem(string.Format("{0}: {1}", Localizer.LS(LSID.Note), note.Content), textFont);
-                    }
-
-                    if (evnt is History) {
-                        History hist = (History)evnt;
-                        AddListItem(string.Format("{0}: {1}", hist.Event, hist.Note), textFont);
+                        AddListItem(string.Format("{0}: {1}", note.Event, note.Content), textFont);
                     }
 
                     if (evnt is Maintenance) {

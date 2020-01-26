@@ -52,7 +52,7 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add("GH", 100, HorizontalAlignment.Left);
 
             // TODO: need to add protection of item adding and cells filling
-            IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
+            IList<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
 
@@ -148,7 +148,7 @@ namespace AquaLog.UI.Panels
         {
             Dictionary<string, ChartPoint> result = new Dictionary<string, ChartPoint>();
 
-            IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
+            IList<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
                 SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);

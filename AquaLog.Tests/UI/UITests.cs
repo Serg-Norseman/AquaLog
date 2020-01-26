@@ -53,7 +53,6 @@ namespace AquaLog.UI
             ClickToolStripButton("btnInventory", fMainWin);
             ClickToolStripButton("btnMaintenance", fMainWin);
             ClickToolStripButton("btnNotes", fMainWin);
-            ClickToolStripButton("btnHistory", fMainWin);
             ClickToolStripButton("btnMeasures", fMainWin);
             ClickToolStripButton("btnSchedule", fMainWin);
             ClickToolStripButton("btnTransfers", fMainWin);
@@ -277,27 +276,6 @@ namespace AquaLog.UI
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnNotes", fMainWin);
-
-            ModalFormHandler = Dialog_Cancel_Handler;
-            ClickButton("btnAdd", fMainWin);
-
-            // no selected item
-            //ModalFormHandler = Dialog_Cancel_Handler;
-            //ClickButton("btnEdit", fMainWin);
-
-            // no selected item
-            //ModalFormHandler = Dialog_Cancel_Handler;
-            //ClickButton("btnDelete", fMainWin);
-
-            ClickToolStripMenuItem("miExit", fMainWin);
-        }
-
-        [Test]
-        public void Test_HistoryPanel()
-        {
-            fMainWin = new MainForm();
-
-            ClickToolStripButton("btnHistory", fMainWin);
 
             ModalFormHandler = Dialog_Cancel_Handler;
             ClickButton("btnAdd", fMainWin);

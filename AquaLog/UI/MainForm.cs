@@ -62,7 +62,6 @@ namespace AquaLog.UI
             btnDevices.Tag = MainView.Devices;
             btnBudget.Tag = MainView.Budget;
             btnNotes.Tag = MainView.Notes;
-            btnHistory.Tag = MainView.History;
             btnMaintenance.Tag = MainView.Maintenance;
             btnTransfers.Tag = MainView.Transfers;
             btnTSDB.Tag = MainView.TSDB;
@@ -125,7 +124,6 @@ namespace AquaLog.UI
             btnNutrition.Text = Localizer.LS(LSID.Nutrition);
             btnMaintenance.Text = Localizer.LS(LSID.Maintenance);
             btnNotes.Text = Localizer.LS(LSID.Notes);
-            btnHistory.Text = Localizer.LS(LSID.History);
             btnMeasures.Text = Localizer.LS(LSID.Measures);
             btnSchedule.Text = Localizer.LS(LSID.Schedule);
             btnTransfers.Text = Localizer.LS(LSID.Transfers);
@@ -275,9 +273,6 @@ namespace AquaLog.UI
                     break;
                 case MainView.Notes:
                     SetView<NotePanel>(extData);
-                    break;
-                case MainView.History:
-                    SetView<HistoryPanel>(extData);
                     break;
                 case MainView.Maintenance:
                     SetView<MaintenancePanel>(extData);

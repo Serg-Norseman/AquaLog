@@ -94,14 +94,13 @@
     <Compile Include="Core\Model\AquariumDetails.cs" />
     <Compile Include="Core\Model\Device.cs" />
     <Compile Include="Core\Model\Entity.cs" />
-    <Compile Include="Core\Model\History.cs" />
+    <Compile Include="Core\Model\Note.cs" />
     <Compile Include="Core\Model\IEventEntity.cs" />
     <Compile Include="Core\Model\Inhabitant.cs" />
     <Compile Include="Core\Model\Inventory.cs" />
     <Compile Include="Core\Model\ITank.cs" />
     <Compile Include="Core\Model\Maintenance.cs" />
     <Compile Include="Core\Model\Measure.cs" />
-    <Compile Include="Core\Model\Note.cs" />
     <Compile Include="Core\Model\Nutrition.cs" />
     <Compile Include="Core\Model\Schedule.cs" />
     <Compile Include="Core\Model\Snapshot.cs" />

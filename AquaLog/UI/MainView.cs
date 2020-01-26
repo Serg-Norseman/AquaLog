@@ -16,7 +16,6 @@ namespace AquaLog.UI
         Devices,
         Budget,
         Notes,
-        History,
         Maintenance,
         Transfers,
         Nutrition,

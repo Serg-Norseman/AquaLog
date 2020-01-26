@@ -132,9 +132,9 @@
     <Compile Include="UI\Dialogs\DeviceEditDlg.Designer.cs">
       <DependentUpon>DeviceEditDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Dialogs\HistoryEditDlg.cs" />
-    <Compile Include="UI\Dialogs\HistoryEditDlg.Designer.cs">
-      <DependentUpon>HistoryEditDlg.cs</DependentUpon>
+    <Compile Include="UI\Dialogs\NoteEditDlg.cs" />
+    <Compile Include="UI\Dialogs\NoteEditDlg.Designer.cs">
+      <DependentUpon>NoteEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialogs\InhabitantEditDlg.cs" />
     <Compile Include="UI\Dialogs\InhabitantEditDlg.Designer.cs">
@@ -151,10 +151,6 @@
     <Compile Include="UI\Dialogs\MeasureEditDlg.cs" />
     <Compile Include="UI\Dialogs\MeasureEditDlg.Designer.cs">
       <DependentUpon>MeasureEditDlg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\Dialogs\NoteEditDlg.cs" />
-    <Compile Include="UI\Dialogs\NoteEditDlg.Designer.cs">
-      <DependentUpon>NoteEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialogs\NutritionEditDlg.cs" />
     <Compile Include="UI\Dialogs\NutritionEditDlg.Designer.cs">
@@ -219,11 +215,10 @@
     <Compile Include="UI\Panels\BudgetPanel.cs" />
     <Compile Include="UI\Panels\DataPanel.cs" />
     <Compile Include="UI\Panels\DevicePanel.cs" />
-    <Compile Include="UI\Panels\HistoryPanel.cs" />
+    <Compile Include="UI\Panels\NotePanel.cs" />
     <Compile Include="UI\Panels\InhabitantPanel.cs" />
     <Compile Include="UI\Panels\ListPanel.cs" />
     <Compile Include="UI\Panels\MaintenancePanel.cs" />
-    <Compile Include="UI\Panels\NotePanel.cs" />
     <Compile Include="UI\Panels\SpeciesPanel.cs" />
     <Compile Include="UI\Panels\TanksPanel.cs" />
     <Compile Include="UI\Panels\TankSticker.cs" />

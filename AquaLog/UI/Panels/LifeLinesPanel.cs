@@ -41,7 +41,7 @@ namespace AquaLog.UI.Panels
             fGraph.Clear();
             if (fModel == null) return;
 
-            IEnumerable<Inhabitant> records = fModel.QueryInhabitants();
+            IList<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
                 ItemType itemType = ALCore.GetItemType(speciesType);
@@ -49,6 +49,11 @@ namespace AquaLog.UI.Panels
                 int currAqmId = 0;
                 DateTime inclusionDate, exclusionDate;
                 fModel.GetInhabitantDates(rec.Id, (int)itemType, out inclusionDate, out exclusionDate, out currAqmId);
+
+                if (ALCore.IsZeroDate(inclusionDate)) {
+                    continue;
+                }
+
                 if (ALCore.IsZeroDate(exclusionDate)) {
                     exclusionDate = DateTime.Now;
                 }
