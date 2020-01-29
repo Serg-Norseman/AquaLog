@@ -73,6 +73,7 @@ namespace AquaLog.UI.Panels
                         qCtl.Ranges = mVal.Ranges;
                         qCtl.Value = mVal.Value;
                         qCtl.Title = title;
+                        qCtl.Width = fLayoutPanel.ClientSize.Width - LayoutPadding * 2;
                         fLayoutPanel.Controls.Add(qCtl);
                     }
                 }

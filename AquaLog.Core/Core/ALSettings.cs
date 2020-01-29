@@ -26,6 +26,7 @@ namespace AquaLog.Core
         private MeasurementUnit fVolumeUoM;
         private MeasurementUnit fMassUoM;
         private MeasurementUnit fTemperatureUoM;
+        private int fNotificationInterval;
 
 
         public bool HideClosedTanks
@@ -76,6 +77,12 @@ namespace AquaLog.Core
             set { fTemperatureUoM = value; }
         }
 
+        public int NotificationInterval
+        {
+            get { return fNotificationInterval; }
+            set { fNotificationInterval = value; }
+        }
+
 
         #region Instance
 
@@ -100,6 +107,7 @@ namespace AquaLog.Core
             fExitOnClose = true;
             fInterfaceLang = Localizer.LS_DEF_CODE;
             fHideAtStartup = false;
+            fNotificationInterval = 60; /* minutes */
         }
 
         public void LoadFromFile(IniFile ini)
@@ -111,6 +119,7 @@ namespace AquaLog.Core
             fExitOnClose = ini.ReadBool("Common", "ExitOnClose", true);
             fInterfaceLang = ini.ReadInteger("Common", "InterfaceLang", 0);
             fHideAtStartup = ini.ReadBool("Common", "HideAtStartup", false);
+            fNotificationInterval = ini.ReadInteger("Common", "NotificationInterval", 60);
 
             fLengthUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "LengthUoM", "Centimeter"), true, MeasurementUnit.Centimeter);
             fVolumeUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "VolumeUoM", "Litre"), true, MeasurementUnit.Litre);
@@ -145,6 +154,7 @@ namespace AquaLog.Core
             ini.WriteBool("Common", "ExitOnClose", fExitOnClose);
             ini.WriteInteger("Common", "InterfaceLang", fInterfaceLang);
             ini.WriteBool("Common", "HideAtStartup", fHideAtStartup);
+            ini.WriteInteger("Common", "NotificationInterval", fNotificationInterval);
 
             ini.WriteString("Data", "LengthUoM", fLengthUoM.ToString());
             ini.WriteString("Data", "VolumeUoM", fVolumeUoM.ToString());

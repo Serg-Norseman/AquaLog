@@ -10,6 +10,8 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 using AquaLog.Core;
+using AquaLog.Core.Model;
+using AquaLog.Core.Types;
 using AquaLog.Logging;
 using AquaLog.UI.Components;
 using AquaLog.UI.Dialogs;
@@ -23,12 +25,13 @@ namespace AquaLog.UI
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");
 
+        private DataPanel fCurrentPanel;
+        private DrawingHelper fDrawingHelper;
         private ALModel fModel;
         private NavigationStack<DataPanel> fNavigationStack;
+        private NotificationDlg fNotificationDlg;
         private Dictionary<Type, DataPanel> fPanels;
-        private DataPanel fCurrentPanel;
         private ALTray fTray;
-        private DrawingHelper fDrawingHelper;
 
 
         public MainForm()
@@ -147,11 +150,55 @@ namespace AquaLog.UI
             timer1.Enabled = true;
         }
 
+        private void CheckTasks()
+        {
+            DateTime dtx = DateTime.Now;
+
+            // one check per minute
+            if (dtx.Second != 0) return;
+
+            int notInterval = ALSettings.Instance.NotificationInterval;
+
+            var records = fModel.QuerySchedule();
+            foreach (Schedule rec in records) {
+                if (rec.Status != TaskStatus.ToDo || !rec.Reminder) continue;
+
+                if (rec.Timestamp.AddMinutes(-notInterval) <= dtx && dtx <= rec.Timestamp.AddMinutes(+notInterval)) {
+                    Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
+                    string aqmName = (aqm == null) ? "" : aqm.Name;
+                    string text = string.Format("{0} [{1}]", rec.Event, aqmName);
+                    Notify(text, rec);
+                }
+            }
+        }
+
+        private void Notify(string text, Schedule record)
+        {
+            if (fNotificationDlg == null) {
+                fNotificationDlg = new NotificationDlg(this);
+            }
+            fNotificationDlg.Notify(text, record);
+        }
+
+        public void AddMaintenance()
+        {
+            Activate();
+
+            using (var dlg = new MaintenanceEditDlg()) {
+                dlg.Model = fModel;
+                dlg.Record = new Maintenance();
+                if (dlg.ShowDialog() == DialogResult.OK) {
+                    fModel.AddRecord(dlg.Record);
+                }
+            }
+        }
+
         #region Event handlers
 
         private void Timer1Tick(object sender, EventArgs e)
         {
             UpdateControls();
+            CheckTasks();
         }
 
         private void miExit_Click(object sender, EventArgs e)

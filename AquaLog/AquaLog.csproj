@@ -152,6 +152,7 @@
     <Compile Include="UI\Dialogs\MeasureEditDlg.Designer.cs">
       <DependentUpon>MeasureEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\NotificationDlg.cs" />
     <Compile Include="UI\Dialogs\NutritionEditDlg.cs" />
     <Compile Include="UI\Dialogs\NutritionEditDlg.Designer.cs">
       <DependentUpon>NutritionEditDlg.cs</DependentUpon>

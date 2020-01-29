@@ -20,9 +20,9 @@ Features:
 - Maintenance (water changes and other);
 - Notes and history events;
 - Measures of water quality (+chart);
-- Schedule;
+- Schedule and notifications;
 - Transfers of inhabitants between aquariums;
-- Expenses and incomes (+charts: item types, shops, brands, countries);
+- Expenses and incomes (+charts: item types, shops, brands, countries, monthes);
 - Calculator (converters of units of measure);
 - Tray (+autorun, +hide at startup, +minimize on close);
 - Embedded "nano"-TSDB with "swinging door" compression;
@@ -32,4 +32,4 @@ Features:
 - Export to RTF (aquarium's logbook);
 - Snapshots of inhabitants;
 - 3D viewer of tanks (OpenGL, only rectangular, bowfront and cylinder);
-- Units of measurements (only for sizes and volume, only for UI yet, fixed yet);
+- Units of measurements (only for size, mass, volume and temperature; only for UI yet, fixed yet);
