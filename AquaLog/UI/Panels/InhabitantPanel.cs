@@ -33,6 +33,16 @@ namespace AquaLog.UI.Panels
             AddAction("Transfer", LSID.Transfer, null, TransferHandler);
             AddAction("Chart", LSID.Chart, "", ViewLifeLinesHandler);
             AddAction("ChartFamilies", LSID.ChartFamilies, "", ViewChartFamiliesHandler);
+            AddAction("Export", LSID.Export, "btn_excel.gif", ExportHandler);
+        }
+
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
+            SetActionEnabled("Transfer", enabled);
         }
 
         protected override void UpdateListView()
@@ -89,25 +99,24 @@ namespace AquaLog.UI.Panels
 
                 rec.Quantity = fModel.QueryInhabitantsCount(rec.Id, itemType);
 
-                var item = new ListViewItem(rec.Name);
-                item.Tag = rec;
-                item.SubItems.Add(sx);
-                item.SubItems.Add(rec.Quantity.ToString());
-                item.SubItems.Add(spName);
-                item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
-                item.SubItems.Add(aqmName);
-                item.SubItems.Add(strInclusDate);
-                item.SubItems.Add(strExclusDate);
-                item.SubItems.Add(strLifespan);
-                item.SubItems.Add(spTemp);
-                item.SubItems.Add(spPH);
-                item.SubItems.Add(spGH);
+                var item = ListView.AddItemEx(rec,
+                               rec.Name,
+                               sx,
+                               rec.Quantity.ToString(),
+                               spName,
+                               Localizer.LS(ALData.ItemStates[(int)rec.State]),
+                               aqmName,
+                               strInclusDate,
+                               strExclusDate,
+                               strLifespan,
+                               spTemp,
+                               spPH,
+                               spGH
+                           );
 
                 if (rec.Quantity == 0) {
                     item.ForeColor = Color.Gray; // death, sale or gift?
                 }
-
-                ListView.Items.Add(item);
             }
         }
 
@@ -174,6 +183,11 @@ namespace AquaLog.UI.Panels
             }
 
             return vals;
+        }
+
+        private void ExportHandler(object sender, EventArgs e)
+        {
+            Export();
         }
     }
 }

@@ -25,7 +25,7 @@ namespace AquaLog.UI
     /// </summary>
     public static class UIHelper
     {
-        public static void AddPanelButton(Panel panel, string actionName, string actionText, Image image, EventHandler handler)
+        public static Control AddPanelButton(Panel panel, string actionName, string actionText, Image image, EventHandler handler)
         {
             var btn = new Button();
             btn.Dock = DockStyle.Top;
@@ -40,9 +40,10 @@ namespace AquaLog.UI
             btn.Click += handler;
             btn.BackColor = SystemColors.Control;
             panel.Controls.Add(btn);
+            return btn;
         }
 
-        public static void AddPanelOptionsPicker(Panel panel, string actionName, string[] choices, EventHandler handler)
+        public static Control AddPanelOptionsPicker(Panel panel, string actionName, string[] choices, EventHandler handler)
         {
             var picker = new OptionsPicker();
             picker.Dock = DockStyle.Top;
@@ -53,21 +54,23 @@ namespace AquaLog.UI
             picker.Items = choices;
             picker.Click += handler;
             panel.Controls.Add(picker);
+            return picker;
         }
 
-        public static void AddPanelComboBox(Panel panel, string actionName, string[] choices, EventHandler handler)
+        public static Control AddPanelComboBox(Panel panel, string actionName, string[] choices, EventHandler handler)
         {
-            var picker = new ComboBox();
-            picker.Dock = DockStyle.Top;
-            picker.Name = "cmb" + actionName;
-            picker.Margin = new Padding(0, 0, 0, 10);
-            picker.Size = new Size(190, 30);
-            picker.BackColor = SystemColors.Control;
-            picker.DropDownStyle = ComboBoxStyle.DropDownList;
-            picker.Items.AddRange(choices);
-            picker.SelectedIndex = 0;
-            picker.SelectedIndexChanged += handler;
-            panel.Controls.Add(picker);
+            var comboBox = new ComboBox();
+            comboBox.Dock = DockStyle.Top;
+            comboBox.Name = "cmb" + actionName;
+            comboBox.Margin = new Padding(0, 0, 0, 10);
+            comboBox.Size = new Size(190, 30);
+            comboBox.BackColor = SystemColors.Control;
+            comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox.Items.AddRange(choices);
+            comboBox.SelectedIndex = 0;
+            comboBox.SelectedIndexChanged += handler;
+            panel.Controls.Add(comboBox);
+            return comboBox;
         }
 
         public static void FillAquariumsCombo(ComboBox comboBox, ALModel model, int selectedId)

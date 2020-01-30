@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
@@ -46,6 +47,18 @@ namespace AquaLog.UI.Panels
             AddAction("Data Monitor", LSID.DataMonitor, "", ShowMonitor);
         }
 
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
+            SetActionEnabled("Transfer", enabled);
+
+            SetActionEnabled("Data", enabled);
+            SetActionEnabled("Trend", enabled);
+        }
+
         protected override void UpdateListView()
         {
             ListView.Clear();
@@ -66,17 +79,17 @@ namespace AquaLog.UI.Panels
                 string aqmName = (aqm == null) ? "" : aqm.Name;
                 string strType = Localizer.LS(ALData.DeviceProps[(int)rec.Type].Text);
 
-                var item = new ListViewItem(aqmName);
-                item.Tag = rec;
-                item.SubItems.Add(rec.Name);
-                item.SubItems.Add(rec.Brand);
-                item.SubItems.Add(strType);
-                item.SubItems.Add(rec.Enabled.ToString());
-                item.SubItems.Add(rec.Digital.ToString());
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Power));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.WorkTime));
-                item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
-                ListView.Items.Add(item);
+                var item = ListView.AddItemEx(rec,
+                               aqmName,
+                               rec.Name,
+                               rec.Brand,
+                               strType,
+                               rec.Enabled.ToString(),
+                               rec.Digital.ToString(),
+                               ALCore.GetDecimalStr(rec.Power),
+                               ALCore.GetDecimalStr(rec.WorkTime),
+                               Localizer.LS(ALData.ItemStates[(int)rec.State])
+                           );
 
                 if (rec.Enabled) {
                     totalPow += (rec.Power /* W/h */ * rec.WorkTime /* h/day */);

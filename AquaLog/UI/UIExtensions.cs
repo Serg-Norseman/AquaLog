@@ -63,6 +63,11 @@ namespace AquaLog.UI
 
         public static void AutoResizeColumns(this ListView lv)
         {
+            if (lv is ZListView) {
+                return;
+            }
+
+            lv.BeginUpdate();
             lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
             foreach (ColumnHeader column in lv.Columns) {
                 int colWidth = TextRenderer.MeasureText(column.Text, lv.Font).Width + 10;
@@ -70,6 +75,7 @@ namespace AquaLog.UI
                     column.Width = colWidth;
                 }
             }
+            lv.EndUpdate();
         }
     }
 }

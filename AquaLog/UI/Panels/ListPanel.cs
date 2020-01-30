@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Export;
@@ -33,7 +34,22 @@ namespace AquaLog.UI.Panels
 
             fListView = UIHelper.CreateListView("ListView");
             fListView.DoubleClick += EditHandler;
+            fListView.SelectedIndexChanged += ListView_SelectedIndexChanged;
             Controls.Add(fListView);
+        }
+
+        private void ListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            IList<Entity> records = new List<Entity>();
+
+            foreach (ListViewItem item in ListView.SelectedItems) {
+                Entity rec = item.Tag as Entity;
+                if (rec != null) {
+                    records.Add(rec);
+                }
+            }
+
+            SelectionChanged(records);
         }
 
         protected override void UpdateContent()
@@ -43,7 +59,6 @@ namespace AquaLog.UI.Panels
 
             if (fModel != null) {
                 UpdateListView();
-                ListView.AutoResizeColumns();
             }
 
             ListView.EndUpdate();

@@ -281,12 +281,12 @@ namespace AquaLog.UI
 
             foreach (var action in browser.Actions) {
                 if (action.Choices == null) {
-                    UIHelper.AddPanelButton(pnlTools, action.BtnName, Localizer.LS(action.BtnText), action.Image, action.Click);
+                    action.Control = UIHelper.AddPanelButton(pnlTools, action.Name, Localizer.LS(action.BtnText), action.Image, action.Click);
                 } else {
                     if (action.MultiChoice) {
-                        UIHelper.AddPanelOptionsPicker(pnlTools, action.BtnName, action.Choices, action.Click);
+                        action.Control = UIHelper.AddPanelOptionsPicker(pnlTools, action.Name, action.Choices, action.Click);
                     } else {
-                        UIHelper.AddPanelComboBox(pnlTools, action.BtnName, action.Choices, action.Click);
+                        action.Control = UIHelper.AddPanelComboBox(pnlTools, action.Name, action.Choices, action.Click);
                     }
                 }
             }
@@ -423,6 +423,8 @@ namespace AquaLog.UI
                 fCurrentPanel.UpdateView();
 
                 SetActions(view);
+
+                fCurrentPanel.SelectionChanged(new List<Entity>() { });
 
                 UpdateNavControls();
             } catch (Exception ex) {

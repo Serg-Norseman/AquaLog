@@ -8,8 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using AquaLog.UI.Components;
 using AquaLog.Core;
+using AquaLog.Core.Model;
+using AquaLog.UI.Components;
 
 namespace AquaLog.UI.Panels
 {
@@ -71,6 +72,10 @@ namespace AquaLog.UI.Panels
         {
         }
 
+        public virtual void SelectionChanged(IList<Entity> records)
+        {
+        }
+
         public void UpdateView()
         {
             SetLocale();
@@ -98,6 +103,21 @@ namespace AquaLog.UI.Panels
         public void AddSingleSelector(string actionName, string[] choices, EventHandler changeHandler)
         {
             fActions.Add(new UserAction(actionName, choices, false, changeHandler));
+        }
+
+        public void SetActionEnabled(string actionName, bool enabled)
+        {
+            foreach (var act in fActions) {
+                if (act.Name == actionName) {
+                    try {
+                        if (act.Control != null) {
+                            act.Control.Enabled = enabled;
+                        }
+                    } catch {
+                    }
+                    return;
+                }
+            }
         }
     }
 }

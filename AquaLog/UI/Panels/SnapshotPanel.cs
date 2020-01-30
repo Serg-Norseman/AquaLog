@@ -4,10 +4,15 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.Logging;
 using AquaLog.UI.Dialogs;
+using BSLib;
 
 namespace AquaLog.UI.Panels
 {
@@ -16,6 +21,9 @@ namespace AquaLog.UI.Panels
     /// </summary>
     public sealed class SnapshotPanel : ListPanel<Snapshot, SnapshotEditDlg>
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "SnapshotPanel");
+
+
         public SnapshotPanel()
         {
         }
@@ -28,10 +36,10 @@ namespace AquaLog.UI.Panels
 
             var records = fModel.QuerySnapshots();
             foreach (Snapshot rec in records) {
-                var item = new ListViewItem(rec.Name);
-                item.SubItems.Add(ALCore.GetTimeStr(rec.Timestamp));
-                item.Tag = rec;
-                ListView.Items.Add(item);
+                var item = ListView.AddItemEx(rec,
+                               rec.Name,
+                               ALCore.GetTimeStr(rec.Timestamp)
+                           );
             }
         }
 
@@ -40,6 +48,37 @@ namespace AquaLog.UI.Panels
             AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
+            AddAction("Export", LSID.Export, "btn_excel.gif", ExportHandler);
+        }
+
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
+        }
+
+        private void ExportHandler(object sender, EventArgs e)
+        {
+            using (var folderBrowserDialog = new FolderBrowserDialog()) {
+                if (folderBrowserDialog.ShowDialog() == DialogResult.OK) {
+                    string path = folderBrowserDialog.SelectedPath;
+
+                    int num = ListView.Items.Count;
+                    for (int i = 0; i < num; i++) {
+                        ListViewItem item = ListView.Items[i];
+                        try {
+                            Snapshot rec = item.Tag as Snapshot;
+                            var image = ALModel.ByteToImage(rec.Image);
+                            string fileName = Path.Combine(path, rec.Name + ".jpg");
+                            image.Save(fileName);
+                        } catch (Exception ex) {
+                            fLogger.WriteError("ExportHandler()", ex);
+                        }
+                    }
+                }
+            }
         }
     }
 }

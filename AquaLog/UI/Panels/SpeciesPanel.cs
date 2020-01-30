@@ -4,6 +4,8 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -25,6 +27,15 @@ namespace AquaLog.UI.Panels
             AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
+            AddAction("Export", LSID.Export, "btn_excel.gif", ExportHandler);
+        }
+
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
         }
 
         protected override void UpdateListView()
@@ -46,19 +57,24 @@ namespace AquaLog.UI.Panels
                 string strType = Localizer.LS(ALData.SpeciesTypes[(int)rec.Type]);
                 string strLevel = Localizer.LS(ALData.SwimLevels[(int)rec.SwimLevel]);
 
-                var item = new ListViewItem(rec.Name);
-                item.SubItems.Add(rec.ScientificName);
-                item.SubItems.Add(rec.BioFamily);
-                item.SubItems.Add(strType);
-                item.SubItems.Add(rec.GetTempRange());
-                item.SubItems.Add(rec.GetPHRange());
-                item.SubItems.Add(rec.GetGHRange());
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.AdultSize));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.LifeSpan));
-                item.SubItems.Add(strLevel);
-                item.Tag = rec;
-                ListView.Items.Add(item);
+                var item = ListView.AddItemEx(rec,
+                               rec.Name,
+                               rec.ScientificName,
+                               rec.BioFamily,
+                               strType,
+                               rec.GetTempRange(),
+                               rec.GetPHRange(),
+                               rec.GetGHRange(),
+                               ALCore.GetDecimalStr(rec.AdultSize),
+                               ALCore.GetDecimalStr(rec.LifeSpan),
+                               strLevel
+                           );
             }
+        }
+
+        private void ExportHandler(object sender, EventArgs e)
+        {
+            Export();
         }
     }
 }

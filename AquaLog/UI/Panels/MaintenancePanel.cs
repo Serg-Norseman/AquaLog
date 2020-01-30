@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -42,13 +43,13 @@ namespace AquaLog.UI.Panels
 
                 string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type]);
 
-                var item = new ListViewItem(aqmName);
-                item.Tag = rec;
-                item.SubItems.Add(ALCore.GetTimeStr(rec.Timestamp));
-                item.SubItems.Add(strType);
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Value));
-                item.SubItems.Add(rec.Note);
-                ListView.Items.Add(item);
+                var item = ListView.AddItemEx(rec,
+                               aqmName,
+                               ALCore.GetTimeStr(rec.Timestamp),
+                               strType,
+                               ALCore.GetDecimalStr(rec.Value),
+                               rec.Note
+                           );
             }
         }
 
@@ -68,6 +69,14 @@ namespace AquaLog.UI.Panels
                 i += 1;
             }
             AddSingleSelector("AqmSelector", items, AquariumChangeHandler);
+        }
+
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
         }
 
         private void AquariumChangeHandler(object sender, EventArgs e)

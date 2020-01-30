@@ -28,10 +28,10 @@ namespace AquaLog.UI.Panels
 
             var records = fModel.QueryBrands();
             foreach (Brand rec in records) {
-                var item = new ListViewItem(rec.Name);
-                item.Tag = rec;
-                item.SubItems.Add(rec.Country);
-                ListView.Items.Add(item);
+                var item = ListView.AddItemEx(rec,
+                               rec.Name,
+                               rec.Country
+                           );
             }
         }
 

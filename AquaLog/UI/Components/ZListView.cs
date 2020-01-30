@@ -72,6 +72,7 @@ namespace AquaLog.UI.Components
 
         private readonly LVColumnSorter fColumnSorter;
 
+        private int[] fColumnsWidth;
         protected int fSortColumn;
         protected SortOrder fSortOrder;
         protected int fUpdateCount;
@@ -126,6 +127,7 @@ namespace AquaLog.UI.Components
                 ListViewItemSorter = null;
                 #endif
                 base.BeginUpdate();
+                fColumnsWidth = null;
             }
 
             fUpdateCount++;
@@ -136,11 +138,74 @@ namespace AquaLog.UI.Components
             fUpdateCount--;
 
             if (fUpdateCount == 0) {
+                CheckColumnsWidth();
+                for (int i = 0; i < Columns.Count; i++) {
+                    ColumnHeader column = Columns[i];
+                    column.Width = fColumnsWidth[i];
+                }
+
                 base.EndUpdate();
                 #if !__MonoCS__
                 ListViewItemSorter = fColumnSorter;
                 #endif
             }
+        }
+
+        private void CheckCellsWidth(string[] cells)
+        {
+            int cellsLength = cells.Length;
+            int columnsMax = Math.Max(cellsLength, Columns.Count);
+            Font font = Font;
+
+            if (fColumnsWidth == null) {
+                fColumnsWidth = new int[columnsMax];
+            } else {
+                if (fColumnsWidth.Length < columnsMax) {
+                    Array.Resize(ref fColumnsWidth, columnsMax);
+                }
+            }
+
+            for (int i = 0; i < cellsLength; i++) {
+                int colWidth = TextRenderer.MeasureText(cells[i], font).Width + 10;
+                if (colWidth > fColumnsWidth[i]) {
+                    fColumnsWidth[i] = colWidth;
+                }
+            }
+        }
+
+        private void CheckColumnsWidth()
+        {
+            int columnsCount = Columns.Count;
+            Font font = Font;
+
+            if (fColumnsWidth == null) {
+                fColumnsWidth = new int[columnsCount];
+            } else {
+                if (fColumnsWidth.Length < columnsCount) {
+                    Array.Resize(ref fColumnsWidth, columnsCount);
+                }
+            }
+
+            for (int i = 0; i < columnsCount; i++) {
+                ColumnHeader column = Columns[i];
+                int colWidth = TextRenderer.MeasureText(column.Text, font).Width + 10;
+                if (colWidth > fColumnsWidth[i]) {
+                    fColumnsWidth[i] = colWidth;
+                }
+            }
+        }
+
+        public ListViewItem AddItemEx(object tag, params string[] cells)
+        {
+            if (cells == null || cells.Length < 1) return null;
+
+            var item = new ListViewItem(cells);
+            item.Tag = tag;
+            Items.Add(item);
+
+            CheckCellsWidth(cells);
+
+            return item;
         }
 
         protected SortOrder GetColumnSortOrder(int columnIndex)

@@ -43,13 +43,13 @@ namespace AquaLog.UI.Panels
             TSDatabase tsdb = fModel.TSDB;
             var records = tsdb.GetPoints();
             foreach (TSPoint rec in records) {
-                var item = new ListViewItem(rec.Name);
-                item.Tag = rec;
-                item.SubItems.Add(rec.MeasureUnit);
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Min));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Max));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Deviation));
-                ListView.Items.Add(item);
+                var item = ListView.AddItemEx(rec,
+                               rec.Name,
+                               rec.MeasureUnit,
+                               ALCore.GetDecimalStr(rec.Min),
+                               ALCore.GetDecimalStr(rec.Max),
+                               ALCore.GetDecimalStr(rec.Deviation)
+                           );
             }
         }
 

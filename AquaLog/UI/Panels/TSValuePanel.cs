@@ -54,10 +54,10 @@ namespace AquaLog.UI.Panels
             TSDatabase tsdb = fModel.TSDB;
             var records = tsdb.QueryValues(fPointId, DateTime.Now.AddDays(-60), DateTime.Now);
             foreach (TSValue rec in records) {
-                var item = new ListViewItem(ALCore.GetTimeStr(rec.Timestamp));
-                item.Tag = rec;
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Value));
-                ListView.Items.Add(item);
+                var item = ListView.AddItemEx(rec,
+                               ALCore.GetTimeStr(rec.Timestamp),
+                               ALCore.GetDecimalStr(rec.Value)
+                           );
             }
         }
 

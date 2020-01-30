@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -49,22 +50,22 @@ namespace AquaLog.UI.Panels
                 string aqmName = (aqm == null) ? "" : aqm.Name;
                 if (fSelectedAquarium != "*" && fSelectedAquarium != aqmName) continue;
 
-                var item = new ListViewItem(aqmName);
-                item.Tag = rec;
-                item.SubItems.Add(ALCore.GetTimeStr(rec.Timestamp));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Temperature, 2, true));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.NO3, 2, true));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.NO2, 2, true));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.GH, 2, true));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.KH, 2, true));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.pH, 2, true));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Cl2, 2, true));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.CO2, 2, true));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.NH, 2, true));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.NH3, 2, true));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.NH4, 2, true));
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.PO4, 2, true));
-                ListView.Items.Add(item);
+                var item = ListView.AddItemEx(rec,
+                               aqmName,
+                               ALCore.GetTimeStr(rec.Timestamp),
+                               ALCore.GetDecimalStr(rec.Temperature, 2, true),
+                               ALCore.GetDecimalStr(rec.NO3, 2, true),
+                               ALCore.GetDecimalStr(rec.NO2, 2, true),
+                               ALCore.GetDecimalStr(rec.GH, 2, true),
+                               ALCore.GetDecimalStr(rec.KH, 2, true),
+                               ALCore.GetDecimalStr(rec.pH, 2, true),
+                               ALCore.GetDecimalStr(rec.Cl2, 2, true),
+                               ALCore.GetDecimalStr(rec.CO2, 2, true),
+                               ALCore.GetDecimalStr(rec.NH, 2, true),
+                               ALCore.GetDecimalStr(rec.NH3, 2, true),
+                               ALCore.GetDecimalStr(rec.NH4, 2, true),
+                               ALCore.GetDecimalStr(rec.PO4, 2, true)
+                           );
             }
         }
 
@@ -87,6 +88,14 @@ namespace AquaLog.UI.Panels
                 i += 1;
             }
             AddSingleSelector("AqmSelector", items, AquariumChangeHandler);
+        }
+
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
         }
 
         private void AquariumChangeHandler(object sender, EventArgs e)

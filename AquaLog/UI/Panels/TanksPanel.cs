@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Export;
@@ -30,14 +31,32 @@ namespace AquaLog.UI.Panels
         public TankSticker SelectedTank
         {
             get { return fSelectedTank; }
+            set {
+                if (fSelectedTank != null) {
+                    fSelectedTank.Selected = false;
+                }
+
+                fSelectedTank = value;
+
+                if (fSelectedTank != null) {
+                    fSelectedTank.Selected = true;
+
+                    SelectionChanged(new List<Entity>() { fSelectedTank.Aquarium });
+                } else {
+                    SelectionChanged(new List<Entity>() { });
+                }
+            }
         }
 
 
         public TanksPanel() : base()
         {
+            Click += OnPanelClick;
+
             fLayoutPanel = new FlowLayoutPanel();
             fLayoutPanel.Dock = DockStyle.Fill;
             fLayoutPanel.Padding = new Padding(10);
+            fLayoutPanel.Click += OnPanelClick;
             Controls.Add(fLayoutPanel);
 
             fEditItem = new MenuItem();
@@ -68,6 +87,19 @@ namespace AquaLog.UI.Panels
             AddAction("Quality", LSID.Quality, "", btnQuality_Click);
         }
 
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count > 0);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
+            SetActionEnabled("Transfer", enabled);
+            SetActionEnabled("LogBook", enabled);
+            SetActionEnabled("M3DViewer", enabled);
+            SetActionEnabled("Analysis", enabled);
+            SetActionEnabled("Quality", enabled);
+        }
+
         protected override void UpdateContent()
         {
             fLayoutPanel.Controls.Clear();
@@ -92,13 +124,12 @@ namespace AquaLog.UI.Panels
 
         private void OnTankClick(object sender, EventArgs e)
         {
-            if (fSelectedTank != null) {
-                fSelectedTank.Selected = false;
-            }
-            fSelectedTank = sender as TankSticker;
-            if (fSelectedTank != null) {
-                fSelectedTank.Selected = true;
-            }
+            SelectedTank = sender as TankSticker;
+        }
+
+        private void OnPanelClick(object sender, EventArgs e)
+        {
+            SelectedTank = null;
         }
 
         private void OnTankDoubleClick(object sender, EventArgs e)

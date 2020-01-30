@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -30,6 +31,15 @@ namespace AquaLog.UI.Panels
             AddAction("Transfer", LSID.Transfer, null, TransferHandler);
         }
 
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
+            SetActionEnabled("Transfer", enabled);
+        }
+
         protected override void UpdateListView()
         {
             ListView.Clear();
@@ -49,15 +59,15 @@ namespace AquaLog.UI.Panels
                 Inhabitant inhab = fModel.GetRecord<Inhabitant>(rec.InhabitantId);
                 string inhabName = (inhab == null) ? "" : inhab.Name;
 
-                var item = new ListViewItem(aqmName);
-                item.Tag = rec;
-                item.SubItems.Add(rec.Name);
-                item.SubItems.Add(rec.Brand);
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Amount));
-                item.SubItems.Add(rec.Note);
-                item.SubItems.Add(inhabName);
-                item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
-                ListView.Items.Add(item);
+                var item = ListView.AddItemEx(rec,
+                               aqmName,
+                               rec.Name,
+                               rec.Brand,
+                               ALCore.GetDecimalStr(rec.Amount),
+                               rec.Note,
+                               inhabName,
+                               Localizer.LS(ALData.ItemStates[(int)rec.State])
+                           );
             }
         }
 

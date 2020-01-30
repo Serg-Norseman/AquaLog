@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -30,6 +31,15 @@ namespace AquaLog.UI.Panels
             AddAction("Transfer", LSID.Transfer, null, TransferHandler);
         }
 
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
+            SetActionEnabled("Transfer", enabled);
+        }
+
         protected override void UpdateListView()
         {
             ListView.Clear();
@@ -43,13 +53,13 @@ namespace AquaLog.UI.Panels
             foreach (Inventory rec in records) {
                 string strType = Localizer.LS(ALData.InventoryTypes[(int)rec.Type]);
 
-                var item = new ListViewItem(rec.Name);
-                item.Tag = rec;
-                item.SubItems.Add(rec.Brand);
-                item.SubItems.Add(strType);
-                item.SubItems.Add(rec.Note);
-                item.SubItems.Add(Localizer.LS(ALData.ItemStates[(int)rec.State]));
-                ListView.Items.Add(item);
+                var item = ListView.AddItemEx(rec,
+                               rec.Name,
+                               rec.Brand,
+                               strType,
+                               rec.Note,
+                               Localizer.LS(ALData.ItemStates[(int)rec.State])
+                           );
             }
         }
 

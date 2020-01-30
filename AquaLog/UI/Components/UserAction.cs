@@ -6,6 +6,7 @@
 
 using System;
 using System.Drawing;
+using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.UI;
 
@@ -16,16 +17,18 @@ namespace AquaLog.UI.Components
     /// </summary>
     public sealed class UserAction
     {
-        public readonly string BtnName;
+        public readonly string Name;
         public readonly LSID BtnText;
         public readonly Image Image;
         public readonly EventHandler Click;
         public string[] Choices;
         public bool MultiChoice;
 
-        public UserAction(string btnName, LSID btnText, string imageName, EventHandler clickHandler)
+        public Control Control;
+
+        public UserAction(string actionName, LSID btnText, string imageName, EventHandler clickHandler)
         {
-            BtnName = btnName;
+            Name = actionName;
             BtnText = btnText;
             Image = string.IsNullOrEmpty(imageName) ? null : UIHelper.LoadResourceImage(imageName);
             Click = clickHandler;
@@ -33,7 +36,7 @@ namespace AquaLog.UI.Components
 
         public UserAction(string actionName, string[] choices, bool multiChoice, EventHandler changeHandler)
         {
-            BtnName = actionName;
+            Name = actionName;
             Choices = choices;
             MultiChoice = multiChoice;
             Click = changeHandler;

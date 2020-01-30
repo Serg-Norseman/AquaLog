@@ -4,6 +4,7 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -33,12 +34,12 @@ namespace AquaLog.UI.Panels
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
 
-                var item = new ListViewItem(aqmName);
-                item.Tag = rec;
-                item.SubItems.Add(ALCore.GetTimeStr(rec.Timestamp));
-                item.SubItems.Add(rec.Event);
-                item.SubItems.Add(rec.Content);
-                ListView.Items.Add(item);
+                var item = ListView.AddItemEx(rec,
+                               aqmName,
+                               ALCore.GetTimeStr(rec.Timestamp),
+                               rec.Event,
+                               rec.Content
+                           );
             }
         }
 
@@ -47,6 +48,14 @@ namespace AquaLog.UI.Panels
             AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
+        }
+
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
         }
     }
 }

@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
@@ -28,6 +29,14 @@ namespace AquaLog.UI.Panels
             // "Add" - only from other panels
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
+        }
+
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
         }
 
         protected override void UpdateListView()
@@ -62,17 +71,18 @@ namespace AquaLog.UI.Panels
                 //var stateItem = itemRec as IStateItem;
                 //var state = (stateItem == null) ? ItemState.Unknown : stateItem.State;
 
-                var item = new ListViewItem(ALCore.GetDateStr(rec.Timestamp));
-                item.Tag = rec;
-                item.SubItems.Add(brand);
-                item.SubItems.Add(itName);
-                item.SubItems.Add(strType);
-                item.SubItems.Add((aqmSour == null) ? string.Empty : aqmSour.Name);
-                item.SubItems.Add((aqmTarg == null) ? string.Empty : aqmTarg.Name);
-                item.SubItems.Add(rec.Quantity.ToString());
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.UnitPrice));
-                item.SubItems.Add(rec.Shop);
-                item.SubItems.Add(rec.Cause);
+                var item = ListView.AddItemEx(rec,
+                               ALCore.GetDateStr(rec.Timestamp),
+                               brand,
+                               itName,
+                               strType,
+                               (aqmSour == null) ? string.Empty : aqmSour.Name,
+                               (aqmTarg == null) ? string.Empty : aqmTarg.Name,
+                               rec.Quantity.ToString(),
+                               ALCore.GetDecimalStr(rec.UnitPrice),
+                               rec.Shop,
+                               rec.Cause
+                           );
 
                 if (itemType == ItemType.Aquarium) {
                     item.Font = boldFont;
@@ -81,8 +91,6 @@ namespace AquaLog.UI.Panels
                 if (rec.Type == TransferType.Death /*|| state == ItemState.Dead || state == ItemState.Finished || state == ItemState.Broken*/) {
                     item.ForeColor = Color.Gray; // death, sale or gift?
                 }
-
-                ListView.Items.Add(item);
             }
         }
     }
