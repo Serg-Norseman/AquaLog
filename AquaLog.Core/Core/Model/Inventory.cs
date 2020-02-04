@@ -19,6 +19,7 @@ namespace AquaLog.Core.Model
 
         public InventoryType Type { get; set; }
 
+        // not used
         public ItemState State { get; set; }
 
 

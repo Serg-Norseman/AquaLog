@@ -88,7 +88,7 @@ namespace AquaLog.UI.Panels
 
                 int currAqmId = 0;
                 DateTime inclusionDate, exclusionDate;
-                fModel.GetInhabitantDates(rec.Id, (int)itemType, out inclusionDate, out exclusionDate, out currAqmId);
+                fModel.GetInhabitantDates(rec.Id, itemType, out inclusionDate, out exclusionDate, out currAqmId);
 
                 string aqmName = fModel.GetRecordName(ItemType.Aquarium, currAqmId);
                 string strInclusDate = ALCore.IsZeroDate(inclusionDate) ? string.Empty : ALCore.GetDateStr(inclusionDate);
@@ -99,12 +99,18 @@ namespace AquaLog.UI.Panels
 
                 rec.Quantity = fModel.QueryInhabitantsCount(rec.Id, itemType);
 
+                ItemState itemState;
+                string strState = fModel.GetItemStateStr(rec.Id, itemType, out itemState);
+                if (itemState == ItemState.Unknown) {
+                    strState = Localizer.LS(ALData.ItemStates[(int)rec.State]);
+                }
+
                 var item = ListView.AddItemEx(rec,
                                rec.Name,
                                sx,
                                rec.Quantity.ToString(),
                                spName,
-                               Localizer.LS(ALData.ItemStates[(int)rec.State]),
+                               strState,
                                aqmName,
                                strInclusDate,
                                strExclusDate,
@@ -118,6 +124,8 @@ namespace AquaLog.UI.Panels
                     item.ForeColor = Color.Gray; // death, sale or gift?
                 }
             }
+
+            ListView.SetSortColumn(6);
         }
 
         private void TransferHandler(object sender, EventArgs e)

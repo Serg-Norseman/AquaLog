@@ -101,6 +101,7 @@ namespace AquaLog.Core
             LSID.Stopped,
             LSID.Finished,
             LSID.Broken,
+            LSID.Sold,
         };
 
 
@@ -128,7 +129,8 @@ namespace AquaLog.Core
             LSID.Purchase,
             LSID.Sale,
             LSID.Birth,
-            LSID.Death
+            LSID.Death,
+            LSID.Exclusion,
         };
 
 

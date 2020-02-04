@@ -22,5 +22,7 @@ namespace AquaLog.Core.Types
 
         Finished, // Nutrition, Additive, Chemistry
         Broken, // Device, Equipment, Maintenance, Furniture, Decoration,
+
+        Sold, // all item types
     }
 }

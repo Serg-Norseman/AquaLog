@@ -203,4 +203,6 @@
   <string id="201">Temperature</string>
   <string id="202">Analysis</string>
   <string id="203">Quality</string>
+  <string id="204">Exclusion (broken/finished)</string>
+  <string id="205">Sold</string>
 </resources>

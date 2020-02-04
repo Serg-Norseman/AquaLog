@@ -24,6 +24,7 @@ namespace AquaLog.Core.Model
         public double Power { get; set; }
         public double WorkTime { get; set; }
 
+        // not used
         public ItemState State { get; set; }
 
         public int PointId { get; set; }

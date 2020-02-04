@@ -109,8 +109,10 @@ namespace AquaLog.UI.Panels
                         ItemType itemType = rec.ItemType;
                         var itemRec = fModel.GetRecord(itemType, rec.ItemId);
                         string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
-                        ItemState itState = (itemRec is IStateItem) ? ((IStateItem)itemRec).State : ItemState.Unknown;
-                        string stateStr = Localizer.LS(ALData.ItemStates[(int)itState]);
+
+                        ItemState itemState;
+                        string strState = fModel.GetItemStateStr(rec.ItemId, itemType, out itemState);
+
                         var brandedItem = itemRec as IBrandedItem;
                         string brand = (brandedItem == null) ? "-" : brandedItem.Brand;
 
@@ -123,7 +125,7 @@ namespace AquaLog.UI.Panels
                                        ALCore.GetDecimalStr(rec.UnitPrice),
                                        ALCore.GetDecimalStr(sum),
                                        rec.Shop,
-                                       stateStr
+                                       strState
                                    );
 
                         if (itemType == ItemType.Aquarium) {

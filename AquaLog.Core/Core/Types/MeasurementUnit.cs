@@ -29,7 +29,9 @@ namespace AquaLog.Core.Types
         DegreeKelvin,
 
         // Density
-        // -
+        //KilogramPerLiter,
+        //PoundPerUKGallon,
+        //PoundPerUSGallon,
 
         First = Centimeter,
         Last = DegreeKelvin

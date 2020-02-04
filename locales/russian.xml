@@ -203,4 +203,6 @@
   <string id="201">Температура</string>
   <string id="202">Анализ</string>
   <string id="203">Качество</string>
+  <string id="204">Выбытие (сломано/закончено)</string>
+  <string id="205">Продано</string>
 </resources>

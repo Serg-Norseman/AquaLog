@@ -12,6 +12,7 @@ namespace AquaLog.Core.Types
         Purchase,
         Sale,
         Birth,
-        Death
+        Death,
+        Exclusion,
     }
 }

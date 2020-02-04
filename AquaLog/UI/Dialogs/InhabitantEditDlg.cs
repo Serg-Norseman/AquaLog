@@ -87,7 +87,15 @@ namespace AquaLog.UI.Dialogs
 
             if (species != null) {
                 itemType = ALCore.GetItemType(species.Type);
-                UIHelper.FillItemStatesCombo(cmbState, itemType, fRecord.State);
+                ItemState itemState;
+                DateTime exclusionDate;
+                fModel.GetItemState(fRecord.Id, itemType, out itemState, out exclusionDate);
+                bool noTransferState = (itemState == ItemState.Unknown);
+                cmbState.Enabled = noTransferState;
+
+                if (!noTransferState) {
+                    UIHelper.FillItemStatesCombo(cmbState, itemType, fRecord.State);
+                }
             } else {
                 itemType = ItemType.None;
                 cmbState.Items.Clear();

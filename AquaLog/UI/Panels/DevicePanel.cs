@@ -79,6 +79,9 @@ namespace AquaLog.UI.Panels
                 string aqmName = (aqm == null) ? "" : aqm.Name;
                 string strType = Localizer.LS(ALData.DeviceProps[(int)rec.Type].Text);
 
+                ItemState itemState;
+                string strState = fModel.GetItemStateStr(rec.Id, ItemType.Device, out itemState);
+
                 var item = ListView.AddItemEx(rec,
                                aqmName,
                                rec.Name,
@@ -88,11 +91,15 @@ namespace AquaLog.UI.Panels
                                rec.Digital.ToString(),
                                ALCore.GetDecimalStr(rec.Power),
                                ALCore.GetDecimalStr(rec.WorkTime),
-                               Localizer.LS(ALData.ItemStates[(int)rec.State])
+                               strState
                            );
 
                 if (rec.Enabled) {
                     totalPow += (rec.Power /* W/h */ * rec.WorkTime /* h/day */);
+                }
+
+                if (itemState == ItemState.Broken) {
+                    item.ForeColor = Color.Gray;
                 }
             }
 

@@ -16,6 +16,7 @@ namespace AquaLog.Core.Model
         public float Amount { get; set; }
         public string Note { get; set; }
 
+        // not used
         public ItemState State { get; set; }
 
         public int InhabitantId { get; set; }

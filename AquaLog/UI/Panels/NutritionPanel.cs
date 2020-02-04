@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -59,6 +60,9 @@ namespace AquaLog.UI.Panels
                 Inhabitant inhab = fModel.GetRecord<Inhabitant>(rec.InhabitantId);
                 string inhabName = (inhab == null) ? "" : inhab.Name;
 
+                ItemState itemState;
+                string strState = fModel.GetItemStateStr(rec.Id, ItemType.Nutrition, out itemState);
+
                 var item = ListView.AddItemEx(rec,
                                aqmName,
                                rec.Name,
@@ -66,8 +70,12 @@ namespace AquaLog.UI.Panels
                                ALCore.GetDecimalStr(rec.Amount),
                                rec.Note,
                                inhabName,
-                               Localizer.LS(ALData.ItemStates[(int)rec.State])
+                               strState
                            );
+
+                if (itemState == ItemState.Finished) {
+                    item.ForeColor = Color.Gray;
+                }
             }
         }
 

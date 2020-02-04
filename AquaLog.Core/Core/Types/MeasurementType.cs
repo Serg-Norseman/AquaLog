@@ -31,5 +31,7 @@ namespace AquaLog.Core.Types
         Length,
         Volume,
         Mass,
+
+        // KH & GH (ppm, degree), Density (_units_), Salinity (ppt), Conductivity, I, K, Mn, B, Mo, S, Zn
     }
 }

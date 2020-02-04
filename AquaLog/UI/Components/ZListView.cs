@@ -221,6 +221,10 @@ namespace AquaLog.UI.Components
                 fSortOrder = (prevOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
             }
 
+            if (fSortOrder == SortOrder.None) {
+                fSortOrder = SortOrder.Ascending;
+            }
+
             fSortColumn = sortColumn;
             Sort();
         }

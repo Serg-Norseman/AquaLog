@@ -234,13 +234,13 @@ namespace AquaLog.Core
             return result;
         }
 
-        public void GetInhabitantDates(int recId, int itemType, out DateTime inclusionDate, out DateTime exclusionDate, out int currAqmId)
+        public void GetInhabitantDates(int recId, ItemType itemType, out DateTime inclusionDate, out DateTime exclusionDate, out int currAqmId)
         {
             currAqmId = -1;
             inclusionDate = ALCore.ZeroDate;
             exclusionDate = ALCore.ZeroDate;
 
-            IList<Transfer> transfers = QueryTransfers(recId, itemType);
+            IList<Transfer> transfers = QueryTransfers(recId, (int)itemType);
             foreach (var trf in transfers) {
                 switch (trf.Type) {
                     case TransferType.Relocation:
@@ -265,6 +265,78 @@ namespace AquaLog.Core
                     currAqmId = trf.TargetId;
                 }
             }
+        }
+
+        public void GetItemState(int recId, ItemType itemType, out ItemState itemState, out DateTime exclusionDate)
+        {
+            itemState = ItemState.Unknown;
+            exclusionDate = ALCore.ZeroDate;
+
+            IList<Transfer> transfers = QueryTransfers(recId, (int)itemType);
+            foreach (var trf in transfers) {
+                switch (trf.Type) {
+                    case TransferType.Death:
+                        if (ALCore.IsZeroDate(exclusionDate)) {
+                            itemState = ItemState.Dead;
+                            exclusionDate = trf.Timestamp;
+                        }
+                        break;
+
+                    case TransferType.Sale:
+                        if (ALCore.IsZeroDate(exclusionDate)) {
+                            itemState = ItemState.Sold;
+                            exclusionDate = trf.Timestamp;
+                        }
+                        break;
+
+                    case TransferType.Exclusion:
+                        if (ALCore.IsZeroDate(exclusionDate)) {
+                            switch (itemType) {
+                                case ItemType.None:
+                                    break;
+
+                                case ItemType.Fish:
+                                case ItemType.Invertebrate:
+                                case ItemType.Plant:
+                                case ItemType.Coral:
+                                    itemState = ItemState.Dead;
+                                    break;
+
+                                case ItemType.Nutrition:
+                                case ItemType.Additive:
+                                case ItemType.Chemistry:
+                                    itemState = ItemState.Finished;
+                                    break;
+
+                                case ItemType.Aquarium:
+                                case ItemType.Device:
+                                case ItemType.Equipment:
+                                case ItemType.Maintenance:
+                                case ItemType.Furniture:
+                                case ItemType.Decoration:
+                                    itemState = ItemState.Broken;
+                                    break;
+                            }
+
+                            exclusionDate = trf.Timestamp;
+                        }
+                        break;
+                }
+            }
+        }
+
+        public string GetItemStateStr(int recId, ItemType itemType, out ItemState itemState)
+        {
+            DateTime exclusionDate;
+            GetItemState(recId, itemType, out itemState, out exclusionDate);
+            string strState;
+            if (itemState == ItemState.Unknown) {
+                strState = string.Empty;
+            } else {
+                string strExclusDate = ALCore.IsZeroDate(exclusionDate) ? "-" : ALCore.GetDateStr(exclusionDate);
+                strState = string.Format("{0} [{1}]", Localizer.LS(ALData.ItemStates[(int)itemState]), strExclusDate);
+            }
+            return strState;
         }
 
         #endregion

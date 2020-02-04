@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -53,13 +54,21 @@ namespace AquaLog.UI.Panels
             foreach (Inventory rec in records) {
                 string strType = Localizer.LS(ALData.InventoryTypes[(int)rec.Type]);
 
+                ItemType itemType = ALCore.GetItemType(rec.Type);
+                ItemState itemState;
+                string strState = fModel.GetItemStateStr(rec.Id, itemType, out itemState);
+
                 var item = ListView.AddItemEx(rec,
                                rec.Name,
                                rec.Brand,
                                strType,
                                rec.Note,
-                               Localizer.LS(ALData.ItemStates[(int)rec.State])
+                               strState
                            );
+
+                if (itemState == ItemState.Finished || itemState == ItemState.Broken) {
+                    item.ForeColor = Color.Gray;
+                }
             }
         }
 

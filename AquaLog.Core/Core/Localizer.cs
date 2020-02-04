@@ -225,8 +225,10 @@ namespace AquaLog.Core
         /* 201 */ Temperature,
         /* 202 */ Analysis,
         /* 203 */ Quality,
+        /* 204 */ Exclusion,
+        /* 205 */ Sold,
 
-        /* 000 */ Last = Quality
+        /* 000 */ Last = Sold
     }
 
 
@@ -440,6 +442,8 @@ namespace AquaLog.Core
             /* 201 */ "Temperature",
             /* 202 */ "Analysis",
             /* 203 */ "Quality",
+            /* 204 */ "Exclusion",
+            /* 205 */ "Sold",
         };
 
 

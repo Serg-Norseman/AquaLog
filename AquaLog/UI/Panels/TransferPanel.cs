@@ -68,8 +68,6 @@ namespace AquaLog.UI.Panels
                 string strType = Localizer.LS(ALData.TransferTypes[(int)rec.Type]);
                 var brandedItem = itemRec as IBrandedItem;
                 string brand = (brandedItem == null) ? "-" : brandedItem.Brand;
-                //var stateItem = itemRec as IStateItem;
-                //var state = (stateItem == null) ? ItemState.Unknown : stateItem.State;
 
                 var item = ListView.AddItemEx(rec,
                                ALCore.GetDateStr(rec.Timestamp),
@@ -88,8 +86,15 @@ namespace AquaLog.UI.Panels
                     item.Font = boldFont;
                 }
 
-                if (rec.Type == TransferType.Death /*|| state == ItemState.Dead || state == ItemState.Finished || state == ItemState.Broken*/) {
-                    item.ForeColor = Color.Gray; // death, sale or gift?
+                switch (rec.Type) {
+                    case TransferType.Sale:
+                        item.ForeColor = Color.DimGray;
+                        break;
+
+                    case TransferType.Death:
+                    case TransferType.Exclusion:
+                        item.ForeColor = Color.Gray;
+                        break;
                 }
             }
         }
