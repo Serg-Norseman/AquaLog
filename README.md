@@ -5,7 +5,9 @@
 [![codecov.io](https://codecov.io/github/Serg-Norseman/AquaLog/coverage.svg?branch=master)](https://codecov.io/github/Serg-Norseman/AquaLog?branch=master)
 [![BCH compliance](https://bettercodehub.com/edge/badge/Serg-Norseman/AquaLog?branch=master)](https://bettercodehub.com/results/Serg-Norseman/AquaLog)
 [![CodeFactor](https://www.codefactor.io/repository/github/serg-norseman/aqualog/badge)](https://www.codefactor.io/repository/github/serg-norseman/aqualog)
-[![Technical debt ratio](https://sonarcloud.io/api/project_badges/measure?project=AquaLog&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AquaLog)
+[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=AquaLog&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AquaLog)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AquaLog&metric=coverage)](https://sonarcloud.io/dashboard?id=AquaLog)
+[![Lines of code](https://sonarcloud.io/api/project_badges/measure?project=AquaLog&metric=ncloc)](https://sonarcloud.io/dashboard?id=AquaLog)
 
 Home aquariums manager. A simple program for monitoring and maintaining aquariums.
 It is also planned to collect and monitor data through Arduino. 
