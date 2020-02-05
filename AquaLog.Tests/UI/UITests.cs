@@ -45,6 +45,9 @@ namespace AquaLog.UI
 
             ClickToolStripMenuItem("miCleanSpace", fMainWin);
 
+            ModalFormHandler = Calculator_Handler;
+            ClickToolStripMenuItem("miCalculator", fMainWin);
+
             ClickToolStripButton("btnTanks", fMainWin);
             ClickToolStripButton("btnInhabitants", fMainWin);
             ClickToolStripButton("btnSpecies", fMainWin);
@@ -57,12 +60,18 @@ namespace AquaLog.UI
             ClickToolStripButton("btnSchedule", fMainWin);
             ClickToolStripButton("btnTransfers", fMainWin);
             ClickToolStripButton("btnBudget", fMainWin);
+            ClickToolStripButton("btnSnapshots", fMainWin);
             ClickToolStripButton("btnTSDB", fMainWin);
 
             ClickToolStripButton("btnPrev", fMainWin);
             ClickToolStripButton("btnNext", fMainWin);
 
             ClickToolStripMenuItem("miExit", fMainWin);
+        }
+
+        public static void Calculator_Handler(string name, IntPtr ptr, Form form)
+        {
+            KeyDownForm("CalculatorDlg", Keys.Escape);
         }
 
         [Test]
@@ -146,6 +155,7 @@ namespace AquaLog.UI
             ModalFormHandler = MessageBox_YesHandler;
             ClickButton("btnDelete", fMainWin);
 
+            ModalFormHandler = null;
             ClickToolStripMenuItem("miExit", fMainWin);
         }
 
@@ -177,6 +187,7 @@ namespace AquaLog.UI
             ModalFormHandler = MessageBox_YesHandler;
             ClickButton("btnDelete", fMainWin);
 
+            ModalFormHandler = null;
             ClickToolStripMenuItem("miExit", fMainWin);
         }
 
@@ -208,6 +219,7 @@ namespace AquaLog.UI
             ModalFormHandler = MessageBox_YesHandler;
             ClickButton("btnDelete", fMainWin);
 
+            ModalFormHandler = null;
             ClickToolStripMenuItem("miExit", fMainWin);
         }
 
@@ -239,6 +251,7 @@ namespace AquaLog.UI
             ModalFormHandler = MessageBox_YesHandler;
             ClickButton("btnDelete", fMainWin);
 
+            ModalFormHandler = null;
             ClickToolStripMenuItem("miExit", fMainWin);
         }
 
@@ -364,6 +377,22 @@ namespace AquaLog.UI
             ClickToolStripButton("btnBudget", fMainWin);
 
             ClickButton("btnChartTypes", fMainWin);
+            ClickToolStripButton("btnPrev", fMainWin);
+
+            ClickButton("btnChartShops", fMainWin);
+            ClickToolStripButton("btnPrev", fMainWin);
+
+            ClickButton("btnChartBrands", fMainWin);
+            ClickToolStripButton("btnPrev", fMainWin);
+
+            ClickButton("btnChartCountries", fMainWin);
+            ClickToolStripButton("btnPrev", fMainWin);
+
+            ClickButton("btnChartMonthes", fMainWin);
+            ClickToolStripButton("btnPrev", fMainWin);
+
+            ClickButton("btnBrands", fMainWin);
+            ClickToolStripButton("btnPrev", fMainWin);
 
             ClickToolStripMenuItem("miExit", fMainWin);
         }

@@ -246,13 +246,17 @@ namespace AquaLog.UI
 
         private void miSettings_Click(object sender, EventArgs e)
         {
-            using (var dlg = new SettingsDlg()) {
-                dlg.Model = fModel;
-                dlg.Settings = ALSettings.Instance;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    ChangeLocale();
-                    fCurrentPanel.UpdateView();
+            try {
+                using (var dlg = new SettingsDlg()) {
+                    dlg.Model = fModel;
+                    dlg.Settings = ALSettings.Instance;
+                    if (dlg.ShowDialog() == DialogResult.OK) {
+                        ChangeLocale();
+                        fCurrentPanel.UpdateView();
+                    }
                 }
+            } catch (Exception ex) {
+                fLogger.WriteError("miSettings_Click()", ex);
             }
         }
 

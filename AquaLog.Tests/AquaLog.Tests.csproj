@@ -82,8 +82,10 @@
     <Compile Include="Core\Export\ExcelExporterTests.cs" />
     <Compile Include="Core\Export\RTFLogBookTests.cs" />
     <Compile Include="Core\LocalizerTests.cs" />
+    <Compile Include="Core\Model\BrandTests.cs" />
     <Compile Include="Core\Model\InventoryTests.cs" />
     <Compile Include="Core\Model\SnapshotTests.cs" />
+    <Compile Include="Core\Model\SoilTests.cs" />
     <Compile Include="Core\StringSerializerTests.cs" />
     <Compile Include="Core\UnitConverterTests.cs" />
     <Compile Include="Core\Model\NoteTests.cs" />
@@ -96,7 +98,10 @@
     <Compile Include="Core\Model\ScheduleTests.cs" />
     <Compile Include="Core\Model\SpeciesTests.cs" />
     <Compile Include="Core\Model\TransferTests.cs" />
+    <Compile Include="DataCollection\DataCollectionTests.cs" />
     <Compile Include="TSDB\SDCompressionTests.cs" />
+    <Compile Include="TSDB\TSDatabaseTests.cs" />
+    <Compile Include="TSDB\TSValueTests.cs" />
     <Compile Include="UI\CustomFormTest.cs" />
     <Compile Include="UI\UITests.cs" />
   </ItemGroup>
@@ -115,6 +120,7 @@
     <Folder Include="Core\Model" />
     <Folder Include="Core\Calculations" />
     <Folder Include="Core\Export" />
+    <Folder Include="DataCollection" />
     <Folder Include="UI" />
     <Folder Include="TSDB" />
   </ItemGroup>

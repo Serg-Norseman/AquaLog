@@ -548,8 +548,10 @@ namespace AquaLog.Core
         {
             try {
                 string path = ALCore.GetLocalesPath();
-                string[] localeFiles = Directory.GetFiles(path, "*.xml", SearchOption.TopDirectoryOnly);
-                for (int i = 0; i < localeFiles.Length; i++) PrepareLocaleFile(localeFiles[i]);
+                if (Directory.Exists(path)) {
+                    string[] localeFiles = Directory.GetFiles(path, "*.xml", SearchOption.TopDirectoryOnly);
+                    for (int i = 0; i < localeFiles.Length; i++) PrepareLocaleFile(localeFiles[i]);
+                }
             } catch (Exception ex) {
                 fLogger.WriteError("FindLocales()", ex);
             }

@@ -61,5 +61,10 @@ namespace AquaLog.UI.Dialogs
             fCalculation.Calculate();
             pgArgs.Refresh();
         }
+
+        private void CalculatorDlg_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) Close();
+        }
     }
 }

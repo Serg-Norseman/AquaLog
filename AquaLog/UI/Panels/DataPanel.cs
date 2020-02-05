@@ -10,7 +10,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
+using AquaLog.Logging;
 using AquaLog.UI.Components;
+using BSLib;
 
 namespace AquaLog.UI.Panels
 {
@@ -19,6 +21,8 @@ namespace AquaLog.UI.Panels
     /// </summary>
     public class DataPanel : Panel, ILocalizable
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "DataPanel");
+
         private readonly List<UserAction> fActions;
         protected IBrowser fBrowser;
         protected ALModel fModel;
@@ -78,12 +82,16 @@ namespace AquaLog.UI.Panels
 
         public void UpdateView()
         {
-            SetLocale();
+            try {
+                SetLocale();
 
-            ClearActions();
-            InitActions();
+                ClearActions();
+                InitActions();
 
-            UpdateContent();
+                UpdateContent();
+            } catch (Exception ex) {
+                fLogger.WriteError("UpdateView()", ex);
+            }
         }
 
         public virtual void SetExtData(object extData)

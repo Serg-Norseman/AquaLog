@@ -23,6 +23,8 @@ namespace AquaLog.Core.Model
 
             instance.Content = "content";
             Assert.AreEqual("content", instance.Content);
+
+            Assert.AreEqual("event", instance.ToString());
         }
     }
 }

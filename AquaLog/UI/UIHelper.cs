@@ -132,6 +132,23 @@ namespace AquaLog.UI
             return result;
         }
 
+        public static void SetSelectedItem(ListView listView, ListViewItem item)
+        {
+            if (item == null) return;
+
+            listView.SelectedIndices.Clear();
+            item.Selected = true;
+            item.EnsureVisible();
+        }
+
+        public static void SetSelectedItem(ListView listView, int index)
+        {
+            if (index >= 0 && index < listView.Items.Count) {
+                ListViewItem item = listView.Items[index];
+                SetSelectedItem(listView, item);
+            }
+        }
+
         public static Color CreateColor(int rgb)
         {
             int red = (rgb >> 16) & 0xFF;

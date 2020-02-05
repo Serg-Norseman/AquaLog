@@ -284,56 +284,55 @@ namespace AquaLog.UI.Panels
                 }
             }
 
-            List<ChartPoint> vals = new List<ChartPoint>();
-            foreach (var valPair in result) {
-                vals.Add(valPair.Value);
-            }
+            List<ChartPoint> vals = result.Values.ToList();
 
             if (chartType != BudgetChartType.Monthes && chartType != BudgetChartType.Days) {
+                // prettification
                 vals = AlternateSort(vals);
             }
 
             return vals;
         }
 
-        private static List<ChartPoint> AlternateSort(List<ChartPoint> orig)
+        private static List<ChartPoint> AlternateSort(List<ChartPoint> source)
         {
-            orig.Sort((x, y) => {
+            int srcLen = source.Count;
+            if (srcLen < 2) {
+                return source;
+            }
+
+            source.Sort((x, y) => {
                 return x.Value.CompareTo(y.Value);
             });
 
-            ChartPoint[] varr = new ChartPoint[orig.Count];
+            ChartPoint[] target = new ChartPoint[srcLen];
 
             int t, b, lp, rp;
-            t = orig.Count - 1;
+            t = srcLen - 1;
             b = 0;
             lp = t / 2 - 1;
             rp = t / 2 + 1;
-            varr[t / 2] = orig[t];
+            target[t / 2] = source[t];
             t--;
             while (b < t) {
-                varr[lp] = orig[b];
+                target[lp] = source[b];
                 b++;
-                varr[rp] = orig[b];
+                target[rp] = source[b];
                 b++;
                 lp--;
                 rp++;
 
                 if (b >= t) break;
 
-                varr[lp] = orig[t];
+                target[lp] = source[t];
                 t--;
-                varr[rp] = orig[t];
+                target[rp] = source[t];
                 t--;
                 lp--;
                 rp++;
             }
 
-            List<ChartPoint> result = new List<ChartPoint>();
-            for (int i = 0; i < orig.Count; ++i)
-                result.Add(varr[i]);
-
-            return result;
+            return target.ToList();
         }
     }
 }

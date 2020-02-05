@@ -99,7 +99,8 @@ namespace AquaLog.UI
         public static void SelectListView(string name, Form form, int value)
         {
             var lv = new ListViewTester(name, form);
-            lv.Select(value);
+            //lv.Select(value);
+            UIHelper.SetSelectedItem(lv.Properties, value);
         }
 
         /*public static void EnterNumeric(string name, Form form, int value)
