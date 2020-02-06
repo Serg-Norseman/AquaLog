@@ -4,9 +4,6 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-using System.ComponentModel;
-using AquaLog.Core.Types;
-
 namespace AquaLog.Core.Model.Tanks
 {
     public class RegularShapeTank : BaseTank

@@ -56,13 +56,13 @@ namespace AquaLog.UI.Dialogs
             base.Dispose(disposing);
         }
 
-        private void MainFormLoad(object sender, EventArgs e)
+        private void DataMonitor_Load(object sender, EventArgs e)
         {
             cmbChannel.SelectedIndex = 0;
             cmbChannel.Enabled = false;
         }
 
-        private void MainFormFormClosed(object sender, FormClosedEventArgs e)
+        private void DataMonitor_FormClosed(object sender, FormClosedEventArgs e)
         {
             fCommunicationLED.Dispose();
             fTemperatureService.Dispose();
@@ -120,6 +120,11 @@ namespace AquaLog.UI.Dialogs
             fChannel.Close();
             btnOpen.Enabled = true;
             btnClose.Enabled = false;
+        }
+
+        private void DataMonitor_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) Close();
         }
     }
 }

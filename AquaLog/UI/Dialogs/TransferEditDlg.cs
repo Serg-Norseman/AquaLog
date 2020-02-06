@@ -130,8 +130,6 @@ namespace AquaLog.UI.Dialogs
             aqm = cmbTarget.SelectedItem as Aquarium;
             fRecord.TargetId = (aqm == null) ? 0 : aqm.Id;
 
-            //fTransfer.ItemId = fInhabitant.Id;
-            //fTransfer.ItemType = ALCore.GetItemType(fInhabitant.GetSpeciesType());
             fRecord.Timestamp = dtpDate.Value;
             fRecord.Type = cmbType.GetSelectedTag<TransferType>();
             fRecord.Cause = txtCause.Text;

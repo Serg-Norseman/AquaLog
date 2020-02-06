@@ -66,8 +66,7 @@ namespace AquaLog.UI.Dialogs
         private void UpdateView()
         {
             if (fRecord != null) {
-                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
-                cmbAquarium.Enabled = (fRecord.AquariumId == 0);
+                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId, true);
 
                 if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
                     dtpTimestamp.Value = fRecord.Timestamp;

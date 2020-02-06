@@ -72,7 +72,7 @@ namespace AquaLog.UI.Panels
         {
         }
 
-        protected virtual void UpdateContent()
+        internal virtual void UpdateContent()
         {
         }
 

@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
+using AquaLog.UI.Components;
 
 namespace AquaLog.UI.Panels
 {
@@ -23,12 +24,12 @@ namespace AquaLog.UI.Panels
 
         private readonly Label fHeader;
         private readonly TableLayoutPanel fLayoutPanel;
-        private readonly ListView fInhabitantsLV;
-        private readonly ListView fMeasuresLV;
-        private readonly ListView fNutritionLV;
-        private readonly ListView fDevicesLV;
-        private readonly ListView fMaintenanceLV;
-        private readonly ListView fCompatibilityLV;
+        private readonly ZListView fInhabitantsLV;
+        private readonly ZListView fMeasuresLV;
+        private readonly ZListView fNutritionLV;
+        private readonly ZListView fDevicesLV;
+        private readonly ZListView fMaintenanceLV;
+        private readonly ZListView fCompatibilityLV;
 
 
         public AquaDetailsPanel() : base()
@@ -94,7 +95,7 @@ namespace AquaLog.UI.Panels
             UpdateContent();
         }
 
-        protected override void UpdateContent()
+        internal override void UpdateContent()
         {
             if (fAquarium != null) {
                 fHeader.Text = fAquarium.Name;
@@ -138,18 +139,17 @@ namespace AquaLog.UI.Panels
                 }
                 string strIntrDate = ALCore.IsZeroDate(intrDate) ? string.Empty : ALCore.GetDateStr(intrDate);
 
-                var item = new ListViewItem(rec.Name);
-                item.Tag = rec;
-                item.SubItems.Add(sex);
-                item.SubItems.Add(qty.ToString());
-                item.SubItems.Add(strIntrDate);
-                item.SubItems.Add(spc.GetTempRange());
-                item.SubItems.Add(spc.GetPHRange());
-                item.SubItems.Add(spc.GetGHRange());
-                fInhabitantsLV.Items.Add(item);
+                var item = fInhabitantsLV.AddItemEx(rec,
+                               rec.Name,
+                               sex,
+                               qty.ToString(),
+                               strIntrDate,
+                               spc.GetTempRange(),
+                               spc.GetPHRange(),
+                               spc.GetGHRange()
+                           );
             }
 
-            fInhabitantsLV.AutoResizeColumns();
             fInhabitantsLV.EndUpdate();
         }
 
@@ -163,14 +163,13 @@ namespace AquaLog.UI.Panels
 
             var values = fModel.CollectData(fAquarium);
             foreach (MeasureValue mVal in values) {
-                var item = new ListViewItem(mVal.Name);
-                item.Tag = mVal;
-                item.SubItems.Add(mVal.ValText);
-                item.SubItems.Add(mVal.Unit);
-                fMeasuresLV.Items.Add(item);
+                var item = fMeasuresLV.AddItemEx(mVal,
+                               mVal.Name,
+                               mVal.ValText,
+                               mVal.Unit
+                           );
             }
 
-            fMeasuresLV.AutoResizeColumns();
             fMeasuresLV.EndUpdate();
         }
 
@@ -184,14 +183,13 @@ namespace AquaLog.UI.Panels
 
             var records = fModel.QueryNutritions(fAquarium);
             foreach (Nutrition rec in records) {
-                var item = new ListViewItem(rec.Name);
-                item.Tag = rec;
-                item.SubItems.Add(rec.Brand);
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Amount));
-                fNutritionLV.Items.Add(item);
+                var item = fNutritionLV.AddItemEx(rec,
+                               rec.Name,
+                               rec.Brand,
+                               ALCore.GetDecimalStr(rec.Amount)
+                           );
             }
 
-            fNutritionLV.AutoResizeColumns();
             fNutritionLV.EndUpdate();
         }
 
@@ -207,16 +205,15 @@ namespace AquaLog.UI.Panels
 
             var records = fModel.QueryDevices(fAquarium);
             foreach (Device rec in records) {
-                var item = new ListViewItem(rec.Name);
-                item.Tag = rec;
-                item.SubItems.Add(rec.Brand);
-                item.SubItems.Add(rec.Enabled.ToString());
-                item.SubItems.Add(rec.Digital.ToString());
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Power));
-                fDevicesLV.Items.Add(item);
+                var item = fDevicesLV.AddItemEx(rec,
+                               rec.Name,
+                               rec.Brand,
+                               rec.Enabled.ToString(),
+                               rec.Digital.ToString(),
+                               ALCore.GetDecimalStr(rec.Power)
+                           );
             }
 
-            fDevicesLV.AutoResizeColumns();
             fDevicesLV.EndUpdate();
         }
 
@@ -233,15 +230,14 @@ namespace AquaLog.UI.Panels
             foreach (Maintenance rec in records) {
                 string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type]);
 
-                var item = new ListViewItem(ALCore.GetTimeStr(rec.Timestamp));
-                item.Tag = rec;
-                item.SubItems.Add(strType);
-                item.SubItems.Add(ALCore.GetDecimalStr(rec.Value));
-                item.SubItems.Add(rec.Note);
-                fMaintenanceLV.Items.Add(item);
+                var item = fMaintenanceLV.AddItemEx(rec,
+                               ALCore.GetTimeStr(rec.Timestamp),
+                               strType,
+                               ALCore.GetDecimalStr(rec.Value),
+                               rec.Note
+                           );
             }
 
-            fMaintenanceLV.AutoResizeColumns();
             fMaintenanceLV.EndUpdate();
         }
 
@@ -314,17 +310,17 @@ namespace AquaLog.UI.Panels
                 string rangeGH = ALCore.GetRangeStr(data.GHMin.GetResult(), data.GHMax.GetResult());
                 if (string.IsNullOrEmpty(rangeTemp) && string.IsNullOrEmpty(rangePH) && string.IsNullOrEmpty(rangeGH)) continue;
 
-                var item = new ListViewItem(data.Name);
-                item.SubItems.Add(rangeTemp);
-                item.SubItems.Add(ALCore.GetDecimalStr(curTemp));
-                item.SubItems.Add(rangePH);
-                item.SubItems.Add(ALCore.GetDecimalStr(curPH));
-                item.SubItems.Add(rangeGH);
-                item.SubItems.Add(ALCore.GetDecimalStr(curGH));
-                fCompatibilityLV.Items.Add(item);
+                var item = fCompatibilityLV.AddItemEx(data,
+                               data.Name,
+                               rangeTemp,
+                               ALCore.GetDecimalStr(curTemp),
+                               rangePH,
+                               ALCore.GetDecimalStr(curPH),
+                               rangeGH,
+                               ALCore.GetDecimalStr(curGH)
+                           );
             }
 
-            fCompatibilityLV.AutoResizeColumns();
             fCompatibilityLV.EndUpdate();
         }
     }

@@ -72,15 +72,11 @@ namespace AquaLog.UI.Dialogs
         private void UpdateView()
         {
             var speciesList = fModel.QuerySpecies();
-            foreach (Species spc in speciesList) {
-                cmbSpecies.Items.Add(spc);
-            }
-            cmbSpecies.Sorted = true;
             var species = speciesList.FirstOrDefault(sp => sp.Id == fRecord.SpeciesId);
+            UIHelper.FillEntitiesCombo(cmbSpecies, speciesList, fRecord.SpeciesId, true);
 
             txtName.Text = fRecord.Name;
             txtNote.Text = fRecord.Note;
-            cmbSpecies.SelectedItem = species;
             cmbSex.SetSelectedTag(fRecord.Sex);
 
             ItemType itemType;

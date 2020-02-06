@@ -60,22 +60,5 @@ namespace AquaLog.UI
             var selectedItem = UIHelper.GetSelectedItem(listView);
             return (selectedItem == null) ? default(T) : selectedItem.Tag as T;
         }
-
-        public static void AutoResizeColumns(this ListView lv)
-        {
-            if (lv is ZListView) {
-                return;
-            }
-
-            lv.BeginUpdate();
-            lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.ColumnContent);
-            foreach (ColumnHeader column in lv.Columns) {
-                int colWidth = TextRenderer.MeasureText(column.Text, lv.Font).Width + 10;
-                if (colWidth > column.Width) {
-                    column.Width = colWidth;
-                }
-            }
-            lv.EndUpdate();
-        }
     }
 }

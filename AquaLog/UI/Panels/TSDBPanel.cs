@@ -28,7 +28,7 @@ namespace AquaLog.UI.Panels
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
             AddAction("Data", LSID.Data, "", ViewDataHandler);
             AddAction("Trend", LSID.Trend, "", ViewTrendHandler);
-            AddAction("Data Monitor", LSID.DataMonitor, "", ShowMonitor);
+            AddAction("DataMonitor", LSID.DataMonitor, "", ShowMonitor);
         }
 
         protected override void UpdateListView()

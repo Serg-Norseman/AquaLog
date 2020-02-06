@@ -32,7 +32,7 @@ namespace AquaLog.UI.Panels
             fChartData = (IList<ChartPoint>)extData;
         }
 
-        protected override void UpdateContent()
+        internal override void UpdateContent()
         {
             fGraph.Clear();
             if (fChartData == null) return;

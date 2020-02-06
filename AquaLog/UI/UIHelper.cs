@@ -73,7 +73,17 @@ namespace AquaLog.UI
             return comboBox;
         }
 
-        public static void FillAquariumsCombo(ComboBox comboBox, ALModel model, int selectedId)
+        public static void FillEntitiesCombo(ComboBox comboBox, IEnumerable<Entity> entities, int selectedId, bool sorted = false)
+        {
+            comboBox.Items.Clear();
+            foreach (var ent in entities) {
+                comboBox.Items.Add(ent);
+            }
+            comboBox.Sorted = sorted;
+            comboBox.SelectedItem = entities.FirstOrDefault(ent => ent.Id == selectedId);
+        }
+
+        public static void FillAquariumsCombo(ComboBox comboBox, ALModel model, int selectedId, bool lockSelected = false)
         {
             comboBox.Items.Clear();
             var aquariums = model.QueryAquariums();
@@ -82,7 +92,12 @@ namespace AquaLog.UI
                     comboBox.Items.Add(aqm);
                 }
             }
+
             comboBox.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == selectedId);
+
+            if (lockSelected) {
+                comboBox.Enabled = (selectedId == 0);
+            }
         }
 
         public static void FillItemStatesCombo(ComboBox comboBox, ItemType itemType, ItemState selectedState)

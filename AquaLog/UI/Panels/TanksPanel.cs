@@ -100,7 +100,7 @@ namespace AquaLog.UI.Panels
             SetActionEnabled("Quality", enabled);
         }
 
-        protected override void UpdateContent()
+        internal override void UpdateContent()
         {
             fLayoutPanel.Controls.Clear();
             if (fModel == null) return;
@@ -221,19 +221,8 @@ namespace AquaLog.UI.Panels
             if (selectedItem == null) return;
 
             var record = selectedItem.Aquarium;
-
-            var transfer = new Transfer();
-            transfer.ItemType = ItemType.Aquarium;
-            transfer.ItemId = record.Id;
-
-            using (var dlg = new TransferEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Record = transfer;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(dlg.Record);
-                    UpdateContent();
-                }
-            }
+            ItemType itemType = ItemType.Aquarium;
+            Browser.TransferItem(itemType, record.Id, this);
         }
 
         private void btnAnalysis_Click(object sender, EventArgs e)

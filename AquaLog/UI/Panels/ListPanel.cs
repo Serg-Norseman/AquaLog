@@ -55,7 +55,7 @@ namespace AquaLog.UI.Panels
             SelectionChanged(records);
         }
 
-        protected override void UpdateContent()
+        internal override void UpdateContent()
         {
             try {
                 ListView.BeginUpdate();

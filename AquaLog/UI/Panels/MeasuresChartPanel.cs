@@ -49,7 +49,7 @@ namespace AquaLog.UI.Panels
             fSelectedAquarium = "*";
         }
 
-        protected override void UpdateContent()
+        internal override void UpdateContent()
         {
             fGraph.Clear();
             if (fModel == null) return;

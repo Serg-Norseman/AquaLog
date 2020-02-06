@@ -17,14 +17,15 @@ namespace AquaLog.UI
     {
         private const int WM_SETREDRAW = 11;
 
-        private IWin32Window fOwner;
+        private readonly IWin32Window fOwner;
         private int fSuspendCounter;
-        private SynchronizationContext fSyncContext = SynchronizationContext.Current;
+        private readonly SynchronizationContext fSyncContext;
 
 
         public DrawingHelper(IWin32Window owner)
         {
             fOwner = owner;
+            fSyncContext = SynchronizationContext.Current;
         }
 
         /// <summary>This overload allows you to specify whether the optimal flags for a container 
@@ -41,11 +42,6 @@ namespace AquaLog.UI
                 flags = RedrawWindowFlags.NoErase | RedrawWindowFlags.Invalidate | RedrawWindowFlags.InternalPaint;
             }
 
-            ResumeDrawing(flags);
-        }
-
-        internal void ResumeDrawing(RedrawWindowFlags flags)
-        {
             Interlocked.Decrement(ref fSuspendCounter);
 
             if (fSuspendCounter == 0) {

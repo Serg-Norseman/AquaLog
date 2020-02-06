@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using AquaLog.Core;
 using AquaLog.Core.Model;
 using CsGL.OpenGL;
 

@@ -88,6 +88,32 @@ namespace AquaLog.Core.Model
         }
 
         [Test]
+        public void Test_Brand()
+        {
+            var tank = new Aquarium();
+            tank.Brand = "Eheim";
+            Assert.AreEqual("Eheim", tank.Brand);
+        }
+
+        [Test]
+        public void Test_StartDate()
+        {
+            var tank = new Aquarium();
+            var dtx = DateTime.Now;
+            tank.StartDate = dtx;
+            Assert.AreEqual(dtx, tank.StartDate);
+        }
+
+        [Test]
+        public void Test_StopDate()
+        {
+            var tank = new Aquarium();
+            var dtx = DateTime.Now;
+            tank.StopDate = dtx;
+            Assert.AreEqual(dtx, tank.StopDate);
+        }
+
+        [Test]
         public void Test_WaterType()
         {
             var tank = new Aquarium();
@@ -243,6 +269,8 @@ namespace AquaLog.Core.Model
             aquarium.UnderfillHeight = 4.0f;
             aquarium.SoilHeight = 2.0f;
             Assert.AreEqual(7.35f, aquarium.CalcWaterVolume(), 0.01);
+
+            Assert.AreEqual(0.7175f, aquarium.CalcSoilVolume(), 0.01);
         }
 
         [Test]

@@ -50,7 +50,7 @@ namespace AquaLog.UI.Panels
             }
         }
 
-        protected override void UpdateContent()
+        internal override void UpdateContent()
         {
             fLayoutPanel.Controls.Clear();
             if (fModel == null) return;

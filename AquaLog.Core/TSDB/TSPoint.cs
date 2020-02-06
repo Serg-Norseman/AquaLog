@@ -4,6 +4,7 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using AquaLog.Core.Model;
 using AquaLog.Core.Types;
 using BSLib;
 using SQLite;
@@ -13,11 +14,8 @@ namespace AquaLog.TSDB
     /// <summary>
     /// 
     /// </summary>
-    public class TSPoint
+    public class TSPoint : Entity
     {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-
         [Unique]
         public string Name { get; set; }
 

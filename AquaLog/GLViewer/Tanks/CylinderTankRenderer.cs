@@ -5,7 +5,6 @@
  */
 
 using System;
-using AquaLog.Core;
 using AquaLog.Core.Model.Tanks;
 using CsGL.OpenGL;
 

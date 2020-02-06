@@ -20,10 +20,12 @@ namespace AquaLog.GLViewer
         private const float w = 0.01f;
         private const float b = 0.01f;
 
-        private int fSize;
+
         private Cell[] fCells;
         private Vector3D[] fNormals;
-        private Random fRandom;
+        private readonly Random fRandom;
+        private readonly int fSize;
+
 
         public M3DWater(int size = 200)
         {
@@ -45,7 +47,7 @@ namespace AquaLog.GLViewer
         public void Draw()
         {
             for (int i = 1; i <= fSize; i++) {
-                int ad1 = (i - 1) * fSize + (1 - 1);
+                int ad1 = (i - 1) * fSize + 0;
                 int ad2 = (i) * (fSize + 2) + 1;
 
                 for (int j = 1; j <= fSize; j++) {
@@ -62,8 +64,8 @@ namespace AquaLog.GLViewer
             for (int i = 1; i <= fSize - 1; i++) {
                 OpenGL.glBegin(OpenGL.GL_TRIANGLE_STRIP);
 
-                int ad1 = (i - 1) * fSize + (1 - 1);
-                int ad2 = i * (fSize + 2) + (+1);
+                int ad1 = (i - 1) * fSize + 0;
+                int ad2 = i * (fSize + 2) + 1;
                 float ix = dist * (i - fSize / 2);
                 float jz = dist * (1 - fSize / 2);
 
@@ -93,7 +95,7 @@ namespace AquaLog.GLViewer
                 for (int i = -7; i <= 7; i++) {
                     for (int j = -7; j <= 7; j++) {
                         var cell = fCells[ad + i * (fSize + 2) + j];
-                        cell.x = cell.x + 10 * (float)Math.Exp(-(i * i + j * j) / 5);
+                        cell.x = cell.x + 10 * (float)Math.Exp(-(i * i + j * j) / 5.0d);
                     }
                 }
             }

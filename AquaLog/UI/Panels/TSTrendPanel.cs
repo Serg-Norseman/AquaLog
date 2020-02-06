@@ -43,7 +43,7 @@ namespace AquaLog.UI.Panels
             fPointId = pointId;
         }
 
-        protected override void UpdateContent()
+        internal override void UpdateContent()
         {
             fGraph.Clear();
             if (fModel == null) return;

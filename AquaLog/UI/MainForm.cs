@@ -193,6 +193,23 @@ namespace AquaLog.UI
             }
         }
 
+        public void TransferItem(ItemType itemType, int itemId, DataPanel view)
+        {
+            var transfer = new Transfer();
+            transfer.ItemType = itemType;
+            transfer.ItemId = itemId;
+
+            using (var dlg = new TransferEditDlg()) {
+                dlg.Model = fModel;
+                dlg.Record = transfer;
+                if (dlg.ShowDialog() == DialogResult.OK) {
+                    fModel.AddRecord(dlg.Record);
+
+                    view.UpdateContent();
+                }
+            }
+        }
+
         #region Event handlers
 
         private void Timer1Tick(object sender, EventArgs e)

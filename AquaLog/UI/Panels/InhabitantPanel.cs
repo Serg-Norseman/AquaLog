@@ -134,19 +134,7 @@ namespace AquaLog.UI.Panels
 
             SpeciesType speciesType = fModel.GetSpeciesType(record.SpeciesId);
             ItemType itemType = ALCore.GetItemType(speciesType);
-
-            var transfer = new Transfer();
-            transfer.ItemType = itemType;
-            transfer.ItemId = record.Id;
-
-            using (var dlg = new TransferEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Record = transfer;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(dlg.Record);
-                    UpdateContent();
-                }
-            }
+            Browser.TransferItem(itemType, record.Id, this);
         }
 
         private void ViewLifeLinesHandler(object sender, EventArgs e)

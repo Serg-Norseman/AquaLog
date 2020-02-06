@@ -123,6 +123,11 @@ namespace AquaLog.Core.Model
             return result;
         }
 
+        public double CalcSoilVolume()
+        {
+            return CalcSoilVolume(TankShape, SoilHeight);
+        }
+
         public double CalcSoilVolume(TankShape tankShape, double soilHeight)
         {
             ITank tank = GetTank(tankShape, TankProperties);

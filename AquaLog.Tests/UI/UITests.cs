@@ -131,6 +131,10 @@ namespace AquaLog.UI
             //ModalFormHandler = Dialog_Cancel_Handler;
             //ClickButton("btnDelete", fMainWin);
 
+            // LifeLines Chart
+            ClickButton("btnChart", fMainWin);
+            ClickToolStripButton("btnPrev", fMainWin);
+
             ClickToolStripMenuItem("miExit", fMainWin);
         }
 
@@ -140,6 +144,9 @@ namespace AquaLog.UI
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnSpecies", fMainWin);
+
+            //ModalFormHandler = SaveFile_Cancel_Handler;
+            //ClickButton("btnExport", fMainWin);
 
             ModalFormHandler = Dialog_Cancel_Handler;
             ClickButton("btnAdd", fMainWin);
@@ -398,11 +405,41 @@ namespace AquaLog.UI
         }
 
         [Test]
+        public void Test_BrandPanel()
+        {
+            fMainWin = new MainForm();
+
+            ClickToolStripButton("btnBudget", fMainWin);
+            ClickButton("btnBrands", fMainWin);
+
+            ModalFormHandler = Dialog_Cancel_Handler;
+            ClickButton("btnAdd", fMainWin);
+
+            ClickToolStripMenuItem("miExit", fMainWin);
+        }
+
+        [Test]
+        public void Test_SnapshotPanel()
+        {
+            fMainWin = new MainForm();
+
+            ClickToolStripButton("btnSnapshots", fMainWin);
+
+            ModalFormHandler = Dialog_Cancel_Handler;
+            ClickButton("btnAdd", fMainWin);
+
+            ClickToolStripMenuItem("miExit", fMainWin);
+        }
+
+        [Test]
         public void Test_TSDBPanel()
         {
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnTSDB", fMainWin);
+
+            ModalFormHandler = DataMonitor_Handler;
+            ClickButton("btnDataMonitor", fMainWin);
 
             ModalFormHandler = Dialog_Cancel_Handler;
             ClickButton("btnAdd", fMainWin);
@@ -433,6 +470,11 @@ namespace AquaLog.UI
             EnterText("txtName", form, "sample point");
 
             ClickButton("btnAccept", form);
+        }
+
+        public static void DataMonitor_Handler(string name, IntPtr ptr, Form form)
+        {
+            KeyDownForm("DataMonitor", Keys.Escape);
         }
     }
 }

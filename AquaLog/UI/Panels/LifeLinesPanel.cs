@@ -36,7 +36,7 @@ namespace AquaLog.UI.Panels
             Controls.Add(fGraph);
         }
 
-        protected override void UpdateContent()
+        internal override void UpdateContent()
         {
             fGraph.Clear();
             if (fModel == null) return;

@@ -5,8 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -69,16 +67,7 @@ namespace AquaLog.UI.Dialogs
         private void UpdateView()
         {
             if (fRecord != null) {
-                cmbAquarium.Items.Clear();
-                var aquariums = fModel.QueryAquariums();
-                foreach (var aqm in aquariums) {
-                    if (fRecord.AquariumId != 0 || !aqm.IsInactive()) {
-                        cmbAquarium.Items.Add(aqm);
-                    }
-                }
-
-                cmbAquarium.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.AquariumId);
-                cmbAquarium.Enabled = (fRecord.AquariumId == 0);
+                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId, true);
 
                 if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
                     dtpDateTime.Value = fRecord.Timestamp;

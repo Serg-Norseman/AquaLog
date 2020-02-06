@@ -5,8 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
@@ -74,14 +72,8 @@ namespace AquaLog.UI.Dialogs
         {
             if (fRecord != null) {
                 UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
-                cmbAquarium.Enabled = (fRecord.AquariumId == 0);
 
-                cmbInhabitant.Items.Clear();
-                var inhabitants = fModel.QueryInhabitants();
-                foreach (Inhabitant inh in inhabitants) {
-                    cmbInhabitant.Items.Add(inh);
-                }
-                cmbInhabitant.SelectedItem = inhabitants.FirstOrDefault(inh => inh.Id == fRecord.InhabitantId);
+                UIHelper.FillEntitiesCombo(cmbInhabitant, fModel.QueryInhabitants(), fRecord.InhabitantId, true);
 
                 UIHelper.FillStringsCombo(cmbBrand, fModel.QueryNutritionBrands(), fRecord.Brand);
 

@@ -4,6 +4,9 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using AquaLog.Core.Types;
+using AquaLog.UI.Panels;
+
 namespace AquaLog.UI
 {
     /// <summary>
@@ -12,5 +15,6 @@ namespace AquaLog.UI
     public interface IBrowser
     {
         void SetView(MainView mainView, object extData);
+        void TransferItem(ItemType itemType, int itemId, DataPanel view);
     }
 }

@@ -78,19 +78,7 @@ namespace AquaLog.UI.Panels
             if (record == null) return;
 
             ItemType itemType = ALCore.GetItemType(record.Type);
-
-            var transfer = new Transfer();
-            transfer.ItemType = itemType;
-            transfer.ItemId = record.Id;
-
-            using (var dlg = new TransferEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Record = transfer;
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fModel.AddRecord(dlg.Record);
-                    UpdateContent();
-                }
-            }
+            Browser.TransferItem(itemType, record.Id, this);
         }
     }
 }

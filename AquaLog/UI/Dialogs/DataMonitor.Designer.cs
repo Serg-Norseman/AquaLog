@@ -130,13 +130,15 @@
             this.Controls.Add(this.chkEnableCommLED);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DataMonitor";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "DataMonitor";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainFormFormClosed);
-            this.Load += new System.EventHandler(this.MainFormLoad);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.DataMonitor_FormClosed);
+            this.Load += new System.EventHandler(this.DataMonitor_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.DataMonitor_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -14,6 +14,14 @@ namespace AquaLog.Core
     public class LocalizerTests
     {
         [Test]
+        public void Test_LocaleFile_ctor()
+        {
+            var instance = new LocaleFile(1033, "en", "English", "english.lng");
+            Assert.IsNotNull(instance);
+            Assert.AreEqual("English", instance.ToString());
+        }
+
+        [Test]
         public void Test_Common()
         {
             Localizer.DefInit();
