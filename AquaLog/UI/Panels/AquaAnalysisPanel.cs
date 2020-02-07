@@ -30,6 +30,11 @@ namespace AquaLog.UI.Panels
             UpdateContent();
         }
 
+        protected override void InitActions()
+        {
+            AddAction("Export", LSID.Export, "btn_excel.gif", ExportHandler);
+        }
+
         protected override void UpdateListView()
         {
             ListView.Clear();
@@ -144,6 +149,11 @@ namespace AquaLog.UI.Panels
                     }
                 }
             }
+        }
+
+        private void ExportHandler(object sender, EventArgs e)
+        {
+            Export();
         }
     }
 }

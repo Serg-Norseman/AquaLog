@@ -85,22 +85,23 @@ namespace AquaLog.UI.Panels
                 SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
                 ItemType itemType = ALCore.GetItemType(speciesType);
 
+                rec.Quantity = fModel.QueryInhabitantsCount(rec.Id, itemType);
+                bool fin = (rec.Quantity == 0);
+
                 int currAqmId = 0;
                 DateTime inclusionDate, exclusionDate;
                 fModel.GetInhabitantDates(rec.Id, itemType, out inclusionDate, out exclusionDate, out currAqmId);
 
                 string aqmName = fModel.GetRecordName(ItemType.Aquarium, currAqmId);
                 string strInclusDate = ALCore.IsZeroDate(inclusionDate) ? string.Empty : ALCore.GetDateStr(inclusionDate);
-                string strExclusDate = ALCore.IsZeroDate(exclusionDate) ? string.Empty : ALCore.GetDateStr(exclusionDate);
+                string strExclusDate = ALCore.IsZeroDate(exclusionDate) || !fin ? string.Empty : ALCore.GetDateStr(exclusionDate);
 
-                DateTime endDate = ALCore.IsZeroDate(exclusionDate) ? DateTime.Now.Date : exclusionDate;
+                DateTime endDate = ALCore.IsZeroDate(exclusionDate) || !fin ? DateTime.Now.Date : exclusionDate;
                 string strLifespan = ALCore.IsZeroDate(inclusionDate) ? string.Empty : ALCore.GetTimespanText(inclusionDate, endDate);
-
-                rec.Quantity = fModel.QueryInhabitantsCount(rec.Id, itemType);
 
                 ItemState itemState;
                 string strState = fModel.GetItemStateStr(rec.Id, itemType, out itemState);
-                if (itemState == ItemState.Unknown) {
+                if (itemState == ItemState.Unknown || !fin) {
                     strState = Localizer.LS(ALData.ItemStates[(int)rec.State]);
                 }
 
@@ -124,7 +125,7 @@ namespace AquaLog.UI.Panels
                 }
             }
 
-            ListView.SetSortColumn(6);
+            ListView.Sort(6, SortOrder.Ascending);
         }
 
         private void TransferHandler(object sender, EventArgs e)

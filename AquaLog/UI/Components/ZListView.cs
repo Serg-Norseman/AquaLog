@@ -213,20 +213,27 @@ namespace AquaLog.UI.Components
             return (fSortColumn == columnIndex) ? fSortOrder : SortOrder.None;
         }
 
-        public void SetSortColumn(int sortColumn, bool checkOrder = true)
+        public void Sort(int sortColumn, SortOrder sortOrder)
         {
-            int prevColumn = fSortColumn;
-            if (prevColumn == sortColumn && checkOrder) {
-                SortOrder prevOrder = GetColumnSortOrder(sortColumn);
-                fSortOrder = (prevOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
-            }
-
-            if (fSortOrder == SortOrder.None) {
-                fSortOrder = SortOrder.Ascending;
-            }
-
             fSortColumn = sortColumn;
+            fSortOrder = sortOrder;
             Sort();
+        }
+
+        private void SetSortColumn(int sortColumn, bool checkOrder = true)
+        {
+            SortOrder sortOrder = fSortOrder;
+
+            if (fSortColumn == sortColumn && checkOrder) {
+                SortOrder prevOrder = GetColumnSortOrder(sortColumn);
+                sortOrder = (prevOrder == SortOrder.Ascending) ? SortOrder.Descending : SortOrder.Ascending;
+            }
+
+            if (sortOrder == SortOrder.None) {
+                sortOrder = SortOrder.Ascending;
+            }
+
+            Sort(sortColumn, sortOrder);
         }
 
         protected override void OnColumnClick(ColumnClickEventArgs e)
