@@ -10,6 +10,26 @@ using BSLib;
 
 namespace AquaLog.DataCollection
 {
+    public class DataReceivedEventArgs : EventArgs
+    {
+        private readonly BaseService fService;
+
+        public BaseService Service
+        {
+            get { return fService; }
+        }
+
+
+        internal DataReceivedEventArgs(BaseService service)
+        {
+            fService = service;
+        }
+    }
+
+
+    public delegate void DataReceivedEventHandler(object sender, DataReceivedEventArgs e);
+
+
     /// <summary>
     /// 
     /// </summary>
@@ -21,14 +41,8 @@ namespace AquaLog.DataCollection
 
         public event ElapsedEventHandler Elapsed;
 
-        public event EventHandler ReceivedData;
+        public event DataReceivedEventHandler ReceivedData;
 
-
-        public bool Enabled
-        {
-            get { return fTimer.Enabled; }
-            set { fTimer.Enabled = value; }
-        }
 
         public IChannel Channel
         {
@@ -36,10 +50,23 @@ namespace AquaLog.DataCollection
             set { fChannel = value; }
         }
 
-
-        protected BaseService()
+        public bool Enabled
         {
-            fTimer = new Timer(1000);
+            get { return fTimer.Enabled; }
+            set { fTimer.Enabled = value; }
+        }
+
+        public virtual string Name
+        {
+            get { return string.Empty; }
+        }
+
+
+        protected BaseService(IChannel channel, double interval)
+        {
+            fChannel = channel;
+
+            fTimer = new Timer(interval);
             fTimer.Elapsed += OnTimerElapsed;
             fTimer.AutoReset = true;
             fTimer.Enabled = false;
@@ -81,8 +108,8 @@ namespace AquaLog.DataCollection
 
         protected void ReceiveData()
         {
-            EventHandler handler = ReceivedData;
-            if (handler != null) handler(this, EventArgs.Empty);
+            DataReceivedEventHandler handler = ReceivedData;
+            if (handler != null) handler(this, new DataReceivedEventArgs(this));
         }
     }
 }

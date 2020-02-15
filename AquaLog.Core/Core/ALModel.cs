@@ -11,6 +11,8 @@ using System.Drawing.Imaging;
 using System.IO;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
+using AquaLog.DataCollection;
+using AquaLog.Logging;
 using AquaLog.TSDB;
 using BSLib;
 using SQLite;
@@ -22,9 +24,12 @@ namespace AquaLog.Core
     /// </summary>
     public class ALModel
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ALModel");
+
         private readonly SQLiteConnection fDB;
         private readonly EntitiesCache fCache;
         private readonly TSDatabase fTSDB;
+        private DAS fDAS;
 
 
         public EntitiesCache Cache
@@ -36,6 +41,9 @@ namespace AquaLog.Core
         {
             get { return fTSDB; }
         }
+
+
+        public event DataReceivedEventHandler ReceivedData;
 
 
         public ALModel()
@@ -720,5 +728,31 @@ namespace AquaLog.Core
         }
 
         #endregion
+
+        public void ApplySettings(ALSettings settings)
+        {
+            if (settings.ChannelEnabled) {
+                fDAS = new DAS(settings.ChannelName, settings.ChannelParameters, OnReceivedData);
+            } else {
+                fDAS.Dispose();
+            }
+        }
+
+        private void OnReceivedData(object sender, DataReceivedEventArgs e)
+        {
+            try {
+                fTSDB.ReceiveData(e.Service);
+
+                DataReceivedEventHandler handler = ReceivedData;
+                if (handler != null) handler(sender, e);
+            } catch (Exception ex) {
+                fLogger.WriteError("OnReceivedData()", ex);
+            }
+        }
+
+        public double GetCurrentValue(int pointId)
+        {
+            return (pointId != 0) ? fTSDB.GetCurrentValue(pointId) : double.NaN;
+        }
     }
 }

@@ -127,5 +127,10 @@ namespace AquaLog.UI.Panels
                 }
             }
         }
+
+        public virtual void TickTimer()
+        {
+            // dummy
+        }
     }
 }

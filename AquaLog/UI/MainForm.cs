@@ -34,6 +34,12 @@ namespace AquaLog.UI
         private ALTray fTray;
 
 
+        public ALModel Model
+        {
+            get { return fModel; }
+        }
+
+
         public MainForm()
         {
             InitializeComponent();
@@ -77,7 +83,7 @@ namespace AquaLog.UI
             SetView(MainView.Tanks, null);
 
             Localizer.FindLocales();
-            ChangeLocale();
+            ApplySettings();
         }
 
         protected override void Dispose(bool disposing)
@@ -210,11 +216,37 @@ namespace AquaLog.UI
             }
         }
 
+        public void ShowSettings(int tabIndex = 0)
+        {
+            try {
+                using (var dlg = new SettingsDlg()) {
+                    dlg.Model = fModel;
+                    dlg.Settings = ALSettings.Instance;
+                    dlg.SelectTab(tabIndex);
+                    if (dlg.ShowDialog() == DialogResult.OK) {
+                        ApplySettings();
+                        fCurrentPanel.UpdateView();
+                    }
+                }
+            } catch (Exception ex) {
+                fLogger.WriteError("ShowSettings()", ex);
+            }
+        }
+
+        public void ApplySettings()
+        {
+            fModel.ApplySettings(ALSettings.Instance);
+            ChangeLocale();
+        }
+
         #region Event handlers
 
         private void Timer1Tick(object sender, EventArgs e)
         {
             UpdateControls();
+
+            fCurrentPanel.TickTimer();
+
             CheckTasks();
         }
 
@@ -263,18 +295,7 @@ namespace AquaLog.UI
 
         private void miSettings_Click(object sender, EventArgs e)
         {
-            try {
-                using (var dlg = new SettingsDlg()) {
-                    dlg.Model = fModel;
-                    dlg.Settings = ALSettings.Instance;
-                    if (dlg.ShowDialog() == DialogResult.OK) {
-                        ChangeLocale();
-                        fCurrentPanel.UpdateView();
-                    }
-                }
-            } catch (Exception ex) {
-                fLogger.WriteError("miSettings_Click()", ex);
-            }
+            ShowSettings();
         }
 
         private void miCalculator_Click(object sender, EventArgs e)

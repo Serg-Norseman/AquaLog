@@ -9,6 +9,7 @@ using System.Linq;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Types;
+using AquaLog.DataCollection;
 using AquaLog.Logging;
 using BSLib;
 
@@ -78,6 +79,8 @@ namespace AquaLog.UI.Dialogs
             cmbMassUoM.Enabled = false;
             cmbTemperatureUoM.Enabled = false;
 
+            cmbChannel.Items.AddRange(DAS.ChannelNames);
+
             SetLocale();
         }
 
@@ -97,6 +100,11 @@ namespace AquaLog.UI.Dialogs
             lblVolumeUoM.Text = Localizer.LS(LSID.Volume);
             lblMassUoM.Text = Localizer.LS(LSID.Mass);
             lblTemperatureUoM.Text = Localizer.LS(LSID.Temperature);
+
+            tabDAS.Text = Localizer.LS(LSID.DataAcquisition);
+            lblChannel.Text = Localizer.LS(LSID.Channel);
+            lblParameters.Text = Localizer.LS(LSID.Parameters);
+            chkEnabled.Text = Localizer.LS(LSID.Enabled);
         }
 
         private void UpdateView()
@@ -111,6 +119,10 @@ namespace AquaLog.UI.Dialogs
                 cmbVolumeUoM.SetSelectedTag<MeasurementUnit>(fSettings.VolumeUoM);
                 cmbMassUoM.SetSelectedTag<MeasurementUnit>(fSettings.MassUoM);
                 cmbTemperatureUoM.SetSelectedTag<MeasurementUnit>(fSettings.TemperatureUoM);
+
+                chkEnabled.Checked = fSettings.ChannelEnabled;
+                cmbChannel.Text = fSettings.ChannelName;
+                cmbPort.Text = fSettings.ChannelParameters;
             }
 
             chkAutorun.Checked = UIHelper.IsStartupItem();
@@ -130,6 +142,10 @@ namespace AquaLog.UI.Dialogs
             fSettings.MassUoM = cmbMassUoM.GetSelectedTag<MeasurementUnit>();
             fSettings.TemperatureUoM = cmbMassUoM.GetSelectedTag<MeasurementUnit>();
 
+            fSettings.ChannelEnabled = chkEnabled.Checked;
+            fSettings.ChannelName = cmbChannel.Text;
+            fSettings.ChannelParameters = cmbPort.Text;
+
             if (chkAutorun.Checked) {
                 UIHelper.RegisterStartup();
             } else {
@@ -146,6 +162,11 @@ namespace AquaLog.UI.Dialogs
                 fLogger.WriteError("ApplyChanges()", ex);
                 DialogResult = DialogResult.None;
             }
+        }
+
+        public void SelectTab(int tabIndex)
+        {
+            tabControl1.SelectedTab = tabControl1.TabPages[tabIndex];
         }
     }
 }

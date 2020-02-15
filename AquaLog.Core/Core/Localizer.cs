@@ -227,8 +227,11 @@ namespace AquaLog.Core
         /* 203 */ Quality,
         /* 204 */ Exclusion,
         /* 205 */ Sold,
+        /* 206 */ DataAcquisition,
+        /* 207 */ Parameters,
+        /* 208 */ Channel,
 
-        /* 000 */ Last = Sold
+        /* 000 */ Last = Channel
     }
 
 
@@ -444,6 +447,9 @@ namespace AquaLog.Core
             /* 203 */ "Quality",
             /* 204 */ "Exclusion",
             /* 205 */ "Sold",
+            /* 206 */ "Data acquisition",
+            /* 207 */ "Parameters",
+            /* 208 */ "Channel",
         };
 
 

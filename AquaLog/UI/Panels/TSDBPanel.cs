@@ -7,6 +7,7 @@
 using System;
 using System.Windows.Forms;
 using AquaLog.Core;
+using AquaLog.Core.Model;
 using AquaLog.TSDB;
 using AquaLog.UI.Dialogs;
 
@@ -39,6 +40,8 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.Min), 80, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.Max), 80, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.Deviation), 80, HorizontalAlignment.Right);
+            ListView.Columns.Add("SID", 140, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Value), 80, HorizontalAlignment.Right);
 
             TSDatabase tsdb = fModel.TSDB;
             var records = tsdb.GetPoints();
@@ -48,7 +51,9 @@ namespace AquaLog.UI.Panels
                                rec.MeasureUnit,
                                ALCore.GetDecimalStr(rec.Min),
                                ALCore.GetDecimalStr(rec.Max),
-                               ALCore.GetDecimalStr(rec.Deviation)
+                               ALCore.GetDecimalStr(rec.Deviation),
+                               rec.SID,
+                               string.Empty
                            );
             }
         }
@@ -109,8 +114,22 @@ namespace AquaLog.UI.Panels
 
         private void ShowMonitor(object sender, EventArgs e)
         {
-            using (var monitor = new DataMonitor()) {
+            using (var monitor = new DataMonitor(Browser)) {
                 monitor.ShowDialog();
+            }
+        }
+
+        public override void TickTimer()
+        {
+            int num = ListView.Items.Count;
+            for (int i = 0; i < num; i++) {
+                ListViewItem item = ListView.Items[i];
+                TSPoint point = item.Tag as TSPoint;
+                if (point != null) {
+                    double curValue = fModel.GetCurrentValue(point.Id);
+                    string strVal = ALCore.GetDecimalStr(curValue);
+                    item.SubItems[6].Text = strVal;
+                }
             }
         }
     }

@@ -33,7 +33,7 @@ namespace AquaLog.Core
         public static readonly DateTime ZeroDate = new DateTime(0);
 
         public const string LOG_FILE = "AquaLog.log";
-        public const string LOG_LEVEL = "INFO"; // "DEBUG";
+        public const string LOG_LEVEL = "INFO";
 
         private static string fAppDataPath = null;
 
@@ -124,7 +124,7 @@ namespace AquaLog.Core
 
         public static string GetDecimalStr(double value, int decimalDigits = 2, bool hideZero = false)
         {
-            if (value == 0.0d && hideZero) {
+            if (double.IsNaN(value) || (value == 0.0d && hideZero)) {
                 return string.Empty;
             }
 

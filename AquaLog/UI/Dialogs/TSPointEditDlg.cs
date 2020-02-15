@@ -72,6 +72,7 @@ namespace AquaLog.UI.Dialogs
                 txtMin.Text = ALCore.GetDecimalStr(fPoint.Min);
                 txtMax.Text = ALCore.GetDecimalStr(fPoint.Max);
                 txtDeviation.Text = ALCore.GetDecimalStr(fPoint.Deviation);
+                txtSID.Text = fPoint.SID;
             }
         }
 
@@ -82,6 +83,7 @@ namespace AquaLog.UI.Dialogs
             fPoint.Min = (float)ALCore.GetDecimalVal(txtMin.Text);
             fPoint.Max = (float)ALCore.GetDecimalVal(txtMax.Text);
             fPoint.Deviation = (float)ALCore.GetDecimalVal(txtDeviation.Text);
+            fPoint.SID = txtSID.Text;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)

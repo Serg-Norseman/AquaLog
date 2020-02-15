@@ -6,7 +6,6 @@
 
 using System;
 using System.Windows.Forms;
-using System.Timers;
 using AquaLog.Core;
 using AquaLog.DataCollection;
 using AquaLog.Logging;
@@ -18,37 +17,29 @@ namespace AquaLog.UI.Dialogs
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "DataMonitor");
 
-        private IChannel fChannel;
-        private BaseService fCommunicationLED;
-        private BaseService fTemperatureService;
+        private IBrowser fBrowser;
 
         public DataMonitor()
         {
             InitializeComponent();
 
-            #if !NETCOREAPP30
-            fChannel = new SerialChannel();
-            #endif
+            Text = Localizer.LS(LSID.DataMonitor);
+            btnSettings.Text = Localizer.LS(LSID.Settings);
+        }
 
-            fCommunicationLED = new CommunicationLEDService();
-            fCommunicationLED.SetChannel(fChannel);
-            fCommunicationLED.SetInterval(1000);
-            //fCommunicationLED.Elapsed += OnTimedEvent;
-            fCommunicationLED.ReceivedData += OnReceivedData;
-
-            fTemperatureService = new TemperatureService();
-            fTemperatureService.SetChannel(fChannel);
-            fTemperatureService.SetInterval(5000);
-            //fTemperatureService.Elapsed += OnTimedEvent;
-            fTemperatureService.ReceivedData += OnReceivedData;
+        public DataMonitor(IBrowser browser) : this()
+        {
+            fBrowser = browser;
+            fBrowser.Model.ReceivedData += OnReceivedData;
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                if (fChannel != null) {
-                    fChannel.Dispose();
+                if (fBrowser != null) {
+                    fBrowser.Model.ReceivedData -= OnReceivedData;
                 }
+
                 if (components != null) {
                     components.Dispose();
                 }
@@ -56,37 +47,13 @@ namespace AquaLog.UI.Dialogs
             base.Dispose(disposing);
         }
 
-        private void DataMonitor_Load(object sender, EventArgs e)
-        {
-            cmbChannel.SelectedIndex = 0;
-            cmbChannel.Enabled = false;
-        }
-
-        private void DataMonitor_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            fCommunicationLED.Dispose();
-            fTemperatureService.Dispose();
-            fChannel.Dispose();
-        }
-
-        private void OnTimedEvent(object sender, ElapsedEventArgs e)
+        private void OnReceivedData(object sender, DataReceivedEventArgs e)
         {
             try {
-                if (fChannel.IsOpen) {
-                    string strFromPort = fChannel.ReadLine();
-                    textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), strFromPort);
-                }
-            } catch (Exception ex) {
-                fLogger.WriteError("OnTimedEvent()", ex);
-            }
-        }
-
-        private void OnReceivedData(object sender, EventArgs e)
-        {
-            try {
-                if (fChannel.IsOpen) {
-                    textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), ALCore.GetDecimalStr(((TemperatureService)fTemperatureService).Temperature));
-                    //textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), (((TemperatureService)fTemperatureService).Temperature));
+                var tempSvc = (TemperatureService)e.Service;
+                if (tempSvc != null) {
+                    string text = string.Format("{0} [{1}]: {2}", tempSvc.Name, tempSvc.SID, ALCore.GetDecimalStr(tempSvc.Temperature));
+                    textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), text);
                 }
             } catch (Exception ex) {
                 fLogger.WriteError("OnReceivedData()", ex);
@@ -98,33 +65,14 @@ namespace AquaLog.UI.Dialogs
             textBox1.Text += text + "\r\n";
         }
 
-        private void chkEnableCommLED_CheckedChanged(object sender, EventArgs e)
-        {
-            fCommunicationLED.Enabled = chkEnableCommLED.Checked;
-        }
-
-        private void chkEnableGetTemp_CheckedChanged(object sender, EventArgs e)
-        {
-            fTemperatureService.Enabled = chkEnableGetTemp.Checked;
-        }
-
-        private void btnOpen_Click(object sender, EventArgs e)
-        {
-            fChannel.Open(cmbPort.Text);
-            btnOpen.Enabled = false;
-            btnClose.Enabled = true;
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            fChannel.Close();
-            btnOpen.Enabled = true;
-            btnClose.Enabled = false;
-        }
-
         private void DataMonitor_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) Close();
+        }
+
+        private void btnSettings_Click(object sender, EventArgs e)
+        {
+            fBrowser.ShowSettings(2);
         }
     }
 }

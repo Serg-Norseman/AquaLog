@@ -7,7 +7,11 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using AquaLog.Core;
+using AquaLog.DataCollection;
+using AquaLog.Logging;
+using BSLib;
 using SQLite;
 
 namespace AquaLog.TSDB
@@ -17,6 +21,8 @@ namespace AquaLog.TSDB
     /// </summary>
     public class TSDatabase
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "TSDatabase");
+
         private readonly Dictionary<int, SDCompression> fCompressionCache;
         private readonly SQLiteConnection fDB;
 
@@ -128,6 +134,44 @@ namespace AquaLog.TSDB
             if (compression.ReceivePoint(ref timestamp, ref value)) {
                 string tableName = point.GetDataTableName();
                 InsertValue(tableName, timestamp, value);
+            }
+        }
+
+        public double GetCurrentValue(int pointId)
+        {
+            TSPoint point = fDB.Get<TSPoint>(pointId);
+
+            SDCompression compression;
+            if (!fCompressionCache.TryGetValue(pointId, out compression)) {
+                compression = new SDCompression(point.Deviation, 60 * 10); // default: 60sec * 10min
+                fCompressionCache.Add(pointId, compression);
+            }
+
+            if (compression != null) {
+                return compression.CurrentPoint.Value;
+            }
+
+            return double.NaN;
+        }
+
+        private TSPoint FindPointBySID(string sid)
+        {
+            var sidPoints = fDB.Query<TSPoint>("select * from TSPoint where SID = ?", sid);
+            return sidPoints.FirstOrDefault();
+        }
+
+        public void ReceiveData(BaseService service)
+        {
+            try {
+                var tempSvc = (TemperatureService)service;
+                if (tempSvc != null) {
+                    var point = FindPointBySID(tempSvc.SID);
+                    if (point != null) {
+                        ReceivePointValue(point.Id, DateTime.Now, tempSvc.Temperature);
+                    }
+                }
+            } catch (Exception ex) {
+                fLogger.WriteError("ReceiveData()", ex);
             }
         }
     }

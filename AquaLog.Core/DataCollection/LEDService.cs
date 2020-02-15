@@ -9,12 +9,18 @@ namespace AquaLog.DataCollection
     /// <summary>
     /// 
     /// </summary>
-    public sealed class CommunicationLEDService : BaseService
+    public sealed class LEDService : BaseService
     {
         private bool fLED;
 
 
-        public CommunicationLEDService()
+        public override string Name
+        {
+            get { return "LED"; }
+        }
+
+
+        public LEDService(IChannel channel, double interval) : base(channel, interval)
         {
         }
 

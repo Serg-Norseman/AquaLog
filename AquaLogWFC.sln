@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AquaLogWFC", "AquaLog\AquaL
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BSLib.TimelineWFC", "BSLib.Timeline\BSLib.TimelineWFC.csproj", "{E125AA91-3CF5-4D1B-9151-5AACDBE06A07}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AquaLogWFC.Core", "AquaLog.Core\AquaLogWFC.Core.csproj", "{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E125AA91-3CF5-4D1B-9151-5AACDBE06A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E125AA91-3CF5-4D1B-9151-5AACDBE06A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E125AA91-3CF5-4D1B-9151-5AACDBE06A07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

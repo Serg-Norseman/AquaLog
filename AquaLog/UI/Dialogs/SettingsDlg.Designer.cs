@@ -22,6 +22,12 @@
         private System.Windows.Forms.Label lblMassUoM;
         private System.Windows.Forms.ComboBox cmbTemperatureUoM;
         private System.Windows.Forms.Label lblTemperatureUoM;
+        private System.Windows.Forms.TabPage tabDAS;
+        private System.Windows.Forms.ComboBox cmbPort;
+        private System.Windows.Forms.Label lblParameters;
+        private System.Windows.Forms.ComboBox cmbChannel;
+        private System.Windows.Forms.Label lblChannel;
+        private System.Windows.Forms.CheckBox chkEnabled;
         
         protected override void Dispose(bool disposing)
         {
@@ -46,17 +52,24 @@
             this.chkAutorun = new System.Windows.Forms.CheckBox();
             this.chkHideClosedTanks = new System.Windows.Forms.CheckBox();
             this.tabData = new System.Windows.Forms.TabPage();
+            this.cmbTemperatureUoM = new System.Windows.Forms.ComboBox();
+            this.lblTemperatureUoM = new System.Windows.Forms.Label();
             this.cmbMassUoM = new System.Windows.Forms.ComboBox();
             this.lblMassUoM = new System.Windows.Forms.Label();
             this.cmbVolumeUoM = new System.Windows.Forms.ComboBox();
             this.lblVolumeUoM = new System.Windows.Forms.Label();
             this.cmbLengthUoM = new System.Windows.Forms.ComboBox();
             this.lblLengthUoM = new System.Windows.Forms.Label();
-            this.lblTemperatureUoM = new System.Windows.Forms.Label();
-            this.cmbTemperatureUoM = new System.Windows.Forms.ComboBox();
+            this.tabDAS = new System.Windows.Forms.TabPage();
+            this.cmbPort = new System.Windows.Forms.ComboBox();
+            this.lblParameters = new System.Windows.Forms.Label();
+            this.cmbChannel = new System.Windows.Forms.ComboBox();
+            this.lblChannel = new System.Windows.Forms.Label();
+            this.chkEnabled = new System.Windows.Forms.CheckBox();
             this.tabControl1.SuspendLayout();
             this.tabCommon.SuspendLayout();
             this.tabData.SuspendLayout();
+            this.tabDAS.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAccept
@@ -87,6 +100,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabCommon);
             this.tabControl1.Controls.Add(this.tabData);
+            this.tabControl1.Controls.Add(this.tabDAS);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -188,6 +202,25 @@
             this.tabData.TabIndex = 1;
             this.tabData.Text = "Data";
             // 
+            // cmbTemperatureUoM
+            // 
+            this.cmbTemperatureUoM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTemperatureUoM.FormattingEnabled = true;
+            this.cmbTemperatureUoM.Location = new System.Drawing.Point(179, 125);
+            this.cmbTemperatureUoM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
+            this.cmbTemperatureUoM.Name = "cmbTemperatureUoM";
+            this.cmbTemperatureUoM.Size = new System.Drawing.Size(185, 27);
+            this.cmbTemperatureUoM.TabIndex = 17;
+            // 
+            // lblTemperatureUoM
+            // 
+            this.lblTemperatureUoM.Location = new System.Drawing.Point(11, 128);
+            this.lblTemperatureUoM.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblTemperatureUoM.Name = "lblTemperatureUoM";
+            this.lblTemperatureUoM.Size = new System.Drawing.Size(164, 21);
+            this.lblTemperatureUoM.TabIndex = 16;
+            this.lblTemperatureUoM.Text = "TemperatureUoM";
+            // 
             // cmbMassUoM
             // 
             this.cmbMassUoM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -245,24 +278,66 @@
             this.lblLengthUoM.TabIndex = 16;
             this.lblLengthUoM.Text = "LengthUoM";
             // 
-            // lblTemperatureUoM
+            // tabDAS
             // 
-            this.lblTemperatureUoM.Location = new System.Drawing.Point(11, 128);
-            this.lblTemperatureUoM.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.lblTemperatureUoM.Name = "lblTemperatureUoM";
-            this.lblTemperatureUoM.Size = new System.Drawing.Size(164, 21);
-            this.lblTemperatureUoM.TabIndex = 16;
-            this.lblTemperatureUoM.Text = "TemperatureUoM";
+            this.tabDAS.BackColor = System.Drawing.SystemColors.Control;
+            this.tabDAS.Controls.Add(this.cmbPort);
+            this.tabDAS.Controls.Add(this.lblParameters);
+            this.tabDAS.Controls.Add(this.cmbChannel);
+            this.tabDAS.Controls.Add(this.lblChannel);
+            this.tabDAS.Controls.Add(this.chkEnabled);
+            this.tabDAS.Location = new System.Drawing.Point(4, 28);
+            this.tabDAS.Name = "tabDAS";
+            this.tabDAS.Padding = new System.Windows.Forms.Padding(3);
+            this.tabDAS.Size = new System.Drawing.Size(438, 196);
+            this.tabDAS.TabIndex = 2;
+            this.tabDAS.Text = "DAS";
             // 
-            // cmbTemperatureUoM
+            // cmbPort
             // 
-            this.cmbTemperatureUoM.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTemperatureUoM.FormattingEnabled = true;
-            this.cmbTemperatureUoM.Location = new System.Drawing.Point(179, 125);
-            this.cmbTemperatureUoM.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
-            this.cmbTemperatureUoM.Name = "cmbTemperatureUoM";
-            this.cmbTemperatureUoM.Size = new System.Drawing.Size(185, 27);
-            this.cmbTemperatureUoM.TabIndex = 17;
+            this.cmbPort.FormattingEnabled = true;
+            this.cmbPort.Items.AddRange(new object[] {
+            "COM3"});
+            this.cmbPort.Location = new System.Drawing.Point(161, 49);
+            this.cmbPort.Name = "cmbPort";
+            this.cmbPort.Size = new System.Drawing.Size(79, 27);
+            this.cmbPort.TabIndex = 10;
+            this.cmbPort.Text = "COM3";
+            // 
+            // lblParameters
+            // 
+            this.lblParameters.Location = new System.Drawing.Point(16, 52);
+            this.lblParameters.Name = "lblParameters";
+            this.lblParameters.Size = new System.Drawing.Size(127, 23);
+            this.lblParameters.TabIndex = 8;
+            this.lblParameters.Text = "Parameters";
+            // 
+            // cmbChannel
+            // 
+            this.cmbChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbChannel.FormattingEnabled = true;
+            this.cmbChannel.Location = new System.Drawing.Point(85, 16);
+            this.cmbChannel.Name = "cmbChannel";
+            this.cmbChannel.Size = new System.Drawing.Size(155, 27);
+            this.cmbChannel.TabIndex = 11;
+            // 
+            // lblChannel
+            // 
+            this.lblChannel.Location = new System.Drawing.Point(16, 19);
+            this.lblChannel.Name = "lblChannel";
+            this.lblChannel.Size = new System.Drawing.Size(63, 23);
+            this.lblChannel.TabIndex = 9;
+            this.lblChannel.Text = "Channel";
+            // 
+            // chkEnabled
+            // 
+            this.chkEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkEnabled.Location = new System.Drawing.Point(16, 82);
+            this.chkEnabled.Name = "chkEnabled";
+            this.chkEnabled.Size = new System.Drawing.Size(224, 24);
+            this.chkEnabled.TabIndex = 7;
+            this.chkEnabled.Text = "Enabled";
+            this.chkEnabled.UseVisualStyleBackColor = true;
             // 
             // SettingsDlg
             // 
@@ -287,6 +362,7 @@
             this.tabControl1.ResumeLayout(false);
             this.tabCommon.ResumeLayout(false);
             this.tabData.ResumeLayout(false);
+            this.tabDAS.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

@@ -130,11 +130,9 @@ namespace AquaLog.UI.Panels
                 int qty = fModel.QueryInhabitantsCount(rec.Id, itemType);
                 if (qty == 0) continue; // death, sale or gift?
 
-                int currAqmId = 0;
                 DateTime intrDate = ALCore.ZeroDate;
                 IList<Transfer> lastTransfers = fModel.QueryLastTransfers(rec.Id, (int)itemType);
                 if (lastTransfers.Count > 0) {
-                    currAqmId = lastTransfers[0].TargetId;
                     intrDate = lastTransfers[0].Timestamp;
                 }
                 string strIntrDate = ALCore.IsZeroDate(intrDate) ? string.Empty : ALCore.GetDateStr(intrDate);
@@ -255,6 +253,13 @@ namespace AquaLog.UI.Panels
             public SpeciesTypeData(string name)
             {
                 Name = name;
+
+                PHMin = Average.Create();
+                PHMax = Average.Create();
+                GHMin = Average.Create();
+                GHMax = Average.Create();
+                TempMin = Average.Create();
+                TempMax = Average.Create();
             }
         }
 

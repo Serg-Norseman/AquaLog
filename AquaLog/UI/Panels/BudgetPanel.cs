@@ -24,7 +24,6 @@ namespace AquaLog.UI.Panels
         Brands,
         Countries,
         Monthes,
-        Days,
     }
 
     /// <summary>
@@ -55,7 +54,6 @@ namespace AquaLog.UI.Panels
             AddAction("ChartBrands", LSID.ChartBrands, "", ViewChartBrandsHandler);
             AddAction("ChartCountries", LSID.ChartCountries, "", ViewChartCountriesHandler);
             AddAction("ChartMonthes", LSID.ChartMonthes, "", ViewChartMonthesHandler);
-            // AddAction("ChartDays", LSID.ChartMonthes, "", ViewChartDaysHandler);
             AddAction("Brands", LSID.Brands, "", ViewBrandsHandler);
         }
 
@@ -193,12 +191,6 @@ namespace AquaLog.UI.Panels
             Browser.SetView(MainView.BarChart, chartData);
         }
 
-        private void ViewChartDaysHandler(object sender, EventArgs e)
-        {
-            var chartData = GetChartData(BudgetChartType.Days);
-            Browser.SetView(MainView.BarChart, chartData);
-        }
-
         private void CollectBrands(IList<Transfer> transfers)
         {
             var brandRecords = fModel.QueryBrands();
@@ -256,9 +248,6 @@ namespace AquaLog.UI.Panels
                     case BudgetChartType.Monthes:
                         key = string.Format("{0}/{1}", ts.Month, ts.Year);
                         break;
-                    case BudgetChartType.Days:
-                        key = string.Format("{0}/{1}/{2}", ts.Day, ts.Month, ts.Year);
-                        break;
                     default:
                         key = "";
                         break;
@@ -277,8 +266,6 @@ namespace AquaLog.UI.Panels
                     if (chartType == BudgetChartType.Monthes) {
                         int days = DateHelper.DaysInMonth((short)ts.Year, (byte)ts.Month);
                         chartPoint.Timestamp = new DateTime(ts.Year, ts.Month, days);
-                    } else if (chartType == BudgetChartType.Days) {
-                        chartPoint.Timestamp = ts.Date;
                     }
                     result.Add(key, chartPoint);
                 }
@@ -286,7 +273,7 @@ namespace AquaLog.UI.Panels
 
             List<ChartPoint> vals = result.Values.ToList();
 
-            if (chartType != BudgetChartType.Monthes && chartType != BudgetChartType.Days) {
+            if (chartType != BudgetChartType.Monthes) {
                 // prettification
                 vals = AlternateSort(vals);
             }

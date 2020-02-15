@@ -92,13 +92,12 @@ namespace AquaLog.UI.Panels
                         if (mnt.Type >= MaintenanceType.Restart && mnt.Type <= MaintenanceType.WaterReplaced) {
                             if (!ALCore.IsZeroDate(dtPrev)) {
                                 days = (mnt.Timestamp.Date - dtPrev).Days;
-                                //result += days;
-                                //count += 1;
                             }
                             dtPrev = mnt.Timestamp.Date;
                         }
 
                         string strType = Localizer.LS(ALData.MaintenanceTypes[(int)mnt.Type]);
+                        string strDays = (days >= 0) ? days.ToString() : string.Empty;
 
                         var item = ListView.AddItemEx(mnt,
                                        curTime,
@@ -107,7 +106,7 @@ namespace AquaLog.UI.Panels
                                        mnt.Note,
                                        ALCore.GetDecimalStr(curVolume),
                                        ALCore.GetDecimalStr(chngPercent),
-                                       (days >= 0) ? days.ToString() : string.Empty
+                                       strDays
                                    );
                     }
 

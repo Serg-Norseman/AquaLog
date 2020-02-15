@@ -82,6 +82,9 @@
     <Compile Include="Core\Types\IBrandedItem.cs" />
     <Compile Include="Core\Types\IStateItem.cs" />
     <Compile Include="Core\UnitConverter.cs" />
+    <Compile Include="DataCollection\BaseChannel.cs" />
+    <Compile Include="DataCollection\DAS.cs" />
+    <Compile Include="DataCollection\RandomChannel.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />
     <Compile Include="Core\ALCore.cs" />
@@ -138,7 +141,7 @@
     <Compile Include="Core\Types\TransferType.cs" />
     <Compile Include="Core\Types\ValueRange.cs" />
     <Compile Include="DataCollection\BaseService.cs" />
-    <Compile Include="DataCollection\CommunicationLEDService.cs" />
+    <Compile Include="DataCollection\LEDService.cs" />
     <Compile Include="DataCollection\IChannel.cs" />
     <Compile Include="DataCollection\SerialChannel.cs" />
     <Compile Include="DataCollection\TemperatureService.cs" />

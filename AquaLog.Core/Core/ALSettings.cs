@@ -28,6 +28,10 @@ namespace AquaLog.Core
         private MeasurementUnit fTemperatureUoM;
         private int fNotificationInterval;
 
+        private bool fChannelEnabled;
+        private string fChannelName;
+        private string fChannelParameters;
+
 
         public bool HideClosedTanks
         {
@@ -84,6 +88,25 @@ namespace AquaLog.Core
         }
 
 
+        public bool ChannelEnabled
+        {
+            get { return fChannelEnabled; }
+            set { fChannelEnabled = value; }
+        }
+
+        public string ChannelName
+        {
+            get { return fChannelName; }
+            set { fChannelName = value; }
+        }
+
+        public string ChannelParameters
+        {
+            get { return fChannelParameters; }
+            set { fChannelParameters = value; }
+        }
+
+
         #region Instance
 
         private static ALSettings fInstance;
@@ -108,6 +131,10 @@ namespace AquaLog.Core
             fInterfaceLang = Localizer.LS_DEF_CODE;
             fHideAtStartup = false;
             fNotificationInterval = 60; /* minutes */
+
+            fChannelEnabled = false;
+            fChannelName = "Random";
+            fChannelParameters = "COM3";
         }
 
         public void LoadFromFile(IniFile ini)
@@ -125,6 +152,10 @@ namespace AquaLog.Core
             fVolumeUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "VolumeUoM", "Litre"), true, MeasurementUnit.Litre);
             fMassUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "MassUoM", "Kilogram"), true, MeasurementUnit.Kilogram);
             fTemperatureUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "TemperatureUoM", "DegreeCelsius"), true, MeasurementUnit.DegreeCelsius);
+
+            fChannelEnabled = ini.ReadBool("DAS", "ChannelEnabled", true);
+            fChannelName = ini.ReadString("DAS", "ChannelName", "Random");
+            fChannelParameters = ini.ReadString("DAS", "ChannelParameters", "COM3");
         }
 
         public void LoadFromFile(string fileName)
@@ -160,6 +191,10 @@ namespace AquaLog.Core
             ini.WriteString("Data", "VolumeUoM", fVolumeUoM.ToString());
             ini.WriteString("Data", "MassUoM", fMassUoM.ToString());
             ini.WriteString("Data", "TemperatureUoM", fTemperatureUoM.ToString());
+
+            ini.WriteBool("DAS", "ChannelEnabled", fChannelEnabled);
+            ini.WriteString("DAS", "ChannelName", fChannelName);
+            ini.WriteString("DAS", "ChannelParameters", fChannelParameters);
         }
 
         public void SaveToFile(string fileName)

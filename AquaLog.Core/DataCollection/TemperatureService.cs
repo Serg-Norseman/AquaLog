@@ -14,16 +14,27 @@ namespace AquaLog.DataCollection
     /// </summary>
     public sealed class TemperatureService : BaseService
     {
+        private string fSID;
         private float fTemperature;
+
+
+        public override string Name
+        {
+            get { return "Temperature"; }
+        }
+
+        public string SID
+        {
+            get { return fSID; }
+        }
 
         public float Temperature
         {
             get { return fTemperature; }
-            set { fTemperature = value; }
         }
 
 
-        public TemperatureService()
+        public TemperatureService(IChannel channel, double interval) : base(channel, interval)
         {
         }
 
@@ -35,13 +46,16 @@ namespace AquaLog.DataCollection
                 string response = Channel.ReadLine().Trim();
                 if (!string.IsNullOrEmpty(response)) {
                     // "R:temp;sid:" + rom + ";val:" + celsius + ";"
-                    string[] parts = response.Split(new char[] {';'}, StringSplitOptions.RemoveEmptyEntries);
-                    if (parts.Length == 3 && parts[0] == "R:temp") {
-                        string[] valPair = parts[2].Split(new char[] {':'}, StringSplitOptions.RemoveEmptyEntries);
-                        if (valPair.Length == 2 && valPair[0] == "val") {
-                            fTemperature = (float)ALCore.GetDecimalVal(valPair[1]);
-                            ReceiveData();
+                    string[] parts = response.Split(new char[] { ';', ':' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (parts.Length == 6 && parts[0] == "R" && parts[1] == "temp") {
+                        if (parts[2] == "sid") {
+                            fSID = parts[3];
                         }
+                        if (parts[4] == "val") {
+                            fTemperature = (float)ALCore.GetDecimalVal(parts[5]);
+                        }
+
+                        ReceiveData();
                     }
                 }
             }

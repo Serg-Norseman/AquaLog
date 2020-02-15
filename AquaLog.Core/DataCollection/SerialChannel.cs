@@ -9,18 +9,17 @@
 using System;
 using System.IO.Ports;
 using System.Threading;
-using BSLib;
 
 namespace AquaLog.DataCollection
 {
     /// <summary>
     /// 
     /// </summary>
-    public sealed class SerialChannel : BaseObject, IChannel
+    public sealed class SerialChannel : BaseChannel
     {
         private SerialPort fPort;
 
-        public bool IsOpen
+        public override bool IsOpen
         {
             get {
                 return (fPort != null) && fPort.IsOpen;
@@ -42,7 +41,7 @@ namespace AquaLog.DataCollection
             base.Dispose(disposing);
         }
 
-        public void Open(string parameters)
+        public override void Open(string parameters)
         {
             //string[] ports = SerialPort.GetPortNames();
 
@@ -55,12 +54,12 @@ namespace AquaLog.DataCollection
             Thread.Sleep(500);
         }
 
-        public void Close()
+        public override void Close()
         {
             fPort.Close();
         }
 
-        public string ReadLine()
+        public override string ReadLine()
         {
             if (fPort != null) {
                 //fPort.DiscardInBuffer();
@@ -70,7 +69,7 @@ namespace AquaLog.DataCollection
             }
         }
 
-        public void WriteLine(string text)
+        public override void WriteLine(string text)
         {
             if (fPort != null) {
                 fPort.Write(text);

@@ -21,6 +21,7 @@ namespace AquaLog.TSDB
 
         public MeasurementType Type { get; set; }
         public string MeasureUnit { get; set; }
+        public string SID { get; set; }
 
         #region Range
 

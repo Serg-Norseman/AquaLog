@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
+using AquaLog.TSDB;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -44,7 +45,6 @@ namespace AquaLog.UI.Panels
 
             AddAction("Data", LSID.Data, "", ViewDataHandler);
             AddAction("Trend", LSID.Trend, "", ViewTrendHandler);
-            AddAction("DataMonitor", LSID.DataMonitor, "", ShowMonitor);
         }
 
         public override void SelectionChanged(IList<Entity> records)
@@ -57,6 +57,13 @@ namespace AquaLog.UI.Panels
 
             SetActionEnabled("Data", enabled);
             SetActionEnabled("Trend", enabled);
+
+            if (enabled) {
+                var device = records[0] as Device;
+                if (device.PointId != 0) {
+                    SetActionEnabled("Transfer", false);
+                }
+            }
         }
 
         protected override void UpdateListView()
@@ -71,6 +78,7 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add(Localizer.LS(LSID.Power), 100, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.WorkTime), 100, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
+            ListView.Columns.Add(Localizer.LS(LSID.Value), 80, HorizontalAlignment.Right);
 
             double totalPow = 0.0d;
             var records = fModel.QueryDevices();
@@ -91,7 +99,8 @@ namespace AquaLog.UI.Panels
                                rec.Digital.ToString(),
                                ALCore.GetDecimalStr(rec.Power),
                                ALCore.GetDecimalStr(rec.WorkTime),
-                               strState
+                               strState,
+                               string.Empty
                            );
 
                 if (rec.Enabled) {
@@ -108,6 +117,19 @@ namespace AquaLog.UI.Panels
             fFooter.Text = string.Format(Localizer.LS(LSID.PowerFooter), totalPow, electricCost);
         }
 
+        public override void TickTimer()
+        {
+            int num = ListView.Items.Count;
+            for (int i = 0; i < num; i++) {
+                ListViewItem item = ListView.Items[i];
+                Device device = item.Tag as Device;
+                if (device != null) {
+                    double curValue = fModel.GetCurrentValue(device.PointId);
+                    string strVal = ALCore.GetDecimalStr(curValue);
+                    item.SubItems[9].Text = strVal;
+                }
+            }
+        }
 
         private void ViewDataHandler(object sender, EventArgs e)
         {
@@ -123,13 +145,6 @@ namespace AquaLog.UI.Panels
             if (device == null || device.PointId == 0) return;
 
             Browser.SetView(MainView.TSTrend, device.PointId);
-        }
-
-        private void ShowMonitor(object sender, EventArgs e)
-        {
-            using (var monitor = new DataMonitor()) {
-                monitor.ShowDialog();
-            }
         }
 
         private void TransferHandler(object sender, EventArgs e)
