@@ -38,7 +38,7 @@ namespace AquaLog.DataCollection
 
         public override void WriteLine(string text)
         {
-            if (text == "Q:gettemp;2;") {
+            if (text == "Q:temp;2;") {
                 fMode = 1; // temperature query
             } else {
                 fMode = -1;
@@ -76,7 +76,7 @@ namespace AquaLog.DataCollection
             Assert.IsNotNull(tempService);
             tempService.ReceivedData += delegate(object sender, DataReceivedEventArgs e) {
                 var tempSvc = (TemperatureService)e.Service;
-                temperature = tempSvc.Temperature;
+                temperature = tempSvc.Value;
             };
             tempService.Enabled = true;
             Thread.Sleep(2000);

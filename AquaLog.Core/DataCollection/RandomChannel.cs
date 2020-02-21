@@ -42,7 +42,7 @@ namespace AquaLog.DataCollection
 
         public override void WriteLine(string text)
         {
-            if (text == "Q:gettemp;2;") {
+            if (text == "Q:temp;2;") {
                 fMode = 1; // temperature query
             } else {
                 fMode = -1;

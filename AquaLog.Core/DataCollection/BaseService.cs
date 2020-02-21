@@ -61,6 +61,11 @@ namespace AquaLog.DataCollection
             get { return string.Empty; }
         }
 
+        public virtual string SensorName
+        {
+            get { return string.Empty; }
+        }
+
 
         protected BaseService(IChannel channel, double interval)
         {

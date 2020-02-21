@@ -167,7 +167,7 @@ namespace AquaLog.TSDB
                 if (tempSvc != null) {
                     var point = FindPointBySID(tempSvc.SID);
                     if (point != null) {
-                        ReceivePointValue(point.Id, DateTime.Now, tempSvc.Temperature);
+                        ReceivePointValue(point.Id, DateTime.Now, tempSvc.Value);
                     }
                 }
             } catch (Exception ex) {

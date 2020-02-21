@@ -11,20 +11,20 @@ namespace AquaLog.DataCollection
     /// <summary>
     /// 
     /// </summary>
-    public sealed class TemperatureService : SensorService
+    public sealed class RedoxService : SensorService
     {
         public override string Name
         {
-            get { return "Temperature"; }
+            get { return "Redox"; }
         }
 
         public override string SensorName
         {
-            get { return "temp"; }
+            get { return "redox"; }
         }
 
 
-        public TemperatureService(IChannel channel, double interval) : base(channel, interval)
+        public RedoxService(IChannel channel, double interval) : base(channel, interval)
         {
         }
     }

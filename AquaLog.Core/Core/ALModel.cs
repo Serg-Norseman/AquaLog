@@ -734,7 +734,9 @@ namespace AquaLog.Core
             if (settings.ChannelEnabled) {
                 fDAS = new DAS(settings.ChannelName, settings.ChannelParameters, OnReceivedData);
             } else {
-                fDAS.Dispose();
+                if (fDAS != null) {
+                    fDAS.Dispose();
+                }
             }
         }
 

@@ -52,7 +52,7 @@ namespace AquaLog.UI.Dialogs
             try {
                 var tempSvc = (TemperatureService)e.Service;
                 if (tempSvc != null) {
-                    string text = string.Format("{0} [{1}]: {2}", tempSvc.Name, tempSvc.SID, ALCore.GetDecimalStr(tempSvc.Temperature));
+                    string text = string.Format("{0} [{1}]: {2}", tempSvc.Name, tempSvc.SID, ALCore.GetDecimalStr(tempSvc.Value));
                     textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), text);
                 }
             } catch (Exception ex) {
