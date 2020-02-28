@@ -34,6 +34,8 @@ namespace AquaLog.UI.Panels
             AddAction("Chart", LSID.Chart, "", ViewLifeLinesHandler);
             AddAction("ChartFamilies", LSID.ChartFamilies, "", ViewChartFamiliesHandler);
             AddAction("Export", LSID.Export, "btn_excel.gif", ExportHandler);
+
+            AddAction("BioTreemap", LSID.BioTreemap, "", ViewBioTreemapHandler);
         }
 
         public override void SelectionChanged(IList<Entity> records)
@@ -146,7 +148,12 @@ namespace AquaLog.UI.Panels
         private void ViewChartFamiliesHandler(object sender, EventArgs e)
         {
             var chartData = GetChartData();
-            Browser.SetView(MainView.PieChart, chartData);
+            Browser.SetView(MainView.PieChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
+        }
+
+        private void ViewBioTreemapHandler(object sender, EventArgs e)
+        {
+            Browser.SetView(MainView.BioTreemap, null);
         }
 
         private IList<ChartPoint> GetChartData()
@@ -156,6 +163,8 @@ namespace AquaLog.UI.Panels
             IList<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
+                if (spc == null) continue;
+
                 SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
                 ItemType itemType = ALCore.GetItemType(speciesType);
                 var qty = fModel.QueryInhabitantsCount(rec.Id, itemType);

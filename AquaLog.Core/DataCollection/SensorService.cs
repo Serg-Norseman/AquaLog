@@ -11,53 +11,39 @@ namespace AquaLog.DataCollection
 {
     public class SensorService : BaseService
     {
-        private string fSID;
-        private float fValue;
-
-
-        public string SID
-        {
-            get { return fSID; }
-        }
-
-        public float Value
-        {
-            get { return fValue; }
-        }
-
-
         protected SensorService(IChannel channel, double interval) : base(channel, interval)
         {
         }
 
         protected void WriteQuery(string sensor)
         {
-            Channel.WriteLine(string.Format("Q:{0};2;", sensor));
+            // pin = 2, "Q:temp;2"
+            string query = string.Format("Q:{0};2", sensor);
+            Channel.Send(query);
         }
 
-        protected void ReadResponse(string sensor)
+        protected internal override DataReceivedEventArgs TryReadResponse(string response)
         {
-            string response = Channel.ReadLine().Trim();
             if (!string.IsNullOrEmpty(response)) {
                 // "R:temp;sid:" + rom + ";val:" + celsius + ";"
                 string[] parts = response.Split(new char[] { ';', ':' }, StringSplitOptions.RemoveEmptyEntries);
-                if (parts.Length == 6 && parts[0] == "R" && parts[1] == sensor) {
-                    if (parts[2] == "sid") {
-                        fSID = parts[3];
+                if (parts.Length == 6 && parts[0] == "R" && parts[1] == SensorName) {
+                    string sid;
+                    float value;
+                    if (parts[2] == "sid" && parts[4] == "val") {
+                        sid = parts[3];
+                        value = (float)ALCore.GetDecimalVal(parts[5]);
+                        return new DataReceivedEventArgs(sid, SensorName, value);
                     }
-                    if (parts[4] == "val") {
-                        fValue = (float)ALCore.GetDecimalVal(parts[5]);
-                    }
-                    ReceiveData();
                 }
             }
+            return null;
         }
 
         protected override void OnTimedEvent()
         {
             if (Channel.IsOpen) {
                 WriteQuery(SensorName);
-                ReadResponse(SensorName);
             }
         }
     }

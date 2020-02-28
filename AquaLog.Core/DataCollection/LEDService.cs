@@ -30,9 +30,9 @@ namespace AquaLog.DataCollection
                 fLED = !fLED;
 
                 if (fLED) {
-                    Channel.WriteLine("1");
+                    Channel.Send("Q:setled;13;1");
                 } else {
-                    Channel.WriteLine("0");
+                    Channel.Send("Q:setled;13;0");
                 }
             }
         }

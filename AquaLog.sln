@@ -18,6 +18,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.Timeline", "BSLib.Tim
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AquaLog.Core", "AquaLog.Core\AquaLog.Core.csproj", "{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.DataViz.Model", "..\BSLib\BSLib.DataViz.Model\BSLib.DataViz.Model.csproj", "{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BSLib.DataViz.WFControls", "..\BSLib\BSLib.DataViz.WFControls\BSLib.DataViz.WFControls.csproj", "{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -58,5 +62,21 @@ Global
 		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Release|x86.Build.0 = Release|x86
 		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Release|x64.ActiveCfg = Release|x64
 		{44B1FEC8-5ADB-4B16-8DD6-80A3A2405D2D}.Release|x64.Build.0 = Release|x64
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Debug|x86.ActiveCfg = Debug|x86
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Debug|x86.Build.0 = Debug|x86
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Debug|x64.ActiveCfg = Debug|x64
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Debug|x64.Build.0 = Debug|x64
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Release|x86.ActiveCfg = Release|x86
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Release|x86.Build.0 = Release|x86
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Release|x64.ActiveCfg = Release|x64
+		{58E0DD1E-7A8C-4368-BAC8-BBBF7361AF2A}.Release|x64.Build.0 = Release|x64
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Debug|x86.ActiveCfg = Debug|x86
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Debug|x86.Build.0 = Debug|x86
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Debug|x64.ActiveCfg = Debug|x64
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Debug|x64.Build.0 = Debug|x64
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Release|x86.ActiveCfg = Release|x86
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Release|x86.Build.0 = Release|x86
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Release|x64.ActiveCfg = Release|x64
+		{98F66BB1-0120-4E3D-95F6-F98152DEE3C8}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 EndGlobal

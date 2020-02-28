@@ -79,7 +79,7 @@ namespace AquaLog.UI.Dialogs
             cmbMassUoM.Enabled = false;
             cmbTemperatureUoM.Enabled = false;
 
-            cmbChannel.Items.AddRange(DAS.ChannelNames);
+            cmbChannel.Items.AddRange(BaseChannel.ChannelNames);
 
             SetLocale();
         }

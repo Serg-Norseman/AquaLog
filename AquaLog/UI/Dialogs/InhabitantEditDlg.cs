@@ -103,10 +103,12 @@ namespace AquaLog.UI.Dialogs
         private void ApplyChanges()
         {
             Species spc = cmbSpecies.SelectedItem as Species;
+            if (spc != null) {
+                fRecord.SpeciesId = spc.Id;
+            }
 
             fRecord.Name = txtName.Text;
             fRecord.Note = txtNote.Text;
-            fRecord.SpeciesId = spc.Id;
             fRecord.Sex = cmbSex.GetSelectedTag<Sex>();
             fRecord.State = cmbState.GetSelectedTag<ItemState>();
         }

@@ -160,15 +160,12 @@ namespace AquaLog.TSDB
             return sidPoints.FirstOrDefault();
         }
 
-        public void ReceiveData(BaseService service)
+        public void ReceiveData(string sid, float value)
         {
             try {
-                var tempSvc = (TemperatureService)service;
-                if (tempSvc != null) {
-                    var point = FindPointBySID(tempSvc.SID);
-                    if (point != null) {
-                        ReceivePointValue(point.Id, DateTime.Now, tempSvc.Value);
-                    }
+                var point = FindPointBySID(sid);
+                if (point != null) {
+                    ReceivePointValue(point.Id, DateTime.Now, value);
                 }
             } catch (Exception ex) {
                 fLogger.WriteError("ReceiveData()", ex);

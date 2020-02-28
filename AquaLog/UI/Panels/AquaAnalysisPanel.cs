@@ -61,6 +61,7 @@ namespace AquaLog.UI.Panels
                 events.AddRange(fModel.QueryNotes(fAquarium.Id));
                 events.AddRange(fModel.QueryMaintenances(fAquarium.Id));
                 events.AddRange(fModel.QueryMeasures(fAquarium.Id));
+                events.AddRange(fModel.QueryTransfersBD(fAquarium.Id));
                 events.Sort((x, y) => { return x.Timestamp.CompareTo(y.Timestamp); });
 
                 DateTime dtPrev = ALCore.ZeroDate;
@@ -141,6 +142,23 @@ namespace AquaLog.UI.Panels
                                        Localizer.LS(LSID.Event),
                                        string.Empty,
                                        note.Event,
+                                       string.Empty,
+                                       string.Empty,
+                                       string.Empty
+                                   );
+                    }
+
+                    if (evnt is Transfer) {
+                        Transfer transfer = (Transfer)evnt;
+                        string strType = Localizer.LS(ALData.TransferTypes[(int)transfer.Type]);
+                        var itemRec = fModel.GetRecord(transfer.ItemType, transfer.ItemId);
+                        string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
+
+                        var item = ListView.AddItemEx(transfer,
+                                       curTime,
+                                       strType,
+                                       transfer.Quantity.ToString(),
+                                       itName,
                                        string.Empty,
                                        string.Empty,
                                        string.Empty

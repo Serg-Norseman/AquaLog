@@ -200,7 +200,7 @@
     <Compile Include="UI\Panels\AquaAnalysisPanel.cs" />
     <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
     <Compile Include="UI\Panels\AquaQualityPanel.cs" />
-    <Compile Include="UI\Panels\BarChartPanel.cs" />
+    <Compile Include="UI\Panels\BioTreemapPanel.cs" />
     <Compile Include="UI\Panels\BrandPanel.cs" />
     <Compile Include="UI\Panels\ChartPanel.cs" />
     <Compile Include="UI\Panels\InventoryPanel.cs" />
@@ -209,7 +209,6 @@
     <Compile Include="UI\Panels\MeasurePanel.cs" />
     <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
     <Compile Include="UI\Panels\NutritionPanel.cs" />
-    <Compile Include="UI\Panels\PieChartPanel.cs" />
     <Compile Include="UI\Panels\SchedulePanel.cs" />
     <Compile Include="UI\Panels\SnapshotPanel.cs" />
     <Compile Include="UI\Panels\TSTrendPanel.cs" />
@@ -261,6 +260,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BSLib\BSLib.DataViz.Model\BSLib.DataViz.Model.csproj">
+      <Project>{58e0dd1e-7a8c-4368-bac8-bbbf7361af2a}</Project>
+      <Name>BSLib.DataViz.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BSLib\BSLib.DataViz.WFControls\BSLib.DataViz.WFControls.csproj">
+      <Project>{98f66bb1-0120-4e3d-95f6-f98152dee3c8}</Project>
+      <Name>BSLib.DataViz.WFControls</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AquaLog.Core\AquaLog.Core.csproj">
       <Project>{44b1fec8-5adb-4b16-8dd6-80a3a2405d2d}</Project>
       <Name>AquaLog.Core</Name>

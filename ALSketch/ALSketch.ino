@@ -1,164 +1,58 @@
-#include <OneWire.h>
+#include <SPI.h>
+#include <Ethernet.h>
+#include "ALSCommon.h"
 
-const String _version = "v0.1";
-const String _sketchName = "ALSketch";
+// network configuration
+byte mac[] = {0xAE, 0xB2, 0x26, 0xE4, 0x4A, 0x5C};
+byte ip[] = {192, 168, 0, 100};
+byte myDns[] = {192, 168, 0, 1};
+byte gateway[] = {192, 168, 0, 1};
+byte subnet[] = {255, 255, 255, 0};
 
-int counter = 0;
-int led = 13;
+EthernetServer server(2000);
+EthernetClient client;
+String buffer;
 
 void setup() {
-  Serial.begin(9600); // 115200
   pinMode(led, OUTPUT);
+
+  Serial.begin(115200);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // start the Ethernet connection:
+  Ethernet.begin(mac, ip, myDns, gateway, subnet);
+  server.begin();
+  // give the Ethernet shield a second to initialize:
+  delay(1000);
+  Serial.print("Server address:");
+  Serial.println(Ethernet.localIP());
 }
 
 void loop() {
   if (Serial.available() > 0) {
-    counter = counter + 1;
-
     String query = Serial.readString();
-    String command = getPartFromQuery(query, 0);
-
-    if (command == "Q:info") {
-      String response = "R:ping;sketch:" + _sketchName + ";ver:" + _version + ";counter:" + counter + ";";
-      writeResponse(response);
-    }
-
-    if (command == "Q:setled") {
-      String pin = getPartFromQuery(query, command.length());
-      String ledValue = getPartFromQuery(query, (command.length() + pin.length() + 1));
-      setLED(pin.toInt(), ledValue.toInt());
-    }
-
-    if (command == "Q:gettemp") {
-      String pin = getPartFromQuery(query, command.length());
-      queryTemp(pin.toInt());
+    String response = processQuery(query);
+    if (response != "") {
+      Serial.println(response);
     }
   }
-}
 
-// OneWire DS18S20, DS18B20, DS1822 Temperature Sensors
-void queryTemp(int pin)
-{
-  OneWire ds(pin);
-
-  uint8_t addr[8];
-  byte i = 0;
-  while (!ds.search(addr)) {
-    // No more addresses
-    ds.reset_search();
-    delay(250);
-    i += 1;
-    if (i > 5) return -100.0;
-  }
-
-  String rom = arr2str(8, &addr[0]);
-
-  if (OneWire::crc8(addr, 7) != addr[7]) {
-    // CRC is not valid
-    return -101.0;
-  }
-
-  // the first ROM byte indicates which chip
-  byte chipType;
-  switch (addr[0]) {
-    case 0x10:
-      chipType = 1; // Chip = DS18S20
-      break;
-    case 0x28:
-      chipType = 0; // Chip = DS18B20
-      break;
-    case 0x22:
-      chipType = 0; // Chip = DS1822
-      break;
-    default:
-      // Device is not a DS18x20 family device
-      return -102.0;
-  }
-
-  ds.reset();
-  ds.select(addr);
-  ds.write(0x44, 1);        // start conversion, with parasite power on at the end
-
-  delay(1000);     // maybe 750ms is enough, maybe not
-  // we might do a ds.depower() here, but the reset will take care of it.
-
-  byte present = ds.reset();
-  ds.select(addr);
-  ds.write(0xBE); // Read Scratchpad
-
-  byte data[12];
-  for (i = 0; i < 9; i++) {           // we need 9 bytes
-    data[i] = ds.read();
-  }
-
-  // Convert the data to actual temperature
-  // because the result is a 16 bit signed integer, it should
-  // be stored to an "int16_t" type, which is always 16 bits
-  // even when compiled on a 32 bit processor.
-  int16_t raw = (data[1] << 8) | data[0];
-  if (chipType) {
-    raw = raw << 3; // 9 bit resolution default
-    if (data[7] == 0x10) {
-      // "count remain" gives full 12 bit resolution
-      raw = (raw & 0xFFF0) + 12 - data[6];
+  client = server.available();
+  if (client) {
+    while (client.available()) {
+      char chr = client.read();
+      if (chr != '\r') {
+        buffer += chr;
+      } else {
+        //Serial.println(">> " + buffer);
+        String response = processQuery(buffer);
+        if (response != "") {
+          server.println(response);
+        }
+        buffer = "";
+      }
     }
-  } else {
-    byte cfg = (data[4] & 0x60);
-    // at lower res, the low bits are undefined, so let's zero them
-    if (cfg == 0x00) raw = raw & ~7;  // 9 bit resolution, 93.75 ms
-    else if (cfg == 0x20) raw = raw & ~3; // 10 bit res, 187.5 ms
-    else if (cfg == 0x40) raw = raw & ~1; // 11 bit res, 375 ms
-    //// default is 12 bit resolution, 750 ms conversion time
-  }
-  float celsius = (float)raw / 16.0;
-
-  String response = "R:temp;sid:" + rom + ";val:" + celsius + ";";
-  Serial.println(response);
-}
-
-String arr2str(size_t size, uint8_t *src)
-{
-  String buffer = "";
-  for (size_t i = 0; i < size; i++) {
-    uint8_t b = src[i];
-
-    String strByte = "";
-    strByte += val2hex(b & 0x0f);
-    b >>= 4;
-    strByte = val2hex(b & 0x0f) + strByte;
-
-    buffer += strByte;
-  }
-  return buffer;
-}
-
-char val2hex(uint8_t val)
-{
-  if ((val & 0x0f) < 10)
-    return ('0' + val);
-  else
-    return ('a' + (val - 10));
-}
-
-String getPartFromQuery(String query, int startIndex)
-{
-  if (startIndex > 0) startIndex++;
-  int endIndex = query.indexOf(';', startIndex);
-  String part = query.substring(startIndex, endIndex);
-  return part;
-}
-
-void writeResponse(String response)
-{
-  delay(50);
-  Serial.println(response);
-}
-
-void setLED(int pin, int value)
-{
-  if (value) {
-    digitalWrite(pin, HIGH);
-  } else {
-    digitalWrite(pin, LOW);
   }
 }

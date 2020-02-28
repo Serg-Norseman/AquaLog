@@ -10,44 +10,21 @@ using BSLib;
 
 namespace AquaLog.DataCollection
 {
-    public class DataReceivedEventArgs : EventArgs
-    {
-        private readonly BaseService fService;
-
-        public BaseService Service
-        {
-            get { return fService; }
-        }
-
-
-        internal DataReceivedEventArgs(BaseService service)
-        {
-            fService = service;
-        }
-    }
-
-
-    public delegate void DataReceivedEventHandler(object sender, DataReceivedEventArgs e);
-
-
     /// <summary>
     /// 
     /// </summary>
     public abstract class BaseService : BaseObject
     {
-        private IChannel fChannel;
+        private readonly IChannel fChannel;
         private readonly Timer fTimer;
 
 
         public event ElapsedEventHandler Elapsed;
 
-        public event DataReceivedEventHandler ReceivedData;
-
 
         public IChannel Channel
         {
             get { return fChannel; }
-            set { fChannel = value; }
         }
 
         public bool Enabled
@@ -67,6 +44,11 @@ namespace AquaLog.DataCollection
         }
 
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="channel"></param>
+        /// <param name="interval">interval in milliseconds</param>
         protected BaseService(IChannel channel, double interval)
         {
             fChannel = channel;
@@ -88,17 +70,6 @@ namespace AquaLog.DataCollection
             base.Dispose(disposing);
         }
 
-        public void SetChannel(IChannel channel)
-        {
-            fChannel = channel;
-        }
-
-        // milliseconds
-        public void SetInterval(double interval)
-        {
-            fTimer.Interval = interval;
-        }
-
         protected virtual void OnTimedEvent()
         {
         }
@@ -111,10 +82,9 @@ namespace AquaLog.DataCollection
             if (handler != null) handler(sender, e);
         }
 
-        protected void ReceiveData()
+        protected internal virtual DataReceivedEventArgs TryReadResponse(string response)
         {
-            DataReceivedEventHandler handler = ReceivedData;
-            if (handler != null) handler(this, new DataReceivedEventArgs(this));
+            return null;
         }
     }
 }

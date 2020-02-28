@@ -35,5 +35,6 @@ namespace AquaLog.UI
         BarChart,
         Analysis,
         Quality,
+        BioTreemap,
     }
 }

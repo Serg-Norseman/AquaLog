@@ -10,7 +10,7 @@ using SQLite;
 namespace AquaLog.TSDB
 {
     /// <summary>
-    /// 
+    /// The value of a point in a time series (tag).
     /// </summary>
     public class TSValue
     {

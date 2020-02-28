@@ -90,7 +90,7 @@ namespace AquaLog.UI.Panels
 
             foreach (var trendPair in fTrends) {
                 var trend = trendPair.Value;
-                fGraph.PrepareArray(trend.Name, "Time", "Value", ChartStyle.Point, trend.Points, trend.Color);
+                fGraph.ShowData(trend.Name, "Time", new ChartSeries("Value", ChartStyle.Point, trend.Points, trend.Color));
             }
         }
 
@@ -136,13 +136,14 @@ namespace AquaLog.UI.Panels
             var picker = sender as OptionsPicker;
             string[] selected = picker.Text.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
-            fGraph.Clear();
+            var series = new Dictionary<string, ChartSeries>();
             foreach (string key in selected) {
                 Trend trend;
                 if (fTrends.TryGetValue(key, out trend)) {
-                    fGraph.PrepareArray(key, "Time", "Value", ChartStyle.Point, trend.Points, trend.Color);
+                    series.Add(key, new ChartSeries(key, ChartStyle.Point, trend.Points, trend.Color));
                 }
             }
+            fGraph.ShowData("", "Time", series);
         }
     }
 }

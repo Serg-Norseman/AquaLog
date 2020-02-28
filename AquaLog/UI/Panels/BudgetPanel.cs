@@ -164,31 +164,37 @@ namespace AquaLog.UI.Panels
         private void ViewChartTypesHandler(object sender, EventArgs e)
         {
             var chartData = GetChartData(BudgetChartType.ItemTypes);
-            Browser.SetView(MainView.PieChart, chartData);
+            Browser.SetView(MainView.PieChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
         }
 
         private void ViewChartShopsHandler(object sender, EventArgs e)
         {
             var chartData = GetChartData(BudgetChartType.Shops);
-            Browser.SetView(MainView.PieChart, chartData);
+            Browser.SetView(MainView.PieChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
         }
 
         private void ViewChartBrandsHandler(object sender, EventArgs e)
         {
             var chartData = GetChartData(BudgetChartType.Brands);
-            Browser.SetView(MainView.PieChart, chartData);
+            Browser.SetView(MainView.PieChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
         }
 
         private void ViewChartCountriesHandler(object sender, EventArgs e)
         {
             var chartData = GetChartData(BudgetChartType.Countries);
-            Browser.SetView(MainView.PieChart, chartData);
+            Browser.SetView(MainView.PieChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
         }
 
         private void ViewChartMonthesHandler(object sender, EventArgs e)
         {
-            var chartData = GetChartData(BudgetChartType.Monthes);
-            Browser.SetView(MainView.BarChart, chartData);
+            var purcChartData = GetChartData(BudgetChartType.Monthes, TransferType.Purchase);
+            var saleChartData = GetChartData(BudgetChartType.Monthes, TransferType.Sale);
+
+            var series = new Dictionary<string, ChartSeries>();
+            series.Add(Localizer.LS(LSID.Purchase), new ChartSeries(Localizer.LS(LSID.Purchase), ChartStyle.Bar, purcChartData, Color.Red));
+            series.Add(Localizer.LS(LSID.Sale), new ChartSeries(Localizer.LS(LSID.Sale), ChartStyle.Bar, saleChartData, Color.Green));
+
+            Browser.SetView(MainView.BarChart, series);
         }
 
         private void CollectBrands(IList<Transfer> transfers)
@@ -206,7 +212,7 @@ namespace AquaLog.UI.Panels
             }
         }
 
-        private IList<ChartPoint> GetChartData(BudgetChartType chartType)
+        private IList<ChartPoint> GetChartData(BudgetChartType chartType, TransferType transferType = TransferType.Purchase)
         {
             Dictionary<string, ChartPoint> result = new Dictionary<string, ChartPoint>();
 
@@ -217,9 +223,21 @@ namespace AquaLog.UI.Panels
 
             var records = fModel.QueryExpenses();
             foreach (Transfer rec in records) {
-                if (rec.Type != TransferType.Purchase) continue;
+                if (rec.Type != transferType) continue;
 
-                double trnSum = (rec.Quantity * rec.UnitPrice);
+                int factor = +1;
+                if (chartType == BudgetChartType.Monthes) {
+                    switch (rec.Type) {
+                        case TransferType.Purchase:
+                            factor = -1;
+                            break;
+                        case TransferType.Sale:
+                            factor = +1;
+                            break;
+                    }
+                }
+
+                double trnSum = (rec.Quantity * rec.UnitPrice) * factor;
                 if (trnSum == 0.0d) continue;
 
                 var itemRec = fModel.GetRecord(rec.ItemType, rec.ItemId);

@@ -51,6 +51,22 @@ namespace AquaLog.UI.Components
         }
     }
 
+    public class ChartSeries
+    {
+        public readonly string AxisName;
+        public readonly ChartStyle Style;
+        public readonly IList<ChartPoint> Data;
+        public readonly Color Color;
+
+        public ChartSeries(string axisName, ChartStyle style, IList<ChartPoint> data, Color color)
+        {
+            AxisName = axisName;
+            Style = style;
+            Data = data;
+            Color = color;
+        }
+    }
+
     /// <summary>
     /// 
     /// </summary>
@@ -99,8 +115,29 @@ namespace AquaLog.UI.Components
             fGraph.Invalidate();
         }
 
-        public void PrepareArray(string title, string xAxis, string yAxis, ChartStyle style, IList<ChartPoint> vals, Color color)
+        public void ShowData(string title, string xAxis, object data)
         {
+            Clear();
+            if (data == null) return;
+
+            var seriesList = data as Dictionary<string, ChartSeries>;
+            if (seriesList != null) {
+                foreach (var pair in seriesList) {
+                    var series = pair.Value;
+                    ShowSeries(title, xAxis, series);
+                }
+            } else {
+                var series = data as ChartSeries;
+                if (series != null) {
+                    ShowSeries(title, xAxis, series);
+                }
+            }
+        }
+
+        private void ShowSeries(string title, string xAxis, ChartSeries series)
+        {
+            IList<ChartPoint> vals = series.Data;
+
             GraphPane gPane = fGraph.GraphPane;
             try {
                 //gPane.Title.Text = title;
@@ -113,9 +150,11 @@ namespace AquaLog.UI.Components
                 gPane.XAxis.Scale.MajorUnit = DateUnit.Year;
                 gPane.XAxis.Scale.MinorUnit = DateUnit.Second;
 
-                gPane.YAxis.Title.Text = yAxis;
+                //gPane.YAxis.Title.Text = yAxis;
 
-                if (style != ChartStyle.Pie) {
+                if (series.Style != ChartStyle.Pie) {
+                    gPane.Legend.IsVisible = true;
+
                     PointPairList ppList = new PointPairList();
 
                     int num = vals.Count;
@@ -125,16 +164,18 @@ namespace AquaLog.UI.Components
                     }
                     ppList.Sort();
 
-                    switch (style) {
+                    switch (series.Style) {
                         case ChartStyle.Bar:
-                            gPane.AddBar(title, ppList, color);
+                            gPane.AddBar(series.AxisName, ppList, series.Color);
                             break;
 
                         case ChartStyle.Point:
-                            gPane.AddCurve(title, ppList, color, SymbolType.Diamond).Symbol.Size = 3;
+                            gPane.AddCurve(series.AxisName, ppList, series.Color, SymbolType.Diamond).Symbol.Size = 3;
                             break;
                     }
                 } else {
+                    gPane.Legend.IsVisible = false;
+
                     int num = vals.Count;
                     for (int i = 0; i < num; i++) {
                         ChartPoint item = vals[i];
@@ -142,7 +183,6 @@ namespace AquaLog.UI.Components
                         PieItem ps = gPane.AddPieSlice(item.Value, item.Color, 0F, item.Caption);
                         ps.LabelType = PieLabelType.Name_Value_Percent;
                     }
-                    gPane.Legend.IsVisible = false;
                 }
             } finally {
                 fGraph.AxisChange();

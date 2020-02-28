@@ -38,7 +38,15 @@ namespace AquaLog.UI.Panels
             fListView = UIHelper.CreateListView("ListView");
             fListView.DoubleClick += EditHandler;
             fListView.SelectedIndexChanged += ListView_SelectedIndexChanged;
+            fListView.KeyDown += ListView_KeyDown;
             Controls.Add(fListView);
+        }
+
+        private void ListView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Return) {
+                EditHandler(sender, e);
+            }
         }
 
         private void ListView_SelectedIndexChanged(object sender, EventArgs e)

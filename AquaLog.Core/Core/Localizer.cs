@@ -230,8 +230,9 @@ namespace AquaLog.Core
         /* 206 */ DataAcquisition,
         /* 207 */ Parameters,
         /* 208 */ Channel,
+        /* 209 */ BioTreemap,
 
-        /* 000 */ Last = Channel
+        /* 000 */ Last = BioTreemap
     }
 
 
@@ -450,6 +451,7 @@ namespace AquaLog.Core
             /* 206 */ "Data acquisition",
             /* 207 */ "Parameters",
             /* 208 */ "Channel",
+            /* 209 */ "BioTreemap",
         };
 
 

@@ -8,7 +8,6 @@
 
 using System;
 using System.IO.Ports;
-using System.Threading;
 
 namespace AquaLog.DataCollection
 {
@@ -19,59 +18,59 @@ namespace AquaLog.DataCollection
     {
         private SerialPort fPort;
 
+
         public override bool IsOpen
         {
-            get {
-                return (fPort != null) && fPort.IsOpen;
-            }
+            get { return (fPort != null) && fPort.IsOpen; }
         }
+
 
         public SerialChannel()
         {
         }
 
-        protected override void Dispose(bool disposing)
+        public override bool Open(string parameters)
         {
-            if (disposing) {
-                if (fPort != null) {
-                    fPort.DtrEnable = false;
-                    fPort.Close();
-                }
+            try {
+                fPort = new SerialPort(parameters, 115200, Parity.None, 8, StopBits.One);
+
+                // This option ensures the arduino restarts when we run the program
+                fPort.DtrEnable = true;
+                fPort.ReadTimeout = 500;
+                fPort.WriteTimeout = 500;
+                fPort.DataReceived += DataReceived;
+                fPort.Open();
+
+                // Opening the serial port causes the arduino to restart, so wait a second for it to do that
+                //System.Threading.Thread.Sleep(1000);
+
+                base.Open(parameters);
+
+                return true;
+            } catch {
+                return false;
             }
-            base.Dispose(disposing);
-        }
-
-        public override void Open(string parameters)
-        {
-            //string[] ports = SerialPort.GetPortNames();
-
-            fPort = new SerialPort(parameters, 9600);
-            fPort.DtrEnable = true;
-            fPort.ReadTimeout = 1000;
-            fPort.Handshake = Handshake.None;
-            fPort.Open();
-
-            Thread.Sleep(500);
         }
 
         public override void Close()
         {
+            base.Close();
+
+            fPort.DtrEnable = false;
             fPort.Close();
+            fPort = null;
         }
 
-        public override string ReadLine()
+        private void DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            if (fPort != null) {
-                //fPort.DiscardInBuffer();
-                return fPort.ReadLine();
-            } else {
-                return string.Empty;
-            }
+            SerialPort sp = (SerialPort)sender;
+            string response = sp.ReadLine();
+            ReceiveData(response);
         }
 
-        public override void WriteLine(string text)
+        public override void Send(string text)
         {
-            if (fPort != null) {
+            if (IsOpen) {
                 fPort.Write(text);
             }
         }

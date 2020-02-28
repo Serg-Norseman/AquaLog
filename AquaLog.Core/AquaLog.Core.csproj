@@ -83,11 +83,12 @@
     <Compile Include="Core\Types\IStateItem.cs" />
     <Compile Include="Core\UnitConverter.cs" />
     <Compile Include="DataCollection\BaseChannel.cs" />
-    <Compile Include="DataCollection\DAS.cs" />
+    <Compile Include="DataCollection\DataReceivedEventArgs.cs" />
     <Compile Include="DataCollection\PHService.cs" />
     <Compile Include="DataCollection\RandomChannel.cs" />
     <Compile Include="DataCollection\RedoxService.cs" />
     <Compile Include="DataCollection\SensorService.cs" />
+    <Compile Include="DataCollection\TCPChannel.cs" />
     <Compile Include="DataCollection\WaterLevelService.cs" />
     <Compile Include="SQLite.cs" />
     <Compile Include="SQLiteAsync.cs" />

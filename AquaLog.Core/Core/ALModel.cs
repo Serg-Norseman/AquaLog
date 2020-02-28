@@ -29,7 +29,7 @@ namespace AquaLog.Core
         private readonly SQLiteConnection fDB;
         private readonly EntitiesCache fCache;
         private readonly TSDatabase fTSDB;
-        private DAS fDAS;
+        private IChannel fChannel;
 
 
         public EntitiesCache Cache
@@ -518,6 +518,11 @@ namespace AquaLog.Core
             return fDB.Query<Transfer>("select * from Transfer where (ItemId = ? and ItemType = ?) order by [Timestamp] desc", itemId, itemType);
         }
 
+        public IList<Transfer> QueryTransfersBD(int aquariumId)
+        {
+            return fDB.Query<Transfer>("select * from Transfer where (Type = 3 or Type = 4) and (SourceId = ? or TargetId = ?) order by [Timestamp]", aquariumId, aquariumId);
+        }
+
         #endregion
 
         #region Note functions
@@ -731,19 +736,18 @@ namespace AquaLog.Core
 
         public void ApplySettings(ALSettings settings)
         {
+            if (fChannel != null)
+                fChannel.Dispose();
+
             if (settings.ChannelEnabled) {
-                fDAS = new DAS(settings.ChannelName, settings.ChannelParameters, OnReceivedData);
-            } else {
-                if (fDAS != null) {
-                    fDAS.Dispose();
-                }
+                fChannel = BaseChannel.CreateChannel(settings.ChannelName, settings.ChannelParameters, OnReceivedData);
             }
         }
 
         private void OnReceivedData(object sender, DataReceivedEventArgs e)
         {
             try {
-                fTSDB.ReceiveData(e.Service);
+                fTSDB.ReceiveData(e.SensorId, e.Value);
 
                 DataReceivedEventHandler handler = ReceivedData;
                 if (handler != null) handler(sender, e);

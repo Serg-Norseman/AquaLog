@@ -5,21 +5,25 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace AquaLog.DataCollection
 {
-    public delegate void UpdateDelegate(string text);
+    public delegate void DataReceivedEventHandler(object sender, DataReceivedEventArgs e);
+
 
     /// <summary>
-    /// 
+    /// The interface of data channels.
     /// </summary>
     public interface IChannel : IDisposable
     {
         bool IsOpen { get; }
+        List<BaseService> Services { get; }
+
+        event DataReceivedEventHandler ReceivedData;
 
         void Close();
-        void Open(string parameters);
-        string ReadLine();
-        void WriteLine(string text);
+        bool Open(string parameters);
+        void Send(string text);
     }
 }

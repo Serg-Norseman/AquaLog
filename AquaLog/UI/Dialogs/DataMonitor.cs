@@ -13,6 +13,8 @@ using BSLib;
 
 namespace AquaLog.UI.Dialogs
 {
+    public delegate void UpdateDelegate(string text);
+
     public partial class DataMonitor : Form
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "DataMonitor");
@@ -50,11 +52,8 @@ namespace AquaLog.UI.Dialogs
         private void OnReceivedData(object sender, DataReceivedEventArgs e)
         {
             try {
-                var tempSvc = (TemperatureService)e.Service;
-                if (tempSvc != null) {
-                    string text = string.Format("{0} [{1}]: {2}", tempSvc.Name, tempSvc.SID, ALCore.GetDecimalStr(tempSvc.Value));
-                    textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), text);
-                }
+                string text = string.Format("{0} [{1}]: {2}", e.SensorName, e.SensorId, ALCore.GetDecimalStr(e.Value));
+                textBox1.BeginInvoke(new UpdateDelegate(updateTextBox), text);
             } catch (Exception ex) {
                 fLogger.WriteError("OnReceivedData()", ex);
             }

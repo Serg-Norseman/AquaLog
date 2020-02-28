@@ -397,7 +397,7 @@ namespace AquaLog.UI
                     SetView<InventoryPanel>(extData);
                     break;
                 case MainView.PieChart:
-                    SetView<PieChartPanel>(extData);
+                    SetView<ChartPanel>(extData);
                     break;
                 case MainView.LifeLinesChart:
                     SetView<LifeLinesPanel>(extData);
@@ -412,13 +412,16 @@ namespace AquaLog.UI
                     SetView<BrandPanel>(extData);
                     break;
                 case MainView.BarChart:
-                    SetView<BarChartPanel>(extData);
+                    SetView<ChartPanel>(extData);
                     break;
                 case MainView.Analysis:
                     SetView<AquaAnalysisPanel>(extData);
                     break;
                 case MainView.Quality:
                     SetView<AquaQualityPanel>(extData);
+                    break;
+                case MainView.BioTreemap:
+                    SetView<BioTreemapPanel>(extData);
                     break;
             }
         }

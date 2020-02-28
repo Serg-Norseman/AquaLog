@@ -12,36 +12,22 @@ namespace AquaLog.DataCollection
 {
     internal sealed class TestTempChannel : BaseChannel
     {
-        private int fMode;
-
         public override bool IsOpen
         {
-            get {
-                return true;
-            }
+            get { return true; }
         }
 
-        public TestTempChannel()
+        public TestTempChannel() : base()
         {
-            fMode = -1;
         }
 
-        public override string ReadLine()
+        public override void Send(string text)
         {
-            if (fMode == 1) {
-                fMode = -1;
-                return "R:temp;sid:0000000000000000;val:25.1111;"; // temperature response
+            if (text == "Q:temp;2") {
+                // temperature query
+                string response = "R:temp;sid:0000000000000000;val:25.1111;"; // temperature response
+                ReceiveData(response);
             } else {
-                return string.Empty;
-            }
-        }
-
-        public override void WriteLine(string text)
-        {
-            if (text == "Q:temp;2;") {
-                fMode = 1; // temperature query
-            } else {
-                fMode = -1;
             }
         }
     }
@@ -57,27 +43,28 @@ namespace AquaLog.DataCollection
 
             var tempService = new TemperatureService(serialChannel, 5000);
             Assert.IsNotNull(tempService);
-            tempService.Channel = serialChannel;
+            Assert.AreEqual(tempService.Channel, serialChannel);
 
             var ledService = new LEDService(serialChannel, 1000);
             Assert.IsNotNull(ledService);
-            ledService.Channel = serialChannel;
+            Assert.AreEqual(ledService.Channel, serialChannel);
         }
 
         [Test]
         public void Test_TemperatureService()
         {
+            float temperature = 0.0f;
+
             var tempChannel = new TestTempChannel();
+            tempChannel.ReceivedData += delegate(object sender, DataReceivedEventArgs e) {
+                temperature = e.Value;
+            };
             Assert.IsNotNull(tempChannel);
             tempChannel.Open(string.Empty);
 
-            float temperature = 0.0f;
             var tempService = new TemperatureService(tempChannel, 1000);
+            tempChannel.Services.Add(tempService);
             Assert.IsNotNull(tempService);
-            tempService.ReceivedData += delegate(object sender, DataReceivedEventArgs e) {
-                var tempSvc = (TemperatureService)e.Service;
-                temperature = tempSvc.Value;
-            };
             tempService.Enabled = true;
             Thread.Sleep(2000);
             Assert.AreEqual(25.1111f, temperature);
