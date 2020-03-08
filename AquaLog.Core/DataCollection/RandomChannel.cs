@@ -16,7 +16,7 @@ namespace AquaLog.DataCollection
         private readonly Random fRandom;
 
 
-        public override bool IsOpen
+        public override bool IsConnected
         {
             get { return true; }
         }

@@ -22,7 +22,9 @@ void setup() {
   }
 
   // start the Ethernet connection:
-  Ethernet.begin(mac, ip, myDns, gateway, subnet);
+  //Ethernet.begin(mac);
+  Ethernet.begin(mac, ip);
+  //Ethernet.begin(mac, ip, myDns, gateway, subnet);
   server.begin();
   // give the Ethernet shield a second to initialize:
   delay(1000);

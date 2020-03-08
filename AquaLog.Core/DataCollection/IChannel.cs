@@ -17,13 +17,13 @@ namespace AquaLog.DataCollection
     /// </summary>
     public interface IChannel : IDisposable
     {
-        bool IsOpen { get; }
+        bool IsConnected { get; }
         List<BaseService> Services { get; }
 
         event DataReceivedEventHandler ReceivedData;
 
         void Close();
-        bool Open(string parameters);
+        void Open(string parameters);
         void Send(string text);
     }
 }

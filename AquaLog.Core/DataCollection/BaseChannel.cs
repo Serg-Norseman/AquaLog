@@ -6,6 +6,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using BSLib;
 
 namespace AquaLog.DataCollection
@@ -18,10 +19,11 @@ namespace AquaLog.DataCollection
         public static readonly string[] ChannelNames = new string[] { "Serial", "Random", "TCP" };
 
 
+        protected string fParameters;
         private readonly List<BaseService> fServices;
 
 
-        public virtual bool IsOpen
+        public virtual bool IsConnected
         {
             get { return false; }
         }
@@ -51,15 +53,29 @@ namespace AquaLog.DataCollection
             base.Dispose(disposing);
         }
 
-        public virtual bool Open(string parameters)
+        public virtual void Open(string parameters)
         {
             EnableServices(true);
-            return true;
         }
 
         public virtual void Close()
         {
             EnableServices(false);
+        }
+
+        protected virtual void OpenMethod()
+        {
+        }
+
+        // TODO: connection recovery
+        protected void StartOpenThread(string parameters)
+        {
+            fParameters = parameters;
+
+            Thread worker = new Thread(OpenMethod);
+            worker.SetApartmentState(ApartmentState.STA);
+            worker.IsBackground = true;
+            worker.Start();
         }
 
         public virtual void Send(string text)
@@ -109,11 +125,7 @@ namespace AquaLog.DataCollection
             //channel.Services.Add(new LEDService(channel, 1000));
             channel.Services.Add(new TemperatureService(channel, 1000));
 
-            bool result = channel.Open(parameters);
-            if (!result) {
-                channel.Dispose();
-                channel = null;
-            }
+            channel.Open(parameters);
 
             return channel;
         }

@@ -42,7 +42,7 @@ namespace AquaLog.DataCollection
 
         protected override void OnTimedEvent()
         {
-            if (Channel.IsOpen) {
+            if (Channel.IsConnected) {
                 WriteQuery(SensorName);
             }
         }

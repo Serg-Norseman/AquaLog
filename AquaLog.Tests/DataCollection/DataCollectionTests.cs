@@ -12,7 +12,7 @@ namespace AquaLog.DataCollection
 {
     internal sealed class TestTempChannel : BaseChannel
     {
-        public override bool IsOpen
+        public override bool IsConnected
         {
             get { return true; }
         }

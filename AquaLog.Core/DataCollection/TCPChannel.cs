@@ -25,29 +25,38 @@ namespace AquaLog.DataCollection
         private Socket fSocket;
 
 
-        public override bool IsOpen
+        public override bool IsConnected
         {
             get { return (fSocket != null) && fSocket.Connected; }
         }
 
 
-        public TCPChannel()
+        public TCPChannel() : base()
         {
         }
 
-        public override bool Open(string parameters)
+        protected override void OpenMethod()
         {
             try {
-                IPEndPoint endPoint = TryParseEndPoint(parameters);
+                IPEndPoint endPoint = TryParseEndPoint(fParameters);
+
                 fSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                 fSocket.Connect(endPoint);
+
                 BeginReceive();
+            } catch (Exception ex) {
+                fLogger.WriteError("OpenMethod(): ", ex);
+            }
+        }
+
+        public override void Open(string parameters)
+        {
+            try {
+                StartOpenThread(parameters);
 
                 base.Open(parameters);
-                return true;
             } catch (Exception ex) {
                 fLogger.WriteError("Open(): ", ex);
-                return false;
             }
         }
 
@@ -55,7 +64,7 @@ namespace AquaLog.DataCollection
         {
             base.Close();
 
-            if (IsOpen) {
+            if (IsConnected) {
                 fSocket.Shutdown(SocketShutdown.Both);
                 fSocket.Close();
                 fSocket.Dispose();
@@ -106,7 +115,7 @@ namespace AquaLog.DataCollection
 
         public override void Send(string text)
         {
-            if (IsOpen) {
+            if (IsConnected) {
                 text += "\r";
                 byte[] data = Encoding.ASCII.GetBytes(text);
                 fSocket.Send(data);

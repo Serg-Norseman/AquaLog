@@ -8,6 +8,9 @@
 
 using System;
 using System.IO.Ports;
+using AquaLog.Core;
+using AquaLog.Logging;
+using BSLib;
 
 namespace AquaLog.DataCollection
 {
@@ -16,39 +19,45 @@ namespace AquaLog.DataCollection
     /// </summary>
     public sealed class SerialChannel : BaseChannel
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "SerialChannel");
+
+
         private SerialPort fPort;
 
 
-        public override bool IsOpen
+        public override bool IsConnected
         {
             get { return (fPort != null) && fPort.IsOpen; }
         }
 
 
-        public SerialChannel()
+        public SerialChannel() : base()
         {
         }
 
-        public override bool Open(string parameters)
+        protected override void OpenMethod()
         {
             try {
-                fPort = new SerialPort(parameters, 115200, Parity.None, 8, StopBits.One);
-
+                fPort = new SerialPort(fParameters, 115200, Parity.None, 8, StopBits.One);
                 // This option ensures the arduino restarts when we run the program
                 fPort.DtrEnable = true;
                 fPort.ReadTimeout = 500;
                 fPort.WriteTimeout = 500;
                 fPort.DataReceived += DataReceived;
                 fPort.Open();
+            } catch (Exception ex) {
+                fLogger.WriteError("OpenMethod(): ", ex);
+            }
+        }
 
-                // Opening the serial port causes the arduino to restart, so wait a second for it to do that
-                //System.Threading.Thread.Sleep(1000);
+        public override void Open(string parameters)
+        {
+            try {
+                StartOpenThread(parameters);
 
                 base.Open(parameters);
-
-                return true;
-            } catch {
-                return false;
+            } catch (Exception ex) {
+                fLogger.WriteError("Open(): ", ex);
             }
         }
 
@@ -70,7 +79,7 @@ namespace AquaLog.DataCollection
 
         public override void Send(string text)
         {
-            if (IsOpen) {
+            if (IsConnected) {
                 fPort.Write(text);
             }
         }

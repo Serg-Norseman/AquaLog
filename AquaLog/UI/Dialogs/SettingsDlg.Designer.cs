@@ -102,7 +102,7 @@
             this.tabControl1.Controls.Add(this.tabData);
             this.tabControl1.Controls.Add(this.tabDAS);
             this.tabControl1.Location = new System.Drawing.Point(10, 10);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(357, 182);
@@ -120,7 +120,7 @@
             this.tabCommon.Location = new System.Drawing.Point(4, 22);
             this.tabCommon.Margin = new System.Windows.Forms.Padding(2);
             this.tabCommon.Name = "tabCommon";
-            this.tabCommon.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.tabCommon.Padding = new System.Windows.Forms.Padding(7);
             this.tabCommon.Size = new System.Drawing.Size(349, 156);
             this.tabCommon.TabIndex = 0;
             this.tabCommon.Text = "Common";
@@ -198,7 +198,7 @@
             this.tabData.Location = new System.Drawing.Point(4, 22);
             this.tabData.Margin = new System.Windows.Forms.Padding(2);
             this.tabData.Name = "tabData";
-            this.tabData.Padding = new System.Windows.Forms.Padding(7, 7, 7, 7);
+            this.tabData.Padding = new System.Windows.Forms.Padding(7);
             this.tabData.Size = new System.Drawing.Size(349, 156);
             this.tabData.TabIndex = 1;
             this.tabData.Text = "Data";
@@ -288,9 +288,9 @@
             this.tabDAS.Controls.Add(this.lblChannel);
             this.tabDAS.Controls.Add(this.chkEnabled);
             this.tabDAS.Location = new System.Drawing.Point(4, 22);
-            this.tabDAS.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabDAS.Margin = new System.Windows.Forms.Padding(2);
             this.tabDAS.Name = "tabDAS";
-            this.tabDAS.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabDAS.Padding = new System.Windows.Forms.Padding(2);
             this.tabDAS.Size = new System.Drawing.Size(349, 156);
             this.tabDAS.TabIndex = 2;
             this.tabDAS.Text = "DAS";
@@ -300,11 +300,10 @@
             this.cmbPort.Items.AddRange(new object[] {
             "COM3"});
             this.cmbPort.Location = new System.Drawing.Point(92, 39);
-            this.cmbPort.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbPort.Margin = new System.Windows.Forms.Padding(2);
             this.cmbPort.Name = "cmbPort";
             this.cmbPort.Size = new System.Drawing.Size(130, 21);
             this.cmbPort.TabIndex = 3;
-            this.cmbPort.Text = "COM3";
             // 
             // lblParameters
             // 
@@ -320,7 +319,7 @@
             this.cmbChannel.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbChannel.FormattingEnabled = true;
             this.cmbChannel.Location = new System.Drawing.Point(92, 13);
-            this.cmbChannel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbChannel.Margin = new System.Windows.Forms.Padding(2);
             this.cmbChannel.Name = "cmbChannel";
             this.cmbChannel.Size = new System.Drawing.Size(130, 21);
             this.cmbChannel.TabIndex = 1;
@@ -338,7 +337,7 @@
             // 
             this.chkEnabled.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.chkEnabled.Location = new System.Drawing.Point(13, 66);
-            this.chkEnabled.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chkEnabled.Margin = new System.Windows.Forms.Padding(2);
             this.chkEnabled.Name = "chkEnabled";
             this.chkEnabled.Size = new System.Drawing.Size(209, 19);
             this.chkEnabled.TabIndex = 4;
