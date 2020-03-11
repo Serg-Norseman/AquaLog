@@ -6,8 +6,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("AquaLog")]
 [assembly: AssemblyDescription("Home aquariums manager")]
 [assembly: AssemblyProduct("AquaLog")]
-[assembly: AssemblyCopyright("Copyright © 2019 by Sergey V. Zhdanovskih")]
-[assembly: AssemblyVersion("1.2.0.0")]
+[assembly: AssemblyCopyright("Copyright © 2019-2020 by Sergey V. Zhdanovskih")]
+[assembly: AssemblyVersion("1.3.0.0")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 

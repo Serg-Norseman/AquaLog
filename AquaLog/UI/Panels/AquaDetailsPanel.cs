@@ -124,9 +124,23 @@ namespace AquaLog.UI.Panels
             IList<Inhabitant> records = fModel.QueryInhabitants(fAquarium);
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
-                string sex = ALCore.IsAnimal(spc.Type) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : string.Empty;
 
-                ItemType itemType = ALCore.GetItemType(spc.Type);
+                string sex, spTemp, spGH, spPH;
+                ItemType itemType;
+                if (spc != null) {
+                    sex = ALCore.IsAnimal(spc.Type) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : string.Empty;
+                    itemType = ALCore.GetItemType(spc.Type);
+                    spTemp = spc.GetTempRange();
+                    spGH = spc.GetGHRange();
+                    spPH = spc.GetPHRange();
+                } else {
+                    sex = string.Empty;
+                    itemType = ItemType.Fish;
+                    spTemp = string.Empty;
+                    spGH = string.Empty;
+                    spPH = string.Empty;
+                }
+
                 int qty = fModel.QueryInhabitantsCount(rec.Id, itemType);
                 if (qty == 0) continue; // death, sale or gift?
 
@@ -142,9 +156,9 @@ namespace AquaLog.UI.Panels
                                sex,
                                qty.ToString(),
                                strIntrDate,
-                               spc.GetTempRange(),
-                               spc.GetPHRange(),
-                               spc.GetGHRange()
+                               spTemp,
+                               spPH,
+                               spGH
                            );
             }
 
@@ -285,6 +299,8 @@ namespace AquaLog.UI.Panels
             IList<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
+                if (spc == null) continue;
+
                 int speciesType = (int)spc.Type;
                 var data = stData[speciesType];
 

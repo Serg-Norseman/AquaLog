@@ -7,7 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -67,7 +66,7 @@ namespace AquaLog.UI.Panels
                 string itName = items[i].ToString();
                 mapItem = subItems.FirstOrDefault(mit => mit.Name == itName);
                 if (mapItem == null) {
-                    mapItem = fDataMap.Model.CreateItem(parent, itName, 0.0d);
+                    mapItem = CreateItem(parent, itName, 0.0d);
                 }
                 subItems = mapItem.Items;
                 parent = mapItem;
@@ -93,7 +92,7 @@ namespace AquaLog.UI.Panels
                 int quantity = fModel.QueryInhabitantsCount(rec.Id, itemType);
 
                 if (quantity != 0) {
-                    string name = string.Format("{0} ({1})", spc.Name, spc.ScientificName);
+                    string name = string.Format("{0} ({1})", spc.ScientificName, spc.Name);
 
                     SpeciesItem item;
                     if (!species.TryGetValue(name, out item)) {
@@ -121,8 +120,7 @@ namespace AquaLog.UI.Panels
 
         private MapItem CreateItem(MapItem parent, string name, double size)
         {
-            var item = fDataMap.Model.CreateItem(parent, name, size) as SimpleItem;
-            item.Color = Color.Silver;
+            var item = fDataMap.Model.CreateItem(parent, name, size);
             return item;
         }
 
