@@ -73,6 +73,12 @@
     <Reference Include="BSLib.Controls">
       <HintPath>..\libs\BSLib.Controls.dll</HintPath>
     </Reference>
+    <Reference Include="BSLib.DataViz.Model">
+      <HintPath>..\libs\BSLib.DataViz.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="BSLib.DataViz.WFControls">
+      <HintPath>..\libs\BSLib.DataViz.WFControls.dll</HintPath>
+    </Reference>
     <Reference Include="csgl">
       <HintPath>..\libs\csgl.dll</HintPath>
     </Reference>
@@ -260,14 +266,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BSLib\BSLib.DataViz.Model\BSLib.DataViz.Model.csproj">
-      <Project>{58e0dd1e-7a8c-4368-bac8-bbbf7361af2a}</Project>
-      <Name>BSLib.DataViz.Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BSLib\BSLib.DataViz.WFControls\BSLib.DataViz.WFControls.csproj">
-      <Project>{98f66bb1-0120-4e3d-95f6-f98152dee3c8}</Project>
-      <Name>BSLib.DataViz.WFControls</Name>
-    </ProjectReference>
     <ProjectReference Include="..\AquaLog.Core\AquaLog.Core.csproj">
       <Project>{44b1fec8-5adb-4b16-8dd6-80a3a2405d2d}</Project>
       <Name>AquaLog.Core</Name>

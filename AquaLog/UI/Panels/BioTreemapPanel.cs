@@ -26,6 +26,8 @@ namespace AquaLog.UI.Panels
         private static DataTable fCSVData;
 
         private readonly TreeMapViewer fDataMap;
+        private readonly NavigationStack<MapItem> fNavman;
+        private readonly MapItem fRootItem;
 
 
         static BioTreemapPanel()
@@ -36,12 +38,45 @@ namespace AquaLog.UI.Panels
 
         public BioTreemapPanel()
         {
+            fNavman = new NavigationStack<MapItem>();
+            fRootItem = new MapItem();
+
             fDataMap = new TreeMapViewer();
+            fDataMap.RootItem = fRootItem;
             fDataMap.Dock = DockStyle.Fill;
             fDataMap.MouseoverHighlight = true;
             fDataMap.OnHintRequest += OnHintRequest;
-            fDataMap.MouseMove += OnMouseMove;
+            fDataMap.ShowNames = true;
+            fDataMap.KeyDown += DataMap_KeyDown;
+            fDataMap.MouseDoubleClick += DataMap_MouseDoubleClick;
             Controls.Add(fDataMap);
+
+            SetRootItem(fRootItem);
+        }
+
+        private void SetRootItem(MapItem item)
+        {
+            if (item != null) {
+                fNavman.Current = item;
+                fDataMap.RootItem = item;
+            }
+        }
+
+        private void DataMap_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            SetRootItem(fDataMap.CurrentItem);
+        }
+
+        private void DataMap_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
+            switch (e.KeyCode) {
+                case Keys.Back:
+                    if (fNavman.CanBackward()) {
+                        fDataMap.RootItem = fNavman.Back();
+                    }
+                    break;
+            }
         }
 
         private static DataRow SearchFamily(string family)
@@ -56,17 +91,17 @@ namespace AquaLog.UI.Panels
             return null;
         }
 
-        private MapItem GetTaxItem(DataRow taxRow)
+        private MapItem GetTaxonomyItem(DataRow taxRow)
         {
             MapItem mapItem = null;
-            MapItem parent = null;
-            var subItems = fDataMap.Model.Items;
+            MapItem parent = fRootItem;
+            var subItems = fRootItem.Items;
             var items = taxRow.ItemArray;
             for (int i = 0; i < items.Length; i++) {
                 string itName = items[i].ToString();
                 mapItem = subItems.FirstOrDefault(mit => mit.Name == itName);
                 if (mapItem == null) {
-                    mapItem = CreateItem(parent, itName, 0.0d);
+                    mapItem = fDataMap.Model.CreateItem(parent, itName, 0.0d);
                 }
                 subItems = mapItem.Items;
                 parent = mapItem;
@@ -76,9 +111,10 @@ namespace AquaLog.UI.Panels
 
         internal override void UpdateContent()
         {
-            fDataMap.Model.Items.Clear();
+            //fDataMap.Model.Items.Clear();
+            fRootItem.Items.Clear();
 
-            var unkTax = CreateItem(null, "Unknown Taxonomy", 0.0d);
+            var unkTax = fDataMap.Model.CreateItem(fRootItem, "Unknown Taxonomy", 0.0d);
 
             Dictionary<string, SpeciesItem> species = new Dictionary<string, SpeciesItem>();
 
@@ -108,20 +144,14 @@ namespace AquaLog.UI.Panels
                 var item = pair.Value;
                 var row = SearchFamily(item.Family);
                 if (row == null) {
-                    CreateItem(unkTax, item.Name, item.Quantity);
+                    fDataMap.Model.CreateItem(unkTax, item.Name, item.Quantity);
                 } else {
-                    var taxItem = GetTaxItem(row);
-                    CreateItem(taxItem, item.Name, item.Quantity);
+                    var taxItem = GetTaxonomyItem(row);
+                    fDataMap.Model.CreateItem(taxItem, item.Name, item.Quantity);
                 }
             }
 
             fDataMap.UpdateView();
-        }
-
-        private MapItem CreateItem(MapItem parent, string name, double size)
-        {
-            var item = fDataMap.Model.CreateItem(parent, name, size);
-            return item;
         }
 
         private void OnHintRequest(object sender, HintRequestEventArgs args)
@@ -143,11 +173,6 @@ namespace AquaLog.UI.Panels
             }
 
             return result;
-        }
-
-        private void OnMouseMove(object sender, MouseEventArgs e)
-        {
-            var curItem = fDataMap.CurrentItem;
         }
     }
 

@@ -11,7 +11,6 @@ using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
-using AquaLog.TSDB;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels

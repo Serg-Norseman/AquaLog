@@ -152,6 +152,14 @@ namespace AquaLog.Core
 
         public static string GetTimespanText(DateTime startDate, DateTime endDate)
         {
+            // Calculate the span in days
+            int iDays = (endDate - startDate).Days;
+
+            return GetTimespanText(iDays);
+        }
+
+        public static string GetTimespanText(int days)
+        {
             const double ApproxDaysPerMonth = 30.4375;
             const double ApproxDaysPerYear = 365.25;
 
@@ -178,24 +186,21 @@ namespace AquaLog.Core
             you can assume every 4th year is a leap year and use the other approximations
             */
 
-            // Calculate the span in days
-            int iDays = (endDate - startDate).Days;
-
             // Calculate years as an integer division
-            int iYear = (int)(iDays / ApproxDaysPerYear);
+            int iYear = (int)(days / ApproxDaysPerYear);
 
             // Decrease remaing days
-            iDays -= (int)(iYear * ApproxDaysPerYear);
+            days -= (int)(iYear * ApproxDaysPerYear);
 
             // Calculate months as an integer division
-            int iMonths = (int)(iDays / ApproxDaysPerMonth);
+            int iMonths = (int)(days / ApproxDaysPerMonth);
 
             // Decrease remaing days
-            iDays -= (int)(iMonths * ApproxDaysPerMonth);
+            days -= (int)(iMonths * ApproxDaysPerMonth);
 
             // Return the result as an string
             string result = "";
-            if (iDays > 0) result = string.Format(Localizer.LS(LSID.DaysStr), iDays);
+            if (days > 0) result = string.Format(Localizer.LS(LSID.DaysStr), days);
             if (iMonths > 0) {
                 if (result.Length > 0) result = ", " + result;
                 result = string.Format(Localizer.LS(LSID.MonthsStr), iMonths) + result;

@@ -21,8 +21,19 @@ namespace AquaLog.UI.Panels
     /// </summary>
     public sealed class InhabitantPanel : ListPanel<Inhabitant, InhabitantEditDlg>
     {
+        private readonly Label fFooter;
+
         public InhabitantPanel() : base()
         {
+            fFooter = new Label();
+            fFooter.BorderStyle = BorderStyle.Fixed3D;
+            fFooter.Dock = DockStyle.Bottom;
+            fFooter.Font = new Font(this.Font.FontFamily, this.Font.Size, FontStyle.Bold, this.Font.Unit);
+            fFooter.TextAlign = ContentAlignment.MiddleLeft;
+            Controls.Add(fFooter);
+
+            Controls.SetChildIndex(ListView, 0);
+            Controls.SetChildIndex(fFooter, 1);
         }
 
         protected override void InitActions()
@@ -63,6 +74,7 @@ namespace AquaLog.UI.Panels
             ListView.Columns.Add("PH", 100, HorizontalAlignment.Left);
             ListView.Columns.Add("GH", 100, HorizontalAlignment.Left);
 
+            Average avgLifespan = new Average();
             IList<Inhabitant> records = fModel.QueryInhabitants();
             foreach (Inhabitant rec in records) {
                 Species spc = fModel.GetRecord<Species>(rec.SpeciesId);
@@ -101,6 +113,11 @@ namespace AquaLog.UI.Panels
                 DateTime endDate = ALCore.IsZeroDate(exclusionDate) || !fin ? DateTime.Now.Date : exclusionDate;
                 string strLifespan = ALCore.IsZeroDate(inclusionDate) ? string.Empty : ALCore.GetTimespanText(inclusionDate, endDate);
 
+                if (!ALCore.IsZeroDate(exclusionDate)) {
+                    int iDays = (exclusionDate - inclusionDate).Days;
+                    avgLifespan.AddValue(iDays);
+                }
+
                 ItemState itemState;
                 string strState = fModel.GetItemStateStr(rec.Id, itemType, out itemState);
                 if (itemState == ItemState.Unknown || !fin) {
@@ -128,6 +145,8 @@ namespace AquaLog.UI.Panels
             }
 
             ListView.Sort(6, SortOrder.Ascending);
+
+            fFooter.Text = string.Format(Localizer.LS(LSID.LifeExpectancy) + ": {0}", ALCore.GetTimespanText((int)avgLifespan.GetResult()));
         }
 
         private void TransferHandler(object sender, EventArgs e)
