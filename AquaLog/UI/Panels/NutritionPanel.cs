@@ -44,32 +44,22 @@ namespace AquaLog.UI.Panels
         protected override void UpdateListView()
         {
             ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 200, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.Amount), 100, HorizontalAlignment.Right);
             ListView.Columns.Add(Localizer.LS(LSID.Note), 80, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Inhabitant), 80, HorizontalAlignment.Left);
             ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
 
             var records = fModel.QueryNutritions();
             foreach (Nutrition rec in records) {
-                Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
-                string aqmName = (aqm == null) ? "" : aqm.Name;
-
-                Inhabitant inhab = fModel.GetRecord<Inhabitant>(rec.InhabitantId);
-                string inhabName = (inhab == null) ? "" : inhab.Name;
-
                 ItemState itemState;
                 string strState = fModel.GetItemStateStr(rec.Id, ItemType.Nutrition, out itemState);
 
                 var item = ListView.AddItemEx(rec,
-                               aqmName,
                                rec.Name,
                                rec.Brand,
                                ALCore.GetDecimalStr(rec.Amount),
                                rec.Note,
-                               inhabName,
                                strState
                            );
 

@@ -6,6 +6,7 @@
 
 using System;
 using System.Windows.Forms;
+using AquaLog.Core.Types;
 using AquaLog.UI.Components;
 using AquaLog.Core;
 
@@ -52,6 +53,18 @@ namespace AquaLog.UI
             foreach (var enm in array) {
                 int eIdx = Convert.ToInt32(enm);
                 comboBox.AddItem<T>(Localizer.LS(names[eIdx]), enm);
+            }
+        }
+
+        public static void FillCombo<T>(this ComboBox comboBox, IProps[] names, bool sorted) where T : struct
+        {
+            T[] array = (T[])Enum.GetValues(typeof(T));
+
+            comboBox.Items.Clear();
+            comboBox.Sorted = sorted;
+            foreach (var enm in array) {
+                int eIdx = Convert.ToInt32(enm);
+                comboBox.AddItem<T>(Localizer.LS(names[eIdx].Name), enm);
             }
         }
 

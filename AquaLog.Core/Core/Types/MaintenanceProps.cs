@@ -6,15 +6,15 @@
 
 namespace AquaLog.Core.Types
 {
-    public class DeviceProps : IProps
+    public sealed class MaintenanceProps : IProps
     {
         public LSID Name { get; private set; }
-        public bool HasMeasurements { get; private set; }
+        public int WaterChangeFactor { get; private set; }
 
-        public DeviceProps(LSID name, bool hasMeasurements)
+        public MaintenanceProps(LSID name, int waterChangeFactor)
         {
             Name = name;
-            HasMeasurements = hasMeasurements;
+            WaterChangeFactor = waterChangeFactor;
         }
     }
 }

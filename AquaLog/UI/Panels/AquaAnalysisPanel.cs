@@ -61,11 +61,11 @@ namespace AquaLog.UI.Panels
                 events.AddRange(fModel.QueryNotes(fAquarium.Id));
                 events.AddRange(fModel.QueryMaintenances(fAquarium.Id));
                 events.AddRange(fModel.QueryMeasures(fAquarium.Id));
-                events.AddRange(fModel.QueryTransfersBD(fAquarium.Id));
+                events.AddRange(fModel.QueryTransfers(fAquarium.Id));
                 events.Sort((x, y) => { return x.Timestamp.CompareTo(y.Timestamp); });
 
                 DateTime dtPrev = ALCore.ZeroDate;
-                double prevVolume = 0.0d, curVolume = 0.0d, chngPercent;
+                double prevVolume = 0.0d, curVolume = 0.0d;
                 string prevTime = string.Empty, curTime;
                 foreach (IEventEntity evnt in events) {
                     curTime = ALCore.GetTimeStr(evnt.Timestamp);
@@ -81,13 +81,13 @@ namespace AquaLog.UI.Panels
                             prevVolume = curVolume;
                             curVolume = changeValue;
                         } else {
-                            int factor = ALData.WaterChangeFactors[(int)mnt.Type];
+                            int factor = ALData.MaintenanceTypes[(int)mnt.Type].WaterChangeFactor;
                             if (factor != 0) {
                                 prevVolume = curVolume;
                             }
                             curVolume += (changeValue * factor);
                         }
-                        chngPercent = (changeValue / curVolume) * 100.0d;
+                        double chngPercent = (changeValue / curVolume) * 100.0d;
 
                         int days = -1;
                         if (mnt.Type >= MaintenanceType.Restart && mnt.Type <= MaintenanceType.WaterReplaced) {
@@ -97,7 +97,7 @@ namespace AquaLog.UI.Panels
                             dtPrev = mnt.Timestamp.Date;
                         }
 
-                        string strType = Localizer.LS(ALData.MaintenanceTypes[(int)mnt.Type]);
+                        string strType = Localizer.LS(ALData.MaintenanceTypes[(int)mnt.Type].Name);
                         string strDays = (days >= 0) ? days.ToString() : string.Empty;
 
                         var item = ListView.AddItemEx(mnt,
@@ -150,19 +150,16 @@ namespace AquaLog.UI.Panels
 
                     if (evnt is Transfer) {
                         Transfer transfer = (Transfer)evnt;
-                        string strType = Localizer.LS(ALData.TransferTypes[(int)transfer.Type]);
-                        var itemRec = fModel.GetRecord(transfer.ItemType, transfer.ItemId);
-                        string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
+                        if (ALCore.IsInhabitant(transfer.ItemType)) {
+                            string strType = Localizer.LS(ALData.TransferTypes[(int)transfer.Type]);
+                            var itemRec = fModel.GetRecord(transfer.ItemType, transfer.ItemId);
+                            string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
 
-                        var item = ListView.AddItemEx(transfer,
-                                       curTime,
-                                       strType,
-                                       transfer.Quantity.ToString(),
-                                       itName,
-                                       string.Empty,
-                                       string.Empty,
-                                       string.Empty
-                                   );
+                            var item = ListView.AddItemEx(transfer,
+                                           curTime, strType, transfer.Quantity.ToString(), itName,
+                                           string.Empty, string.Empty, string.Empty
+                                       );
+                        }
                     }
                 }
             }

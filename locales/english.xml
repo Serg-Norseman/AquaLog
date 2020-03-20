@@ -210,4 +210,6 @@
   <string id="208">Channel</string>
   <string id="209">BioTreemap</string>
   <string id="210">Life expectancy</string>
+  <string id="211">Fertilize</string>
+  <string id="212">Cure</string>
 </resources>

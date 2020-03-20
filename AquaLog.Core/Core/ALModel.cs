@@ -448,7 +448,7 @@ namespace AquaLog.Core
                     result = rec.Value;
                 } else {
                     int idx = (int)rec.Type;
-                    int factor = ALData.WaterChangeFactors[idx];
+                    int factor = ALData.MaintenanceTypes[idx].WaterChangeFactor;
                     result += (rec.Value * factor);
                 }
             }
@@ -516,11 +516,6 @@ namespace AquaLog.Core
         public IList<Transfer> QueryLastTransfers(int itemId, int itemType)
         {
             return fDB.Query<Transfer>("select * from Transfer where (ItemId = ? and ItemType = ?) order by [Timestamp] desc", itemId, itemType);
-        }
-
-        public IList<Transfer> QueryTransfersBD(int aquariumId)
-        {
-            return fDB.Query<Transfer>("select * from Transfer where (Type = 3 or Type = 4) and (SourceId = ? or TargetId = ?) order by [Timestamp]", aquariumId, aquariumId);
         }
 
         #endregion

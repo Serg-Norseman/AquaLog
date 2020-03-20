@@ -44,16 +44,6 @@ namespace AquaLog.Core
         };
 
 
-        public static readonly int[] WaterChangeFactors = new int[] {
-             0, // Restart
-            +1, // WaterAdded
-             0, // WaterReplaced
-            -1, // WaterRemoved
-             0, // Clean
-             0, // Other
-        };
-
-
         public static readonly ItemProps[] ItemTypes = new ItemProps[] {
             new ItemProps(LSID.None,
                           EnumSet<ItemState>.Create()),
@@ -134,13 +124,15 @@ namespace AquaLog.Core
         };
 
 
-        public static readonly LSID[] MaintenanceTypes = new LSID[] {
-            LSID.Restart,
-            LSID.WaterAdded,
-            LSID.WaterReplaced,
-            LSID.WaterRemoved,
-            LSID.Clean,
-            LSID.Other,
+        public static readonly MaintenanceProps[] MaintenanceTypes = new MaintenanceProps[] {
+            new MaintenanceProps(LSID.Restart, 0),
+            new MaintenanceProps(LSID.WaterAdded, +1),
+            new MaintenanceProps(LSID.WaterReplaced, 0),
+            new MaintenanceProps(LSID.WaterRemoved, -1),
+            new MaintenanceProps(LSID.Clean, 0),
+            new MaintenanceProps(LSID.Other, 0),
+            new MaintenanceProps(LSID.Fertilize, 0),
+            new MaintenanceProps(LSID.Cure, 0),
         };
 
 

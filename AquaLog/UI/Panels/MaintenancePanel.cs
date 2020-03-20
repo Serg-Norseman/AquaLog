@@ -41,7 +41,7 @@ namespace AquaLog.UI.Panels
                 string aqmName = (aqm == null) ? "" : aqm.Name;
                 if (fSelectedAquarium != "*" && fSelectedAquarium != aqmName) continue;
 
-                string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type]);
+                string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type].Name);
 
                 var item = ListView.AddItemEx(rec,
                                aqmName,

@@ -84,7 +84,7 @@ namespace AquaLog.UI.Panels
             foreach (Device rec in records) {
                 Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
                 string aqmName = (aqm == null) ? "" : aqm.Name;
-                string strType = Localizer.LS(ALData.DeviceProps[(int)rec.Type].Text);
+                string strType = Localizer.LS(ALData.DeviceProps[(int)rec.Type].Name);
 
                 ItemState itemState;
                 string strState = fModel.GetItemStateStr(rec.Id, ItemType.Device, out itemState);

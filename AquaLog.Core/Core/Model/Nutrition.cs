@@ -8,7 +8,7 @@ using AquaLog.Core.Types;
 
 namespace AquaLog.Core.Model
 {
-    public class Nutrition : AquariumDetails, IStateItem, IBrandedItem
+    public class Nutrition : Entity, IStateItem, IBrandedItem
     {
         public string Name { get; set; }
         public string Brand { get; set; }
@@ -18,8 +18,6 @@ namespace AquaLog.Core.Model
 
         // not used
         public ItemState State { get; set; }
-
-        public int InhabitantId { get; set; }
 
 
         public Nutrition()

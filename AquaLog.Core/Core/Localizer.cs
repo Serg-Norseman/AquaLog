@@ -232,8 +232,10 @@ namespace AquaLog.Core
         /* 208 */ Channel,
         /* 209 */ BioTreemap,
         /* 210 */ LifeExpectancy,
+        /* 211 */ Fertilize,
+        /* 212 */ Cure,
 
-        /* 000 */ Last = LifeExpectancy
+        /* 000 */ Last = Cure
     }
 
 
@@ -454,6 +456,8 @@ namespace AquaLog.Core
             /* 208 */ "Channel",
             /* 209 */ "BioTreemap",
             /* 210 */ "Life expectancy",
+            /* 211 */ "Fertilize",
+            /* 212 */ "Cure",
         };
 
 

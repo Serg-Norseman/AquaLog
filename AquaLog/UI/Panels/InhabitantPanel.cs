@@ -95,7 +95,7 @@ namespace AquaLog.UI.Panels
                     spPH = spc.GetPHRange();
                 }
 
-                string sx = ALCore.IsAnimal(spType) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : string.Empty;
+                string sx = ALCore.IsAnimal(spType) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : "–";
                 SpeciesType speciesType = fModel.GetSpeciesType(rec.SpeciesId);
                 ItemType itemType = ALCore.GetItemType(speciesType);
 
@@ -167,7 +167,7 @@ namespace AquaLog.UI.Panels
         private void ViewChartFamiliesHandler(object sender, EventArgs e)
         {
             var chartData = GetChartData();
-            Browser.SetView(MainView.PieChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
+            Browser.SetView(MainView.ZChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
         }
 
         private void ViewBioTreemapHandler(object sender, EventArgs e)

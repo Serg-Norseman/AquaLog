@@ -23,6 +23,20 @@ namespace AquaLog.UI.Panels
     /// </summary>
     public sealed class BioTreemapPanel : DataPanel
     {
+        internal sealed class SpeciesItem
+        {
+            public string Name;
+            public string Family;
+            public int Quantity;
+
+            public SpeciesItem(string name, string family, int quantity)
+            {
+                Name = name;
+                Family = family;
+                Quantity = quantity;
+            }
+        }
+
         private static DataTable fCSVData;
 
         private readonly TreeMapViewer fDataMap;
@@ -111,7 +125,6 @@ namespace AquaLog.UI.Panels
 
         internal override void UpdateContent()
         {
-            //fDataMap.Model.Items.Clear();
             fRootItem.Items.Clear();
 
             var unkTax = fDataMap.Model.CreateItem(fRootItem, "Unknown Taxonomy", 0.0d);
@@ -173,20 +186,6 @@ namespace AquaLog.UI.Panels
             }
 
             return result;
-        }
-    }
-
-    internal sealed class SpeciesItem
-    {
-        public string Name;
-        public string Family;
-        public int Quantity;
-
-        public SpeciesItem(string name, string family, int quantity)
-        {
-            Name = name;
-            Family = family;
-            Quantity = quantity;
         }
     }
 }

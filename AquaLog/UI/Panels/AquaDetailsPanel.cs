@@ -240,7 +240,7 @@ namespace AquaLog.UI.Panels
 
             var records = fModel.QueryMaintenances(fAquarium.Id);
             foreach (Maintenance rec in records) {
-                string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type]);
+                string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type].Name);
 
                 var item = fMaintenanceLV.AddItemEx(rec,
                                ALCore.GetTimeStr(rec.Timestamp),

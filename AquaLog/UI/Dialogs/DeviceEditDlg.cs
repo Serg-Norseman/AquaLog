@@ -59,11 +59,7 @@ namespace AquaLog.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbType.Items.Clear();
-            cmbType.Sorted = true;
-            for (DeviceType type = DeviceType.Light; type <= DeviceType.Heater; type++) {
-                cmbType.AddItem<DeviceType>(Localizer.LS(ALData.DeviceProps[(int)type].Text), type);
-            }
+            cmbType.FillCombo<DeviceType>(ALData.DeviceProps, true);
 
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblName.Text = Localizer.LS(LSID.Name);

@@ -164,25 +164,25 @@ namespace AquaLog.UI.Panels
         private void ViewChartTypesHandler(object sender, EventArgs e)
         {
             var chartData = GetChartData(BudgetChartType.ItemTypes);
-            Browser.SetView(MainView.PieChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
+            Browser.SetView(MainView.ZChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
         }
 
         private void ViewChartShopsHandler(object sender, EventArgs e)
         {
             var chartData = GetChartData(BudgetChartType.Shops);
-            Browser.SetView(MainView.PieChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
+            Browser.SetView(MainView.ZChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
         }
 
         private void ViewChartBrandsHandler(object sender, EventArgs e)
         {
             var chartData = GetChartData(BudgetChartType.Brands);
-            Browser.SetView(MainView.PieChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
+            Browser.SetView(MainView.ZChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
         }
 
         private void ViewChartCountriesHandler(object sender, EventArgs e)
         {
             var chartData = GetChartData(BudgetChartType.Countries);
-            Browser.SetView(MainView.PieChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
+            Browser.SetView(MainView.ZChart, new ChartSeries("", ChartStyle.Pie, chartData, Color.Transparent));
         }
 
         private void ViewChartMonthesHandler(object sender, EventArgs e)
@@ -194,7 +194,7 @@ namespace AquaLog.UI.Panels
             series.Add(Localizer.LS(LSID.Purchase), new ChartSeries(Localizer.LS(LSID.Purchase), ChartStyle.Bar, purcChartData, Color.Red));
             series.Add(Localizer.LS(LSID.Sale), new ChartSeries(Localizer.LS(LSID.Sale), ChartStyle.Bar, saleChartData, Color.Green));
 
-            Browser.SetView(MainView.BarChart, series);
+            Browser.SetView(MainView.ZChart, series);
         }
 
         private void CollectBrands(IList<Transfer> transfers)

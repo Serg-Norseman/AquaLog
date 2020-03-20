@@ -6,13 +6,8 @@
 
 namespace AquaLog.Core.Types
 {
-    public enum TransferType
+    public interface IProps
     {
-        /* 00 */ Relocation,
-        /* 01 */ Purchase,
-        /* 02 */ Sale,
-        /* 03 */ Birth,
-        /* 04 */ Death,
-        /* 05 */ Exclusion,
+        LSID Name { get; }
     }
 }

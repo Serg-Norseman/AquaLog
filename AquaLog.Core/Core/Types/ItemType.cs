@@ -8,28 +8,28 @@ namespace AquaLog.Core.Types
 {
     public enum ItemType
     {
-        None,
+        /* 00 */ None,
 
-        Aquarium,
+        /* 01 */ Aquarium,
 
         // Inhabitants
-        Fish,
-        Invertebrate,
-        Plant,
-        Coral,
+        /* 02 */ Fish,
+        /* 03 */ Invertebrate,
+        /* 04 */ Plant,
+        /* 05 */ Coral,
 
         // Lifesupport
-        Nutrition,
-        Device,
+        /* 06 */ Nutrition,
+        /* 07 */ Device,
 
         // Inventory, Lifesupport
-        Additive,
-        Chemistry,
+        /* 08 */ Additive,
+        /* 09 */ Chemistry,
 
         // Inventory
-        Equipment,
-        Maintenance,
-        Furniture,
-        Decoration,
+        /* 10 */ Equipment,
+        /* 11 */ Maintenance,
+        /* 12 */ Furniture,
+        /* 13 */ Decoration,
     }
 }

@@ -17,5 +17,7 @@ namespace AquaLog.Core.Types
         WaterRemoved,
         Clean,
         Other,
+        Fertilize,
+        Cure,
     }
 }

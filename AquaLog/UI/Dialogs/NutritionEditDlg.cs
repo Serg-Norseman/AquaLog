@@ -59,22 +59,16 @@ namespace AquaLog.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblName.Text = Localizer.LS(LSID.Name);
             lblBrand.Text = Localizer.LS(LSID.Brand);
             lblAmount.Text = Localizer.LS(LSID.Amount);
             lblNote.Text = Localizer.LS(LSID.Note);
-            lblInhabitant.Text = Localizer.LS(LSID.Inhabitant);
             lblState.Text = Localizer.LS(LSID.State);
         }
 
         private void UpdateView()
         {
             if (fRecord != null) {
-                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
-
-                UIHelper.FillEntitiesCombo(cmbInhabitant, fModel.QueryInhabitants(), fRecord.InhabitantId, true);
-
                 UIHelper.FillStringsCombo(cmbBrand, fModel.QueryNutritionBrands(), fRecord.Brand);
 
                 txtName.Text = fRecord.Name;
@@ -87,12 +81,6 @@ namespace AquaLog.UI.Dialogs
 
         private void ApplyChanges()
         {
-            var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
-
-            var pt = cmbInhabitant.SelectedItem as Inhabitant;
-            fRecord.InhabitantId = (pt == null) ? 0 : pt.Id;
-
             fRecord.Name = txtName.Text;
             fRecord.Brand = cmbBrand.Text;
             fRecord.Amount = (float)ALCore.GetDecimalVal(txtAmount.Text);

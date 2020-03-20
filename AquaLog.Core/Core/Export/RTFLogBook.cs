@@ -66,7 +66,7 @@ namespace AquaLog.Core.Export
 
                     if (evnt is Maintenance) {
                         Maintenance mnt = (Maintenance)evnt;
-                        string strType = Localizer.LS(ALData.MaintenanceTypes[(int)mnt.Type]);
+                        string strType = Localizer.LS(ALData.MaintenanceTypes[(int)mnt.Type].Name);
                         string notes = (string.IsNullOrEmpty(mnt.Note)) ? string.Empty : " (" + mnt.Note + ")";
                         AddListItem(string.Format("{0}: {1}{2}", strType, ALCore.GetDecimalStr(mnt.Value), notes), textFont);
                     }

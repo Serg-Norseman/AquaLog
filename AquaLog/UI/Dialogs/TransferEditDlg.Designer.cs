@@ -150,7 +150,6 @@
             // cmbSource
             // 
             this.cmbSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbSource.Enabled = false;
             this.cmbSource.Location = new System.Drawing.Point(190, 50);
             this.cmbSource.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
             this.cmbSource.Name = "cmbSource";

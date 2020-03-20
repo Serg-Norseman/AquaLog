@@ -6,11 +6,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 using AquaLog.Core;
 using AquaLog.Core.Export;
 using AquaLog.Core.Model;
 using AquaLog.Core.Types;
+using AquaLog.UI.Components;
 using AquaLog.UI.Dialogs;
 
 namespace AquaLog.UI.Panels
@@ -241,6 +243,25 @@ namespace AquaLog.UI.Panels
 
             var record = selectedItem.Aquarium;
             Browser.SetView(MainView.Quality, record);
+
+            //var chartData = GetChartData(record);
+            //Browser.SetView(MainView.ZChart, new ChartSeries("", ChartStyle.Radar, chartData, Color.Blue));
+        }
+
+        private IList<ChartPoint> GetChartData(Aquarium aquarium)
+        {
+            var result = new List<ChartPoint>();
+            var values = fModel.CollectData(aquarium);
+            foreach (var mVal in values) {
+                if (!double.IsNaN(mVal.Value) && mVal.Ranges != null) {
+                    string title = mVal.Name;
+                    if (!string.IsNullOrEmpty(mVal.Unit)) {
+                        title += ", " + mVal.Unit;
+                    }
+                    result.Add(new ChartPoint(title, mVal.Value));
+                }
+            }
+            return result;
         }
     }
 }
