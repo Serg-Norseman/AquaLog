@@ -11,7 +11,7 @@ exit /b 1
  
 :installer 
 cd .\deploy
-call aqualog_win_portable.cmd
+call aquamate_win_portable.cmd
 cd ..
 pause 
 exit /b 0

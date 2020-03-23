@@ -18,7 +18,7 @@ path_classifiers:
 extraction:
   csharp:
     index:
-      solution: "AquaLog.sln"
+      solution: "AquaMate.sln"
       nuget_restore: true
       msbuild:
         configuration: debug

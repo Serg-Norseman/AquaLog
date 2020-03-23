@@ -19,13 +19,13 @@ skip_commits:
     - '**/*.md'
 
 before_build:
-  - nuget restore ./AquaLog.sln
+  - nuget restore ./AquaMate.sln
 
 build_script:
-  - msbuild ./AquaLog.sln /p:Configuration=Debug /p:Platform="x86" /p:CIMode=true /p:MonoCS=true /verbosity:minimal
+  - msbuild ./AquaMate.sln /p:Configuration=Debug /p:Platform="x86" /p:CIMode=true /p:MonoCS=true /verbosity:minimal
 
 test_script:
-  - .\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -target:"nunit-console-x86.exe" -targetdir:".\AquaLog.Tests\bin\Debug" -targetargs:"AquaLog.Tests.dll /noshadow" -output:"coverage.xml" -filter:"+[*]*"
+  - .\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe -register:user -target:"nunit-console-x86.exe" -targetdir:".\AquaMate.Tests\bin\Debug" -targetargs:"AquaMate.Tests.dll /noshadow" -output:"coverage.xml" -filter:"+[*]*"
 
 after_test:
   - "SET PATH=C:\\Python34;C:\\Python34\\Scripts;%PATH%"

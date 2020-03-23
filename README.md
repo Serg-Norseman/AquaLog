@@ -1,15 +1,15 @@
-# AquaLog
+# AquaMate
 
-[![Build Status](https://travis-ci.org/Serg-Norseman/AquaLog.svg?branch=master)](https://travis-ci.org/Serg-Norseman/AquaLog)
-[![Build status](https://ci.appveyor.com/api/projects/status/61is7l0ym7wvqv8r?svg=true)](https://ci.appveyor.com/project/Serg-Norseman/AquaLog)
-[![codecov.io](https://codecov.io/github/Serg-Norseman/AquaLog/coverage.svg?branch=master)](https://codecov.io/github/Serg-Norseman/AquaLog?branch=master)
-[![BCH compliance](https://bettercodehub.com/edge/badge/Serg-Norseman/AquaLog?branch=master)](https://bettercodehub.com/results/Serg-Norseman/AquaLog)
-[![CodeFactor](https://www.codefactor.io/repository/github/serg-norseman/aqualog/badge)](https://www.codefactor.io/repository/github/serg-norseman/aqualog)
-[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=AquaLog&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AquaLog)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AquaLog&metric=coverage)](https://sonarcloud.io/dashboard?id=AquaLog)
-[![Lines of code](https://sonarcloud.io/api/project_badges/measure?project=AquaLog&metric=ncloc)](https://sonarcloud.io/dashboard?id=AquaLog)
+[![Build Status](https://travis-ci.org/Serg-Norseman/AquaMate.svg?branch=master)](https://travis-ci.org/Serg-Norseman/AquaMate)
+[![Build status](https://ci.appveyor.com/api/projects/status/61is7l0ym7wvqv8r?svg=true)](https://ci.appveyor.com/project/Serg-Norseman/AquaMate)
+[![codecov.io](https://codecov.io/github/Serg-Norseman/AquaMate/coverage.svg?branch=master)](https://codecov.io/github/Serg-Norseman/AquaMate?branch=master)
+[![BCH compliance](https://bettercodehub.com/edge/badge/Serg-Norseman/AquaMate?branch=master)](https://bettercodehub.com/results/Serg-Norseman/AquaMate)
+[![CodeFactor](https://www.codefactor.io/repository/github/serg-norseman/aquamate/badge)](https://www.codefactor.io/repository/github/serg-norseman/aquamate)
+[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=AquaMate&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AquaMate)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AquaMate&metric=coverage)](https://sonarcloud.io/dashboard?id=AquaMate)
+[![Lines of code](https://sonarcloud.io/api/project_badges/measure?project=AquaMate&metric=ncloc)](https://sonarcloud.io/dashboard?id=AquaMate)
 
-Home aquariums manager. A simple program for monitoring and maintaining aquariums.
+Home aquariums manager and helper. A simple program for monitoring and maintaining aquariums.
 It is also planned to collect and monitor data through Arduino. 
 
 Features:
@@ -28,7 +28,7 @@ Features:
 - Calculator (converters of units of measure);
 - Tray (+autorun, +hide at startup, +minimize on close);
 - Embedded "nano"-TSDB with "swinging door" compression;
-- Simple data monitor via Arduino and COM-port;
+- Simple data monitor via Arduino and COM-port/TCP;
 - Multilingual: English, Russian;
 - Export to XLS and CSV (measures and maintenance);
 - Export to RTF (aquarium's logbook);

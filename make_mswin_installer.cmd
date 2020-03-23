@@ -10,7 +10,7 @@ pause
 exit /b 1 
  
 :installer 
-"C:\Program Files (x86)\NSIS\makensis.exe" .\deploy\aqualog_win_setup.nsi
-"c:\Program Files\7-zip\7z.exe" a -tzip -mx5 -scsWIN .\deploy\aqualog_1.0.0_win.zip .\deploy\aqualog_1.0.0_winsetup.exe
+"C:\Program Files (x86)\NSIS\makensis.exe" .\deploy\aquamate_win_setup.nsi
+"c:\Program Files\7-zip\7z.exe" a -tzip -mx5 -scsWIN .\deploy\aquamate_1.0.0_win.zip .\deploy\aquamate_1.0.0_winsetup.exe
 pause 
 exit /b 0

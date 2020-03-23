@@ -1,10 +1,10 @@
 language: csharp
-solution: AquaLog.sln
+solution: AquaMate.sln
 
 install:
   - sudo apt-get install nunit-console
-  - nuget restore ./AquaLog.sln
+  - nuget restore ./AquaMate.sln
 
 script:
-  - xbuild ./AquaLog.sln /p:Configuration=Debug /p:Platform="x86" /p:CIMode=true /p:MonoCS=true /verbosity:minimal
-  - nunit-console ./AquaLog.Tests/bin/Debug/AquaLog.Tests.dll
+  - xbuild ./AquaMate.sln /p:Configuration=Debug /p:Platform="x86" /p:CIMode=true /p:MonoCS=true /verbosity:minimal
+  - nunit-console ./AquaMate.Tests/bin/Debug/AquaMate.Tests.dll

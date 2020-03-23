@@ -20,7 +20,7 @@
 /bsl_copy.cmd
 /deploy.cmd
 
-/AquaLog/packages/**/
+/AquaMate/packages/**/
 /packages/**/
 
 /.sonarqube/
