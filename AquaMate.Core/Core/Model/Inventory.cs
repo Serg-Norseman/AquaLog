@@ -31,6 +31,14 @@ namespace AquaMate.Core.Model
         #endregion
 
 
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.Inventory;
+            }
+        }
+
+
         public Inventory()
         {
         }

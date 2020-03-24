@@ -20,6 +20,14 @@ namespace AquaMate.Core.Model
         public ItemState State { get; set; }
 
 
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.Nutrition;
+            }
+        }
+
+
         public Nutrition()
         {
         }

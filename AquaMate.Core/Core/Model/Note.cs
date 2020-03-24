@@ -5,6 +5,7 @@
  */
 
 using System;
+using AquaMate.Core.Types;
 
 namespace AquaMate.Core.Model
 {
@@ -16,6 +17,14 @@ namespace AquaMate.Core.Model
         public DateTime Timestamp { get; set; }
         public string Event { get; set; }
         public string Content { get; set; }
+
+
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.Note;
+            }
+        }
 
 
         public Note()

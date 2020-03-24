@@ -71,6 +71,14 @@ namespace AquaMate.Core.Model
         public double SoilHeight { get; set; }
 
 
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.Aquarium;
+            }
+        }
+
+
         public Aquarium()
         {
         }

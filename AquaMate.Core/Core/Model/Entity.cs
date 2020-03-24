@@ -4,6 +4,7 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using AquaMate.Core.Types;
 using SQLite;
 
 namespace AquaMate.Core.Model
@@ -15,6 +16,12 @@ namespace AquaMate.Core.Model
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+
+
+        public abstract EntityType EntityType
+        {
+            get;
+        }
 
 
         protected Entity()

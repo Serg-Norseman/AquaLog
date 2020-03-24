@@ -186,7 +186,8 @@ namespace AquaMate.UI.Components
             var record = (fCurrentIndex >= 0 && fCurrentIndex < fSnapshots.Count) ? fSnapshots[fCurrentIndex] : null;
             if (record == null) return;
 
-            if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), record.ToString()))) return;
+            string recordName = fModel.GetEntityName(record);
+            if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), recordName))) return;
 
             fModel.DeleteRecord(record);
             UpdateContent();

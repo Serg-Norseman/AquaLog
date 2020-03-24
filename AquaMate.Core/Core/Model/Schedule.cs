@@ -22,8 +22,21 @@ namespace AquaMate.Core.Model
         public TaskStatus Status { get; set; }
 
 
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.Schedule;
+            }
+        }
+
+
         public Schedule()
         {
+        }
+
+        public override string ToString()
+        {
+            return Event;
         }
     }
 }

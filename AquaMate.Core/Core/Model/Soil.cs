@@ -4,6 +4,8 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using AquaMate.Core.Types;
+
 namespace AquaMate.Core.Model
 {
     /// <summary>
@@ -16,6 +18,15 @@ namespace AquaMate.Core.Model
         public float Density { get; set; } // kg/l
 
         public string Note { get; set; }
+
+
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.Soil;
+            }
+        }
+
 
         public Soil()
         {

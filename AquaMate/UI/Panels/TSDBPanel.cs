@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
@@ -30,6 +31,17 @@ namespace AquaMate.UI.Panels
             AddAction("Data", LSID.Data, "", ViewDataHandler);
             AddAction("Trend", LSID.Trend, "", ViewTrendHandler);
             AddAction("DataMonitor", LSID.DataMonitor, "", ShowMonitor);
+        }
+
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
+
+            SetActionEnabled("Data", enabled);
+            SetActionEnabled("Trend", enabled);
         }
 
         protected override void UpdateListView()
@@ -91,6 +103,9 @@ namespace AquaMate.UI.Panels
         {
             var record = ListView.GetSelectedTag<TSPoint>();
             if (record == null) return;
+
+            string recordName = fModel.GetEntityName(record);
+            if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), recordName))) return;
 
             fModel.TSDB.DeletePoint(record);
             UpdateContent();

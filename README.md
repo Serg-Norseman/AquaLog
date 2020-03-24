@@ -1,5 +1,8 @@
 # AquaMate
 
+[![Wiki](https://img.shields.io/badge/browse-the%20wiki-orange.svg)](https://github.com/Serg-Norseman/AquaMate/wiki)
+[![Download AquaMate](https://img.shields.io/sourceforge/dm/aquamate.svg)](https://sourceforge.net/projects/aquamate/files/latest/download)
+
 [![Build Status](https://travis-ci.org/Serg-Norseman/AquaMate.svg?branch=master)](https://travis-ci.org/Serg-Norseman/AquaMate)
 [![Build status](https://ci.appveyor.com/api/projects/status/61is7l0ym7wvqv8r?svg=true)](https://ci.appveyor.com/project/Serg-Norseman/AquaMate)
 [![codecov.io](https://codecov.io/github/Serg-Norseman/AquaMate/coverage.svg?branch=master)](https://codecov.io/github/Serg-Norseman/AquaMate?branch=master)
@@ -10,7 +13,7 @@
 [![Lines of code](https://sonarcloud.io/api/project_badges/measure?project=AquaMate&metric=ncloc)](https://sonarcloud.io/dashboard?id=AquaMate)
 
 Home aquariums manager and helper. A simple program for monitoring and maintaining aquariums.
-It is also planned to collect and monitor data through Arduino. 
+It is also supported to collect and monitor data through Arduino. 
 
 Features:
 - Aquarium, tank properties;

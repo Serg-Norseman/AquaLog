@@ -32,6 +32,14 @@ namespace AquaMate.Core.Model
         public int Quantity { get; set; }
 
 
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.Inhabitant;
+            }
+        }
+
+
         public Inhabitant()
         {
         }

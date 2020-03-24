@@ -25,6 +25,15 @@ namespace AquaMate.Core.Model
         public string Name { get; set; }
         public byte[] Image { get; set; }
 
+
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.Snapshot;
+            }
+        }
+
+
         public Snapshot()
         {
         }

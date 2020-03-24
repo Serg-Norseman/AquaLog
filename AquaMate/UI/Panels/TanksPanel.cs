@@ -186,7 +186,8 @@ namespace AquaMate.UI.Panels
 
             var record = selectedItem.Aquarium;
 
-            if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), record.ToString()))) return;
+            string recordName = fModel.GetEntityName(record);
+            if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), recordName))) return;
 
             fModel.Cache.Remove(ItemType.Aquarium, record.Id);
             fModel.DeleteRecord(record);

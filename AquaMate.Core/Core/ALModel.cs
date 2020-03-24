@@ -739,6 +739,8 @@ namespace AquaMate.Core
             }
         }
 
+        #region Data Acquisition
+
         private void OnReceivedData(object sender, DataReceivedEventArgs e)
         {
             try {
@@ -754,6 +756,65 @@ namespace AquaMate.Core
         public double GetCurrentValue(int pointId)
         {
             return (pointId != 0) ? fTSDB.GetCurrentValue(pointId) : double.NaN;
+        }
+
+        #endregion
+
+        public string GetEntityName(Entity entity)
+        {
+            string result = string.Empty;
+
+            switch (entity.EntityType) {
+                case EntityType.Aquarium:
+                case EntityType.Inhabitant:
+                case EntityType.Species:
+                case EntityType.Nutrition:
+                case EntityType.Device:
+                case EntityType.Inventory:
+                case EntityType.Note:
+                case EntityType.Schedule:
+                case EntityType.Snapshot:
+                case EntityType.Brand:
+                case EntityType.Soil:
+                case EntityType.TSPoint:
+                    result = entity.ToString();
+                    break;
+
+                case EntityType.Maintenance:
+                    {
+                        var mntRec = entity as Maintenance;
+                        string strType = Localizer.LS(ALData.MaintenanceTypes[(int)mntRec.Type].Name);
+                        string timestamp = ALCore.GetDateStr(mntRec.Timestamp);
+                        result = strType + " [" + timestamp + "]";
+                    }
+                    break;
+
+                case EntityType.Measure:
+                    {
+                        var msrRec = entity as Measure;
+                        string strType = Localizer.LS(LSID.Measure);
+                        string timestamp = ALCore.GetDateStr(msrRec.Timestamp);
+                        result = strType + " [" + timestamp + "]";
+                    }
+                    break;
+
+                case EntityType.Transfer:
+                    {
+                        var trnRec = entity as Transfer;
+                        var itemRec = GetRecord(trnRec.ItemType, trnRec.ItemId);
+                        string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
+                        string strType = Localizer.LS(ALData.TransferTypes[(int)trnRec.Type]);
+                        string timestamp = ALCore.GetDateStr(trnRec.Timestamp);
+                        result = strType + " [" + timestamp + ", " + itName + "]";
+                    }
+                    break;
+
+                default:
+                    result = entity.ToString();
+                    break;
+            }
+
+            return result;
         }
     }
 }

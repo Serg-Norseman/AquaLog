@@ -31,6 +31,15 @@ namespace AquaMate.TSDB
 
         #endregion
 
+
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.TSPoint;
+            }
+        }
+
+
         internal string GetDataTableName()
         {
             string tableName = "PD" + ConvertHelper.AdjustNumber(Id, 6, '0');

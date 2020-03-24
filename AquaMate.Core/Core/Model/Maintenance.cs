@@ -19,6 +19,15 @@ namespace AquaMate.Core.Model
         public double Value { get; set; }
         public string Note { get; set; }
 
+
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.Maintenance;
+            }
+        }
+
+
         public Maintenance()
         {
         }

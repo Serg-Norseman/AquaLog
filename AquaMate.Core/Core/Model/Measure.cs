@@ -6,6 +6,7 @@
 
 using System;
 using System.Text;
+using AquaMate.Core.Types;
 
 namespace AquaMate.Core.Model
 {
@@ -42,6 +43,14 @@ namespace AquaMate.Core.Model
         public float GH { get; set; } // dlg+
         public float KH { get; set; } // dlg+
         public float pH { get; set; } // dlg+
+
+
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.Measure;
+            }
+        }
 
 
         public Measure()

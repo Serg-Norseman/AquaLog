@@ -4,6 +4,8 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using AquaMate.Core.Types;
+
 namespace AquaMate.Core.Model
 {
     /// <summary>
@@ -14,6 +16,15 @@ namespace AquaMate.Core.Model
         public string Name { get; set; }
         public string Country { get; set; }
         public string Note { get; set; }
+
+
+        public override EntityType EntityType
+        {
+            get {
+                return EntityType.Brand;
+            }
+        }
+
 
         public Brand()
         {
