@@ -184,8 +184,7 @@ namespace AquaMate.UI.Panels
                 var record = ListView.GetSelectedTag<R>();
                 if (record == null) return;
 
-                string recordName = fModel.GetEntityName(record);
-                if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), recordName))) return;
+                if (!Browser.CheckDelete(record)) return;
 
                 fModel.DeleteRecord(record);
                 UpdateContent();

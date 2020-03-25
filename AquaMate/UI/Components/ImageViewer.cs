@@ -186,6 +186,13 @@ namespace AquaMate.UI.Components
             var record = (fCurrentIndex >= 0 && fCurrentIndex < fSnapshots.Count) ? fSnapshots[fCurrentIndex] : null;
             if (record == null) return;
 
+            // FIXME
+            bool hasLinks = fModel.CheckConstraints(record);
+            if (hasLinks) {
+                UIHelper.ShowWarning(Localizer.LS(LSID.RecordHasExternalLinks));
+                return;
+            }
+
             string recordName = fModel.GetEntityName(record);
             if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), recordName))) return;
 

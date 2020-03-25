@@ -1,5 +1,6 @@
 
 ## ??.??.2020 [v1.4.0]
+- Added checks for record's links on deletion.
 - Fixed warnings when deleting records.
 
 ## 23.03.2020 [v1.3.0, release skipped]

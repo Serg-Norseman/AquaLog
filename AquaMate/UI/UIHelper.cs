@@ -129,6 +129,11 @@ namespace AquaMate.UI
             return MessageBox.Show(msg, ALCore.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
         }
 
+        public static void ShowWarning(string msg)
+        {
+            MessageBox.Show(msg, ALCore.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
         public static ZListView CreateListView(string name)
         {
             var listView = new ZListView();

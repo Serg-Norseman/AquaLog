@@ -5,6 +5,7 @@
  */
 
 using AquaMate.Core;
+using AquaMate.Core.Model;
 using AquaMate.Core.Types;
 using AquaMate.UI.Panels;
 
@@ -20,5 +21,6 @@ namespace AquaMate.UI
         void ShowSettings(int tabIndex = 0);
         void SetView(MainView mainView, object extData);
         void TransferItem(ItemType itemType, int itemId, DataPanel view);
+        bool CheckDelete(Entity entity);
     }
 }

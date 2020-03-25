@@ -234,8 +234,9 @@ namespace AquaMate.Core
         /* 210 */ LifeExpectancy,
         /* 211 */ Fertilize,
         /* 212 */ Cure,
+        /* 213 */ RecordHasExternalLinks,
 
-        /* 000 */ Last = Cure
+        /* 000 */ Last = RecordHasExternalLinks
     }
 
 
@@ -458,6 +459,7 @@ namespace AquaMate.Core
             /* 210 */ "Life expectancy",
             /* 211 */ "Fertilize",
             /* 212 */ "Cure",
+            /* 213 */ "The record has external links.",
         };
 
 

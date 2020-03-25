@@ -170,6 +170,63 @@ namespace AquaMate.Core
             return fDB.Query<T>(query, args);
         }
 
+        public string GetEntityName(Entity entity)
+        {
+            string result = string.Empty;
+
+            switch (entity.EntityType) {
+                case EntityType.Aquarium:
+                case EntityType.Inhabitant:
+                case EntityType.Species:
+                case EntityType.Nutrition:
+                case EntityType.Device:
+                case EntityType.Inventory:
+                case EntityType.Note:
+                case EntityType.Schedule:
+                case EntityType.Snapshot:
+                case EntityType.Brand:
+                case EntityType.Soil:
+                case EntityType.TSPoint:
+                    result = entity.ToString();
+                    break;
+
+                case EntityType.Maintenance:
+                    {
+                        var mntRec = entity as Maintenance;
+                        string strType = Localizer.LS(ALData.MaintenanceTypes[(int)mntRec.Type].Name);
+                        string timestamp = ALCore.GetDateStr(mntRec.Timestamp);
+                        result = strType + " [" + timestamp + "]";
+                    }
+                    break;
+
+                case EntityType.Measure:
+                    {
+                        var msrRec = entity as Measure;
+                        string strType = Localizer.LS(LSID.Measure);
+                        string timestamp = ALCore.GetDateStr(msrRec.Timestamp);
+                        result = strType + " [" + timestamp + "]";
+                    }
+                    break;
+
+                case EntityType.Transfer:
+                    {
+                        var trnRec = entity as Transfer;
+                        var itemRec = GetRecord(trnRec.ItemType, trnRec.ItemId);
+                        string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
+                        string strType = Localizer.LS(ALData.TransferTypes[(int)trnRec.Type]);
+                        string timestamp = ALCore.GetDateStr(trnRec.Timestamp);
+                        result = strType + " [" + timestamp + ", " + itName + "]";
+                    }
+                    break;
+
+                default:
+                    result = entity.ToString();
+                    break;
+            }
+
+            return result;
+        }
+
         #region Aquarium functions
 
         public IList<Aquarium> QueryAquariums()
@@ -729,6 +786,8 @@ namespace AquaMate.Core
 
         #endregion
 
+        #region Data Acquisition
+
         public void ApplySettings(ALSettings settings)
         {
             if (fChannel != null)
@@ -738,8 +797,6 @@ namespace AquaMate.Core
                 fChannel = BaseChannel.CreateChannel(settings.ChannelName, settings.ChannelParameters, OnReceivedData);
             }
         }
-
-        #region Data Acquisition
 
         private void OnReceivedData(object sender, DataReceivedEventArgs e)
         {
@@ -760,61 +817,129 @@ namespace AquaMate.Core
 
         #endregion
 
-        public string GetEntityName(Entity entity)
+        #region Constraints, record links
+
+        public bool CheckConstraints(Entity entity)
         {
-            string result = string.Empty;
+            // any links?
+            bool result = false;
 
             switch (entity.EntityType) {
                 case EntityType.Aquarium:
+                    {
+                        var aqmRec = entity as Aquarium;
+                        ItemType itemType = ItemType.Aquarium;
+                        result = HasTransfers(fDB, entity.Id, itemType) || HasAquariumLinks(fDB, entity.Id) || HasAquariumSTT(fDB, entity.Id);
+                    }
+                    break;
+
                 case EntityType.Inhabitant:
+                    {
+                        var inhRec = entity as Inhabitant;
+                        SpeciesType speciesType = GetSpeciesType(inhRec.SpeciesId);
+                        ItemType itemType = ALCore.GetItemType(speciesType);
+                        result = HasTransfers(fDB, entity.Id, itemType) || HasSnapshots(fDB, entity.Id, itemType);
+                    }
+                    break;
+
                 case EntityType.Species:
+                    {
+                        var spcRec = entity as Species;
+                        string query = string.Format("select count(*) as value from Inhabitant where SpeciesId = {0}", entity.Id);
+                        result = HasCount(fDB, query);
+                    }
+                    break;
+
                 case EntityType.Nutrition:
+                    {
+                        var nutrRec = entity as Nutrition;
+                        ItemType itemType = ItemType.Nutrition;
+                        result = HasTransfers(fDB, entity.Id, itemType);
+                    }
+                    break;
+
                 case EntityType.Device:
+                    {
+                        var devRec = entity as Device;
+                        ItemType itemType = ItemType.Device;
+                        result = HasTransfers(fDB, entity.Id, itemType);
+                    }
+                    break;
+
                 case EntityType.Inventory:
-                case EntityType.Note:
-                case EntityType.Schedule:
-                case EntityType.Snapshot:
-                case EntityType.Brand:
-                case EntityType.Soil:
-                case EntityType.TSPoint:
-                    result = entity.ToString();
+                    {
+                        var invRec = entity as Inventory;
+                        ItemType itemType = ALCore.GetItemType(invRec.Type);
+                        result = HasTransfers(fDB, entity.Id, itemType);
+                    }
                     break;
 
                 case EntityType.Maintenance:
-                    {
-                        var mntRec = entity as Maintenance;
-                        string strType = Localizer.LS(ALData.MaintenanceTypes[(int)mntRec.Type].Name);
-                        string timestamp = ALCore.GetDateStr(mntRec.Timestamp);
-                        result = strType + " [" + timestamp + "]";
-                    }
-                    break;
-
                 case EntityType.Measure:
-                    {
-                        var msrRec = entity as Measure;
-                        string strType = Localizer.LS(LSID.Measure);
-                        string timestamp = ALCore.GetDateStr(msrRec.Timestamp);
-                        result = strType + " [" + timestamp + "]";
-                    }
-                    break;
-
+                case EntityType.Note:
+                case EntityType.Schedule:
                 case EntityType.Transfer:
-                    {
-                        var trnRec = entity as Transfer;
-                        var itemRec = GetRecord(trnRec.ItemType, trnRec.ItemId);
-                        string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
-                        string strType = Localizer.LS(ALData.TransferTypes[(int)trnRec.Type]);
-                        string timestamp = ALCore.GetDateStr(trnRec.Timestamp);
-                        result = strType + " [" + timestamp + ", " + itName + "]";
-                    }
+                case EntityType.Snapshot:
+                    // default, no external links
                     break;
 
-                default:
-                    result = entity.ToString();
+                case EntityType.Brand:
+                    // default, because it is not used as a reference table
+                    break;
+
+                case EntityType.Soil:
+                    // default, but in the future - links from aquarium records
+                    break;
+
+                case EntityType.TSPoint:
+                    {
+                        var tspRec = entity as TSPoint;
+                        string query = string.Format("select count(*) as value from Device where PointId = {0}", entity.Id);
+                        result = HasCount(fDB, query);
+                    }
                     break;
             }
 
             return result;
         }
+
+        private static bool HasAquariumLinks(SQLiteConnection db, int aquariumId)
+        {
+            return HasAquariumDetails(db, "Schedule", aquariumId) || HasAquariumDetails(db, "Note", aquariumId)
+                || HasAquariumDetails(db, "Measure", aquariumId) || HasAquariumDetails(db, "Maintenance", aquariumId)
+                || HasAquariumDetails(db, "Device", aquariumId);
+        }
+
+        private static bool HasAquariumSTT(SQLiteConnection db, int aquariumId)
+        {
+            string query = string.Format("select count(*) as value from Transfer where (SourceId = {0} or TargetId = {0})", aquariumId);
+            return HasCount(db, query);
+        }
+
+        private static bool HasAquariumDetails(SQLiteConnection db, string table, int aquariumId)
+        {
+            string query = string.Format("select count(*) as value from {0} where (AquariumId = {1})", table, aquariumId);
+            return HasCount(db, query);
+        }
+
+        private static bool HasSnapshots(SQLiteConnection db, int itemId, ItemType itemType)
+        {
+            string query = string.Format("select count(*) as value from Snapshot where (ItemId = {0} and ItemType = {1})", itemId, (int)itemType);
+            return HasCount(db, query);
+        }
+
+        private static bool HasTransfers(SQLiteConnection db, int itemId, ItemType itemType)
+        {
+            string query = string.Format("select count(*) as value from Transfer where (ItemId = {0} and ItemType = {1})", itemId, (int)itemType);
+            return HasCount(db, query);
+        }
+
+        private static bool HasCount(SQLiteConnection db, string query)
+        {
+            List<QDecimal> list = db.Query<QDecimal>(query);
+            return (list != null && list.Count != 0 && list[0].value > 0.0d);
+        }
+
+        #endregion
     }
 }

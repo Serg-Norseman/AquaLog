@@ -239,6 +239,21 @@ namespace AquaMate.UI
             ChangeLocale();
         }
 
+        public bool CheckDelete(Entity entity)
+        {
+            // FIXME
+            bool hasLinks = fModel.CheckConstraints(entity);
+            if (hasLinks) {
+                UIHelper.ShowWarning(Localizer.LS(LSID.RecordHasExternalLinks));
+                return false;
+            }
+
+            string recordName = fModel.GetEntityName(entity);
+            if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), recordName))) return false;
+
+            return true;
+        }
+
         #region Event handlers
 
         private void Timer1Tick(object sender, EventArgs e)

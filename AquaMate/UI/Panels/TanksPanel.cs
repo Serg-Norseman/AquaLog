@@ -12,8 +12,10 @@ using AquaMate.Core;
 using AquaMate.Core.Export;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
+using AquaMate.Logging;
 using AquaMate.UI.Components;
 using AquaMate.UI.Dialogs;
+using BSLib;
 
 namespace AquaMate.UI.Panels
 {
@@ -22,6 +24,8 @@ namespace AquaMate.UI.Panels
     /// </summary>
     public sealed class TanksPanel : DataPanel
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "TanksPanel");
+
         private readonly ContextMenu fContextMenu;
         private readonly MenuItem fEditItem;
         private readonly MenuItem fDeleteItem;
@@ -181,17 +185,20 @@ namespace AquaMate.UI.Panels
 
         private void btnDeleteTank_Click(object sender, EventArgs e)
         {
-            var selectedItem = SelectedTank;
-            if (selectedItem == null) return;
+            try {
+                var selectedItem = SelectedTank;
+                if (selectedItem == null) return;
 
-            var record = selectedItem.Aquarium;
+                var record = selectedItem.Aquarium;
 
-            string recordName = fModel.GetEntityName(record);
-            if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), recordName))) return;
+                if (!Browser.CheckDelete(record)) return;
 
-            fModel.Cache.Remove(ItemType.Aquarium, record.Id);
-            fModel.DeleteRecord(record);
-            UpdateContent();
+                fModel.Cache.Remove(ItemType.Aquarium, record.Id);
+                fModel.DeleteRecord(record);
+                UpdateContent();
+            } catch (Exception ex) {
+                fLogger.WriteError("btnDeleteTank_Click()", ex);
+            }
         }
 
         private void btnLogBook_Click(object sender, EventArgs e)

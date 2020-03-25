@@ -9,8 +9,10 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
+using AquaMate.Logging;
 using AquaMate.TSDB;
 using AquaMate.UI.Dialogs;
+using BSLib;
 
 namespace AquaMate.UI.Panels
 {
@@ -19,6 +21,8 @@ namespace AquaMate.UI.Panels
     /// </summary>
     public sealed class TSDBPanel : ListPanel
     {
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "TSDBPanel");
+
         public TSDBPanel()
         {
         }
@@ -101,14 +105,17 @@ namespace AquaMate.UI.Panels
 
         protected override void DeleteHandler(object sender, EventArgs e)
         {
-            var record = ListView.GetSelectedTag<TSPoint>();
-            if (record == null) return;
+            try {
+                var record = ListView.GetSelectedTag<TSPoint>();
+                if (record == null) return;
 
-            string recordName = fModel.GetEntityName(record);
-            if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), recordName))) return;
+                if (!Browser.CheckDelete(record)) return;
 
-            fModel.TSDB.DeletePoint(record);
-            UpdateContent();
+                fModel.TSDB.DeletePoint(record);
+                UpdateContent();
+            } catch (Exception ex) {
+                fLogger.WriteError("DeleteHandler()", ex);
+            }
         }
 
         private void ViewDataHandler(object sender, EventArgs e)
