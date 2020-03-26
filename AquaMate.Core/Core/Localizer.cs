@@ -235,8 +235,10 @@ namespace AquaMate.Core
         /* 211 */ Fertilize,
         /* 212 */ Cure,
         /* 213 */ RecordHasExternalLinks,
+        /* 214 */ Soil,
+        /* 215 */ Density,
 
-        /* 000 */ Last = RecordHasExternalLinks
+        /* 000 */ Last = Density
     }
 
 
@@ -460,6 +462,8 @@ namespace AquaMate.Core
             /* 211 */ "Fertilize",
             /* 212 */ "Cure",
             /* 213 */ "The record has external links.",
+            /* 214 */ "Soil",
+            /* 215 */ "Density",
         };
 
 

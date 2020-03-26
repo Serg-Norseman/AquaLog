@@ -4,7 +4,9 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
 using AquaMate.Core.Types;
+using SQLite;
 
 namespace AquaMate.Core.Model
 {
@@ -30,6 +32,25 @@ namespace AquaMate.Core.Model
 
         #endregion
 
+        private IInventoryProps fProperties;
+
+        [Ignore]
+        public IInventoryProps Properties
+        {
+            get {
+                if (fProperties == null) {
+                    fProperties = GetProperties(Type, RawProperties);
+                }
+                return fProperties;
+            }
+            set {
+                fProperties = value;
+                RawProperties = StringSerializer.Serialize(fProperties);
+            }
+        }
+
+        public string RawProperties { get; set; }
+
 
         public override EntityType EntityType
         {
@@ -46,6 +67,12 @@ namespace AquaMate.Core.Model
         public override string ToString()
         {
             return Name;
+        }
+
+        public IInventoryProps GetProperties(InventoryType type, string str)
+        {
+            Type propsType = ALData.InventoryTypes[(int)type].PropsType;
+            return (propsType == null) ? null : (IInventoryProps)StringSerializer.Deserialize(propsType, str);
         }
     }
 }

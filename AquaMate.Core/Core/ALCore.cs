@@ -97,6 +97,9 @@ namespace AquaMate.Core
                 case InventoryType.Decoration:
                     return ItemType.Decoration;
 
+                case InventoryType.Soil:
+                    return ItemType.Soil;
+
                 default:
                     return ItemType.None;
             }

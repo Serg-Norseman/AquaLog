@@ -4,19 +4,14 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-namespace AquaMate.Core.Types
+namespace AquaMate.Core.Model
 {
     /// <summary>
     /// 
     /// </summary>
-    public enum InventoryType
+    public interface IInventoryProps
     {
-        Additive,
-        Chemistry,
-        Equipment,
-        Maintenance,
-        Furniture,
-        Decoration,
-        Soil,
+        IInventoryProps Clone();
+        void SetPropNames();
     }
 }

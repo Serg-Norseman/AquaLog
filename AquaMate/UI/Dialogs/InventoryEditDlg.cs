@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.ComponentModel;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
@@ -87,6 +88,8 @@ namespace AquaMate.UI.Dialogs
             fRecord.Type = cmbType.GetSelectedTag<InventoryType>();
             fRecord.Note = txtNote.Text;
             fRecord.State = cmbState.GetSelectedTag<ItemState>();
+
+            fRecord.Properties = pgProps.SelectedObject as IInventoryProps;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
@@ -106,6 +109,12 @@ namespace AquaMate.UI.Dialogs
             UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(invType), fRecord.State);
             if (invType >= 0) {
             }
+
+            IInventoryProps props = fRecord.GetProperties(invType, fRecord.RawProperties);
+            if (props != null) {
+                props.SetPropNames();
+            }
+            pgProps.SelectedObject = props;
         }
     }
 }

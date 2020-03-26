@@ -153,6 +153,7 @@ namespace AquaMate.Core
                 case ItemType.Maintenance:
                 case ItemType.Furniture:
                 case ItemType.Decoration:
+                case ItemType.Soil:
                     result = GetRecord<Inventory>(itemId);
                     break;
             }
@@ -185,7 +186,6 @@ namespace AquaMate.Core
                 case EntityType.Schedule:
                 case EntityType.Snapshot:
                 case EntityType.Brand:
-                case EntityType.Soil:
                 case EntityType.TSPoint:
                     result = entity.ToString();
                     break;
@@ -868,6 +868,7 @@ namespace AquaMate.Core
 
                 case EntityType.Inventory:
                     {
+                        // for Soils in the future - links from aquarium records
                         var invRec = entity as Inventory;
                         ItemType itemType = ALCore.GetItemType(invRec.Type);
                         result = HasTransfers(fDB, entity.Id, itemType);
@@ -885,10 +886,6 @@ namespace AquaMate.Core
 
                 case EntityType.Brand:
                     // default, because it is not used as a reference table
-                    break;
-
-                case EntityType.Soil:
-                    // default, but in the future - links from aquarium records
                     break;
 
                 case EntityType.TSPoint:

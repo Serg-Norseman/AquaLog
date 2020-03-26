@@ -15,6 +15,7 @@
         private System.Windows.Forms.Label lblType;
         private System.Windows.Forms.Label lblState;
         private System.Windows.Forms.ComboBox cmbState;
+        private System.Windows.Forms.PropertyGrid pgProps;
         
         protected override void Dispose(bool disposing)
         {
@@ -40,11 +41,12 @@
             this.lblType = new System.Windows.Forms.Label();
             this.lblState = new System.Windows.Forms.Label();
             this.cmbState = new System.Windows.Forms.ComboBox();
+            this.pgProps = new System.Windows.Forms.PropertyGrid();
             this.SuspendLayout();
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(135, 191);
+            this.btnAccept.Location = new System.Drawing.Point(135, 336);
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(96, 24);
@@ -57,7 +59,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(235, 191);
+            this.btnCancel.Location = new System.Drawing.Point(235, 336);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(96, 24);
@@ -157,13 +159,25 @@
             this.cmbState.Size = new System.Drawing.Size(136, 21);
             this.cmbState.TabIndex = 5;
             // 
+            // pgProps
+            // 
+            this.pgProps.HelpVisible = false;
+            this.pgProps.Location = new System.Drawing.Point(11, 189);
+            this.pgProps.Margin = new System.Windows.Forms.Padding(2, 2, 2, 7);
+            this.pgProps.Name = "pgProps";
+            this.pgProps.PropertySort = System.Windows.Forms.PropertySort.NoSort;
+            this.pgProps.Size = new System.Drawing.Size(320, 138);
+            this.pgProps.TabIndex = 14;
+            this.pgProps.ToolbarVisible = false;
+            // 
             // InventoryEditDlg
             // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(342, 226);
+            this.ClientSize = new System.Drawing.Size(342, 371);
+            this.Controls.Add(this.pgProps);
             this.Controls.Add(this.cmbState);
             this.Controls.Add(this.lblState);
             this.Controls.Add(this.cmbType);

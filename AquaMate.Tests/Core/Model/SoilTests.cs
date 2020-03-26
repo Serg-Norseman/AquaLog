@@ -15,7 +15,7 @@ namespace AquaMate.Core.Model
         [Test]
         public void Test_Common()
         {
-            var instance = new Soil();
+            /*var instance = new Soil();
             Assert.IsNotNull(instance);
 
             instance.Name = "sand";
@@ -36,7 +36,7 @@ namespace AquaMate.Core.Model
             instance.Note = "note";
             Assert.AreEqual("note", instance.Note);
 
-            Assert.AreEqual("sand3", instance.ToString());
+            Assert.AreEqual("sand3", instance.ToString());*/
         }
     }
 }

@@ -28,7 +28,6 @@ namespace AquaMate.Core.Types
         Snapshot,
 
         Brand,
-        Soil,
 
         TSPoint,
     }

@@ -1,5 +1,6 @@
 
 ## ??.??.2020 [v1.4.0]
+- Added support of soils (inventory subtype).
 - Added checks for record's links on deletion.
 - Fixed warnings when deleting records.
 

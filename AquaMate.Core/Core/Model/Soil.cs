@@ -4,6 +4,7 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System.ComponentModel;
 using AquaMate.Core.Types;
 
 namespace AquaMate.Core.Model
@@ -11,41 +12,24 @@ namespace AquaMate.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public class Soil : Entity
+    public class Soil : IInventoryProps
     {
-        public string Name { get; set; }
-
+        [Browsable(true), DisplayName("Density")]
         public float Density { get; set; } // kg/l
-
-        public string Note { get; set; }
-
-
-        public override EntityType EntityType
-        {
-            get {
-                return EntityType.Soil;
-            }
-        }
 
 
         public Soil()
         {
         }
 
-        public Soil(string name)
+        public IInventoryProps Clone()
         {
-            Name = name;
+            return (IInventoryProps)this.MemberwiseClone();
         }
 
-        public Soil(string name, float density)
+        public virtual void SetPropNames()
         {
-            Name = name;
-            Density = density;
-        }
-
-        public override string ToString()
-        {
-            return Name;
+            ALCore.SetDisplayNameValue(this, "Density", ALData.GetLSuom(LSID.Density, MeasurementType.Density));
         }
     }
 }

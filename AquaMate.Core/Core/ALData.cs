@@ -6,6 +6,7 @@
 
 using System;
 using System.Drawing;
+using AquaMate.Core.Model;
 using AquaMate.Core.Model.Tanks;
 using AquaMate.Core.Types;
 using BSLib;
@@ -79,6 +80,8 @@ namespace AquaMate.Core
                           EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
             new ItemProps(LSID.Decoration,
                           EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
+            new ItemProps(LSID.Soil,
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
         };
 
 
@@ -104,13 +107,14 @@ namespace AquaMate.Core
         };
 
 
-        public static readonly LSID[] InventoryTypes = new LSID[] {
-            LSID.Additive,
-            LSID.Chemistry,
-            LSID.Equipment,
-            LSID.Maintenance,
-            LSID.Furniture,
-            LSID.Decoration,
+        public static readonly InventoryProps[] InventoryTypes = new InventoryProps[] {
+            new InventoryProps(LSID.Additive, null),
+            new InventoryProps(LSID.Chemistry, null),
+            new InventoryProps(LSID.Equipment, null),
+            new InventoryProps(LSID.Maintenance, null),
+            new InventoryProps(LSID.Furniture, null),
+            new InventoryProps(LSID.Decoration, null),
+            new InventoryProps(LSID.Soil, typeof(Soil)),
         };
 
 

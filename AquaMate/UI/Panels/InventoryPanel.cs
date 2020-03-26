@@ -52,7 +52,7 @@ namespace AquaMate.UI.Panels
 
             var records = fModel.QueryInventory();
             foreach (Inventory rec in records) {
-                string strType = Localizer.LS(ALData.InventoryTypes[(int)rec.Type]);
+                string strType = Localizer.LS(ALData.InventoryTypes[(int)rec.Type].Name);
 
                 ItemType itemType = ALCore.GetItemType(rec.Type);
                 ItemState itemState;

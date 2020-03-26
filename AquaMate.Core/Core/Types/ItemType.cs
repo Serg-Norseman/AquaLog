@@ -31,5 +31,6 @@ namespace AquaMate.Core.Types
         /* 11 */ Maintenance,
         /* 12 */ Furniture,
         /* 13 */ Decoration,
+        /* 14 */ Soil,
     }
 }
