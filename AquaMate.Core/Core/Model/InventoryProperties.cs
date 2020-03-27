@@ -9,9 +9,16 @@ namespace AquaMate.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public interface IInventoryProps
+    public abstract class InventoryProperties
     {
-        IInventoryProps Clone();
-        void SetPropNames();
+        public InventoryProperties Clone()
+        {
+            return (InventoryProperties)this.MemberwiseClone();
+        }
+
+        public virtual void SetPropNames()
+        {
+            // dummy
+        }
     }
 }

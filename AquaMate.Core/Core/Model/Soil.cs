@@ -12,7 +12,7 @@ namespace AquaMate.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public class Soil : IInventoryProps
+    public sealed class Soil : InventoryProperties
     {
         [Browsable(true), DisplayName("Density")]
         public float Density { get; set; } // kg/l
@@ -22,12 +22,7 @@ namespace AquaMate.Core.Model
         {
         }
 
-        public IInventoryProps Clone()
-        {
-            return (IInventoryProps)this.MemberwiseClone();
-        }
-
-        public virtual void SetPropNames()
+        public override void SetPropNames()
         {
             ALCore.SetDisplayNameValue(this, "Density", ALData.GetLSuom(LSID.Density, MeasurementType.Density));
         }

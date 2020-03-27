@@ -237,8 +237,10 @@ namespace AquaMate.Core
         /* 213 */ RecordHasExternalLinks,
         /* 214 */ Soil,
         /* 215 */ Density,
+        /* 216 */ Size,
+        /* 217 */ Weight,
 
-        /* 000 */ Last = Density
+        /* 000 */ Last = Weight
     }
 
 
@@ -464,6 +466,8 @@ namespace AquaMate.Core
             /* 213 */ "The record has external links.",
             /* 214 */ "Soil",
             /* 215 */ "Density",
+            /* 216 */ "Size",
+            /* 217 */ "Weight",
         };
 
 

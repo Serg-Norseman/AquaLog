@@ -113,7 +113,7 @@ namespace AquaMate.Core
             new InventoryProps(LSID.Equipment, null),
             new InventoryProps(LSID.Maintenance, null),
             new InventoryProps(LSID.Furniture, null),
-            new InventoryProps(LSID.Decoration, null),
+            new InventoryProps(LSID.Decoration, typeof(Decoration)),
             new InventoryProps(LSID.Soil, typeof(Soil)),
         };
 

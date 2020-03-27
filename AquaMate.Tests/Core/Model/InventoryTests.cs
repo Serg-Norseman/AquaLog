@@ -35,11 +35,15 @@ namespace AquaMate.Core.Model
             invent.State = ItemState.InUse;
             Assert.AreEqual(ItemState.InUse, invent.State);
 
-            invent.Size = 1.5f;
-            Assert.AreEqual(1.5f, invent.Size);
+            invent.Type = InventoryType.Decoration;
+            Decoration decor = invent.Properties as Decoration;
+            Assert.IsNotNull(decor);
 
-            invent.Weight = 2.7f;
-            Assert.AreEqual(2.7f, invent.Weight);
+            decor.Size = 1.5f;
+            Assert.AreEqual(1.5f, decor.Size);
+
+            decor.Weight = 2.7f;
+            Assert.AreEqual(2.7f, decor.Weight);
         }
     }
 }

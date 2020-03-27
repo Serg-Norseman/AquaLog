@@ -24,18 +24,10 @@ namespace AquaMate.Core.Model
         // not used
         public ItemState State { get; set; }
 
-
-        #region Decoration properties
-
-        public float Size { get; set; }
-        public float Weight { get; set; }
-
-        #endregion
-
-        private IInventoryProps fProperties;
+        private InventoryProperties fProperties;
 
         [Ignore]
-        public IInventoryProps Properties
+        public InventoryProperties Properties
         {
             get {
                 if (fProperties == null) {
@@ -69,10 +61,10 @@ namespace AquaMate.Core.Model
             return Name;
         }
 
-        public IInventoryProps GetProperties(InventoryType type, string str)
+        public InventoryProperties GetProperties(InventoryType type, string str)
         {
             Type propsType = ALData.InventoryTypes[(int)type].PropsType;
-            return (propsType == null) ? null : (IInventoryProps)StringSerializer.Deserialize(propsType, str);
+            return (propsType == null) ? null : (InventoryProperties)StringSerializer.Deserialize(propsType, str);
         }
     }
 }

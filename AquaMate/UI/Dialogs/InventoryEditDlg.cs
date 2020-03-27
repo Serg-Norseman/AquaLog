@@ -89,7 +89,7 @@ namespace AquaMate.UI.Dialogs
             fRecord.Note = txtNote.Text;
             fRecord.State = cmbState.GetSelectedTag<ItemState>();
 
-            fRecord.Properties = pgProps.SelectedObject as IInventoryProps;
+            fRecord.Properties = pgProps.SelectedObject as InventoryProperties;
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
@@ -110,7 +110,7 @@ namespace AquaMate.UI.Dialogs
             if (invType >= 0) {
             }
 
-            IInventoryProps props = fRecord.GetProperties(invType, fRecord.RawProperties);
+            InventoryProperties props = fRecord.GetProperties(invType, fRecord.RawProperties);
             if (props != null) {
                 props.SetPropNames();
             }

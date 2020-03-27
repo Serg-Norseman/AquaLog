@@ -15,7 +15,7 @@
 - Improved charts of budget and measures.
 - Improved export to RTF.
 - Added calculation of soil volume.
-- Changed the model of states of inventory and inhabitants 04/02/20.
+- Changed the model of states of inventory and inhabitants.
 - Added notifications.
 - Merged records of notes and history.
 - Added water quality information panel.

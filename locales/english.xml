@@ -215,4 +215,6 @@
   <string id="213">The record has external links.</string>
   <string id="214">Soil</string>
   <string id="215">Density</string>
+  <string id="216">Size</string>
+  <string id="217">Weight</string>
 </resources>
