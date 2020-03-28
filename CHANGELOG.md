@@ -23,6 +23,39 @@
 - Added budget charts.
 
 ## 25.12.2019 [v1.2.0]
+- Added charts of countries and brands for budget.
+- Added reference book of Brands.
+- Added calculations of water volume and mass.
+- Improvements of caching, UoMs, performance.
+- Added calculations of soil volume and mass.
+- Improved 3D viewer of tanks.
+- Improved chart of measures.
+- Improved panels of species and inhabitants.
+- Improved calculator.
+- Improved export to CSV, XLS and RTF.
+- Improved tray menu. 
+- Added simple support of UoM.
+- Added calculations of bowl and cylinder tanks.
+- Improved 3D visualization (aft 18/11/19).
+- Improved calcualtions of volume.
+- Added 3D tank visualizer.
+- Added input and processing of bio families of species.
+- Added .NET Core compatibility.
+- Added snapshots of inhabitants.
+- Added lifelines chart of inhabitants.
+- Added Redfield's calculation.
+- Added PO4 measures.
+- Improved tank properties infrastructure.
+- Added charts of expenses for item types, brands and shops.
+- Added calculation of lifespan of inhabitants.
+- Added logbook of aquarium.
+- Added export to Excel and CSV.
+- Added calculation of total power of devices.
+- Added swim levels for fish.
+- Added setting 'Hide at startup'.
+- Added new converters (for KH).
+- Added state of inhabitants and inventory items.
+- Added calculator of units of measure.
 
 ## 04.09.2019 [v1.0.0]
 
