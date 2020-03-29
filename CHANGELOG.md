@@ -58,6 +58,39 @@
 - Added calculator of units of measure.
 
 ## 04.09.2019 [v1.0.0]
+- Added installer and portable package.
+- Completed translations.
+- Added inventory (additive, chemistry, equipment, maintenance, furniture, decoration) and new types of devices.
+- Fix pH-KH-CO2 equation.
+- Added aquarium details view.
+- Added the table of compatibility of inhabitants and water quality.
+- Combined maintenance and water change tables.
+- Splitted the maintenance table into the pure maintenance and the schedule's table.
+- Added water quality measurement charts.
+- Added input of nutrition and measurements.
+- Added settings dialog.
+- Added functions of unit conversion and values recalculation.
+- Merged fish, invertebrate, plant tables to inhabitants.
+- Added receiving of data from Arduino.
+- Temperature sensor data acquisition (Arduino sketch).
+- Added localization support.
+- Added simple timeseries database (TSDB).
+- Refactoring of expenses, transfers and inhabitants.
+- Added dialogs for editing events, notes.
+- Added "swinging door" algorithm for data compression.
+- Added editing dialog of maintenance.
+- Added the features to minimize to tray and autostart.
+- Added charting component and navigation stack.
+- Added app icon.
+- Added editing dialog of devices and about.
+- Added water changes.
+- Added editing of fish, invertebrates and plants.
+- Added movement of inhabitants between aquariums (transfers).
+- Added logging.
+- Added editing dialogs of fish and species.
+- Added tanks browser and pages navigation.
+- Added aquarium editing.
+- Developed prototype of data model (SQLite database).
 
 ## 17.07.2019
 - The project `AquaLog` has begun.
