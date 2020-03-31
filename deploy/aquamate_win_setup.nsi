@@ -8,7 +8,7 @@
 
 Unicode true
 Name "AquaMate"
-OutFile "aquamate_1.1.0_winsetup.exe"
+OutFile "aquamate_1.4.0_winsetup.exe"
 InstallDir $PROGRAMFILES\AquaMate
 
 CRCCheck on

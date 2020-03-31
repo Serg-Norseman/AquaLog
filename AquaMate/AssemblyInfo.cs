@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("Home aquariums manager")]
 [assembly: AssemblyProduct("AquaMate")]
 [assembly: AssemblyCopyright("Copyright © 2019-2020 by Sergey V. Zhdanovskih")]
-[assembly: AssemblyVersion("1.3.0.0")]
+[assembly: AssemblyVersion("1.4.0.0")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 

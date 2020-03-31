@@ -1,10 +1,10 @@
 @echo off
 cls
 rem "AquaMate", Home aquariums manager.
-rem Copyright (C) 2019 by Sergey V. Zhdanovskih.
+rem Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
 
 set lstfile=".\listfile.txt"
-set out_fn="aquamate_1.1.0_win_portable"
+set out_fn="aquamate_1.4.0_win_portable"
 set zip_fn=".\%out_fn%.zip"
 set log_fn=".\%out_fn%.log"
 

@@ -250,10 +250,10 @@ namespace AquaMate.UI.Panels
             if (selectedItem == null) return;
 
             var record = selectedItem.Aquarium;
-            Browser.SetView(MainView.Quality, record);
+            //Browser.SetView(MainView.Quality, record);
 
-            //var chartData = GetChartData(record);
-            //Browser.SetView(MainView.ZChart, new ChartSeries("", ChartStyle.Radar, chartData, Color.Blue));
+            var chartData = GetChartData(record);
+            Browser.SetView(MainView.ZChart, new ChartSeries("", ChartStyle.Radar, chartData, Color.Blue));
         }
 
         private IList<ChartPoint> GetChartData(Aquarium aquarium)

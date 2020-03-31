@@ -79,6 +79,9 @@
     <Reference Include="BSLib.DataViz.WFControls">
       <HintPath>..\libs\BSLib.DataViz.WFControls.dll</HintPath>
     </Reference>
+    <Reference Include="BSLib.Timeline">
+      <HintPath>..\libs\BSLib.Timeline.dll</HintPath>
+    </Reference>
     <Reference Include="csgl">
       <HintPath>..\libs\csgl.dll</HintPath>
     </Reference>
@@ -86,6 +89,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization">
+      <HintPath>..\libs\System.Windows.Forms.DataVisualization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="ZedGraph">
       <HintPath>..\libs\ZedGraph.dll</HintPath>
@@ -106,6 +112,9 @@
     <Compile Include="GLViewer\Tanks\TankRenderer.cs" />
     <Compile Include="GLViewer\Vector3D.cs" />
     <Compile Include="UI\ALTray.cs" />
+    <Compile Include="UI\Components\ChartPoint.cs" />
+    <Compile Include="UI\Components\ChartSeries.cs" />
+    <Compile Include="UI\Components\ChartStyle.cs" />
     <Compile Include="UI\Components\ImageViewer.cs" />
     <Compile Include="UI\Components\QualityControl.cs" />
     <Compile Include="UI\Components\UserAction.cs" />
@@ -269,10 +278,6 @@
     <ProjectReference Include="..\AquaMate.Core\AquaMate.Core.csproj">
       <Project>{44b1fec8-5adb-4b16-8dd6-80a3a2405d2d}</Project>
       <Name>AquaMate.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BSLib.Timeline\BSLib.Timeline.csproj">
-      <Project>{5f95b084-2bf9-4a8d-8d83-f50fbe1b959c}</Project>
-      <Name>BSLib.Timeline</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
