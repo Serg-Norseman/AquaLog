@@ -87,11 +87,16 @@ namespace AquaMate.UI.Panels
 
                 ClearActions();
                 InitActions();
+                ProcessActions();
 
                 UpdateContent();
             } catch (Exception ex) {
                 fLogger.WriteError("UpdateView()", ex);
             }
+        }
+
+        public virtual void ProcessActions()
+        {
         }
 
         public virtual void SetExtData(object extData)

@@ -30,6 +30,9 @@ namespace AquaMate.UI.Panels
             AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
             AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
             AddAction("Transfer", LSID.Transfer, null, TransferHandler);
+
+            // FIXME: change text
+            AddAction("Transfers", LSID.Transfers, null, ViewTransfersHandler);
         }
 
         public override void SelectionChanged(IList<Entity> records)
@@ -79,6 +82,15 @@ namespace AquaMate.UI.Panels
 
             ItemType itemType = ALCore.GetItemType(record.Type);
             Browser.TransferItem(itemType, record.Id, this);
+        }
+
+        private void ViewTransfersHandler(object sender, EventArgs e)
+        {
+            var record = ListView.GetSelectedTag<Inventory>();
+            if (record == null) return;
+
+            ItemType itemType = ALCore.GetItemType(record.Type);
+            Browser.ShowItemTransfers(itemType, record.Id);
         }
     }
 }

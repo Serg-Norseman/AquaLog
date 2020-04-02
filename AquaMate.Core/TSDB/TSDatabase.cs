@@ -9,7 +9,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AquaMate.Core;
-using AquaMate.DataCollection;
 using AquaMate.Logging;
 using BSLib;
 using SQLite;

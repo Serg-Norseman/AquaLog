@@ -196,6 +196,10 @@
     <Compile Include="UI\Dialogs\TransferEditDlg.Designer.cs">
       <DependentUpon>TransferEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\TransfersViewDlg.cs" />
+    <Compile Include="UI\Dialogs\TransfersViewDlg.Designer.cs">
+      <DependentUpon>TransfersViewDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\TSPointEditDlg.cs" />
     <Compile Include="UI\Dialogs\TSPointEditDlg.Designer.cs">
       <DependentUpon>TSPointEditDlg.cs</DependentUpon>

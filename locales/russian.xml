@@ -217,4 +217,7 @@
   <string id="215">Плотность</string>
   <string id="216">Размер</string>
   <string id="217">Вес</string>
+  <string id="218">Загрузить</string>
+  <string id="219">Сохранить</string>
+  <string id="220">Радар</string>
 </resources>

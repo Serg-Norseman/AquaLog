@@ -61,6 +61,9 @@ namespace AquaMate.UI.Dialogs
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblDate.Text = Localizer.LS(LSID.Date);
+
+            btnLoad.Text = Localizer.LS(LSID.Load);
+            btnSave.Text = Localizer.LS(LSID.Save);
         }
 
         private void UpdateView()
@@ -100,6 +103,11 @@ namespace AquaMate.UI.Dialogs
         private void btnLoad_Click(object sender, EventArgs e)
         {
             pictureBox1.Image = UIHelper.LoadImage();
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            UIHelper.SaveImage(pictureBox1.Image);
         }
     }
 }

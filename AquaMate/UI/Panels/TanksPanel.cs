@@ -91,6 +91,7 @@ namespace AquaMate.UI.Panels
             AddAction("M3DViewer", LSID.M3DViewer, "", btnM3DViewer_Click);
             AddAction("Analysis", LSID.Analysis, "", btnAnalysis_Click);
             AddAction("Quality", LSID.Quality, "", btnQuality_Click);
+            AddAction("Radar", LSID.Radar, "", btnRadar_Click);
         }
 
         public override void SelectionChanged(IList<Entity> records)
@@ -104,6 +105,7 @@ namespace AquaMate.UI.Panels
             SetActionEnabled("M3DViewer", enabled);
             SetActionEnabled("Analysis", enabled);
             SetActionEnabled("Quality", enabled);
+            SetActionEnabled("Radar", enabled);
         }
 
         internal override void UpdateContent()
@@ -250,10 +252,22 @@ namespace AquaMate.UI.Panels
             if (selectedItem == null) return;
 
             var record = selectedItem.Aquarium;
-            //Browser.SetView(MainView.Quality, record);
+            Browser.SetView(MainView.Quality, record);
+        }
+
+        private void btnRadar_Click(object sender, EventArgs e)
+        {
+            var selectedItem = SelectedTank;
+            if (selectedItem == null) return;
+
+            var record = selectedItem.Aquarium;
+
+            var series = new Dictionary<string, ChartSeries>();
 
             var chartData = GetChartData(record);
-            Browser.SetView(MainView.ZChart, new ChartSeries("", ChartStyle.Radar, chartData, Color.Blue));
+            series.Add(Localizer.LS(LSID.Radar), new ChartSeries(Localizer.LS(LSID.Quality), ChartStyle.Radar, chartData, Color.FromArgb(100, Color.Blue)));
+
+            Browser.SetView(MainView.ZChart, series);
         }
 
         private IList<ChartPoint> GetChartData(Aquarium aquarium)

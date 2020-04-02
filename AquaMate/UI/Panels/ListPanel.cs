@@ -123,6 +123,19 @@ namespace AquaMate.UI.Panels
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ListPanel<>");
 
+        private ContextMenu fMenu;
+
+        public override void ProcessActions()
+        {
+            fMenu = new ContextMenu();
+            foreach (var action in Actions) {
+                if (action.Choices == null) {
+                    fMenu.MenuItems.Add(Localizer.LS(action.BtnText), action.Click);
+                }
+            }
+            ListView.ContextMenu = fMenu;
+        }
+
         private void SelectRecord(R record)
         {
             if (record == null) return;

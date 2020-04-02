@@ -264,7 +264,7 @@ namespace AquaMate.UI.Components
                     mscSeries["RadarDrawingStyle"] = "Area";
                     mscSeries["AreaDrawingStyle"] = "Polygon";
                     mscSeries["CircularLabelsStyle"] = "Horizontal";
-                    legend.Enabled = false;
+                    legend.Enabled = true;
                 }
             } finally {
                 fGraph.Invalidate();

@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.ComponentModel;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;

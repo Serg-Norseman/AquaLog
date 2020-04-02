@@ -20,8 +20,9 @@ namespace AquaMate.UI.Components
         public readonly LSID BtnText;
         public readonly Image Image;
         public readonly EventHandler Click;
-        public string[] Choices;
-        public bool MultiChoice;
+
+        public readonly string[] Choices;
+        public readonly bool MultiChoice;
 
         public Control Control;
 

@@ -287,6 +287,18 @@ namespace AquaMate.UI
             return image;
         }
 
+        public static void SaveImage(Image image)
+        {
+            string fileName = GetSaveFile("title", "context",
+                          "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.tiff)|*.jpg;*.jpeg;*.png;*.gif;*.tiff",
+                          1, "jpg", "", true);
+
+            if (string.IsNullOrEmpty(fileName))
+                return;
+
+            image.Save(fileName);
+        }
+
         #endregion
 
         #region Application's autorun

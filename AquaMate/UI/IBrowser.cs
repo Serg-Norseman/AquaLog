@@ -22,5 +22,6 @@ namespace AquaMate.UI
         void SetView(MainView mainView, object extData);
         void TransferItem(ItemType itemType, int itemId, DataPanel view);
         bool CheckDelete(Entity entity);
+        void ShowItemTransfers(ItemType itemType, int itemId);
     }
 }

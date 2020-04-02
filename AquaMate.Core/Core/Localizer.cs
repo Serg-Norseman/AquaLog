@@ -239,8 +239,11 @@ namespace AquaMate.Core
         /* 215 */ Density,
         /* 216 */ Size,
         /* 217 */ Weight,
+        /* 218 */ Load,
+        /* 219 */ Save,
+        /* 220 */ Radar,
 
-        /* 000 */ Last = Weight
+        /* 000 */ Last = Radar
     }
 
 
@@ -468,6 +471,9 @@ namespace AquaMate.Core
             /* 215 */ "Density",
             /* 216 */ "Size",
             /* 217 */ "Weight",
+            /* 218 */ "Load",
+            /* 219 */ "Save",
+            /* 220 */ "Radar",
         };
 
 

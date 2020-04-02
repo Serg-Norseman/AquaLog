@@ -665,15 +665,7 @@ namespace AquaMate.Core
                 color = bounds.Color;
             }
 
-            var tval = new MeasureValue() {
-                Name = sign,
-                Value = mVal,
-                Unit = uom,
-                ValText = strVal,
-                Text = text,
-                Color = color,
-                Ranges = ranges
-            };
+            var tval = new MeasureValue(sign, mVal, uom, strVal, text, color, ranges);
             measures.Add(tval);
         }
 

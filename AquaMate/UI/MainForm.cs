@@ -254,6 +254,13 @@ namespace AquaMate.UI
             return true;
         }
 
+        public void ShowItemTransfers(ItemType itemType, int itemId)
+        {
+            using (var dlg = new TransfersViewDlg(fModel, itemType, itemId)) {
+                dlg.ShowDialog();
+            }
+        }
+
         #region Event handlers
 
         private void Timer1Tick(object sender, EventArgs e)

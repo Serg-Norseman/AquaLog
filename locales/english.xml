@@ -217,4 +217,7 @@
   <string id="215">Density</string>
   <string id="216">Size</string>
   <string id="217">Weight</string>
+  <string id="218">Load</string>
+  <string id="219">Save</string>
+  <string id="220">Radar</string>
 </resources>

@@ -10,8 +10,8 @@ namespace AquaMate.TSDB
 {
     public struct DataPoint
     {
-        public long Timestamp;
-        public double Value;
+        public readonly long Timestamp;
+        public readonly double Value;
 
         public DataPoint(long timestamp, double value)
         {

@@ -10,15 +10,26 @@ namespace AquaMate.Core.Types
 {
     public class MeasureValue
     {
-        public string Name;
-        public double Value;
-        public string Unit;
+        public readonly string Name;
+        public readonly double Value;
+        public readonly string Unit;
 
-        public string ValText;
-        public string Text;
+        public readonly string ValText;
+        public readonly string Text;
 
-        public Color Color;
+        public readonly Color Color;
 
-        public ValueRange[] Ranges;
+        public readonly ValueRange[] Ranges;
+
+        public MeasureValue(string name, double value, string unit, string valText, string text, Color color, ValueRange[] ranges)
+        {
+            Name = name;
+            Value = value;
+            Unit = unit;
+            ValText = valText;
+            Text = text;
+            Color = color;
+            Ranges = ranges;
+        }
     }
 }
