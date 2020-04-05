@@ -17,31 +17,9 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class NutritionEditDlg : Form, IEditDialog<Nutrition>
+    public partial class NutritionEditDlg : EditDialog<Nutrition>
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "NutritionEditDlg");
-
-        private ALModel fModel;
-        private Nutrition fRecord;
-
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public Nutrition Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
-
 
         public NutritionEditDlg()
         {
@@ -53,7 +31,7 @@ namespace AquaMate.UI.Dialogs
             SetLocale();
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Nutrition);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -66,7 +44,7 @@ namespace AquaMate.UI.Dialogs
             lblState.Text = Localizer.LS(LSID.State);
         }
 
-        private void UpdateView()
+        protected override void UpdateView()
         {
             if (fRecord != null) {
                 UIHelper.FillStringsCombo(cmbBrand, fModel.QueryNutritionBrands(), fRecord.Brand);
@@ -79,7 +57,7 @@ namespace AquaMate.UI.Dialogs
             }
         }
 
-        private void ApplyChanges()
+        protected override void ApplyChanges()
         {
             fRecord.Name = txtName.Text;
             fRecord.Brand = cmbBrand.Text;

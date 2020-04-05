@@ -17,30 +17,9 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class MaintenanceEditDlg : Form, IEditDialog<Maintenance>
+    public partial class MaintenanceEditDlg : EditDialog<Maintenance>
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MaintenanceEditDlg");
-
-        private ALModel fModel;
-        private Maintenance fRecord;
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public Maintenance Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
-
 
         public MaintenanceEditDlg()
         {
@@ -52,7 +31,7 @@ namespace AquaMate.UI.Dialogs
             SetLocale();
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Maintenance);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -67,7 +46,7 @@ namespace AquaMate.UI.Dialogs
             lblNote.Text = Localizer.LS(LSID.Note);
         }
 
-        private void UpdateView()
+        protected override void UpdateView()
         {
             if (fRecord != null) {
                 UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId, true);
@@ -82,7 +61,7 @@ namespace AquaMate.UI.Dialogs
             }
         }
 
-        private void ApplyChanges()
+        protected override void ApplyChanges()
         {
             var aqm = cmbAquarium.SelectedItem as Aquarium;
             fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;

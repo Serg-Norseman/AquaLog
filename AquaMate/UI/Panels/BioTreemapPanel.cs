@@ -123,7 +123,7 @@ namespace AquaMate.UI.Panels
             return mapItem;
         }
 
-        internal override void UpdateContent()
+        public override void UpdateContent()
         {
             fRootItem.Items.Clear();
 

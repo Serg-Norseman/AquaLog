@@ -50,7 +50,7 @@ namespace AquaMate.UI.Panels
             }
         }
 
-        internal override void UpdateContent()
+        public override void UpdateContent()
         {
             fLayoutPanel.Controls.Clear();
             if (fModel == null) return;

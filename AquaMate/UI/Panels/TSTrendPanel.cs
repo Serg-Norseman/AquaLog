@@ -41,7 +41,7 @@ namespace AquaMate.UI.Panels
             fPointId = pointId;
         }
 
-        internal override void UpdateContent()
+        public override void UpdateContent()
         {
             fGraph.Clear();
             if (fModel == null) return;

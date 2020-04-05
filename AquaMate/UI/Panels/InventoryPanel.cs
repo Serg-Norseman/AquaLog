@@ -24,26 +24,6 @@ namespace AquaMate.UI.Panels
         {
         }
 
-        protected override void InitActions()
-        {
-            AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
-            AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
-            AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
-            AddAction("Transfer", LSID.Transfer, null, TransferHandler);
-
-            // FIXME: change text
-            AddAction("Transfers", LSID.Transfers, null, ViewTransfersHandler);
-        }
-
-        public override void SelectionChanged(IList<Entity> records)
-        {
-            bool enabled = (records.Count == 1);
-
-            SetActionEnabled("Edit", enabled);
-            SetActionEnabled("Delete", enabled);
-            SetActionEnabled("Transfer", enabled);
-        }
-
         protected override void UpdateListView()
         {
             ListView.Clear();
@@ -73,6 +53,26 @@ namespace AquaMate.UI.Panels
                     item.ForeColor = Color.Gray;
                 }
             }
+        }
+
+        protected override void InitActions()
+        {
+            AddAction("Add", LSID.Add, "btn_rec_new.gif", AddHandler);
+            AddAction("Edit", LSID.Edit, "btn_rec_edit.gif", EditHandler);
+            AddAction("Delete", LSID.Delete, "btn_rec_delete.gif", DeleteHandler);
+            AddAction("Transfer", LSID.Transfer, null, TransferHandler);
+
+            // FIXME: change text
+            AddAction("Transfers", LSID.Transfers, null, ViewTransfersHandler);
+        }
+
+        public override void SelectionChanged(IList<Entity> records)
+        {
+            bool enabled = (records.Count == 1);
+
+            SetActionEnabled("Edit", enabled);
+            SetActionEnabled("Delete", enabled);
+            SetActionEnabled("Transfer", enabled);
         }
 
         private void TransferHandler(object sender, EventArgs e)

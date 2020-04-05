@@ -7,7 +7,6 @@
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
-using AquaMate.UI.Panels;
 
 namespace AquaMate.UI
 {
@@ -18,10 +17,10 @@ namespace AquaMate.UI
     {
         ALModel Model { get; }
 
-        void ShowSettings(int tabIndex = 0);
-        void SetView(MainView mainView, object extData);
-        void TransferItem(ItemType itemType, int itemId, DataPanel view);
         bool CheckDelete(Entity entity);
+        void SetView(MainView mainView, object extData);
         void ShowItemTransfers(ItemType itemType, int itemId);
+        void ShowSettings(int tabIndex = 0);
+        void TransferItem(ItemType itemType, int itemId, IDataPanel view);
     }
 }

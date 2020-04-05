@@ -18,30 +18,9 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class DeviceEditDlg : Form, IEditDialog<Device>
+    public partial class DeviceEditDlg : EditDialog<Device>
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "DeviceEditDlg");
-
-        private ALModel fModel;
-        private Device fRecord;
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public Device Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
-
 
         public DeviceEditDlg()
         {
@@ -53,7 +32,7 @@ namespace AquaMate.UI.Dialogs
             SetLocale();
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Device);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -74,7 +53,7 @@ namespace AquaMate.UI.Dialogs
             lblState.Text = Localizer.LS(LSID.State);
         }
 
-        private void UpdateView()
+        protected override void UpdateView()
         {
             if (fRecord != null) {
                 UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
@@ -95,7 +74,7 @@ namespace AquaMate.UI.Dialogs
             }
         }
 
-        private void ApplyChanges()
+        protected override void ApplyChanges()
         {
             var aqm = cmbAquarium.SelectedItem as Aquarium;
             fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;

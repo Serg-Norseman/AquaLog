@@ -19,31 +19,9 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class TransferEditDlg : Form, IEditDialog<Transfer>
+    public partial class TransferEditDlg : EditDialog<Transfer>
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "TransferEditDlg");
-
-        private ALModel fModel;
-        private Transfer fRecord;
-
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public Transfer Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
-
 
         public TransferEditDlg()
         {
@@ -55,7 +33,7 @@ namespace AquaMate.UI.Dialogs
             SetLocale();
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Transfer);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -74,7 +52,7 @@ namespace AquaMate.UI.Dialogs
             lblShop.Text = Localizer.LS(LSID.Shop);
         }
 
-        private void UpdateView()
+        protected override void UpdateView()
         {
             if (fRecord != null) {
                 string itName = fModel.GetRecordName(fRecord.ItemType, fRecord.ItemId);
@@ -122,7 +100,7 @@ namespace AquaMate.UI.Dialogs
             }
         }
 
-        private void ApplyChanges()
+        protected override void ApplyChanges()
         {
             Aquarium aqm = cmbSource.SelectedItem as Aquarium;
             fRecord.SourceId = (aqm == null) ? 0 : aqm.Id;

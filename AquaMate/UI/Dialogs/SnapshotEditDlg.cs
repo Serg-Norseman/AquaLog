@@ -17,31 +17,9 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class SnapshotEditDlg : Form, IEditDialog<Snapshot>
+    public partial class SnapshotEditDlg : EditDialog<Snapshot>
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "SnapshotEditDlg");
-
-        private ALModel fModel;
-        private Snapshot fRecord;
-
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public Snapshot Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
-
 
         public SnapshotEditDlg()
         {
@@ -53,7 +31,7 @@ namespace AquaMate.UI.Dialogs
             SetLocale();
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Snapshot);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -66,7 +44,7 @@ namespace AquaMate.UI.Dialogs
             btnSave.Text = Localizer.LS(LSID.Save);
         }
 
-        private void UpdateView()
+        protected override void UpdateView()
         {
             if (fRecord != null) {
                 txtName.Text = fRecord.Name;
@@ -80,7 +58,7 @@ namespace AquaMate.UI.Dialogs
             }
         }
 
-        private void ApplyChanges()
+        protected override void ApplyChanges()
         {
             fRecord.Name = txtName.Text;
             if (pictureBox1.Image != null) {

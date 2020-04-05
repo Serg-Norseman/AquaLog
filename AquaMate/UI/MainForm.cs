@@ -193,13 +193,13 @@ namespace AquaMate.UI
             using (var dlg = new MaintenanceEditDlg()) {
                 dlg.Model = fModel;
                 dlg.Record = new Maintenance();
-                if (dlg.ShowDialog() == DialogResult.OK) {
+                if (dlg.ShowDialog()) {
                     fModel.AddRecord(dlg.Record);
                 }
             }
         }
 
-        public void TransferItem(ItemType itemType, int itemId, DataPanel view)
+        public void TransferItem(ItemType itemType, int itemId, IDataPanel view)
         {
             var transfer = new Transfer();
             transfer.ItemType = itemType;
@@ -208,7 +208,7 @@ namespace AquaMate.UI
             using (var dlg = new TransferEditDlg()) {
                 dlg.Model = fModel;
                 dlg.Record = transfer;
-                if (dlg.ShowDialog() == DialogResult.OK) {
+                if (dlg.ShowDialog()) {
                     fModel.AddRecord(dlg.Record);
 
                     view.UpdateContent();

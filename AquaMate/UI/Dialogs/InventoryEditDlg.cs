@@ -17,30 +17,9 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class InventoryEditDlg : Form, IEditDialog<Inventory>
+    public partial class InventoryEditDlg : EditDialog<Inventory>
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "InventoryEditDlg");
-
-        private ALModel fModel;
-        private Inventory fRecord;
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public Inventory Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
-
 
         public InventoryEditDlg()
         {
@@ -52,7 +31,7 @@ namespace AquaMate.UI.Dialogs
             SetLocale();
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Inventory);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -67,7 +46,7 @@ namespace AquaMate.UI.Dialogs
             lblState.Text = Localizer.LS(LSID.State);
         }
 
-        private void UpdateView()
+        protected override void UpdateView()
         {
             if (fRecord != null) {
                 UIHelper.FillStringsCombo(cmbBrand, fModel.QueryInventoryBrands(), fRecord.Brand);
@@ -80,7 +59,7 @@ namespace AquaMate.UI.Dialogs
             }
         }
 
-        private void ApplyChanges()
+        protected override void ApplyChanges()
         {
             fRecord.Name = txtName.Text;
             fRecord.Brand = cmbBrand.Text;

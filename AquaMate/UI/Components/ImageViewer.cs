@@ -171,7 +171,7 @@ namespace AquaMate.UI.Components
             using (var dlg = new SnapshotEditDlg()) {
                 dlg.Model = fModel;
                 dlg.Record = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
+                if (dlg.ShowDialog()) {
                     record.ItemId = fItemId;
                     record.ItemType = fItemType;
 

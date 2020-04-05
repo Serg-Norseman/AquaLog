@@ -29,7 +29,7 @@ namespace AquaMate.UI.Panels
             fData = extData;
         }
 
-        internal override void UpdateContent()
+        public override void UpdateContent()
         {
             fGraph.ShowData("", "Labels", fData);
         }

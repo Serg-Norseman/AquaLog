@@ -19,7 +19,7 @@ namespace AquaMate.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public class DataPanel : Panel, ILocalizable
+    public class DataPanel : Panel, IDataPanel, ILocalizable
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "DataPanel");
 
@@ -72,7 +72,7 @@ namespace AquaMate.UI.Panels
         {
         }
 
-        internal virtual void UpdateContent()
+        public virtual void UpdateContent()
         {
         }
 

@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 
@@ -20,6 +19,6 @@ namespace AquaMate.UI
 
         T Record { get; set; }
 
-        DialogResult ShowDialog();
+        bool ShowDialog();
     }
 }

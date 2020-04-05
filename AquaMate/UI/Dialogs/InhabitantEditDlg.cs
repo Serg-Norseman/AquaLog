@@ -18,31 +18,9 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class InhabitantEditDlg : Form, IEditDialog<Inhabitant>
+    public partial class InhabitantEditDlg : EditDialog<Inhabitant>
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "InhabitantEditDlg");
-
-        private ALModel fModel;
-        private Inhabitant fRecord;
-
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public Inhabitant Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
-
 
         public InhabitantEditDlg()
         {
@@ -54,7 +32,7 @@ namespace AquaMate.UI.Dialogs
             SetLocale();
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Inhabitant);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -69,7 +47,7 @@ namespace AquaMate.UI.Dialogs
             lblState.Text = Localizer.LS(LSID.State);
         }
 
-        private void UpdateView()
+        protected override void UpdateView()
         {
             var speciesList = fModel.QuerySpecies();
             var species = speciesList.FirstOrDefault(sp => sp.Id == fRecord.SpeciesId);
@@ -100,7 +78,7 @@ namespace AquaMate.UI.Dialogs
             imgViewer.SetRecord(fModel, fRecord.Id, itemType);
         }
 
-        private void ApplyChanges()
+        protected override void ApplyChanges()
         {
             Species spc = cmbSpecies.SelectedItem as Species;
             if (spc != null) {

@@ -17,30 +17,9 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class SpeciesEditDlg : Form, IEditDialog<Species>
+    public partial class SpeciesEditDlg : EditDialog<Species>
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "SpeciesEditDlg");
-
-        private ALModel fModel;
-        private Species fRecord;
-
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public Species Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
 
         public SpeciesEditDlg()
         {
@@ -52,7 +31,7 @@ namespace AquaMate.UI.Dialogs
             SetLocale();
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.SpeciesS);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -77,7 +56,7 @@ namespace AquaMate.UI.Dialogs
             lblSwimLevel.Text = Localizer.LS(LSID.SwimLevel);
         }
 
-        private void UpdateView()
+        protected override void UpdateView()
         {
             txtName.Text = fRecord.Name;
             txtDesc.Text = fRecord.Description;
@@ -100,7 +79,7 @@ namespace AquaMate.UI.Dialogs
             UIHelper.FillStringsCombo(cmbFamily, fModel.QuerySpeciesFamilies(), fRecord.BioFamily);
         }
 
-        private void ApplyChanges()
+        protected override void ApplyChanges()
         {
             fRecord.Name = txtName.Text;
             fRecord.Description = txtDesc.Text;

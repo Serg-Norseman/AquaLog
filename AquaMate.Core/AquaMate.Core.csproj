@@ -161,6 +161,10 @@
     <Compile Include="TSDB\TSDatabase.cs" />
     <Compile Include="TSDB\TSPoint.cs" />
     <Compile Include="TSDB\TSValue.cs" />
+    <Compile Include="UI\IBrowser.cs" />
+    <Compile Include="UI\IDataPanel.cs" />
+    <Compile Include="UI\IEditDialog.cs" />
+    <Compile Include="UI\MainView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -179,6 +183,7 @@
     <Folder Include="Core\Types" />
     <Folder Include="DataCollection" />
     <Folder Include="Logging" />
+    <Folder Include="UI" />
     <Folder Include="TSDB" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

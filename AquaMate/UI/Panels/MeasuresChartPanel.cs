@@ -49,7 +49,7 @@ namespace AquaMate.UI.Panels
             fSelectedAquarium = "*";
         }
 
-        internal override void UpdateContent()
+        public override void UpdateContent()
         {
             fGraph.Clear();
             if (fModel == null) return;

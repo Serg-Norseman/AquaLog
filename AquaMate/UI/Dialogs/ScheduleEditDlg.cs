@@ -17,30 +17,9 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class ScheduleEditDlg : Form, IEditDialog<Schedule>
+    public partial class ScheduleEditDlg : EditDialog<Schedule>
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ScheduleEditDlg");
-
-        private ALModel fModel;
-        private Schedule fRecord;
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public Schedule Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
-
 
         public ScheduleEditDlg()
         {
@@ -52,7 +31,7 @@ namespace AquaMate.UI.Dialogs
             SetLocale();
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.ScheduleS);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -70,7 +49,7 @@ namespace AquaMate.UI.Dialogs
             lblNote.Text = Localizer.LS(LSID.Note);
         }
 
-        private void UpdateView()
+        protected override void UpdateView()
         {
             if (fRecord != null) {
                 UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId, true);
@@ -87,7 +66,7 @@ namespace AquaMate.UI.Dialogs
             }
         }
 
-        private void ApplyChanges()
+        protected override void ApplyChanges()
         {
             var aqm = cmbAquarium.SelectedItem as Aquarium;
             fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;

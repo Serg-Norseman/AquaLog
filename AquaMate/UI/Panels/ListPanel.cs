@@ -63,7 +63,7 @@ namespace AquaMate.UI.Panels
             SelectionChanged(records);
         }
 
-        internal override void UpdateContent()
+        public override void UpdateContent()
         {
             try {
                 ListView.BeginUpdate();
@@ -160,7 +160,7 @@ namespace AquaMate.UI.Panels
                 using (var dlg = new D()) {
                     dlg.Model = fModel;
                     dlg.Record = record;
-                    if (dlg.ShowDialog() == DialogResult.OK) {
+                    if (dlg.ShowDialog()) {
                         fModel.AddRecord(record);
                         UpdateContent();
                         SelectRecord(record);
@@ -180,7 +180,7 @@ namespace AquaMate.UI.Panels
                 using (var dlg = new D()) {
                     dlg.Model = fModel;
                     dlg.Record = record;
-                    if (dlg.ShowDialog() == DialogResult.OK) {
+                    if (dlg.ShowDialog()) {
                         fModel.UpdateRecord(record);
                         UpdateContent();
                         SelectRecord(record);

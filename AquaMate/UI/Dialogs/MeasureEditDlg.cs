@@ -17,30 +17,9 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class MeasureEditDlg : Form, IEditDialog<Measure>
+    public partial class MeasureEditDlg : EditDialog<Measure>
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MeasureEditDlg");
-
-        private ALModel fModel;
-        private Measure fRecord;
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public Measure Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
-
 
         public MeasureEditDlg()
         {
@@ -52,7 +31,7 @@ namespace AquaMate.UI.Dialogs
             SetLocale();
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Measure);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -63,7 +42,7 @@ namespace AquaMate.UI.Dialogs
             lblTemperature.Text = ALData.GetLSuom(LSID.Temperature, MeasurementType.Temperature);
         }
 
-        private void UpdateView()
+        protected override void UpdateView()
         {
             if (fRecord != null) {
                 UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId, true);
@@ -87,7 +66,7 @@ namespace AquaMate.UI.Dialogs
             }
         }
 
-        private void ApplyChanges()
+        protected override void ApplyChanges()
         {
             var aqm = cmbAquarium.SelectedItem as Aquarium;
             fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;

@@ -25,6 +25,8 @@ namespace AquaMate.UI
     /// </summary>
     public static class UIHelper
     {
+        #region Action helpers
+
         public static Control AddPanelButton(Panel panel, string actionName, string actionText, Image image, EventHandler handler)
         {
             var btn = new Button();
@@ -72,6 +74,8 @@ namespace AquaMate.UI
             panel.Controls.Add(comboBox);
             return comboBox;
         }
+
+        #endregion
 
         public static void FillEntitiesCombo(ComboBox comboBox, IEnumerable<Entity> entities, int selectedId, bool sorted = false)
         {
@@ -124,16 +128,6 @@ namespace AquaMate.UI
             comboBox.Text = selectedText;
         }
 
-        public static bool ShowQuestionYN(string msg)
-        {
-            return MessageBox.Show(msg, ALCore.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
-        }
-
-        public static void ShowWarning(string msg)
-        {
-            MessageBox.Show(msg, ALCore.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-
         public static ZListView CreateListView(string name)
         {
             var listView = new ZListView();
@@ -177,6 +171,22 @@ namespace AquaMate.UI
             return Color.FromArgb(red, green, blue);
         }
 
+        #region Messages
+
+        public static bool ShowQuestionYN(string msg)
+        {
+            return MessageBox.Show(msg, ALCore.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+        }
+
+        public static void ShowWarning(string msg)
+        {
+            MessageBox.Show(msg, ALCore.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+
+        #endregion
+
+        #region Resources
+
         public static Stream LoadResourceStream(string resName)
         {
             #if !NETCOREAPP30
@@ -198,6 +208,8 @@ namespace AquaMate.UI
         {
             return new Bitmap(LoadResourceStream(resName));
         }
+
+        #endregion
 
         #region Open/Save dialogs
 

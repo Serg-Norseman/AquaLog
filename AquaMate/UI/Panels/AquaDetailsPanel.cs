@@ -95,7 +95,7 @@ namespace AquaMate.UI.Panels
             UpdateContent();
         }
 
-        internal override void UpdateContent()
+        public override void UpdateContent()
         {
             if (fAquarium != null) {
                 fHeader.Text = fAquarium.Name;

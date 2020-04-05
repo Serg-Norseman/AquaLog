@@ -96,6 +96,15 @@ namespace AquaMate.UI.Panels
                         item.ForeColor = Color.Gray;
                         break;
                 }
+
+                // validation after format changes
+                /*if (itemRec is Inventory) {
+                    var inv = itemRec as Inventory;
+                    var invType = ALCore.GetItemType(inv.Type);
+                    if (invType != itemType) {
+                        item.ForeColor = Color.Red;
+                    }
+                }*/
             }
         }
     }

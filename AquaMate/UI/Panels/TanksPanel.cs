@@ -108,7 +108,7 @@ namespace AquaMate.UI.Panels
             SetActionEnabled("Radar", enabled);
         }
 
-        internal override void UpdateContent()
+        public override void UpdateContent()
         {
             fLayoutPanel.Controls.Clear();
             if (fModel == null) return;
@@ -158,7 +158,7 @@ namespace AquaMate.UI.Panels
             using (var dlg = new AquariumEditDlg()) {
                 dlg.Model = fModel;
                 dlg.Record = aqm;
-                if (dlg.ShowDialog() == DialogResult.OK) {
+                if (dlg.ShowDialog()) {
                     fModel.AddRecord(aqm);
                     fModel.Cache.Put(ItemType.Aquarium, aqm.Id, aqm);
                     UpdateContent();
@@ -177,7 +177,7 @@ namespace AquaMate.UI.Panels
             using (var dlg = new AquariumEditDlg()) {
                 dlg.Model = fModel;
                 dlg.Record = aqm;
-                if (dlg.ShowDialog() == DialogResult.OK) {
+                if (dlg.ShowDialog()) {
                     fModel.UpdateRecord(aqm);
                     fModel.Cache.Put(ItemType.Aquarium, aqm.Id, aqm);
                     UpdateContent();

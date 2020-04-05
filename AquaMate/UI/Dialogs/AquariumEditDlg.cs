@@ -18,29 +18,9 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class AquariumEditDlg : Form, IEditDialog<Aquarium>
+    public partial class AquariumEditDlg : EditDialog<Aquarium>
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "AquariumEditDlg");
-
-        private ALModel fModel;
-        private Aquarium fRecord;
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public Aquarium Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
 
         public AquariumEditDlg()
         {
@@ -52,7 +32,7 @@ namespace AquaMate.UI.Dialogs
             SetLocale();
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Aquarium);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -83,7 +63,7 @@ namespace AquaMate.UI.Dialogs
             lblBrand.Text = Localizer.LS(LSID.Brand);
         }
 
-        private void UpdateView()
+        protected override void UpdateView()
         {
             txtName.Text = fRecord.Name;
             txtDesc.Text = fRecord.Description;
@@ -106,7 +86,7 @@ namespace AquaMate.UI.Dialogs
             }
         }
 
-        private void ApplyChanges()
+        protected override void ApplyChanges()
         {
             fRecord.Name = txtName.Text;
             fRecord.Description = txtDesc.Text;

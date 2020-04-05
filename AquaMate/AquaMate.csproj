@@ -147,6 +147,7 @@
     <Compile Include="UI\Dialogs\DeviceEditDlg.Designer.cs">
       <DependentUpon>DeviceEditDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\EditDialog.cs" />
     <Compile Include="UI\Dialogs\NoteEditDlg.cs" />
     <Compile Include="UI\Dialogs\NoteEditDlg.Designer.cs">
       <DependentUpon>NoteEditDlg.cs</DependentUpon>
@@ -209,13 +210,10 @@
       <DependentUpon>TSValueEditDlg.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\DrawingHelper.cs" />
-    <Compile Include="UI\IBrowser.cs" />
-    <Compile Include="UI\IEditDialog.cs" />
     <Compile Include="UI\MainForm.cs" />
     <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\MainView.cs" />
     <Compile Include="UI\Panels\AquaAnalysisPanel.cs" />
     <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
     <Compile Include="UI\Panels\AquaQualityPanel.cs" />
