@@ -5,10 +5,12 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using AquaMate.Core.Model;
 using AquaMate.Core.Model.Tanks;
 using AquaMate.Core.Types;
+using AquaMate.UI;
 using BSLib;
 
 namespace AquaMate.Core
@@ -448,6 +450,74 @@ namespace AquaMate.Core
         public static double CalcRedfield(double NO3, double PO4)
         {
             return (NO3 / PO4) / 1.45;
+        }
+
+        public static IEnumerable<ListItem<T>> GetNamesList<T>(IProps[] names)
+        {
+            T[] enumVals = (T[])Enum.GetValues(typeof(T));
+            int valsLen = enumVals.Length;
+
+            int namesLen = names.Length;
+            if (valsLen != namesLen)
+                throw new Exception("Enumeration and names do not match");
+
+            var result = new ListItem<T>[valsLen];
+            for (int i = 0; i < valsLen; i++) {
+                var enm = enumVals[i];
+                int eIdx = Convert.ToInt32(enm);
+                result[i] = new ListItem<T>(Localizer.LS(names[eIdx].Name), enm);
+            }
+            return result;
+        }
+
+        public static IEnumerable<ListItem<T>> GetNamesList<T>(LSID[] names)
+        {
+            T[] enumVals = (T[])Enum.GetValues(typeof(T));
+            int valsLen = enumVals.Length;
+
+            int namesLen = names.Length;
+            if (valsLen != namesLen)
+                throw new Exception("Enumeration and names do not match");
+
+            var result = new ListItem<T>[valsLen];
+            for (int i = 0; i < valsLen; i++) {
+                var enm = enumVals[i];
+                int eIdx = Convert.ToInt32(enm);
+                result[i] = new ListItem<T>(Localizer.LS(names[eIdx]), enm);
+            }
+            return result;
+        }
+
+        public static IEnumerable<ListItem<ItemState>> GetItemStateNamesList(ItemType itemType)
+        {
+            ItemProps props = ALData.ItemTypes[(int)itemType];
+
+            var result = new List<ListItem<ItemState>>();
+            for (ItemState state = ItemState.Unknown; state <= ItemState.Broken; state++) {
+                if (state == ItemState.Unknown || props.States.Contains(state)) {
+                    result.Add(new ListItem<ItemState>(Localizer.LS(ALData.ItemStates[(int)state]), state));
+                }
+            }
+            return result;
+        }
+
+        public static IEnumerable<ListItem<int>> GetEntityNamesList(IEnumerable<Entity> entities)
+        {
+            var result = new List<ListItem<int>>();
+            foreach (var ent in entities) {
+                result.Add(new ListItem<int>(ent.ToString(), ent.Id));
+            }
+            return result;
+        }
+
+        public static IList<string> GetStringList(IEnumerable<QString> queryStrings)
+        {
+            var result = new List<string>();
+            foreach (var qs in queryStrings) {
+                if (!string.IsNullOrEmpty(qs.element))
+                    result.Add(qs.element);
+            }
+            return result;
         }
     }
 }

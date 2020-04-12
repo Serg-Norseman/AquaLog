@@ -156,9 +156,9 @@ namespace AquaMate.UI.Panels
             aqm.Name = ALCore.UnknownName;
 
             using (var dlg = new AquariumEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Record = aqm;
-                if (dlg.ShowDialog()) {
+                dlg.SetContext(fModel, aqm);
+
+                if (dlg.ShowModal()) {
                     fModel.AddRecord(aqm);
                     fModel.Cache.Put(ItemType.Aquarium, aqm.Id, aqm);
                     UpdateContent();
@@ -175,9 +175,9 @@ namespace AquaMate.UI.Panels
             if (aqm == null) return;
 
             using (var dlg = new AquariumEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Record = aqm;
-                if (dlg.ShowDialog()) {
+                dlg.SetContext(fModel, aqm);
+
+                if (dlg.ShowModal()) {
                     fModel.UpdateRecord(aqm);
                     fModel.Cache.Put(ItemType.Aquarium, aqm.Id, aqm);
                     UpdateContent();

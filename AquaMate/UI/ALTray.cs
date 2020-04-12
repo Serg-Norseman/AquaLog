@@ -8,7 +8,6 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using AquaMate.Core;
-using AquaMate.UI.Dialogs;
 using BSLib;
 
 namespace AquaMate.UI
@@ -23,13 +22,13 @@ namespace AquaMate.UI
         private MenuItem fAutorunItem;
         private MenuItem fAboutItem;
         private MenuItem fExitItem;
-        private readonly Form fMainForm;
+        private readonly IBrowser fMainForm;
         private readonly NotifyIcon fNotifyIcon;
         private readonly StringList fTipsList;
         private readonly System.Threading.Timer fTipsTimer;
 
 
-        public ALTray(Form mainForm)
+        public ALTray(IBrowser mainForm)
         {
             fMainForm = mainForm;
 
@@ -112,20 +111,12 @@ namespace AquaMate.UI
 
         private void miAutorun_Click(object sender, EventArgs e)
         {
-            if (fAutorunItem.Checked) {
-                UIHelper.UnregisterStartup();
-            } else {
-                UIHelper.RegisterStartup();
-            }
-
-            fAutorunItem.Checked = UIHelper.IsStartupItem();
+            fAutorunItem.Checked = fMainForm.SwitchAutorun();
         }
 
         private void miAbout_Click(object sender, EventArgs e)
         {
-            using (var dlg = new AboutDlg()) {
-                dlg.ShowDialog();
-            }
+            fMainForm.ShowAbout();
         }
 
         private void miExit_Click(object sender, EventArgs e)
@@ -135,14 +126,7 @@ namespace AquaMate.UI
 
         private void Icon_DoubleClick(object sender, EventArgs e)
         {
-            if (fMainForm != null) {
-                if (fMainForm.Visible) {
-                    fMainForm.Hide();
-                } else {
-                    fMainForm.WindowState = FormWindowState.Normal;
-                    fMainForm.Show();
-                }
-            }
+            fMainForm.SwitchVisible();
         }
     }
 }

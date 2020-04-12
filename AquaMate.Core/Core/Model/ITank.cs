@@ -11,7 +11,7 @@ namespace AquaMate.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public interface ITank
+    public interface ITank : IEntity
     {
         ITank Clone();
         TankShape GetTankShape();

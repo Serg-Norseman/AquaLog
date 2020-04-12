@@ -4,7 +4,10 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using AquaMate.UI;
 
 namespace AquaMate.Core.Calculations
 {
@@ -12,6 +15,7 @@ namespace AquaMate.Core.Calculations
     {
         private double fResultValue;
         private readonly CalculationType fType;
+        private CalculationProps fProps;
 
 
         public static readonly CalculationProps[] CalculationData = new CalculationProps[] {
@@ -144,6 +148,12 @@ namespace AquaMate.Core.Calculations
             SetLocale();
         }
 
+        public void SetProps(CalculationProps props)
+        {
+            fProps = props;
+            SetLocale();
+        }
+
         public abstract void Calculate();
 
         public virtual void SetLocale()
@@ -156,6 +166,25 @@ namespace AquaMate.Core.Calculations
 
             var resultParam = calcProps.Result;
             ALCore.SetDisplayNameValue(this, resultParam.PropName, resultParam.DispName);
+        }
+
+        public static IEnumerable<ListItem<T>> GetNamesList<T>()
+        {
+            T[] enumVals = (T[])Enum.GetValues(typeof(T));
+            int valsLen = enumVals.Length;
+
+            var names = CalculationData;
+            int namesLen = names.Length;
+            if (valsLen != namesLen)
+                throw new Exception("Enumeration and names do not match");
+
+            var result = new ListItem<T>[valsLen];
+            for (int i = 0; i < valsLen; i++) {
+                var enm = enumVals[i];
+                int eIdx = Convert.ToInt32(enm);
+                result[i] = new ListItem<T>(names[eIdx].Name, enm);
+            }
+            return result;
         }
     }
 }

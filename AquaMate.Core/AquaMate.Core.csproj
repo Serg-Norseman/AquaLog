@@ -48,6 +48,9 @@
     <Reference Include="BSLib">
       <HintPath>..\libs\BSLib.dll</HintPath>
     </Reference>
+    <Reference Include="BSLib.Design">
+      <HintPath>..\libs\BSLib.Design.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -73,10 +76,12 @@
     <Compile Include="Core\Calculations\SaltCalculation.cs" />
     <Compile Include="Core\Calculations\UnitsCalculation.cs" />
     <Compile Include="Core\ILocalizable.cs" />
+    <Compile Include="Core\IModel.cs" />
     <Compile Include="Core\LocaleFile.cs" />
     <Compile Include="Core\Localizer.cs" />
     <Compile Include="Core\Model\Brand.cs" />
     <Compile Include="Core\Model\Decoration.cs" />
+    <Compile Include="Core\Model\IEntity.cs" />
     <Compile Include="Core\Model\InventoryProperties.cs" />
     <Compile Include="Core\Model\Soil.cs" />
     <Compile Include="Core\StringSerializer.cs" />
@@ -161,10 +166,38 @@
     <Compile Include="TSDB\TSDatabase.cs" />
     <Compile Include="TSDB\TSPoint.cs" />
     <Compile Include="TSDB\TSValue.cs" />
+    <Compile Include="UI\EditorPresenter.cs" />
+    <Compile Include="UI\Extensions.cs" />
     <Compile Include="UI\IBrowser.cs" />
+    <Compile Include="UI\IComboBoxHandlerEx.cs" />
     <Compile Include="UI\IDataPanel.cs" />
     <Compile Include="UI\IEditDialog.cs" />
+    <Compile Include="UI\IPictureBoxHandler.cs" />
+    <Compile Include="UI\IPropertyGridHandler.cs" />
+    <Compile Include="UI\IView.cs" />
+    <Compile Include="UI\ListItem.cs" />
     <Compile Include="UI\MainView.cs" />
+    <Compile Include="UI\Presenter.cs" />
+    <Compile Include="UI\Presenters\AquariumEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\BrandEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\CalculatorPresenter.cs" />
+    <Compile Include="UI\Presenters\DataMonitorPresenter.cs" />
+    <Compile Include="UI\Presenters\DeviceEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\InhabitantEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\InventoryEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\MaintenanceEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\MeasureEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\NoteEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\NutritionEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\ScheduleEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\SettingsDialogPresenter.cs" />
+    <Compile Include="UI\Presenters\SnapshotEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\SpeciesEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\TankEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\TransferEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\TSPointEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\TSValueEditorPresenter.cs" />
+    <Compile Include="UI\ViewerPresenter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -185,6 +218,7 @@
     <Folder Include="Logging" />
     <Folder Include="UI" />
     <Folder Include="TSDB" />
+    <Folder Include="UI\Presenters" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

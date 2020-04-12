@@ -8,32 +8,15 @@ using System;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Logging;
-using BSLib;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class TankEditDlg : Form
+    public partial class TankEditDlg : EditDialog<ITank>, ITankEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "TankEditDlg");
-
-        private ITank fRecord;
-
-
-        public ITank Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
-
+        private readonly TankEditorPresenter fPresenter;
 
         public TankEditDlg()
         {
@@ -42,37 +25,34 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new TankEditorPresenter(this);
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Tank);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
         }
 
-        private void UpdateView()
+        public override void SetContext(IModel model, ITank record)
         {
-            if (fRecord != null) {
-                fRecord.SetPropNames();
-                pgProps.SelectedObject = fRecord;
-            }
-        }
-
-        private void ApplyChanges()
-        {
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
+
+        #region View interface implementation
+
+        IPropertyGridHandler ITankEditorView.PropsGrid
+        {
+            get { return GetControlHandler<IPropertyGridHandler>(pgProps); }
+        }
+
+        #endregion
     }
 }

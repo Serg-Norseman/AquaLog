@@ -119,7 +119,9 @@ namespace AquaMate.UI.Panels
     }
 
 
-    public class ListPanel<R, D> : ListPanel where R : Entity, new() where D : IEditDialog<R>, new()
+    public class ListPanel<R, D> : ListPanel
+        where R : Entity, new()
+        where D : IEditDialog<R>, new()
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ListPanel<>");
 
@@ -158,9 +160,9 @@ namespace AquaMate.UI.Panels
                 R record = new R();
 
                 using (var dlg = new D()) {
-                    dlg.Model = fModel;
-                    dlg.Record = record;
-                    if (dlg.ShowDialog()) {
+                    dlg.SetContext(fModel, record);
+
+                    if (dlg.ShowModal()) {
                         fModel.AddRecord(record);
                         UpdateContent();
                         SelectRecord(record);
@@ -178,9 +180,9 @@ namespace AquaMate.UI.Panels
                 if (record == null) return;
 
                 using (var dlg = new D()) {
-                    dlg.Model = fModel;
-                    dlg.Record = record;
-                    if (dlg.ShowDialog()) {
+                    dlg.SetContext(fModel, record);
+
+                    if (dlg.ShowModal()) {
                         fModel.UpdateRecord(record);
                         UpdateContent();
                         SelectRecord(record);

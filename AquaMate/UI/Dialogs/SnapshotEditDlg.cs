@@ -5,21 +5,19 @@
  */
 
 using System;
-using System.Drawing.Imaging;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Logging;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class SnapshotEditDlg : EditDialog<Snapshot>
+    public partial class SnapshotEditDlg : EditDialog<Snapshot>, ISnapshotEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "SnapshotEditDlg");
+        private readonly SnapshotEditorPresenter fPresenter;
 
         public SnapshotEditDlg()
         {
@@ -28,7 +26,7 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new SnapshotEditorPresenter(this);
         }
 
         public override void SetLocale()
@@ -44,38 +42,15 @@ namespace AquaMate.UI.Dialogs
             btnSave.Text = Localizer.LS(LSID.Save);
         }
 
-        protected override void UpdateView()
+        public override void SetContext(IModel model, Snapshot record)
         {
-            if (fRecord != null) {
-                txtName.Text = fRecord.Name;
-                if (fRecord.Image != null) {
-                    pictureBox1.Image = ALModel.ByteToImage(fRecord.Image);
-                }
-
-                if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
-                    dtpDateTime.Value = fRecord.Timestamp;
-                }
-            }
-        }
-
-        protected override void ApplyChanges()
-        {
-            fRecord.Name = txtName.Text;
-            if (pictureBox1.Image != null) {
-                fRecord.Image = ALModel.ImageToByte(pictureBox1.Image, ImageFormat.Jpeg);
-            }
-            fRecord.Timestamp = dtpDateTime.Value;
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
@@ -87,5 +62,24 @@ namespace AquaMate.UI.Dialogs
         {
             UIHelper.SaveImage(pictureBox1.Image);
         }
+
+        #region View interface implementation
+
+        ITextBoxHandler ISnapshotEditorView.NameField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+        }
+
+        IPictureBoxHandler ISnapshotEditorView.PicBox
+        {
+            get { return GetControlHandler<IPictureBoxHandler>(pictureBox1); }
+        }
+
+        IDateTimeBoxHandler ISnapshotEditorView.TimestampField
+        {
+            get { return GetControlHandler<IDateTimeBoxHandler>(dtpDateTime); }
+        }
+
+        #endregion
     }
 }

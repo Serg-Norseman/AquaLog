@@ -79,9 +79,9 @@ namespace AquaMate.UI.Panels
             TSPoint record = new TSPoint();
 
             using (var dlg = new TSPointEditDlg()) {
-                dlg.Model = fModel.TSDB;
-                dlg.Point = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
+                dlg.SetContext(fModel, record);
+
+                if (dlg.ShowModal()) {
                     fModel.TSDB.AddPoint(record);
                     UpdateContent();
                 }
@@ -94,9 +94,9 @@ namespace AquaMate.UI.Panels
             if (record == null) return;
 
             using (var dlg = new TSPointEditDlg()) {
-                dlg.Model = fModel.TSDB;
-                dlg.Point = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
+                dlg.SetContext(fModel, record);
+
+                if (dlg.ShowModal()) {
                     fModel.TSDB.UpdatePoint(record);
                     UpdateContent();
                 }

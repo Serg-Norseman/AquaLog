@@ -5,22 +5,21 @@
  */
 
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
-using AquaMate.Logging;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class InhabitantEditDlg : EditDialog<Inhabitant>
+    public partial class InhabitantEditDlg : EditDialog<Inhabitant>, IInhabitantEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "InhabitantEditDlg");
+        private readonly InhabitantEditorPresenter fPresenter;
 
         public InhabitantEditDlg()
         {
@@ -29,7 +28,7 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new InhabitantEditorPresenter(this);
         }
 
         public override void SetLocale()
@@ -38,7 +37,8 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbSex.FillCombo<Sex>(ALData.SexNames, false);
+            var sexNamesList = ALData.GetNamesList<Sex>(ALData.SexNames);
+            cmbSex.FillCombo<Sex>(sexNamesList, false);
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblNote.Text = Localizer.LS(LSID.Note);
@@ -47,73 +47,61 @@ namespace AquaMate.UI.Dialogs
             lblState.Text = Localizer.LS(LSID.State);
         }
 
-        protected override void UpdateView()
+        public override void SetContext(IModel model, Inhabitant record)
         {
-            var speciesList = fModel.QuerySpecies();
-            var species = speciesList.FirstOrDefault(sp => sp.Id == fRecord.SpeciesId);
-            UIHelper.FillEntitiesCombo(cmbSpecies, speciesList, fRecord.SpeciesId, true);
-
-            txtName.Text = fRecord.Name;
-            txtNote.Text = fRecord.Note;
-            cmbSex.SetSelectedTag(fRecord.Sex);
-
-            ItemType itemType;
-
-            if (species != null) {
-                itemType = ALCore.GetItemType(species.Type);
-                ItemState itemState;
-                DateTime exclusionDate;
-                fModel.GetItemState(fRecord.Id, itemType, out itemState, out exclusionDate);
-                bool noTransferState = (itemState == ItemState.Unknown);
-                cmbState.Enabled = noTransferState;
-
-                if (!noTransferState) {
-                    UIHelper.FillItemStatesCombo(cmbState, itemType, fRecord.State);
-                }
-            } else {
-                itemType = ItemType.None;
-                cmbState.Items.Clear();
-            }
-
-            imgViewer.SetRecord(fModel, fRecord.Id, itemType);
-        }
-
-        protected override void ApplyChanges()
-        {
-            Species spc = cmbSpecies.SelectedItem as Species;
-            if (spc != null) {
-                fRecord.SpeciesId = spc.Id;
-            }
-
-            fRecord.Name = txtName.Text;
-            fRecord.Note = txtNote.Text;
-            fRecord.Sex = cmbSex.GetSelectedTag<Sex>();
-            fRecord.State = cmbState.GetSelectedTag<ItemState>();
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
 
         private void cmbSpecies_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var species = cmbSpecies.SelectedItem as Species;
-            bool itemIsNull = (species == null);
-
-            if (!itemIsNull) {
-                UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(species.Type), fRecord.State);
-            }
-
-            bool hasSex = (!itemIsNull && ALCore.IsAnimal(species.Type));
-            lblSex.Visible = hasSex;
-            cmbSex.Visible = hasSex;
+            int speciesId = cmbSpecies.GetSelectedTag<int>();
+            var species = fModel.GetRecord<Species>(speciesId);
+            fPresenter.ChangeSelectedSpecies(species);
         }
+
+        #region View interface implementation
+
+        IComboBoxHandlerEx IInhabitantEditorView.SpeciesCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbSpecies); }
+        }
+
+        ITextBoxHandler IInhabitantEditorView.NameField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+        }
+
+        ITextBoxHandler IInhabitantEditorView.NoteField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+        }
+
+        ILabelHandler IInhabitantEditorView.SexLabel
+        {
+            get { return GetControlHandler<ILabelHandler>(lblSex); }
+        }
+
+        IComboBoxHandlerEx IInhabitantEditorView.SexCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbSex); }
+        }
+
+        IComboBoxHandlerEx IInhabitantEditorView.StateCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbState); }
+        }
+
+        void IInhabitantEditorView.SetImage(ItemType itemType, int itemId)
+        {
+            imgViewer.SetRecord(fModel, fRecord.Id, itemType);
+        }
+
+        #endregion
     }
 }

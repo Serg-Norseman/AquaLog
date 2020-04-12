@@ -20,7 +20,7 @@ namespace AquaMate.Core.Export
         private static RtfDocument fDocument;
 
 
-        public static void Generate(ALModel model, Aquarium aquarium, string fileName)
+        public static void Generate(IModel model, Aquarium aquarium, string fileName)
         {
             if (model == null || aquarium == null) return;
 

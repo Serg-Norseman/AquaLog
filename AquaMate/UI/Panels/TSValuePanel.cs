@@ -66,8 +66,9 @@ namespace AquaMate.UI.Panels
             TSValue record = new TSValue();
 
             using (var dlg = new TSValueEditDlg()) {
-                dlg.Value = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
+                dlg.SetContext(fModel, record);
+
+                if (dlg.ShowModal()) {
                     fModel.TSDB.InsertValue(fPointId, record.Timestamp, record.Value);
                     UpdateContent();
                 }
@@ -80,8 +81,9 @@ namespace AquaMate.UI.Panels
             if (record == null) return;
 
             using (var dlg = new TSValueEditDlg()) {
-                dlg.Value = record;
-                if (dlg.ShowDialog() == DialogResult.OK) {
+                dlg.SetContext(fModel, record);
+
+                if (dlg.ShowModal()) {
                     fModel.TSDB.UpdateValue(fPointId, record.Timestamp, record.Value);
                     UpdateContent();
                 }

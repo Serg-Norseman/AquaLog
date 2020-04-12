@@ -5,6 +5,7 @@
  */
 
 using System;
+using AquaMate.Core.Model;
 using SQLite;
 
 namespace AquaMate.TSDB
@@ -12,7 +13,7 @@ namespace AquaMate.TSDB
     /// <summary>
     /// The value of a point in a time series (tag).
     /// </summary>
-    public class TSValue
+    public class TSValue : IEntity
     {
         [Unique]
         public DateTime Timestamp { get; set; }

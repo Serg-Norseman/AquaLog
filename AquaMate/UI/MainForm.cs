@@ -18,6 +18,7 @@ using AquaMate.UI.Dialogs;
 using AquaMate.UI.Panels;
 using BSLib;
 using BSLib.Controls;
+using BSLib.Design.MVP;
 
 namespace AquaMate.UI
 {
@@ -27,14 +28,14 @@ namespace AquaMate.UI
 
         private DataPanel fCurrentPanel;
         private DrawingHelper fDrawingHelper;
-        private ALModel fModel;
+        private IModel fModel;
         private NavigationStack<DataPanel> fNavigationStack;
         private NotificationDlg fNotificationDlg;
         private Dictionary<Type, DataPanel> fPanels;
         private ALTray fTray;
 
 
-        public ALModel Model
+        public IModel Model
         {
             get { return fModel; }
         }
@@ -190,12 +191,31 @@ namespace AquaMate.UI
         {
             Activate();
 
+            var record = new Maintenance();
+
             using (var dlg = new MaintenanceEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Record = new Maintenance();
-                if (dlg.ShowDialog()) {
-                    fModel.AddRecord(dlg.Record);
+                dlg.SetContext(fModel, record);
+
+                if (dlg.ShowModal()) {
+                    fModel.AddRecord(record);
                 }
+            }
+        }
+
+        public bool EditTank(ITank tank)
+        {
+            try {
+                using (var dlg = new TankEditDlg()) {
+                    dlg.SetContext(fModel, tank);
+
+                    if (dlg.ShowModal()) {
+                        return true;
+                    }
+                }
+                return false;
+            } catch (Exception ex) {
+                fLogger.WriteError("EditTank()", ex);
+                return false;
             }
         }
 
@@ -206,10 +226,10 @@ namespace AquaMate.UI
             transfer.ItemId = itemId;
 
             using (var dlg = new TransferEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Record = transfer;
-                if (dlg.ShowDialog()) {
-                    fModel.AddRecord(dlg.Record);
+                dlg.SetContext(fModel, transfer);
+
+                if (dlg.ShowModal()) {
+                    fModel.AddRecord(transfer);
 
                     view.UpdateContent();
                 }
@@ -261,6 +281,33 @@ namespace AquaMate.UI
             }
         }
 
+        public void ShowAbout()
+        {
+            using (var dlg = new AboutDlg()) {
+                dlg.ShowDialog();
+            }
+        }
+
+        public void SwitchVisible()
+        {
+            if (Visible) {
+                Hide();
+            } else {
+                WindowState = FormWindowState.Normal;
+                Show();
+            }
+        }
+
+        public bool SwitchAutorun()
+        {
+            if (UIHelper.IsStartupItem()) {
+                UIHelper.UnregisterStartup();
+            } else {
+                UIHelper.RegisterStartup();
+            }
+            return UIHelper.IsStartupItem();
+        }
+
         #region Event handlers
 
         private void Timer1Tick(object sender, EventArgs e)
@@ -310,9 +357,7 @@ namespace AquaMate.UI
 
         private void miAbout_Click(object sender, EventArgs e)
         {
-            using (var dlg = new AboutDlg()) {
-                dlg.ShowDialog();
-            }
+            ShowAbout();
         }
 
         private void miSettings_Click(object sender, EventArgs e)
@@ -456,15 +501,12 @@ namespace AquaMate.UI
                     panel = new T();
                     panel.Browser = this;
                     panel.Model = fModel;
+                    fPanels.Add(type, panel);
                 }
                 panel.SetExtData(extData);
 
                 fNavigationStack.Current = panel;
                 SetView(panel);
-
-                if (!exists) {
-                    fPanels.Add(type, panel);
-                }
             } catch (Exception ex) {
                 fLogger.WriteError("SetView.1()", ex);
             }
@@ -516,6 +558,21 @@ namespace AquaMate.UI
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            ControlsManager.RegisterHandlerType(typeof(Button), typeof(ButtonHandler));
+            ControlsManager.RegisterHandlerType(typeof(CheckBox), typeof(CheckBoxHandler));
+            ControlsManager.RegisterHandlerType(typeof(ComboBox), typeof(ComboBoxHandler));
+            ControlsManager.RegisterHandlerType(typeof(Label), typeof(LabelHandler));
+            ControlsManager.RegisterHandlerType(typeof(MaskedTextBox), typeof(MaskedTextBoxHandler));
+            ControlsManager.RegisterHandlerType(typeof(NumericUpDown), typeof(NumericBoxHandler));
+            ControlsManager.RegisterHandlerType(typeof(ProgressBar), typeof(ProgressBarHandler));
+            ControlsManager.RegisterHandlerType(typeof(RadioButton), typeof(RadioButtonHandler));
+            ControlsManager.RegisterHandlerType(typeof(TabControl), typeof(TabControlHandler));
+            ControlsManager.RegisterHandlerType(typeof(TextBox), typeof(TextBoxHandler));
+            //ControlsManager.RegisterHandlerType(typeof(TreeView), typeof(TreeViewHandler));
+            //ControlsManager.RegisterHandlerType(typeof(ToolStripMenuItem), typeof(MenuItemHandler));
+            ControlsManager.RegisterHandlerType(typeof(ToolStripComboBox), typeof(ToolStripComboBoxHandler));
+            ControlsManager.RegisterHandlerType(typeof(PropertyGrid), typeof(PropertyGridHandler));
         }
 
         #endregion

@@ -24,11 +24,11 @@ namespace AquaMate.Core.Calculations
 
     public class CalculationProps
     {
-        public readonly string Name;
-        public readonly string Description;
-        public readonly CalcParam[] Args;
-        public readonly CalcParam Result;
-        public readonly CalcHandler Handler;
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public CalcParam[] Args { get; private set; }
+        public CalcParam Result { get; private set; }
+        public CalcHandler Handler { get; private set; }
 
         public CalculationProps(string name, string description, CalcParam[] args, CalcParam result, CalcHandler calcHandler)
         {

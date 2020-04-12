@@ -60,6 +60,9 @@
     <Reference Include="BSLib">
       <HintPath>..\libs\BSLib.dll</HintPath>
     </Reference>
+    <Reference Include="NSubstitute, Version=2.0.3.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\NSubstitute.2.0.3\lib\net40\NSubstitute.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\libs\nunit.framework.dll</HintPath>
     </Reference>
@@ -103,6 +106,7 @@
     <Compile Include="TSDB\TSDatabaseTests.cs" />
     <Compile Include="TSDB\TSValueTests.cs" />
     <Compile Include="UI\CustomFormTest.cs" />
+    <Compile Include="UI\UINewTests.cs" />
     <Compile Include="UI\UITests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -115,14 +119,9 @@
       <Name>AquaMate</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Core" />
-    <Folder Include="Core\Model" />
-    <Folder Include="Core\Calculations" />
-    <Folder Include="Core\Export" />
-    <Folder Include="DataCollection" />
-    <Folder Include="UI" />
-    <Folder Include="TSDB" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

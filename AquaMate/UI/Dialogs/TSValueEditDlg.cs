@@ -7,32 +7,17 @@
 using System;
 using System.Windows.Forms;
 using AquaMate.Core;
-using AquaMate.Logging;
 using AquaMate.TSDB;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class TSValueEditDlg : Form
+    public partial class TSValueEditDlg : EditDialog<TSValue>, ITSValueEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "TSValueEditDlg");
-
-        private TSValue fValue;
-
-        public TSValue Value
-        {
-            get { return fValue; }
-            set {
-                if (fValue != value) {
-                    fValue = value;
-                    UpdateView();
-                }
-            }
-        }
-
+        private readonly TSValueEditorPresenter fPresenter;
 
         public TSValueEditDlg()
         {
@@ -41,10 +26,10 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new TSValueEditorPresenter(this);
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Value);
             btnAccept.Text = Localizer.LS(LSID.Accept);
@@ -54,31 +39,29 @@ namespace AquaMate.UI.Dialogs
             lblValue.Text = Localizer.LS(LSID.Value);
         }
 
-        private void UpdateView()
+        public override void SetContext(IModel model, TSValue record)
         {
-            if (fValue != null) {
-                if (!ALCore.IsZeroDate(fValue.Timestamp)) {
-                    dtpTimestamp.Value = fValue.Timestamp;
-                }
-                txtValue.Text = ALCore.GetDecimalStr(fValue.Value);
-            }
-        }
-
-        private void ApplyChanges()
-        {
-            fValue.Timestamp = dtpTimestamp.Value;
-            fValue.Value = (float)ALCore.GetDecimalVal(txtValue.Text);
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
+
+        #region View interface implementation
+
+        IDateTimeBoxHandler ITSValueEditorView.TimestampField
+        {
+            get { return GetControlHandler<IDateTimeBoxHandler>(dtpTimestamp); }
+        }
+
+        ITextBoxHandler ITSValueEditorView.ValueField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtValue); }
+        }
+
+        #endregion
     }
 }

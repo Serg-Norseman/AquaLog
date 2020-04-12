@@ -9,17 +9,16 @@ using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
-using AquaMate.Logging;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class MeasureEditDlg : EditDialog<Measure>
+    public partial class MeasureEditDlg : EditDialog<Measure>, IMeasureEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MeasureEditDlg");
+        private readonly MeasureEditorPresenter fPresenter;
 
         public MeasureEditDlg()
         {
@@ -28,7 +27,7 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new MeasureEditorPresenter(this);
         }
 
         public override void SetLocale()
@@ -42,85 +41,104 @@ namespace AquaMate.UI.Dialogs
             lblTemperature.Text = ALData.GetLSuom(LSID.Temperature, MeasurementType.Temperature);
         }
 
-        protected override void UpdateView()
+        public override void SetContext(IModel model, Measure record)
         {
-            if (fRecord != null) {
-                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId, true);
-
-                if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
-                    dtpTimestamp.Value = fRecord.Timestamp;
-                }
-
-                txtTemperature.Text = ALCore.GetDecimalStr(fRecord.Temperature);
-                txtNO3.Text = ALCore.GetDecimalStr(fRecord.NO3);
-                txtNO2.Text = ALCore.GetDecimalStr(fRecord.NO2);
-                txtGH.Text = ALCore.GetDecimalStr(fRecord.GH);
-                txtKH.Text = ALCore.GetDecimalStr(fRecord.KH);
-                txtPH.Text = ALCore.GetDecimalStr(fRecord.pH);
-                txtCl2.Text = ALCore.GetDecimalStr(fRecord.Cl2);
-                txtCO2.Text = ALCore.GetDecimalStr(fRecord.CO2);
-                txtNHtot.Text = ALCore.GetDecimalStr(fRecord.NH);
-                txtNH3.Text = ALCore.GetDecimalStr(fRecord.NH3);
-                txtNH4.Text = ALCore.GetDecimalStr(fRecord.NH4);
-                txtPO4.Text = ALCore.GetDecimalStr(fRecord.PO4);
-            }
-        }
-
-        protected override void ApplyChanges()
-        {
-            var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
-
-            fRecord.Timestamp = dtpTimestamp.Value;
-
-            fRecord.Temperature = (float)ALCore.GetDecimalVal(txtTemperature.Text);
-            fRecord.NO3 = (float)ALCore.GetDecimalVal(txtNO3.Text);
-            fRecord.NO2 = (float)ALCore.GetDecimalVal(txtNO2.Text);
-            fRecord.GH = (float)ALCore.GetDecimalVal(txtGH.Text);
-            fRecord.KH = (float)ALCore.GetDecimalVal(txtKH.Text);
-            fRecord.pH = (float)ALCore.GetDecimalVal(txtPH.Text);
-            fRecord.Cl2 = (float)ALCore.GetDecimalVal(txtCl2.Text);
-            fRecord.CO2 = (float)ALCore.GetDecimalVal(txtCO2.Text);
-            fRecord.NH = (float)ALCore.GetDecimalVal(txtNHtot.Text);
-            fRecord.NH3 = (float)ALCore.GetDecimalVal(txtNH3.Text);
-            fRecord.NH4 = (float)ALCore.GetDecimalVal(txtNH4.Text);
-            fRecord.PO4 = (float)ALCore.GetDecimalVal(txtPO4.Text);
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
 
         private void btnCalcCO2_Click(object sender, EventArgs e)
         {
-            double degKH = ALCore.GetDecimalVal(txtKH.Text);
-            double PH = ALCore.GetDecimalVal(txtPH.Text);
-            double CO2 = ALData.CalcCO2(degKH, PH);
-            txtCO2.Text = ALCore.GetDecimalStr(CO2);
+            fPresenter.CalcCO2();
         }
 
         private void btnCalcNH3_Click(object sender, EventArgs e)
         {
-            double temp = ALCore.GetDecimalVal(txtTemperature.Text);
-            double totalNH = ALCore.GetDecimalVal(txtNHtot.Text);
-            double pH = ALCore.GetDecimalVal(txtPH.Text);
-            double NH3 = ALData.CalcNH3(pH, temp, totalNH);
-            txtNH3.Text = ALCore.GetDecimalStr(NH3);
+            fPresenter.CalcNH3();
         }
 
         private void btnCalcNH4_Click(object sender, EventArgs e)
         {
-            double totalNH = ALCore.GetDecimalVal(txtNHtot.Text);
-            double NH3 = ALCore.GetDecimalVal(txtNH3.Text);
-            double NH4 = totalNH - NH3;
-            txtNH4.Text = ALCore.GetDecimalStr(NH4);
+            fPresenter.CalcNH4();
         }
+
+        #region View interface implementation
+
+        IComboBoxHandlerEx IMeasureEditorView.AquariumCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbAquarium); }
+        }
+
+        IDateTimeBoxHandler IMeasureEditorView.TimestampField
+        {
+            get { return GetControlHandler<IDateTimeBoxHandler>(dtpTimestamp); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.TemperatureField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtTemperature); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.NO3Field
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtNO3); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.NO2Field
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtNO2); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.GHField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtGH); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.KHField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtKH); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.PHField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtPH); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.Cl2Field
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtCl2); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.CO2Field
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtCO2); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.NHField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtNHtot); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.NH3Field
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtNH3); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.NH4Field
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtNH4); }
+        }
+
+        ITextBoxHandler IMeasureEditorView.PO4Field
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtPO4); }
+        }
+
+        #endregion
     }
 }

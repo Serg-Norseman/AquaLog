@@ -8,17 +8,16 @@ using System;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Logging;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class NoteEditDlg : EditDialog<Note>
+    public partial class NoteEditDlg : EditDialog<Note>, INoteEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "NoteEditDlg");
+        private readonly NoteEditorPresenter fPresenter;
 
         public NoteEditDlg()
         {
@@ -27,7 +26,7 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new NoteEditorPresenter(this);
         }
 
         public override void SetLocale()
@@ -42,39 +41,39 @@ namespace AquaMate.UI.Dialogs
             lblNote.Text = Localizer.LS(LSID.Note);
         }
 
-        protected override void UpdateView()
+        public override void SetContext(IModel model, Note record)
         {
-            if (fRecord != null) {
-                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId, true);
-
-                if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
-                    dtpDateTime.Value = fRecord.Timestamp;
-                }
-
-                txtEvent.Text = fRecord.Event;
-                txtNote.Text = fRecord.Content;
-            }
-        }
-
-        protected override void ApplyChanges()
-        {
-            var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
-
-            fRecord.Timestamp = dtpDateTime.Value;
-            fRecord.Event = txtEvent.Text;
-            fRecord.Content = txtNote.Text;
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
+
+        #region View interface implementation
+
+        IComboBoxHandlerEx INoteEditorView.AquariumCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbAquarium); }
+        }
+
+        IDateTimeBoxHandler INoteEditorView.TimestampField
+        {
+            get { return GetControlHandler<IDateTimeBoxHandler>(dtpDateTime); }
+        }
+
+        ITextBoxHandler INoteEditorView.EventField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtEvent); }
+        }
+
+        ITextBoxHandler INoteEditorView.NoteField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+        }
+
+        #endregion
     }
 }

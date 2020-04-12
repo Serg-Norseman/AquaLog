@@ -5,21 +5,21 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
-using AquaMate.Logging;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class InventoryEditDlg : EditDialog<Inventory>
+    public partial class InventoryEditDlg : EditDialog<Inventory>, IInventoryEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "InventoryEditDlg");
+        private readonly InventoryEditorPresenter fPresenter;
 
         public InventoryEditDlg()
         {
@@ -28,7 +28,7 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new InventoryEditorPresenter(this);
         }
 
         public override void SetLocale()
@@ -37,7 +37,8 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbType.FillCombo<InventoryType>(ALData.InventoryTypes, true);
+            var inventoryTypesList = ALData.GetNamesList<InventoryType>(ALData.InventoryTypes);
+            cmbType.FillCombo<InventoryType>(inventoryTypesList, true);
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblBrand.Text = Localizer.LS(LSID.Brand);
@@ -46,53 +47,55 @@ namespace AquaMate.UI.Dialogs
             lblState.Text = Localizer.LS(LSID.State);
         }
 
-        protected override void UpdateView()
+        public override void SetContext(IModel model, Inventory record)
         {
-            if (fRecord != null) {
-                UIHelper.FillStringsCombo(cmbBrand, fModel.QueryInventoryBrands(), fRecord.Brand);
-
-                txtName.Text = fRecord.Name;
-                cmbType.SetSelectedTag(fRecord.Type);
-                txtNote.Text = fRecord.Note;
-
-                UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(fRecord.Type), fRecord.State);
-            }
-        }
-
-        protected override void ApplyChanges()
-        {
-            fRecord.Name = txtName.Text;
-            fRecord.Brand = cmbBrand.Text;
-            fRecord.Type = cmbType.GetSelectedTag<InventoryType>();
-            fRecord.Note = txtNote.Text;
-            fRecord.State = cmbState.GetSelectedTag<ItemState>();
-
-            fRecord.Properties = pgProps.SelectedObject as InventoryProperties;
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
             var invType = cmbType.GetSelectedTag<InventoryType>();
-            UIHelper.FillItemStatesCombo(cmbState, ALCore.GetItemType(invType), fRecord.State);
-            if (invType >= 0) {
-            }
-
-            InventoryProperties props = fRecord.GetProperties(invType, fRecord.RawProperties);
-            if (props != null) {
-                props.SetPropNames();
-            }
-            pgProps.SelectedObject = props;
+            fPresenter.ChangeSelectedType(invType);
         }
+
+        #region View interface implementation
+
+        ITextBoxHandler IInventoryEditorView.NameField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+        }
+
+        IComboBoxHandlerEx IInventoryEditorView.BrandCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbBrand); }
+        }
+
+        IComboBoxHandlerEx IInventoryEditorView.TypeCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbType); }
+        }
+
+        ITextBoxHandler IInventoryEditorView.NoteField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+        }
+
+        IComboBoxHandlerEx IInventoryEditorView.StateCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbState); }
+        }
+
+        IPropertyGridHandler IInventoryEditorView.PropsGrid
+        {
+            get { return GetControlHandler<IPropertyGridHandler>(pgProps); }
+        }
+
+        #endregion
     }
 }

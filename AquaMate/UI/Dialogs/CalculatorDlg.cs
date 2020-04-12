@@ -14,21 +14,21 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class CalculatorDlg : Form, ILocalizable
+    public partial class CalculatorDlg : Form, ICalculatorView, ILocalizable
     {
         private BaseCalculation fCalculation;
+
+        private readonly CalculatorPresenter fPresenter;
 
         public CalculatorDlg()
         {
             InitializeComponent();
 
-            for (CalculationType ct = CalculationType.First; ct <= CalculationType.Last; ct++) {
-                var calcProps = BaseCalculation.CalculationData[(int)ct];
-                cmbType.AddItem<CalculationType>(calcProps.Name, ct);
-            }
+            var namesList = BaseCalculation.GetNamesList<CalculationType>();
+            cmbType.FillCombo<CalculationType>(namesList, false);
             cmbType.SelectedIndex = 0;
 
-            SetLocale();
+            fPresenter = new CalculatorPresenter(this);
         }
 
         public void SetLocale()
@@ -40,6 +40,7 @@ namespace AquaMate.UI.Dialogs
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
             var calcType = cmbType.GetSelectedTag<CalculationType>();
+            fPresenter.ChangeSelectedType(calcType);
 
             if (calcType >= CalculationType.Units_cm2inch && calcType <= CalculationType.Units_ConvGHppm2GHdeg) {
                 fCalculation = new UnitsCalculation(calcType);

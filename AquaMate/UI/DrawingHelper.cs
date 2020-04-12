@@ -46,8 +46,8 @@ namespace AquaMate.UI
 
             if (fSuspendCounter == 0) {
                 Action resume = new Action(() => {
-                    NativeMethods.SendMessage(fOwner.Handle, WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
-                    NativeMethods.RedrawWindow(fOwner.Handle, IntPtr.Zero, IntPtr.Zero, flags);
+                    SendMessage(fOwner.Handle, WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
+                    RedrawWindow(fOwner.Handle, IntPtr.Zero, IntPtr.Zero, flags);
                 });
                 try {
                     resume();
@@ -61,7 +61,7 @@ namespace AquaMate.UI
         {
             try {
                 if (fSuspendCounter == 0) {
-                    Action suspend = new Action(() => NativeMethods.SendMessage(fOwner.Handle, WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero));
+                    Action suspend = new Action(() => SendMessage(fOwner.Handle, WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero));
                     try {
                         suspend();
                     } catch (InvalidOperationException) {
@@ -73,17 +73,11 @@ namespace AquaMate.UI
             }
         }
 
+        [DllImport("user32.dll"), SuppressUnmanagedCodeSecurity]
+        private static extern bool RedrawWindow(IntPtr hWnd, IntPtr lprcUpdate, IntPtr hrgnUpdate, RedrawWindowFlags flags);
 
-        [SuppressUnmanagedCodeSecurity]
-        internal static class NativeMethods
-        {
-            [DllImport("user32.dll")]
-            public static extern bool RedrawWindow(IntPtr hWnd, IntPtr lprcUpdate, IntPtr hrgnUpdate, RedrawWindowFlags flags);
-
-            [DllImport("user32.dll")]
-            public static extern IntPtr SendMessage(IntPtr hWnd, Int32 wMsg, IntPtr wParam, IntPtr lParam);
-        }
-
+        [DllImport("user32.dll"), SuppressUnmanagedCodeSecurity]
+        private static extern IntPtr SendMessage(IntPtr hWnd, Int32 wMsg, IntPtr wParam, IntPtr lParam);
 
         [Flags]
         internal enum RedrawWindowFlags : uint

@@ -8,38 +8,37 @@ using System;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
+using BSLib.Design.MVP;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public class EditDialog<T> : Form, IEditDialog<T> where T : Entity
+    public class EditDialog<TEntity> : Form, ILocalizable, IEditDialog<TEntity>
+        where TEntity : IEntity
     {
-        protected ALModel fModel;
-        protected T fRecord;
+        // TODO: to refactor!
+        protected IModel fModel;
+        protected TEntity fRecord;
 
-
-        public ALModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
-
-        public T Record
-        {
-            get { return fRecord; }
-            set {
-                if (fRecord != value) {
-                    fRecord = value;
-                    UpdateView();
-                }
-            }
-        }
-
+        private readonly ControlsManager fControlsManager;
 
         public EditDialog()
         {
+            fControlsManager = new ControlsManager();
+        }
+
+        protected T GetControlHandler<T>(object control) where T : class, IControl
+        {
+            return fControlsManager.GetControlHandler<T>(control);
+        }
+
+        public virtual void SetContext(IModel model, TEntity record)
+        {
+            // TODO: to refactor!
+            fModel = model;
+            fRecord = record;
         }
 
         public virtual void SetLocale()
@@ -47,17 +46,7 @@ namespace AquaMate.UI.Dialogs
             // dummy
         }
 
-        protected virtual void UpdateView()
-        {
-            // dummy
-        }
-
-        protected virtual void ApplyChanges()
-        {
-            // dummy
-        }
-
-        public bool ShowDialog()
+        public bool ShowModal()
         {
             return (base.ShowDialog() == DialogResult.OK);
         }

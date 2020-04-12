@@ -5,10 +5,11 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
-using AquaMate.Core.Types;
-using AquaMate.UI.Components;
 using AquaMate.Core;
+using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
@@ -19,13 +20,31 @@ namespace AquaMate.UI
     {
         public static void AddItem<T>(this ComboBox comboBox, string text, T tag)
         {
-            comboBox.Items.Add(new ComboItem<T>(text, tag));
+            comboBox.Items.Add(new ListItem<T>(text, tag));
+        }
+
+        public static void FillCombo<T>(this ComboBox comboBox, IEnumerable<ListItem<T>> items, bool sorted)
+        {
+            comboBox.Items.Clear();
+            foreach (var item in items) {
+                comboBox.Items.Add(item);
+            }
+            comboBox.Sorted = sorted;
+        }
+
+        public static void FillCombo(this ComboBox comboBox, IEnumerable<string> items, bool sorted)
+        {
+            comboBox.Items.Clear();
+            foreach (var item in items) {
+                comboBox.Items.Add(item);
+            }
+            comboBox.Sorted = sorted;
         }
 
         public static T GetSelectedTag<T>(this ComboBox comboBox)
         {
             object selectedItem = comboBox.SelectedItem;
-            ComboItem<T> comboItem = (ComboItem<T>)selectedItem;
+            ListItem<T> comboItem = (ListItem<T>)selectedItem;
             T itemTag = (comboItem == null) ? default(T) : comboItem.Tag;
             return itemTag;
         }
@@ -33,7 +52,7 @@ namespace AquaMate.UI
         public static void SetSelectedTag<T>(this ComboBox comboBox, T tagValue)
         {
             foreach (object item in comboBox.Items) {
-                ComboItem<T> comboItem = (ComboItem<T>)item;
+                ListItem<T> comboItem = (ListItem<T>)item;
                 T itemTag = comboItem.Tag;
 
                 if (tagValue.Equals(itemTag)) {
@@ -41,37 +60,25 @@ namespace AquaMate.UI
                     return;
                 }
             }
-            comboBox.SelectedIndex = 0;
-        }
-
-        public static void FillCombo<T>(this ComboBox comboBox, LSID[] names, bool sorted) where T : struct
-        {
-            T[] array = (T[])Enum.GetValues(typeof(T));
-
-            comboBox.Items.Clear();
-            comboBox.Sorted = sorted;
-            foreach (var enm in array) {
-                int eIdx = Convert.ToInt32(enm);
-                comboBox.AddItem<T>(Localizer.LS(names[eIdx]), enm);
-            }
-        }
-
-        public static void FillCombo<T>(this ComboBox comboBox, IProps[] names, bool sorted) where T : struct
-        {
-            T[] array = (T[])Enum.GetValues(typeof(T));
-
-            comboBox.Items.Clear();
-            comboBox.Sorted = sorted;
-            foreach (var enm in array) {
-                int eIdx = Convert.ToInt32(enm);
-                comboBox.AddItem<T>(Localizer.LS(names[eIdx].Name), enm);
-            }
+            //comboBox.SelectedIndex = 0;
         }
 
         public static T GetSelectedTag<T>(this ListView listView) where T : class
         {
-            var selectedItem = UIHelper.GetSelectedItem(listView);
+            var selectedItem = (listView.SelectedItems.Count <= 0) ? null : listView.SelectedItems[0];
             return (selectedItem == null) ? default(T) : selectedItem.Tag as T;
+        }
+
+        public static void SetSelectedItem(this ListView listView, int index)
+        {
+            if (index >= 0 && index < listView.Items.Count) {
+                ListViewItem item = listView.Items[index];
+                if (item != null) {
+                    listView.SelectedIndices.Clear();
+                    item.Selected = true;
+                    item.EnsureVisible();
+                }
+            }
         }
     }
 }

@@ -100,7 +100,7 @@ namespace AquaMate.UI
         {
             var lv = new ListViewTester(name, form);
             //lv.Select(value);
-            UIHelper.SetSelectedItem(lv.Properties, value);
+            lv.Properties.SetSelectedItem(value);
         }
 
         /*public static void EnterNumeric(string name, Form form, int value)

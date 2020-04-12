@@ -13,12 +13,9 @@ namespace AquaMate.UI
     /// <summary>
     /// 
     /// </summary>
-    public interface IEditDialog<T> : IDisposable, ILocalizable where T : Entity
+    public interface IEditDialog<TEntity> : IDisposable, IDialogView, IView<IModel>
+        where TEntity : IEntity
     {
-        ALModel Model { get; set; }
-
-        T Record { get; set; }
-
-        bool ShowDialog();
+        void SetContext(IModel model, TEntity record);
     }
 }

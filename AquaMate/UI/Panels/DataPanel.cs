@@ -25,7 +25,7 @@ namespace AquaMate.UI.Panels
 
         private readonly List<UserAction> fActions;
         protected IBrowser fBrowser;
-        protected ALModel fModel;
+        protected IModel fModel;
 
 
         public List<UserAction> Actions
@@ -39,7 +39,7 @@ namespace AquaMate.UI.Panels
             set { fBrowser = value; }
         }
 
-        public ALModel Model
+        public IModel Model
         {
             get { return fModel; }
             set {

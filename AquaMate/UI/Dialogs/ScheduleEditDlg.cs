@@ -5,21 +5,21 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
-using AquaMate.Logging;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class ScheduleEditDlg : EditDialog<Schedule>
+    public partial class ScheduleEditDlg : EditDialog<Schedule>, IScheduleEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ScheduleEditDlg");
+        private readonly ScheduleEditorPresenter fPresenter;
 
         public ScheduleEditDlg()
         {
@@ -28,7 +28,7 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new ScheduleEditorPresenter(this);
         }
 
         public override void SetLocale()
@@ -37,8 +37,11 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbSchedule.FillCombo<ScheduleType>(ALData.ScheduleTypes, false);
-            cmbStatus.FillCombo<TaskStatus>(ALData.TaskStatuses, false);
+            var scheduleTypesList = ALData.GetNamesList<ScheduleType>(ALData.ScheduleTypes);
+            cmbSchedule.FillCombo<ScheduleType>(scheduleTypesList, false);
+
+            var taskStatusesList = ALData.GetNamesList<TaskStatus>(ALData.TaskStatuses);
+            cmbStatus.FillCombo<TaskStatus>(taskStatusesList, false);
 
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblDate.Text = Localizer.LS(LSID.Date);
@@ -49,45 +52,54 @@ namespace AquaMate.UI.Dialogs
             lblNote.Text = Localizer.LS(LSID.Note);
         }
 
-        protected override void UpdateView()
+        public override void SetContext(IModel model, Schedule record)
         {
-            if (fRecord != null) {
-                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId, true);
-
-                if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
-                    dtpDateTime.Value = fRecord.Timestamp;
-                }
-
-                txtEvent.Text = fRecord.Event;
-                chkReminder.Checked = fRecord.Reminder;
-                cmbSchedule.SetSelectedTag(fRecord.Type);
-                cmbStatus.SetSelectedTag(fRecord.Status);
-                txtNote.Text = fRecord.Note;
-            }
-        }
-
-        protected override void ApplyChanges()
-        {
-            var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
-
-            fRecord.Timestamp = dtpDateTime.Value;
-            fRecord.Event = txtEvent.Text;
-            fRecord.Reminder = chkReminder.Checked;
-            fRecord.Type = cmbSchedule.GetSelectedTag<ScheduleType>();
-            fRecord.Status = cmbStatus.GetSelectedTag<TaskStatus>();
-            fRecord.Note = txtNote.Text;
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
+
+        #region View interface implementation
+
+        IComboBoxHandlerEx IScheduleEditorView.AquariumCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbAquarium); }
+        }
+
+        IDateTimeBoxHandler IScheduleEditorView.TimestampField
+        {
+            get { return GetControlHandler<IDateTimeBoxHandler>(dtpDateTime); }
+        }
+
+        ITextBoxHandler IScheduleEditorView.EventField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtEvent); }
+        }
+
+        ICheckBoxHandler IScheduleEditorView.ReminderCheck
+        {
+            get { return GetControlHandler<ICheckBoxHandler>(chkReminder); }
+        }
+
+        IComboBoxHandlerEx IScheduleEditorView.TypeCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbSchedule); }
+        }
+
+        IComboBoxHandlerEx IScheduleEditorView.StatusCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbStatus); }
+        }
+
+        ITextBoxHandler IScheduleEditorView.NoteField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+        }
+
+        #endregion
     }
 }

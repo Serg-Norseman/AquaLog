@@ -8,17 +8,16 @@ using System;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Logging;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class BrandEditDlg : EditDialog<Brand>
+    public partial class BrandEditDlg : EditDialog<Brand>, IBrandEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "BrandEditDlg");
+        private readonly BrandEditorPresenter fPresenter;
 
         public BrandEditDlg()
         {
@@ -27,7 +26,7 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new BrandEditorPresenter(this);
         }
 
         public override void SetLocale()
@@ -41,33 +40,34 @@ namespace AquaMate.UI.Dialogs
             lblNote.Text = Localizer.LS(LSID.Note);
         }
 
-        protected override void UpdateView()
+        public override void SetContext(IModel model, Brand record)
         {
-            if (fRecord != null) {
-                txtName.Text = fRecord.Name;
-
-                UIHelper.FillStringsCombo(cmbCountry, fModel.QueryBrandCountries(), fRecord.Country);
-
-                txtNote.Text = fRecord.Note;
-            }
-        }
-
-        protected override void ApplyChanges()
-        {
-            fRecord.Name = txtName.Text;
-            fRecord.Country = cmbCountry.Text;
-            fRecord.Note = txtNote.Text;
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
+
+        #region View interface implementation
+
+        ITextBoxHandler IBrandEditorView.NameField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+        }
+
+        IComboBoxHandler IBrandEditorView.CountryCombo
+        {
+            get { return GetControlHandler<IComboBoxHandler>(cmbCountry); }
+        }
+
+        ITextBoxHandler IBrandEditorView.NoteField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+        }
+
+        #endregion
     }
 }

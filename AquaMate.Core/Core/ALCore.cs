@@ -7,6 +7,8 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Imaging;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -39,7 +41,7 @@ namespace AquaMate.Core
 
         public const string AppName = "AquaMate";
 
-        private static readonly NumberFormatInfo SQLITE_NFI = new NumberFormatInfo {
+        public static readonly NumberFormatInfo SQLITE_NFI = new NumberFormatInfo {
             NumberDecimalSeparator = ".",
             NumberGroupSeparator = ""
         };
@@ -257,6 +259,27 @@ namespace AquaMate.Core
 
             cat.SetValue(att, value);
         }
+
+        #region Image helpers
+
+        public static byte[] ImageToByte(Image image, ImageFormat format)
+        {
+            using (MemoryStream ms = new MemoryStream()) {
+                image.Save(ms, format);
+                byte[] imageBytes = ms.ToArray();
+                return imageBytes;
+            }
+        }
+
+        public static Image ByteToImage(byte[] imageBytes)
+        {
+            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
+            ms.Write(imageBytes, 0, imageBytes.Length);
+            Image image = new Bitmap(ms);
+            return image;
+        }
+
+        #endregion
 
         #region Application Runtime
 

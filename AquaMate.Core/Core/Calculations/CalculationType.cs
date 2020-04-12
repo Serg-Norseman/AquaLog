@@ -39,8 +39,5 @@ namespace AquaMate.Core.Calculations
         Units_ConvGHppm2GHdeg,
 
         NitriteSaltCalculator,
-
-        First = Units_cm2inch,
-        Last = NitriteSaltCalculator
     }
 }

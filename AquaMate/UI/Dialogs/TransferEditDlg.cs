@@ -6,22 +6,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
-using AquaMate.Logging;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class TransferEditDlg : EditDialog<Transfer>
+    public partial class TransferEditDlg : EditDialog<Transfer>, ITransferEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "TransferEditDlg");
+        private readonly TransferEditorPresenter fPresenter;
 
         public TransferEditDlg()
         {
@@ -30,7 +28,7 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new TransferEditorPresenter(this);
         }
 
         public override void SetLocale()
@@ -39,7 +37,8 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbType.FillCombo<TransferType>(ALData.TransferTypes, true);
+            var transferTypesList = ALData.GetNamesList<TransferType>(ALData.TransferTypes);
+            cmbType.FillCombo<TransferType>(transferTypesList, true);
 
             lblName.Text = Localizer.LS(LSID.Item);
             lblSource.Text = Localizer.LS(LSID.SourceTank);
@@ -52,98 +51,70 @@ namespace AquaMate.UI.Dialogs
             lblShop.Text = Localizer.LS(LSID.Shop);
         }
 
-        protected override void UpdateView()
+        public override void SetContext(IModel model, Transfer record)
         {
-            if (fRecord != null) {
-                string itName = fModel.GetRecordName(fRecord.ItemType, fRecord.ItemId);
-                txtName.Text = itName;
-
-                if (fRecord.ItemType != ItemType.Aquarium) {
-                    if (fRecord.Id == 0) {
-                        IList<Transfer> lastTransfers = fModel.QueryLastTransfers(fRecord.ItemId, (int)fRecord.ItemType);
-                        if (lastTransfers.Count > 0) {
-                            fRecord.SourceId = lastTransfers[0].TargetId;
-                        }
-                    }
-
-                    cmbTarget.Items.Clear();
-                    var aquariums = fModel.QueryAquariums();
-                    foreach (var aqm in aquariums) {
-                        cmbSource.Items.Add(aqm);
-
-                        if (aqm.Id != fRecord.SourceId) {
-                            cmbTarget.Items.Add(aqm);
-                        }
-                    }
-
-                    cmbSource.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.SourceId);
-                    cmbTarget.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == fRecord.TargetId);
-                } else {
-                    cmbSource.Enabled = false;
-                    cmbTarget.Enabled = false;
-                }
-
-                if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
-                    dtpDate.Value = fRecord.Timestamp;
-                }
-
-                cmbType.SetSelectedTag(fRecord.Type);
-                txtCause.Text = fRecord.Cause;
-
-                UIHelper.FillStringsCombo(cmbShop, fModel.QueryShops(), string.Empty);
-
-                txtQty.Text = fRecord.Quantity.ToString();
-                if (fRecord.Type == TransferType.Purchase || fRecord.Type == TransferType.Sale) {
-                    txtUnitPrice.Text = ALCore.GetDecimalStr(fRecord.UnitPrice);
-                    cmbShop.Text = fRecord.Shop;
-                }
-            }
-        }
-
-        protected override void ApplyChanges()
-        {
-            Aquarium aqm = cmbSource.SelectedItem as Aquarium;
-            fRecord.SourceId = (aqm == null) ? 0 : aqm.Id;
-
-            aqm = cmbTarget.SelectedItem as Aquarium;
-            fRecord.TargetId = (aqm == null) ? 0 : aqm.Id;
-
-            fRecord.Timestamp = dtpDate.Value;
-            fRecord.Type = cmbType.GetSelectedTag<TransferType>();
-            fRecord.Cause = txtCause.Text;
-
-            fRecord.Quantity = (float)ALCore.GetDecimalVal(txtQty.Text);
-            if (fRecord.Type == TransferType.Purchase || fRecord.Type == TransferType.Sale) {
-                fRecord.UnitPrice = (float)ALCore.GetDecimalVal(txtUnitPrice.Text);
-                fRecord.Shop = cmbShop.Text;
-            }
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
             var transferType = cmbType.GetSelectedTag<TransferType>();
-
-            bool ps = transferType == TransferType.Purchase || transferType == TransferType.Sale;
-            txtUnitPrice.Enabled = ps;
-            cmbShop.Enabled = ps;
-            if (ps) {
-                txtUnitPrice.Text = ALCore.GetDecimalStr(fRecord.UnitPrice);
-                cmbShop.Text = fRecord.Shop;
-            } else {
-                txtUnitPrice.Text = "";
-                cmbShop.Text = "";
-            }
+            fPresenter.ChangeSelectedType(transferType);
         }
+
+        #region View interface implementation
+
+        ITextBoxHandler ITransferEditorView.NameField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+        }
+
+        IComboBoxHandlerEx ITransferEditorView.SourceCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbSource); }
+        }
+
+        IComboBoxHandlerEx ITransferEditorView.TargetCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbTarget); }
+        }
+
+        IDateTimeBoxHandler ITransferEditorView.DateField
+        {
+            get { return GetControlHandler<IDateTimeBoxHandler>(dtpDate); }
+        }
+
+        IComboBoxHandlerEx ITransferEditorView.TypeCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbType); }
+        }
+
+        ITextBoxHandler ITransferEditorView.CauseField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtCause); }
+        }
+
+        ITextBoxHandler ITransferEditorView.QuantityField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtQty); }
+        }
+
+        ITextBoxHandler ITransferEditorView.UnitPriceField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtUnitPrice); }
+        }
+
+        IComboBoxHandler ITransferEditorView.ShopCombo
+        {
+            get { return GetControlHandler<IComboBoxHandler>(cmbShop); }
+        }
+
+        #endregion
     }
 }

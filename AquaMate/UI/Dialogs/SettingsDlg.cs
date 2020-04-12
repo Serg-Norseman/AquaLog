@@ -18,14 +18,16 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class SettingsDlg : Form, ILocalizable
+    public partial class SettingsDlg : Form, ISettingsDialogView
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "SettingsDlg");
 
-        private ALModel fModel;
+        private readonly SettingsDialogPresenter fPresenter;
+
+        private IModel fModel;
         private ALSettings fSettings;
 
-        public ALModel Model
+        public IModel Model
         {
             get { return fModel; }
             set { fModel = value; }
@@ -49,6 +51,8 @@ namespace AquaMate.UI.Dialogs
 
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
+
+            fPresenter = new SettingsDialogPresenter(this);
 
             foreach (var locale in Localizer.Locales) {
                 cmbLocale.Items.Add(locale);

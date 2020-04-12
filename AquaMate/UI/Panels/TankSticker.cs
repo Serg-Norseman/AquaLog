@@ -30,7 +30,7 @@ namespace AquaMate.UI.Panels
     public sealed class TankSticker : UserControl
     {
         private Aquarium fAquarium;
-        private ALModel fModel;
+        private IModel fModel;
         private bool fSelected;
         private readonly StringFormat fStrFormat;
         private SolidBrush fTextBrush;
@@ -47,7 +47,7 @@ namespace AquaMate.UI.Panels
             }
         }
 
-        public ALModel Model
+        public IModel Model
         {
             get { return fModel; }
             set { fModel = value; }

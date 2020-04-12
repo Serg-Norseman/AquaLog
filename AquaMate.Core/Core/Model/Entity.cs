@@ -12,7 +12,7 @@ namespace AquaMate.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public abstract class Entity
+    public abstract class Entity : IEntity
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }

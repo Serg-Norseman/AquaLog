@@ -5,16 +5,13 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
-using AquaMate.UI.Components;
 using AquaMate.Core;
-using AquaMate.Core.Model;
-using AquaMate.Core.Types;
+using AquaMate.UI.Components;
 using BSLib.Controls;
 using Microsoft.Win32;
 
@@ -25,7 +22,19 @@ namespace AquaMate.UI
     /// </summary>
     public static class UIHelper
     {
-        #region Action helpers
+        #region Helpers to create controls
+
+        public static ZListView CreateListView(string name)
+        {
+            var listView = new ZListView();
+            listView.Dock = DockStyle.Fill;
+            listView.Name = name;
+            listView.HideSelection = false;
+            listView.LabelEdit = false;
+            listView.FullRowSelect = true;
+            listView.View = View.Details;
+            return listView;
+        }
 
         public static Control AddPanelButton(Panel panel, string actionName, string actionText, Image image, EventHandler handler)
         {
@@ -76,92 +85,6 @@ namespace AquaMate.UI
         }
 
         #endregion
-
-        public static void FillEntitiesCombo(ComboBox comboBox, IEnumerable<Entity> entities, int selectedId, bool sorted = false)
-        {
-            comboBox.Items.Clear();
-            foreach (var ent in entities) {
-                comboBox.Items.Add(ent);
-            }
-            comboBox.Sorted = sorted;
-            comboBox.SelectedItem = entities.FirstOrDefault(ent => ent.Id == selectedId);
-        }
-
-        public static void FillAquariumsCombo(ComboBox comboBox, ALModel model, int selectedId, bool lockSelected = false)
-        {
-            comboBox.Items.Clear();
-            var aquariums = model.QueryAquariums();
-            foreach (var aqm in aquariums) {
-                if (selectedId != 0 || !aqm.IsInactive()) {
-                    comboBox.Items.Add(aqm);
-                }
-            }
-
-            comboBox.SelectedItem = aquariums.FirstOrDefault(aqm => aqm.Id == selectedId);
-
-            if (lockSelected) {
-                comboBox.Enabled = (selectedId == 0);
-            }
-        }
-
-        public static void FillItemStatesCombo(ComboBox comboBox, ItemType itemType, ItemState selectedState)
-        {
-            ItemProps props = ALData.ItemTypes[(int)itemType];
-            comboBox.Items.Clear();
-            for (ItemState state = ItemState.Unknown; state <= ItemState.Broken; state++) {
-                if (state == ItemState.Unknown || props.States.Contains(state)) {
-                    comboBox.AddItem<ItemState>(Localizer.LS(ALData.ItemStates[(int)state]), state);
-                }
-            }
-            comboBox.SetSelectedTag<ItemState>(selectedState);
-        }
-
-        public static void FillStringsCombo(ComboBox comboBox, IList<QString> strings, string selectedText)
-        {
-            comboBox.Sorted = false;
-            comboBox.Items.Clear();
-            foreach (QString bqs in strings) {
-                if (!string.IsNullOrEmpty(bqs.element))
-                    comboBox.Items.Add(bqs.element);
-            }
-            comboBox.Sorted = true;
-            comboBox.Text = selectedText;
-        }
-
-        public static ZListView CreateListView(string name)
-        {
-            var listView = new ZListView();
-            listView.Dock = DockStyle.Fill;
-            listView.Name = name;
-            listView.HideSelection = false;
-            listView.LabelEdit = false;
-            listView.FullRowSelect = true;
-            listView.View = View.Details;
-            return listView;
-        }
-
-        public static ListViewItem GetSelectedItem(ListView listView)
-        {
-            ListViewItem result = (listView.SelectedItems.Count <= 0) ? null : listView.SelectedItems[0];
-            return result;
-        }
-
-        public static void SetSelectedItem(ListView listView, ListViewItem item)
-        {
-            if (item == null) return;
-
-            listView.SelectedIndices.Clear();
-            item.Selected = true;
-            item.EnsureVisible();
-        }
-
-        public static void SetSelectedItem(ListView listView, int index)
-        {
-            if (index >= 0 && index < listView.Items.Count) {
-                ListViewItem item = listView.Items[index];
-                SetSelectedItem(listView, item);
-            }
-        }
 
         public static Color CreateColor(int rgb)
         {
@@ -292,7 +215,7 @@ namespace AquaMate.UI
                 using (FileStream stream = File.Open(fileName, FileMode.Open)) {
                     BinaryReader br = new BinaryReader(stream);
                     byte[] data = br.ReadBytes((int)stream.Length);
-                    image = ALModel.ByteToImage(data);
+                    image = ALCore.ByteToImage(data);
                 }
             }
 

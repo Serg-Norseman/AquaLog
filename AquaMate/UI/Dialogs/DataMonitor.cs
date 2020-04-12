@@ -15,18 +15,22 @@ namespace AquaMate.UI.Dialogs
 {
     public delegate void UpdateDelegate(string text);
 
-    public partial class DataMonitor : Form
+    /// <summary>
+    /// 
+    /// </summary>
+    public partial class DataMonitor : Form, IDataMonitorView
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "DataMonitor");
 
         private IBrowser fBrowser;
 
+        private readonly DataMonitorPresenter fPresenter;
+
         public DataMonitor()
         {
             InitializeComponent();
 
-            Text = Localizer.LS(LSID.DataMonitor);
-            btnSettings.Text = Localizer.LS(LSID.Settings);
+            fPresenter = new DataMonitorPresenter(this);
         }
 
         public DataMonitor(IBrowser browser) : this()
@@ -47,6 +51,12 @@ namespace AquaMate.UI.Dialogs
                 }
             }
             base.Dispose(disposing);
+        }
+
+        public void SetLocale()
+        {
+            Text = Localizer.LS(LSID.DataMonitor);
+            btnSettings.Text = Localizer.LS(LSID.Settings);
         }
 
         private void OnReceivedData(object sender, DataReceivedEventArgs e)

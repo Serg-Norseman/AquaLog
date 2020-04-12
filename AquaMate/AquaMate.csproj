@@ -79,6 +79,9 @@
     <Reference Include="BSLib.DataViz.WFControls">
       <HintPath>..\libs\BSLib.DataViz.WFControls.dll</HintPath>
     </Reference>
+    <Reference Include="BSLib.Design">
+      <HintPath>..\libs\BSLib.Design.dll</HintPath>
+    </Reference>
     <Reference Include="BSLib.Timeline">
       <HintPath>..\libs\BSLib.Timeline.dll</HintPath>
     </Reference>
@@ -118,9 +121,9 @@
     <Compile Include="UI\Components\ImageViewer.cs" />
     <Compile Include="UI\Components\QualityControl.cs" />
     <Compile Include="UI\Components\UserAction.cs" />
-    <Compile Include="UI\Components\ComboItem.cs" />
     <Compile Include="UI\Components\WizardPages.cs" />
     <Compile Include="UI\Components\ZGraphControl.cs" />
+    <Compile Include="UI\ControlHandlers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="UI\Components\ZListView.cs" />
     <Compile Include="UI\Dialogs\AboutDlg.cs" />

@@ -275,9 +275,9 @@ namespace AquaMate.Core
 
     public class EntitiesCache : Cache<EntityKey, Entity>
     {
-        private readonly ALModel fModel;
+        private readonly IModel fModel;
 
-        public EntitiesCache(ALModel model) : base()
+        public EntitiesCache(IModel model) : base()
         {
             fModel = model;
         }

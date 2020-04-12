@@ -7,13 +7,13 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
 using AquaMate.DataCollection;
 using AquaMate.Logging;
 using AquaMate.TSDB;
+using AquaMate.UI;
 using BSLib;
 using SQLite;
 
@@ -22,7 +22,7 @@ namespace AquaMate.Core
     /// <summary>
     /// 
     /// </summary>
-    public class ALModel
+    public class ALModel : IModel
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ALModel");
 
@@ -234,9 +234,20 @@ namespace AquaMate.Core
             return fDB.Query<Aquarium>("select * from Aquarium");
         }
 
-        public IList<QString> QueryAquariumBrands()
+        public IList<ListItem<int>> QueryAquariumsList()
         {
-            return fDB.Query<QString>("select distinct Brand as element from Aquarium");
+            var result = new List<ListItem<int>>();
+            var queryResult = QueryAquariums();
+            foreach (var aqm in queryResult) {
+                result.Add(new ListItem<int>(aqm.Name, aqm.Id));
+            }
+            return result;
+        }
+
+        public IList<string> QueryAquariumBrands()
+        {
+            var queryResult = fDB.Query<QString>("select distinct Brand as element from Aquarium");
+            return ALData.GetStringList(queryResult);
         }
 
         public int QueryInhabitantsCount(int aquariumId)
@@ -438,9 +449,10 @@ namespace AquaMate.Core
             return (species != null && species.Count > 0) ? species[0].Type : SpeciesType.Fish;
         }
 
-        public IList<QString> QuerySpeciesFamilies()
+        public IList<string> QuerySpeciesFamilies()
         {
-            return fDB.Query<QString>("select distinct BioFamily as element from Species");
+            var queryResult = fDB.Query<QString>("select distinct BioFamily as element from Species");
+            return ALData.GetStringList(queryResult);
         }
 
         #endregion
@@ -457,9 +469,10 @@ namespace AquaMate.Core
             return fDB.Query<Device>("select * from Device where AquariumId = ?", aquarium.Id);
         }
 
-        public IList<QString> QueryDeviceBrands()
+        public IList<string> QueryDeviceBrands()
         {
-            return fDB.Query<QString>("select distinct Brand as element from Device");
+            var queryResult = fDB.Query<QString>("select distinct Brand as element from Device");
+            return ALData.GetStringList(queryResult);
         }
 
         #endregion
@@ -471,9 +484,10 @@ namespace AquaMate.Core
             return fDB.Query<Inventory>("select * from Inventory");
         }
 
-        public IList<QString> QueryInventoryBrands()
+        public IList<string> QueryInventoryBrands()
         {
-            return fDB.Query<QString>("select distinct Brand as element from Inventory");
+            var queryResult = fDB.Query<QString>("select distinct Brand as element from Inventory");
+            return ALData.GetStringList(queryResult);
         }
 
         #endregion
@@ -708,9 +722,10 @@ namespace AquaMate.Core
             return fDB.Query<Nutrition>("select * from Nutrition where AquariumId = ?", aquarium.Id);
         }
 
-        public IList<QString> QueryNutritionBrands()
+        public IList<string> QueryNutritionBrands()
         {
-            return fDB.Query<QString>("select distinct Brand as element from Nutrition");
+            var queryResult = fDB.Query<QString>("select distinct Brand as element from Nutrition");
+            return ALData.GetStringList(queryResult);
         }
 
         #endregion
@@ -736,30 +751,10 @@ namespace AquaMate.Core
             return fDB.Query<Brand>("select * from Brand");
         }
 
-        public IList<QString> QueryBrandCountries()
+        public IList<string> QueryBrandCountries()
         {
-            return fDB.Query<QString>("select distinct Country as element from Brand");
-        }
-
-        #endregion
-
-        #region Image helpers
-
-        public static byte[] ImageToByte(Image image, ImageFormat format)
-        {
-            using (MemoryStream ms = new MemoryStream()) {
-                image.Save(ms, format);
-                byte[] imageBytes = ms.ToArray();
-                return imageBytes;
-            }
-        }
-
-        public static Image ByteToImage(byte[] imageBytes)
-        {
-            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
-            ms.Write(imageBytes, 0, imageBytes.Length);
-            Image image = new Bitmap(ms);
-            return image;
+            var queryResult = fDB.Query<QString>("select distinct Country as element from Brand");
+            return ALData.GetStringList(queryResult);
         }
 
         #endregion

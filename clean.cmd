@@ -10,6 +10,10 @@ rmdir .\.vs /s /q
 rmdir .\AquaMate\bin /s /q
 rmdir .\AquaMate\obj /s /q
 
+rmdir .\AquaMateWPF\.vs /s /q
+rmdir .\AquaMateWPF\bin /s /q
+rmdir .\AquaMateWPF\obj /s /q
+
 rmdir .\AquaMate.Core\bin /s /q
 rmdir .\AquaMate.Core\obj /s /q
 

@@ -25,7 +25,7 @@ namespace AquaMate.UI.Components
         private int fCurrentIndex;
         private int fItemId;
         private ItemType fItemType;
-        private ALModel fModel;
+        private IModel fModel;
         private readonly int fPixelSpeed;
         private IList<Snapshot> fSnapshots;
 
@@ -134,7 +134,7 @@ namespace AquaMate.UI.Components
             RedrawButtons();
         }
 
-        public void SetRecord(ALModel model, int itemId, ItemType itemType)
+        public void SetRecord(IModel model, int itemId, ItemType itemType)
         {
             fModel = model;
             fItemId = itemId;
@@ -161,7 +161,7 @@ namespace AquaMate.UI.Components
         private void UpdateImage()
         {
             var record = (fCurrentIndex >= 0 && fCurrentIndex < fSnapshots.Count) ? fSnapshots[fCurrentIndex] : null;
-            fPictureBox.Image = (record == null) ? null : ALModel.ByteToImage(record.Image);
+            fPictureBox.Image = (record == null) ? null : ALCore.ByteToImage(record.Image);
         }
 
         private void btnImageAdd_Click(object sender, EventArgs e)
@@ -169,9 +169,9 @@ namespace AquaMate.UI.Components
             var record = new Snapshot();
 
             using (var dlg = new SnapshotEditDlg()) {
-                dlg.Model = fModel;
-                dlg.Record = record;
-                if (dlg.ShowDialog()) {
+                dlg.SetContext(fModel, record);
+
+                if (dlg.ShowModal()) {
                     record.ItemId = fItemId;
                     record.ItemType = fItemType;
 

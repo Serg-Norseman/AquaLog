@@ -5,22 +5,21 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
-using AquaMate.Logging;
-using AquaMate.TSDB;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class DeviceEditDlg : EditDialog<Device>
+    public partial class DeviceEditDlg : EditDialog<Device>, IDeviceEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "DeviceEditDlg");
+        private readonly DeviceEditorPresenter fPresenter;
 
         public DeviceEditDlg()
         {
@@ -29,7 +28,7 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new DeviceEditorPresenter(this);
         }
 
         public override void SetLocale()
@@ -38,7 +37,8 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbType.FillCombo<DeviceType>(ALData.DeviceProps, true);
+            var deviceTypesList = ALData.GetNamesList<DeviceType>(ALData.DeviceProps);
+            cmbType.FillCombo<DeviceType>(deviceTypesList, true);
 
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblName.Text = Localizer.LS(LSID.Name);
@@ -53,64 +53,80 @@ namespace AquaMate.UI.Dialogs
             lblState.Text = Localizer.LS(LSID.State);
         }
 
-        protected override void UpdateView()
+        public override void SetContext(IModel model, Device record)
         {
-            if (fRecord != null) {
-                UIHelper.FillAquariumsCombo(cmbAquarium, fModel, fRecord.AquariumId);
-
-                UIHelper.FillEntitiesCombo(cmbTSDBPoint, fModel.TSDB.GetPoints(), fRecord.PointId, true);
-
-                UIHelper.FillStringsCombo(cmbBrand, fModel.QueryDeviceBrands(), fRecord.Brand);
-
-                cmbType.SetSelectedTag(fRecord.Type);
-                txtName.Text = fRecord.Name;
-                chkEnabled.Checked = fRecord.Enabled;
-                chkDigital.Checked = fRecord.Digital;
-                txtPower.Text = ALCore.GetDecimalStr(fRecord.Power);
-                txtWorkTime.Text = ALCore.GetDecimalStr(fRecord.WorkTime);
-                txtNote.Text = fRecord.Note;
-
-                UIHelper.FillItemStatesCombo(cmbState, ItemType.Device, fRecord.State);
-            }
-        }
-
-        protected override void ApplyChanges()
-        {
-            var aqm = cmbAquarium.SelectedItem as Aquarium;
-            fRecord.AquariumId = (aqm == null) ? 0 : aqm.Id;
-
-            var pt = cmbTSDBPoint.SelectedItem as TSPoint;
-            fRecord.PointId = (pt == null) ? 0 : pt.Id;
-
-            fRecord.Name = txtName.Text;
-            fRecord.Brand = cmbBrand.Text;
-            fRecord.Enabled = chkEnabled.Checked;
-            fRecord.Digital = chkDigital.Checked;
-            fRecord.Type = cmbType.GetSelectedTag<DeviceType>();
-            fRecord.Power = ALCore.GetDecimalVal(txtPower.Text);
-            fRecord.WorkTime = ALCore.GetDecimalVal(txtWorkTime.Text);
-            fRecord.Note = txtNote.Text;
-            fRecord.State = cmbState.GetSelectedTag<ItemState>();
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
             var deviceType = cmbType.GetSelectedTag<DeviceType>();
-            if (deviceType >= 0) {
-                var props = ALData.DeviceProps[(int)deviceType];
-                cmbTSDBPoint.Enabled = props.HasMeasurements;
-            }
+            fPresenter.ChangeSelectedType(deviceType);
         }
+
+        #region View interface implementation
+
+        IComboBoxHandlerEx IDeviceEditorView.AquariumCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbAquarium); }
+        }
+
+        IComboBoxHandlerEx IDeviceEditorView.TSPointsCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbTSDBPoint); }
+        }
+
+        ITextBoxHandler IDeviceEditorView.NameField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+        }
+
+        IComboBoxHandlerEx IDeviceEditorView.BrandCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbBrand); }
+        }
+
+        ICheckBoxHandler IDeviceEditorView.EnabledCheck
+        {
+            get { return GetControlHandler<ICheckBoxHandler>(chkEnabled); }
+        }
+
+        ICheckBoxHandler IDeviceEditorView.DigitalCheck
+        {
+            get { return GetControlHandler<ICheckBoxHandler>(chkDigital); }
+        }
+
+        IComboBoxHandlerEx IDeviceEditorView.TypeCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbType); }
+        }
+
+        ITextBoxHandler IDeviceEditorView.PowerField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtPower); }
+        }
+
+        ITextBoxHandler IDeviceEditorView.WorkTimeField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtWorkTime); }
+        }
+
+        ITextBoxHandler IDeviceEditorView.NoteField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+        }
+
+        IComboBoxHandlerEx IDeviceEditorView.StateCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbState); }
+        }
+
+        #endregion
     }
 }

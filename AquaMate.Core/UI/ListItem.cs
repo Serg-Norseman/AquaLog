@@ -4,17 +4,17 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-namespace AquaMate.UI.Components
+namespace AquaMate.UI
 {
     /// <summary>
     /// 
     /// </summary>
-    public class ComboItem<T>
+    public class ListItem<T>
     {
         public readonly string Text;
         public readonly T Tag;
 
-        public ComboItem(string text, T tag)
+        public ListItem(string text, T tag)
         {
             Text = text;
             Tag = tag;

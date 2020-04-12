@@ -24,11 +24,21 @@ namespace AquaMate.UI.Dialogs
 
             btnClose.Image = UIHelper.LoadResourceImage("btn_accept.gif");
 
+            SetLocale();
+        }
+
+        public TransfersViewDlg(IModel model, ItemType itemType, int itemId) : this()
+        {
+            UpdateLV(model, itemType, itemId);
+        }
+
+        public void SetLocale()
+        {
             Text = Localizer.LS(LSID.Transfers);
             btnClose.Text = "Close";
         }
 
-        public TransfersViewDlg(ALModel model, ItemType itemType, int itemId) : this()
+        private void UpdateLV(IModel model, ItemType itemType, int itemId)
         {
             listView.BeginUpdate();
 

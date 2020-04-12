@@ -15,12 +15,16 @@ namespace AquaMate.UI
     /// </summary>
     public interface IBrowser
     {
-        ALModel Model { get; }
+        IModel Model { get; }
 
         bool CheckDelete(Entity entity);
+        bool EditTank(ITank tank);
         void SetView(MainView mainView, object extData);
+        void ShowAbout();
         void ShowItemTransfers(ItemType itemType, int itemId);
         void ShowSettings(int tabIndex = 0);
+        bool SwitchAutorun();
+        void SwitchVisible();
         void TransferItem(ItemType itemType, int itemId, IDataPanel view);
     }
 }

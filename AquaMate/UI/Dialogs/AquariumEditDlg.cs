@@ -5,22 +5,21 @@
  */
 
 using System;
-using System.ComponentModel;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
-using AquaMate.Logging;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class AquariumEditDlg : EditDialog<Aquarium>
+    public partial class AquariumEditDlg : EditDialog<Aquarium>, IAquariumEditorView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "AquariumEditDlg");
+        private readonly AquariumEditorPresenter fPresenter;
 
         public AquariumEditDlg()
         {
@@ -29,7 +28,7 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            SetLocale();
+            fPresenter = new AquariumEditorPresenter(this);
         }
 
         public override void SetLocale()
@@ -38,8 +37,11 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            cmbShape.FillCombo<TankShape>(ALData.TankShapes, false);
-            cmbWaterType.FillCombo<AquariumWaterType>(ALData.WaterTypes, false);
+            var tankShapesList = ALData.GetNamesList<TankShape>(ALData.TankShapes);
+            cmbShape.FillCombo<TankShape>(tankShapesList, false);
+
+            var waterTypesList = ALData.GetNamesList<AquariumWaterType>(ALData.WaterTypes);
+            cmbWaterType.FillCombo<AquariumWaterType>(waterTypesList, false);
 
             tabCommon.Text = Localizer.LS(LSID.Common);
             tabTank.Text = Localizer.LS(LSID.Tank);
@@ -63,118 +65,115 @@ namespace AquaMate.UI.Dialogs
             lblBrand.Text = Localizer.LS(LSID.Brand);
         }
 
-        protected override void UpdateView()
+        public override void SetContext(IModel model, Aquarium record)
         {
-            txtName.Text = fRecord.Name;
-            txtDesc.Text = fRecord.Description;
-            cmbShape.SetSelectedTag(fRecord.TankShape);
-            cmbWaterType.SetSelectedTag(fRecord.WaterType);
-            txtTankVolume.Text = ALCore.GetDecimalStr(fRecord.TankVolume);
-            txtUnderfillHeight.Text = ALCore.GetDecimalStr(fRecord.UnderfillHeight);
-            txtSoilHeight.Text = ALCore.GetDecimalStr(fRecord.SoilHeight);
-
-            UIHelper.FillStringsCombo(cmbBrand, fModel.QueryAquariumBrands(), fRecord.Brand);
-
-            dtpStartDate.Checked = !ALCore.IsZeroDate(fRecord.StartDate);
-            if (dtpStartDate.Checked) {
-                dtpStartDate.Value = fRecord.StartDate;
-            }
-
-            dtpStopDate.Checked = !ALCore.IsZeroDate(fRecord.StopDate);
-            if (dtpStopDate.Checked) {
-                dtpStopDate.Value = fRecord.StopDate;
-            }
-        }
-
-        protected override void ApplyChanges()
-        {
-            fRecord.Name = txtName.Text;
-            fRecord.Description = txtDesc.Text;
-            fRecord.TankShape = cmbShape.GetSelectedTag<TankShape>();
-            fRecord.WaterType = cmbWaterType.GetSelectedTag<AquariumWaterType>();
-            fRecord.Brand = cmbBrand.Text;
-
-            fRecord.TankVolume = ALCore.GetDecimalVal(txtTankVolume.Text);
-
-            fRecord.UnderfillHeight = ALCore.GetDecimalVal(txtUnderfillHeight.Text);
-            fRecord.SoilHeight = ALCore.GetDecimalVal(txtSoilHeight.Text);
-
-            fRecord.StartDate = dtpStartDate.Checked ? dtpStartDate.Value : new DateTime(0);
-            fRecord.StopDate = dtpStopDate.Checked ? dtpStopDate.Value : new DateTime(0);
+            base.SetContext(model, record);
+            fPresenter.SetContext(model, record);
         }
 
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
 
         private void cmbShape_SelectedIndexChanged(object sender, EventArgs e)
         {
             var tankShape = cmbShape.GetSelectedTag<TankShape>();
-            RefreshProps(tankShape);
-        }
-
-        private void RefreshProps(TankShape tankShape)
-        {
-            ITank tank = fRecord.GetTank(tankShape, fRecord.TankProperties);
-            TypeDescriptor.AddAttributes(tank, new Attribute[] { new ReadOnlyAttribute(true) });
-            tank.SetPropNames();
-            pgProps.SelectedObject = tank;
-
-            RecalcValues();
+            fPresenter.RefreshProps(tankShape);
         }
 
         private void txtValue_TextChanged(object sender, EventArgs e)
         {
-            RecalcValues();
-        }
-
-        private void RecalcValues()
-        {
-            var tankShape = cmbShape.GetSelectedTag<TankShape>();
-
-            txtTankVolume.Enabled = (tankShape == TankShape.Unknown);
-
-            if (tankShape != TankShape.Unknown) {
-                double tankVolume = fRecord.CalcTankVolume(tankShape);
-                txtTankVolume.Text = ALCore.GetDecimalStr(tankVolume);
-            }
-
-            double underfillHeight = ALCore.GetDecimalVal(txtUnderfillHeight.Text);
-            double soilHeight = ALCore.GetDecimalVal(txtSoilHeight.Text);
-
-            double waterVolume = fRecord.CalcWaterVolume(tankShape, underfillHeight, soilHeight);
-            txtWaterVolume.Text = ALData.CastStr(waterVolume, MeasurementType.Volume);
-
-            double soilVolume = fRecord.CalcSoilVolume(tankShape, soilHeight);
-            txtSoilVolume.Text = ALData.CastStr(soilVolume, MeasurementType.Volume);
-
-            double soilMass = soilVolume * ALData.DefaultSoilDensity;
-            txtSoilMass.Text = ALData.CastStr(soilMass, MeasurementType.Mass);
-
-            double waterMass = waterVolume * ALData.WaterDensity;
-            //txtWaterMass.Text = ALData.CastStr(waterMass, MeasurementType.Mass);
-
-            double totalMass = waterMass + soilMass;
+            fPresenter.RecalcValues();
         }
 
         private void btnTank_Click(object sender, EventArgs e)
         {
             var tankShape = cmbShape.GetSelectedTag<TankShape>();
+            var tank = fRecord.GetTank(tankShape, fRecord.TankProperties);
 
             using (var dlg = new TankEditDlg()) {
-                dlg.Record = fRecord.GetTank(tankShape, fRecord.TankProperties);
-                if (dlg.ShowDialog() == DialogResult.OK) {
-                    fRecord.Tank = dlg.Record;
-                    RefreshProps(tankShape);
+                dlg.SetContext(fModel, tank);
+
+                if (dlg.ShowModal()) {
+                    fRecord.Tank = tank;
+                    fPresenter.RefreshProps(tankShape);
                 }
             }
         }
+
+        #region View interface implementation
+
+        ITextBoxHandler IAquariumEditorView.NameField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+        }
+
+        IComboBoxHandlerEx IAquariumEditorView.BrandCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbBrand); }
+        }
+
+        ITextBoxHandler IAquariumEditorView.DescriptionField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtDesc); }
+        }
+
+        IComboBoxHandlerEx IAquariumEditorView.ShapeCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbShape); }
+        }
+
+        IComboBoxHandlerEx IAquariumEditorView.WaterTypeCombo
+        {
+            get { return GetControlHandler<IComboBoxHandlerEx>(cmbWaterType); }
+        }
+
+        IDateTimeBoxHandler IAquariumEditorView.StartDateField
+        {
+            get { return GetControlHandler<IDateTimeBoxHandler>(dtpStartDate); }
+        }
+
+        IDateTimeBoxHandler IAquariumEditorView.StopDateField
+        {
+            get { return GetControlHandler<IDateTimeBoxHandler>(dtpStopDate); }
+        }
+
+        ITextBoxHandler IAquariumEditorView.TankVolumeField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtTankVolume); }
+        }
+
+        ITextBoxHandler IAquariumEditorView.UnderfillHeightField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtUnderfillHeight); }
+        }
+
+        ITextBoxHandler IAquariumEditorView.SoilHeightField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtSoilHeight); }
+        }
+
+        IPropertyGridHandler IAquariumEditorView.PropsGrid
+        {
+            get { return GetControlHandler<IPropertyGridHandler>(pgProps); }
+        }
+
+        ITextBoxHandler IAquariumEditorView.WaterVolumeField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtWaterVolume); }
+        }
+
+        ITextBoxHandler IAquariumEditorView.SoilVolumeField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtSoilVolume); }
+        }
+
+        ITextBoxHandler IAquariumEditorView.SoilMassField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtSoilMass); }
+        }
+
+        #endregion
     }
 }

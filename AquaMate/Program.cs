@@ -20,12 +20,10 @@ namespace AquaMate
             ALCore.CheckPortable(args);
 
             bool isFirstInstance;
-            using (Mutex mtx = new Mutex(true, "AquaMate", out isFirstInstance)) {
+            using (Mutex mtx = new Mutex(true, ALCore.AppName, out isFirstInstance)) {
                 if (isFirstInstance) {
                     MainForm.AppInit();
-
-                    var mainForm = new MainForm();
-                    Application.Run(mainForm);
+                    Application.Run(new MainForm());
                 }
             }
         }
