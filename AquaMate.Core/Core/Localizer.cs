@@ -577,7 +577,7 @@ namespace AquaMate.Core
         public static void FindLocales()
         {
             try {
-                string path = ALCore.GetLocalesPath();
+                string path = AppHost.GetLocalesPath();
                 if (Directory.Exists(path)) {
                     string[] localeFiles = Directory.GetFiles(path, "*.xml", SearchOption.TopDirectoryOnly);
                     for (int i = 0; i < localeFiles.Length; i++) PrepareLocaleFile(localeFiles[i]);

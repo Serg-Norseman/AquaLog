@@ -68,6 +68,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Core\ALSettings.cs" />
+    <Compile Include="Core\AppHost.cs" />
     <Compile Include="Core\Average.cs" />
     <Compile Include="Core\Cache.cs" />
     <Compile Include="Core\Calculations\BaseCalculation.cs" />

@@ -8,30 +8,30 @@ using System;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Calculations;
+using AquaMate.Core.Model;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class CalculatorDlg : Form, ICalculatorView, ILocalizable
+    public partial class CalculatorDlg : EditDialog<Entity>, ICalculatorView
     {
-        private BaseCalculation fCalculation;
-
         private readonly CalculatorPresenter fPresenter;
 
         public CalculatorDlg()
         {
             InitializeComponent();
 
+            fPresenter = new CalculatorPresenter(this);
+
             var namesList = BaseCalculation.GetNamesList<CalculationType>();
             cmbType.FillCombo<CalculationType>(namesList, false);
             cmbType.SelectedIndex = 0;
-
-            fPresenter = new CalculatorPresenter(this);
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.Calculator);
             btnCalc.Text = Localizer.LS(LSID.Calculate);
@@ -41,31 +41,30 @@ namespace AquaMate.UI.Dialogs
         {
             var calcType = cmbType.GetSelectedTag<CalculationType>();
             fPresenter.ChangeSelectedType(calcType);
-
-            if (calcType >= CalculationType.Units_cm2inch && calcType <= CalculationType.Units_ConvGHppm2GHdeg) {
-                fCalculation = new UnitsCalculation(calcType);
-            } else {
-                switch (calcType) {
-                    case CalculationType.NitriteSaltCalculator:
-                        fCalculation = new SaltCalculation(calcType);
-                        break;
-                }
-            }
-
-            pgArgs.SelectedObject = fCalculation;
-            txtDescription.Text = fCalculation.Description;
-            pgArgs.Refresh();
         }
 
         private void btnCalc_Click(object sender, EventArgs e)
         {
-            fCalculation.Calculate();
-            pgArgs.Refresh();
+            fPresenter.Calculate();
         }
 
         private void CalculatorDlg_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) Close();
         }
+
+        #region View interface implementation
+
+        IPropertyGridHandler ICalculatorView.ArgsGrid
+        {
+            get { return GetControlHandler<IPropertyGridHandler>(pgArgs); }
+        }
+
+        ITextBoxHandler ICalculatorView.DescriptionField
+        {
+            get { return GetControlHandler<ITextBoxHandler>(txtDescription); }
+        }
+
+        #endregion
     }
 }

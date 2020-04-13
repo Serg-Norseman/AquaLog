@@ -19,11 +19,11 @@ namespace AquaMate.UI.Dialogs
         private const int LayoutPadding = 10;
 
         private readonly FlowLayoutPanel fLayoutPanel;
-        private readonly MainForm fMainForm;
+        private readonly IBrowser fBrowser;
         private readonly Font fTextFont;
 
 
-        public NotificationDlg(MainForm mainForm)
+        public NotificationDlg(IBrowser browser)
         {
             SuspendLayout();
 
@@ -38,7 +38,7 @@ namespace AquaMate.UI.Dialogs
             Load += NotificationDlg_Load;
             FormClosing += NotificationDlg_FormClosing;
 
-            fMainForm = mainForm;
+            fBrowser = browser;
             fTextFont = new Font(Font, FontStyle.Bold);
 
             fLayoutPanel = new FlowLayoutPanel();
@@ -78,13 +78,14 @@ namespace AquaMate.UI.Dialogs
         private void Label_Click(object sender, EventArgs e)
         {
             Label lbl = sender as Label;
+            Schedule scheduleRecord = lbl.Tag as Schedule;
 
             fLayoutPanel.Controls.Remove(lbl);
             if (fLayoutPanel.Controls.Count == 0) {
                 Hide();
             }
 
-            fMainForm.AddMaintenance();
+            fBrowser.AddMaintenance(scheduleRecord);
         }
 
         public void Notify(string text, Schedule record)

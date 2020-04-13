@@ -22,8 +22,6 @@ namespace AquaMate.Core
     /// </summary>
     public static class ALCore
     {
-        public static bool TEST_MODE = false;
-
         public const int UpdateInterval = 1000;
 
         public const int NormalState = 0xC0FFFF;
@@ -36,8 +34,6 @@ namespace AquaMate.Core
 
         public const string LOG_FILE = "AquaMate.log";
         public const string LOG_LEVEL = "INFO";
-
-        private static string fAppDataPath = null;
 
         public const string AppName = "AquaMate";
 
@@ -217,17 +213,6 @@ namespace AquaMate.Core
             return result;
         }
 
-        public static void LoadExtFile(string fileName, string args = "")
-        {
-            #if !CI_MODE
-            if (File.Exists(fileName)) {
-                Process.Start(new ProcessStartInfo("file://"+fileName) { UseShellExecute = true, Arguments = args });
-            } else {
-                Process.Start(fileName);
-            }
-            #endif
-        }
-
         public static void SetDisplayNameValue(object obj, string propName, string value)
         {
             SetAttributeValue(obj, propName, typeof(DisplayNameAttribute), "_displayName", value);
@@ -277,99 +262,6 @@ namespace AquaMate.Core
             ms.Write(imageBytes, 0, imageBytes.Length);
             Image image = new Bitmap(ms);
             return image;
-        }
-
-        #endregion
-
-        #region Application Runtime
-
-        private static Assembly GetAssembly()
-        {
-            Assembly asm = Assembly.GetEntryAssembly();
-            if (asm == null) {
-                asm = Assembly.GetExecutingAssembly();
-            }
-            return asm;
-        }
-
-        public static string GetAppPath()
-        {
-            Assembly asm = Assembly.GetEntryAssembly();
-            if (asm == null) {
-                asm = Assembly.GetExecutingAssembly();
-            }
-
-            Module[] mods = asm.GetModules();
-            string fn = mods[0].FullyQualifiedName;
-            return Path.GetDirectoryName(fn) + Path.DirectorySeparatorChar;
-        }
-
-        public static string GetAppCopyright()
-        {
-            var attr = ReflectionHelper.GetAssemblyAttribute<AssemblyCopyrightAttribute>(GetAssembly());
-            return (attr == null) ? string.Empty : attr.Copyright;
-        }
-
-        public static Version GetAppVersion()
-        {
-            return GetAssembly().GetName().Version;
-        }
-
-        public static string GetAppDataPath()
-        {
-            string path;
-
-            if (TEST_MODE) {
-                path = Environment.GetEnvironmentVariable("TEMP") + Path.DirectorySeparatorChar;
-            } else {
-                if (string.IsNullOrEmpty(fAppDataPath)) {
-                    path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
-                        Path.DirectorySeparatorChar + AppName + Path.DirectorySeparatorChar;
-                } else {
-                    path = fAppDataPath;
-                }
-            }
-
-            if (!Directory.Exists(path)) Directory.CreateDirectory(path);
-
-            return path;
-        }
-
-        public static string GetLocalesPath()
-        {
-            string appPath = GetAppPath();
-            return appPath + "locales" + Path.DirectorySeparatorChar;
-        }
-
-        public static void CheckPortable(string[] args)
-        {
-            const string HomeDirArg = "-homedir:";
-            const string LocalAppDataFolder = "appdata\\";
-
-            string appPath = GetAppPath();
-
-            string homedir = "";
-            if (args != null && args.Length > 0) {
-                foreach (var arg in args) {
-                    if (arg.StartsWith(HomeDirArg)) {
-                        homedir = arg.Remove(0, HomeDirArg.Length);
-                    }
-                }
-            }
-
-            if (!string.IsNullOrEmpty(homedir)) {
-                string path = Path.Combine(appPath, homedir);
-                if (Directory.Exists(path)) {
-                    fAppDataPath = Path.Combine(path, LocalAppDataFolder);
-                }
-            }
-
-            if (string.IsNullOrEmpty(fAppDataPath)) {
-                string path = Path.Combine(appPath, LocalAppDataFolder);
-                if (Directory.Exists(path)) {
-                    fAppDataPath = path;
-                }
-            }
         }
 
         #endregion

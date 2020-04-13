@@ -46,7 +46,7 @@ namespace AquaMate.UI.Panels
 
         static BioTreemapPanel()
         {
-            string taxFile = ALCore.GetAppPath() + @"common\taxonomy.csv";
+            string taxFile = AppHost.GetAppPath() + @"common\taxonomy.csv";
             fCSVData = CSVReader.ReadCSVFile(taxFile, Encoding.GetEncoding(1251), true);
         }
 

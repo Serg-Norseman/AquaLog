@@ -38,7 +38,7 @@ namespace AquaMate.UI
             fNotifyIcon.ContextMenu = InitializeMenu();
             fNotifyIcon.Visible = true;
 
-            fAutorunItem.Checked = UIHelper.IsStartupItem();
+            fAutorunItem.Checked = AppHost.IsStartupItem();
 
             fTipsList = new StringList();
 
@@ -111,7 +111,7 @@ namespace AquaMate.UI
 
         private void miAutorun_Click(object sender, EventArgs e)
         {
-            fAutorunItem.Checked = fMainForm.SwitchAutorun();
+            fAutorunItem.Checked = AppHost.SwitchAutorun();
         }
 
         private void miAbout_Click(object sender, EventArgs e)

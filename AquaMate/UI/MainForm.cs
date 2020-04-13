@@ -18,11 +18,10 @@ using AquaMate.UI.Dialogs;
 using AquaMate.UI.Panels;
 using BSLib;
 using BSLib.Controls;
-using BSLib.Design.MVP;
 
 namespace AquaMate.UI
 {
-    public partial class MainForm : Form, IBrowser, ILocalizable
+    public partial class MainForm : Form, IBrowser, IView, ILocalizable
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");
 
@@ -48,13 +47,13 @@ namespace AquaMate.UI
             int XS = 68;
             ClientSize = new Size(XS * 16, XS * 9);
 
-            fModel = new ALModel();
+            fModel = new ALModel(this);
             fNavigationStack = new NavigationStack<DataPanel>();
             fPanels = new Dictionary<Type, DataPanel>();
             fDrawingHelper = new DrawingHelper(this);
             fTray = new ALTray(this);
 
-            ALSettings.Instance.LoadFromFile(Path.Combine(ALCore.GetAppDataPath(), "AquaMate.ini"));
+            ALSettings.Instance.LoadFromFile(Path.Combine(AppHost.GetAppDataPath(), "AquaMate.ini"));
             SetSettings();
             UpdateControls();
 
@@ -93,7 +92,7 @@ namespace AquaMate.UI
                 if (components != null) {
                     components.Dispose();
                 }
-                ALSettings.Instance.SaveToFile(Path.Combine(ALCore.GetAppDataPath(), "AquaMate.ini"));
+                ALSettings.Instance.SaveToFile(Path.Combine(AppHost.GetAppDataPath(), "AquaMate.ini"));
                 fTray.Dispose();
             }
             base.Dispose(disposing);
@@ -179,7 +178,7 @@ namespace AquaMate.UI
             }
         }
 
-        private void Notify(string text, Schedule record)
+        public void Notify(string text, Schedule record)
         {
             if (fNotificationDlg == null) {
                 fNotificationDlg = new NotificationDlg(this);
@@ -187,7 +186,7 @@ namespace AquaMate.UI
             fNotificationDlg.Notify(text, record);
         }
 
-        public void AddMaintenance()
+        public void AddMaintenance(Schedule scheduleRecord)
         {
             Activate();
 
@@ -238,25 +237,18 @@ namespace AquaMate.UI
 
         public void ShowSettings(int tabIndex = 0)
         {
-            try {
-                using (var dlg = new SettingsDlg()) {
-                    dlg.Model = fModel;
-                    dlg.Settings = ALSettings.Instance;
-                    dlg.SelectTab(tabIndex);
-                    if (dlg.ShowDialog() == DialogResult.OK) {
-                        ApplySettings();
-                        fCurrentPanel.UpdateView();
-                    }
-                }
-            } catch (Exception ex) {
-                fLogger.WriteError("ShowSettings()", ex);
-            }
+            WFAppHost.Instance.ShowSettings(fModel, tabIndex);
         }
 
         public void ApplySettings()
         {
             fModel.ApplySettings(ALSettings.Instance);
             ChangeLocale();
+        }
+
+        public void UpdateView()
+        {
+            fCurrentPanel.UpdateView();
         }
 
         public bool CheckDelete(Entity entity)
@@ -296,16 +288,6 @@ namespace AquaMate.UI
                 WindowState = FormWindowState.Normal;
                 Show();
             }
-        }
-
-        public bool SwitchAutorun()
-        {
-            if (UIHelper.IsStartupItem()) {
-                UIHelper.UnregisterStartup();
-            } else {
-                UIHelper.RegisterStartup();
-            }
-            return UIHelper.IsStartupItem();
         }
 
         #region Event handlers
@@ -367,9 +349,7 @@ namespace AquaMate.UI
 
         private void miCalculator_Click(object sender, EventArgs e)
         {
-            using (var dlg = new CalculatorDlg()) {
-                dlg.ShowDialog();
-            }
+            WFAppHost.Instance.ShowCalculator();
         }
 
         #endregion
@@ -544,35 +524,6 @@ namespace AquaMate.UI
         {
             btnPrev.Enabled = fNavigationStack.CanBackward();
             btnNext.Enabled = fNavigationStack.CanForward();
-        }
-
-        #endregion
-
-        #region Application's utilities
-
-        public static void AppInit()
-        {
-            #if NETCOREAPP30
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
-            #endif
-
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            ControlsManager.RegisterHandlerType(typeof(Button), typeof(ButtonHandler));
-            ControlsManager.RegisterHandlerType(typeof(CheckBox), typeof(CheckBoxHandler));
-            ControlsManager.RegisterHandlerType(typeof(ComboBox), typeof(ComboBoxHandler));
-            ControlsManager.RegisterHandlerType(typeof(Label), typeof(LabelHandler));
-            ControlsManager.RegisterHandlerType(typeof(MaskedTextBox), typeof(MaskedTextBoxHandler));
-            ControlsManager.RegisterHandlerType(typeof(NumericUpDown), typeof(NumericBoxHandler));
-            ControlsManager.RegisterHandlerType(typeof(ProgressBar), typeof(ProgressBarHandler));
-            ControlsManager.RegisterHandlerType(typeof(RadioButton), typeof(RadioButtonHandler));
-            ControlsManager.RegisterHandlerType(typeof(TabControl), typeof(TabControlHandler));
-            ControlsManager.RegisterHandlerType(typeof(TextBox), typeof(TextBoxHandler));
-            //ControlsManager.RegisterHandlerType(typeof(TreeView), typeof(TreeViewHandler));
-            //ControlsManager.RegisterHandlerType(typeof(ToolStripMenuItem), typeof(MenuItemHandler));
-            ControlsManager.RegisterHandlerType(typeof(ToolStripComboBox), typeof(ToolStripComboBoxHandler));
-            ControlsManager.RegisterHandlerType(typeof(PropertyGrid), typeof(PropertyGridHandler));
         }
 
         #endregion

@@ -19,6 +19,7 @@ namespace AquaMate.Core
     /// </summary>
     public interface IModel
     {
+        IBrowser Browser { get; }
         EntitiesCache Cache { get; }
         TSDatabase TSDB { get; }
 

@@ -5,8 +5,6 @@
  */
 
 using System;
-using System.Threading;
-using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.UI;
 
@@ -17,15 +15,7 @@ namespace AquaMate
         [STAThread]
         private static void Main(string[] args)
         {
-            ALCore.CheckPortable(args);
-
-            bool isFirstInstance;
-            using (Mutex mtx = new Mutex(true, ALCore.AppName, out isFirstInstance)) {
-                if (isFirstInstance) {
-                    MainForm.AppInit();
-                    Application.Run(new MainForm());
-                }
-            }
+            AppHost.Start<WFAppHost, MainForm>(args);
         }
     }
 }

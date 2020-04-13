@@ -26,11 +26,17 @@ namespace AquaMate.Core
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ALModel");
 
-        private readonly SQLiteConnection fDB;
+        private readonly IBrowser fBrowser;
         private readonly EntitiesCache fCache;
+        private readonly SQLiteConnection fDB;
         private readonly TSDatabase fTSDB;
         private IChannel fChannel;
 
+
+        public IBrowser Browser
+        {
+            get { return fBrowser; }
+        }
 
         public EntitiesCache Cache
         {
@@ -46,11 +52,13 @@ namespace AquaMate.Core
         public event DataReceivedEventHandler ReceivedData;
 
 
-        public ALModel()
+        public ALModel(IBrowser browser)
         {
+            fBrowser = browser;
+
             fTSDB = new TSDatabase();
 
-            var databasePath = Path.Combine(ALCore.GetAppDataPath(), "ALData.db");
+            var databasePath = Path.Combine(AppHost.GetAppDataPath(), "ALData.db");
             fDB = new SQLiteConnection(databasePath);
 
             fDB.CreateTable<Aquarium>();

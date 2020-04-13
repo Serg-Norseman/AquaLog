@@ -90,16 +90,7 @@ namespace AquaMate.UI.Dialogs
         private void btnTank_Click(object sender, EventArgs e)
         {
             var tankShape = cmbShape.GetSelectedTag<TankShape>();
-            var tank = fRecord.GetTank(tankShape, fRecord.TankProperties);
-
-            using (var dlg = new TankEditDlg()) {
-                dlg.SetContext(fModel, tank);
-
-                if (dlg.ShowModal()) {
-                    fRecord.Tank = tank;
-                    fPresenter.RefreshProps(tankShape);
-                }
-            }
+            fPresenter.EditTank(tankShape);
         }
 
         #region View interface implementation

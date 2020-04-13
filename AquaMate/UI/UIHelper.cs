@@ -13,7 +13,6 @@ using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.UI.Components;
 using BSLib.Controls;
-using Microsoft.Win32;
 
 namespace AquaMate.UI
 {
@@ -232,39 +231,6 @@ namespace AquaMate.UI
                 return;
 
             image.Save(fileName);
-        }
-
-        #endregion
-
-        #region Application's autorun
-
-        public static void RegisterStartup()
-        {
-            if (!IsStartupItem()) {
-                RegistryKey rkApp = GetRunKey();
-                string trayPath = ALCore.GetAppPath() + "AquaMate.exe";
-                rkApp.SetValue(ALCore.AppName, trayPath);
-            }
-        }
-
-        public static void UnregisterStartup()
-        {
-            if (IsStartupItem()) {
-                RegistryKey rkApp = GetRunKey();
-                rkApp.DeleteValue(ALCore.AppName, false);
-            }
-        }
-
-        public static bool IsStartupItem()
-        {
-            RegistryKey rkApp = GetRunKey();
-            return (rkApp.GetValue(ALCore.AppName) != null);
-        }
-
-        private static RegistryKey GetRunKey()
-        {
-            RegistryKey rkApp = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
-            return rkApp;
         }
 
         #endregion

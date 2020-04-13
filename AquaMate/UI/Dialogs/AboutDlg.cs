@@ -24,15 +24,15 @@ namespace AquaMate.UI.Dialogs
             Text = Localizer.LS(LSID.About);
             btnClose.Text = "Close";
             lblProduct.Text = ALCore.AppName;
-            lblVersion.Text = @"Version " + ALCore.GetAppVersion();
-            lblCopyright.Text = ALCore.GetAppCopyright();
+            lblVersion.Text = @"Version " + AppHost.GetAppVersion();
+            lblCopyright.Text = AppHost.GetAppCopyright();
         }
 
         private void LabelMail_Click(object sender, EventArgs e)
         {
             Label lbl = sender as Label;
             if (lbl != null) {
-                ALCore.LoadExtFile(lbl.Text);
+                AppHost.LoadExtFile(lbl.Text);
             }
         }
     }

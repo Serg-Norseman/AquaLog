@@ -16,21 +16,21 @@ namespace AquaMate.Core
         [Test]
         public void Test_ctor()
         {
-            var instance = new ALModel();
+            var instance = new ALModel(null);
             Assert.IsNotNull(instance);
         }
 
         [Test]
         public void Test_CleanSpace()
         {
-            var instance = new ALModel();
+            var instance = new ALModel(null);
             instance.CleanSpace();
         }
 
         [Test]
         public void Test_AddRecord()
         {
-            var instance = new ALModel();
+            var instance = new ALModel(null);
 
             var aqm = new Aquarium();
 
@@ -41,7 +41,7 @@ namespace AquaMate.Core
         [Test]
         public void Test_UpdateRecord()
         {
-            var instance = new ALModel();
+            var instance = new ALModel(null);
 
             var aqm = new Aquarium();
             aqm.Name = "test aquarium";
@@ -58,7 +58,7 @@ namespace AquaMate.Core
         [Test]
         public void Test_CollectData()
         {
-            var instance = new ALModel();
+            var instance = new ALModel(null);
 
             instance.CollectData(null);
 

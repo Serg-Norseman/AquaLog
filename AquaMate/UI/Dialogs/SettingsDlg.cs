@@ -129,7 +129,7 @@ namespace AquaMate.UI.Dialogs
                 cmbPort.Text = fSettings.ChannelParameters;
             }
 
-            chkAutorun.Checked = UIHelper.IsStartupItem();
+            chkAutorun.Checked = AppHost.IsStartupItem();
         }
 
         private void ApplyChanges()
@@ -151,9 +151,9 @@ namespace AquaMate.UI.Dialogs
             fSettings.ChannelParameters = cmbPort.Text;
 
             if (chkAutorun.Checked) {
-                UIHelper.RegisterStartup();
+                AppHost.RegisterStartup();
             } else {
-                UIHelper.UnregisterStartup();
+                AppHost.UnregisterStartup();
             }
         }
 
@@ -166,6 +166,11 @@ namespace AquaMate.UI.Dialogs
                 fLogger.WriteError("ApplyChanges()", ex);
                 DialogResult = DialogResult.None;
             }
+        }
+
+        public bool ShowModal()
+        {
+            return (base.ShowDialog() == DialogResult.OK);
         }
 
         public void SelectTab(int tabIndex)

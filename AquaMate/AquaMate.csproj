@@ -247,6 +247,7 @@
     <Compile Include="UI\Panels\TSValuePanel.cs" />
     <Compile Include="UI\UIExtensions.cs" />
     <Compile Include="UI\UIHelper.cs" />
+    <Compile Include="UI\WFAppHost.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

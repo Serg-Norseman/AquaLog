@@ -9,18 +9,24 @@ using AquaMate.Core;
 
 namespace AquaMate.UI
 {
-    public interface IView : ILocalizable
+    public interface IView : IDisposable, ILocalizable
     {
     }
 
 
     public interface IView<TModel> : IView
-        where TModel : IModel
+        //where TModel : IModel
     {
     }
 
 
-    public interface IDialogView : IView
+    public interface IFormView<TModel> : IView<TModel/*, IFormView<TModel>*/>, ILocalizable
+        //where TModel : IModel
+    {
+    }
+
+
+    public interface IDialogView<TModel> : IFormView<TModel>
     {
         /// <summary>
         /// DialogResult ShowDialog() [WinForms], bool? ShowDialog() [WPF]

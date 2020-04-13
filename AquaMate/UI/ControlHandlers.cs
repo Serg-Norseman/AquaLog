@@ -363,6 +363,11 @@ namespace AquaMate.UI
             get { return Control.SelectedObject; }
             set { Control.SelectedObject = value; }
         }
+
+        public void Refresh()
+        {
+            Control.Refresh();
+        }
     }
 
     public sealed class PictureBoxHandler : BaseControlHandler<PictureBox, PictureBoxHandler>, IPictureBoxHandler

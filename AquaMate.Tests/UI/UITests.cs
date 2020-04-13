@@ -21,7 +21,7 @@ namespace AquaMate.UI
         public override void Setup()
         {
             base.Setup();
-            ALCore.TEST_MODE = true;
+            AppHost.TEST_MODE = true;
         }
 
         public void AboutDlg_Handler()
@@ -32,6 +32,10 @@ namespace AquaMate.UI
         [Test]
         public void Test_Common()
         {
+            AppHost.InitInstance<WFAppHost>();
+            WFAppHost.RegisterControlHandlers();
+            WFAppHost.RegisterViews();
+
             fMainWin = new MainForm();
 
             ExpectModal("AboutDlg", "AboutDlg_Handler");
@@ -77,6 +81,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_TanksPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnTanks", fMainWin);
@@ -116,6 +122,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_InhabitantsPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnInhabitants", fMainWin);
@@ -141,6 +149,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_SpeciesPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnSpecies", fMainWin);
@@ -176,6 +186,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_NutritionPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnNutrition", fMainWin);
@@ -208,6 +220,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_DevicesPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnDevices", fMainWin);
@@ -240,6 +254,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_InventoryPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnInventory", fMainWin);
@@ -272,6 +288,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_MaintenancePanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnMaintenance", fMainWin);
@@ -293,6 +311,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_NotesPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnNotes", fMainWin);
@@ -314,6 +334,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_MeasuresPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnMeasures", fMainWin);
@@ -337,6 +359,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_SchedulePanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnSchedule", fMainWin);
@@ -358,6 +382,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_TransfersPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnTransfers", fMainWin);
@@ -379,6 +405,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_BudgetPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnBudget", fMainWin);
@@ -407,6 +435,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_BrandPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnBudget", fMainWin);
@@ -421,6 +451,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_SnapshotPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnSnapshots", fMainWin);
@@ -434,6 +466,8 @@ namespace AquaMate.UI
         [Test]
         public void Test_TSDBPanel()
         {
+            WFAppHost.RegisterControlHandlers();
+
             fMainWin = new MainForm();
 
             ClickToolStripButton("btnTSDB", fMainWin);

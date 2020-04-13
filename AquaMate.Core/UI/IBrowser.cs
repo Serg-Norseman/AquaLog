@@ -17,14 +17,17 @@ namespace AquaMate.UI
     {
         IModel Model { get; }
 
+        void AddMaintenance(Schedule scheduleRecord);
+        void ApplySettings();
         bool CheckDelete(Entity entity);
         bool EditTank(ITank tank);
+        void Notify(string text, Schedule record);
         void SetView(MainView mainView, object extData);
         void ShowAbout();
         void ShowItemTransfers(ItemType itemType, int itemId);
         void ShowSettings(int tabIndex = 0);
-        bool SwitchAutorun();
         void SwitchVisible();
         void TransferItem(ItemType itemType, int itemId, IDataPanel view);
+        void UpdateView();
     }
 }

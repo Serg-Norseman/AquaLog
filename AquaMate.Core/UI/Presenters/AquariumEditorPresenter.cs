@@ -125,5 +125,16 @@ namespace AquaMate.UI
 
             double totalMass = waterMass + soilMass;
         }
+
+        public void EditTank(TankShape tankShape)
+        {
+            var tank = fRecord.GetTank(tankShape, fRecord.TankProperties);
+
+            IBrowser browser = fModel.Browser;
+            if (browser.EditTank(tank)) {
+                fRecord.Tank = tank;
+                RefreshProps(tankShape);
+            }
+        }
     }
 }

@@ -22,8 +22,7 @@ namespace AquaMate.UI.Dialogs
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "DataMonitor");
 
-        private IBrowser fBrowser;
-
+        private readonly IBrowser fBrowser;
         private readonly DataMonitorPresenter fPresenter;
 
         public DataMonitor()

@@ -106,7 +106,7 @@
     <Compile Include="TSDB\TSDatabaseTests.cs" />
     <Compile Include="TSDB\TSValueTests.cs" />
     <Compile Include="UI\CustomFormTest.cs" />
-    <Compile Include="UI\UINewTests.cs" />
+    <Compile Include="UI\UIPresentersTests.cs" />
     <Compile Include="UI\UITests.cs" />
   </ItemGroup>
   <ItemGroup>

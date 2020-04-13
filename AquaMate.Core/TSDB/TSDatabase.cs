@@ -29,7 +29,7 @@ namespace AquaMate.TSDB
         {
             fCompressionCache = new Dictionary<int, SDCompression>();
 
-            var databasePath = Path.Combine(ALCore.GetAppDataPath(), "ALTSDB.db");
+            var databasePath = Path.Combine(AppHost.GetAppDataPath(), "ALTSDB.db");
             fDB = new SQLiteConnection(databasePath);
             fDB.CreateTable<TSPoint>();
         }

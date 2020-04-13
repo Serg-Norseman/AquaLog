@@ -14,5 +14,7 @@ namespace AquaMate.UI
     public interface IPropertyGridHandler : IBaseControl
     {
         object SelectedObject { get; set; }
+
+        void Refresh();
     }
 }

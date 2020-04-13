@@ -13,7 +13,7 @@ namespace AquaMate.UI
     /// <summary>
     /// 
     /// </summary>
-    public interface IEditDialog<TEntity> : IDisposable, IDialogView, IView<IModel>
+    public interface IEditDialog<TEntity> : IDialogView<IModel>
         where TEntity : IEntity
     {
         void SetContext(IModel model, TEntity record);

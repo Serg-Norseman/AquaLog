@@ -215,7 +215,7 @@ namespace AquaMate.UI.Panels
 
             RTFLogBook.Generate(fModel, record, fileName);
 
-            ALCore.LoadExtFile(fileName);
+            AppHost.LoadExtFile(fileName);
         }
 
         private void btnM3DViewer_Click(object sender, EventArgs e)

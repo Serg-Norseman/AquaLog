@@ -11,8 +11,12 @@ using BSLib;
 
 namespace AquaMate.UI
 {
-    public interface ISettingsDialogView : IView
+    public interface ISettingsDialogView : IDialogView<IModel>
     {
+        IModel Model { get; set; }
+        ALSettings Settings { get; set; }
+
+        void SelectTab(int tabIndex);
     }
 
 

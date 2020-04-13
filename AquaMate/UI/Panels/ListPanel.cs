@@ -114,7 +114,7 @@ namespace AquaMate.UI.Panels
                     return;
             }
 
-            ALCore.LoadExtFile(fileName);
+            AppHost.LoadExtFile(fileName);
         }
     }
 
