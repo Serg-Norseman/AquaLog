@@ -4,12 +4,14 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using AquaMate.Core;
+
 namespace AquaMate.UI
 {
     /// <summary>
     /// 
     /// </summary>
-    public interface IDataPanel
+    public interface IDataPanel : ILocalizable
     {
         void UpdateContent();
     }

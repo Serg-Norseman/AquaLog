@@ -5,10 +5,10 @@
  */
 
 using System.Collections.Generic;
-using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.UI.Dialogs;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Panels
 {
@@ -23,32 +23,8 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 120, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Event), 100, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Reminder), 80, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Type), 80, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Status), 80, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Note), 250, HorizontalAlignment.Left);
-
-            var records = fModel.QuerySchedule();
-            foreach (Schedule rec in records) {
-                Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
-                string aqmName = (aqm == null) ? "" : aqm.Name;
-                string strType = Localizer.LS(ALData.ScheduleTypes[(int)rec.Type]);
-                string strStatus = Localizer.LS(ALData.TaskStatuses[(int)rec.Status]);
-
-                var item = ListView.AddItemEx(rec,
-                               aqmName,
-                               ALCore.GetTimeStr(rec.Timestamp),
-                               rec.Event,
-                               rec.Reminder.ToString(),
-                               strType,
-                               strStatus,
-                               rec.Note
-                           );
-            }
+            var lv = GetControlHandler<IListView>(ListView);
+            ModelPresenter.FillScheduleLV(lv, fModel);
         }
 
         protected override void InitActions()

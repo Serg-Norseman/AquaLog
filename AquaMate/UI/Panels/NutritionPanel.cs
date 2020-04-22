@@ -6,12 +6,11 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
 using AquaMate.UI.Dialogs;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Panels
 {
@@ -43,30 +42,8 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Amount), 100, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.Note), 80, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
-
-            var records = fModel.QueryNutritions();
-            foreach (Nutrition rec in records) {
-                ItemState itemState;
-                string strState = fModel.GetItemStateStr(rec.Id, ItemType.Nutrition, out itemState);
-
-                var item = ListView.AddItemEx(rec,
-                               rec.Name,
-                               rec.Brand,
-                               ALCore.GetDecimalStr(rec.Amount),
-                               rec.Note,
-                               strState
-                           );
-
-                if (itemState == ItemState.Finished) {
-                    item.ForeColor = Color.Gray;
-                }
-            }
+            var lv = GetControlHandler<IListView>(ListView);
+            ModelPresenter.FillNutritionsLV(lv, fModel);
         }
 
         private void TransferHandler(object sender, EventArgs e)

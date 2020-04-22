@@ -8,6 +8,7 @@ using System;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
@@ -48,9 +49,9 @@ namespace AquaMate.UI.Dialogs
 
         #region View interface implementation
 
-        IPropertyGridHandler ITankEditorView.PropsGrid
+        IPropertyGrid ITankEditorView.PropsGrid
         {
-            get { return GetControlHandler<IPropertyGridHandler>(pgProps); }
+            get { return GetControlHandler<IPropertyGrid>(pgProps); }
         }
 
         #endregion

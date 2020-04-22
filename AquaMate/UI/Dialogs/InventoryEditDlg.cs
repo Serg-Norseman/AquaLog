@@ -5,11 +5,9 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Core.Types;
 using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
@@ -37,8 +35,8 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            var inventoryTypesList = ALData.GetNamesList<InventoryType>(ALData.InventoryTypes);
-            cmbType.FillCombo<InventoryType>(inventoryTypesList, true);
+            tabCommon.Text = Localizer.LS(LSID.Common);
+            tabTransfers.Text = Localizer.LS(LSID.Transfers);
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblBrand.Text = Localizer.LS(LSID.Brand);
@@ -60,40 +58,47 @@ namespace AquaMate.UI.Dialogs
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var invType = cmbType.GetSelectedTag<InventoryType>();
-            fPresenter.ChangeSelectedType(invType);
+            fPresenter.ChangeSelectedType();
+        }
+
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl.SelectedIndex == 1) {
+                var lv = GetControlHandler<IListView>(lvTransfers);
+                ModelPresenter.FillTransfersLV(lv, fModel, fRecord);
+            }
         }
 
         #region View interface implementation
 
-        ITextBoxHandler IInventoryEditorView.NameField
+        ITextBox IInventoryEditorView.NameField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+            get { return GetControlHandler<ITextBox>(txtName); }
         }
 
-        IComboBoxHandlerEx IInventoryEditorView.BrandCombo
+        IComboBox IInventoryEditorView.BrandCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbBrand); }
+            get { return GetControlHandler<IComboBox>(cmbBrand); }
         }
 
-        IComboBoxHandlerEx IInventoryEditorView.TypeCombo
+        IComboBox IInventoryEditorView.TypeCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbType); }
+            get { return GetControlHandler<IComboBox>(cmbType); }
         }
 
-        ITextBoxHandler IInventoryEditorView.NoteField
+        ITextBox IInventoryEditorView.NoteField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+            get { return GetControlHandler<ITextBox>(txtNote); }
         }
 
-        IComboBoxHandlerEx IInventoryEditorView.StateCombo
+        IComboBox IInventoryEditorView.StateCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbState); }
+            get { return GetControlHandler<IComboBox>(cmbState); }
         }
 
-        IPropertyGridHandler IInventoryEditorView.PropsGrid
+        IPropertyGrid IInventoryEditorView.PropsGrid
         {
-            get { return GetControlHandler<IPropertyGridHandler>(pgProps); }
+            get { return GetControlHandler<IPropertyGrid>(pgProps); }
         }
 
         #endregion

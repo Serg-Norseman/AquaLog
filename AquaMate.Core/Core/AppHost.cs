@@ -13,6 +13,7 @@ using System.Threading;
 using AquaMate.Logging;
 using AquaMate.UI;
 using BSLib;
+using BSLib.Design.Graphics;
 using BSLib.Design.IoC;
 using Microsoft.Win32;
 
@@ -31,6 +32,7 @@ namespace AquaMate.Core
         private static string fAppDataPath = null;
         private static AppHost fInstance;
         private static IocContainer fIocContainer;
+        private static IGraphicsProvider fGfxProvider;
 
 
         public static AppHost Instance
@@ -46,6 +48,16 @@ namespace AquaMate.Core
         public static IocContainer Container
         {
             get { return fIocContainer; }
+        }
+
+        public static IGraphicsProvider GfxProvider
+        {
+            get {
+                if (fGfxProvider == null) {
+                    fGfxProvider = fIocContainer.Resolve<IGraphicsProvider>();
+                }
+                return fGfxProvider;
+            }
         }
 
 
@@ -87,7 +99,6 @@ namespace AquaMate.Core
         {
             try {
                 using (var dlg = ResolveDialog<ISettingsDialogView>()) {
-                    dlg.Model = model;
                     dlg.Settings = ALSettings.Instance;
                     dlg.SelectTab(tabIndex);
 
@@ -102,6 +113,26 @@ namespace AquaMate.Core
             } catch (Exception ex) {
                 fLogger.WriteError("ShowSettings()", ex);
             }
+        }
+
+        public virtual byte[] ImageToByte(IImage image)
+        {
+            return null;
+        }
+
+        public virtual IImage ByteToImage(byte[] imageBytes)
+        {
+            return null;
+        }
+
+        public virtual IImage LoadImage()
+        {
+            return null;
+        }
+
+        public virtual void SaveImage(IImage image)
+        {
+            // dummy
         }
 
         private static T CreateInstance<T>() where T : AppHost

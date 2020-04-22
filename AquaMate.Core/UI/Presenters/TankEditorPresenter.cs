@@ -9,12 +9,13 @@ using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Logging;
 using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
     public interface ITankEditorView : IView
     {
-        IPropertyGridHandler PropsGrid { get; }
+        IPropertyGrid PropsGrid { get; }
     }
 
 

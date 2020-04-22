@@ -18,12 +18,12 @@ namespace AquaMate.UI
 {
     public interface IInhabitantEditorView : IView
     {
-        IComboBoxHandlerEx SpeciesCombo { get; }
-        ITextBoxHandler NameField { get; }
-        ITextBoxHandler NoteField { get; }
-        ILabelHandler SexLabel { get; }
-        IComboBoxHandlerEx SexCombo { get; }
-        IComboBoxHandlerEx StateCombo { get; }
+        IComboBox SpeciesCombo { get; }
+        ITextBox NameField { get; }
+        ITextBox NoteField { get; }
+        ILabel SexLabel { get; }
+        IComboBox SexCombo { get; }
+        IComboBox StateCombo { get; }
 
         void SetImage(ItemType itemType, int itemId);
     }
@@ -39,6 +39,8 @@ namespace AquaMate.UI
 
         public InhabitantEditorPresenter(IInhabitantEditorView view) : base(view)
         {
+            var sexNamesList = ALData.GetNamesList<Sex>(ALData.SexNames);
+            fView.SexCombo.AddRange<Sex>(sexNamesList, false);
         }
 
         public override void UpdateView()
@@ -97,8 +99,11 @@ namespace AquaMate.UI
             }
         }
 
-        public void ChangeSelectedSpecies(Species species)
+        public void ChangeSelectedSpecies()
         {
+            int speciesId = fView.SpeciesCombo.GetSelectedTag<int>();
+            Species species = fModel.GetRecord<Species>(speciesId);
+
             bool itemIsNull = (species == null);
 
             if (!itemIsNull) {

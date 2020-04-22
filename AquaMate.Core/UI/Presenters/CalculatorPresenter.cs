@@ -15,8 +15,9 @@ namespace AquaMate.UI
 {
     public interface ICalculatorView : IDialogView<IModel>
     {
-        IPropertyGridHandler ArgsGrid { get; }
-        ITextBoxHandler DescriptionField { get; }
+        IComboBox TypeCombo { get; }
+        IPropertyGrid ArgsGrid { get; }
+        ITextBox DescriptionField { get; }
     }
 
 
@@ -31,14 +32,19 @@ namespace AquaMate.UI
 
         public CalculatorPresenter(ICalculatorView view) : base(view)
         {
+            var namesList = BaseCalculation.GetNamesList<CalculationType>();
+            fView.TypeCombo.AddRange<CalculationType>(namesList, false);
+            fView.TypeCombo.SetSelectedTag<CalculationType>(CalculationType.Units_cm2inch);
         }
 
         public override void UpdateView()
         {
         }
 
-        public void ChangeSelectedType(CalculationType calcType)
+        public void ChangeSelectedType()
         {
+            CalculationType calcType = fView.TypeCombo.GetSelectedTag<CalculationType>();
+
             if (calcType >= CalculationType.Units_cm2inch && calcType <= CalculationType.Units_ConvGHppm2GHdeg) {
                 fCalculation = new UnitsCalculation(calcType);
             } else {

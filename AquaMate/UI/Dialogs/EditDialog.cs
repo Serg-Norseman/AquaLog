@@ -8,30 +8,21 @@ using System;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using BSLib.Design.MVP;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public class EditDialog<TEntity> : Form, ILocalizable, IEditDialog<TEntity>
+    public class EditDialog<TEntity> : CommonForm, IEditDialog<TEntity>
         where TEntity : IEntity
     {
         // TODO: to refactor!
         protected IModel fModel;
         protected TEntity fRecord;
 
-        private readonly ControlsManager fControlsManager;
-
-        public EditDialog()
+        public EditDialog() : base()
         {
-            fControlsManager = new ControlsManager();
-        }
-
-        protected T GetControlHandler<T>(object control) where T : class, IControl
-        {
-            return fControlsManager.GetControlHandler<T>(control);
         }
 
         public virtual void SetContext(IModel model, TEntity record)

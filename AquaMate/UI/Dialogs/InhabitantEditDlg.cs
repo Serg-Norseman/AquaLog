@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
@@ -37,9 +36,6 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            var sexNamesList = ALData.GetNamesList<Sex>(ALData.SexNames);
-            cmbSex.FillCombo<Sex>(sexNamesList, false);
-
             lblName.Text = Localizer.LS(LSID.Name);
             lblNote.Text = Localizer.LS(LSID.Note);
             lblSpecies.Text = Localizer.LS(LSID.SpeciesS);
@@ -60,41 +56,39 @@ namespace AquaMate.UI.Dialogs
 
         private void cmbSpecies_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int speciesId = cmbSpecies.GetSelectedTag<int>();
-            var species = fModel.GetRecord<Species>(speciesId);
-            fPresenter.ChangeSelectedSpecies(species);
+            fPresenter.ChangeSelectedSpecies();
         }
 
         #region View interface implementation
 
-        IComboBoxHandlerEx IInhabitantEditorView.SpeciesCombo
+        IComboBox IInhabitantEditorView.SpeciesCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbSpecies); }
+            get { return GetControlHandler<IComboBox>(cmbSpecies); }
         }
 
-        ITextBoxHandler IInhabitantEditorView.NameField
+        ITextBox IInhabitantEditorView.NameField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+            get { return GetControlHandler<ITextBox>(txtName); }
         }
 
-        ITextBoxHandler IInhabitantEditorView.NoteField
+        ITextBox IInhabitantEditorView.NoteField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+            get { return GetControlHandler<ITextBox>(txtNote); }
         }
 
-        ILabelHandler IInhabitantEditorView.SexLabel
+        ILabel IInhabitantEditorView.SexLabel
         {
-            get { return GetControlHandler<ILabelHandler>(lblSex); }
+            get { return GetControlHandler<ILabel>(lblSex); }
         }
 
-        IComboBoxHandlerEx IInhabitantEditorView.SexCombo
+        IComboBox IInhabitantEditorView.SexCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbSex); }
+            get { return GetControlHandler<IComboBox>(cmbSex); }
         }
 
-        IComboBoxHandlerEx IInhabitantEditorView.StateCombo
+        IComboBox IInhabitantEditorView.StateCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbState); }
+            get { return GetControlHandler<IComboBox>(cmbState); }
         }
 
         void IInhabitantEditorView.SetImage(ItemType itemType, int itemId)

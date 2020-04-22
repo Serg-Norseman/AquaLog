@@ -89,7 +89,7 @@ namespace AquaMate.Core
         IList<string> QueryNutritionBrands();
 
         IList<Transfer> QueryExpenses();
-        IList<QString> QueryShops();
+        IList<string> QueryShops();
 
         IList<Brand> QueryBrands();
         IList<string> QueryBrandCountries();

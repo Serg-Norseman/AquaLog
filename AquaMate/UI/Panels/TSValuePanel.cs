@@ -5,10 +5,10 @@
  */
 
 using System;
-using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.TSDB;
 using AquaMate.UI.Dialogs;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Panels
 {
@@ -18,12 +18,6 @@ namespace AquaMate.UI.Panels
     public sealed class TSValuePanel : ListPanel
     {
         private int fPointId;
-
-        public int PointId
-        {
-            get { return fPointId; }
-            set { fPointId = value; }
-        }
 
 
         public TSValuePanel()
@@ -47,18 +41,8 @@ namespace AquaMate.UI.Panels
         {
             if (fPointId == 0) return;
 
-            ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Timestamp), 140, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Value), 120, HorizontalAlignment.Right);
-
-            TSDatabase tsdb = fModel.TSDB;
-            var records = tsdb.QueryValues(fPointId, DateTime.Now.AddDays(-60), DateTime.Now);
-            foreach (TSValue rec in records) {
-                var item = ListView.AddItemEx(rec,
-                               ALCore.GetTimeStr(rec.Timestamp),
-                               ALCore.GetDecimalStr(rec.Value)
-                           );
-            }
+            var lv = GetControlHandler<IListView>(ListView);
+            ModelPresenter.FillTSValuesLV(lv, fModel, fPointId);
         }
 
         protected override void AddHandler(object sender, EventArgs e)

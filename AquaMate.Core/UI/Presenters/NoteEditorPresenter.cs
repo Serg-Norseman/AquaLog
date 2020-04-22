@@ -15,10 +15,10 @@ namespace AquaMate.UI
 {
     public interface INoteEditorView : IView
     {
-        IComboBoxHandlerEx AquariumCombo { get; }
-        IDateTimeBoxHandler TimestampField { get; }
-        ITextBoxHandler EventField { get; }
-        ITextBoxHandler NoteField { get; }
+        IComboBox AquariumCombo { get; }
+        IDateTimeBox TimestampField { get; }
+        ITextBox EventField { get; }
+        ITextBox NoteField { get; }
     }
 
 

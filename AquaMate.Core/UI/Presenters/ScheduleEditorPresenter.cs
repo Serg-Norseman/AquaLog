@@ -16,13 +16,13 @@ namespace AquaMate.UI
 {
     public interface IScheduleEditorView : IView
     {
-        IComboBoxHandlerEx AquariumCombo { get; }
-        IDateTimeBoxHandler TimestampField { get; }
-        ITextBoxHandler EventField { get; }
-        ICheckBoxHandler ReminderCheck { get; }
-        IComboBoxHandlerEx TypeCombo { get; }
-        IComboBoxHandlerEx StatusCombo { get; }
-        ITextBoxHandler NoteField { get; }
+        IComboBox AquariumCombo { get; }
+        IDateTimeBox TimestampField { get; }
+        ITextBox EventField { get; }
+        ICheckBox ReminderCheck { get; }
+        IComboBox TypeCombo { get; }
+        IComboBox StatusCombo { get; }
+        ITextBox NoteField { get; }
     }
 
 
@@ -36,6 +36,11 @@ namespace AquaMate.UI
 
         public ScheduleEditorPresenter(IScheduleEditorView view) : base(view)
         {
+            var scheduleTypesList = ALData.GetNamesList<ScheduleType>(ALData.ScheduleTypes);
+            fView.TypeCombo.AddRange<ScheduleType>(scheduleTypesList, false);
+
+            var taskStatusesList = ALData.GetNamesList<TaskStatus>(ALData.TaskStatuses);
+            fView.StatusCombo.AddRange<TaskStatus>(taskStatusesList, false);
         }
 
         public override void UpdateView()

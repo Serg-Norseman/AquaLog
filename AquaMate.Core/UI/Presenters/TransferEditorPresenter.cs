@@ -18,15 +18,15 @@ namespace AquaMate.UI
 {
     public interface ITransferEditorView : IView
     {
-        ITextBoxHandler NameField { get; }
-        IComboBoxHandlerEx SourceCombo { get; }
-        IComboBoxHandlerEx TargetCombo { get; }
-        IDateTimeBoxHandler DateField { get; }
-        IComboBoxHandlerEx TypeCombo { get; }
-        ITextBoxHandler CauseField { get; }
-        ITextBoxHandler QuantityField { get; }
-        ITextBoxHandler UnitPriceField { get; }
-        IComboBoxHandler ShopCombo { get; }
+        ITextBox NameField { get; }
+        IComboBox SourceCombo { get; }
+        IComboBox TargetCombo { get; }
+        IDateTimeBox DateField { get; }
+        IComboBox TypeCombo { get; }
+        ITextBox CauseField { get; }
+        ITextBox QuantityField { get; }
+        ITextBox UnitPriceField { get; }
+        IComboBox ShopCombo { get; }
     }
 
 
@@ -40,6 +40,8 @@ namespace AquaMate.UI
 
         public TransferEditorPresenter(ITransferEditorView view) : base(view)
         {
+            var transferTypesList = ALData.GetNamesList<TransferType>(ALData.TransferTypes);
+            fView.TypeCombo.AddRange<TransferType>(transferTypesList, true);
         }
 
         public override void UpdateView()
@@ -79,8 +81,7 @@ namespace AquaMate.UI
                 if (fRecord.Type == TransferType.Purchase || fRecord.Type == TransferType.Sale) {
                     fView.UnitPriceField.SetDecimalVal(fRecord.UnitPrice);
 
-                    var shopsList = ALData.GetStringList(fModel.QueryShops());
-                    fView.ShopCombo.AddRange(shopsList);
+                    fView.ShopCombo.AddRange(fModel.QueryShops(), true);
                     fView.ShopCombo.Text = fRecord.Shop;
                 }
             }
@@ -108,8 +109,10 @@ namespace AquaMate.UI
             }
         }
 
-        public void ChangeSelectedType(TransferType transferType)
+        public void ChangeSelectedType()
         {
+            TransferType transferType = fView.TypeCombo.GetSelectedTag<TransferType>();
+
             bool ps = transferType == TransferType.Purchase || transferType == TransferType.Sale;
 
             fView.UnitPriceField.Enabled = ps;

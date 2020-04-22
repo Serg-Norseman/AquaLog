@@ -230,7 +230,7 @@ namespace AquaMate.Core
         /* 206 */ DataAcquisition,
         /* 207 */ Parameters,
         /* 208 */ Channel,
-        /* 209 */ BioTreemap,
+        /* 209 */ BioTreemap, // not used, reserved
         /* 210 */ LifeExpectancy,
         /* 211 */ Fertilize,
         /* 212 */ Cure,
@@ -241,7 +241,7 @@ namespace AquaMate.Core
         /* 217 */ Weight,
         /* 218 */ Load,
         /* 219 */ Save,
-        /* 220 */ Radar,
+        /* 220 */ Radar, // not used, reserved
 
         /* 000 */ Last = Radar
     }

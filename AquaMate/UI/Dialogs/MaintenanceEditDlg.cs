@@ -5,11 +5,9 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Core.Types;
 using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
@@ -37,9 +35,6 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            var maintenanceTypesList = ALData.GetNamesList<MaintenanceType>(ALData.MaintenanceTypes);
-            cmbType.FillCombo<MaintenanceType>(maintenanceTypesList, true);
-
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblDateTime.Text = Localizer.LS(LSID.Date);
             lblType.Text = Localizer.LS(LSID.Type);
@@ -60,29 +55,29 @@ namespace AquaMate.UI.Dialogs
 
         #region View interface implementation
 
-        IComboBoxHandlerEx IMaintenanceEditorView.AquariumCombo
+        IComboBox IMaintenanceEditorView.AquariumCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbAquarium); }
+            get { return GetControlHandler<IComboBox>(cmbAquarium); }
         }
 
-        IDateTimeBoxHandler IMaintenanceEditorView.TimestampField
+        IDateTimeBox IMaintenanceEditorView.TimestampField
         {
-            get { return GetControlHandler<IDateTimeBoxHandler>(dtpDateTime); }
+            get { return GetControlHandler<IDateTimeBox>(dtpDateTime); }
         }
 
-        IComboBoxHandlerEx IMaintenanceEditorView.TypeCombo
+        IComboBox IMaintenanceEditorView.TypeCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbType); }
+            get { return GetControlHandler<IComboBox>(cmbType); }
         }
 
-        ITextBoxHandler IMaintenanceEditorView.ValueField
+        ITextBox IMaintenanceEditorView.ValueField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtValue); }
+            get { return GetControlHandler<ITextBox>(txtValue); }
         }
 
-        ITextBoxHandler IMaintenanceEditorView.NoteField
+        ITextBox IMaintenanceEditorView.NoteField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+            get { return GetControlHandler<ITextBox>(txtNote); }
         }
 
         #endregion

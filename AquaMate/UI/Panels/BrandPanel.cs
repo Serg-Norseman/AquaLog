@@ -4,10 +4,10 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.UI.Dialogs;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Panels
 {
@@ -22,17 +22,8 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Name), 120, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Country), 120, HorizontalAlignment.Left);
-
-            var records = fModel.QueryBrands();
-            foreach (Brand rec in records) {
-                var item = ListView.AddItemEx(rec,
-                               rec.Name,
-                               rec.Country
-                           );
-            }
+            var lv = GetControlHandler<IListView>(ListView);
+            ModelPresenter.FillBrandsLV(lv, fModel);
         }
 
         protected override void InitActions()

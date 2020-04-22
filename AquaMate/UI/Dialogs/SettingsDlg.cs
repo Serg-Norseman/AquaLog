@@ -5,43 +5,24 @@
  */
 
 using System;
-using System.Linq;
 using System.Windows.Forms;
 using AquaMate.Core;
-using AquaMate.Core.Types;
-using AquaMate.DataCollection;
-using AquaMate.Logging;
-using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public partial class SettingsDlg : Form, ISettingsDialogView
+    public partial class SettingsDlg : CommonForm, ISettingsDialogView
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "SettingsDlg");
-
         private readonly SettingsDialogPresenter fPresenter;
 
-        private IModel fModel;
-        private ALSettings fSettings;
-
-        public IModel Model
-        {
-            get { return fModel; }
-            set { fModel = value; }
-        }
 
         public ALSettings Settings
         {
-            get { return fSettings; }
-            set {
-                if (fSettings != value) {
-                    fSettings = value;
-                    UpdateView();
-                }
-            }
+            get { return fPresenter.Settings; }
+            set { fPresenter.Settings = value; }
         }
 
 
@@ -53,37 +34,6 @@ namespace AquaMate.UI.Dialogs
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
             fPresenter = new SettingsDialogPresenter(this);
-
-            foreach (var locale in Localizer.Locales) {
-                cmbLocale.Items.Add(locale);
-            }
-
-            for (MeasurementUnit unit = MeasurementUnit.First; unit <= MeasurementUnit.Last; unit++) {
-                var uom = ALData.MeasurementUnits[(int)unit];
-
-                if (uom.MeasurementType == MeasurementType.Length) {
-                    cmbLengthUoM.AddItem<MeasurementUnit>(uom.StrName, unit);
-                }
-                if (uom.MeasurementType == MeasurementType.Volume) {
-                    if (unit == MeasurementUnit.UKGallon) continue; // TODO: UKGallon not yet supported
-
-                    cmbVolumeUoM.AddItem<MeasurementUnit>(uom.StrName, unit);
-                }
-                if (uom.MeasurementType == MeasurementType.Mass) {
-                    cmbMassUoM.AddItem<MeasurementUnit>(uom.StrName, unit);
-                }
-                if (uom.MeasurementType == MeasurementType.Temperature) {
-                    cmbTemperatureUoM.AddItem<MeasurementUnit>(uom.StrName, unit);
-                }
-            }
-
-            // TODO: UOM changes not yet supported
-            cmbLengthUoM.Enabled = false;
-            cmbVolumeUoM.Enabled = false;
-            cmbMassUoM.Enabled = false;
-            cmbTemperatureUoM.Enabled = false;
-
-            cmbChannel.Items.AddRange(BaseChannel.ChannelNames);
 
             SetLocale();
         }
@@ -111,61 +61,9 @@ namespace AquaMate.UI.Dialogs
             chkEnabled.Text = Localizer.LS(LSID.Enabled);
         }
 
-        private void UpdateView()
-        {
-            if (fSettings != null) {
-                chkHideClosedTanks.Checked = fSettings.HideClosedTanks;
-                chkExitOnClose.Checked = fSettings.ExitOnClose;
-                cmbLocale.SelectedItem = Localizer.Locales.FirstOrDefault(loc => loc.Code == fSettings.CurrentLocale);
-                chkHideAtStartup.Checked = fSettings.HideAtStartup;
-
-                cmbLengthUoM.SetSelectedTag<MeasurementUnit>(fSettings.LengthUoM);
-                cmbVolumeUoM.SetSelectedTag<MeasurementUnit>(fSettings.VolumeUoM);
-                cmbMassUoM.SetSelectedTag<MeasurementUnit>(fSettings.MassUoM);
-                cmbTemperatureUoM.SetSelectedTag<MeasurementUnit>(fSettings.TemperatureUoM);
-
-                chkEnabled.Checked = fSettings.ChannelEnabled;
-                cmbChannel.Text = fSettings.ChannelName;
-                cmbPort.Text = fSettings.ChannelParameters;
-            }
-
-            chkAutorun.Checked = AppHost.IsStartupItem();
-        }
-
-        private void ApplyChanges()
-        {
-            LocaleFile currentLocale = (cmbLocale.SelectedItem as LocaleFile);
-
-            fSettings.HideClosedTanks = chkHideClosedTanks.Checked;
-            fSettings.ExitOnClose = chkExitOnClose.Checked;
-            fSettings.CurrentLocale = (currentLocale != null) ? currentLocale.Code : Localizer.LS_DEF_CODE;
-            fSettings.HideAtStartup = chkHideAtStartup.Checked;
-
-            fSettings.LengthUoM = cmbLengthUoM.GetSelectedTag<MeasurementUnit>();
-            fSettings.VolumeUoM = cmbVolumeUoM.GetSelectedTag<MeasurementUnit>();
-            fSettings.MassUoM = cmbMassUoM.GetSelectedTag<MeasurementUnit>();
-            fSettings.TemperatureUoM = cmbMassUoM.GetSelectedTag<MeasurementUnit>();
-
-            fSettings.ChannelEnabled = chkEnabled.Checked;
-            fSettings.ChannelName = cmbChannel.Text;
-            fSettings.ChannelParameters = cmbPort.Text;
-
-            if (chkAutorun.Checked) {
-                AppHost.RegisterStartup();
-            } else {
-                AppHost.UnregisterStartup();
-            }
-        }
-
         private void btnAccept_Click(object sender, EventArgs e)
         {
-            try {
-                ApplyChanges();
-                DialogResult = DialogResult.OK;
-            } catch (Exception ex) {
-                fLogger.WriteError("ApplyChanges()", ex);
-                DialogResult = DialogResult.None;
-            }
+            DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
         }
 
         public bool ShowModal()
@@ -177,5 +75,69 @@ namespace AquaMate.UI.Dialogs
         {
             tabControl1.SelectedTab = tabControl1.TabPages[tabIndex];
         }
+
+        #region View interface implementation
+
+        ICheckBox ISettingsDialogView.AutorunCheck
+        {
+            get { return GetControlHandler<ICheckBox>(chkAutorun); }
+        }
+
+        ICheckBox ISettingsDialogView.HideClosedTanksCheck
+        {
+            get { return GetControlHandler<ICheckBox>(chkHideClosedTanks); }
+        }
+
+        ICheckBox ISettingsDialogView.ExitOnCloseCheck
+        {
+            get { return GetControlHandler<ICheckBox>(chkExitOnClose); }
+        }
+
+        ICheckBox ISettingsDialogView.HideAtStartupCheck
+        {
+            get { return GetControlHandler<ICheckBox>(chkHideAtStartup); }
+        }
+
+        IComboBox ISettingsDialogView.LocaleCombo
+        {
+            get { return GetControlHandler<IComboBox>(cmbLocale); }
+        }
+
+        IComboBox ISettingsDialogView.LengthUoMCombo
+        {
+            get { return GetControlHandler<IComboBox>(cmbLengthUoM); }
+        }
+
+        IComboBox ISettingsDialogView.VolumeUoMCombo
+        {
+            get { return GetControlHandler<IComboBox>(cmbVolumeUoM); }
+        }
+
+        IComboBox ISettingsDialogView.MassUoMCombo
+        {
+            get { return GetControlHandler<IComboBox>(cmbMassUoM); }
+        }
+
+        IComboBox ISettingsDialogView.TemperatureUoMCombo
+        {
+            get { return GetControlHandler<IComboBox>(cmbTemperatureUoM); }
+        }
+
+        ICheckBox ISettingsDialogView.ChannelEnabledCheck
+        {
+            get { return GetControlHandler<ICheckBox>(chkEnabled); }
+        }
+
+        IComboBox ISettingsDialogView.ChannelNameCombo
+        {
+            get { return GetControlHandler<IComboBox>(cmbChannel); }
+        }
+
+        IComboBox ISettingsDialogView.ChannelParametersCombo
+        {
+            get { return GetControlHandler<IComboBox>(cmbPort); }
+        }
+
+        #endregion
     }
 }

@@ -52,14 +52,14 @@ namespace AquaMate.UI.Dialogs
 
         #region View interface implementation
 
-        IDateTimeBoxHandler ITSValueEditorView.TimestampField
+        IDateTimeBox ITSValueEditorView.TimestampField
         {
-            get { return GetControlHandler<IDateTimeBoxHandler>(dtpTimestamp); }
+            get { return GetControlHandler<IDateTimeBox>(dtpTimestamp); }
         }
 
-        ITextBoxHandler ITSValueEditorView.ValueField
+        ITextBox ITSValueEditorView.ValueField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtValue); }
+            get { return GetControlHandler<ITextBox>(txtValue); }
         }
 
         #endregion

@@ -69,74 +69,74 @@ namespace AquaMate.UI.Dialogs
 
         #region View interface implementation
 
-        IComboBoxHandlerEx IMeasureEditorView.AquariumCombo
+        IComboBox IMeasureEditorView.AquariumCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbAquarium); }
+            get { return GetControlHandler<IComboBox>(cmbAquarium); }
         }
 
-        IDateTimeBoxHandler IMeasureEditorView.TimestampField
+        IDateTimeBox IMeasureEditorView.TimestampField
         {
-            get { return GetControlHandler<IDateTimeBoxHandler>(dtpTimestamp); }
+            get { return GetControlHandler<IDateTimeBox>(dtpTimestamp); }
         }
 
-        ITextBoxHandler IMeasureEditorView.TemperatureField
+        ITextBox IMeasureEditorView.TemperatureField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtTemperature); }
+            get { return GetControlHandler<ITextBox>(txtTemperature); }
         }
 
-        ITextBoxHandler IMeasureEditorView.NO3Field
+        ITextBox IMeasureEditorView.NO3Field
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNO3); }
+            get { return GetControlHandler<ITextBox>(txtNO3); }
         }
 
-        ITextBoxHandler IMeasureEditorView.NO2Field
+        ITextBox IMeasureEditorView.NO2Field
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNO2); }
+            get { return GetControlHandler<ITextBox>(txtNO2); }
         }
 
-        ITextBoxHandler IMeasureEditorView.GHField
+        ITextBox IMeasureEditorView.GHField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtGH); }
+            get { return GetControlHandler<ITextBox>(txtGH); }
         }
 
-        ITextBoxHandler IMeasureEditorView.KHField
+        ITextBox IMeasureEditorView.KHField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtKH); }
+            get { return GetControlHandler<ITextBox>(txtKH); }
         }
 
-        ITextBoxHandler IMeasureEditorView.PHField
+        ITextBox IMeasureEditorView.PHField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtPH); }
+            get { return GetControlHandler<ITextBox>(txtPH); }
         }
 
-        ITextBoxHandler IMeasureEditorView.Cl2Field
+        ITextBox IMeasureEditorView.Cl2Field
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtCl2); }
+            get { return GetControlHandler<ITextBox>(txtCl2); }
         }
 
-        ITextBoxHandler IMeasureEditorView.CO2Field
+        ITextBox IMeasureEditorView.CO2Field
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtCO2); }
+            get { return GetControlHandler<ITextBox>(txtCO2); }
         }
 
-        ITextBoxHandler IMeasureEditorView.NHField
+        ITextBox IMeasureEditorView.NHField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNHtot); }
+            get { return GetControlHandler<ITextBox>(txtNHtot); }
         }
 
-        ITextBoxHandler IMeasureEditorView.NH3Field
+        ITextBox IMeasureEditorView.NH3Field
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNH3); }
+            get { return GetControlHandler<ITextBox>(txtNH3); }
         }
 
-        ITextBoxHandler IMeasureEditorView.NH4Field
+        ITextBox IMeasureEditorView.NH4Field
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNH4); }
+            get { return GetControlHandler<ITextBox>(txtNH4); }
         }
 
-        ITextBoxHandler IMeasureEditorView.PO4Field
+        ITextBox IMeasureEditorView.PO4Field
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtPO4); }
+            get { return GetControlHandler<ITextBox>(txtPO4); }
         }
 
         #endregion

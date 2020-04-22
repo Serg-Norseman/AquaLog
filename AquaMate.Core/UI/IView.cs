@@ -14,24 +14,23 @@ namespace AquaMate.UI
     }
 
 
-    public interface IView<TModel> : IView
-        //where TModel : IModel
-    {
-    }
-
-
-    public interface IFormView<TModel> : IView<TModel/*, IFormView<TModel>*/>, ILocalizable
-        //where TModel : IModel
-    {
-    }
-
-
-    public interface IDialogView<TModel> : IFormView<TModel>
+    public interface IModalDialog
     {
         /// <summary>
         /// DialogResult ShowDialog() [WinForms], bool? ShowDialog() [WPF]
         /// </summary>
         /// <returns></returns>
         bool ShowModal();
+    }
+
+
+    public interface IFormView<TModel> : IView, ILocalizable
+        //where TModel : IModel
+    {
+    }
+
+
+    public interface IDialogView<TModel> : IFormView<TModel>, IModalDialog
+    {
     }
 }

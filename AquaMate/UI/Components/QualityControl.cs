@@ -33,6 +33,7 @@ namespace AquaMate.UI.Components
         private readonly List<VRItem> fList;
         private ValueRange[] fRanges;
         private double fRangesLength;
+        private Font fScaleFont;
         private double fScaleWidth;
         private string fTitle;
         private double fValue;
@@ -101,6 +102,8 @@ namespace AquaMate.UI.Components
             var titleFont = new Font(Font, FontStyle.Bold);
             gfx.DrawString(fTitle, titleFont, Brushes.Black, 0, 0);
 
+            fScaleFont = new Font(Font.FontFamily, Font.SizeInPoints * 0.8f);
+
             int count = fList.Count;
             if (count > 0) {
                 string line = string.Format(ValuesFormat, fValue);
@@ -118,22 +121,22 @@ namespace AquaMate.UI.Components
                         double val = item.Range.Min;
                         line = string.Format(ValuesFormat, val);
                         float x = LayoutPadding + (int)(fScaleWidth * (val / fRangesLength));
-                        DrawText(gfx, Font, Brushes.Black, line, x, markersY, 2);
+                        DrawText(gfx, fScaleFont, Brushes.Black, line, x, markersY, 2);
                     } else if (i == count - 1) {
                         double val = item.Range.Min;
                         line = string.Format(ValuesFormat, val);
                         float x = LayoutPadding + (int)(fScaleWidth * (val / fRangesLength));
-                        DrawText(gfx, Font, Brushes.Black, line, x, markersY, -1);
+                        DrawText(gfx, fScaleFont, Brushes.Black, line, x, markersY, -1);
 
                         val = item.Range.Max;
                         line = string.Format(ValuesFormat, val);
                         x = LayoutPadding + (int)(fScaleWidth * (val / fRangesLength));
-                        DrawText(gfx, Font, Brushes.Black, line, x, markersY, 3);
+                        DrawText(gfx, fScaleFont, Brushes.Black, line, x, markersY, 3);
                     } else {
                         double val = item.Range.Min;
                         line = string.Format(ValuesFormat, val);
                         float x = LayoutPadding + (int)(fScaleWidth * (val / fRangesLength));
-                        DrawText(gfx, Font, Brushes.Black, line, x, markersY, -1);
+                        DrawText(gfx, fScaleFont, Brushes.Black, line, x, markersY, -1);
                     }
                 }
             } else {

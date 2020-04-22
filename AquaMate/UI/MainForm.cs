@@ -21,7 +21,7 @@ using BSLib.Controls;
 
 namespace AquaMate.UI
 {
-    public partial class MainForm : Form, IBrowser, IView, ILocalizable
+    public partial class MainForm : Form, IBrowser
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");
 
@@ -237,7 +237,7 @@ namespace AquaMate.UI
 
         public void ShowSettings(int tabIndex = 0)
         {
-            WFAppHost.Instance.ShowSettings(fModel, tabIndex);
+            AppHost.Instance.ShowSettings(fModel, tabIndex);
         }
 
         public void ApplySettings()
@@ -264,13 +264,6 @@ namespace AquaMate.UI
             if (!UIHelper.ShowQuestionYN(string.Format(Localizer.LS(LSID.RecordDeleteQuery), recordName))) return false;
 
             return true;
-        }
-
-        public void ShowItemTransfers(ItemType itemType, int itemId)
-        {
-            using (var dlg = new TransfersViewDlg(fModel, itemType, itemId)) {
-                dlg.ShowDialog();
-            }
         }
 
         public void ShowAbout()
@@ -349,7 +342,7 @@ namespace AquaMate.UI
 
         private void miCalculator_Click(object sender, EventArgs e)
         {
-            WFAppHost.Instance.ShowCalculator();
+            AppHost.Instance.ShowCalculator();
         }
 
         #endregion
@@ -512,18 +505,13 @@ namespace AquaMate.UI
 
                 fCurrentPanel.SelectionChanged(new List<Entity>() { });
 
-                UpdateNavControls();
+                btnPrev.Enabled = fNavigationStack.CanBackward();
+                btnNext.Enabled = fNavigationStack.CanForward();
             } catch (Exception ex) {
                 fLogger.WriteError("SetView.2()", ex);
             }
             ResumeLayout();
             fDrawingHelper.ResumeDrawing(true);
-        }
-
-        private void UpdateNavControls()
-        {
-            btnPrev.Enabled = fNavigationStack.CanBackward();
-            btnNext.Enabled = fNavigationStack.CanForward();
         }
 
         #endregion

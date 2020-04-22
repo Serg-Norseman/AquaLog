@@ -15,9 +15,9 @@ namespace AquaMate.UI
 {
     public interface IBrandEditorView : IView
     {
-        ITextBoxHandler NameField { get; }
-        IComboBoxHandler CountryCombo { get; }
-        ITextBoxHandler NoteField { get; }
+        ITextBox NameField { get; }
+        IComboBox CountryCombo { get; }
+        ITextBox NoteField { get; }
     }
 
 

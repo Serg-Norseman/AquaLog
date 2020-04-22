@@ -18,20 +18,20 @@ namespace AquaMate.UI
 {
     public interface IAquariumEditorView : IView
     {
-        ITextBoxHandler NameField { get; }
-        IComboBoxHandlerEx BrandCombo { get; }
-        ITextBoxHandler DescriptionField { get; }
-        IComboBoxHandlerEx ShapeCombo { get; }
-        IComboBoxHandlerEx WaterTypeCombo { get; }
-        IDateTimeBoxHandler StartDateField { get; }
-        IDateTimeBoxHandler StopDateField { get; }
-        ITextBoxHandler TankVolumeField { get; }
-        ITextBoxHandler UnderfillHeightField { get; }
-        ITextBoxHandler SoilHeightField { get; }
-        IPropertyGridHandler PropsGrid { get; }
-        ITextBoxHandler WaterVolumeField { get; }
-        ITextBoxHandler SoilVolumeField { get; }
-        ITextBoxHandler SoilMassField { get; }
+        ITextBox NameField { get; }
+        IComboBox BrandCombo { get; }
+        ITextBox DescriptionField { get; }
+        IComboBox ShapeCombo { get; }
+        IComboBox WaterTypeCombo { get; }
+        IDateTimeBox StartDateField { get; }
+        IDateTimeBox StopDateField { get; }
+        ITextBox TankVolumeField { get; }
+        ITextBox UnderfillHeightField { get; }
+        ITextBox SoilHeightField { get; }
+        IPropertyGrid PropsGrid { get; }
+        ITextBox WaterVolumeField { get; }
+        ITextBox SoilVolumeField { get; }
+        ITextBox SoilMassField { get; }
     }
 
 
@@ -45,13 +45,20 @@ namespace AquaMate.UI
 
         public AquariumEditorPresenter(IAquariumEditorView view) : base(view)
         {
+            var tankShapesList = ALData.GetNamesList<TankShape>(ALData.TankShapes);
+            fView.ShapeCombo.AddRange<TankShape>(tankShapesList, false);
+
+            var waterTypesList = ALData.GetNamesList<AquariumWaterType>(ALData.WaterTypes);
+            fView.WaterTypeCombo.AddRange<AquariumWaterType>(waterTypesList, false);
         }
 
         public override void UpdateView()
         {
             fView.NameField.Text = fRecord.Name;
-            fView.BrandCombo.AddRange(fModel.QueryAquariumBrands());
+
+            fView.BrandCombo.AddRange(fModel.QueryAquariumBrands(), true);
             fView.BrandCombo.Text = fRecord.Brand;
+
             fView.DescriptionField.Text = fRecord.Description;
             fView.ShapeCombo.SetSelectedTag(fRecord.TankShape);
 
@@ -85,6 +92,12 @@ namespace AquaMate.UI
                 fLogger.WriteError("ApplyChanges()", ex);
                 return false;
             }
+        }
+
+        public void RefreshProps()
+        {
+            var tankShape = fView.ShapeCombo.GetSelectedTag<TankShape>();
+            RefreshProps(tankShape);
         }
 
         public void RefreshProps(TankShape tankShape)
@@ -126,8 +139,9 @@ namespace AquaMate.UI
             double totalMass = waterMass + soilMass;
         }
 
-        public void EditTank(TankShape tankShape)
+        public void EditTank()
         {
+            TankShape tankShape = fView.ShapeCombo.GetSelectedTag<TankShape>();
             var tank = fRecord.GetTank(tankShape, fRecord.TankProperties);
 
             IBrowser browser = fModel.Browser;

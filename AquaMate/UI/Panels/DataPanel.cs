@@ -13,17 +13,19 @@ using AquaMate.Core.Model;
 using AquaMate.Logging;
 using AquaMate.UI.Components;
 using BSLib;
+using BSLib.Design.MVP;
 
 namespace AquaMate.UI.Panels
 {
     /// <summary>
     /// 
     /// </summary>
-    public class DataPanel : Panel, IDataPanel, ILocalizable
+    public class DataPanel : Panel, IDataPanel
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "DataPanel");
 
         private readonly List<UserAction> fActions;
+        private readonly ControlsManager fControlsManager;
         protected IBrowser fBrowser;
         protected IModel fModel;
 
@@ -57,6 +59,12 @@ namespace AquaMate.UI.Panels
             Dock = DockStyle.Fill;
 
             fActions = new List<UserAction>();
+            fControlsManager = new ControlsManager();
+        }
+
+        protected T GetControlHandler<T>(object control) where T : class, IControl
+        {
+            return fControlsManager.GetControlHandler<T>(control);
         }
 
         public virtual void SetLocale()

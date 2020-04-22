@@ -9,8 +9,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Core.Types;
 using AquaMate.UI.Dialogs;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Panels
 {
@@ -28,45 +28,8 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 120, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Timestamp), 120, HorizontalAlignment.Left);
-            ListView.Columns.Add("Temp (°C)", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("NO3 (mg/l)", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("NO2 (mg/l)", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("GH (°d)", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("KH (°d)", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("pH", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("Cl2 (mg/l)", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("CO2", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("NHtot", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("NH3", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("NH4", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("PO4", 60, HorizontalAlignment.Right);
-
-            var records = fModel.QueryMeasures();
-            foreach (Measure rec in records) {
-                Aquarium aqm = fModel.Cache.Get<Aquarium>(ItemType.Aquarium, rec.AquariumId);
-                string aqmName = (aqm == null) ? "" : aqm.Name;
-                if (fSelectedAquarium != "*" && fSelectedAquarium != aqmName) continue;
-
-                var item = ListView.AddItemEx(rec,
-                               aqmName,
-                               ALCore.GetTimeStr(rec.Timestamp),
-                               ALCore.GetDecimalStr(rec.Temperature, 2, true),
-                               ALCore.GetDecimalStr(rec.NO3, 2, true),
-                               ALCore.GetDecimalStr(rec.NO2, 2, true),
-                               ALCore.GetDecimalStr(rec.GH, 2, true),
-                               ALCore.GetDecimalStr(rec.KH, 2, true),
-                               ALCore.GetDecimalStr(rec.pH, 2, true),
-                               ALCore.GetDecimalStr(rec.Cl2, 2, true),
-                               ALCore.GetDecimalStr(rec.CO2, 2, true),
-                               ALCore.GetDecimalStr(rec.NH, 2, true),
-                               ALCore.GetDecimalStr(rec.NH3, 2, true),
-                               ALCore.GetDecimalStr(rec.NH4, 2, true),
-                               ALCore.GetDecimalStr(rec.PO4, 2, true)
-                           );
-            }
+            var lv = GetControlHandler<IListView>(ListView);
+            ModelPresenter.FillMeasuresLV(lv, fModel, fSelectedAquarium);
         }
 
         protected override void InitActions()

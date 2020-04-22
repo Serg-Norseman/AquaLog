@@ -21,6 +21,28 @@ namespace AquaMate.UI
     /// </summary>
     public static class UIHelper
     {
+        #region Extensions
+
+        public static T GetSelectedTag<T>(this ListView listView) where T : class
+        {
+            var selectedItem = (listView.SelectedItems.Count <= 0) ? null : listView.SelectedItems[0];
+            return (selectedItem == null) ? default(T) : selectedItem.Tag as T;
+        }
+
+        public static void SetSelectedItem(this ListView listView, int index)
+        {
+            if (index >= 0 && index < listView.Items.Count) {
+                ListViewItem item = listView.Items[index];
+                if (item != null) {
+                    listView.SelectedIndices.Clear();
+                    item.Selected = true;
+                    item.EnsureVisible();
+                }
+            }
+        }
+
+        #endregion
+
         #region Helpers to create controls
 
         public static ZListView CreateListView(string name)
@@ -85,14 +107,6 @@ namespace AquaMate.UI
 
         #endregion
 
-        public static Color CreateColor(int rgb)
-        {
-            int red = (rgb >> 16) & 0xFF;
-            int green = (rgb >> 8) & 0xFF;
-            int blue = (rgb >> 0) & 0xFF;
-            return Color.FromArgb(red, green, blue);
-        }
-
         #region Messages
 
         public static bool ShowQuestionYN(string msg)
@@ -109,6 +123,12 @@ namespace AquaMate.UI
 
         #region Resources
 
+        public static Stream LoadResourceStream(Type baseType, string resName)
+        {
+            Assembly assembly = baseType.Assembly;
+            return assembly.GetManifestResourceStream(resName);
+        }
+
         public static Stream LoadResourceStream(string resName)
         {
             #if !NETCOREAPP30
@@ -118,12 +138,6 @@ namespace AquaMate.UI
             #endif
 
             return LoadResourceStream(typeof(UIHelper), resName);
-        }
-
-        public static Stream LoadResourceStream(Type baseType, string resName)
-        {
-            Assembly assembly = baseType.Assembly;
-            return assembly.GetManifestResourceStream(resName);
         }
 
         public static Bitmap LoadResourceImage(string resName)
@@ -197,40 +211,14 @@ namespace AquaMate.UI
 
         #endregion
 
-        #region Images
+        #region Graphics
 
-        public static Image LoadImage()
+        public static Color CreateColor(int rgb)
         {
-            Image image = null;
-
-            string fileName = GetOpenFile("title", "context",
-                          "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.tiff)|*.jpg;*.jpeg;*.png;*.gif;*.tiff",
-                          1, "");
-
-            if (string.IsNullOrEmpty(fileName))
-                return image;
-
-            if (File.Exists(fileName)) {
-                using (FileStream stream = File.Open(fileName, FileMode.Open)) {
-                    BinaryReader br = new BinaryReader(stream);
-                    byte[] data = br.ReadBytes((int)stream.Length);
-                    image = ALCore.ByteToImage(data);
-                }
-            }
-
-            return image;
-        }
-
-        public static void SaveImage(Image image)
-        {
-            string fileName = GetSaveFile("title", "context",
-                          "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.tiff)|*.jpg;*.jpeg;*.png;*.gif;*.tiff",
-                          1, "jpg", "", true);
-
-            if (string.IsNullOrEmpty(fileName))
-                return;
-
-            image.Save(fileName);
+            int red = (rgb >> 16) & 0xFF;
+            int green = (rgb >> 8) & 0xFF;
+            int blue = (rgb >> 0) & 0xFF;
+            return Color.FromArgb(red, green, blue);
         }
 
         #endregion

@@ -5,8 +5,6 @@
  */
 
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Logging;
@@ -17,9 +15,9 @@ namespace AquaMate.UI
 {
     public interface ISnapshotEditorView : IView
     {
-        ITextBoxHandler NameField { get; }
-        IPictureBoxHandler PicBox { get; }
-        IDateTimeBoxHandler TimestampField { get; }
+        ITextBox NameField { get; }
+        IPictureBox PicBox { get; }
+        IDateTimeBox TimestampField { get; }
     }
 
 
@@ -40,7 +38,7 @@ namespace AquaMate.UI
             if (fRecord != null) {
                 fView.NameField.Text = fRecord.Name;
                 if (fRecord.Image != null) {
-                    fView.PicBox.Image = ALCore.ByteToImage(fRecord.Image);
+                    fView.PicBox.Image = AppHost.Instance.ByteToImage(fRecord.Image);
                 }
 
                 if (!ALCore.IsZeroDate(fRecord.Timestamp)) {
@@ -55,7 +53,7 @@ namespace AquaMate.UI
                 fRecord.Name = fView.NameField.Text;
                 var image = fView.PicBox.Image;
                 if (image != null) {
-                    fRecord.Image = ALCore.ImageToByte(image, ImageFormat.Jpeg);
+                    fRecord.Image = AppHost.Instance.ImageToByte(image);
                 }
                 fRecord.Timestamp = fView.TimestampField.Value;
 
@@ -64,6 +62,16 @@ namespace AquaMate.UI
                 fLogger.WriteError("ApplyChanges()", ex);
                 return false;
             }
+        }
+
+        public void LoadImage()
+        {
+            fView.PicBox.Image = AppHost.Instance.LoadImage();
+        }
+
+        public void SaveImage()
+        {
+            AppHost.Instance.SaveImage(fView.PicBox.Image);
         }
     }
 }

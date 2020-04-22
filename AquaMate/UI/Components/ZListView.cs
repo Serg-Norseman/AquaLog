@@ -208,6 +208,29 @@ namespace AquaMate.UI.Components
             return item;
         }
 
+        public TItem AddItemEx<TItem>(object tag, params string[] cells) where TItem : ListViewItem, new()
+        {
+            if (cells == null || cells.Length < 1) return null;
+
+            var item = new TItem();
+            item.Tag = tag;
+
+            for (int i = 0; i < cells.Length; i++) {
+                string text = cells[i];
+                if (i == 0) {
+                    item.Text = text;
+                } else {
+                    item.SubItems.Add(text);
+                }
+            }
+
+            Items.Add(item);
+
+            CheckCellsWidth(cells);
+
+            return item;
+        }
+
         protected SortOrder GetColumnSortOrder(int columnIndex)
         {
             return (fSortColumn == columnIndex) ? fSortOrder : SortOrder.None;

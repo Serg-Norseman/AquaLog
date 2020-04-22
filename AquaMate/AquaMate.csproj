@@ -92,9 +92,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Forms.DataVisualization">
-      <HintPath>..\libs\System.Windows.Forms.DataVisualization.dll</HintPath>
-    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="ZedGraph">
       <HintPath>..\libs\ZedGraph.dll</HintPath>
@@ -142,6 +139,7 @@
     <Compile Include="UI\Dialogs\CalculatorDlg.Designer.cs">
       <DependentUpon>CalculatorDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\CommonForm.cs" />
     <Compile Include="UI\Dialogs\DataMonitor.cs" />
     <Compile Include="UI\Dialogs\DataMonitor.Designer.cs">
       <DependentUpon>DataMonitor.cs</DependentUpon>
@@ -200,10 +198,6 @@
     <Compile Include="UI\Dialogs\TransferEditDlg.Designer.cs">
       <DependentUpon>TransferEditDlg.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Dialogs\TransfersViewDlg.cs" />
-    <Compile Include="UI\Dialogs\TransfersViewDlg.Designer.cs">
-      <DependentUpon>TransfersViewDlg.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Dialogs\TSPointEditDlg.cs" />
     <Compile Include="UI\Dialogs\TSPointEditDlg.Designer.cs">
       <DependentUpon>TSPointEditDlg.cs</DependentUpon>
@@ -245,9 +239,9 @@
     <Compile Include="UI\Panels\TransferPanel.cs" />
     <Compile Include="UI\Panels\TSDBPanel.cs" />
     <Compile Include="UI\Panels\TSValuePanel.cs" />
-    <Compile Include="UI\UIExtensions.cs" />
     <Compile Include="UI\UIHelper.cs" />
     <Compile Include="UI\WFAppHost.cs" />
+    <Compile Include="UI\WFGfxProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

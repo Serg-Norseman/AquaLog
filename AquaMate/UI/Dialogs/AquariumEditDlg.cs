@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
@@ -36,12 +35,6 @@ namespace AquaMate.UI.Dialogs
             Text = Localizer.LS(LSID.Aquarium);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
-
-            var tankShapesList = ALData.GetNamesList<TankShape>(ALData.TankShapes);
-            cmbShape.FillCombo<TankShape>(tankShapesList, false);
-
-            var waterTypesList = ALData.GetNamesList<AquariumWaterType>(ALData.WaterTypes);
-            cmbWaterType.FillCombo<AquariumWaterType>(waterTypesList, false);
 
             tabCommon.Text = Localizer.LS(LSID.Common);
             tabTank.Text = Localizer.LS(LSID.Tank);
@@ -78,8 +71,7 @@ namespace AquaMate.UI.Dialogs
 
         private void cmbShape_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var tankShape = cmbShape.GetSelectedTag<TankShape>();
-            fPresenter.RefreshProps(tankShape);
+            fPresenter.RefreshProps();
         }
 
         private void txtValue_TextChanged(object sender, EventArgs e)
@@ -89,80 +81,79 @@ namespace AquaMate.UI.Dialogs
 
         private void btnTank_Click(object sender, EventArgs e)
         {
-            var tankShape = cmbShape.GetSelectedTag<TankShape>();
-            fPresenter.EditTank(tankShape);
+            fPresenter.EditTank();
         }
 
         #region View interface implementation
 
-        ITextBoxHandler IAquariumEditorView.NameField
+        ITextBox IAquariumEditorView.NameField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+            get { return GetControlHandler<ITextBox>(txtName); }
         }
 
-        IComboBoxHandlerEx IAquariumEditorView.BrandCombo
+        IComboBox IAquariumEditorView.BrandCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbBrand); }
+            get { return GetControlHandler<IComboBox>(cmbBrand); }
         }
 
-        ITextBoxHandler IAquariumEditorView.DescriptionField
+        ITextBox IAquariumEditorView.DescriptionField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtDesc); }
+            get { return GetControlHandler<ITextBox>(txtDesc); }
         }
 
-        IComboBoxHandlerEx IAquariumEditorView.ShapeCombo
+        IComboBox IAquariumEditorView.ShapeCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbShape); }
+            get { return GetControlHandler<IComboBox>(cmbShape); }
         }
 
-        IComboBoxHandlerEx IAquariumEditorView.WaterTypeCombo
+        IComboBox IAquariumEditorView.WaterTypeCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbWaterType); }
+            get { return GetControlHandler<IComboBox>(cmbWaterType); }
         }
 
-        IDateTimeBoxHandler IAquariumEditorView.StartDateField
+        IDateTimeBox IAquariumEditorView.StartDateField
         {
-            get { return GetControlHandler<IDateTimeBoxHandler>(dtpStartDate); }
+            get { return GetControlHandler<IDateTimeBox>(dtpStartDate); }
         }
 
-        IDateTimeBoxHandler IAquariumEditorView.StopDateField
+        IDateTimeBox IAquariumEditorView.StopDateField
         {
-            get { return GetControlHandler<IDateTimeBoxHandler>(dtpStopDate); }
+            get { return GetControlHandler<IDateTimeBox>(dtpStopDate); }
         }
 
-        ITextBoxHandler IAquariumEditorView.TankVolumeField
+        ITextBox IAquariumEditorView.TankVolumeField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtTankVolume); }
+            get { return GetControlHandler<ITextBox>(txtTankVolume); }
         }
 
-        ITextBoxHandler IAquariumEditorView.UnderfillHeightField
+        ITextBox IAquariumEditorView.UnderfillHeightField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtUnderfillHeight); }
+            get { return GetControlHandler<ITextBox>(txtUnderfillHeight); }
         }
 
-        ITextBoxHandler IAquariumEditorView.SoilHeightField
+        ITextBox IAquariumEditorView.SoilHeightField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtSoilHeight); }
+            get { return GetControlHandler<ITextBox>(txtSoilHeight); }
         }
 
-        IPropertyGridHandler IAquariumEditorView.PropsGrid
+        IPropertyGrid IAquariumEditorView.PropsGrid
         {
-            get { return GetControlHandler<IPropertyGridHandler>(pgProps); }
+            get { return GetControlHandler<IPropertyGrid>(pgProps); }
         }
 
-        ITextBoxHandler IAquariumEditorView.WaterVolumeField
+        ITextBox IAquariumEditorView.WaterVolumeField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtWaterVolume); }
+            get { return GetControlHandler<ITextBox>(txtWaterVolume); }
         }
 
-        ITextBoxHandler IAquariumEditorView.SoilVolumeField
+        ITextBox IAquariumEditorView.SoilVolumeField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtSoilVolume); }
+            get { return GetControlHandler<ITextBox>(txtSoilVolume); }
         }
 
-        ITextBoxHandler IAquariumEditorView.SoilMassField
+        ITextBox IAquariumEditorView.SoilMassField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtSoilMass); }
+            get { return GetControlHandler<ITextBox>(txtSoilMass); }
         }
 
         #endregion

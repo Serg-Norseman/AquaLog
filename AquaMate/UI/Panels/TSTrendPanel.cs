@@ -21,12 +21,6 @@ namespace AquaMate.UI.Panels
         private readonly ZGraphControl fGraph;
         private int fPointId;
 
-        public int PointId
-        {
-            get { return fPointId; }
-            set { fPointId = value; }
-        }
-
 
         public TSTrendPanel()
         {
@@ -59,7 +53,7 @@ namespace AquaMate.UI.Panels
                 vals.Add(new ChartPoint(rec.Timestamp, rec.Value));
             }
 
-            fGraph.ShowData(pt.Name, "Time", new ChartSeries("Value", ChartStyle.Point, vals, Color.Green));
+            fGraph.ShowData(pt.Name, "Time", "Value", new ChartSeries("Value", ChartStyle.Point, vals, Color.Green));
         }
     }
 }

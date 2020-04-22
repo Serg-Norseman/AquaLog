@@ -17,12 +17,12 @@ namespace AquaMate.UI
 {
     public interface IInventoryEditorView : IView
     {
-        ITextBoxHandler NameField { get; }
-        IComboBoxHandlerEx BrandCombo { get; }
-        IComboBoxHandlerEx TypeCombo { get; }
-        ITextBoxHandler NoteField { get; }
-        IComboBoxHandlerEx StateCombo { get; }
-        IPropertyGridHandler PropsGrid { get; }
+        ITextBox NameField { get; }
+        IComboBox BrandCombo { get; }
+        IComboBox TypeCombo { get; }
+        ITextBox NoteField { get; }
+        IComboBox StateCombo { get; }
+        IPropertyGrid PropsGrid { get; }
     }
 
 
@@ -36,6 +36,8 @@ namespace AquaMate.UI
 
         public InventoryEditorPresenter(IInventoryEditorView view) : base(view)
         {
+            var inventoryTypesList = ALData.GetNamesList<InventoryType>(ALData.InventoryTypes);
+            fView.TypeCombo.AddRange<InventoryType>(inventoryTypesList, true);
         }
 
         public override void UpdateView()
@@ -43,7 +45,7 @@ namespace AquaMate.UI
             if (fRecord != null) {
                 fView.NameField.Text = fRecord.Name;
 
-                fView.BrandCombo.AddRange(fModel.QueryInventoryBrands());
+                fView.BrandCombo.AddRange(fModel.QueryInventoryBrands(), true);
                 fView.BrandCombo.Text = fRecord.Brand;
 
                 fView.TypeCombo.SetSelectedTag(fRecord.Type);
@@ -78,8 +80,10 @@ namespace AquaMate.UI
             fView.StateCombo.SetSelectedTag<ItemState>(itemState);
         }
 
-        public void ChangeSelectedType(InventoryType invType)
+        public void ChangeSelectedType()
         {
+            InventoryType invType = fView.TypeCombo.GetSelectedTag<InventoryType>();
+
             SetState(ALCore.GetItemType(invType), fRecord.State);
 
             if (invType >= 0) {

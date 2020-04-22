@@ -31,7 +31,7 @@ namespace AquaMate.UI.Panels
 
         public override void UpdateContent()
         {
-            fGraph.ShowData("", "Labels", fData);
+            fGraph.ShowData("", "Labels", "", fData);
         }
     }
 }

@@ -12,6 +12,7 @@ using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
 using AquaMate.UI.Dialogs;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Panels
 {
@@ -67,53 +68,9 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 200, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Enabled), 60, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Digital), 60, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Power), 100, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.WorkTime), 100, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Value), 80, HorizontalAlignment.Right);
-
-            double totalPow = 0.0d;
-            var records = fModel.QueryDevices();
-            foreach (Device rec in records) {
-                Aquarium aqm = fModel.GetRecord<Aquarium>(rec.AquariumId);
-                string aqmName = (aqm == null) ? "" : aqm.Name;
-                string strType = Localizer.LS(ALData.DeviceProps[(int)rec.Type].Name);
-
-                ItemState itemState;
-                string strState = fModel.GetItemStateStr(rec.Id, ItemType.Device, out itemState);
-
-                var item = ListView.AddItemEx(rec,
-                               aqmName,
-                               rec.Name,
-                               rec.Brand,
-                               strType,
-                               rec.Enabled.ToString(),
-                               rec.Digital.ToString(),
-                               ALCore.GetDecimalStr(rec.Power),
-                               ALCore.GetDecimalStr(rec.WorkTime),
-                               strState,
-                               string.Empty
-                           );
-
-                if (rec.Enabled) {
-                    totalPow += (rec.Power /* W/h */ * rec.WorkTime /* h/day */);
-                }
-
-                if (itemState == ItemState.Broken) {
-                    item.ForeColor = Color.Gray;
-                }
-            }
-
-            totalPow /= 1000.0d;
-            double electricCost = totalPow * ALData.kWhCost;
-            fFooter.Text = string.Format(Localizer.LS(LSID.PowerFooter), totalPow, electricCost);
+            var lv = GetControlHandler<IListView>(ListView);
+            var footer = GetControlHandler<ILabel>(fFooter);
+            ModelPresenter.FillDevicesLV(lv, footer, fModel);
         }
 
         public override void TickTimer()

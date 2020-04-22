@@ -13,7 +13,7 @@ namespace AquaMate.UI
     /// <summary>
     /// 
     /// </summary>
-    public interface IBrowser
+    public interface IBrowser: IFormView<IModel>
     {
         IModel Model { get; }
 
@@ -24,7 +24,6 @@ namespace AquaMate.UI
         void Notify(string text, Schedule record);
         void SetView(MainView mainView, object extData);
         void ShowAbout();
-        void ShowItemTransfers(ItemType itemType, int itemId);
         void ShowSettings(int tabIndex = 0);
         void SwitchVisible();
         void TransferItem(ItemType itemType, int itemId, IDataPanel view);

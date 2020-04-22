@@ -5,11 +5,9 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Core.Types;
 using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
@@ -37,9 +35,6 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            var transferTypesList = ALData.GetNamesList<TransferType>(ALData.TransferTypes);
-            cmbType.FillCombo<TransferType>(transferTypesList, true);
-
             lblName.Text = Localizer.LS(LSID.Item);
             lblSource.Text = Localizer.LS(LSID.SourceTank);
             lblTarget.Text = Localizer.LS(LSID.TargetTank);
@@ -64,55 +59,54 @@ namespace AquaMate.UI.Dialogs
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var transferType = cmbType.GetSelectedTag<TransferType>();
-            fPresenter.ChangeSelectedType(transferType);
+            fPresenter.ChangeSelectedType();
         }
 
         #region View interface implementation
 
-        ITextBoxHandler ITransferEditorView.NameField
+        ITextBox ITransferEditorView.NameField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+            get { return GetControlHandler<ITextBox>(txtName); }
         }
 
-        IComboBoxHandlerEx ITransferEditorView.SourceCombo
+        IComboBox ITransferEditorView.SourceCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbSource); }
+            get { return GetControlHandler<IComboBox>(cmbSource); }
         }
 
-        IComboBoxHandlerEx ITransferEditorView.TargetCombo
+        IComboBox ITransferEditorView.TargetCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbTarget); }
+            get { return GetControlHandler<IComboBox>(cmbTarget); }
         }
 
-        IDateTimeBoxHandler ITransferEditorView.DateField
+        IDateTimeBox ITransferEditorView.DateField
         {
-            get { return GetControlHandler<IDateTimeBoxHandler>(dtpDate); }
+            get { return GetControlHandler<IDateTimeBox>(dtpDate); }
         }
 
-        IComboBoxHandlerEx ITransferEditorView.TypeCombo
+        IComboBox ITransferEditorView.TypeCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbType); }
+            get { return GetControlHandler<IComboBox>(cmbType); }
         }
 
-        ITextBoxHandler ITransferEditorView.CauseField
+        ITextBox ITransferEditorView.CauseField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtCause); }
+            get { return GetControlHandler<ITextBox>(txtCause); }
         }
 
-        ITextBoxHandler ITransferEditorView.QuantityField
+        ITextBox ITransferEditorView.QuantityField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtQty); }
+            get { return GetControlHandler<ITextBox>(txtQty); }
         }
 
-        ITextBoxHandler ITransferEditorView.UnitPriceField
+        ITextBox ITransferEditorView.UnitPriceField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtUnitPrice); }
+            get { return GetControlHandler<ITextBox>(txtUnitPrice); }
         }
 
-        IComboBoxHandler ITransferEditorView.ShopCombo
+        IComboBox ITransferEditorView.ShopCombo
         {
-            get { return GetControlHandler<IComboBoxHandler>(cmbShop); }
+            get { return GetControlHandler<IComboBox>(cmbShop); }
         }
 
         #endregion

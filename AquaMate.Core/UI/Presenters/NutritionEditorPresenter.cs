@@ -16,11 +16,11 @@ namespace AquaMate.UI
 {
     public interface INutritionEditorView : IView
     {
-        ITextBoxHandler NameField { get; }
-        IComboBoxHandlerEx BrandCombo { get; }
-        ITextBoxHandler AmountField { get; }
-        ITextBoxHandler NoteField { get; }
-        IComboBoxHandlerEx StateCombo { get; }
+        ITextBox NameField { get; }
+        IComboBox BrandCombo { get; }
+        ITextBox AmountField { get; }
+        ITextBox NoteField { get; }
+        IComboBox StateCombo { get; }
     }
 
 
@@ -41,7 +41,7 @@ namespace AquaMate.UI
             if (fRecord != null) {
                 fView.NameField.Text = fRecord.Name;
 
-                fView.BrandCombo.AddRange(fModel.QueryNutritionBrands());
+                fView.BrandCombo.AddRange(fModel.QueryNutritionBrands(), true);
                 fView.BrandCombo.Text = fRecord.Brand;
 
                 fView.AmountField.SetDecimalVal(fRecord.Amount);

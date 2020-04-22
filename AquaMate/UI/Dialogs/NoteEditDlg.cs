@@ -54,24 +54,24 @@ namespace AquaMate.UI.Dialogs
 
         #region View interface implementation
 
-        IComboBoxHandlerEx INoteEditorView.AquariumCombo
+        IComboBox INoteEditorView.AquariumCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbAquarium); }
+            get { return GetControlHandler<IComboBox>(cmbAquarium); }
         }
 
-        IDateTimeBoxHandler INoteEditorView.TimestampField
+        IDateTimeBox INoteEditorView.TimestampField
         {
-            get { return GetControlHandler<IDateTimeBoxHandler>(dtpDateTime); }
+            get { return GetControlHandler<IDateTimeBox>(dtpDateTime); }
         }
 
-        ITextBoxHandler INoteEditorView.EventField
+        ITextBox INoteEditorView.EventField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtEvent); }
+            get { return GetControlHandler<ITextBox>(txtEvent); }
         }
 
-        ITextBoxHandler INoteEditorView.NoteField
+        ITextBox INoteEditorView.NoteField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+            get { return GetControlHandler<ITextBox>(txtNote); }
         }
 
         #endregion

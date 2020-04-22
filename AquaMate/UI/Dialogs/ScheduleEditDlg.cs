@@ -5,11 +5,9 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Core.Types;
 using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
@@ -37,12 +35,6 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            var scheduleTypesList = ALData.GetNamesList<ScheduleType>(ALData.ScheduleTypes);
-            cmbSchedule.FillCombo<ScheduleType>(scheduleTypesList, false);
-
-            var taskStatusesList = ALData.GetNamesList<TaskStatus>(ALData.TaskStatuses);
-            cmbStatus.FillCombo<TaskStatus>(taskStatusesList, false);
-
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblDate.Text = Localizer.LS(LSID.Date);
             lblEvent.Text = Localizer.LS(LSID.Event);
@@ -65,39 +57,39 @@ namespace AquaMate.UI.Dialogs
 
         #region View interface implementation
 
-        IComboBoxHandlerEx IScheduleEditorView.AquariumCombo
+        IComboBox IScheduleEditorView.AquariumCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbAquarium); }
+            get { return GetControlHandler<IComboBox>(cmbAquarium); }
         }
 
-        IDateTimeBoxHandler IScheduleEditorView.TimestampField
+        IDateTimeBox IScheduleEditorView.TimestampField
         {
-            get { return GetControlHandler<IDateTimeBoxHandler>(dtpDateTime); }
+            get { return GetControlHandler<IDateTimeBox>(dtpDateTime); }
         }
 
-        ITextBoxHandler IScheduleEditorView.EventField
+        ITextBox IScheduleEditorView.EventField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtEvent); }
+            get { return GetControlHandler<ITextBox>(txtEvent); }
         }
 
-        ICheckBoxHandler IScheduleEditorView.ReminderCheck
+        ICheckBox IScheduleEditorView.ReminderCheck
         {
-            get { return GetControlHandler<ICheckBoxHandler>(chkReminder); }
+            get { return GetControlHandler<ICheckBox>(chkReminder); }
         }
 
-        IComboBoxHandlerEx IScheduleEditorView.TypeCombo
+        IComboBox IScheduleEditorView.TypeCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbSchedule); }
+            get { return GetControlHandler<IComboBox>(cmbSchedule); }
         }
 
-        IComboBoxHandlerEx IScheduleEditorView.StatusCombo
+        IComboBox IScheduleEditorView.StatusCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbStatus); }
+            get { return GetControlHandler<IComboBox>(cmbStatus); }
         }
 
-        ITextBoxHandler IScheduleEditorView.NoteField
+        ITextBox IScheduleEditorView.NoteField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+            get { return GetControlHandler<ITextBox>(txtNote); }
         }
 
         #endregion

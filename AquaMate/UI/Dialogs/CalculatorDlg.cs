@@ -7,7 +7,6 @@
 using System;
 using System.Windows.Forms;
 using AquaMate.Core;
-using AquaMate.Core.Calculations;
 using AquaMate.Core.Model;
 using BSLib.Design.MVP.Controls;
 
@@ -25,10 +24,6 @@ namespace AquaMate.UI.Dialogs
             InitializeComponent();
 
             fPresenter = new CalculatorPresenter(this);
-
-            var namesList = BaseCalculation.GetNamesList<CalculationType>();
-            cmbType.FillCombo<CalculationType>(namesList, false);
-            cmbType.SelectedIndex = 0;
         }
 
         public override void SetLocale()
@@ -39,8 +34,7 @@ namespace AquaMate.UI.Dialogs
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var calcType = cmbType.GetSelectedTag<CalculationType>();
-            fPresenter.ChangeSelectedType(calcType);
+            fPresenter.ChangeSelectedType();
         }
 
         private void btnCalc_Click(object sender, EventArgs e)
@@ -55,14 +49,19 @@ namespace AquaMate.UI.Dialogs
 
         #region View interface implementation
 
-        IPropertyGridHandler ICalculatorView.ArgsGrid
+        IComboBox ICalculatorView.TypeCombo
         {
-            get { return GetControlHandler<IPropertyGridHandler>(pgArgs); }
+            get { return GetControlHandler<IComboBox>(cmbType); }
         }
 
-        ITextBoxHandler ICalculatorView.DescriptionField
+        IPropertyGrid ICalculatorView.ArgsGrid
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtDescription); }
+            get { return GetControlHandler<IPropertyGrid>(pgArgs); }
+        }
+
+        ITextBox ICalculatorView.DescriptionField
+        {
+            get { return GetControlHandler<ITextBox>(txtDescription); }
         }
 
         #endregion

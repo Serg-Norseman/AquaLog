@@ -293,51 +293,10 @@ namespace AquaMate.UI.Panels
 
             if (chartType != BudgetChartType.Monthes) {
                 // prettification
-                vals = AlternateSort(vals);
+                vals = ZGraphControl.AlternateSort(vals);
             }
 
             return vals;
-        }
-
-        private static List<ChartPoint> AlternateSort(List<ChartPoint> source)
-        {
-            int srcLen = source.Count;
-            if (srcLen < 2) {
-                return source;
-            }
-
-            source.Sort((x, y) => {
-                return x.Value.CompareTo(y.Value);
-            });
-
-            ChartPoint[] target = new ChartPoint[srcLen];
-
-            int t, b, lp, rp;
-            t = srcLen - 1;
-            b = 0;
-            lp = t / 2 - 1;
-            rp = t / 2 + 1;
-            target[t / 2] = source[t];
-            t--;
-            while (b < t) {
-                target[lp] = source[b];
-                b++;
-                target[rp] = source[b];
-                b++;
-                lp--;
-                rp++;
-
-                if (b >= t) break;
-
-                target[lp] = source[t];
-                t--;
-                target[rp] = source[t];
-                t--;
-                lp--;
-                rp++;
-            }
-
-            return target.ToList();
         }
     }
 }

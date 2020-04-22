@@ -4,103 +4,77 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-#define MSCHART
-
 using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
+using ZedGraph;
 
 namespace AquaMate.UI.Components
 {
-    #if !MSCHART
-    using ZedGraph;
-    #else
-    using System.Windows.Forms.DataVisualization.Charting;
-    #endif
-
     /// <summary>
     /// 
     /// </summary>
     public sealed class ZGraphControl : UserControl
     {
-        #if !MSCHART
         private readonly ZedGraphControl fGraph;
-        #else
-        private readonly Chart fGraph;
-        #endif
 
         public ZGraphControl()
         {
-            #if !MSCHART
             fGraph = new ZedGraphControl();
             fGraph.IsShowPointValues = true;
             fGraph.PointValueEvent += Graph_PointValueEvent;
-            #else
-            fGraph = new Chart();
-            //chart.GetToolTipText += new EventHandler<ToolTipEventArgs>(this.chart_ToolTip);
-            Clear();
-            #endif
-
             fGraph.Dock = DockStyle.Fill;
             Controls.Add(fGraph);
         }
 
         public void Clear()
         {
-            #if !MSCHART
             GraphPane gPane = fGraph.GraphPane;
+
             gPane.Title.Text = "";
             gPane.XAxis.Title.Text = "";
             gPane.YAxis.Title.Text = "";
+
             gPane.CurveList.Clear();
-            fGraph.AxisChange();
             gPane.GraphObjList.Clear();
-            #else
-            fGraph.ChartAreas.Clear();
-            fGraph.Series.Clear();
-            fGraph.Legends.Clear();
 
-            fGraph.ChartAreas.Add(new ChartArea("ChartArea1"));
-            fGraph.Legends.Add(new Legend("Legend1"));
-            fGraph.Legends["Legend1"].IsTextAutoFit = true;
-            #endif
-
+            fGraph.AxisChange();
             fGraph.Invalidate();
         }
 
-        public void ShowData(string title, string xAxis, object data)
+        public void ShowData(string title, string xAxis, string yAxis, object data)
         {
             Clear();
             if (data == null) return;
+
+            fGraph.GraphPane.Title.Text = title;
 
             var seriesList = data as Dictionary<string, ChartSeries>;
             if (seriesList != null) {
                 foreach (var pair in seriesList) {
                     var series = pair.Value;
-                    ShowSeries(title, xAxis, series);
+                    ShowSeries(xAxis, yAxis, series);
                 }
             } else {
                 var series = data as ChartSeries;
                 if (series != null) {
-                    ShowSeries(title, xAxis, series);
+                    ShowSeries(xAxis, yAxis, series);
                 }
             }
         }
 
-        #if !MSCHART
-
-        private void ShowSeries(string title, string xAxis, ChartSeries series)
+        private void ShowSeries(string xAxis, string yAxis, ChartSeries series)
         {
             IList<ChartPoint> vals = series.Data;
 
             GraphPane gPane = fGraph.GraphPane;
             try {
-                //gPane.Title.Text = title;
                 gPane.XAxis.Title.Text = xAxis;
-                gPane.XAxis.Scale.FontSpec.Angle = 60;
-                gPane.XAxis.Scale.FontSpec.Size = 12;
-                //gPane.YAxis.Title.Text = yAxis;
+                //gPane.XAxis.Scale.FontSpec.Angle = 60;
+                gPane.XAxis.Scale.FontSpec.Size = 10;
+                gPane.YAxis.Title.Text = yAxis;
+                gPane.YAxis.Scale.FontSpec.Size = 10;
 
                 if (series.Style == ChartStyle.Pie) {
                     gPane.Legend.IsVisible = false;
@@ -113,9 +87,6 @@ namespace AquaMate.UI.Components
                     }
                 } else if (series.Style == ChartStyle.Bar || series.Style == ChartStyle.Point) {
                     gPane.XAxis.Type = AxisType.Date;
-                    gPane.XAxis.Scale.Format = "yy-MM-dd HH:mm:ss";
-                    gPane.XAxis.Scale.MajorUnit = DateUnit.Year;
-                    gPane.XAxis.Scale.MinorUnit = DateUnit.Second;
                     gPane.Legend.IsVisible = true;
 
                     PointPairList ppList = new PointPairList();
@@ -129,52 +100,18 @@ namespace AquaMate.UI.Components
 
                     switch (series.Style) {
                         case ChartStyle.Bar:
+                            gPane.XAxis.Scale.Format = "yy-MM-dd";
+                            gPane.XAxis.Scale.MajorUnit = DateUnit.Year;
+                            gPane.XAxis.Scale.MinorUnit = DateUnit.Month;
                             gPane.AddBar(series.AxisName, ppList, series.Color);
                             break;
                         case ChartStyle.Point:
+                            gPane.XAxis.Scale.Format = "yy-MM-dd HH:mm:ss";
+                            gPane.XAxis.Scale.MajorUnit = DateUnit.Day;
+                            gPane.XAxis.Scale.MinorUnit = DateUnit.Second;
                             gPane.AddCurve(series.AxisName, ppList, series.Color, SymbolType.Diamond).Symbol.Size = 3;
                             break;
                     }
-                } else {
-                    gPane.Legend.IsVisible = false;
-
-                    //double maxVal = double.MinValue;
-                    RadarPointList ppList = new RadarPointList();
-                    ppList.Clockwise = true;
-                    int num = vals.Count;
-                    for (int i = 0; i < num; i++) {
-                        ChartPoint item = vals[i];
-                        ppList.Add(new PointPair(PointPair.Missing, item.Value, item.Caption));
-                        //maxVal = Math.Max(maxVal, item.Value);
-                    }
-
-                    gPane.AddCurve(series.AxisName, ppList, series.Color, SymbolType.None);
-
-                    for (int i = 0; i < num; i++) {
-                        LineObj line = new ArrowObj(0, 0, ppList[i].X, ppList[i].Y);
-                        line.Line.Color = Color.LightGray;
-                        line.ZOrder = ZOrder.E_BehindCurves;
-                        gPane.GraphObjList.Add(line);
-                    }
-
-                    BoxObj box = new BoxObj(-0.005, 0.005, 0.01, 0.01, Color.Black, Color.Black);
-                    gPane.GraphObjList.Add(box);
-
-                    gPane.XAxis.MajorTic.IsAllTics = true;
-                    gPane.XAxis.MinorTic.IsAllTics = true;
-                    gPane.XAxis.Title.IsTitleAtCross = false;
-                    gPane.XAxis.Cross = 0;
-                    gPane.XAxis.Scale.IsSkipFirstLabel = true;
-                    gPane.XAxis.Scale.IsSkipLastLabel = true;
-                    gPane.XAxis.Scale.IsSkipCrossLabel = true;
-
-                    gPane.YAxis.MajorTic.IsAllTics = false;
-                    gPane.YAxis.MinorTic.IsAllTics = false;
-                    gPane.YAxis.Title.IsTitleAtCross = false;
-                    gPane.YAxis.Cross = 0;
-                    gPane.YAxis.Scale.IsSkipFirstLabel = true;
-                    gPane.YAxis.Scale.IsSkipLastLabel = true;
-                    gPane.YAxis.Scale.IsSkipCrossLabel = true;
                 }
             } finally {
                 fGraph.AxisChange();
@@ -202,93 +139,49 @@ namespace AquaMate.UI.Components
             return string.Empty;
         }
 
-        #else
+        #region Beautify
 
-        private void ShowSeries(string title, string xAxis, ChartSeries series)
+        public static List<ChartPoint> AlternateSort(List<ChartPoint> source)
         {
-            IList<ChartPoint> vals = series.Data;
-
-            var chArea = fGraph.ChartAreas["ChartArea1"];
-            Series mscSeries = new Series(series.AxisName);
-            mscSeries.ChartArea = "ChartArea1";
-            mscSeries.Legend = "Legend1";
-            mscSeries.Color = series.Color;
-            fGraph.Series.Add(mscSeries);
-            DataPointCollection dataPoints = mscSeries.Points;
-            var legend = fGraph.Legends["Legend1"];
-
-            try {
-                switch (series.Style) {
-                    case ChartStyle.Pie:
-                    case ChartStyle.Radar:
-                        foreach (var item in vals) {
-                            dataPoints.AddXY(item.Caption, item.Value);
-                        }
-                        break;
-
-                    case ChartStyle.Bar:
-                    case ChartStyle.Point:
-                        foreach (var item in vals) {
-                            dataPoints.AddXY(item.Timestamp, item.Value);
-                        }
-                        break;
-                }
-
-                if (series.Style == ChartStyle.Pie) {
-                    mscSeries.ChartType = SeriesChartType.Pie;
-                    mscSeries["PieLabelStyle"] = "Outside";
-                    mscSeries.Label = "#VALX (#PERCENT{P2})";
-                    // see the connecting lines
-                    mscSeries.BorderWidth = 1;
-                    mscSeries.BorderColor = Color.FromArgb(26, 59, 105);
-                    legend.Enabled = false;
-                } else if (series.Style == ChartStyle.Bar || series.Style == ChartStyle.Point) {
-                    switch (series.Style) {
-                        case ChartStyle.Bar:
-                            mscSeries.ChartType = SeriesChartType.Column;
-                            mscSeries.Label = "#VALX\n#VALY{F2}";
-                            break;
-                        case ChartStyle.Point:
-                            mscSeries.ChartType = SeriesChartType.Line;
-                            break;
-                    }
-                    legend.Enabled = true;
-                    legend.Docking = Docking.Bottom;
-
-                    chArea.CursorX.IsUserEnabled = true;
-                    chArea.CursorX.IsUserSelectionEnabled = true;
-                    chArea.CursorY.IsUserEnabled = true;
-                    chArea.CursorY.IsUserSelectionEnabled = true;
-                } else {
-                    mscSeries.ChartType = SeriesChartType.Radar;
-                    mscSeries["RadarDrawingStyle"] = "Area";
-                    mscSeries["AreaDrawingStyle"] = "Polygon";
-                    mscSeries["CircularLabelsStyle"] = "Horizontal";
-                    legend.Enabled = true;
-                }
-            } finally {
-                fGraph.Invalidate();
+            int srcLen = source.Count;
+            if (srcLen < 2) {
+                return source;
             }
+
+            source.Sort((x, y) => {
+                return x.Value.CompareTo(y.Value);
+            });
+
+            ChartPoint[] target = new ChartPoint[srcLen];
+
+            int t, b, lp, rp;
+            t = srcLen - 1;
+            b = 0;
+            lp = t / 2 - 1;
+            rp = t / 2 + 1;
+            target[t / 2] = source[t];
+            t--;
+            while (b < t) {
+                target[lp] = source[b];
+                b++;
+                target[rp] = source[b];
+                b++;
+                lp--;
+                rp++;
+
+                if (b >= t) break;
+
+                target[lp] = source[t];
+                t--;
+                target[rp] = source[t];
+                t--;
+                lp--;
+                rp++;
+            }
+
+            return target.ToList();
         }
 
-        private void chart_ToolTip(object sender, ToolTipEventArgs e)
-        {
-            HitTestResult h = e.HitTestResult;
-
-            switch (h.ChartElementType) {
-                case ChartElementType.Axis:
-                case ChartElementType.AxisLabels:
-                    e.Text = "Click-drag in graph area to zoom";
-                    break;
-                case ChartElementType.ScrollBarZoomReset:
-                    e.Text = "Zoom undo";
-                    break;
-                case ChartElementType.DataPoint:
-                    e.Text = h.Series.Name + '\n' + h.Series.Points[h.PointIndex];
-                    break;
-            }
-        }
-
-        #endif
+        #endregion
     }
 }

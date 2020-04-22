@@ -5,11 +5,9 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Core.Types;
 using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
@@ -36,12 +34,6 @@ namespace AquaMate.UI.Dialogs
             Text = Localizer.LS(LSID.SpeciesS);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
-
-            var speciesTypesList = ALData.GetNamesList<SpeciesType>(ALData.SpeciesTypes);
-            cmbType.FillCombo<SpeciesType>(speciesTypesList, true);
-
-            var swimLevelsList = ALData.GetNamesList<SwimLevel>(ALData.SwimLevels);
-            cmbSwimLevel.FillCombo<SwimLevel>(swimLevelsList, false);
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblDesc.Text = Localizer.LS(LSID.Description);
@@ -72,80 +64,79 @@ namespace AquaMate.UI.Dialogs
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var type = cmbType.GetSelectedTag<SpeciesType>();
-            fPresenter.ChangeSelectedType(type);
+            fPresenter.ChangeSelectedType();
         }
 
         #region View interface implementation
 
-        ITextBoxHandler ISpeciesEditorView.NameField
+        ITextBox ISpeciesEditorView.NameField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+            get { return GetControlHandler<ITextBox>(txtName); }
         }
 
-        ITextBoxHandler ISpeciesEditorView.DescriptionField
+        ITextBox ISpeciesEditorView.DescriptionField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtDesc); }
+            get { return GetControlHandler<ITextBox>(txtDesc); }
         }
 
-        IComboBoxHandlerEx ISpeciesEditorView.TypeCombo
+        IComboBox ISpeciesEditorView.TypeCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbType); }
+            get { return GetControlHandler<IComboBox>(cmbType); }
         }
 
-        ITextBoxHandler ISpeciesEditorView.ScientificNameField
+        ITextBox ISpeciesEditorView.ScientificNameField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtScientificName); }
+            get { return GetControlHandler<ITextBox>(txtScientificName); }
         }
 
-        IComboBoxHandlerEx ISpeciesEditorView.BioFamilyCombo
+        IComboBox ISpeciesEditorView.BioFamilyCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbFamily); }
+            get { return GetControlHandler<IComboBox>(cmbFamily); }
         }
 
-        ITextBoxHandler ISpeciesEditorView.TempMinField
+        ITextBox ISpeciesEditorView.TempMinField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtTempMin); }
+            get { return GetControlHandler<ITextBox>(txtTempMin); }
         }
 
-        ITextBoxHandler ISpeciesEditorView.TempMaxField
+        ITextBox ISpeciesEditorView.TempMaxField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtTempMax); }
+            get { return GetControlHandler<ITextBox>(txtTempMax); }
         }
 
-        ITextBoxHandler ISpeciesEditorView.PHMinField
+        ITextBox ISpeciesEditorView.PHMinField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtPHMin); }
+            get { return GetControlHandler<ITextBox>(txtPHMin); }
         }
 
-        ITextBoxHandler ISpeciesEditorView.PHMaxField
+        ITextBox ISpeciesEditorView.PHMaxField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtPHMax); }
+            get { return GetControlHandler<ITextBox>(txtPHMax); }
         }
 
-        ITextBoxHandler ISpeciesEditorView.GHMinField
+        ITextBox ISpeciesEditorView.GHMinField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtGHMin); }
+            get { return GetControlHandler<ITextBox>(txtGHMin); }
         }
 
-        ITextBoxHandler ISpeciesEditorView.GHMaxField
+        ITextBox ISpeciesEditorView.GHMaxField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtGHMax); }
+            get { return GetControlHandler<ITextBox>(txtGHMax); }
         }
 
-        ITextBoxHandler ISpeciesEditorView.AdultSizeField
+        ITextBox ISpeciesEditorView.AdultSizeField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtAdultSize); }
+            get { return GetControlHandler<ITextBox>(txtAdultSize); }
         }
 
-        ITextBoxHandler ISpeciesEditorView.LifeSpanField
+        ITextBox ISpeciesEditorView.LifeSpanField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtLifeSpan); }
+            get { return GetControlHandler<ITextBox>(txtLifeSpan); }
         }
 
-        IComboBoxHandler ISpeciesEditorView.SwimLevelCombo
+        IComboBox ISpeciesEditorView.SwimLevelCombo
         {
-            get { return GetControlHandler<IComboBoxHandler>(cmbSwimLevel); }
+            get { return GetControlHandler<IComboBox>(cmbSwimLevel); }
         }
 
         #endregion

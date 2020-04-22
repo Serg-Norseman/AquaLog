@@ -16,12 +16,12 @@ namespace AquaMate.UI
 {
     public interface ITSPointEditorView : IView
     {
-        ITextBoxHandler NameField { get; }
-        ITextBoxHandler MeasureUnitField { get; }
-        ITextBoxHandler MinField { get; }
-        ITextBoxHandler MaxField { get; }
-        ITextBoxHandler DeviationField { get; }
-        ITextBoxHandler SIDField { get; }
+        ITextBox NameField { get; }
+        ITextBox MeasureUnitField { get; }
+        ITextBox MinField { get; }
+        ITextBox MaxField { get; }
+        ITextBox DeviationField { get; }
+        ITextBox SIDField { get; }
     }
 
 

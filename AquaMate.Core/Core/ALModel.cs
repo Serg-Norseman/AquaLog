@@ -745,9 +745,10 @@ namespace AquaMate.Core
             return fDB.Query<Transfer>("select Timestamp, ItemType, ItemId, Type, Quantity, UnitPrice, Shop from Transfer order by [Timestamp]");
         }
 
-        public IList<QString> QueryShops()
+        public IList<string> QueryShops()
         {
-            return fDB.Query<QString>("select distinct Shop as element from Transfer");
+            var queryResult = fDB.Query<QString>("select distinct Shop as element from Transfer");
+            return ALData.GetStringList(queryResult);
         }
 
         #endregion

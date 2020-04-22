@@ -53,19 +53,19 @@ namespace AquaMate.UI.Dialogs
 
         #region View interface implementation
 
-        ITextBoxHandler IBrandEditorView.NameField
+        ITextBox IBrandEditorView.NameField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+            get { return GetControlHandler<ITextBox>(txtName); }
         }
 
-        IComboBoxHandler IBrandEditorView.CountryCombo
+        IComboBox IBrandEditorView.CountryCombo
         {
-            get { return GetControlHandler<IComboBoxHandler>(cmbCountry); }
+            get { return GetControlHandler<IComboBox>(cmbCountry); }
         }
 
-        ITextBoxHandler IBrandEditorView.NoteField
+        ITextBox IBrandEditorView.NoteField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+            get { return GetControlHandler<ITextBox>(txtNote); }
         }
 
         #endregion

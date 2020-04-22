@@ -6,14 +6,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Export;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
 using AquaMate.Logging;
-using AquaMate.UI.Components;
 using AquaMate.UI.Dialogs;
 using BSLib;
 
@@ -91,7 +89,6 @@ namespace AquaMate.UI.Panels
             AddAction("M3DViewer", LSID.M3DViewer, "", btnM3DViewer_Click);
             AddAction("Analysis", LSID.Analysis, "", btnAnalysis_Click);
             AddAction("Quality", LSID.Quality, "", btnQuality_Click);
-            AddAction("Radar", LSID.Radar, "", btnRadar_Click);
         }
 
         public override void SelectionChanged(IList<Entity> records)
@@ -253,37 +250,6 @@ namespace AquaMate.UI.Panels
 
             var record = selectedItem.Aquarium;
             Browser.SetView(MainView.Quality, record);
-        }
-
-        private void btnRadar_Click(object sender, EventArgs e)
-        {
-            var selectedItem = SelectedTank;
-            if (selectedItem == null) return;
-
-            var record = selectedItem.Aquarium;
-
-            var series = new Dictionary<string, ChartSeries>();
-
-            var chartData = GetChartData(record);
-            series.Add(Localizer.LS(LSID.Radar), new ChartSeries(Localizer.LS(LSID.Quality), ChartStyle.Radar, chartData, Color.FromArgb(100, Color.Blue)));
-
-            Browser.SetView(MainView.ZChart, series);
-        }
-
-        private IList<ChartPoint> GetChartData(Aquarium aquarium)
-        {
-            var result = new List<ChartPoint>();
-            var values = fModel.CollectData(aquarium);
-            foreach (var mVal in values) {
-                if (!double.IsNaN(mVal.Value) && mVal.Ranges != null) {
-                    string title = mVal.Name;
-                    if (!string.IsNullOrEmpty(mVal.Unit)) {
-                        title += ", " + mVal.Unit;
-                    }
-                    result.Add(new ChartPoint(title, mVal.Value));
-                }
-            }
-            return result;
         }
     }
 }

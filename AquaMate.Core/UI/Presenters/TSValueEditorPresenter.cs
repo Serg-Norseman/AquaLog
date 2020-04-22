@@ -15,8 +15,8 @@ namespace AquaMate.UI
 {
     public interface ITSValueEditorView : IView
     {
-        IDateTimeBoxHandler TimestampField { get; }
-        ITextBoxHandler ValueField { get; }
+        IDateTimeBox TimestampField { get; }
+        ITextBox ValueField { get; }
     }
 
 

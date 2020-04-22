@@ -5,6 +5,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 using AquaMate.Core;
 using BSLib;
 using BSLib.Design.MVP.Controls;
@@ -16,13 +17,19 @@ namespace AquaMate.UI
     /// </summary>
     public static class Extensions
     {
-        public static double GetDecimalVal(this ITextBoxHandler textBox, double defaultValue = 0.0d)
+        public static void AddRange<T>(this IComboBox comboBox, IEnumerable<ListItem<T>> items, bool sorted = false)
+        {
+            comboBox.AddRange(items, sorted);
+        }
+
+
+        public static double GetDecimalVal(this ITextBox textBox, double defaultValue = 0.0d)
         {
             string strVal = textBox.Text;
             return ConvertHelper.ParseFloat(strVal, defaultValue, true);
         }
 
-        public static void SetDecimalVal(this ITextBoxHandler textBox, double value, int decimalDigits = 2, bool hideZero = false)
+        public static void SetDecimalVal(this ITextBox textBox, double value, int decimalDigits = 2, bool hideZero = false)
         {
             if (double.IsNaN(value) || (value == 0.0d && hideZero)) {
                 textBox.Text = string.Empty;
@@ -35,17 +42,30 @@ namespace AquaMate.UI
         }
 
 
-        public static DateTime GetCheckedDate(this IDateTimeBoxHandler textBox)
+        public static DateTime GetCheckedDate(this IDateTimeBox textBox)
         {
             return textBox.Checked ? textBox.Value : new DateTime(0);
         }
 
-        public static void SetCheckedDate(this IDateTimeBoxHandler textBox, DateTime value)
+        public static void SetCheckedDate(this IDateTimeBox textBox, DateTime value)
         {
             textBox.Checked = !ALCore.IsZeroDate(value);
             if (textBox.Checked) {
                 textBox.Value = value;
             }
+        }
+
+
+        public static void SetForeColor(this IListItem listItem, int color)
+        {
+            var colorHandler = AppHost.GfxProvider.CreateColor(color);
+            listItem.SetForeColor(colorHandler);
+        }
+
+        public static void SetBackColor(this IListItem listItem, int color)
+        {
+            var colorHandler = AppHost.GfxProvider.CreateColor(color);
+            listItem.SetBackColor(colorHandler);
         }
     }
 }

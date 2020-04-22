@@ -13,6 +13,7 @@ using AquaMate.Logging;
 using AquaMate.TSDB;
 using AquaMate.UI.Dialogs;
 using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Panels
 {
@@ -50,28 +51,8 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Name), 140, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Unit), 80, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Min), 80, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.Max), 80, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.Deviation), 80, HorizontalAlignment.Right);
-            ListView.Columns.Add("SID", 140, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Value), 80, HorizontalAlignment.Right);
-
-            TSDatabase tsdb = fModel.TSDB;
-            var records = tsdb.GetPoints();
-            foreach (TSPoint rec in records) {
-                var item = ListView.AddItemEx(rec,
-                               rec.Name,
-                               rec.MeasureUnit,
-                               ALCore.GetDecimalStr(rec.Min),
-                               ALCore.GetDecimalStr(rec.Max),
-                               ALCore.GetDecimalStr(rec.Deviation),
-                               rec.SID,
-                               string.Empty
-                           );
-            }
+            var lv = GetControlHandler<IListView>(ListView);
+            ModelPresenter.FillTSPointsLV(lv, fModel);
         }
 
         protected override void AddHandler(object sender, EventArgs e)

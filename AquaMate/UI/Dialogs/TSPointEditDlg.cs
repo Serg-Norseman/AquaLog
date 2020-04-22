@@ -55,34 +55,34 @@ namespace AquaMate.UI.Dialogs
 
         #region View interface implementation
 
-        ITextBoxHandler ITSPointEditorView.NameField
+        ITextBox ITSPointEditorView.NameField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+            get { return GetControlHandler<ITextBox>(txtName); }
         }
 
-        ITextBoxHandler ITSPointEditorView.MeasureUnitField
+        ITextBox ITSPointEditorView.MeasureUnitField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtUoM); }
+            get { return GetControlHandler<ITextBox>(txtUoM); }
         }
 
-        ITextBoxHandler ITSPointEditorView.MinField
+        ITextBox ITSPointEditorView.MinField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtMin); }
+            get { return GetControlHandler<ITextBox>(txtMin); }
         }
 
-        ITextBoxHandler ITSPointEditorView.MaxField
+        ITextBox ITSPointEditorView.MaxField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtMax); }
+            get { return GetControlHandler<ITextBox>(txtMax); }
         }
 
-        ITextBoxHandler ITSPointEditorView.DeviationField
+        ITextBox ITSPointEditorView.DeviationField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtDeviation); }
+            get { return GetControlHandler<ITextBox>(txtDeviation); }
         }
 
-        ITextBoxHandler ITSPointEditorView.SIDField
+        ITextBox ITSPointEditorView.SIDField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtSID); }
+            get { return GetControlHandler<ITextBox>(txtSID); }
         }
 
         #endregion

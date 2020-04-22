@@ -170,11 +170,8 @@
     <Compile Include="UI\EditorPresenter.cs" />
     <Compile Include="UI\Extensions.cs" />
     <Compile Include="UI\IBrowser.cs" />
-    <Compile Include="UI\IComboBoxHandlerEx.cs" />
     <Compile Include="UI\IDataPanel.cs" />
     <Compile Include="UI\IEditDialog.cs" />
-    <Compile Include="UI\IPictureBoxHandler.cs" />
-    <Compile Include="UI\IPropertyGridHandler.cs" />
     <Compile Include="UI\IView.cs" />
     <Compile Include="UI\ListItem.cs" />
     <Compile Include="UI\MainView.cs" />
@@ -188,6 +185,7 @@
     <Compile Include="UI\Presenters\InventoryEditorPresenter.cs" />
     <Compile Include="UI\Presenters\MaintenanceEditorPresenter.cs" />
     <Compile Include="UI\Presenters\MeasureEditorPresenter.cs" />
+    <Compile Include="UI\Presenters\ModelPresenter.cs" />
     <Compile Include="UI\Presenters\NoteEditorPresenter.cs" />
     <Compile Include="UI\Presenters\NutritionEditorPresenter.cs" />
     <Compile Include="UI\Presenters\ScheduleEditorPresenter.cs" />

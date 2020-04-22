@@ -13,6 +13,7 @@ using AquaMate.Core.Model;
 using AquaMate.Logging;
 using AquaMate.UI.Dialogs;
 using BSLib;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Panels
 {
@@ -30,17 +31,8 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Name), 120, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
-
-            var records = fModel.QuerySnapshots();
-            foreach (Snapshot rec in records) {
-                var item = ListView.AddItemEx(rec,
-                               rec.Name,
-                               ALCore.GetTimeStr(rec.Timestamp)
-                           );
-            }
+            var lv = GetControlHandler<IListView>(ListView);
+            ModelPresenter.FillSnapshotsLV(lv, fModel);
         }
 
         protected override void InitActions()

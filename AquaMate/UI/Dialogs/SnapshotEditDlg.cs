@@ -55,29 +55,29 @@ namespace AquaMate.UI.Dialogs
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = UIHelper.LoadImage();
+            fPresenter.LoadImage();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            UIHelper.SaveImage(pictureBox1.Image);
+            fPresenter.SaveImage();
         }
 
         #region View interface implementation
 
-        ITextBoxHandler ISnapshotEditorView.NameField
+        ITextBox ISnapshotEditorView.NameField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+            get { return GetControlHandler<ITextBox>(txtName); }
         }
 
-        IPictureBoxHandler ISnapshotEditorView.PicBox
+        IPictureBox ISnapshotEditorView.PicBox
         {
-            get { return GetControlHandler<IPictureBoxHandler>(pictureBox1); }
+            get { return GetControlHandler<IPictureBox>(pictureBox1); }
         }
 
-        IDateTimeBoxHandler ISnapshotEditorView.TimestampField
+        IDateTimeBox ISnapshotEditorView.TimestampField
         {
-            get { return GetControlHandler<IDateTimeBoxHandler>(dtpDateTime); }
+            get { return GetControlHandler<IDateTimeBox>(dtpDateTime); }
         }
 
         #endregion

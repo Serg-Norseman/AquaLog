@@ -5,9 +5,14 @@
  */
 
 using System;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows.Forms;
 using AquaMate.Core;
+using AquaMate.UI.Components;
 using AquaMate.UI.Dialogs;
+using BSLib.Design.Graphics;
 using BSLib.Design.IoC;
 using BSLib.Design.MVP;
 
@@ -41,6 +46,53 @@ namespace AquaMate.UI
             Application.Run(mainForm);
         }
 
+        public override byte[] ImageToByte(IImage image)
+        {
+            var wfImage = ((ImageHandler)image).Handle;
+            return ALCore.ImageToByte(wfImage, ImageFormat.Jpeg);
+        }
+
+        public override IImage ByteToImage(byte[] imageBytes)
+        {
+            var wfImage = ALCore.ByteToImage(imageBytes);
+            return new ImageHandler(wfImage);
+        }
+
+        public override IImage LoadImage()
+        {
+            Image image = null;
+
+            string fileName = UIHelper.GetOpenFile("title", "context",
+                          "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.tiff)|*.jpg;*.jpeg;*.png;*.gif;*.tiff",
+                          1, "");
+
+            if (string.IsNullOrEmpty(fileName))
+                return null;
+
+            if (File.Exists(fileName)) {
+                using (FileStream stream = File.Open(fileName, FileMode.Open)) {
+                    BinaryReader br = new BinaryReader(stream);
+                    byte[] data = br.ReadBytes((int)stream.Length);
+                    image = ALCore.ByteToImage(data);
+                }
+            }
+
+            return new ImageHandler(image);
+        }
+
+        public override void SaveImage(IImage image)
+        {
+            string fileName = UIHelper.GetSaveFile("title", "context",
+                          "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.tiff)|*.jpg;*.jpeg;*.png;*.gif;*.tiff",
+                          1, "jpg", "", true);
+
+            if (string.IsNullOrEmpty(fileName))
+                return;
+
+            var wfImage = ((ImageHandler)image).Handle;
+            wfImage.Save(fileName);
+        }
+
         public static void RegisterControlHandlers()
         {
             ControlsManager.RegisterHandlerType(typeof(Button), typeof(ButtonHandler));
@@ -59,12 +111,15 @@ namespace AquaMate.UI
             ControlsManager.RegisterHandlerType(typeof(PropertyGrid), typeof(PropertyGridHandler));
             ControlsManager.RegisterHandlerType(typeof(DateTimePicker), typeof(DateTimeBoxHandler));
             ControlsManager.RegisterHandlerType(typeof(PictureBox), typeof(PictureBoxHandler));
+            ControlsManager.RegisterHandlerType(typeof(ZListView), typeof(ZListViewHandler));
         }
 
         public static void RegisterViews()
         {
             IContainer container = Container;
             container.Reset();
+
+            container.Register<IGraphicsProvider, WFGfxProvider>(LifeCycle.Singleton);
 
             container.Register<IAquariumEditorView, AquariumEditDlg>(LifeCycle.Transient);
             container.Register<ICalculatorView, CalculatorDlg>(LifeCycle.Transient);

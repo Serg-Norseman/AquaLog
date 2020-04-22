@@ -9,8 +9,8 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Core.Types;
 using AquaMate.UI.Dialogs;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Panels
 {
@@ -28,29 +28,8 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Aquarium), 120, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Value), 100, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.Note), 250, HorizontalAlignment.Left);
-
-            var records = fModel.QueryMaintenances();
-            foreach (Maintenance rec in records) {
-                Aquarium aqm = fModel.Cache.Get<Aquarium>(ItemType.Aquarium, rec.AquariumId);
-                string aqmName = (aqm == null) ? "" : aqm.Name;
-                if (fSelectedAquarium != "*" && fSelectedAquarium != aqmName) continue;
-
-                string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type].Name);
-
-                var item = ListView.AddItemEx(rec,
-                               aqmName,
-                               ALCore.GetTimeStr(rec.Timestamp),
-                               strType,
-                               ALCore.GetDecimalStr(rec.Value),
-                               rec.Note
-                           );
-            }
+            var lv = GetControlHandler<IListView>(ListView);
+            ModelPresenter.FillMaintenancesLV(lv, fModel, fSelectedAquarium);
         }
 
         protected override void InitActions()

@@ -1,6 +1,5 @@
 
 ## ??.??.2020 [v1.4.0]
-- Added water quality radar.
 - Added the function of viewing the transfers of selected items.
 - Added support of soils (inventory subtype).
 - Added checks for record's links on deletion.

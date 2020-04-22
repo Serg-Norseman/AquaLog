@@ -90,7 +90,7 @@ namespace AquaMate.UI.Panels
 
             foreach (var trendPair in fTrends) {
                 var trend = trendPair.Value;
-                fGraph.ShowData(trend.Name, "Time", new ChartSeries("Value", ChartStyle.Point, trend.Points, trend.Color));
+                fGraph.ShowData("", "Time", "Value", new ChartSeries(trend.Name, ChartStyle.Point, trend.Points, trend.Color));
             }
         }
 
@@ -143,7 +143,7 @@ namespace AquaMate.UI.Panels
                     series.Add(key, new ChartSeries(key, ChartStyle.Point, trend.Points, trend.Color));
                 }
             }
-            fGraph.ShowData("", "Time", series);
+            fGraph.ShowData("", "Time", "", series);
         }
     }
 }

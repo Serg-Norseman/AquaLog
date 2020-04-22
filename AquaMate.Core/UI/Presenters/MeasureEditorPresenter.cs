@@ -15,20 +15,20 @@ namespace AquaMate.UI
 {
     public interface IMeasureEditorView : IView
     {
-        IComboBoxHandlerEx AquariumCombo { get; }
-        IDateTimeBoxHandler TimestampField { get; }
-        ITextBoxHandler TemperatureField { get; }
-        ITextBoxHandler NO3Field { get; }
-        ITextBoxHandler NO2Field { get; }
-        ITextBoxHandler GHField { get; }
-        ITextBoxHandler KHField { get; }
-        ITextBoxHandler PHField { get; }
-        ITextBoxHandler Cl2Field { get; }
-        ITextBoxHandler CO2Field { get; }
-        ITextBoxHandler NHField { get; }
-        ITextBoxHandler NH3Field { get; }
-        ITextBoxHandler NH4Field { get; }
-        ITextBoxHandler PO4Field { get; }
+        IComboBox AquariumCombo { get; }
+        IDateTimeBox TimestampField { get; }
+        ITextBox TemperatureField { get; }
+        ITextBox NO3Field { get; }
+        ITextBox NO2Field { get; }
+        ITextBox GHField { get; }
+        ITextBox KHField { get; }
+        ITextBox PHField { get; }
+        ITextBox Cl2Field { get; }
+        ITextBox CO2Field { get; }
+        ITextBox NHField { get; }
+        ITextBox NH3Field { get; }
+        ITextBox NH4Field { get; }
+        ITextBox PO4Field { get; }
     }
 
 

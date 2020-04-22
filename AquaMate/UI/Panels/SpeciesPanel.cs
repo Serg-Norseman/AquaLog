@@ -6,10 +6,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.UI.Dialogs;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Panels
 {
@@ -40,36 +40,8 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Name), 200, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.ScientificName), 200, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.BioFamily), 200, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("Temp", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("PH", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add("GH", 100, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.AdultSize), 100, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.LifeSpan), 100, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.SwimLevel), 100, HorizontalAlignment.Right);
-
-            var records = fModel.QuerySpecies();
-            foreach (Species rec in records) {
-                string strType = Localizer.LS(ALData.SpeciesTypes[(int)rec.Type]);
-                string strLevel = Localizer.LS(ALData.SwimLevels[(int)rec.SwimLevel]);
-
-                var item = ListView.AddItemEx(rec,
-                               rec.Name,
-                               rec.ScientificName,
-                               rec.BioFamily,
-                               strType,
-                               rec.GetTempRange(),
-                               rec.GetPHRange(),
-                               rec.GetGHRange(),
-                               ALCore.GetDecimalStr(rec.AdultSize),
-                               ALCore.GetDecimalStr(rec.LifeSpan),
-                               strLevel
-                           );
-            }
+            var lv = GetControlHandler<IListView>(ListView);
+            ModelPresenter.FillSpeciesLV(lv, fModel);
         }
 
         private void ExportHandler(object sender, EventArgs e)

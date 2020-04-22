@@ -16,17 +16,17 @@ namespace AquaMate.UI
 {
     public interface IDeviceEditorView : IView
     {
-        IComboBoxHandlerEx AquariumCombo { get; }
-        IComboBoxHandlerEx TSPointsCombo { get; }
-        ITextBoxHandler NameField { get; }
-        IComboBoxHandlerEx BrandCombo { get; }
-        ICheckBoxHandler EnabledCheck { get; }
-        ICheckBoxHandler DigitalCheck { get; }
-        IComboBoxHandlerEx TypeCombo { get; }
-        ITextBoxHandler PowerField { get; }
-        ITextBoxHandler WorkTimeField { get; }
-        ITextBoxHandler NoteField { get; }
-        IComboBoxHandlerEx StateCombo { get; }
+        IComboBox AquariumCombo { get; }
+        IComboBox TSPointsCombo { get; }
+        ITextBox NameField { get; }
+        IComboBox BrandCombo { get; }
+        ICheckBox EnabledCheck { get; }
+        ICheckBox DigitalCheck { get; }
+        IComboBox TypeCombo { get; }
+        ITextBox PowerField { get; }
+        ITextBox WorkTimeField { get; }
+        ITextBox NoteField { get; }
+        IComboBox StateCombo { get; }
     }
 
 
@@ -40,6 +40,8 @@ namespace AquaMate.UI
 
         public DeviceEditorPresenter(IDeviceEditorView view) : base(view)
         {
+            var deviceTypesList = ALData.GetNamesList<DeviceType>(ALData.DeviceProps);
+            fView.TypeCombo.AddRange<DeviceType>(deviceTypesList, true);
         }
 
         public override void UpdateView()
@@ -51,7 +53,7 @@ namespace AquaMate.UI
                 fView.TSPointsCombo.AddRange(ALData.GetEntityNamesList(fModel.TSDB.GetPoints()));
                 fView.TSPointsCombo.SetSelectedTag(fRecord.PointId);
 
-                fView.BrandCombo.AddRange(fModel.QueryDeviceBrands());
+                fView.BrandCombo.AddRange(fModel.QueryDeviceBrands(), true);
                 fView.BrandCombo.Text = fRecord.Brand;
 
                 fView.TypeCombo.SetSelectedTag(fRecord.Type);
@@ -90,8 +92,10 @@ namespace AquaMate.UI
             }
         }
 
-        public void ChangeSelectedType(DeviceType deviceType)
+        public void ChangeSelectedType()
         {
+            DeviceType deviceType = fView.TypeCombo.GetSelectedTag<DeviceType>();
+
             if (deviceType >= 0) {
                 var props = ALData.DeviceProps[(int)deviceType];
                 fView.TSPointsCombo.Enabled = props.HasMeasurements;

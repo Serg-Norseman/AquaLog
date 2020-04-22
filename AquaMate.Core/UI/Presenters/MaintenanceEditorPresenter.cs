@@ -16,11 +16,11 @@ namespace AquaMate.UI
 {
     public interface IMaintenanceEditorView : IView
     {
-        IComboBoxHandlerEx AquariumCombo { get; }
-        IDateTimeBoxHandler TimestampField { get; }
-        IComboBoxHandlerEx TypeCombo { get; }
-        ITextBoxHandler ValueField { get; }
-        ITextBoxHandler NoteField { get; }
+        IComboBox AquariumCombo { get; }
+        IDateTimeBox TimestampField { get; }
+        IComboBox TypeCombo { get; }
+        ITextBox ValueField { get; }
+        ITextBox NoteField { get; }
     }
 
 
@@ -34,6 +34,8 @@ namespace AquaMate.UI
 
         public MaintenanceEditorPresenter(IMaintenanceEditorView view) : base(view)
         {
+            var maintenanceTypesList = ALData.GetNamesList<MaintenanceType>(ALData.MaintenanceTypes);
+            fView.TypeCombo.AddRange<MaintenanceType>(maintenanceTypesList, true);
         }
 
         public override void UpdateView()

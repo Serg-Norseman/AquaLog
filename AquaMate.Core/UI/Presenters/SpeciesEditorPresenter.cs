@@ -16,20 +16,20 @@ namespace AquaMate.UI
 {
     public interface ISpeciesEditorView : IView
     {
-        ITextBoxHandler NameField { get; }
-        ITextBoxHandler DescriptionField { get; }
-        IComboBoxHandlerEx TypeCombo { get; }
-        ITextBoxHandler ScientificNameField { get; }
-        IComboBoxHandlerEx BioFamilyCombo { get; }
-        ITextBoxHandler TempMinField { get; }
-        ITextBoxHandler TempMaxField { get; }
-        ITextBoxHandler PHMinField { get; }
-        ITextBoxHandler PHMaxField { get; }
-        ITextBoxHandler GHMinField { get; }
-        ITextBoxHandler GHMaxField { get; }
-        ITextBoxHandler AdultSizeField { get; }
-        ITextBoxHandler LifeSpanField { get; }
-        IComboBoxHandler SwimLevelCombo { get; }
+        ITextBox NameField { get; }
+        ITextBox DescriptionField { get; }
+        IComboBox TypeCombo { get; }
+        ITextBox ScientificNameField { get; }
+        IComboBox BioFamilyCombo { get; }
+        ITextBox TempMinField { get; }
+        ITextBox TempMaxField { get; }
+        ITextBox PHMinField { get; }
+        ITextBox PHMaxField { get; }
+        ITextBox GHMinField { get; }
+        ITextBox GHMaxField { get; }
+        ITextBox AdultSizeField { get; }
+        ITextBox LifeSpanField { get; }
+        IComboBox SwimLevelCombo { get; }
     }
 
 
@@ -43,6 +43,11 @@ namespace AquaMate.UI
 
         public SpeciesEditorPresenter(ISpeciesEditorView view) : base(view)
         {
+            var speciesTypesList = ALData.GetNamesList<SpeciesType>(ALData.SpeciesTypes);
+            fView.TypeCombo.AddRange<SpeciesType>(speciesTypesList, true);
+
+            var swimLevelsList = ALData.GetNamesList<SwimLevel>(ALData.SwimLevels);
+            fView.SwimLevelCombo.AddRange<SwimLevel>(swimLevelsList, false);
         }
 
         public override void UpdateView()
@@ -52,7 +57,7 @@ namespace AquaMate.UI
             fView.TypeCombo.SetSelectedTag(fRecord.Type);
             fView.ScientificNameField.Text = fRecord.ScientificName;
 
-            fView.BioFamilyCombo.AddRange(fModel.QuerySpeciesFamilies());
+            fView.BioFamilyCombo.AddRange(fModel.QuerySpeciesFamilies(), true);
             fView.BioFamilyCombo.Text = fRecord.BioFamily;
 
             fView.TempMinField.SetDecimalVal(fRecord.TempMin);
@@ -98,8 +103,10 @@ namespace AquaMate.UI
             }
         }
 
-        public void ChangeSelectedType(SpeciesType type)
+        public void ChangeSelectedType()
         {
+            SpeciesType type = fView.TypeCombo.GetSelectedTag<SpeciesType>();
+
             bool isFish = (type == SpeciesType.Fish);
             bool isInvertebrate = (type == SpeciesType.Invertebrate);
 

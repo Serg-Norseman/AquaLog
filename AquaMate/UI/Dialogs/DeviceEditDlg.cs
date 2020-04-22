@@ -5,11 +5,9 @@
  */
 
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
-using AquaMate.Core.Types;
 using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
@@ -37,9 +35,6 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
-            var deviceTypesList = ALData.GetNamesList<DeviceType>(ALData.DeviceProps);
-            cmbType.FillCombo<DeviceType>(deviceTypesList, true);
-
             lblAquarium.Text = Localizer.LS(LSID.Aquarium);
             lblName.Text = Localizer.LS(LSID.Name);
             lblBrand.Text = Localizer.LS(LSID.Brand);
@@ -66,65 +61,64 @@ namespace AquaMate.UI.Dialogs
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var deviceType = cmbType.GetSelectedTag<DeviceType>();
-            fPresenter.ChangeSelectedType(deviceType);
+            fPresenter.ChangeSelectedType();
         }
 
         #region View interface implementation
 
-        IComboBoxHandlerEx IDeviceEditorView.AquariumCombo
+        IComboBox IDeviceEditorView.AquariumCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbAquarium); }
+            get { return GetControlHandler<IComboBox>(cmbAquarium); }
         }
 
-        IComboBoxHandlerEx IDeviceEditorView.TSPointsCombo
+        IComboBox IDeviceEditorView.TSPointsCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbTSDBPoint); }
+            get { return GetControlHandler<IComboBox>(cmbTSDBPoint); }
         }
 
-        ITextBoxHandler IDeviceEditorView.NameField
+        ITextBox IDeviceEditorView.NameField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtName); }
+            get { return GetControlHandler<ITextBox>(txtName); }
         }
 
-        IComboBoxHandlerEx IDeviceEditorView.BrandCombo
+        IComboBox IDeviceEditorView.BrandCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbBrand); }
+            get { return GetControlHandler<IComboBox>(cmbBrand); }
         }
 
-        ICheckBoxHandler IDeviceEditorView.EnabledCheck
+        ICheckBox IDeviceEditorView.EnabledCheck
         {
-            get { return GetControlHandler<ICheckBoxHandler>(chkEnabled); }
+            get { return GetControlHandler<ICheckBox>(chkEnabled); }
         }
 
-        ICheckBoxHandler IDeviceEditorView.DigitalCheck
+        ICheckBox IDeviceEditorView.DigitalCheck
         {
-            get { return GetControlHandler<ICheckBoxHandler>(chkDigital); }
+            get { return GetControlHandler<ICheckBox>(chkDigital); }
         }
 
-        IComboBoxHandlerEx IDeviceEditorView.TypeCombo
+        IComboBox IDeviceEditorView.TypeCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbType); }
+            get { return GetControlHandler<IComboBox>(cmbType); }
         }
 
-        ITextBoxHandler IDeviceEditorView.PowerField
+        ITextBox IDeviceEditorView.PowerField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtPower); }
+            get { return GetControlHandler<ITextBox>(txtPower); }
         }
 
-        ITextBoxHandler IDeviceEditorView.WorkTimeField
+        ITextBox IDeviceEditorView.WorkTimeField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtWorkTime); }
+            get { return GetControlHandler<ITextBox>(txtWorkTime); }
         }
 
-        ITextBoxHandler IDeviceEditorView.NoteField
+        ITextBox IDeviceEditorView.NoteField
         {
-            get { return GetControlHandler<ITextBoxHandler>(txtNote); }
+            get { return GetControlHandler<ITextBox>(txtNote); }
         }
 
-        IComboBoxHandlerEx IDeviceEditorView.StateCombo
+        IComboBox IDeviceEditorView.StateCombo
         {
-            get { return GetControlHandler<IComboBoxHandlerEx>(cmbState); }
+            get { return GetControlHandler<IComboBox>(cmbState); }
         }
 
         #endregion
