@@ -24,12 +24,14 @@ namespace AquaMate.M3DViewer
         private BoundingBox3D fBoundingBox;
         private float fCellStep;
         private Cell[,] fCells;
+        private int fColsCount;
         private float fCurrentTime;
         private bool fIsInitiated;
         private float fLastTime;
         private Vector3D[,] fNormals;
+        private Point3D fOffset;
         private readonly Random fRandom;
-        private readonly int fSize;
+        private int fRowsCount;
         private long fStartTime;
 
 
@@ -39,16 +41,16 @@ namespace AquaMate.M3DViewer
         }
 
 
-        public M3DWaterSurface(int size = 200)
+        public M3DWaterSurface()
         {
             fIsInitiated = false;
             fRandom = new Random();
-            fSize = size;
-            fStartTime = DateTime.Now.Ticks;
         }
 
-        public void Initialize(Point3D[] surfacePolygon)
+        public void Initialize(Point3D[] surfacePolygon, Point3D offset, int size = 200)
         {
+            fOffset = offset;
+
             fBoundingBox = new BoundingBox3D(0);
             foreach (var pt in surfacePolygon) {
                 fBoundingBox.CheckPoint(pt);
@@ -57,33 +59,29 @@ namespace AquaMate.M3DViewer
             // Y ignored
             float xSize = fBoundingBox.GetSizeX();
             float zSize = fBoundingBox.GetSizeZ();
+            fCellStep = Math.Max(xSize, zSize) / size;
 
-            float maxSize = (xSize > zSize) ? xSize : zSize;
-            fCellStep = maxSize / fSize;
+            fColsCount = (int)Math.Round(xSize / fCellStep);
+            fRowsCount = (int)Math.Round(zSize / fCellStep);
 
-            int mtxDim = fSize + 2;
-            fCells = new Cell[mtxDim, mtxDim];
-            fNormals = new Vector3D[fSize, fSize];
-            for (int row = 0; row < mtxDim; row++) {
-                for (int col = 0; col < mtxDim; col++) {
+            fCells = new Cell[fRowsCount + 2, fColsCount + 2];
+            fNormals = new Vector3D[fRowsCount, fColsCount];
+            for (int row = 0; row < fRowsCount + 2; row++) {
+                for (int col = 0; col < fColsCount + 2; col++) {
                     var cell = new Cell();
                     cell.Y = 0.1f * (fRandom.Next(1000) / 100 - 5);
                     fCells[row, col] = cell;
                 }
             }
 
+            fStartTime = DateTime.Now.Ticks;
             fIsInitiated = true;
         }
 
         public void Draw(SceneRenderer renderer)
         {
-            // In tank's rendering, x: left>right (length), y: bottom>top (height), z: back>front (width)
-            // For starters, I have to scale the range of the water surface to the range of the top of the tank.
-            // Scale range of the water surface to the range of the top of the tank - before calculations of normals.
-            // TODO: scale ranges water surface -> tank's top surface
-
-            for (int row = 1; row <= fSize; row++) {
-                for (int col = 1; col <= fSize; col++) {
+            for (int row = 1; row <= fRowsCount; row++) {
+                for (int col = 1; col <= fColsCount; col++) {
                     Vector3D normal;
                     normal.Z = fCells[row - 1, col].Y - fCells[row + 1, col].Y;
                     normal.X = fCells[row, col - 1].Y - fCells[row, col + 1].Y;
@@ -94,12 +92,12 @@ namespace AquaMate.M3DViewer
 
             renderer.SetMaterial(Water2Diffuse, Water2Specular, Water2Shininess);
 
-            for (int row = 1; row <= fSize - 1; row++) {
+            for (int row = 1; row <= fRowsCount - 1; row++) {
                 renderer.BeginTriangleStrip();
 
-                for (int col = 1; col <= fSize; col++) {
+                for (int col = 1; col <= fColsCount; col++) {
                     float xx, yy, zz;
-                    xx = fBoundingBox.XMin + (col - 0) * fCellStep;
+                    xx = fBoundingBox.XMin + (col - 1) * fCellStep;
 
                     var nrm = fNormals[row - 1, col - 1];
                     renderer.Normal3f(nrm.X, nrm.Y, nrm.Z);
@@ -120,9 +118,9 @@ namespace AquaMate.M3DViewer
             }
         }
 
-        public void Next(IList<M3DBubble> surfacedBubbles)
+        public void Next(IList<M3DBubble> surfacedBubbles, bool simpleWaves)
         {
-            GenerateBubbles(surfacedBubbles);
+            GenerateBubbles(surfacedBubbles, simpleWaves);
 
             fLastTime = fCurrentTime;
             fCurrentTime = (DateTime.Now.Ticks - fStartTime) / 1000.0f;
@@ -132,11 +130,11 @@ namespace AquaMate.M3DViewer
             const float w = 0.01f;
             const float b = 0.01f;
 
-            for (int row = 1; row <= fSize; row++) {
+            for (int row = 1; row <= fRowsCount; row++) {
                 float y_prv = fCells[row, 0].Y;
                 float y_cur = fCells[row, 1].Y;
 
-                for (int col = 1; col <= fSize; col++) {
+                for (int col = 1; col <= fColsCount; col++) {
                     float y_nxt = fCells[row, col + 1].Y;
                     float dy = 4 * y_cur - fCells[row + 1, col].Y - y_nxt - fCells[row - 1, col].Y - y_prv;
                     float v = fCells[row, col].V;
@@ -147,40 +145,52 @@ namespace AquaMate.M3DViewer
                 }
             }
 
-            for (int row = 1; row <= fSize; row++) {
-                for (int col = 1; col <= fSize; col++) {
+            for (int row = 1; row <= fRowsCount; row++) {
+                for (int col = 1; col <= fColsCount; col++) {
                     var cell = fCells[row, col];
-                    cell.Y = cell.Y + cell.V * dt;
+                    cell.Y += (cell.V * dt);
                 }
             }
         }
 
-        private void ApplyBubble(int bSize)
+        private void ApplyBubble(int xx, int zz, float ptSize = 10.0f)
         {
-            int yy = (fRandom.Next(fSize - bSize * 2) + 1 + bSize);
-            int xx = (fRandom.Next(fSize - bSize * 2) + 1 + bSize);
+            const int wSize = 7; // ???
+            if (xx == 0 && zz == 0) {
+                zz = (fRandom.Next(fRowsCount - wSize * 2) + 1 + wSize);
+                xx = (fRandom.Next(fColsCount - wSize * 2) + 1 + wSize);
+            }
 
-            for (int row = -bSize; row <= +bSize; row++) {
-                for (int col = -bSize; col <= +bSize; col++) {
-                    var cell = fCells[yy + row, xx + col];
-                    cell.Y = cell.Y + 10 * (float)Math.Exp(-(row * row + col * col) / 5.0d);
+            int zMin = Math.Max(zz - wSize, 0);
+            int zMax = Math.Min(zz + wSize, fRowsCount);
+            int xMin = Math.Max(xx - wSize, 0);
+            int xMax = Math.Min(xx + wSize, fColsCount);
+
+            for (int row = zMin; row <= zMax; row++) {
+                for (int col = xMin; col <= xMax; col++) {
+                    var cell = fCells[row, col];
+                    int zzR = row - zz;
+                    int xxC = col - xx;
+                    cell.Y += (ptSize * (float)Math.Exp(-(zzR * zzR + xxC * xxC) / 5.0d));
                 }
             }
         }
 
-        private void GenerateBubbles(IList<M3DBubble> surfacedBubbles)
+        private void GenerateBubbles(IList<M3DBubble> surfacedBubbles, bool simpleWaves)
         {
-            if (surfacedBubbles.Count == 0) {
-                // debug bubbles
-                if (fRandom.Next(10) == 1) {
-                    ApplyBubble(7);
-                }
-            } else {
-                // bubbles from aeration
-                foreach (var bubble in surfacedBubbles) {
-                    var bSize = (int)(bubble.Size * 1000.0f);
-                    ApplyBubble(bSize);
-                }
+            if (simpleWaves && (fRandom.Next(20) == 1)) {
+                ApplyBubble(0, 0, 3); // for debug set ptSize = 10
+            }
+
+            float dX = -fOffset.X - fBoundingBox.XMin;
+            float dZ = -fOffset.Z - fBoundingBox.ZMin;
+
+            // bubbles from aeration
+            foreach (var bubble in surfacedBubbles) {
+                var bSize = (int)(bubble.Size * 1000.0f);
+                int xx = (int)((bubble.X + dX) / fCellStep);
+                int zz = (int)((bubble.Z + dZ) / fCellStep);
+                ApplyBubble(xx, zz, bSize);
             }
         }
     }

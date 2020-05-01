@@ -153,7 +153,8 @@ namespace AquaMate.M3DViewer.Tanks
                 Point3D pt3t = new Point3D(x2w, y2w, z2w);
                 Point3D pt4t = new Point3D(x1w, y2w, z2w);
 
-                fWater.Initialize(new Point3D[] { pt1t, pt2t, pt3t, pt4t });
+                Point3D offset = new Point3D(0.0f, -height / 2, -width / 2);
+                fWater.Initialize(new Point3D[] { pt1t, pt2t, pt3t, pt4t }, offset);
             }
 
             if (showWater) {
@@ -170,7 +171,7 @@ namespace AquaMate.M3DViewer.Tanks
             }
 
             // required without condition!
-            fWater.Next(surfacedBubbles);
+            fWater.Next(surfacedBubbles, !aeration);
 
             fScene.PopMatrix();
         }
