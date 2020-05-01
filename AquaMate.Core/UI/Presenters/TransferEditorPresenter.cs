@@ -41,11 +41,15 @@ namespace AquaMate.UI
         public TransferEditorPresenter(ITransferEditorView view) : base(view)
         {
             var transferTypesList = ALData.GetNamesList<TransferType>(ALData.TransferTypes);
-            fView.TypeCombo.AddRange<TransferType>(transferTypesList, true);
+            fView.TypeCombo.AddRange(transferTypesList, true);
         }
 
         public override void UpdateView()
         {
+            if (fModel != null) {
+                fView.ShopCombo.AddRange(fModel.QueryShops(), true);
+            }
+
             if (fRecord != null) {
                 string itName = fModel.GetRecordName(fRecord.ItemType, fRecord.ItemId);
                 fView.NameField.Text = itName;
@@ -80,8 +84,6 @@ namespace AquaMate.UI
 
                 if (fRecord.Type == TransferType.Purchase || fRecord.Type == TransferType.Sale) {
                     fView.UnitPriceField.SetDecimalVal(fRecord.UnitPrice);
-
-                    fView.ShopCombo.AddRange(fModel.QueryShops(), true);
                     fView.ShopCombo.Text = fRecord.Shop;
                 }
             }

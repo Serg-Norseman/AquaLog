@@ -44,10 +44,10 @@ namespace AquaMate.UI
         public SpeciesEditorPresenter(ISpeciesEditorView view) : base(view)
         {
             var speciesTypesList = ALData.GetNamesList<SpeciesType>(ALData.SpeciesTypes);
-            fView.TypeCombo.AddRange<SpeciesType>(speciesTypesList, true);
+            fView.TypeCombo.AddRange(speciesTypesList, true);
 
             var swimLevelsList = ALData.GetNamesList<SwimLevel>(ALData.SwimLevels);
-            fView.SwimLevelCombo.AddRange<SwimLevel>(swimLevelsList, false);
+            fView.SwimLevelCombo.AddRange(swimLevelsList, false);
         }
 
         public override void UpdateView()

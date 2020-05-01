@@ -46,10 +46,10 @@ namespace AquaMate.UI
         public AquariumEditorPresenter(IAquariumEditorView view) : base(view)
         {
             var tankShapesList = ALData.GetNamesList<TankShape>(ALData.TankShapes);
-            fView.ShapeCombo.AddRange<TankShape>(tankShapesList, false);
+            fView.ShapeCombo.AddRange(tankShapesList, false);
 
             var waterTypesList = ALData.GetNamesList<AquariumWaterType>(ALData.WaterTypes);
-            fView.WaterTypeCombo.AddRange<AquariumWaterType>(waterTypesList, false);
+            fView.WaterTypeCombo.AddRange(waterTypesList, false);
         }
 
         public override void UpdateView()

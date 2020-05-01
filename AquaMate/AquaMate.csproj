@@ -99,27 +99,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="GLViewer\M3DAeration.cs" />
-    <Compile Include="GLViewer\M3DHelper.cs" />
-    <Compile Include="GLViewer\M3DViewer.cs" />
-    <Compile Include="GLViewer\M3DWater.cs" />
-    <Compile Include="GLViewer\Point3D.cs" />
-    <Compile Include="GLViewer\Tanks\BowfrontTankRenderer.cs" />
-    <Compile Include="GLViewer\Tanks\BowlTankRenderer.cs" />
-    <Compile Include="GLViewer\Tanks\CubeTankRenderer.cs" />
-    <Compile Include="GLViewer\Tanks\CylinderTankRenderer.cs" />
-    <Compile Include="GLViewer\Tanks\RectangularTankRenderer.cs" />
-    <Compile Include="GLViewer\Tanks\TankRenderer.cs" />
-    <Compile Include="GLViewer\Vector3D.cs" />
     <Compile Include="UI\ALTray.cs" />
     <Compile Include="UI\Components\ChartPoint.cs" />
     <Compile Include="UI\Components\ChartSeries.cs" />
     <Compile Include="UI\Components\ChartStyle.cs" />
     <Compile Include="UI\Components\ImageViewer.cs" />
+    <Compile Include="UI\Components\OGLRenderer.cs" />
+    <Compile Include="UI\Components\OGLViewer.cs" />
     <Compile Include="UI\Components\QualityControl.cs" />
     <Compile Include="UI\Components\UserAction.cs" />
     <Compile Include="UI\Components\WizardPages.cs" />
-    <Compile Include="UI\Components\ZGraphControl.cs" />
+    <Compile Include="UI\Components\ZChart.cs" />
     <Compile Include="UI\ControlHandlers.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="UI\Components\ZListView.cs" />
@@ -261,8 +251,6 @@
     <EmbeddedResource Include="Resources\btn_tools.gif" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="GLViewer" />
-    <Folder Include="GLViewer\Tanks" />
     <Folder Include="UI\Components" />
     <Folder Include="Resources" />
     <Folder Include="UI" />

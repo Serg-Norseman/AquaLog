@@ -37,10 +37,10 @@ namespace AquaMate.UI
         public ScheduleEditorPresenter(IScheduleEditorView view) : base(view)
         {
             var scheduleTypesList = ALData.GetNamesList<ScheduleType>(ALData.ScheduleTypes);
-            fView.TypeCombo.AddRange<ScheduleType>(scheduleTypesList, false);
+            fView.TypeCombo.AddRange(scheduleTypesList, false);
 
             var taskStatusesList = ALData.GetNamesList<TaskStatus>(ALData.TaskStatuses);
-            fView.StatusCombo.AddRange<TaskStatus>(taskStatusesList, false);
+            fView.StatusCombo.AddRange(taskStatusesList, false);
         }
 
         public override void UpdateView()

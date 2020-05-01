@@ -15,11 +15,11 @@ namespace AquaMate.UI.Components
     /// <summary>
     /// 
     /// </summary>
-    public sealed class ZGraphControl : UserControl
+    public sealed class ZChart : UserControl
     {
         private readonly ZedGraphControl fGraph;
 
-        public ZGraphControl()
+        public ZChart()
         {
             fGraph = new ZedGraphControl();
             fGraph.IsShowPointValues = true;

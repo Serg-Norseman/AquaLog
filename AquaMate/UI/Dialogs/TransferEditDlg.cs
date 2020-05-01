@@ -62,6 +62,16 @@ namespace AquaMate.UI.Dialogs
             fPresenter.ChangeSelectedType();
         }
 
+        private void cmbAquarium_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete || e.KeyCode == Keys.Back) {
+                var comboBox = sender as ComboBox;
+                if (comboBox != null) {
+                    comboBox.SelectedItem = null;
+                }
+            }
+        }
+
         #region View interface implementation
 
         ITextBox ITransferEditorView.NameField

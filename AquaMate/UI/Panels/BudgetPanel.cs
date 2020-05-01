@@ -293,7 +293,7 @@ namespace AquaMate.UI.Panels
 
             if (chartType != BudgetChartType.Monthes) {
                 // prettification
-                vals = ZGraphControl.AlternateSort(vals);
+                vals = ZChart.AlternateSort(vals);
             }
 
             return vals;

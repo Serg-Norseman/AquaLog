@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Collections.Generic;
 using AquaMate.Core;
 using BSLib;
 using BSLib.Design.MVP.Controls;
@@ -17,12 +16,6 @@ namespace AquaMate.UI
     /// </summary>
     public static class Extensions
     {
-        public static void AddRange<T>(this IComboBox comboBox, IEnumerable<ListItem<T>> items, bool sorted = false)
-        {
-            comboBox.AddRange(items, sorted);
-        }
-
-
         public static double GetDecimalVal(this ITextBox textBox, double defaultValue = 0.0d)
         {
             string strVal = textBox.Text;

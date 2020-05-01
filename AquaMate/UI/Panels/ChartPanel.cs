@@ -14,14 +14,14 @@ namespace AquaMate.UI.Panels
     /// </summary>
     public sealed class ChartPanel : DataPanel
     {
-        private readonly ZGraphControl fGraph;
+        private readonly ZChart fChart;
         private object fData;
 
         public ChartPanel()
         {
-            fGraph = new ZGraphControl();
-            fGraph.Dock = DockStyle.Fill;
-            Controls.Add(fGraph);
+            fChart = new ZChart();
+            fChart.Dock = DockStyle.Fill;
+            Controls.Add(fChart);
         }
 
         public override void SetExtData(object extData)
@@ -31,7 +31,7 @@ namespace AquaMate.UI.Panels
 
         public override void UpdateContent()
         {
-            fGraph.ShowData("", "Labels", "", fData);
+            fChart.ShowData("", "Labels", "", fData);
         }
     }
 }

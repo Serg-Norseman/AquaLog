@@ -5,8 +5,9 @@
  */
 
 using System;
+using BSLib;
 
-namespace AquaMate.GLViewer
+namespace AquaMate.M3DViewer
 {
     public struct Vector3D
     {
@@ -32,6 +33,18 @@ namespace AquaMate.GLViewer
         public float Length()
         {
             return (float)Math.Sqrt(X * X + Y * Y + Z * Z);
+        }
+
+        public Vector3D Scale(float length)
+        {
+            float scale = length / this.Length();
+            return new Vector3D(X * scale, Y * scale, Z * scale);
+        }
+
+        public static float GetAngle(Vector3D v1, Vector3D v2)
+        {
+            float radAngle = (float)Math.Acos((v1.X * v2.X + v1.Y * v2.Y + v1.Z * v2.Z) / (Math.Sqrt(v1.X * v1.X + v1.Y * v1.Y + v1.Z * v1.Z) * Math.Sqrt(v2.X * v2.X + v2.Y * v2.Y + v2.Z * v2.Z)));
+            return (float)MathHelper.RadiansToDegrees(radAngle);
         }
     }
 }

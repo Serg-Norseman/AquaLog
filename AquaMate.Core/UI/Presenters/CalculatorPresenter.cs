@@ -33,7 +33,7 @@ namespace AquaMate.UI
         public CalculatorPresenter(ICalculatorView view) : base(view)
         {
             var namesList = BaseCalculation.GetNamesList<CalculationType>();
-            fView.TypeCombo.AddRange<CalculationType>(namesList, false);
+            fView.TypeCombo.AddRange(namesList, false);
             fView.TypeCombo.SetSelectedTag<CalculationType>(CalculationType.Units_cm2inch);
         }
 

@@ -35,7 +35,7 @@ namespace AquaMate.UI
         public MaintenanceEditorPresenter(IMaintenanceEditorView view) : base(view)
         {
             var maintenanceTypesList = ALData.GetNamesList<MaintenanceType>(ALData.MaintenanceTypes);
-            fView.TypeCombo.AddRange<MaintenanceType>(maintenanceTypesList, true);
+            fView.TypeCombo.AddRange(maintenanceTypesList, true);
         }
 
         public override void UpdateView()

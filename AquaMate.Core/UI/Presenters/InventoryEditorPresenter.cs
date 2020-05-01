@@ -37,7 +37,7 @@ namespace AquaMate.UI
         public InventoryEditorPresenter(IInventoryEditorView view) : base(view)
         {
             var inventoryTypesList = ALData.GetNamesList<InventoryType>(ALData.InventoryTypes);
-            fView.TypeCombo.AddRange<InventoryType>(inventoryTypesList, true);
+            fView.TypeCombo.AddRange(inventoryTypesList, true);
         }
 
         public override void UpdateView()

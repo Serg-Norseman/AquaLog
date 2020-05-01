@@ -7,20 +7,20 @@
 using System;
 using AquaMate.Core.Model.Tanks;
 
-namespace AquaMate.GLViewer.Tanks
+namespace AquaMate.M3DViewer.Tanks
 {
     /// <summary>
     /// 
     /// </summary>
-    public class CubeTankRenderer : TankRenderer<CubeTank>
+    public class RectangularTankRenderer : TankRenderer<RectangularTank>
     {
-        public CubeTankRenderer(CubeTank tank) : base(tank)
+        public RectangularTankRenderer(SceneRenderer sceneRenderer, RectangularTank tank) : base(sceneRenderer, tank)
         {
         }
 
         public override void Render(bool showWater = true, bool aeration = false)
         {
-            DrawRectangularTank(fTank.EdgeSize, fTank.EdgeSize, fTank.EdgeSize, fTank.GlassThickness, showWater, aeration);
+            DrawRectangularTank(fTank.Length, fTank.Width, fTank.Height, fTank.GlassThickness, showWater, aeration);
         }
     }
 }

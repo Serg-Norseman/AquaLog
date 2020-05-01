@@ -40,7 +40,7 @@ namespace AquaMate.UI
         public InhabitantEditorPresenter(IInhabitantEditorView view) : base(view)
         {
             var sexNamesList = ALData.GetNamesList<Sex>(ALData.SexNames);
-            fView.SexCombo.AddRange<Sex>(sexNamesList, false);
+            fView.SexCombo.AddRange(sexNamesList, false);
         }
 
         public override void UpdateView()

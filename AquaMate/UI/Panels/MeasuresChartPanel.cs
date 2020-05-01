@@ -35,23 +35,23 @@ namespace AquaMate.UI.Panels
     /// </summary>
     public sealed class MeasuresChartPanel : DataPanel
     {
-        private readonly ZGraphControl fGraph;
+        private readonly ZChart fChart;
         private string fSelectedAquarium;
         private Dictionary<string, Trend> fTrends;
 
 
         public MeasuresChartPanel()
         {
-            fGraph = new ZGraphControl();
-            fGraph.Dock = DockStyle.Fill;
-            Controls.Add(fGraph);
+            fChart = new ZChart();
+            fChart.Dock = DockStyle.Fill;
+            Controls.Add(fChart);
 
             fSelectedAquarium = "*";
         }
 
         public override void UpdateContent()
         {
-            fGraph.Clear();
+            fChart.Clear();
             if (fModel == null) return;
 
             var measures = fModel.QueryMeasures();
@@ -90,7 +90,7 @@ namespace AquaMate.UI.Panels
 
             foreach (var trendPair in fTrends) {
                 var trend = trendPair.Value;
-                fGraph.ShowData("", "Time", "Value", new ChartSeries(trend.Name, ChartStyle.Point, trend.Points, trend.Color));
+                fChart.ShowData("", "Time", "Value", new ChartSeries(trend.Name, ChartStyle.Point, trend.Points, trend.Color));
             }
         }
 
@@ -143,7 +143,7 @@ namespace AquaMate.UI.Panels
                     series.Add(key, new ChartSeries(key, ChartStyle.Point, trend.Points, trend.Color));
                 }
             }
-            fGraph.ShowData("", "Time", "", series);
+            fChart.ShowData("", "Time", "", series);
         }
     }
 }

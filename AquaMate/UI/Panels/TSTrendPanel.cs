@@ -18,15 +18,15 @@ namespace AquaMate.UI.Panels
     /// </summary>
     public sealed class TSTrendPanel : DataPanel
     {
-        private readonly ZGraphControl fGraph;
+        private readonly ZChart fChart;
         private int fPointId;
 
 
         public TSTrendPanel()
         {
-            fGraph = new ZGraphControl();
-            fGraph.Dock = DockStyle.Fill;
-            Controls.Add(fGraph);
+            fChart = new ZChart();
+            fChart.Dock = DockStyle.Fill;
+            Controls.Add(fChart);
         }
 
         public override void SetExtData(object extData)
@@ -37,7 +37,7 @@ namespace AquaMate.UI.Panels
 
         public override void UpdateContent()
         {
-            fGraph.Clear();
+            fChart.Clear();
             if (fModel == null) return;
 
             TSDatabase tsdb = fModel.TSDB;
@@ -53,7 +53,7 @@ namespace AquaMate.UI.Panels
                 vals.Add(new ChartPoint(rec.Timestamp, rec.Value));
             }
 
-            fGraph.ShowData(pt.Name, "Time", "Value", new ChartSeries("Value", ChartStyle.Point, vals, Color.Green));
+            fChart.ShowData(pt.Name, "Time", "Value", new ChartSeries("Value", ChartStyle.Point, vals, Color.Green));
         }
     }
 }

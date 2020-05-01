@@ -41,7 +41,7 @@ namespace AquaMate.UI
         public DeviceEditorPresenter(IDeviceEditorView view) : base(view)
         {
             var deviceTypesList = ALData.GetNamesList<DeviceType>(ALData.DeviceProps);
-            fView.TypeCombo.AddRange<DeviceType>(deviceTypesList, true);
+            fView.TypeCombo.AddRange(deviceTypesList, true);
         }
 
         public override void UpdateView()

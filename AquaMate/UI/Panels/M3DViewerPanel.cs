@@ -7,7 +7,7 @@
 using System;
 using System.Windows.Forms;
 using AquaMate.Core.Model.Tanks;
-using AquaMate.GLViewer;
+using AquaMate.UI.Components;
 
 namespace AquaMate.UI.Panels
 {
@@ -16,19 +16,19 @@ namespace AquaMate.UI.Panels
     /// </summary>
     public sealed class M3DViewerPanel : DataPanel
     {
-        private readonly M3DViewer fViewer;
+        private readonly OGLViewer fViewer;
 
         public M3DViewerPanel()
         {
             var infoPanel = new StatusBarPanel();
             infoPanel.AutoSize = StatusBarPanelAutoSize.Contents;
-            infoPanel.Text = "Free-rotate (R); Water visible (W)";
+            infoPanel.Text = "Free-rotate (R); Water visible (W); Aeration (A)";
 
             var statusBar = new StatusBar();
             statusBar.Panels.AddRange(new StatusBarPanel[] { infoPanel });
             statusBar.ShowPanels = true;
 
-            fViewer = new M3DViewer();
+            fViewer = new OGLViewer();
             fViewer.Dock = DockStyle.Fill;
             fViewer.VisibleChanged += Panel_VisibleChanged;
 
