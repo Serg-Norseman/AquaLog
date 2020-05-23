@@ -7,7 +7,6 @@
 using System;
 using System.Windows.Forms;
 using AquaMate.Core;
-using AquaMate.Core.Model;
 using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Dialogs
@@ -15,7 +14,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class CalculatorDlg : EditDialog<Entity>, ICalculatorView
+    public partial class CalculatorDlg : EditDialog, ICalculatorView
     {
         private readonly CalculatorPresenter fPresenter;
 
@@ -34,7 +33,9 @@ namespace AquaMate.UI.Dialogs
 
         private void cmbType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            fPresenter.ChangeSelectedType();
+            if (fPresenter != null) {
+                fPresenter.ChangeSelectedType();
+            }
         }
 
         private void btnCalc_Click(object sender, EventArgs e)

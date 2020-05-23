@@ -15,7 +15,7 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface IInventoryEditorView : IView
+    public interface IInventoryEditorView : IEditorView<Inventory>
     {
         ITextBox NameField { get; }
         IComboBox BrandCombo { get; }

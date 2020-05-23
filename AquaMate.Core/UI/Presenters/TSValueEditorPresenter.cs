@@ -13,7 +13,7 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface ITSValueEditorView : IView
+    public interface ITSValueEditorView : IEditorView<TSValue>
     {
         IDateTimeBox TimestampField { get; }
         ITextBox ValueField { get; }

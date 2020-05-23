@@ -10,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using AquaMate.Core.Types;
+using AquaMate.UI.Charts;
 using AquaMate.UI.Components;
 using AquaMate.Core.Model;
 using BSLib.Controls;

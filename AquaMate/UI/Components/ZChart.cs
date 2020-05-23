@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using AquaMate.UI.Charts;
 using ZedGraph;
 
 namespace AquaMate.UI.Components

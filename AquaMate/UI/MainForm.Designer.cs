@@ -10,7 +10,6 @@
         private System.Windows.Forms.Panel pnlClient;
         private System.Windows.Forms.Panel pnlDate;
         private System.Windows.Forms.Label lblDate;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.ToolStripMenuItem miExit;
         private System.Windows.Forms.ToolStripButton btnPrev;
         private System.Windows.Forms.ToolStripButton btnNext;
@@ -78,7 +77,6 @@
             this.pnlDate = new System.Windows.Forms.Panel();
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlTools.SuspendLayout();
@@ -406,11 +404,6 @@
             this.pnlClient.Padding = new System.Windows.Forms.Padding(10);
             this.pnlClient.Size = new System.Drawing.Size(779, 361);
             this.pnlClient.TabIndex = 5;
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.Timer1Tick);
             // 
             // MainForm
             // 

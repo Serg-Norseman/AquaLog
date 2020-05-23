@@ -21,6 +21,9 @@ using BSLib.Controls;
 
 namespace AquaMate.UI
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class MainForm : Form, IBrowser
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "MainForm");
@@ -31,6 +34,7 @@ namespace AquaMate.UI
         private NavigationStack<DataPanel> fNavigationStack;
         private NotificationDlg fNotificationDlg;
         private Dictionary<Type, DataPanel> fPanels;
+        private Timer fTimer;
         private ALTray fTray;
 
 
@@ -46,6 +50,10 @@ namespace AquaMate.UI
 
             int XS = 68;
             ClientSize = new Size(XS * 16, XS * 9);
+
+            fTimer = new Timer(this.components);
+            fTimer.Interval = 1000;
+            fTimer.Tick += this.Timer1Tick;
 
             fModel = new ALModel(this);
             fNavigationStack = new NavigationStack<DataPanel>();
@@ -103,14 +111,16 @@ namespace AquaMate.UI
             Localizer.LoadLocale(ALSettings.Instance.CurrentLocale);
             SetLocale();
 
-            fCurrentPanel.SetLocale();
-            SetActions(fCurrentPanel);
+            if (fCurrentPanel != null) {
+                fCurrentPanel.SetLocale();
+                SetActions(fCurrentPanel);
+            }
 
             if (fTray != null) fTray.SetLocale();
 
             // other
             foreach (var props in ALData.MeasurementUnits) {
-                string[] mes = Localizer.LS(props.Name).Split(new char[] {','});
+                string[] mes = Localizer.LS(props.Name).Split(new char[] { ',' });
                 props.StrName = (mes.Length > 0) ? mes[0] : string.Empty;
                 props.StrAbbreviation = (mes.Length > 1) ? mes[1] : string.Empty;
             }
@@ -152,8 +162,8 @@ namespace AquaMate.UI
 
         private void SetSettings()
         {
-            timer1.Interval = ALCore.UpdateInterval;
-            timer1.Enabled = true;
+            fTimer.Interval = ALCore.UpdateInterval;
+            fTimer.Enabled = true;
         }
 
         private void CheckTasks()
@@ -289,7 +299,9 @@ namespace AquaMate.UI
         {
             UpdateControls();
 
-            fCurrentPanel.TickTimer();
+            if (fCurrentPanel != null) {
+                fCurrentPanel.TickTimer();
+            }
 
             CheckTasks();
         }

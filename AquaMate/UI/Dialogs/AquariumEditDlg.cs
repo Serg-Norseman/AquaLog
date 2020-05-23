@@ -16,7 +16,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class AquariumEditDlg : EditDialog<Aquarium>, IAquariumEditorView
+    public partial class AquariumEditDlg : EditDialog, IAquariumEditorView
     {
         private readonly AquariumEditorPresenter fPresenter;
 
@@ -58,9 +58,8 @@ namespace AquaMate.UI.Dialogs
             lblBrand.Text = Localizer.LS(LSID.Brand);
         }
 
-        public override void SetContext(IModel model, Aquarium record)
+        public void SetContext(IModel model, Aquarium record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

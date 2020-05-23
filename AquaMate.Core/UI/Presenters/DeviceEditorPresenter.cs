@@ -14,7 +14,7 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface IDeviceEditorView : IView
+    public interface IDeviceEditorView : IEditorView<Device>
     {
         IComboBox AquariumCombo { get; }
         IComboBox TSPointsCombo { get; }

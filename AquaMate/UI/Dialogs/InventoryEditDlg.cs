@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class InventoryEditDlg : EditDialog<Inventory>, IInventoryEditorView
+    public partial class InventoryEditDlg : EditDialog, IInventoryEditorView
     {
         private readonly InventoryEditorPresenter fPresenter;
 
@@ -45,9 +45,8 @@ namespace AquaMate.UI.Dialogs
             lblState.Text = Localizer.LS(LSID.State);
         }
 
-        public override void SetContext(IModel model, Inventory record)
+        public void SetContext(IModel model, Inventory record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 
@@ -65,7 +64,7 @@ namespace AquaMate.UI.Dialogs
         {
             if (tabControl.SelectedIndex == 1) {
                 var lv = GetControlHandler<IListView>(lvTransfers);
-                ModelPresenter.FillTransfersLV(lv, fModel, fRecord);
+                ModelPresenter.FillTransfersLV(lv, fPresenter.Model, fPresenter.Record);
             }
         }
 

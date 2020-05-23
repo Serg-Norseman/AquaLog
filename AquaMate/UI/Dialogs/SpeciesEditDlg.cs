@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class SpeciesEditDlg : EditDialog<Species>, ISpeciesEditorView
+    public partial class SpeciesEditDlg : EditDialog, ISpeciesEditorView
     {
         private readonly SpeciesEditorPresenter fPresenter;
 
@@ -51,9 +51,8 @@ namespace AquaMate.UI.Dialogs
             lblSwimLevel.Text = Localizer.LS(LSID.SwimLevel);
         }
 
-        public override void SetContext(IModel model, Species record)
+        public void SetContext(IModel model, Species record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

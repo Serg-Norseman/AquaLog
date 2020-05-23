@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using AquaMate.UI.Charts;
 using AquaMate.UI.Components;
 using AquaMate.TSDB;
 

@@ -16,7 +16,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class MeasureEditDlg : EditDialog<Measure>, IMeasureEditorView
+    public partial class MeasureEditDlg : EditDialog, IMeasureEditorView
     {
         private readonly MeasureEditorPresenter fPresenter;
 
@@ -41,9 +41,8 @@ namespace AquaMate.UI.Dialogs
             lblTemperature.Text = ALData.GetLSuom(LSID.Temperature, MeasurementType.Temperature);
         }
 
-        public override void SetContext(IModel model, Measure record)
+        public void SetContext(IModel model, Measure record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

@@ -13,7 +13,7 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface IBrandEditorView : IView
+    public interface IBrandEditorView : IEditorView<Brand>
     {
         ITextBox NameField { get; }
         IComboBox CountryCombo { get; }

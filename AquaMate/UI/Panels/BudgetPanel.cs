@@ -12,6 +12,7 @@ using System.Windows.Forms;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
+using AquaMate.UI.Charts;
 using AquaMate.UI.Components;
 using BSLib;
 

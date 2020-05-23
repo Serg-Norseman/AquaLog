@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class NoteEditDlg : EditDialog<Note>, INoteEditorView
+    public partial class NoteEditDlg : EditDialog, INoteEditorView
     {
         private readonly NoteEditorPresenter fPresenter;
 
@@ -41,9 +41,8 @@ namespace AquaMate.UI.Dialogs
             lblNote.Text = Localizer.LS(LSID.Note);
         }
 
-        public override void SetContext(IModel model, Note record)
+        public void SetContext(IModel model, Note record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

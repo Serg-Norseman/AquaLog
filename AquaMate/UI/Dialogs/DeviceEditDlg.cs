@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class DeviceEditDlg : EditDialog<Device>, IDeviceEditorView
+    public partial class DeviceEditDlg : EditDialog, IDeviceEditorView
     {
         private readonly DeviceEditorPresenter fPresenter;
 
@@ -48,9 +48,8 @@ namespace AquaMate.UI.Dialogs
             lblState.Text = Localizer.LS(LSID.State);
         }
 
-        public override void SetContext(IModel model, Device record)
+        public void SetContext(IModel model, Device record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

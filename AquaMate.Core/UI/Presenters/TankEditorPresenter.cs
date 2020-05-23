@@ -13,7 +13,7 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface ITankEditorView : IView
+    public interface ITankEditorView : IEditorView<ITank>
     {
         IPropertyGrid PropsGrid { get; }
     }

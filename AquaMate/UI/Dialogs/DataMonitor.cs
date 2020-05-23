@@ -18,7 +18,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class DataMonitor : Form, IDataMonitorView
+    public partial class DataMonitor : EditDialog, IDataMonitorView
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "DataMonitor");
 
@@ -52,7 +52,7 @@ namespace AquaMate.UI.Dialogs
             base.Dispose(disposing);
         }
 
-        public void SetLocale()
+        public override void SetLocale()
         {
             Text = Localizer.LS(LSID.DataMonitor);
             btnSettings.Text = Localizer.LS(LSID.Settings);

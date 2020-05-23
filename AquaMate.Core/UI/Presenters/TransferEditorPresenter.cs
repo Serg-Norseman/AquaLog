@@ -16,7 +16,7 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface ITransferEditorView : IView
+    public interface ITransferEditorView : IEditorView<Transfer>
     {
         ITextBox NameField { get; }
         IComboBox SourceCombo { get; }

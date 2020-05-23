@@ -67,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="UI\Charts\ChartStyle.cs" />
     <Compile Include="Core\ALSettings.cs" />
     <Compile Include="Core\AppHost.cs" />
     <Compile Include="Core\Average.cs" />
@@ -185,9 +186,7 @@
     <Compile Include="UI\Extensions.cs" />
     <Compile Include="UI\IBrowser.cs" />
     <Compile Include="UI\IDataPanel.cs" />
-    <Compile Include="UI\IEditDialog.cs" />
     <Compile Include="UI\IView.cs" />
-    <Compile Include="UI\ListItem.cs" />
     <Compile Include="UI\MainView.cs" />
     <Compile Include="UI\Presenter.cs" />
     <Compile Include="UI\Presenters\AquariumEditorPresenter.cs" />
@@ -220,20 +219,6 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core" />
-    <Folder Include="Core\Calculations" />
-    <Folder Include="Core\Export" />
-    <Folder Include="Core\Model" />
-    <Folder Include="Core\Model\Tanks" />
-    <Folder Include="Core\Types" />
-    <Folder Include="DataCollection" />
-    <Folder Include="Logging" />
-    <Folder Include="M3DViewer" />
-    <Folder Include="M3DViewer\Tanks" />
-    <Folder Include="UI" />
-    <Folder Include="TSDB" />
-    <Folder Include="UI\Presenters" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

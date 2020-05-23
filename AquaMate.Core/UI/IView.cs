@@ -6,6 +6,7 @@
 
 using System;
 using AquaMate.Core;
+using AquaMate.Core.Model;
 
 namespace AquaMate.UI
 {
@@ -32,5 +33,12 @@ namespace AquaMate.UI
 
     public interface IDialogView<TModel> : IFormView<TModel>, IModalDialog
     {
+    }
+
+
+    public interface IEditorView<TEntity> : IView, IModalDialog
+        where TEntity : IEntity
+    {
+        void SetContext(IModel model, TEntity record);
     }
 }

@@ -4,7 +4,7 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-namespace AquaMate.UI.Components
+namespace AquaMate.UI.Charts
 {
     public enum ChartStyle
     {

@@ -15,6 +15,7 @@ using AquaMate.Logging;
 using AquaMate.TSDB;
 using AquaMate.UI;
 using BSLib;
+using BSLib.Design;
 using SQLite;
 
 namespace AquaMate.Core
@@ -242,12 +243,12 @@ namespace AquaMate.Core
             return fDB.Query<Aquarium>("select * from Aquarium");
         }
 
-        public IList<ListItem<int>> QueryAquariumsList()
+        public IList<ComboItem<int>> QueryAquariumsList()
         {
-            var result = new List<ListItem<int>>();
+            var result = new List<ComboItem<int>>();
             var queryResult = QueryAquariums();
             foreach (var aqm in queryResult) {
-                result.Add(new ListItem<int>(aqm.Name, aqm.Id));
+                result.Add(new ComboItem<int>(aqm.Name, aqm.Id));
             }
             return result;
         }

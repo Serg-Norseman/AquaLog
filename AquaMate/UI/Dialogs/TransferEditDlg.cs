@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class TransferEditDlg : EditDialog<Transfer>, ITransferEditorView
+    public partial class TransferEditDlg : EditDialog, ITransferEditorView
     {
         private readonly TransferEditorPresenter fPresenter;
 
@@ -46,9 +46,8 @@ namespace AquaMate.UI.Dialogs
             lblShop.Text = Localizer.LS(LSID.Shop);
         }
 
-        public override void SetContext(IModel model, Transfer record)
+        public void SetContext(IModel model, Transfer record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

@@ -14,7 +14,7 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface IScheduleEditorView : IView
+    public interface IScheduleEditorView : IEditorView<Schedule>
     {
         IComboBox AquariumCombo { get; }
         IDateTimeBox TimestampField { get; }

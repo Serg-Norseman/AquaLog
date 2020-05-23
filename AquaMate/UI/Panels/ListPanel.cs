@@ -121,7 +121,7 @@ namespace AquaMate.UI.Panels
 
     public class ListPanel<R, D> : ListPanel
         where R : Entity, new()
-        where D : IEditDialog<R>, new()
+        where D : IEditorView<R>, new()
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ListPanel<>");
 

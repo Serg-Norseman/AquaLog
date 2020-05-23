@@ -13,6 +13,7 @@ using AquaMate.Core;
 using AquaMate.UI.Components;
 using AquaMate.UI.Dialogs;
 using BSLib.Design.Graphics;
+using BSLib.Design.Handlers;
 using BSLib.Design.IoC;
 using BSLib.Design.MVP;
 
@@ -48,14 +49,23 @@ namespace AquaMate.UI
 
         public override byte[] ImageToByte(IImage image)
         {
-            var wfImage = ((ImageHandler)image).Handle;
-            return ALCore.ImageToByte(wfImage, ImageFormat.Jpeg);
+            var handler = image as ImageHandler;
+            if (handler == null) {
+                return null;
+            } else {
+                var wfImage = handler.Handle;
+                return ALCore.ImageToByte(wfImage, ImageFormat.Jpeg);
+            }
         }
 
         public override IImage ByteToImage(byte[] imageBytes)
         {
-            var wfImage = ALCore.ByteToImage(imageBytes);
-            return new ImageHandler(wfImage);
+            if (imageBytes == null) {
+                return null;
+            } else {
+                var wfImage = ALCore.ByteToImage(imageBytes);
+                return new ImageHandler(wfImage);
+            }
         }
 
         public override IImage LoadImage()
@@ -105,8 +115,8 @@ namespace AquaMate.UI
             ControlsManager.RegisterHandlerType(typeof(RadioButton), typeof(RadioButtonHandler));
             ControlsManager.RegisterHandlerType(typeof(TabControl), typeof(TabControlHandler));
             ControlsManager.RegisterHandlerType(typeof(TextBox), typeof(TextBoxHandler));
-            //ControlsManager.RegisterHandlerType(typeof(TreeView), typeof(TreeViewHandler));
-            //ControlsManager.RegisterHandlerType(typeof(ToolStripMenuItem), typeof(MenuItemHandler));
+            ControlsManager.RegisterHandlerType(typeof(TreeView), typeof(TreeViewHandler));
+            ControlsManager.RegisterHandlerType(typeof(ToolStripMenuItem), typeof(MenuItemHandler));
             ControlsManager.RegisterHandlerType(typeof(ToolStripComboBox), typeof(ToolStripComboBoxHandler));
             ControlsManager.RegisterHandlerType(typeof(PropertyGrid), typeof(PropertyGridHandler));
             ControlsManager.RegisterHandlerType(typeof(DateTimePicker), typeof(DateTimeBoxHandler));

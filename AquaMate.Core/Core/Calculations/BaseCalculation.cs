@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using AquaMate.UI;
+using BSLib.Design;
 
 namespace AquaMate.Core.Calculations
 {
@@ -168,7 +169,7 @@ namespace AquaMate.Core.Calculations
             ALCore.SetDisplayNameValue(this, resultParam.PropName, resultParam.DispName);
         }
 
-        public static IEnumerable<ListItem<T>> GetNamesList<T>()
+        public static IEnumerable<ComboItem<T>> GetNamesList<T>()
         {
             T[] enumVals = (T[])Enum.GetValues(typeof(T));
             int valsLen = enumVals.Length;
@@ -178,11 +179,11 @@ namespace AquaMate.Core.Calculations
             if (valsLen != namesLen)
                 throw new Exception("Enumeration and names do not match");
 
-            var result = new ListItem<T>[valsLen];
+            var result = new ComboItem<T>[valsLen];
             for (int i = 0; i < valsLen; i++) {
                 var enm = enumVals[i];
                 int eIdx = Convert.ToInt32(enm);
-                result[i] = new ListItem<T>(names[eIdx].Name, enm);
+                result[i] = new ComboItem<T>(names[eIdx].Name, enm);
             }
             return result;
         }

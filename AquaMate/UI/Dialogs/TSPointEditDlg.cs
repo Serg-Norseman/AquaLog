@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class TSPointEditDlg : EditDialog<TSPoint>, ITSPointEditorView
+    public partial class TSPointEditDlg : EditDialog, ITSPointEditorView
     {
         private readonly TSPointEditorPresenter fPresenter;
 
@@ -42,9 +42,8 @@ namespace AquaMate.UI.Dialogs
             lblDeviation.Text = Localizer.LS(LSID.Deviation);
         }
 
-        public override void SetContext(IModel model, TSPoint record)
+        public void SetContext(IModel model, TSPoint record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

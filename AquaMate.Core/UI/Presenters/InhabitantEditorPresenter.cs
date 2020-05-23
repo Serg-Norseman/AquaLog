@@ -16,7 +16,7 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface IInhabitantEditorView : IView
+    public interface IInhabitantEditorView : IEditorView<Inhabitant>
     {
         IComboBox SpeciesCombo { get; }
         ITextBox NameField { get; }

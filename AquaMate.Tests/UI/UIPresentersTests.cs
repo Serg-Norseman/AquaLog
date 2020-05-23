@@ -15,6 +15,12 @@ namespace AquaMate.UI
     [TestFixture]
     public class UIPresentersTests
     {
+        [SetUp]
+        public void Setup()
+        {
+            AppHost.InitInstance<WFAppHost>();
+        }
+
         [Test]
         public void Test_CalculatorPresenter_Common()
         {

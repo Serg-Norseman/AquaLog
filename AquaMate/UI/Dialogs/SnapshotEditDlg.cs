@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class SnapshotEditDlg : EditDialog<Snapshot>, ISnapshotEditorView
+    public partial class SnapshotEditDlg : EditDialog, ISnapshotEditorView
     {
         private readonly SnapshotEditorPresenter fPresenter;
 
@@ -42,9 +42,8 @@ namespace AquaMate.UI.Dialogs
             btnSave.Text = Localizer.LS(LSID.Save);
         }
 
-        public override void SetContext(IModel model, Snapshot record)
+        public void SetContext(IModel model, Snapshot record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

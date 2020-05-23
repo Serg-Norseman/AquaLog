@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using AquaMate.UI.Charts;
 
 namespace AquaMate.UI.Components
 {

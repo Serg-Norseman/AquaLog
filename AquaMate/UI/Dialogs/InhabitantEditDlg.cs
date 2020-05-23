@@ -16,7 +16,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class InhabitantEditDlg : EditDialog<Inhabitant>, IInhabitantEditorView
+    public partial class InhabitantEditDlg : EditDialog, IInhabitantEditorView
     {
         private readonly InhabitantEditorPresenter fPresenter;
 
@@ -43,9 +43,8 @@ namespace AquaMate.UI.Dialogs
             lblState.Text = Localizer.LS(LSID.State);
         }
 
-        public override void SetContext(IModel model, Inhabitant record)
+        public void SetContext(IModel model, Inhabitant record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 
@@ -93,7 +92,7 @@ namespace AquaMate.UI.Dialogs
 
         void IInhabitantEditorView.SetImage(ItemType itemType, int itemId)
         {
-            imgViewer.SetRecord(fModel, fRecord.Id, itemType);
+            imgViewer.SetRecord(fPresenter.Model, fPresenter.Record.Id, itemType);
         }
 
         #endregion

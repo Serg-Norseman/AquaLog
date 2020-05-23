@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class ScheduleEditDlg : EditDialog<Schedule>, IScheduleEditorView
+    public partial class ScheduleEditDlg : EditDialog, IScheduleEditorView
     {
         private readonly ScheduleEditorPresenter fPresenter;
 
@@ -44,9 +44,8 @@ namespace AquaMate.UI.Dialogs
             lblNote.Text = Localizer.LS(LSID.Note);
         }
 
-        public override void SetContext(IModel model, Schedule record)
+        public void SetContext(IModel model, Schedule record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

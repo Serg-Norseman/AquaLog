@@ -11,6 +11,7 @@ using AquaMate.Core.Types;
 using AquaMate.DataCollection;
 using AquaMate.TSDB;
 using AquaMate.UI;
+using BSLib.Design;
 
 namespace AquaMate.Core
 {
@@ -38,7 +39,7 @@ namespace AquaMate.Core
         string GetEntityName(Entity entity);
 
         IList<Aquarium> QueryAquariums();
-        IList<ListItem<int>> QueryAquariumsList();
+        IList<ComboItem<int>> QueryAquariumsList();
         IList<string> QueryAquariumBrands();
         int QueryInhabitantsCount(int aquariumId);
         int QueryInhabitantsCount(int itemId, ItemType itemType);

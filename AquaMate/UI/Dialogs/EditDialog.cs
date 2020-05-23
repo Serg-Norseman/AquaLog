@@ -6,30 +6,16 @@
 
 using System;
 using System.Windows.Forms;
-using AquaMate.Core;
-using AquaMate.Core.Model;
 
 namespace AquaMate.UI.Dialogs
 {
     /// <summary>
     /// 
     /// </summary>
-    public class EditDialog<TEntity> : CommonForm, IEditDialog<TEntity>
-        where TEntity : IEntity
+    public class EditDialog : CommonForm
     {
-        // TODO: to refactor!
-        protected IModel fModel;
-        protected TEntity fRecord;
-
         public EditDialog() : base()
         {
-        }
-
-        public virtual void SetContext(IModel model, TEntity record)
-        {
-            // TODO: to refactor!
-            fModel = model;
-            fRecord = record;
         }
 
         public virtual void SetLocale()

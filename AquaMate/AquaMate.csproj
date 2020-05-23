@@ -82,6 +82,9 @@
     <Reference Include="BSLib.Design">
       <HintPath>..\libs\BSLib.Design.dll</HintPath>
     </Reference>
+    <Reference Include="BSLib.Design.WFHandlers">
+      <HintPath>..\libs\BSLib.Design.WFHandlers.dll</HintPath>
+    </Reference>
     <Reference Include="BSLib.Timeline">
       <HintPath>..\libs\BSLib.Timeline.dll</HintPath>
     </Reference>
@@ -102,7 +105,6 @@
     <Compile Include="UI\ALTray.cs" />
     <Compile Include="UI\Components\ChartPoint.cs" />
     <Compile Include="UI\Components\ChartSeries.cs" />
-    <Compile Include="UI\Components\ChartStyle.cs" />
     <Compile Include="UI\Components\ImageViewer.cs" />
     <Compile Include="UI\Components\OGLRenderer.cs" />
     <Compile Include="UI\Components\OGLViewer.cs" />

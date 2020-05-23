@@ -16,7 +16,7 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface IAquariumEditorView : IView
+    public interface IAquariumEditorView : IEditorView<Aquarium>
     {
         ITextBox NameField { get; }
         IComboBox BrandCombo { get; }
@@ -141,6 +141,8 @@ namespace AquaMate.UI
 
         public void EditTank()
         {
+            if (fRecord == null) return;
+
             TankShape tankShape = fView.ShapeCombo.GetSelectedTag<TankShape>();
             var tank = fRecord.GetTank(tankShape, fRecord.TankProperties);
 

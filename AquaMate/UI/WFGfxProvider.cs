@@ -11,6 +11,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using BSLib;
 using BSLib.Design.Graphics;
+using BSLib.Design.Handlers;
 
 namespace AquaMate.UI
 {

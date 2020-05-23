@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class NutritionEditDlg : EditDialog<Nutrition>, INutritionEditorView
+    public partial class NutritionEditDlg : EditDialog, INutritionEditorView
     {
         private readonly NutritionEditorPresenter fPresenter;
 
@@ -42,9 +42,8 @@ namespace AquaMate.UI.Dialogs
             lblState.Text = Localizer.LS(LSID.State);
         }
 
-        public override void SetContext(IModel model, Nutrition record)
+        public void SetContext(IModel model, Nutrition record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

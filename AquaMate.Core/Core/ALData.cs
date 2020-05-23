@@ -12,6 +12,7 @@ using AquaMate.Core.Model.Tanks;
 using AquaMate.Core.Types;
 using AquaMate.UI;
 using BSLib;
+using BSLib.Design;
 
 namespace AquaMate.Core
 {
@@ -452,7 +453,7 @@ namespace AquaMate.Core
             return (NO3 / PO4) / 1.45;
         }
 
-        public static IEnumerable<ListItem<T>> GetNamesList<T>(IProps[] names)
+        public static IEnumerable<ComboItem<T>> GetNamesList<T>(IProps[] names)
         {
             T[] enumVals = (T[])Enum.GetValues(typeof(T));
             int valsLen = enumVals.Length;
@@ -461,16 +462,16 @@ namespace AquaMate.Core
             if (valsLen != namesLen)
                 throw new Exception("Enumeration and names do not match");
 
-            var result = new ListItem<T>[valsLen];
+            var result = new ComboItem<T>[valsLen];
             for (int i = 0; i < valsLen; i++) {
                 var enm = enumVals[i];
                 int eIdx = Convert.ToInt32(enm);
-                result[i] = new ListItem<T>(Localizer.LS(names[eIdx].Name), enm);
+                result[i] = new ComboItem<T>(Localizer.LS(names[eIdx].Name), enm);
             }
             return result;
         }
 
-        public static IEnumerable<ListItem<T>> GetNamesList<T>(LSID[] names)
+        public static IEnumerable<ComboItem<T>> GetNamesList<T>(LSID[] names)
         {
             T[] enumVals = (T[])Enum.GetValues(typeof(T));
             int valsLen = enumVals.Length;
@@ -479,33 +480,33 @@ namespace AquaMate.Core
             if (valsLen != namesLen)
                 throw new Exception("Enumeration and names do not match");
 
-            var result = new ListItem<T>[valsLen];
+            var result = new ComboItem<T>[valsLen];
             for (int i = 0; i < valsLen; i++) {
                 var enm = enumVals[i];
                 int eIdx = Convert.ToInt32(enm);
-                result[i] = new ListItem<T>(Localizer.LS(names[eIdx]), enm);
+                result[i] = new ComboItem<T>(Localizer.LS(names[eIdx]), enm);
             }
             return result;
         }
 
-        public static IEnumerable<ListItem<ItemState>> GetItemStateNamesList(ItemType itemType)
+        public static IEnumerable<ComboItem<ItemState>> GetItemStateNamesList(ItemType itemType)
         {
             ItemProps props = ALData.ItemTypes[(int)itemType];
 
-            var result = new List<ListItem<ItemState>>();
+            var result = new List<ComboItem<ItemState>>();
             for (ItemState state = ItemState.Unknown; state <= ItemState.Broken; state++) {
                 if (state == ItemState.Unknown || props.States.Contains(state)) {
-                    result.Add(new ListItem<ItemState>(Localizer.LS(ALData.ItemStates[(int)state]), state));
+                    result.Add(new ComboItem<ItemState>(Localizer.LS(ALData.ItemStates[(int)state]), state));
                 }
             }
             return result;
         }
 
-        public static IEnumerable<ListItem<int>> GetEntityNamesList(IEnumerable<Entity> entities)
+        public static IEnumerable<ComboItem<int>> GetEntityNamesList(IEnumerable<Entity> entities)
         {
-            var result = new List<ListItem<int>>();
+            var result = new List<ComboItem<int>>();
             foreach (var ent in entities) {
-                result.Add(new ListItem<int>(ent.ToString(), ent.Id));
+                result.Add(new ComboItem<int>(ent.ToString(), ent.Id));
             }
             return result;
         }

@@ -22,22 +22,22 @@
 		    // lblProduct
 		    // 
 		    this.lblProduct.AutoSize = true;
-		    this.lblProduct.Font = new System.Drawing.Font("Times New Roman", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+		    this.lblProduct.Font = new System.Drawing.Font("Tahoma", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 		    this.lblProduct.Location = new System.Drawing.Point(10, 7);
 		    this.lblProduct.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 		    this.lblProduct.Name = "lblProduct";
-		    this.lblProduct.Size = new System.Drawing.Size(139, 31);
+		    this.lblProduct.Size = new System.Drawing.Size(154, 33);
 		    this.lblProduct.TabIndex = 0;
 		    this.lblProduct.Text = "lblProduct";
 		    // 
 		    // lblVersion
 		    // 
 		    this.lblVersion.AutoSize = true;
-		    this.lblVersion.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+		    this.lblVersion.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 		    this.lblVersion.Location = new System.Drawing.Point(12, 46);
 		    this.lblVersion.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 		    this.lblVersion.Name = "lblVersion";
-		    this.lblVersion.Size = new System.Drawing.Size(74, 17);
+		    this.lblVersion.Size = new System.Drawing.Size(71, 16);
 		    this.lblVersion.TabIndex = 1;
 		    this.lblVersion.Text = "lblVersion";
 		    // 
@@ -56,11 +56,11 @@
 		    // lblCopyright
 		    // 
 		    this.lblCopyright.AutoSize = true;
-		    this.lblCopyright.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+		    this.lblCopyright.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
 		    this.lblCopyright.Location = new System.Drawing.Point(12, 73);
 		    this.lblCopyright.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 		    this.lblCopyright.Name = "lblCopyright";
-		    this.lblCopyright.Size = new System.Drawing.Size(89, 17);
+		    this.lblCopyright.Size = new System.Drawing.Size(85, 16);
 		    this.lblCopyright.TabIndex = 1;
 		    this.lblCopyright.Text = "lblCopyright";
 		    // 
@@ -73,7 +73,7 @@
 		    this.lblMail.Location = new System.Drawing.Point(12, 124);
 		    this.lblMail.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 		    this.lblMail.Name = "lblMail";
-		    this.lblMail.Size = new System.Drawing.Size(174, 13);
+		    this.lblMail.Size = new System.Drawing.Size(171, 13);
 		    this.lblMail.TabIndex = 2;
 		    this.lblMail.Text = "mailto:aquamate@yandex.ru";
 		    this.lblMail.Click += new System.EventHandler(this.LabelMail_Click);
@@ -87,7 +87,7 @@
 		    this.lblProjSite.Location = new System.Drawing.Point(12, 150);
 		    this.lblProjSite.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
 		    this.lblProjSite.Name = "lblProjSite";
-		    this.lblProjSite.Size = new System.Drawing.Size(171, 13);
+		    this.lblProjSite.Size = new System.Drawing.Size(272, 13);
 		    this.lblProjSite.TabIndex = 2;
 		    this.lblProjSite.Text = "https://github.com/serg-norseman/aquamate";
 		    this.lblProjSite.Click += new System.EventHandler(this.LabelMail_Click);
@@ -115,6 +115,7 @@
 		    this.Text = "AboutDlg";
 		    this.ResumeLayout(false);
 		    this.PerformLayout();
+
 		}
 	}
 }

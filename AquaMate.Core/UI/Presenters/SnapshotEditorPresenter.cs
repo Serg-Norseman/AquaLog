@@ -13,7 +13,7 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface ISnapshotEditorView : IView
+    public interface ISnapshotEditorView : IEditorView<Snapshot>
     {
         ITextBox NameField { get; }
         IPictureBox PicBox { get; }

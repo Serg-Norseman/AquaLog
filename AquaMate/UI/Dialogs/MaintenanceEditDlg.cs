@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class MaintenanceEditDlg : EditDialog<Maintenance>, IMaintenanceEditorView
+    public partial class MaintenanceEditDlg : EditDialog, IMaintenanceEditorView
     {
         private readonly MaintenanceEditorPresenter fPresenter;
 
@@ -42,9 +42,8 @@ namespace AquaMate.UI.Dialogs
             lblNote.Text = Localizer.LS(LSID.Note);
         }
 
-        public override void SetContext(IModel model, Maintenance record)
+        public void SetContext(IModel model, Maintenance record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

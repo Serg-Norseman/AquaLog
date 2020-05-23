@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class TSValueEditDlg : EditDialog<TSValue>, ITSValueEditorView
+    public partial class TSValueEditDlg : EditDialog, ITSValueEditorView
     {
         private readonly TSValueEditorPresenter fPresenter;
 
@@ -39,9 +39,8 @@ namespace AquaMate.UI.Dialogs
             lblValue.Text = Localizer.LS(LSID.Value);
         }
 
-        public override void SetContext(IModel model, TSValue record)
+        public void SetContext(IModel model, TSValue record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 

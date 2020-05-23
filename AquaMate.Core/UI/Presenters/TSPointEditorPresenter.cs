@@ -14,7 +14,7 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface ITSPointEditorView : IView
+    public interface ITSPointEditorView : IEditorView<TSPoint>
     {
         ITextBox NameField { get; }
         ITextBox MeasureUnitField { get; }

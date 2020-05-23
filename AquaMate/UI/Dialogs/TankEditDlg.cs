@@ -15,7 +15,7 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class TankEditDlg : EditDialog<ITank>, ITankEditorView
+    public partial class TankEditDlg : EditDialog, ITankEditorView
     {
         private readonly TankEditorPresenter fPresenter;
 
@@ -36,9 +36,8 @@ namespace AquaMate.UI.Dialogs
             btnCancel.Text = Localizer.LS(LSID.Cancel);
         }
 
-        public override void SetContext(IModel model, ITank record)
+        public void SetContext(IModel model, ITank record)
         {
-            base.SetContext(model, record);
             fPresenter.SetContext(model, record);
         }
 
