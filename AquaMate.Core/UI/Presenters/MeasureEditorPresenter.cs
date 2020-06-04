@@ -47,7 +47,7 @@ namespace AquaMate.UI
         public override void UpdateView()
         {
             if (fRecord != null) {
-                fView.AquariumCombo.AddRange(fModel.QueryAquariumsList());
+                fView.AquariumCombo.AddRange(fModel.QueryAquariumsList(!fRecord.IsNewRecord));
                 fView.AquariumCombo.SetSelectedTag(fRecord.AquariumId);
 
                 if (!ALCore.IsZeroDate(fRecord.Timestamp)) {

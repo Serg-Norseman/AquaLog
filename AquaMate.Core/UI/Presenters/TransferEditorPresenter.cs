@@ -55,20 +55,20 @@ namespace AquaMate.UI
                 fView.NameField.Text = itName;
 
                 if (fRecord.ItemType != ItemType.Aquarium) {
-                    if (fRecord.Id == 0) {
+                    if (fRecord.IsNewRecord) {
                         IList<Transfer> lastTransfers = fModel.QueryLastTransfers(fRecord.ItemId, (int)fRecord.ItemType);
                         if (lastTransfers.Count > 0) {
                             fRecord.SourceId = lastTransfers[0].TargetId;
                         }
                     }
 
-                    var aquariumsList = fModel.QueryAquariumsList();
+                    var aquariumsList = fModel.QueryAquariumsList(!fRecord.IsNewRecord);
 
                     fView.SourceCombo.AddRange(aquariumsList);
-                    fView.SourceCombo.SetSelectedTag(fRecord.SourceId);
+                    fView.SourceCombo.SetSelectedTag(fRecord.SourceId, false);
 
                     fView.TargetCombo.AddRange(aquariumsList);
-                    fView.TargetCombo.SetSelectedTag(fRecord.TargetId);
+                    fView.TargetCombo.SetSelectedTag(fRecord.TargetId, false);
                 } else {
                     fView.SourceCombo.Enabled = false;
                     fView.TargetCombo.Enabled = false;

@@ -39,7 +39,7 @@ namespace AquaMate.Core
         string GetEntityName(Entity entity);
 
         IList<Aquarium> QueryAquariums();
-        IList<ComboItem<int>> QueryAquariumsList();
+        IList<ComboItem<int>> QueryAquariumsList(bool showInactive);
         IList<string> QueryAquariumBrands();
         int QueryInhabitantsCount(int aquariumId);
         int QueryInhabitantsCount(int itemId, ItemType itemType);

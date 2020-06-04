@@ -17,6 +17,14 @@ namespace AquaMate.Core.Model
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
 
+        [Ignore]
+        public bool IsNewRecord
+        {
+            get {
+                return (Id == 0);
+            }
+        }
+
 
         public abstract EntityType EntityType
         {

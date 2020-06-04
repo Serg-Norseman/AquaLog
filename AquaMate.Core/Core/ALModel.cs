@@ -243,11 +243,14 @@ namespace AquaMate.Core
             return fDB.Query<Aquarium>("select * from Aquarium");
         }
 
-        public IList<ComboItem<int>> QueryAquariumsList()
+        public IList<ComboItem<int>> QueryAquariumsList(bool showInactive)
         {
             var result = new List<ComboItem<int>>();
             var queryResult = QueryAquariums();
             foreach (var aqm in queryResult) {
+                if (aqm.IsInactive() && !showInactive)
+                    continue;
+
                 result.Add(new ComboItem<int>(aqm.Name, aqm.Id));
             }
             return result;
