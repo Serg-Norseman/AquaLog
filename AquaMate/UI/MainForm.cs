@@ -13,6 +13,7 @@ using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
 using AquaMate.Logging;
+using AquaMate.Prognostics;
 using AquaMate.UI.Components;
 using AquaMate.UI.Dialogs;
 using AquaMate.UI.Panels;
@@ -355,6 +356,13 @@ namespace AquaMate.UI
         private void miCalculator_Click(object sender, EventArgs e)
         {
             AppHost.Instance.ShowCalculator();
+        }
+
+        private void miDiagnosticConsole_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new DiagnosticConsole()) {
+                dlg.ShowDialog();
+            }
         }
 
         #endregion

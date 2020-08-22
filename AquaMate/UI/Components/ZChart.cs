@@ -18,20 +18,23 @@ namespace AquaMate.UI.Components
     /// </summary>
     public sealed class ZChart : UserControl
     {
-        private readonly ZedGraphControl fGraph;
+        private ZedGraphControl fGraph;
 
         public ZChart()
         {
+            Clear();
+        }
+
+        public void Clear()
+        {
+            Controls.Clear();
             fGraph = new ZedGraphControl();
             fGraph.IsShowPointValues = true;
             fGraph.PointValueEvent += Graph_PointValueEvent;
             fGraph.Dock = DockStyle.Fill;
             Controls.Add(fGraph);
-        }
 
-        public void Clear()
-        {
-            GraphPane gPane = fGraph.GraphPane;
+            /*GraphPane gPane = fGraph.GraphPane;
 
             gPane.Title.Text = "";
             gPane.XAxis.Title.Text = "";
@@ -41,7 +44,7 @@ namespace AquaMate.UI.Components
             gPane.GraphObjList.Clear();
 
             fGraph.AxisChange();
-            fGraph.Invalidate();
+            fGraph.Invalidate();*/
         }
 
         public void ShowData(string title, string xAxis, string yAxis, object data)

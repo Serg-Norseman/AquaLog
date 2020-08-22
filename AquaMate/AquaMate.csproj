@@ -91,6 +91,9 @@
     <Reference Include="csgl">
       <HintPath>..\libs\csgl.dll</HintPath>
     </Reference>
+    <Reference Include="CSProlog">
+      <HintPath>..\libs\CSProlog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -139,6 +142,12 @@
     <Compile Include="UI\Dialogs\DeviceEditDlg.cs" />
     <Compile Include="UI\Dialogs\DeviceEditDlg.Designer.cs">
       <DependentUpon>DeviceEditDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\DiagnosticConsole.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Dialogs\DiagnosticConsole.Designer.cs">
+      <DependentUpon>DiagnosticConsole.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Dialogs\EditDialog.cs" />
     <Compile Include="UI\Dialogs\NoteEditDlg.cs" />

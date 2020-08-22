@@ -87,6 +87,47 @@ namespace AquaMate.Core
         /// </summary>
         public void CleanSpace()
         {
+            var transfers = QueryTransfers();
+            foreach (Transfer rec in transfers) {
+                var itemRec = GetRecord(rec.ItemType, rec.ItemId);
+
+                bool valid = true;
+                ItemType sourItemType = ItemType.None;
+                switch (itemRec.EntityType) {
+                    case EntityType.Aquarium:
+                    case EntityType.Species:
+                    case EntityType.Nutrition:
+                    case EntityType.Device:
+                    case EntityType.Maintenance:
+                    case EntityType.Measure:
+                    case EntityType.Note:
+                    case EntityType.Schedule:
+                    case EntityType.Transfer:
+                    case EntityType.Snapshot:
+                    case EntityType.Brand:
+                    case EntityType.TSPoint:
+                        break;
+
+                    case EntityType.Inhabitant:
+                        var inhab = itemRec as Inhabitant;
+                        var species = GetRecord<Species>(inhab.SpeciesId);
+                        sourItemType = ALCore.GetItemType(species.Type);
+                        valid = rec.ItemType == sourItemType;
+                        break;
+
+                    case EntityType.Inventory:
+                        var invent = itemRec as Inventory;
+                        sourItemType = ALCore.GetItemType(invent.Type);
+                        valid = rec.ItemType == sourItemType;
+                        break;
+                }
+
+                if (!valid) {
+                    string str = string.Format("itemId={0}, itemType={1}, sourItemType={2}", rec.ItemId, rec.ItemType, sourItemType);
+                    System.Diagnostics.Debug.WriteLine(str);
+                }
+            }
+
             fDB.Execute("drop table if exists Expense");
             fDB.Execute("VACUUM;");
         }

@@ -51,6 +51,9 @@
     <Reference Include="BSLib.Design">
       <HintPath>..\libs\BSLib.Design.dll</HintPath>
     </Reference>
+    <Reference Include="CSProlog">
+      <HintPath>..\libs\CSProlog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -67,6 +70,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Prognostics\IConsole.cs" />
+    <Compile Include="Prognostics\LogicResult.cs" />
+    <Compile Include="Prognostics\LogicService.cs" />
+    <Compile Include="Prognostics\WinIO.cs" />
     <Compile Include="UI\Charts\ChartStyle.cs" />
     <Compile Include="Core\ALSettings.cs" />
     <Compile Include="Core\AppHost.cs" />
@@ -219,6 +226,8 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Prognostics" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

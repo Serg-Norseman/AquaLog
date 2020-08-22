@@ -102,6 +102,7 @@
     <Compile Include="Core\Model\SpeciesTests.cs" />
     <Compile Include="Core\Model\TransferTests.cs" />
     <Compile Include="DataCollection\DataCollectionTests.cs" />
+    <Compile Include="Prognostics\LogicServiceTests.cs" />
     <Compile Include="TSDB\SDCompressionTests.cs" />
     <Compile Include="TSDB\TSDatabaseTests.cs" />
     <Compile Include="TSDB\TSValueTests.cs" />
@@ -119,7 +120,9 @@
       <Name>AquaMate</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Prognostics" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

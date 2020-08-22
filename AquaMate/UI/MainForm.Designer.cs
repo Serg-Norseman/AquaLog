@@ -38,6 +38,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem miCalculator;
         private System.Windows.Forms.ToolStripButton btnSnapshots;
+        private System.Windows.Forms.ToolStripMenuItem miDiagnosticConsole;
 
         private void InitializeComponent()
         {
@@ -77,6 +78,7 @@
             this.pnlDate = new System.Windows.Forms.Panel();
             this.lblDate = new System.Windows.Forms.Label();
             this.pnlClient = new System.Windows.Forms.Panel();
+            this.miDiagnosticConsole = new System.Windows.Forms.ToolStripMenuItem();
             this.menuMain.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.pnlTools.SuspendLayout();
@@ -104,6 +106,7 @@
             this.miSettings,
             this.toolStripMenuItem3,
             this.miCalculator,
+            this.miDiagnosticConsole,
             this.toolStripMenuItem2,
             this.miExit});
             this.miFile.Name = "miFile";
@@ -113,43 +116,43 @@
             // miCleanSpace
             // 
             this.miCleanSpace.Name = "miCleanSpace";
-            this.miCleanSpace.Size = new System.Drawing.Size(135, 22);
+            this.miCleanSpace.Size = new System.Drawing.Size(173, 22);
             this.miCleanSpace.Text = "CleanSpace";
             this.miCleanSpace.Click += new System.EventHandler(this.miCleanSpace_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(132, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(170, 6);
             // 
             // miSettings
             // 
             this.miSettings.Name = "miSettings";
-            this.miSettings.Size = new System.Drawing.Size(135, 22);
+            this.miSettings.Size = new System.Drawing.Size(173, 22);
             this.miSettings.Text = "Settings";
             this.miSettings.Click += new System.EventHandler(this.miSettings_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(132, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(170, 6);
             // 
             // miCalculator
             // 
             this.miCalculator.Name = "miCalculator";
-            this.miCalculator.Size = new System.Drawing.Size(135, 22);
+            this.miCalculator.Size = new System.Drawing.Size(173, 22);
             this.miCalculator.Text = "Calculator";
             this.miCalculator.Click += new System.EventHandler(this.miCalculator_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(132, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(170, 6);
             // 
             // miExit
             // 
             this.miExit.Name = "miExit";
-            this.miExit.Size = new System.Drawing.Size(135, 22);
+            this.miExit.Size = new System.Drawing.Size(173, 22);
             this.miExit.Text = "Exit";
             this.miExit.Click += new System.EventHandler(this.miExit_Click);
             // 
@@ -404,6 +407,13 @@
             this.pnlClient.Padding = new System.Windows.Forms.Padding(10);
             this.pnlClient.Size = new System.Drawing.Size(779, 361);
             this.pnlClient.TabIndex = 5;
+            // 
+            // miDiagnosticConsole
+            // 
+            this.miDiagnosticConsole.Name = "miDiagnosticConsole";
+            this.miDiagnosticConsole.Size = new System.Drawing.Size(173, 22);
+            this.miDiagnosticConsole.Text = "DiagnosticConsole";
+            this.miDiagnosticConsole.Click += new System.EventHandler(this.miDiagnosticConsole_Click);
             // 
             // MainForm
             // 
