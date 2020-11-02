@@ -13,6 +13,7 @@ using AquaMate.Logging;
 using AquaMate.TSDB;
 using BSLib;
 using BSLib.Design;
+using BSLib.Design.Graphics;
 using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
@@ -463,7 +464,73 @@ namespace AquaMate.UI
 
         #region Transfers
 
-        public static void FillTransfersLV(IListView listView, IModel model, Entity item)
+        public static void FillTransfersLV(IListView listView, IModel model, IFont boldFont)
+        {
+            listView.Clear();
+            listView.AddColumn(Localizer.LS(LSID.Date), 80, true, BSDTypes.HorizontalAlignment.Left);
+            listView.AddColumn(Localizer.LS(LSID.Brand), 50, true, BSDTypes.HorizontalAlignment.Left);
+            listView.AddColumn(Localizer.LS(LSID.Item), 140, true, BSDTypes.HorizontalAlignment.Left);
+            listView.AddColumn(Localizer.LS(LSID.Type), 80, true, BSDTypes.HorizontalAlignment.Left);
+            listView.AddColumn(Localizer.LS(LSID.SourceTank), 80, true, BSDTypes.HorizontalAlignment.Left);
+            listView.AddColumn(Localizer.LS(LSID.TargetTank), 80, true, BSDTypes.HorizontalAlignment.Left);
+            listView.AddColumn(Localizer.LS(LSID.Quantity), 80, true, BSDTypes.HorizontalAlignment.Right);
+            listView.AddColumn(Localizer.LS(LSID.UnitPrice), 80, true, BSDTypes.HorizontalAlignment.Right);
+            listView.AddColumn(Localizer.LS(LSID.Shop), 180, true, BSDTypes.HorizontalAlignment.Left);
+            listView.AddColumn(Localizer.LS(LSID.Cause), 80, true, BSDTypes.HorizontalAlignment.Left);
+
+            var records = model.QueryTransfers();
+            foreach (Transfer rec in records) {
+                ItemType itemType = rec.ItemType;
+
+                Aquarium aqmSour = model.Cache.Get<Aquarium>(ItemType.Aquarium, rec.SourceId);
+                Aquarium aqmTarg = model.Cache.Get<Aquarium>(ItemType.Aquarium, rec.TargetId);
+
+                var itemRec = model.GetRecord(rec.ItemType, rec.ItemId);
+                string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
+                string strType = Localizer.LS(ALData.TransferTypes[(int)rec.Type]);
+                var brandedItem = itemRec as IBrandedItem;
+                string brand = (brandedItem == null) ? "-" : brandedItem.Brand;
+
+                var item = listView.AddItem(rec,
+                               ALCore.GetDateStr(rec.Timestamp),
+                               brand,
+                               itName,
+                               strType,
+                               (aqmSour == null) ? string.Empty : aqmSour.Name,
+                               (aqmTarg == null) ? string.Empty : aqmTarg.Name,
+                               rec.Quantity.ToString(),
+                               ALCore.GetDecimalStr(rec.UnitPrice),
+                               rec.Shop,
+                               rec.Cause
+                           );
+
+                if (itemType == ItemType.Aquarium) {
+                    item.SetFont(boldFont);
+                }
+
+                switch (rec.Type) {
+                    case TransferType.Sale:
+                        item.SetForeColor(BSDConsts.Colors.DimGray);
+                        break;
+
+                    case TransferType.Death:
+                    case TransferType.Exclusion:
+                        item.SetForeColor(BSDConsts.Colors.Gray);
+                        break;
+                }
+
+                // validation after format changes
+                /*if (itemRec is Inventory) {
+                    var inv = itemRec as Inventory;
+                    var invType = ALCore.GetItemType(inv.Type);
+                    if (invType != itemType) {
+                        item.ForeColor = Color.Red;
+                    }
+                }*/
+            }
+        }
+
+        public static void FillTransfersLVPreview(IListView listView, IModel model, Entity item)
         {
             try {
                 ItemType itemType;
@@ -554,9 +621,63 @@ namespace AquaMate.UI
 
         #region Budget
 
-        public static void FillBudgetLV(IListView listView, IModel model)
+        public static void FillBudgetLV(IListView listView, IModel model, IList<Transfer> records, IFont boldFont)
         {
             try {
+                listView.Clear();
+                listView.AddColumn(Localizer.LS(LSID.Date), 80, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Type), 80, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Brand), 50, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Item), 140, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Quantity), 80, true, BSDTypes.HorizontalAlignment.Right);
+                listView.AddColumn(Localizer.LS(LSID.UnitPrice), 80, true, BSDTypes.HorizontalAlignment.Right);
+                listView.AddColumn(Localizer.LS(LSID.Sum), 80, true, BSDTypes.HorizontalAlignment.Right);
+                listView.AddColumn(Localizer.LS(LSID.Shop), 180, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.State), 80, true, BSDTypes.HorizontalAlignment.Left);
+
+                foreach (Transfer rec in records) {
+                    int factor = 0;
+                    switch (rec.Type) {
+                        case TransferType.Purchase:
+                            factor = -1;
+                            break;
+                        case TransferType.Sale:
+                            factor = +1;
+                            break;
+                    }
+
+                    if (factor != 0) {
+                        double sum = (rec.Quantity * rec.UnitPrice) * factor;
+
+                        if (listView != null) {
+                            ItemType itemType = rec.ItemType;
+                            var itemRec = model.GetRecord(itemType, rec.ItemId);
+                            string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
+
+                            ItemState itemState;
+                            string strState = model.GetItemStateStr(rec.ItemId, itemType, out itemState);
+
+                            var brandedItem = itemRec as IBrandedItem;
+                            string brand = (brandedItem == null) ? "-" : brandedItem.Brand;
+
+                            var item = listView.AddItem(rec,
+                                       ALCore.GetDateStr(rec.Timestamp),
+                                       Localizer.LS(ALData.ItemTypes[(int)rec.ItemType].Name),
+                                       brand,
+                                       itName,
+                                       rec.Quantity.ToString(),
+                                       ALCore.GetDecimalStr(rec.UnitPrice),
+                                       ALCore.GetDecimalStr(sum),
+                                       rec.Shop,
+                                       strState
+                                   );
+
+                            if (itemType == ItemType.Aquarium) {
+                                item.SetFont(boldFont);
+                            }
+                        }
+                    }
+                }
             } catch (Exception ex) {
                 fLogger.WriteError("FillBudgetLV()", ex);
             }
@@ -572,16 +693,49 @@ namespace AquaMate.UI
                 listView.Clear();
                 listView.AddColumn(Localizer.LS(LSID.Name), 120, true, BSDTypes.HorizontalAlignment.Left);
                 listView.AddColumn(Localizer.LS(LSID.Country), 120, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.WebSite), 120, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Email), 120, true, BSDTypes.HorizontalAlignment.Left);
 
                 var records = model.QueryBrands();
                 foreach (Brand rec in records) {
                     var item = listView.AddItem(rec,
                                rec.Name,
-                               rec.Country
+                               rec.Country,
+                               rec.WebSite,
+                               rec.Email
                            );
                 }
             } catch (Exception ex) {
                 fLogger.WriteError("FillBrandsLV()", ex);
+            }
+        }
+
+        #endregion
+
+        #region Shops
+
+        public static void FillShopsLV(IListView listView, IModel model)
+        {
+            try {
+                listView.Clear();
+                listView.AddColumn(Localizer.LS(LSID.Name), 120, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Address), 120, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Telephone), 120, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.WebSite), 120, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Email), 120, true, BSDTypes.HorizontalAlignment.Left);
+
+                var records = model.QueryShops();
+                foreach (Shop rec in records) {
+                    var item = listView.AddItem(rec,
+                               rec.Name,
+                               rec.Address,
+                               rec.Telephone,
+                               rec.WebSite,
+                               rec.Email
+                           );
+                }
+            } catch (Exception ex) {
+                fLogger.WriteError("FillShopsLV()", ex);
             }
         }
 

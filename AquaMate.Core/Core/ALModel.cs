@@ -78,6 +78,7 @@ namespace AquaMate.Core
 
             fDB.CreateTable<Snapshot>();
             fDB.CreateTable<Brand>();
+            fDB.CreateTable<Shop>();
 
             fCache = new EntitiesCache(this);
         }
@@ -105,6 +106,7 @@ namespace AquaMate.Core
                     case EntityType.Transfer:
                     case EntityType.Snapshot:
                     case EntityType.Brand:
+                    case EntityType.Shop:
                     case EntityType.TSPoint:
                         break;
 
@@ -236,6 +238,7 @@ namespace AquaMate.Core
                 case EntityType.Schedule:
                 case EntityType.Snapshot:
                 case EntityType.Brand:
+                case EntityType.Shop:
                 case EntityType.TSPoint:
                     result = entity.ToString();
                     break;
@@ -785,12 +788,12 @@ namespace AquaMate.Core
 
         #region Expense functions
 
-        public IList<Transfer> QueryExpenses()
+        public IList<Transfer> QueryTransferExpenses()
         {
             return fDB.Query<Transfer>("select Timestamp, ItemType, ItemId, Type, Quantity, UnitPrice, Shop from Transfer order by [Timestamp]");
         }
 
-        public IList<string> QueryShops()
+        public IList<string> QueryTransferShops()
         {
             var queryResult = fDB.Query<QString>("select distinct Shop as element from Transfer");
             return ALData.GetStringList(queryResult);
@@ -809,6 +812,15 @@ namespace AquaMate.Core
         {
             var queryResult = fDB.Query<QString>("select distinct Country as element from Brand");
             return ALData.GetStringList(queryResult);
+        }
+
+        #endregion
+
+        #region Shop functions
+
+        public IList<Shop> QueryShops()
+        {
+            return fDB.Query<Shop>("select * from Shop");
         }
 
         #endregion
@@ -926,6 +938,7 @@ namespace AquaMate.Core
                     break;
 
                 case EntityType.Brand:
+                case EntityType.Shop:
                     // default, because it is not used as a reference table
                     break;
 

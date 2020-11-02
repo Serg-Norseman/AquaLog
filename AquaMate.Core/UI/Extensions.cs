@@ -7,6 +7,7 @@
 using System;
 using AquaMate.Core;
 using BSLib;
+using BSLib.Design.Graphics;
 using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
@@ -51,12 +52,16 @@ namespace AquaMate.UI
 
         public static void SetForeColor(this IListItem listItem, int color)
         {
+            if (listItem == null) return;
+
             var colorHandler = AppHost.GfxProvider.CreateColor(color);
             listItem.SetForeColor(colorHandler);
         }
 
         public static void SetBackColor(this IListItem listItem, int color)
         {
+            if (listItem == null) return;
+
             var colorHandler = AppHost.GfxProvider.CreateColor(color);
             listItem.SetBackColor(colorHandler);
         }

@@ -32,6 +32,7 @@ namespace AquaMate.UI
         Snapshots,
         M3DViewer,
         Brands,
+        Shops,
         Analysis,
         Quality,
         BioTreemap,

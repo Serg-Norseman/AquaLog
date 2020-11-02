@@ -90,6 +90,14 @@ namespace AquaMate.UI
                 ForeColor = colorHandler.Handle;
             }
         }
+
+        public void SetFont(IFont font)
+        {
+            var fontHandler = font as FontHandler;
+            if (fontHandler != null) {
+                base.Font = fontHandler.Handle;
+            }
+        }
     }
 
 

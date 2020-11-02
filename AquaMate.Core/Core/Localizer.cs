@@ -242,8 +242,14 @@ namespace AquaMate.Core
         /* 218 */ Load,
         /* 219 */ Save,
         /* 220 */ Radar, // not used, reserved
+        /* 221 */ Shops,
+        /* 222 */ Address,
+        /* 223 */ Telephone,
+        /* 224 */ WebSite,
+        /* 225 */ Email,
+        /* 226 */ ViewSite,
 
-        /* 000 */ Last = Radar
+        /* 000 */ Last = ViewSite
     }
 
 
@@ -474,6 +480,12 @@ namespace AquaMate.Core
             /* 218 */ "Load",
             /* 219 */ "Save",
             /* 220 */ "Radar",
+            /* 221 */ "Shops",
+            /* 222 */ "Address",
+            /* 223 */ "Telephone",
+            /* 224 */ "WebSite",
+            /* 225 */ "Email",
+            /* 226 */ "View site",
         };
 
 

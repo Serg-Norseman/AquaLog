@@ -47,7 +47,7 @@ namespace AquaMate.UI
         public override void UpdateView()
         {
             if (fModel != null) {
-                fView.ShopCombo.AddRange(fModel.QueryShops(), true);
+                fView.ShopCombo.AddRange(fModel.QueryTransferShops(), true);
             }
 
             if (fRecord != null) {

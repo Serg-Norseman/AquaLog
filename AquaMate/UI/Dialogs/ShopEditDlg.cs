@@ -15,34 +15,35 @@ namespace AquaMate.UI.Dialogs
     /// <summary>
     /// 
     /// </summary>
-    public partial class BrandEditDlg : EditDialog, IBrandEditorView
+    public partial class ShopEditDlg : EditDialog, IShopEditorView
     {
-        private readonly BrandEditorPresenter fPresenter;
+        private readonly ShopEditorPresenter fPresenter;
 
-        public BrandEditDlg()
+        public ShopEditDlg()
         {
             InitializeComponent();
 
             btnAccept.Image = UIHelper.LoadResourceImage("btn_accept.gif");
             btnCancel.Image = UIHelper.LoadResourceImage("btn_cancel.gif");
 
-            fPresenter = new BrandEditorPresenter(this);
+            fPresenter = new ShopEditorPresenter(this);
         }
 
         public override void SetLocale()
         {
-            Text = Localizer.LS(LSID.Brand);
+            Text = Localizer.LS(LSID.Shop);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
             lblName.Text = Localizer.LS(LSID.Name);
-            lblCountry.Text = Localizer.LS(LSID.Country);
+            lblAddress.Text = Localizer.LS(LSID.Address);
+            lblTelephone.Text = Localizer.LS(LSID.Telephone);
             lblWebSite.Text = Localizer.LS(LSID.WebSite);
             lblEmail.Text = Localizer.LS(LSID.Email);
             lblNote.Text = Localizer.LS(LSID.Note);
         }
 
-        public void SetContext(IModel model, Brand record)
+        public void SetContext(IModel model, Shop record)
         {
             fPresenter.SetContext(model, record);
         }
@@ -54,27 +55,32 @@ namespace AquaMate.UI.Dialogs
 
         #region View interface implementation
 
-        ITextBox IBrandEditorView.NameField
+        ITextBox IShopEditorView.NameField
         {
             get { return GetControlHandler<ITextBox>(txtName); }
         }
 
-        IComboBox IBrandEditorView.CountryCombo
+        ITextBox IShopEditorView.AddressField
         {
-            get { return GetControlHandler<IComboBox>(cmbCountry); }
+            get { return GetControlHandler<ITextBox>(txtAddress); }
         }
 
-        ITextBox IBrandEditorView.WebSiteField
+        ITextBox IShopEditorView.TelephoneField
+        {
+            get { return GetControlHandler<ITextBox>(txtTelephone); }
+        }
+
+        ITextBox IShopEditorView.WebSiteField
         {
             get { return GetControlHandler<ITextBox>(txtWebSite); }
         }
 
-        ITextBox IBrandEditorView.EmailField
+        ITextBox IShopEditorView.EmailField
         {
             get { return GetControlHandler<ITextBox>(txtEmail); }
         }
 
-        ITextBox IBrandEditorView.NoteField
+        ITextBox IShopEditorView.NoteField
         {
             get { return GetControlHandler<ITextBox>(txtNote); }
         }

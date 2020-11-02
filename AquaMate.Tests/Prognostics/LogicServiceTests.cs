@@ -25,7 +25,8 @@ namespace AquaMate.Prognostics
             Assert.AreEqual(1, queryResult.Count); // = "True" (Yes)
 
             queryResult = service.GetQuerySolutions("mortal(r2d2)");
-            Assert.AreEqual(0, queryResult.Count); // = "False" (No)
+            Assert.AreEqual(1, queryResult.Count); // = "False" (No)
+            Assert.AreEqual(false, queryResult[0].Solved);
         }
 
         [Test]
@@ -113,7 +114,7 @@ namespace AquaMate.Prognostics
             Assert.IsFalse(queryHasSolution);
 
             var queryResult = service.GetQuerySolutions("strongmatch(X,nn1)");
-            Assert.AreEqual(4, queryResult.Count);
+            Assert.AreEqual(5, queryResult.Count);
 
             Assert.AreEqual("input1", queryResult[0].Variables[0].TextValue);
             Assert.AreEqual("X", queryResult[0].Variables[0].Name);
@@ -126,6 +127,8 @@ namespace AquaMate.Prognostics
 
             Assert.AreEqual("input4", queryResult[3].Variables[0].TextValue);
             Assert.AreEqual("X", queryResult[0].Variables[0].Name);
+
+            Assert.AreEqual(false, queryResult[4].Solved);
 
             queryResult = service.GetQuerySolutions("match(input6,nn1,X)");
             Assert.AreEqual(1, queryResult.Count);
@@ -142,7 +145,8 @@ namespace AquaMate.Prognostics
 
             var queryResult = service.GetQuerySolutions("mammal(X)");
 
-            Assert.AreEqual(0, queryResult.Count);
+            Assert.AreEqual(1, queryResult.Count);
+            Assert.AreEqual(false, queryResult[0].Solved);
         }
 
         [Test]

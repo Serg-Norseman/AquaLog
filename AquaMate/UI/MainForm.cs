@@ -471,6 +471,9 @@ namespace AquaMate.UI
                 case MainView.Brands:
                     SetView<BrandPanel>(extData);
                     break;
+                case MainView.Shops:
+                    SetView<ShopPanel>(extData);
+                    break;
                 case MainView.Analysis:
                     SetView<AquaAnalysisPanel>(extData);
                     break;

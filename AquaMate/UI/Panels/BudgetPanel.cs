@@ -15,6 +15,8 @@ using AquaMate.Core.Types;
 using AquaMate.UI.Charts;
 using AquaMate.UI.Components;
 using BSLib;
+using BSLib.Design.Handlers;
+using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI.Panels
 {
@@ -56,32 +58,34 @@ namespace AquaMate.UI.Panels
             AddAction("ChartCountries", LSID.ChartCountries, "", ViewChartCountriesHandler);
             AddAction("ChartMonthes", LSID.ChartMonthes, "", ViewChartMonthesHandler);
             AddAction("Brands", LSID.Brands, "", ViewBrandsHandler);
+            AddAction("Shops", LSID.Shops, "", ViewShopsHandler);
         }
 
         protected override void UpdateListView()
         {
-            ListView.Clear();
-            ListView.Columns.Add(Localizer.LS(LSID.Date), 80, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Type), 80, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Item), 140, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Quantity), 80, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.UnitPrice), 80, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.Sum), 80, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.Shop), 180, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.State), 80, HorizontalAlignment.Left);
+            var boldFont = new FontHandler(new Font(ListView.Font, FontStyle.Bold));
+            var lv = GetControlHandler<IListView>(ListView);
+            var records = fModel.QueryTransferExpenses();
+            ModelPresenter.FillBudgetLV(lv, fModel, records, boldFont);
 
-            var records = fModel.QueryExpenses();
-            fTotalFooter = ProcessRecords(records, ListView);
+            fTotalFooter = CalcFooter(records);
 
             CollectBrands(records);
+            CollectShops(records);
         }
 
-        private string ProcessRecords(IList<Transfer> records, ZListView listView)
+        public override void SelectionChanged(IList<Entity> records)
         {
-            Font defFont = ListView.Font;
-            Font boldFont = new Font(defFont, FontStyle.Bold);
+            if (records.Count > 1) {
+                IList<Transfer> transfers = records.Cast<Transfer>().ToList();
+                fFooter.Text = CalcFooter(transfers);
+            } else {
+                fFooter.Text = fTotalFooter;
+            }
+        }
 
+        private string CalcFooter(IList<Transfer> records)
+        {
             DateTime firstDate = ALCore.ZeroDate, lastDate = DateTime.Now.Date;
             double totalSum = 0.0d, expenses = 0.0d, incomes = 0.0d;
             foreach (Transfer rec in records) {
@@ -102,37 +106,7 @@ namespace AquaMate.UI.Panels
                     } else {
                         expenses += sum;
                     }
-                    sum *= factor;
-
-                    if (listView != null) {
-                        ItemType itemType = rec.ItemType;
-                        var itemRec = fModel.GetRecord(itemType, rec.ItemId);
-                        string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
-
-                        ItemState itemState;
-                        string strState = fModel.GetItemStateStr(rec.ItemId, itemType, out itemState);
-
-                        var brandedItem = itemRec as IBrandedItem;
-                        string brand = (brandedItem == null) ? "-" : brandedItem.Brand;
-
-                        var item = listView.AddItemEx(rec,
-                                       ALCore.GetDateStr(rec.Timestamp),
-                                       Localizer.LS(ALData.ItemTypes[(int)rec.ItemType].Name),
-                                       brand,
-                                       itName,
-                                       rec.Quantity.ToString(),
-                                       ALCore.GetDecimalStr(rec.UnitPrice),
-                                       ALCore.GetDecimalStr(sum),
-                                       rec.Shop,
-                                       strState
-                                   );
-
-                        if (itemType == ItemType.Aquarium) {
-                            item.Font = boldFont;
-                        }
-                    }
-
-                    totalSum += sum;
+                    totalSum += (sum * factor);
 
                     if (ALCore.IsZeroDate(firstDate)) {
                         firstDate = rec.Timestamp;
@@ -142,24 +116,17 @@ namespace AquaMate.UI.Panels
 
             double days = (lastDate - firstDate).TotalDays;
             double avgExpense = expenses / days;
-            string result = string.Format(Localizer.LS(LSID.BalanceFooter), expenses, avgExpense, incomes, totalSum);
-            fFooter.Text = result;
-            return result;
-        }
-
-        public override void SelectionChanged(IList<Entity> records)
-        {
-            if (records.Count > 1) {
-                IList<Transfer> transfers = records.Cast<Transfer>().ToList();
-                ProcessRecords(transfers, null);
-            } else {
-                fFooter.Text = fTotalFooter;
-            }
+            return string.Format(Localizer.LS(LSID.BalanceFooter), expenses, avgExpense, incomes, totalSum);
         }
 
         private void ViewBrandsHandler(object sender, EventArgs e)
         {
             Browser.SetView(MainView.Brands, null);
+        }
+
+        private void ViewShopsHandler(object sender, EventArgs e)
+        {
+            Browser.SetView(MainView.Shops, null);
         }
 
         private void ViewChartTypesHandler(object sender, EventArgs e)
@@ -205,10 +172,27 @@ namespace AquaMate.UI.Panels
             foreach (Transfer rec in transfers) {
                 var itemRec = fModel.GetRecord(rec.ItemType, rec.ItemId);
                 var brandedItem = itemRec as IBrandedItem;
-                string brand = (brandedItem == null) ? null : brandedItem.Brand;
+                string brandName = (brandedItem == null) ? null : brandedItem.Brand;
 
-                if (!string.IsNullOrEmpty(brand) && !brandRecords.Any(p => p.Name == brand)) {
-                    fModel.AddRecord(new Brand(brand));
+                if (!string.IsNullOrEmpty(brandName) && !brandRecords.Any(p => p.Name == brandName)) {
+                    var brand = new Brand(brandName);
+                    fModel.AddRecord(brand);
+                    brandRecords.Add(brand);
+                }
+            }
+        }
+
+        private void CollectShops(IList<Transfer> transfers)
+        {
+            var shopRecords = fModel.QueryShops();
+
+            foreach (Transfer rec in transfers) {
+                string shopName = rec.Shop;
+
+                if (!string.IsNullOrEmpty(shopName) && !shopRecords.Any(p => p.Name == shopName)) {
+                    var shop = new Shop(shopName);
+                    fModel.AddRecord(shop);
+                    shopRecords.Add(shop);
                 }
             }
         }
@@ -222,7 +206,7 @@ namespace AquaMate.UI.Panels
                 brandRecords = fModel.QueryBrands();
             }
 
-            var records = fModel.QueryExpenses();
+            var records = fModel.QueryTransferExpenses();
             foreach (Transfer rec in records) {
                 if (rec.Type != transferType) continue;
 

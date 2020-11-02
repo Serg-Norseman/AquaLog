@@ -220,4 +220,10 @@
   <string id="218">Load</string>
   <string id="219">Save</string>
   <string id="220">Radar</string>
+  <string id="221">Shops</string>
+  <string id="222">Address</string>
+  <string id="223">Telephone</string>
+  <string id="224">WebSite</string>
+  <string id="225">Email</string>
+  <string id="226">View site</string>
 </resources>

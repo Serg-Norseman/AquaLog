@@ -28,6 +28,7 @@ namespace AquaMate.Core.Types
         Snapshot,
 
         Brand,
+        Shop,
 
         TSPoint,
     }

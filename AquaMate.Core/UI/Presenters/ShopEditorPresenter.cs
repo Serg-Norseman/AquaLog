@@ -13,10 +13,11 @@ using BSLib.Design.MVP.Controls;
 
 namespace AquaMate.UI
 {
-    public interface IBrandEditorView : IEditorView<Brand>
+    public interface IShopEditorView : IEditorView<Shop>
     {
         ITextBox NameField { get; }
-        IComboBox CountryCombo { get; }
+        ITextBox AddressField { get; }
+        ITextBox TelephoneField { get; }
         ITextBox WebSiteField { get; }
         ITextBox EmailField { get; }
         ITextBox NoteField { get; }
@@ -26,12 +27,12 @@ namespace AquaMate.UI
     /// <summary>
     /// 
     /// </summary>
-    public class BrandEditorPresenter : EditorPresenter<IModel, Brand, IBrandEditorView>
+    public class ShopEditorPresenter : EditorPresenter<IModel, Shop, IShopEditorView>
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "BrandEditorPresenter");
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ShopEditorPresenter");
 
 
-        public BrandEditorPresenter(IBrandEditorView view) : base(view)
+        public ShopEditorPresenter(IShopEditorView view) : base(view)
         {
         }
 
@@ -39,10 +40,8 @@ namespace AquaMate.UI
         {
             if (fRecord != null) {
                 fView.NameField.Text = fRecord.Name;
-
-                fView.CountryCombo.AddRange(fModel.QueryBrandCountries(), true);
-                fView.CountryCombo.Text = fRecord.Country;
-
+                fView.AddressField.Text = fRecord.Address;
+                fView.TelephoneField.Text = fRecord.Telephone;
                 fView.WebSiteField.Text = fRecord.WebSite;
                 fView.EmailField.Text = fRecord.Email;
                 fView.NoteField.Text = fRecord.Note;
@@ -53,7 +52,8 @@ namespace AquaMate.UI
         {
             try {
                 fRecord.Name = fView.NameField.Text;
-                fRecord.Country = fView.CountryCombo.Text;
+                fRecord.Address = fView.AddressField.Text;
+                fRecord.Telephone = fView.TelephoneField.Text;
                 fRecord.WebSite = fView.WebSiteField.Text;
                 fRecord.Email = fView.EmailField.Text;
                 fRecord.Note = fView.NoteField.Text;

@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Core\Model\Shop.cs" />
     <Compile Include="Prognostics\IConsole.cs" />
     <Compile Include="Prognostics\LogicResult.cs" />
     <Compile Include="Prognostics\LogicService.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="UI\Presenters\NutritionEditorPresenter.cs" />
     <Compile Include="UI\Presenters\ScheduleEditorPresenter.cs" />
     <Compile Include="UI\Presenters\SettingsDialogPresenter.cs" />
+    <Compile Include="UI\Presenters\ShopEditorPresenter.cs" />
     <Compile Include="UI\Presenters\SnapshotEditorPresenter.cs" />
     <Compile Include="UI\Presenters\SpeciesEditorPresenter.cs" />
     <Compile Include="UI\Presenters\TankEditorPresenter.cs" />

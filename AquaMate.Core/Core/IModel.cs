@@ -89,11 +89,13 @@ namespace AquaMate.Core
         IList<Nutrition> QueryNutritions(Aquarium aquarium);
         IList<string> QueryNutritionBrands();
 
-        IList<Transfer> QueryExpenses();
-        IList<string> QueryShops();
+        IList<Transfer> QueryTransferExpenses();
+        IList<string> QueryTransferShops();
 
         IList<Brand> QueryBrands();
         IList<string> QueryBrandCountries();
+
+        IList<Shop> QueryShops();
 
         IList<Snapshot> QuerySnapshots();
         IList<Snapshot> QuerySnapshots(int itemId, int itemType);

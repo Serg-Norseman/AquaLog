@@ -8,7 +8,7 @@ namespace AquaMate.UI.Dialogs
         private System.ComponentModel.BackgroundWorker bgwExecuteQuery;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tpInterpreter;
-        private System.Windows.Forms.RichTextBox rtbQuery;
+        private System.Windows.Forms.TextBox rtbQuery;
         private System.Windows.Forms.TextBox tbAnswer;
         private System.Windows.Forms.Button btnCancelQuery;
         private System.Windows.Forms.Label lblMoreOrStop;
@@ -59,13 +59,14 @@ namespace AquaMate.UI.Dialogs
             this.btnClearA = new System.Windows.Forms.Button();
             this.tbAnswer = new System.Windows.Forms.TextBox();
             this.grpQuery = new System.Windows.Forms.GroupBox();
-            this.rtbQuery = new System.Windows.Forms.RichTextBox();
+            this.rtbQuery = new System.Windows.Forms.TextBox();
             this.btnCancelQuery = new System.Windows.Forms.Button();
             this.lblMoreOrStop = new System.Windows.Forms.Label();
             this.btnStop = new System.Windows.Forms.Button();
             this.btnMore = new System.Windows.Forms.Button();
             this.btnClearQ = new System.Windows.Forms.Button();
             this.btnXeqQuery = new System.Windows.Forms.Button();
+            this.tabKnowledges = new System.Windows.Forms.TabPage();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.miFile = new System.Windows.Forms.ToolStripMenuItem();
             this.miNew = new System.Windows.Forms.ToolStripMenuItem();
@@ -85,7 +86,6 @@ namespace AquaMate.UI.Dialogs
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.miSelectAll = new System.Windows.Forms.ToolStripMenuItem();
             this.bgwExecuteQuery = new System.ComponentModel.BackgroundWorker();
-            this.tabKnowledges = new System.Windows.Forms.TabPage();
             this.panel1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tpInterpreter.SuspendLayout();
@@ -213,6 +213,7 @@ namespace AquaMate.UI.Dialogs
             this.rtbQuery.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.rtbQuery.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbQuery.Location = new System.Drawing.Point(3, 48);
+            this.rtbQuery.Multiline = true;
             this.rtbQuery.Name = "rtbQuery";
             this.rtbQuery.Size = new System.Drawing.Size(820, 99);
             this.rtbQuery.TabIndex = 19;
@@ -288,6 +289,16 @@ namespace AquaMate.UI.Dialogs
             this.btnXeqQuery.Text = "Execute query";
             this.btnXeqQuery.UseVisualStyleBackColor = false;
             this.btnXeqQuery.Click += new System.EventHandler(this.btnXeqQuery_Click);
+            // 
+            // tabKnowledges
+            // 
+            this.tabKnowledges.Location = new System.Drawing.Point(4, 22);
+            this.tabKnowledges.Name = "tabKnowledges";
+            this.tabKnowledges.Padding = new System.Windows.Forms.Padding(3);
+            this.tabKnowledges.Size = new System.Drawing.Size(832, 574);
+            this.tabKnowledges.TabIndex = 5;
+            this.tabKnowledges.Text = "Knowledges";
+            this.tabKnowledges.UseVisualStyleBackColor = true;
             // 
             // menuStrip1
             // 
@@ -437,16 +448,6 @@ namespace AquaMate.UI.Dialogs
             this.bgwExecuteQuery.DoWork += new System.ComponentModel.DoWorkEventHandler(this.bgwExecuteQuery_DoWork);
             this.bgwExecuteQuery.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.bgwExecuteQuery_ProgressChanged);
             this.bgwExecuteQuery.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.bgwExecuteQuery_RunWorkerCompleted);
-            // 
-            // tabKnowledges
-            // 
-            this.tabKnowledges.Location = new System.Drawing.Point(4, 22);
-            this.tabKnowledges.Name = "tabKnowledges";
-            this.tabKnowledges.Padding = new System.Windows.Forms.Padding(3);
-            this.tabKnowledges.Size = new System.Drawing.Size(832, 574);
-            this.tabKnowledges.TabIndex = 5;
-            this.tabKnowledges.Text = "Knowledges";
-            this.tabKnowledges.UseVisualStyleBackColor = true;
             // 
             // DiagnosticConsole
             // 

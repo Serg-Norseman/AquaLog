@@ -11,10 +11,11 @@ namespace AquaMate.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public class Brand : Entity
+    public class Shop : Entity
     {
         public string Name { get; set; }
-        public string Country { get; set; }
+        public string Address { get; set; }
+        public string Telephone { get; set; }
         public string WebSite { get; set; }
         public string Email { get; set; }
         public string Note { get; set; }
@@ -23,16 +24,16 @@ namespace AquaMate.Core.Model
         public override EntityType EntityType
         {
             get {
-                return EntityType.Brand;
+                return EntityType.Shop;
             }
         }
 
 
-        public Brand()
+        public Shop()
         {
         }
 
-        public Brand(string name)
+        public Shop(string name)
         {
             Name = name;
         }

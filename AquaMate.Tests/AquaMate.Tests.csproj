@@ -87,6 +87,7 @@
     <Compile Include="Core\LocalizerTests.cs" />
     <Compile Include="Core\Model\BrandTests.cs" />
     <Compile Include="Core\Model\InventoryTests.cs" />
+    <Compile Include="Core\Model\ShopTests.cs" />
     <Compile Include="Core\Model\SnapshotTests.cs" />
     <Compile Include="Core\Model\SoilTests.cs" />
     <Compile Include="Core\StringSerializerTests.cs" />

@@ -183,6 +183,10 @@
     <Compile Include="UI\Dialogs\SettingsDlg.Designer.cs">
       <DependentUpon>SettingsDlg.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Dialogs\ShopEditDlg.cs" />
+    <Compile Include="UI\Dialogs\ShopEditDlg.Designer.cs">
+      <DependentUpon>ShopEditDlg.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Dialogs\SnapshotEditDlg.cs" />
     <Compile Include="UI\Dialogs\SnapshotEditDlg.Designer.cs">
       <DependentUpon>SnapshotEditDlg.cs</DependentUpon>
@@ -225,6 +229,7 @@
     <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
     <Compile Include="UI\Panels\NutritionPanel.cs" />
     <Compile Include="UI\Panels\SchedulePanel.cs" />
+    <Compile Include="UI\Panels\ShopPanel.cs" />
     <Compile Include="UI\Panels\SnapshotPanel.cs" />
     <Compile Include="UI\Panels\TSTrendPanel.cs" />
     <Compile Include="UI\Panels\BudgetPanel.cs" />
