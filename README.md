@@ -10,7 +10,6 @@
 [![CodeFactor](https://www.codefactor.io/repository/github/serg-norseman/aquamate/badge)](https://www.codefactor.io/repository/github/serg-norseman/aquamate)
 [![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=AquaMate&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=AquaMate)
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=AquaMate&metric=coverage)](https://sonarcloud.io/dashboard?id=AquaMate)
-[![Lines of code](https://sonarcloud.io/api/project_badges/measure?project=AquaMate&metric=ncloc)](https://sonarcloud.io/dashboard?id=AquaMate)
 
 Home aquariums manager and helper. A simple program for monitoring and maintaining aquariums.
 It is also supported to collect and monitor data through Arduino. 

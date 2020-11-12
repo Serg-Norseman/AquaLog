@@ -423,33 +423,7 @@ namespace AquaMate.Core
 
                     case TransferType.Exclusion:
                         if (ALCore.IsZeroDate(exclusionDate)) {
-                            switch (itemType) {
-                                case ItemType.None:
-                                    break;
-
-                                case ItemType.Fish:
-                                case ItemType.Invertebrate:
-                                case ItemType.Plant:
-                                case ItemType.Coral:
-                                    itemState = ItemState.Dead;
-                                    break;
-
-                                case ItemType.Nutrition:
-                                case ItemType.Additive:
-                                case ItemType.Chemistry:
-                                    itemState = ItemState.Finished;
-                                    break;
-
-                                case ItemType.Aquarium:
-                                case ItemType.Device:
-                                case ItemType.Equipment:
-                                case ItemType.Maintenance:
-                                case ItemType.Furniture:
-                                case ItemType.Decoration:
-                                    itemState = ItemState.Broken;
-                                    break;
-                            }
-
+                            itemState = ALData.ItemTypes[(int)itemType].ExclusionState;
                             exclusionDate = trf.Timestamp;
                         }
                         break;

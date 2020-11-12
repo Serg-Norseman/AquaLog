@@ -26,7 +26,7 @@ namespace AquaMate.UI
         private static readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ModelPresenter");
 
 
-        public ModelPresenter()
+        private ModelPresenter()
         {
         }
 

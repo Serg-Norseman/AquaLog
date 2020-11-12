@@ -5,7 +5,6 @@
  */
 
 using System;
-using System.Linq;
 using AquaMate.Core;
 using AquaMate.Logging;
 using AquaMate.TSDB;

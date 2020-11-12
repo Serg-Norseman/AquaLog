@@ -6,7 +6,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;

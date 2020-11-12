@@ -11,6 +11,5 @@ namespace AquaMate.Core.Model
     /// </summary>
     public interface IEntity
     {
-        
     }
 }

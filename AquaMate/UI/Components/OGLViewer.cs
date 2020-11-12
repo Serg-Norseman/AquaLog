@@ -29,10 +29,10 @@ namespace AquaMate.UI.Components
         private int fLastX;
         private int fLastY;
         private bool fMouseDrag;
-        private ITankRenderer fRenderer;
         private Vector3D fRotation;
         private SceneRenderer fSceneRenderer;
         private BaseTank fTank;
+        private ITankRenderer fTankRenderer;
         private bool fWaterVisible;
         private float fZ;
 
@@ -77,7 +77,7 @@ namespace AquaMate.UI.Components
             fWaterVisible = false;
             fAeration = false;
 
-            fRenderer = null;
+            fTankRenderer = null;
             if (fTank == null) return;
 
             switch (fTank.GetTankShape()) {
@@ -85,19 +85,19 @@ namespace AquaMate.UI.Components
                     break;
 
                 case TankShape.Bowl:
-                    fRenderer = new BowlTankRenderer(fSceneRenderer, (BowlTank)fTank);
+                    fTankRenderer = new BowlTankRenderer(fSceneRenderer, (BowlTank)fTank);
                     break;
 
                 case TankShape.Cube:
-                    fRenderer = new CubeTankRenderer(fSceneRenderer, (CubeTank)fTank);
+                    fTankRenderer = new CubeTankRenderer(fSceneRenderer, (CubeTank)fTank);
                     break;
 
                 case TankShape.Rectangular:
-                    fRenderer = new RectangularTankRenderer(fSceneRenderer, (RectangularTank)fTank);
+                    fTankRenderer = new RectangularTankRenderer(fSceneRenderer, (RectangularTank)fTank);
                     break;
 
                 case TankShape.BowFront:
-                    fRenderer = new BowfrontTankRenderer(fSceneRenderer, (BowFrontTank)fTank);
+                    fTankRenderer = new BowfrontTankRenderer(fSceneRenderer, (BowFrontTank)fTank);
                     break;
 
                 case TankShape.PlateFrontCorner:
@@ -105,7 +105,7 @@ namespace AquaMate.UI.Components
                     break;
 
                 case TankShape.Cylinder:
-                    fRenderer = new CylinderTankRenderer(fSceneRenderer, (CylinderTank)fTank);
+                    fTankRenderer = new CylinderTankRenderer(fSceneRenderer, (CylinderTank)fTank);
                     break;
             }
         }
@@ -154,8 +154,8 @@ namespace AquaMate.UI.Components
             fSceneRenderer.Rotatef(fRotation.Y, 0.0f, 1.0f, 0.0f);
             fSceneRenderer.Rotatef(fRotation.Z, 0.0f, 0.0f, 1.0f);
 
-            if (fRenderer != null) {
-                fRenderer.Render(fWaterVisible, fAeration);
+            if (fTankRenderer != null) {
+                fTankRenderer.Render(fWaterVisible, fAeration);
             }
         }
 

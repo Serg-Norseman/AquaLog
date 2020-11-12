@@ -10,7 +10,6 @@ using System.Drawing;
 using AquaMate.Core.Model;
 using AquaMate.Core.Model.Tanks;
 using AquaMate.Core.Types;
-using AquaMate.UI;
 using BSLib;
 using BSLib.Design;
 
@@ -50,41 +49,41 @@ namespace AquaMate.Core
 
         public static readonly ItemProps[] ItemTypes = new ItemProps[] {
             new ItemProps(LSID.None,
-                          EnumSet<ItemState>.Create()),
+                          EnumSet<ItemState>.Create(), ItemState.Unknown),
 
             new ItemProps(LSID.Aquarium,
-                          EnumSet<ItemState>.Create()),
+                          EnumSet<ItemState>.Create(), ItemState.Broken),
 
             new ItemProps(LSID.Fish,
-                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick)),
+                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick), ItemState.Dead),
             new ItemProps(LSID.Invertebrate,
-                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick)),
+                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick), ItemState.Dead),
             new ItemProps(LSID.Plant,
-                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick)),
+                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick), ItemState.Dead),
             new ItemProps(LSID.Coral,
-                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick)),
+                          EnumSet<ItemState>.Create(ItemState.Alive, ItemState.Dead, ItemState.Sick), ItemState.Dead),
 
             new ItemProps(LSID.Nutrition,
-                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Finished)),
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Finished), ItemState.Finished),
 
             new ItemProps(LSID.Device,
-                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Stopped, ItemState.Broken)),
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Stopped, ItemState.Broken), ItemState.Broken),
 
             new ItemProps(LSID.Additive,
-                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Finished)),
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Finished), ItemState.Finished),
             new ItemProps(LSID.Chemistry,
-                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Finished)),
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Finished), ItemState.Finished),
 
             new ItemProps(LSID.Equipment,
-                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken), ItemState.Broken),
             new ItemProps(LSID.Maintenance,
-                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken), ItemState.Broken),
             new ItemProps(LSID.Furniture,
-                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken), ItemState.Broken),
             new ItemProps(LSID.Decoration,
-                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken), ItemState.Broken),
             new ItemProps(LSID.Soil,
-                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken)),
+                          EnumSet<ItemState>.Create(ItemState.InUse, ItemState.Broken), ItemState.Broken),
         };
 
 

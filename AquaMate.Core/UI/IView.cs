@@ -25,7 +25,7 @@ namespace AquaMate.UI
     }
 
 
-    public interface IFormView<TModel> : IView, ILocalizable
+    public interface IFormView<TModel> : IView
         //where TModel : IModel
     {
     }
@@ -36,7 +36,7 @@ namespace AquaMate.UI
     }
 
 
-    public interface IEditorView<TEntity> : IView, IModalDialog
+    public interface IEditorView<in TEntity> : IView, IModalDialog
         where TEntity : IEntity
     {
         void SetContext(IModel model, TEntity record);

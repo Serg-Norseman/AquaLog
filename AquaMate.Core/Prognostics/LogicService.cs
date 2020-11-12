@@ -11,7 +11,7 @@ namespace AquaMate.Prognostics
 {
     public sealed class LogicService
     {
-        private PrologEngine fEngine;
+        private readonly PrologEngine fEngine;
 
         public LogicService()
         {

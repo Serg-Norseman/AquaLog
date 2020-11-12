@@ -4,7 +4,6 @@
  *  This program is licensed under the GNU General Public License.
  */
 
-using System;
 using System.Windows.Forms;
 using BSLib.Design.MVP;
 

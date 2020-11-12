@@ -114,7 +114,7 @@ namespace AquaMate.Core
                 return;
 
             if (cacheTimeout != Timeout.Infinite && cacheTimeout < 1)
-                throw new ArgumentOutOfRangeException("cacheTimeout must be greater than zero.");
+                throw new ArgumentOutOfRangeException("cacheTimeout", "cacheTimeout must be greater than zero.");
 
             fLocker.EnterWriteLock();
             try {

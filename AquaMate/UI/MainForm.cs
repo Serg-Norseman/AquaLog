@@ -13,7 +13,6 @@ using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
 using AquaMate.Logging;
-using AquaMate.Prognostics;
 using AquaMate.UI.Components;
 using AquaMate.UI.Dialogs;
 using AquaMate.UI.Panels;

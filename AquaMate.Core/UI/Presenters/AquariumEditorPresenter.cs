@@ -10,7 +10,6 @@ using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
 using AquaMate.Logging;
-using AquaMate.UI;
 using BSLib;
 using BSLib.Design.MVP.Controls;
 

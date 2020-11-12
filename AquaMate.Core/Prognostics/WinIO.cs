@@ -28,12 +28,12 @@ namespace AquaMate.Prognostics
     public class WinIO : BasicIo
     {
         private readonly IConsole fConsole;
-        private Queue<int> fCharBuffer;
+        private readonly Queue<int> fCharBuffer;
 
         public WinIO(IConsole console, Queue<int> charBuffer)
         {
-            this.fConsole = console;
-            this.fCharBuffer = charBuffer;
+            fConsole = console;
+            fCharBuffer = charBuffer;
         }
 
         public override string ReadLine()

@@ -12,11 +12,13 @@ namespace AquaMate.Core.Types
     {
         public LSID Name { get; private set; }
         public EnumSet<ItemState> States { get; private set; }
+        public ItemState ExclusionState { get; private set; }
 
-        public ItemProps(LSID name, EnumSet<ItemState> states)
+        public ItemProps(LSID name, EnumSet<ItemState> states, ItemState exclusionState)
         {
             Name = name;
             States = states;
+            ExclusionState = exclusionState;
         }
     }
 }

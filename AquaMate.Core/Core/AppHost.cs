@@ -80,7 +80,6 @@ namespace AquaMate.Core
 
         public static TTypeToResolve ResolveDialog<TTypeToResolve>(params object[] parameters) where TTypeToResolve : AquaMate.UI.IView
         {
-            Type resolveType = typeof(TTypeToResolve);
             return Container.Resolve<TTypeToResolve>(parameters);
         }
 

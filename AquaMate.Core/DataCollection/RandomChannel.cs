@@ -34,7 +34,6 @@ namespace AquaMate.DataCollection
                 float val = 20.0f + fRandom.Next(1000) / 100.0f;
                 string response = string.Format("R:temp;sid:0000000000000000;val:{0};", val);
                 ReceiveData(response);
-            } else {
             }
         }
     }
