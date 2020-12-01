@@ -73,12 +73,13 @@ namespace AquaMate.UI
                         spPH = spc.GetPHRange();
                     }
 
-                    string sx = ALCore.IsAnimal(spType) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : "–";
                     SpeciesType speciesType = model.GetSpeciesType(rec.SpeciesId);
                     ItemType itemType = ALCore.GetItemType(speciesType);
 
                     rec.Quantity = model.QueryInhabitantsCount(rec.Id, itemType);
                     bool fin = (rec.Quantity == 0);
+
+                    if (fin && ALSettings.Instance.HideLosses) continue;
 
                     int currAqmId = 0;
                     DateTime inclusionDate, exclusionDate;
@@ -101,6 +102,7 @@ namespace AquaMate.UI
                     if (itemState == ItemState.Unknown || !fin) {
                         strState = Localizer.LS(ALData.ItemStates[(int)rec.State]);
                     }
+                    string sx = ALCore.IsAnimal(spType) ? Localizer.LS(ALData.SexNames[(int)rec.Sex]) : "–";
 
                     var item = listView.AddItem(rec,
                                rec.Name,
@@ -117,7 +119,7 @@ namespace AquaMate.UI
                                spGH
                            );
 
-                    if (rec.Quantity == 0) {
+                    if (fin) {
                         item.SetForeColor(BSDConsts.Colors.Gray); // death, sale or gift?
                     }
                 }
@@ -191,6 +193,9 @@ namespace AquaMate.UI
                     ItemState itemState;
                     string strState = model.GetItemStateStr(rec.Id, ItemType.Nutrition, out itemState);
 
+                    bool fin = (itemState == ItemState.Finished);
+                    if (fin && ALSettings.Instance.HideLosses) continue;
+
                     var item = listView.AddItem(rec,
                                rec.Name,
                                rec.Brand,
@@ -199,7 +204,7 @@ namespace AquaMate.UI
                                strState
                            );
 
-                    if (itemState == ItemState.Finished) {
+                    if (fin) {
                         item.SetForeColor(BSDConsts.Colors.Gray);
                     }
                 }
@@ -237,6 +242,9 @@ namespace AquaMate.UI
                     ItemState itemState;
                     string strState = model.GetItemStateStr(rec.Id, ItemType.Device, out itemState);
 
+                    bool fin = (itemState == ItemState.Broken);
+                    if (fin && ALSettings.Instance.HideLosses) continue;
+
                     var item = listView.AddItem(rec,
                                aqmName,
                                rec.Name,
@@ -254,7 +262,7 @@ namespace AquaMate.UI
                         totalPow += (rec.Power /* W/h */ * rec.WorkTime /* h/day */);
                     }
 
-                    if (itemState == ItemState.Broken) {
+                    if (fin) {
                         item.SetForeColor(BSDConsts.Colors.Gray);
                     }
                 }
@@ -289,6 +297,9 @@ namespace AquaMate.UI
                     ItemState itemState;
                     string strState = model.GetItemStateStr(rec.Id, itemType, out itemState);
 
+                    bool fin = (itemState == ItemState.Finished || itemState == ItemState.Broken);
+                    if (fin && ALSettings.Instance.HideLosses) continue;
+
                     var item = listView.AddItem(rec,
                                rec.Name,
                                rec.Brand,
@@ -297,7 +308,7 @@ namespace AquaMate.UI
                                strState
                            );
 
-                    if (itemState == ItemState.Finished || itemState == ItemState.Broken) {
+                    if (fin) {
                         item.SetForeColor(BSDConsts.Colors.Gray);
                     }
                 }

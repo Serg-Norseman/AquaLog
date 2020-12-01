@@ -23,8 +23,8 @@ namespace AquaMate.UI
         ICheckBox HideClosedTanksCheck { get; }
         ICheckBox ExitOnCloseCheck { get; }
         ICheckBox HideAtStartupCheck { get; }
-
         IComboBox LocaleCombo { get; }
+        ICheckBox HideLossesCheck { get; }
 
         IComboBox LengthUoMCombo { get; }
         IComboBox VolumeUoMCombo { get; }
@@ -100,6 +100,7 @@ namespace AquaMate.UI
                 fView.HideClosedTanksCheck.Checked = fSettings.HideClosedTanks;
                 fView.ExitOnCloseCheck.Checked = fSettings.ExitOnClose;
                 fView.HideAtStartupCheck.Checked = fSettings.HideAtStartup;
+                fView.HideLossesCheck.Checked = fSettings.HideLosses;
 
                 fView.LocaleCombo.SelectedItem = Localizer.Locales.FirstOrDefault(loc => loc.Code == fSettings.CurrentLocale);
 
@@ -122,6 +123,7 @@ namespace AquaMate.UI
                 fSettings.HideClosedTanks = fView.HideClosedTanksCheck.Checked;
                 fSettings.ExitOnClose = fView.ExitOnCloseCheck.Checked;
                 fSettings.HideAtStartup = fView.HideAtStartupCheck.Checked;
+                fSettings.HideLosses = fView.HideLossesCheck.Checked;
 
                 LocaleFile currentLocale = (fView.LocaleCombo.SelectedItem as LocaleFile);
                 fSettings.CurrentLocale = (currentLocale != null) ? currentLocale.Code : Localizer.LS_DEF_CODE;

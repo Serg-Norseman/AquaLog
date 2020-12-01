@@ -54,6 +54,7 @@ namespace AquaMate.UI.Dialogs
             lblVolumeUoM.Text = Localizer.LS(LSID.Volume);
             lblMassUoM.Text = Localizer.LS(LSID.Mass);
             lblTemperatureUoM.Text = Localizer.LS(LSID.Temperature);
+            chkHideLosses.Text = Localizer.LS(LSID.HideLosses);
 
             tabDAS.Text = Localizer.LS(LSID.DataAcquisition);
             lblChannel.Text = Localizer.LS(LSID.Channel);
@@ -102,6 +103,12 @@ namespace AquaMate.UI.Dialogs
         {
             get { return GetControlHandler<IComboBox>(cmbLocale); }
         }
+
+        ICheckBox ISettingsDialogView.HideLossesCheck
+        {
+            get { return GetControlHandler<ICheckBox>(chkHideLosses); }
+        }
+
 
         IComboBox ISettingsDialogView.LengthUoMCombo
         {

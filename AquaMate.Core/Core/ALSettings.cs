@@ -27,6 +27,7 @@ namespace AquaMate.Core
         private MeasurementUnit fMassUoM;
         private MeasurementUnit fTemperatureUoM;
         private int fNotificationInterval;
+        private bool fHideLosses;
 
         private bool fChannelEnabled;
         private string fChannelName;
@@ -57,6 +58,13 @@ namespace AquaMate.Core
             set { fHideAtStartup = value; }
         }
 
+        public bool HideLosses
+        {
+            get { return fHideLosses; }
+            set { fHideLosses = value; }
+        }
+
+
         public MeasurementUnit LengthUoM
         {
             get { return fLengthUoM; }
@@ -86,7 +94,6 @@ namespace AquaMate.Core
             get { return fNotificationInterval; }
             set { fNotificationInterval = value; }
         }
-
 
         public bool ChannelEnabled
         {
@@ -147,6 +154,7 @@ namespace AquaMate.Core
             fInterfaceLang = ini.ReadInteger("Common", "InterfaceLang", 0);
             fHideAtStartup = ini.ReadBool("Common", "HideAtStartup", false);
             fNotificationInterval = ini.ReadInteger("Common", "NotificationInterval", 60);
+            fHideLosses = ini.ReadBool("Common", "HideLosses", false);
 
             fLengthUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "LengthUoM", "Centimeter"), true, MeasurementUnit.Centimeter);
             fVolumeUoM = EnumHelper.Parse<MeasurementUnit>(ini.ReadString("Data", "VolumeUoM", "Litre"), true, MeasurementUnit.Litre);
@@ -186,6 +194,7 @@ namespace AquaMate.Core
             ini.WriteInteger("Common", "InterfaceLang", fInterfaceLang);
             ini.WriteBool("Common", "HideAtStartup", fHideAtStartup);
             ini.WriteInteger("Common", "NotificationInterval", fNotificationInterval);
+            ini.WriteBool("Common", "HideLosses", fHideLosses);
 
             ini.WriteString("Data", "LengthUoM", fLengthUoM.ToString());
             ini.WriteString("Data", "VolumeUoM", fVolumeUoM.ToString());
