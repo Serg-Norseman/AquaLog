@@ -1,0 +1,62 @@
+﻿<base:CommonForm
+    x:Class="AquaMate.UI.MainForm"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="clr-namespace:AquaMate.UI.Dialogs"
+	Title="AquaMate" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Name="menuMain">
+            <MenuItem Header="File" Name="miFile" >
+                <MenuItem Header="CleanSpace" Name="miCleanSpace" Click="miCleanSpace_Click" />
+                <Separator />
+                <MenuItem Header="Settings" Name="miSettings" Click="miSettings_Click" />
+                <MenuItem Header="Themes">
+                    <MenuItem Header="underwater" Click="miTheme_Click" />
+                </MenuItem>
+                <Separator />
+                <MenuItem Header="Calculator" Name="miCalculator" Click="miCalculator_Click" />
+                <Separator />
+                <MenuItem Header="Exit" Name="miExit" Click="miExit_Click" />
+            </MenuItem>
+            <MenuItem Header="Help" Name="miHelp" >
+                <MenuItem Header="About" Name="miAbout" Click="miAbout_Click" />
+            </MenuItem>
+        </Menu>
+
+        <ToolBarTray DockPanel.Dock="Top">
+            <ToolBar>
+                <Button Name= "btnPrev" Content="Prev" Click="btnMainView_Click" />
+                <Button Name= "btnNext" Content="Next" Click="btnMainView_Click" />
+                <Button Name= "btnTanks" Content="Tanks" Click="btnMainView_Click" />
+                <Separator />
+                <Button Name= "btnInhabitants" Content="Inhabitants" Click="btnMainView_Click" />
+                <Button Name= "btnSpecies" Content="Species" Click="btnMainView_Click" />
+                <Separator />
+                <Button Name= "btnNutrition" Content="Nutrition" Click="btnMainView_Click" />
+                <Button Name= "btnDevices" Content="Devices" Click="btnMainView_Click" />
+                <Button Name= "btnInventory" Content="Inventory" Click="btnMainView_Click" />
+                <Separator />
+                <Button Name= "btnMaintenance" Content="Maintenance" Click="btnMainView_Click" />
+                <Button Name= "btnMeasures" Content="Measures" Click="btnMainView_Click" />
+                <Button Name= "btnNotes" Content="Notes" Click="btnMainView_Click" />
+                <Button Name= "btnSchedule" Content="Schedule" Click="btnMainView_Click" />
+                <Button Name= "btnTransfers" Content="Transfers" Click="btnMainView_Click" />
+                <Button Name= "btnBudget" Content="Budget" Click="btnMainView_Click" />
+                <Button Name= "btnSnapshots" Content="Snapshots" Click="btnMainView_Click" />
+                <Button Name= "btnTSDB" Content="TSDB" Click="btnMainView_Click" />
+            </ToolBar>
+        </ToolBarTray>
+
+        <StackPanel Name="pnlTools" DockPanel.Dock="Left" Width="210" Background="LightSteelBlue" Orientation="Vertical" >
+            <Border Height="52" Background="Silver" BorderBrush="Black" BorderThickness="1" CornerRadius="0" Padding="0" Margin="10, 10, 10, 10">
+                <TextBlock Name="lblDate" Background="Silver" TextAlignment="Center" VerticalAlignment="Center" FontWeight="Bold">
+                </TextBlock>
+            </Border>
+        </StackPanel>
+
+        <Grid Name="pnlEx" Background="LightSteelBlue" >
+            <ContentControl Name="pnlClient" Foreground="Silver" Margin="10, 10, 10, 10" />
+        </Grid>
+    </DockPanel>
+</base:CommonForm>

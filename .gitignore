@@ -20,9 +20,7 @@
 /bsl_copy.cmd
 /deploy.cmd
 
-/AquaMate/packages/**/
-/packages/**/
-/AquaMateWPF/
+**/packages/**/
 
 /.sonarqube/
 *.xml

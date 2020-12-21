@@ -1,0 +1,99 @@
+﻿<base:EditDialog
+    x:Class="AquaMate.UI.Dialogs.SettingsDlg"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="clr-namespace:AquaMate.UI.Dialogs"
+	Title="Settings" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
+    Style="{DynamicResource WindowStyle}">
+
+    <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TabControl Name="tabControl1" Height="182" Width="357" Margin="0,0,0,8" TabStripPlacement= "Top" Grid.Column="0" Grid.Row="0">
+		    <TabItem Name="tabCommon" Header="Common" >
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <CheckBox Style="{DynamicResource CheckBoxStyle}" Name="chkAutorun" Margin="0,0,0,4" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">Autorun</CheckBox>
+                    <CheckBox Style="{DynamicResource CheckBoxStyle}" Name="chkHideAtStartup" Margin="0,0,0,4" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">HideAtStartup</CheckBox>
+                    <CheckBox Style="{DynamicResource CheckBoxStyle}" Name="chkHideClosedTanks" Margin="0,0,0,4" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">Hide closed tanks</CheckBox>
+                    <CheckBox Style="{DynamicResource CheckBoxStyle}" Name="chkHideLosses" Margin="0,0,0,4" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2">Hide losses</CheckBox>
+                    <CheckBox Style="{DynamicResource CheckBoxStyle}" Name="chkExitOnClose" Margin="0,0,0,4" Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2">Exit on Close</CheckBox>
+                    <Label Style="{DynamicResource LabelStyle}" Name="lblLocale" Margin="0,0,0,4" Grid.Column="0" Grid.Row="5">Locale</Label>
+                    <ComboBox Style="{DynamicResource ComboBoxStyle}" Name="cmbLocale" Width="160" Margin="0,0,0,4" Grid.Column="1" Grid.Row="5" />
+		        </Grid>
+		    </TabItem>
+		    <TabItem Name="tabData" Header="Data" >
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Style="{DynamicResource LabelStyle}" Name="lblLengthUoM" Margin="0,0,0,4" Grid.Column="0" Grid.Row="0">LengthUoM</Label>
+                    <ComboBox Style="{DynamicResource ComboBoxStyle}" Name="cmbLengthUoM" Width="160" Margin="0,0,0,4" Grid.Column="1" Grid.Row="0" />
+
+                    <Label Style="{DynamicResource LabelStyle}" Name="lblVolumeUoM" Margin="0,0,0,4" Grid.Column="0" Grid.Row="1">VolumeUoM</Label>
+                    <ComboBox Style="{DynamicResource ComboBoxStyle}" Name="cmbVolumeUoM" Width="160" Margin="0,0,0,4" Grid.Column="1" Grid.Row="1" />
+
+                    <Label Style="{DynamicResource LabelStyle}" Name="lblMassUoM" Margin="0,0,0,4" Grid.Column="0" Grid.Row="2">MassUoM</Label>
+                    <ComboBox Style="{DynamicResource ComboBoxStyle}" Name="cmbMassUoM" Width="160" Margin="0,0,0,4" Grid.Column="1" Grid.Row="2" />
+
+                    <Label Style="{DynamicResource LabelStyle}" Name="lblTemperatureUoM" Margin="0,0,0,4" Grid.Column="0" Grid.Row="3">TemperatureUoM</Label>
+                    <ComboBox Style="{DynamicResource ComboBoxStyle}" Name="cmbTemperatureUoM" Width="160" Margin="0,0,0,4" Grid.Column="1" Grid.Row="3" />
+                </Grid>
+		    </TabItem>
+		    <TabItem Name="tabDAS" Header="DAS" >
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Style="{DynamicResource LabelStyle}" Name="lblChannel" Margin="0,0,0,4" Grid.Column="0" Grid.Row="0">Channel</Label>
+                    <ComboBox Style="{DynamicResource ComboBoxStyle}" Name="cmbChannel" Width="160" Margin="0,0,0,4" Grid.Column="1" Grid.Row="0" />
+
+                    <Label Style="{DynamicResource LabelStyle}" Name="lblParameters" Margin="0,0,0,4" Grid.Column="0" Grid.Row="1">Parameters</Label>
+                    <ComboBox Style="{DynamicResource ComboBoxStyle}" Name="cmbParameters" Width="160" Margin="0,0,0,4" Grid.Column="1" Grid.Row="1" IsEditable="True" />
+
+                    <Label Style="{DynamicResource LabelStyle}" Name="lblEnabled" Margin="0,0,0,4" Grid.Column="0" Grid.Row="2">Enabled</Label>
+                    <CheckBox Style="{DynamicResource CheckBoxStyle}" Name="chkEnabled" Margin="0,0,0,4" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center"></CheckBox>
+		        </Grid>
+		    </TabItem>
+		</TabControl>
+
+        <WrapPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+            <Button Style="{DynamicResource ButtonStyle}" Name="btnAccept" Margin="0,0,4,0" MinHeight="24" MinWidth="96" Click="btnAccept_Click" IsDefault="True">Accept</Button>
+            <Button Style="{DynamicResource ButtonStyle}" Name="btnCancel" Margin="0,0,0,0" MinHeight="24" MinWidth="96" IsCancel="True">Cancel</Button>
+        </WrapPanel>
+    </Grid>
+</base:EditDialog>

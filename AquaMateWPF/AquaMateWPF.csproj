@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectGuid>{CFCEE29A-78F9-461D-B184-55AF793D4043}</ProjectGuid>
+    <ProjectTypeGuids>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>AquaMate</RootNamespace>
+    <AssemblyName>AquaMateWPF</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>Full</DebugType>
+    <Optimize>False</Optimize>
+    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <DebugSymbols>False</DebugSymbols>
+    <DebugType>None</DebugType>
+    <Optimize>True</Optimize>
+    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
+    <DefineConstants>TRACE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>AquaMate.App</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <DebugType>Full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>None</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <OutputPath>..\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BSLib">
+      <HintPath>..\libs\BSLib.dll</HintPath>
+    </Reference>
+    <Reference Include="BSLib.Design">
+      <HintPath>..\libs\BSLib.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WPG">
+      <HintPath>libs\WPG.dll</HintPath>
+    </Reference>
+    <Reference Include="WPGBrushEditor">
+      <HintPath>libs\WPGBrushEditor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\WPFAssemblyInfo.cs" />
+    <Compile Include="UI\Components\ChartPoint.cs" />
+    <Compile Include="UI\Components\ChartSeries.cs" />
+    <Compile Include="UI\Components\OptionsPicker.cs" />
+    <Compile Include="UI\Components\UserAction.cs" />
+    <Compile Include="UI\Components\ZListView.cs" />
+    <Compile Include="UI\ControlHandlers.cs" />
+    <Compile Include="UI\Dialogs\AboutDlg.xaml.cs">
+      <DependentUpon>AboutDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\AquariumEditDlg.xaml.cs">
+      <DependentUpon>AquariumEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\BrandEditDlg.xaml.cs">
+      <DependentUpon>BrandEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\CalculatorDlg.xaml.cs">
+      <DependentUpon>CalculatorDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\CommonForm.cs" />
+    <Compile Include="UI\Dialogs\DataMonitor.xaml.cs">
+      <DependentUpon>DataMonitor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\DeviceEditDlg.xaml.cs">
+      <DependentUpon>DeviceEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\EditDialog.cs" />
+    <Compile Include="UI\Dialogs\InhabitantEditDlg.xaml.cs">
+      <DependentUpon>InhabitantEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\InventoryEditDlg.xaml.cs">
+      <DependentUpon>InventoryEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainForm.xaml.cs">
+      <DependentUpon>MainForm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\MaintenanceEditDlg.xaml.cs">
+      <DependentUpon>MaintenanceEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\MeasureEditDlg.xaml.cs">
+      <DependentUpon>MeasureEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\NoteEditDlg.xaml.cs">
+      <DependentUpon>NoteEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\NutritionEditDlg.xaml.cs">
+      <DependentUpon>NutritionEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\ScheduleEditDlg.xaml.cs">
+      <DependentUpon>ScheduleEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\SettingsDlg.xaml.cs">
+      <DependentUpon>SettingsDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\SnapshotEditDlg.xaml.cs">
+      <DependentUpon>SnapshotEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\SpeciesEditDlg.xaml.cs">
+      <DependentUpon>SpeciesEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\TankEditDlg.xaml.cs">
+      <DependentUpon>TankEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\TransferEditDlg.xaml.cs">
+      <DependentUpon>TransferEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\TransfersViewDlg.xaml.cs">
+      <DependentUpon>TransfersViewDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\TSPointEditDlg.xaml.cs">
+      <DependentUpon>TSPointEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\TSValueEditDlg.xaml.cs">
+      <DependentUpon>TSValueEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Panels\AquaAnalysisPanel.cs" />
+    <Compile Include="UI\Panels\AquaDetailsPanel.cs" />
+    <Compile Include="UI\Panels\AquaQualityPanel.cs" />
+    <Compile Include="UI\Panels\BioTreemapPanel.cs" />
+    <Compile Include="UI\Panels\BrandPanel.cs" />
+    <Compile Include="UI\Panels\BudgetPanel.cs" />
+    <Compile Include="UI\Panels\ChartPanel.cs" />
+    <Compile Include="UI\Panels\DataPanel.cs" />
+    <Compile Include="UI\Panels\DevicePanel.cs" />
+    <Compile Include="UI\Panels\InhabitantPanel.cs" />
+    <Compile Include="UI\Panels\InventoryPanel.cs" />
+    <Compile Include="UI\Panels\LifeLinesPanel.cs" />
+    <Compile Include="UI\Panels\ListPanel.cs" />
+    <Compile Include="UI\Panels\M3DViewerPanel.cs" />
+    <Compile Include="UI\Panels\MaintenancePanel.cs" />
+    <Compile Include="UI\Panels\MeasurePanel.cs" />
+    <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
+    <Compile Include="UI\Panels\NotePanel.cs" />
+    <Compile Include="UI\Panels\NutritionPanel.cs" />
+    <Compile Include="UI\Panels\SchedulePanel.cs" />
+    <Compile Include="UI\Panels\SnapshotPanel.cs" />
+    <Compile Include="UI\Panels\SpeciesPanel.cs" />
+    <Compile Include="UI\Panels\TanksPanel.cs" />
+    <Compile Include="UI\Panels\TankSticker.cs" />
+    <Compile Include="UI\Panels\TransferPanel.cs" />
+    <Compile Include="UI\Panels\TSDBPanel.cs" />
+    <Compile Include="UI\Panels\TSTrendPanel.cs" />
+    <Compile Include="UI\Panels\TSValuePanel.cs" />
+    <Compile Include="UI\UIHelper.cs" />
+    <Compile Include="UI\WPFAppHost.cs" />
+    <Compile Include="UI\WPFGfxProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="UI\Dialogs\AboutDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\AquariumEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\BrandEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\CalculatorDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\DataMonitor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\DeviceEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\InhabitantEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\InventoryEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\MainForm.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\MaintenanceEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\MeasureEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\NoteEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\NutritionEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\ScheduleEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\SettingsDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\SnapshotEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\SpeciesEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\TankEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\TransferEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\TransfersViewDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\TSPointEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\TSValueEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="underwater.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AquaMate.Core\AquaMate.Core.csproj">
+      <Project>{44b1fec8-5adb-4b16-8dd6-80a3a2405d2d}</Project>
+      <Name>AquaMate.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,36 @@
+﻿<base:EditDialog
+    x:Class="AquaMate.UI.Dialogs.SnapshotEditDlg"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="clr-namespace:AquaMate.UI.Dialogs"
+	Title="Snapshot" SizeToContent="WidthAndHeight">
+
+    <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Name="lblName" Margin="0,0,0,4" Grid.Column="0" Grid.Row="0">Name</Label>
+        <TextBox Name="txtName" Width="210" Margin="0,0,0,4" Grid.Column="0" Grid.Row="0"></TextBox>
+
+        <Label Name="lblDate" Margin="0,0,0,4" Grid.Column="0" Grid.Row="1">Date</Label>
+        <DatePicker Name="dtpDateTime" Width="140" Margin="0,0,0,4" Grid.Column="0" Grid.Row="1"></DatePicker>
+
+        <Border Name="pictureBox1" Height="260" Width="480" Background="AntiqueWhite" Margin="0,0,0,4" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"></Border>
+
+        <WrapPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+            <Button Name="btnLoad" Margin="0,0,4,0" MinHeight="24" MinWidth="96" Click="btnLoad_Click">Load</Button>
+            <Button Name="btnSave" Margin="0,0,32,0" MinHeight="24" MinWidth="96" Click="btnSave_Click">Save</Button>
+
+            <Button Name="btnAccept" Margin="0,0,4,0" MinHeight="24" MinWidth="96" Click="btnAccept_Click" IsDefault="True">Accept</Button>
+            <Button Name="btnCancel" Margin="0,0,0,0" MinHeight="24" MinWidth="96" IsCancel="True">Cancel</Button>
+        </WrapPanel>
+    </Grid>
+</base:EditDialog>

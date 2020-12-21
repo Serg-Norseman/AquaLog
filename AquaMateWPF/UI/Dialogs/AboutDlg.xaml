@@ -1,0 +1,31 @@
+﻿<base:EditDialog
+    x:Class="AquaMate.UI.Dialogs.AboutDlg"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="clr-namespace:AquaMate.UI.Dialogs"
+	Title="AboutDlg" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+
+    <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Name="lblProduct" Margin="0,0,0,4" Grid.Row="0" FontSize="18" FontWeight="Bold">Product</Label>
+        <Label Name="lblVersion" Margin="0,0,0,4" Grid.Row="1">Version</Label>
+        <Label Name="lblCopyright" Margin="0,0,0,4" Grid.Row="2">Copyright</Label>
+        <Label Name="lblProjSite" Margin="0,0,0,4" Grid.Row="3" Foreground="Blue" MouseDown="LabelMail_Click">https://github.com/serg-norseman/aquamate</Label>
+        <Label Name="lblMail" Margin="0,0,0,4" Grid.Row="4" Foreground="Blue" MouseDown="LabelMail_Click">mailto:aquamate@yandex.ru</Label>
+
+        <WrapPanel Grid.Row="5" HorizontalAlignment="Right">
+            <Button Name="btnClose" Margin="0,0,0,0" MinHeight="24" MinWidth="96" IsCancel="True" />
+        </WrapPanel>
+	</Grid>
+</base:EditDialog>

@@ -1,0 +1,109 @@
+﻿<base:EditDialog
+    x:Class="AquaMate.UI.Dialogs.AquariumEditDlg"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:base="clr-namespace:AquaMate.UI.Dialogs"
+    xmlns:wpg="clr-namespace:WPG;assembly=WPG"
+    Title="Aquarium" SizeToContent="WidthAndHeight">
+
+    <Grid Margin="8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Label Name="lblName" Margin="0,0,0,4" Grid.Column="0" Grid.Row="0" >Name</Label>
+        <TextBox Name="txtName" Width="226" Margin="0,0,0,4" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"></TextBox>
+
+        <Label Name="lblShape" Margin="0,0,0,4" Grid.Column="2" Grid.Row="0">Shape</Label>
+        <ComboBox Name="cmbShape" Width="136" Margin="0,0,0,4" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left" SelectionChanged="cmbShape_SelectedIndexChanged" />
+
+        <Label Name="lblBrand" Margin="0,0,0,4" Grid.Column="0" Grid.Row="1">Brand</Label>
+        <ComboBox Name="cmbBrand" Width="196" Margin="0,0,0,4" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" />
+
+        <Label Name="lblDesc" Margin="0,0,0,4" Grid.Column="0" Grid.Row="2">Description</Label>
+        <TextBox Name="txtDesc" Height="48" Width="428" Margin="0,0,0,4" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" TextWrapping="Wrap" ></TextBox>
+
+        <TabControl Height="244" Width="501" TabStripPlacement="Top" Margin="0,0,0,8" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4">
+		    <TabItem Name="tabCommon" Header="Common" >
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Label Name="lblStartDate" Margin="0,0,0,4" Grid.Column="0" Grid.Row="0">Start date</Label>
+                    <DatePicker Name="dtpStartDate" Width="140" Margin="0,0,0,4" Grid.Column="1" Grid.Row="0" HorizontalAlignment="Left"></DatePicker>
+
+                    <Label Name="lblStopDate" Margin="0,0,0,4" Grid.Column="2" Grid.Row="0">Stop date</Label>
+                    <DatePicker Name="dtpStopDate" Width="140" Margin="0,0,0,4" Grid.Column="3" Grid.Row="0" HorizontalAlignment="Left"></DatePicker>
+
+                    <Label Name="lblWaterType" Margin="0,0,0,4" Grid.Column="0" Grid.Row="1">Water type</Label>
+                    <ComboBox Name="cmbWaterType" Width="140" Margin="0,0,0,4" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" />
+                </Grid>
+		    </TabItem>
+
+            <TabItem Name="tabTank" Header="Tank" >
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <wpg:PropertyGrid Name="pgProps" Margin="0,0,0,4" Grid.Column="0" Grid.Row="0" Grid.RowSpan="7" MinWidth="220" MinHeight="146" ShowDescription="False" ShowPreview="False" />
+
+                    <Label Name="lblUnderfillHeight" Margin="0,0,0,4" Grid.Column="1" Grid.Row="0">Underfill height</Label>
+                    <TextBox Name="txtUnderfillHeight" Width="82" TextChanged="txtValue_TextChanged" Margin="0,0,0,4" Grid.Column="2" Grid.Row="0"></TextBox>
+
+                    <Label Name="lblSoilHeight" Margin="0,0,0,4" Grid.Column="1" Grid.Row="1">Soil height</Label>
+                    <TextBox Name="txtSoilHeight" Width="82" TextChanged="txtValue_TextChanged" Margin="0,0,0,4" Grid.Column="2" Grid.Row="1"></TextBox>
+
+                    <Label Name="lblVolume" Margin="0,0,0,4" Grid.Column="1" Grid.Row="2">Tank volume</Label>
+                    <TextBox Name="txtTankVolume" Width="82" TextChanged="txtValue_TextChanged" Margin="0,0,0,4" Grid.Column="2" Grid.Row="2"></TextBox>
+
+                    <Label Name="lblWaterVolume" Margin="0,0,0,4" Grid.Column="1" Grid.Row="3">Water volume</Label>
+                    <TextBox Name="txtWaterVolume" Width="82" Margin="0,0,0,4" Grid.Column="2" Grid.Row="3"></TextBox>
+
+                    <Label Name="lblSoilVolume" Margin="0,0,0,4" Grid.Column="1" Grid.Row="4">Soil volume</Label>
+                    <TextBox Name="txtSoilVolume" Width="82" Margin="0,0,0,4" Grid.Column="2" Grid.Row="4"></TextBox>
+
+                    <Label Name="lblSoilMass" Margin="0,0,0,4" Grid.Column="1" Grid.Row="5">Soil mass</Label>
+                    <TextBox Name="txtSoilMass" Width="82" Margin="0,0,0,4" Grid.Column="2" Grid.Row="5"></TextBox>
+
+                    <Button Name="btnTank" Height="23" Width="75" Click="btnTank_Click" Margin="0,0,0,4" Grid.Column="1" Grid.Row="6">Tank...</Button>
+                </Grid>
+		    </TabItem>
+		</TabControl>
+
+        <WrapPanel Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="4" HorizontalAlignment="Right">
+            <Button Name="btnAccept" Margin="0,0,4,0" MinHeight="24" MinWidth="96" Click="btnAccept_Click" IsDefault="True">Accept</Button>
+            <Button Name="btnCancel" Margin="0,0,0,0" MinHeight="24" MinWidth="96" IsCancel="True">Cancel</Button>
+        </WrapPanel>
+    </Grid>
+</base:EditDialog>
