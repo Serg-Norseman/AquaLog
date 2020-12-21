@@ -249,8 +249,9 @@ namespace AquaMate.Core
         /* 225 */ Email,
         /* 226 */ ViewSite,
         /* 227 */ HideLosses,
+        /* 228 */ Pricelist,
 
-        /* 000 */ Last = HideLosses
+        /* 000 */ Last = Pricelist
     }
 
 
@@ -488,6 +489,7 @@ namespace AquaMate.Core
             /* 225 */ "Email",
             /* 226 */ "View site",
             /* 227 */ "Hide losses",
+            /* 228 */ "Pricelist",
         };
 
 

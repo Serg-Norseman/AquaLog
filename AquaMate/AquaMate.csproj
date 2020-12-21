@@ -228,6 +228,7 @@
     <Compile Include="UI\Panels\MeasurePanel.cs" />
     <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
     <Compile Include="UI\Panels\NutritionPanel.cs" />
+    <Compile Include="UI\Panels\PricelistPanel.cs" />
     <Compile Include="UI\Panels\SchedulePanel.cs" />
     <Compile Include="UI\Panels\ShopPanel.cs" />
     <Compile Include="UI\Panels\SnapshotPanel.cs" />

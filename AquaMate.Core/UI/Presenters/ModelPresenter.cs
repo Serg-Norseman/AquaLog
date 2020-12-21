@@ -541,7 +541,7 @@ namespace AquaMate.UI
             }
         }
 
-        public static void FillTransfersLVPreview(IListView listView, IModel model, Entity item)
+        public static void FillTransfersLVPreview(IListView listView, IModel model, Entity item, bool ftAquariums = true)
         {
             try {
                 ItemType itemType;
@@ -576,8 +576,10 @@ namespace AquaMate.UI
                 listView.Clear();
                 listView.AddColumn(Localizer.LS(LSID.Date), 80, true, BSDTypes.HorizontalAlignment.Left);
                 listView.AddColumn(Localizer.LS(LSID.Type), 80, true, BSDTypes.HorizontalAlignment.Left);
-                listView.AddColumn(Localizer.LS(LSID.SourceTank), 80, true, BSDTypes.HorizontalAlignment.Left);
-                listView.AddColumn(Localizer.LS(LSID.TargetTank), 80, true, BSDTypes.HorizontalAlignment.Left);
+                if (ftAquariums) {
+                    listView.AddColumn(Localizer.LS(LSID.SourceTank), 80, true, BSDTypes.HorizontalAlignment.Left);
+                    listView.AddColumn(Localizer.LS(LSID.TargetTank), 80, true, BSDTypes.HorizontalAlignment.Left);
+                }
                 listView.AddColumn(Localizer.LS(LSID.Quantity), 80, true, BSDTypes.HorizontalAlignment.Right);
                 listView.AddColumn(Localizer.LS(LSID.UnitPrice), 80, true, BSDTypes.HorizontalAlignment.Right);
                 listView.AddColumn(Localizer.LS(LSID.Shop), 180, true, BSDTypes.HorizontalAlignment.Left);
@@ -588,23 +590,35 @@ namespace AquaMate.UI
 
                 var records = model.QueryTransfers(itemId, (int)itemType);
                 foreach (Transfer rec in records) {
-                    Aquarium aqmSour = model.Cache.Get<Aquarium>(ItemType.Aquarium, rec.SourceId);
-                    Aquarium aqmTarg = model.Cache.Get<Aquarium>(ItemType.Aquarium, rec.TargetId);
-
                     var itemRec = model.GetRecord(rec.ItemType, rec.ItemId);
                     string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
                     string strType = Localizer.LS(ALData.TransferTypes[(int)rec.Type]);
 
-                    var listItem = listView.AddItem(rec,
-                                   ALCore.GetDateStr(rec.Timestamp),
-                                   strType,
-                                   (aqmSour == null) ? string.Empty : aqmSour.Name,
-                                   (aqmTarg == null) ? string.Empty : aqmTarg.Name,
-                                   rec.Quantity.ToString(),
-                                   ALCore.GetDecimalStr(rec.UnitPrice),
-                                   rec.Shop,
-                                   rec.Cause
-                               );
+                    IListItem listItem;
+                    if (ftAquariums) {
+                        Aquarium aqmSour = model.Cache.Get<Aquarium>(ItemType.Aquarium, rec.SourceId);
+                        Aquarium aqmTarg = model.Cache.Get<Aquarium>(ItemType.Aquarium, rec.TargetId);
+
+                        listItem = listView.AddItem(rec,
+                                       ALCore.GetDateStr(rec.Timestamp),
+                                       strType,
+                                       (aqmSour == null) ? string.Empty : aqmSour.Name,
+                                       (aqmTarg == null) ? string.Empty : aqmTarg.Name,
+                                       rec.Quantity.ToString(),
+                                       ALCore.GetDecimalStr(rec.UnitPrice),
+                                       rec.Shop,
+                                       rec.Cause
+                                   );
+                    } else {
+                        listItem = listView.AddItem(rec,
+                                       ALCore.GetDateStr(rec.Timestamp),
+                                       strType,
+                                       rec.Quantity.ToString(),
+                                       ALCore.GetDecimalStr(rec.UnitPrice),
+                                       rec.Shop,
+                                       rec.Cause
+                                   );
+                    }
 
                     if (itemType == ItemType.Aquarium) {
                         //listItem.Font = boldFont;
@@ -691,6 +705,43 @@ namespace AquaMate.UI
                 }
             } catch (Exception ex) {
                 fLogger.WriteError("FillBudgetLV()", ex);
+            }
+        }
+
+        public static void FillPricelistLV(IListView listView, IModel model, IList<Transfer> records)
+        {
+            if (listView == null) return;
+
+            try {
+                listView.Clear();
+                listView.AddColumn(Localizer.LS(LSID.Type), 80, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Brand), 50, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Item), 140, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Shop), 180, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Date), 80, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.UnitPrice), 80, true, BSDTypes.HorizontalAlignment.Right);
+
+                foreach (Transfer rec in records) {
+                    if (rec.Type == TransferType.Purchase && rec.UnitPrice != 0.0f) {
+                        ItemType itemType = rec.ItemType;
+                        var itemRec = model.GetRecord(itemType, rec.ItemId);
+                        string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
+
+                        var brandedItem = itemRec as IBrandedItem;
+                        string brand = (brandedItem == null) ? "-" : brandedItem.Brand;
+
+                        listView.AddItem(rec,
+                            Localizer.LS(ALData.ItemTypes[(int)rec.ItemType].Name),
+                            brand,
+                            itName,
+                            rec.Shop,
+                            ALCore.GetDateStr(rec.Timestamp),
+                            ALCore.GetDecimalStr(rec.UnitPrice)
+                        );
+                    }
+                }
+            } catch (Exception ex) {
+                fLogger.WriteError("FillPricelistLV()", ex);
             }
         }
 

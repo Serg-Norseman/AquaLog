@@ -36,5 +36,6 @@ namespace AquaMate.UI
         Analysis,
         Quality,
         BioTreemap,
+        Pricelist,
     }
 }

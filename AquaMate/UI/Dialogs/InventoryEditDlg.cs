@@ -64,7 +64,7 @@ namespace AquaMate.UI.Dialogs
         {
             if (tabControl.SelectedIndex == 1) {
                 var lv = GetControlHandler<IListView>(lvTransfers);
-                ModelPresenter.FillTransfersLVPreview(lv, fPresenter.Model, fPresenter.Record);
+                ModelPresenter.FillTransfersLVPreview(lv, fPresenter.Model, fPresenter.Record, false);
             }
         }
 

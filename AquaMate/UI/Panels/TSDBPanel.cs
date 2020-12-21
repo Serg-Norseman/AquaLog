@@ -57,7 +57,7 @@ namespace AquaMate.UI.Panels
 
         protected override void AddHandler(object sender, EventArgs e)
         {
-            TSPoint record = new TSPoint();
+            var record = new TSPoint();
 
             using (var dlg = new TSPointEditDlg()) {
                 dlg.SetContext(fModel, record);

@@ -44,8 +44,7 @@ namespace AquaMate.UI.Panels
             TSDatabase tsdb = fModel.TSDB;
             var pt = tsdb.GetPoint(fPointId);
 
-            List<ChartPoint> vals = new List<ChartPoint>();
-
+            var vals = new List<ChartPoint>();
             var endTime = DateTime.Now;
             var begTime = endTime.AddHours(-12);
 

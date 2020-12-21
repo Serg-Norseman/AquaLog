@@ -35,6 +35,9 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
 
+            tabCommon.Text = Localizer.LS(LSID.Common);
+            tabTransfers.Text = Localizer.LS(LSID.Transfers);
+
             lblName.Text = Localizer.LS(LSID.Name);
             lblBrand.Text = Localizer.LS(LSID.Brand);
             lblAmount.Text = Localizer.LS(LSID.Amount);
@@ -50,6 +53,14 @@ namespace AquaMate.UI.Dialogs
         private void btnAccept_Click(object sender, EventArgs e)
         {
             DialogResult = fPresenter.ApplyChanges() ? DialogResult.OK : DialogResult.None;
+        }
+
+        private void tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl.SelectedIndex == 1) {
+                var lv = GetControlHandler<IListView>(lvTransfers);
+                ModelPresenter.FillTransfersLVPreview(lv, fPresenter.Model, fPresenter.Record, false);
+            }
         }
 
         #region View interface implementation

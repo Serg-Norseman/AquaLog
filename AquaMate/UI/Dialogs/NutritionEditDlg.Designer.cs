@@ -15,6 +15,10 @@
         private System.Windows.Forms.ComboBox cmbBrand;
         private System.Windows.Forms.ComboBox cmbState;
         private System.Windows.Forms.Label lblState;
+        private System.Windows.Forms.TabControl tabControl;
+        private System.Windows.Forms.TabPage tabCommon;
+        private System.Windows.Forms.TabPage tabTransfers;
+        private AquaMate.UI.Components.ZListView lvTransfers;
         
         protected override void Dispose(bool disposing)
         {
@@ -40,11 +44,18 @@
             this.cmbBrand = new System.Windows.Forms.ComboBox();
             this.cmbState = new System.Windows.Forms.ComboBox();
             this.lblState = new System.Windows.Forms.Label();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabCommon = new System.Windows.Forms.TabPage();
+            this.tabTransfers = new System.Windows.Forms.TabPage();
+            this.lvTransfers = new AquaMate.UI.Components.ZListView();
+            this.tabControl.SuspendLayout();
+            this.tabCommon.SuspendLayout();
+            this.tabTransfers.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAccept
             // 
-            this.btnAccept.Location = new System.Drawing.Point(168, 257);
+            this.btnAccept.Location = new System.Drawing.Point(208, 332);
             this.btnAccept.Margin = new System.Windows.Forms.Padding(2);
             this.btnAccept.Name = "btnAccept";
             this.btnAccept.Size = new System.Drawing.Size(120, 30);
@@ -57,7 +68,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(293, 257);
+            this.btnCancel.Location = new System.Drawing.Point(333, 332);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(120, 30);
@@ -154,23 +165,73 @@
             this.lblState.TabIndex = 22;
             this.lblState.Text = "State";
             // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabCommon);
+            this.tabControl.Controls.Add(this.tabTransfers);
+            this.tabControl.Location = new System.Drawing.Point(12, 11);
+            this.tabControl.Margin = new System.Windows.Forms.Padding(2, 2, 2, 9);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(441, 310);
+            this.tabControl.TabIndex = 24;
+            this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
+            // 
+            // tabCommon
+            // 
+            this.tabCommon.BackColor = System.Drawing.SystemColors.Control;
+            this.tabCommon.Controls.Add(this.cmbState);
+            this.tabCommon.Controls.Add(this.lblState);
+            this.tabCommon.Controls.Add(this.txtNote);
+            this.tabCommon.Controls.Add(this.lblNote);
+            this.tabCommon.Controls.Add(this.cmbBrand);
+            this.tabCommon.Controls.Add(this.lblBrand);
+            this.tabCommon.Controls.Add(this.txtName);
+            this.tabCommon.Controls.Add(this.lblName);
+            this.tabCommon.Controls.Add(this.txtAmount);
+            this.tabCommon.Controls.Add(this.lblAmount);
+            this.tabCommon.Location = new System.Drawing.Point(4, 28);
+            this.tabCommon.Name = "tabCommon";
+            this.tabCommon.Padding = new System.Windows.Forms.Padding(3);
+            this.tabCommon.Size = new System.Drawing.Size(433, 278);
+            this.tabCommon.TabIndex = 0;
+            this.tabCommon.Text = "tabCommon";
+            // 
+            // tabTransfers
+            // 
+            this.tabTransfers.BackColor = System.Drawing.SystemColors.Control;
+            this.tabTransfers.Controls.Add(this.lvTransfers);
+            this.tabTransfers.Location = new System.Drawing.Point(4, 28);
+            this.tabTransfers.Name = "tabTransfers";
+            this.tabTransfers.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTransfers.Size = new System.Drawing.Size(433, 278);
+            this.tabTransfers.TabIndex = 1;
+            this.tabTransfers.Text = "tabTransfers";
+            // 
+            // lvTransfers
+            // 
+            this.lvTransfers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvTransfers.FullRowSelect = true;
+            this.lvTransfers.HideSelection = false;
+            this.lvTransfers.Location = new System.Drawing.Point(3, 3);
+            this.lvTransfers.Margin = new System.Windows.Forms.Padding(4);
+            this.lvTransfers.Name = "lvTransfers";
+            this.lvTransfers.Order = System.Windows.Forms.SortOrder.None;
+            this.lvTransfers.OwnerDraw = true;
+            this.lvTransfers.Size = new System.Drawing.Size(427, 272);
+            this.lvTransfers.SortColumn = 0;
+            this.lvTransfers.TabIndex = 3;
+            this.lvTransfers.UseCompatibleStateImageBehavior = false;
+            this.lvTransfers.View = System.Windows.Forms.View.Details;
+            // 
             // NutritionEditDlg
             // 
             this.AcceptButton = this.btnAccept;
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(428, 298);
-            this.Controls.Add(this.cmbState);
-            this.Controls.Add(this.lblState);
-            this.Controls.Add(this.txtNote);
-            this.Controls.Add(this.lblNote);
-            this.Controls.Add(this.cmbBrand);
-            this.Controls.Add(this.lblBrand);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.lblName);
-            this.Controls.Add(this.txtAmount);
-            this.Controls.Add(this.lblAmount);
+            this.ClientSize = new System.Drawing.Size(464, 373);
+            this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F);
@@ -183,8 +244,11 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Nutrition";
+            this.tabControl.ResumeLayout(false);
+            this.tabCommon.ResumeLayout(false);
+            this.tabCommon.PerformLayout();
+            this.tabTransfers.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
     }

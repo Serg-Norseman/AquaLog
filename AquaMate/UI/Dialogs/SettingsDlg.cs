@@ -43,12 +43,14 @@ namespace AquaMate.UI.Dialogs
             Text = Localizer.LS(LSID.Settings);
             btnAccept.Text = Localizer.LS(LSID.Accept);
             btnCancel.Text = Localizer.LS(LSID.Cancel);
+
+            tabCommon.Text = Localizer.LS(LSID.Common);
             chkHideClosedTanks.Text = Localizer.LS(LSID.HideClosedTanks);
             chkExitOnClose.Text = Localizer.LS(LSID.ExitOnClose);
             lblLocale.Text = Localizer.LS(LSID.Language);
             chkAutorun.Text = Localizer.LS(LSID.Autorun);
             chkHideAtStartup.Text = Localizer.LS(LSID.HideAtStartup);
-            tabCommon.Text = Localizer.LS(LSID.Common);
+
             tabData.Text = Localizer.LS(LSID.Data);
             lblLengthUoM.Text = Localizer.LS(LSID.Length);
             lblVolumeUoM.Text = Localizer.LS(LSID.Volume);
@@ -142,7 +144,7 @@ namespace AquaMate.UI.Dialogs
 
         IComboBox ISettingsDialogView.ChannelParametersCombo
         {
-            get { return GetControlHandler<IComboBox>(cmbPort); }
+            get { return GetControlHandler<IComboBox>(cmbParameters); }
         }
 
         #endregion

@@ -23,7 +23,7 @@
         private System.Windows.Forms.ComboBox cmbTemperatureUoM;
         private System.Windows.Forms.Label lblTemperatureUoM;
         private System.Windows.Forms.TabPage tabDAS;
-        private System.Windows.Forms.ComboBox cmbPort;
+        private System.Windows.Forms.ComboBox cmbParameters;
         private System.Windows.Forms.Label lblParameters;
         private System.Windows.Forms.ComboBox cmbChannel;
         private System.Windows.Forms.Label lblChannel;
@@ -62,7 +62,7 @@
             this.cmbLengthUoM = new System.Windows.Forms.ComboBox();
             this.lblLengthUoM = new System.Windows.Forms.Label();
             this.tabDAS = new System.Windows.Forms.TabPage();
-            this.cmbPort = new System.Windows.Forms.ComboBox();
+            this.cmbParameters = new System.Windows.Forms.ComboBox();
             this.lblParameters = new System.Windows.Forms.Label();
             this.cmbChannel = new System.Windows.Forms.ComboBox();
             this.lblChannel = new System.Windows.Forms.Label();
@@ -285,7 +285,7 @@
             // tabDAS
             // 
             this.tabDAS.BackColor = System.Drawing.SystemColors.Control;
-            this.tabDAS.Controls.Add(this.cmbPort);
+            this.tabDAS.Controls.Add(this.cmbParameters);
             this.tabDAS.Controls.Add(this.lblParameters);
             this.tabDAS.Controls.Add(this.cmbChannel);
             this.tabDAS.Controls.Add(this.lblChannel);
@@ -298,15 +298,15 @@
             this.tabDAS.TabIndex = 2;
             this.tabDAS.Text = "DAS";
             // 
-            // cmbPort
+            // cmbParameters
             // 
-            this.cmbPort.Items.AddRange(new object[] {
+            this.cmbParameters.Items.AddRange(new object[] {
             "COM3"});
-            this.cmbPort.Location = new System.Drawing.Point(115, 49);
-            this.cmbPort.Margin = new System.Windows.Forms.Padding(2);
-            this.cmbPort.Name = "cmbPort";
-            this.cmbPort.Size = new System.Drawing.Size(162, 27);
-            this.cmbPort.TabIndex = 3;
+            this.cmbParameters.Location = new System.Drawing.Point(115, 49);
+            this.cmbParameters.Margin = new System.Windows.Forms.Padding(2);
+            this.cmbParameters.Name = "cmbPort";
+            this.cmbParameters.Size = new System.Drawing.Size(162, 27);
+            this.cmbParameters.TabIndex = 3;
             // 
             // lblParameters
             // 

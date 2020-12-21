@@ -59,6 +59,7 @@ namespace AquaMate.UI.Panels
             AddAction("ChartMonthes", LSID.ChartMonthes, "", ViewChartMonthesHandler);
             AddAction("Brands", LSID.Brands, "", ViewBrandsHandler);
             AddAction("Shops", LSID.Shops, "", ViewShopsHandler);
+            AddAction("Pricelist", LSID.Pricelist, "", ViewPricelistHandler);
         }
 
         protected override void UpdateListView()
@@ -127,6 +128,11 @@ namespace AquaMate.UI.Panels
         private void ViewShopsHandler(object sender, EventArgs e)
         {
             Browser.SetView(MainView.Shops, null);
+        }
+
+        private void ViewPricelistHandler(object sender, EventArgs e)
+        {
+            Browser.SetView(MainView.Pricelist, null);
         }
 
         private void ViewChartTypesHandler(object sender, EventArgs e)

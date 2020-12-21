@@ -12,7 +12,6 @@ using AquaMate.Core.Export;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
 using AquaMate.Logging;
-using AquaMate.UI.Dialogs;
 using BSLib;
 
 namespace AquaMate.UI.Panels
@@ -152,7 +151,7 @@ namespace AquaMate.UI.Panels
             var aqm = new Aquarium();
             aqm.Name = ALCore.UnknownName;
 
-            using (var dlg = new AquariumEditDlg()) {
+            using (var dlg = AppHost.ResolveDialog<IAquariumEditorView>()) {
                 dlg.SetContext(fModel, aqm);
 
                 if (dlg.ShowModal()) {
@@ -171,7 +170,7 @@ namespace AquaMate.UI.Panels
             var aqm = selectedItem.Aquarium;
             if (aqm == null) return;
 
-            using (var dlg = new AquariumEditDlg()) {
+            using (var dlg = AppHost.ResolveDialog<IAquariumEditorView>()) {
                 dlg.SetContext(fModel, aqm);
 
                 if (dlg.ShowModal()) {

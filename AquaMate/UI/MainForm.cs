@@ -482,6 +482,9 @@ namespace AquaMate.UI
                 case MainView.BioTreemap:
                     SetView<BioTreemapPanel>(extData);
                     break;
+                case MainView.Pricelist:
+                    SetView<PricelistPanel>(extData);
+                    break;
             }
         }
 
