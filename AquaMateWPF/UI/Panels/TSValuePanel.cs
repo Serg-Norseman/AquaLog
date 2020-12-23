@@ -47,7 +47,7 @@ namespace AquaMate.UI.Panels
 
         protected override void AddHandler(object sender, EventArgs e)
         {
-            TSValue record = new TSValue();
+            var record = new TSValue();
 
             using (var dlg = new TSValueEditDlg()) {
                 dlg.SetContext(fModel, record);

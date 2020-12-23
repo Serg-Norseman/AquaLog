@@ -18,18 +18,18 @@ namespace AquaMate.UI.Panels
     /// <summary>
     /// 
     /// </summary>
-    public sealed class BrandPanel : ListPanel<Brand, BrandEditDlg>
+    public sealed class ShopPanel : ListPanel<Shop, ShopEditDlg>
     {
-        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "BrandPanel");
+        private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "ShopPanel");
 
-        public BrandPanel()
+        public ShopPanel()
         {
         }
 
         protected override void UpdateListView()
         {
             var lv = GetControlHandler<IListView>(ListView);
-            ModelPresenter.FillBrandsLV(lv, fModel);
+            ModelPresenter.FillShopsLV(lv, fModel);
         }
 
         protected override void InitActions()
@@ -50,7 +50,7 @@ namespace AquaMate.UI.Panels
         private void ViewSiteHandler(object sender, EventArgs e)
         {
             try {
-                var record = ListView.GetSelectedTag<Brand>();
+                var record = ListView.GetSelectedTag<Shop>();
                 if (record == null) return;
 
                 AppHost.LoadExtFile(record.WebSite);

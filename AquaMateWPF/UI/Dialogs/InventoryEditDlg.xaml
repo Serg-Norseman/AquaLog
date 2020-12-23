@@ -4,41 +4,62 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:base="clr-namespace:AquaMate.UI.Dialogs"
     xmlns:wpg="clr-namespace:WPG;assembly=WPG"
+    xmlns:components="clr-namespace:AquaMate.UI.Components"
     Title="Inventory" SizeToContent="WidthAndHeight">
 
     <Grid Margin="8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Label Name="lblName" Margin="0,0,0,4" Grid.Column="0" Grid.Row="0">Name</Label>
-        <TextBox Name="txtName" Width="200" Margin="0,0,0,4" Grid.Column="1" Grid.Row="0"></TextBox>
+        <TabControl Name="tabControl" TabStripPlacement="Top" Margin="0,0,0,8" Grid.Column="0" Grid.Row="0" SelectionChanged="tabControl_SelectedIndexChanged">
+            <TabItem Name="tabCommon" Header="Common" >
+                <Grid Margin="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-        <Label Name="lblBrand" Margin="0,0,0,4" Grid.Column="0" Grid.Row="1">Brand</Label>
-        <ComboBox Name="cmbBrand" Width="200" Margin="0,0,0,4" Grid.Column="1" Grid.Row="1"/>
+                    <Label Name="lblName" Margin="0,0,0,4" Grid.Column="0" Grid.Row="0">Name</Label>
+                    <TextBox Name="txtName" Width="200" Margin="0,0,0,4" Grid.Column="1" Grid.Row="0"></TextBox>
 
-        <Label Name="lblType" Margin="0,0,0,4" Grid.Column="0" Grid.Row="2">Type</Label>
-        <ComboBox Name="cmbType" Width="140" Margin="0,0,0,4" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" SelectionChanged="cmbType_SelectedIndexChanged" />
+                    <Label Name="lblBrand" Margin="0,0,0,4" Grid.Column="0" Grid.Row="1">Brand</Label>
+                    <ComboBox Name="cmbBrand" Width="200" Margin="0,0,0,4" Grid.Column="1" Grid.Row="1"/>
 
-        <Label Name="lblNote" Margin="0,0,0,4" Grid.Column="0" Grid.Row="3">Note</Label>
-        <TextBox Name="txtNote" Height="60" Width="200" Margin="0,0,0,4" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" ></TextBox>
+                    <Label Name="lblType" Margin="0,0,0,4" Grid.Column="0" Grid.Row="2">Type</Label>
+                    <ComboBox Name="cmbType" Width="140" Margin="0,0,0,4" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" SelectionChanged="cmbType_SelectedIndexChanged" />
 
-        <Label Name="lblState" Margin="0,0,0,4" Grid.Column="0" Grid.Row="4">State</Label>
-        <ComboBox Name="cmbState" Width="140" Margin="0,0,0,4" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" />
+                    <Label Name="lblNote" Margin="0,0,0,4" Grid.Column="0" Grid.Row="3">Note</Label>
+                    <TextBox Name="txtNote" Height="60" Width="200" Margin="0,0,0,4" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" ></TextBox>
 
-        <wpg:PropertyGrid Name="pgProps" Margin="0,0,0,4" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" MinHeight="146" ShowDescription="False" ShowPreview="False" />
+                    <Label Name="lblState" Margin="0,0,0,4" Grid.Column="0" Grid.Row="4">State</Label>
+                    <ComboBox Name="cmbState" Width="140" Margin="0,0,0,4" Grid.Column="1" Grid.Row="4" HorizontalAlignment="Left" />
 
-        <WrapPanel Grid.Column="0" Grid.Row="6" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                    <wpg:PropertyGrid Name="pgProps" Margin="0,0,0,4" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" MinHeight="146" ShowDescription="False" ShowPreview="False" />
+                </Grid>
+            </TabItem>
+
+            <TabItem Name="tabTransfers" Header="Transfers" >
+                <components:ZListView x:Name="lvTransfers" MinHeight="244" MinWidth="501">
+
+                </components:ZListView>
+            </TabItem>
+        </TabControl>
+
+        <WrapPanel Grid.Column="0" Grid.Row="1" HorizontalAlignment="Right">
             <Button Name="btnAccept" Margin="0,0,4,0" MinHeight="24" MinWidth="96" Click="btnAccept_Click" IsDefault="True">Accept</Button>
             <Button Name="btnCancel" Margin="0,0,0,0" MinHeight="24" MinWidth="96" IsCancel="True">Cancel</Button>
         </WrapPanel>

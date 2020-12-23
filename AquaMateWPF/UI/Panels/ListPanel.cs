@@ -5,10 +5,11 @@
  */
 
 using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using AquaMate.Core;
-using AquaMate.Core.Export;
 using AquaMate.Core.Model;
 using AquaMate.Logging;
 using AquaMate.UI.Components;
@@ -33,25 +34,25 @@ namespace AquaMate.UI.Panels
 
         public ListPanel()
         {
-            //Padding = new Padding(10);
+            Padding = new Thickness(10);
 
             fListView = UIHelper.CreateListView("ListView");
-            //fListView.DoubleClick += EditHandler;
-            //fListView.SelectedIndexChanged += ListView_SelectedIndexChanged;
-            //fListView.KeyDown += ListView_KeyDown;
+            fListView.MouseDoubleClick += EditHandler;
+            fListView.SelectionChanged += ListView_SelectedIndexChanged;
+            fListView.KeyDown += ListView_KeyDown;
             Content = fListView;
         }
 
-        /*private void ListView_KeyDown(object sender, KeyEventArgs e)
+        private void ListView_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Return) {
+            if (e.Key == Key.Return) {
                 EditHandler(sender, e);
             }
-        }*/
+        }
 
         private void ListView_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /*IList<Entity> records = new List<Entity>();
+            IList<Entity> records = new List<Entity>();
 
             foreach (ListViewItem item in ListView.SelectedItems) {
                 Entity rec = item.Tag as Entity;
@@ -60,7 +61,7 @@ namespace AquaMate.UI.Panels
                 }
             }
 
-            SelectionChanged(records);*/
+            SelectionChanged(records);
         }
 
         public override void UpdateContent()
@@ -72,7 +73,7 @@ namespace AquaMate.UI.Panels
                 if (fModel != null) {
                     UpdateListView();
                 }
-                
+
                 ListView.EndUpdate();
             } catch (Exception ex) {
                 fLogger.WriteError("UpdateContent()", ex);
@@ -153,16 +154,16 @@ namespace AquaMate.UI.Panels
         {
             if (record == null) return;
 
-            /*var lvItems = ListView.Items;
+            var lvItems = ListView.Items;
             int num = lvItems.Count;
             for (int i = 0; i < num; i++) {
-                ListViewItem item = lvItems[i];
+                ListViewItem item = lvItems[i] as ListViewItem;
                 var rowData = item.Tag as R;
                 if (rowData != null && rowData.Id == record.Id) {
                     ListView.SelectItem(item);
                     return;
                 }
-            }*/
+            }
         }
 
         protected override void AddHandler(object sender, EventArgs e)

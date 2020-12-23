@@ -4,8 +4,15 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
+using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 using AquaMate.Core;
 using AquaMate.Core.Model;
+using AquaMate.Core.Types;
+using AquaMate.UI.Components;
+using BSLib.Design;
 
 namespace AquaMate.UI.Panels
 {
@@ -16,44 +23,41 @@ namespace AquaMate.UI.Panels
     {
         private Aquarium fAquarium;
 
-        /*private readonly Label fHeader;
-        private readonly TableLayoutPanel fLayoutPanel;
+        private readonly Label fHeader;
+        private readonly Grid fLayoutPanel;
         private readonly ZListView fInhabitantsLV;
         private readonly ZListView fMeasuresLV;
         private readonly ZListView fNutritionLV;
         private readonly ZListView fDevicesLV;
         private readonly ZListView fMaintenanceLV;
-        private readonly ZListView fCompatibilityLV;*/
+        private readonly ZListView fCompatibilityLV;
 
 
         public AquaDetailsPanel() : base()
         {
-            /*Padding = new Padding(10);
+            Padding = new Thickness(10);
 
             fHeader = new Label();
-            fHeader.BorderStyle = BorderStyle.Fixed3D;
-            fHeader.Dock = DockStyle.Top;
-            fHeader.Font = new Font(this.Font.FontFamily, 10, FontStyle.Bold, this.Font.Unit);
-            fHeader.TextAlign = ContentAlignment.MiddleCenter;
-            Controls.Add(fHeader);
+            //fHeader.BorderStyle = BorderStyle.Fixed3D;
+            //fHeader.Dock = DockStyle.Top;
+            //fHeader.Font = new Font(this.Font.FontFamily, 10, FontStyle.Bold, this.Font.Unit);
+            //fHeader.TextAlign = ContentAlignment.MiddleCenter;
 
-            fLayoutPanel = new TableLayoutPanel();
-            fLayoutPanel.Dock = DockStyle.Fill;
-            fLayoutPanel.AutoSize = true;
-            fLayoutPanel.Padding = new Padding(10);
-            fLayoutPanel.ColumnCount = 2;
-            fLayoutPanel.RowCount = 3;
-            Controls.Add(fLayoutPanel);
+            fLayoutPanel = new Grid();
+            //fLayoutPanel.Padding = new Padding(10);
+            fLayoutPanel.ColumnDefinitions.Add(new ColumnDefinition());
+            fLayoutPanel.ColumnDefinitions.Add(new ColumnDefinition());
+            fLayoutPanel.RowDefinitions.Add(new RowDefinition());
+            fLayoutPanel.RowDefinitions.Add(new RowDefinition());
+            fLayoutPanel.RowDefinitions.Add(new RowDefinition());
 
-            fLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-            fLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-            fLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 40f));
-            fLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 20f));
-            fLayoutPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 40f));
-            fLayoutPanel.Padding = new Padding(0);
-
-            Controls.SetChildIndex(fLayoutPanel, 0);
-            Controls.SetChildIndex(fHeader, 1);
+            var stackPanel = new StackPanel() {
+                Children = {
+                    fHeader,
+                    fLayoutPanel
+                }
+            };
+            Content = stackPanel;
 
             fInhabitantsLV = UIHelper.CreateListView("InhabitantsLV");
             SetCellGroup(Localizer.LS(LSID.Inhabitants), fInhabitantsLV, 0, 0);
@@ -71,17 +75,18 @@ namespace AquaMate.UI.Panels
             SetCellGroup(Localizer.LS(LSID.Maintenance), fMaintenanceLV, 0, 2);
 
             fCompatibilityLV = UIHelper.CreateListView("CompatibilityLV");
-            SetCellGroup(Localizer.LS(LSID.Compatibility), fCompatibilityLV, 1, 2);*/
+            SetCellGroup(Localizer.LS(LSID.Compatibility), fCompatibilityLV, 1, 2);
         }
 
-        /*private void SetCellGroup(string name, ListView listView, int col, int row)
+        private void SetCellGroup(string name, ListView listView, int col, int row)
         {
             var groupBox = new GroupBox();
-            groupBox.Dock = DockStyle.Fill;
-            groupBox.Text = name;
-            groupBox.Controls.Add(listView);
-            fLayoutPanel.Controls.Add(groupBox, col, row);
-        }*/
+            groupBox.Header = name;
+            groupBox.Content = listView;
+            Grid.SetRow(groupBox, row);
+            Grid.SetColumn(groupBox, col);
+            fLayoutPanel.Children.Add(groupBox);
+        }
 
         public override void SetExtData(object extData)
         {
@@ -92,7 +97,7 @@ namespace AquaMate.UI.Panels
         public override void UpdateContent()
         {
             if (fAquarium != null) {
-                //fHeader.Text = fAquarium.Name;
+                fHeader.Content = fAquarium.Name;
 
                 FillInhabitantsList();
                 FillMeasuresList();
@@ -105,15 +110,15 @@ namespace AquaMate.UI.Panels
 
         private void FillInhabitantsList()
         {
-            /*fInhabitantsLV.BeginUpdate();
+            fInhabitantsLV.BeginUpdate();
             fInhabitantsLV.Clear();
-            fInhabitantsLV.Columns.Add(Localizer.LS(LSID.Name), 200, HorizontalAlignment.Left);
-            fInhabitantsLV.Columns.Add(Localizer.LS(LSID.Sex), 50, HorizontalAlignment.Left);
-            fInhabitantsLV.Columns.Add(Localizer.LS(LSID.Quantity), 50, HorizontalAlignment.Right);
-            fInhabitantsLV.Columns.Add(Localizer.LS(LSID.InclusionDate), 150, HorizontalAlignment.Left);
-            fInhabitantsLV.Columns.Add("Temp", 100, HorizontalAlignment.Left);
-            fInhabitantsLV.Columns.Add("PH", 100, HorizontalAlignment.Left);
-            fInhabitantsLV.Columns.Add("GH", 100, HorizontalAlignment.Left);
+            fInhabitantsLV.AddColumn(Localizer.LS(LSID.Name), 200, true, BSDTypes.HorizontalAlignment.Left);
+            fInhabitantsLV.AddColumn(Localizer.LS(LSID.Sex), 50, true, BSDTypes.HorizontalAlignment.Left);
+            fInhabitantsLV.AddColumn(Localizer.LS(LSID.Quantity), 50, true, BSDTypes.HorizontalAlignment.Right);
+            fInhabitantsLV.AddColumn(Localizer.LS(LSID.InclusionDate), 150, true, BSDTypes.HorizontalAlignment.Left);
+            fInhabitantsLV.AddColumn("Temp", 100, true, BSDTypes.HorizontalAlignment.Left);
+            fInhabitantsLV.AddColumn("PH", 100, true, BSDTypes.HorizontalAlignment.Left);
+            fInhabitantsLV.AddColumn("GH", 100, true, BSDTypes.HorizontalAlignment.Left);
 
             IList<Inhabitant> records = fModel.QueryInhabitants(fAquarium);
             foreach (Inhabitant rec in records) {
@@ -145,7 +150,7 @@ namespace AquaMate.UI.Panels
                 }
                 string strIntrDate = ALCore.IsZeroDate(intrDate) ? string.Empty : ALCore.GetDateStr(intrDate);
 
-                var item = fInhabitantsLV.AddItemEx(rec,
+                var item = fInhabitantsLV.AddItem(rec,
                                rec.Name,
                                sex,
                                qty.ToString(),
@@ -156,62 +161,62 @@ namespace AquaMate.UI.Panels
                            );
             }
 
-            fInhabitantsLV.EndUpdate();*/
+            fInhabitantsLV.EndUpdate();
         }
 
         private void FillMeasuresList()
         {
-            /*fMeasuresLV.BeginUpdate();
+            fMeasuresLV.BeginUpdate();
             fMeasuresLV.Clear();
-            fMeasuresLV.Columns.Add(Localizer.LS(LSID.Name), 200, HorizontalAlignment.Left);
-            fMeasuresLV.Columns.Add(Localizer.LS(LSID.Value), 50, HorizontalAlignment.Right);
-            fMeasuresLV.Columns.Add(Localizer.LS(LSID.Unit), 200, HorizontalAlignment.Left);
+            fMeasuresLV.AddColumn(Localizer.LS(LSID.Name), 200, true, BSDTypes.HorizontalAlignment.Left);
+            fMeasuresLV.AddColumn(Localizer.LS(LSID.Value), 50, true, BSDTypes.HorizontalAlignment.Right);
+            fMeasuresLV.AddColumn(Localizer.LS(LSID.Unit), 200, true, BSDTypes.HorizontalAlignment.Left);
 
             var values = fModel.CollectData(fAquarium);
             foreach (MeasureValue mVal in values) {
-                var item = fMeasuresLV.AddItemEx(mVal,
+                var item = fMeasuresLV.AddItem(mVal,
                                mVal.Name,
                                mVal.ValText,
                                mVal.Unit
                            );
             }
 
-            fMeasuresLV.EndUpdate();*/
+            fMeasuresLV.EndUpdate();
         }
 
         private void FillNutritionList()
         {
-            /*fNutritionLV.BeginUpdate();
+            fNutritionLV.BeginUpdate();
             fNutritionLV.Clear();
-            fNutritionLV.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
-            fNutritionLV.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
-            fNutritionLV.Columns.Add(Localizer.LS(LSID.Amount), 100, HorizontalAlignment.Right);
+            fNutritionLV.AddColumn(Localizer.LS(LSID.Name), 100, true, BSDTypes.HorizontalAlignment.Left);
+            fNutritionLV.AddColumn(Localizer.LS(LSID.Brand), 50, true, BSDTypes.HorizontalAlignment.Left);
+            fNutritionLV.AddColumn(Localizer.LS(LSID.Amount), 100, true, BSDTypes.HorizontalAlignment.Right);
 
             var records = fModel.QueryNutritions(fAquarium);
             foreach (Nutrition rec in records) {
-                var item = fNutritionLV.AddItemEx(rec,
+                var item = fNutritionLV.AddItem(rec,
                                rec.Name,
                                rec.Brand,
                                ALCore.GetDecimalStr(rec.Amount)
                            );
             }
 
-            fNutritionLV.EndUpdate();*/
+            fNutritionLV.EndUpdate();
         }
 
         private void FillDevicesList()
         {
-            /*fDevicesLV.BeginUpdate();
+            fDevicesLV.BeginUpdate();
             fDevicesLV.Clear();
-            fDevicesLV.Columns.Add(Localizer.LS(LSID.Name), 100, HorizontalAlignment.Left);
-            fDevicesLV.Columns.Add(Localizer.LS(LSID.Brand), 50, HorizontalAlignment.Left);
-            fDevicesLV.Columns.Add(Localizer.LS(LSID.Enabled), 60, HorizontalAlignment.Left);
-            fDevicesLV.Columns.Add(Localizer.LS(LSID.Digital), 60, HorizontalAlignment.Left);
-            fDevicesLV.Columns.Add(Localizer.LS(LSID.Power), 100, HorizontalAlignment.Right);
+            fDevicesLV.AddColumn(Localizer.LS(LSID.Name), 100, true, BSDTypes.HorizontalAlignment.Left);
+            fDevicesLV.AddColumn(Localizer.LS(LSID.Brand), 50, true, BSDTypes.HorizontalAlignment.Left);
+            fDevicesLV.AddColumn(Localizer.LS(LSID.Enabled), 60, true, BSDTypes.HorizontalAlignment.Left);
+            fDevicesLV.AddColumn(Localizer.LS(LSID.Digital), 60, true, BSDTypes.HorizontalAlignment.Left);
+            fDevicesLV.AddColumn(Localizer.LS(LSID.Power), 100, true, BSDTypes.HorizontalAlignment.Right);
 
             var records = fModel.QueryDevices(fAquarium);
             foreach (Device rec in records) {
-                var item = fDevicesLV.AddItemEx(rec,
+                var item = fDevicesLV.AddItem(rec,
                                rec.Name,
                                rec.Brand,
                                rec.Enabled.ToString(),
@@ -220,23 +225,23 @@ namespace AquaMate.UI.Panels
                            );
             }
 
-            fDevicesLV.EndUpdate();*/
+            fDevicesLV.EndUpdate();
         }
 
         private void FillMaintenanceList()
         {
-            /*fMaintenanceLV.BeginUpdate();
+            fMaintenanceLV.BeginUpdate();
             fMaintenanceLV.Clear();
-            fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
-            fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
-            fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Value), 100, HorizontalAlignment.Right);
-            fMaintenanceLV.Columns.Add(Localizer.LS(LSID.Note), 250, HorizontalAlignment.Left);
+            fMaintenanceLV.AddColumn(Localizer.LS(LSID.Date), 120, true, BSDTypes.HorizontalAlignment.Left);
+            fMaintenanceLV.AddColumn(Localizer.LS(LSID.Type), 100, true, BSDTypes.HorizontalAlignment.Left);
+            fMaintenanceLV.AddColumn(Localizer.LS(LSID.Value), 100, true, BSDTypes.HorizontalAlignment.Right);
+            fMaintenanceLV.AddColumn(Localizer.LS(LSID.Note), 250, true, BSDTypes.HorizontalAlignment.Left);
 
             var records = fModel.QueryMaintenances(fAquarium.Id);
             foreach (Maintenance rec in records) {
                 string strType = Localizer.LS(ALData.MaintenanceTypes[(int)rec.Type].Name);
 
-                var item = fMaintenanceLV.AddItemEx(rec,
+                var item = fMaintenanceLV.AddItem(rec,
                                ALCore.GetTimeStr(rec.Timestamp),
                                strType,
                                ALCore.GetDecimalStr(rec.Value),
@@ -244,7 +249,7 @@ namespace AquaMate.UI.Panels
                            );
             }
 
-            fMaintenanceLV.EndUpdate();*/
+            fMaintenanceLV.EndUpdate();
         }
 
         private class SpeciesTypeData
@@ -273,15 +278,15 @@ namespace AquaMate.UI.Panels
 
         private void FillCompatibilityList()
         {
-            /*fCompatibilityLV.BeginUpdate();
+            fCompatibilityLV.BeginUpdate();
             fCompatibilityLV.Clear();
-            fCompatibilityLV.Columns.Add(Localizer.LS(LSID.SpeciesS), 200, HorizontalAlignment.Left);
-            fCompatibilityLV.Columns.Add("Req Temp", 100, HorizontalAlignment.Left);
-            fCompatibilityLV.Columns.Add("Cur Temp", 100, HorizontalAlignment.Right);
-            fCompatibilityLV.Columns.Add("Req PH", 100, HorizontalAlignment.Left);
-            fCompatibilityLV.Columns.Add("Cur PH", 100, HorizontalAlignment.Right);
-            fCompatibilityLV.Columns.Add("Req GH", 100, HorizontalAlignment.Left);
-            fCompatibilityLV.Columns.Add("Cur GH", 100, HorizontalAlignment.Right);
+            fCompatibilityLV.AddColumn(Localizer.LS(LSID.SpeciesS), 200, true, BSDTypes.HorizontalAlignment.Left);
+            fCompatibilityLV.AddColumn("Req Temp", 100, true, BSDTypes.HorizontalAlignment.Left);
+            fCompatibilityLV.AddColumn("Cur Temp", 100, true, BSDTypes.HorizontalAlignment.Right);
+            fCompatibilityLV.AddColumn("Req PH", 100, true, BSDTypes.HorizontalAlignment.Left);
+            fCompatibilityLV.AddColumn("Cur PH", 100, true, BSDTypes.HorizontalAlignment.Right);
+            fCompatibilityLV.AddColumn("Req GH", 100, true, BSDTypes.HorizontalAlignment.Left);
+            fCompatibilityLV.AddColumn("Cur GH", 100, true, BSDTypes.HorizontalAlignment.Right);
 
             SpeciesTypeData[] stData;
             stData = new SpeciesTypeData[4];
@@ -325,7 +330,7 @@ namespace AquaMate.UI.Panels
                 string rangeGH = ALCore.GetRangeStr(data.GHMin.GetResult(), data.GHMax.GetResult());
                 if (string.IsNullOrEmpty(rangeTemp) && string.IsNullOrEmpty(rangePH) && string.IsNullOrEmpty(rangeGH)) continue;
 
-                var item = fCompatibilityLV.AddItemEx(data,
+                var item = fCompatibilityLV.AddItem(data,
                                data.Name,
                                rangeTemp,
                                ALCore.GetDecimalStr(curTemp),
@@ -336,7 +341,7 @@ namespace AquaMate.UI.Panels
                            );
             }
 
-            fCompatibilityLV.EndUpdate();*/
+            fCompatibilityLV.EndUpdate();
         }
     }
 }

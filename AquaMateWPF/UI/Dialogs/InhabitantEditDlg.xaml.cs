@@ -32,6 +32,9 @@ namespace AquaMate.UI.Dialogs
             btnAccept.Content = Localizer.LS(LSID.Accept);
             btnCancel.Content = Localizer.LS(LSID.Cancel);
 
+            tabCommon.Header = Localizer.LS(LSID.Common);
+            tabTransfers.Header = Localizer.LS(LSID.Transfers);
+
             lblName.Content = Localizer.LS(LSID.Name);
             lblNote.Content = Localizer.LS(LSID.Note);
             lblSpecies.Content = Localizer.LS(LSID.SpeciesS);
@@ -52,6 +55,14 @@ namespace AquaMate.UI.Dialogs
         private void cmbSpecies_SelectedIndexChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             fPresenter.ChangeSelectedSpecies();
+        }
+
+        private void tabControl_SelectedIndexChanged(object sender, RoutedEventArgs e)
+        {
+            if (tabControl1.SelectedIndex == 1) {
+                var lv = GetControlHandler<IListView>(lvTransfers);
+                ModelPresenter.FillTransfersLVPreview(lv, fPresenter.Model, fPresenter.Record);
+            }
         }
 
         #region View interface implementation

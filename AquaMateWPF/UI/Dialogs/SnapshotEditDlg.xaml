@@ -23,7 +23,9 @@
         <Label Name="lblDate" Margin="0,0,0,4" Grid.Column="0" Grid.Row="1">Date</Label>
         <DatePicker Name="dtpDateTime" Width="140" Margin="0,0,0,4" Grid.Column="0" Grid.Row="1"></DatePicker>
 
-        <Border Name="pictureBox1" Height="260" Width="480" Background="AntiqueWhite" Margin="0,0,0,4" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2"></Border>
+        <Border Margin="0,0,0,4" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2">
+            <Image Name="pictureBox1" Height="260" Width="480" />
+        </Border>
 
         <WrapPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right">
             <Button Name="btnLoad" Margin="0,0,4,0" MinHeight="24" MinWidth="96" Click="btnLoad_Click">Load</Button>

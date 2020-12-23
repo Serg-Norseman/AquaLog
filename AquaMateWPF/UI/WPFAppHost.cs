@@ -4,8 +4,10 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 using AquaMate.Core;
 using AquaMate.UI.Components;
 using AquaMate.UI.Dialogs;
@@ -46,21 +48,35 @@ namespace AquaMate.UI
 
         public override byte[] ImageToByte(IImage image)
         {
-            /*var wfImage = ((ImageHandler)image).Handle;
-            return ALCore.ImageToByte(wfImage, ImageFormat.Jpeg);*/
-            return null;
+            var wfImage = ((ImageHandler)image).Handle;
+
+            byte[] data;
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(wfImage));
+            using (MemoryStream ms = new MemoryStream()) {
+                encoder.Save(ms);
+                data = ms.ToArray();
+            }
+
+            return data;
         }
 
         public override IImage ByteToImage(byte[] imageBytes)
         {
-            /*var wfImage = ALCore.ByteToImage(imageBytes);
-            return new ImageHandler(wfImage);*/
-            return null;
+            using (var ms = new MemoryStream(imageBytes)) {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = ms;
+                image.EndInit();
+
+                return new ImageHandler(image);
+            }
         }
 
         public override IImage LoadImage()
         {
-            /*Image image = null;
+            IImage image = null;
 
             string fileName = UIHelper.GetOpenFile("title", "context",
                           "Image Files (*.jpg; *.jpeg; *.png; *.gif; *.tiff)|*.jpg;*.jpeg;*.png;*.gif;*.tiff",
@@ -73,11 +89,11 @@ namespace AquaMate.UI
                 using (FileStream stream = File.Open(fileName, FileMode.Open)) {
                     BinaryReader br = new BinaryReader(stream);
                     byte[] data = br.ReadBytes((int)stream.Length);
-                    image = ALCore.ByteToImage(data);
+                    image = ByteToImage(data);
                 }
-            }*/
+            }
 
-            return null;//new ImageHandler(image);
+            return image;
         }
 
         public override void SaveImage(IImage image)
@@ -103,14 +119,14 @@ namespace AquaMate.UI
             //ControlsManager.RegisterHandlerType(typeof(NumericUpDown), typeof(NumericBoxHandler));
             //ControlsManager.RegisterHandlerType(typeof(ProgressBar), typeof(ProgressBarHandler));
             //ControlsManager.RegisterHandlerType(typeof(RadioButton), typeof(RadioButtonHandler));
-            //ControlsManager.RegisterHandlerType(typeof(TabControl), typeof(TabControlHandler));
+            ControlsManager.RegisterHandlerType(typeof(TabControl), typeof(TabControlHandler));
             ControlsManager.RegisterHandlerType(typeof(TextBox), typeof(TextBoxHandler));
             //ControlsManager.RegisterHandlerType(typeof(TreeView), typeof(TreeViewHandler));
-            //ControlsManager.RegisterHandlerType(typeof(ToolStripMenuItem), typeof(MenuItemHandler));
+            ControlsManager.RegisterHandlerType(typeof(MenuItem), typeof(MenuItemHandler));
             //ControlsManager.RegisterHandlerType(typeof(ToolStripComboBox), typeof(ToolStripComboBoxHandler));
             ControlsManager.RegisterHandlerType(typeof(PropertyGrid), typeof(PropertyGridHandler));
-            //ControlsManager.RegisterHandlerType(typeof(DateTimePicker), typeof(DateTimeBoxHandler));
-            //ControlsManager.RegisterHandlerType(typeof(PictureBox), typeof(PictureBoxHandler));
+            ControlsManager.RegisterHandlerType(typeof(DatePicker), typeof(DateTimeBoxHandler));
+            ControlsManager.RegisterHandlerType(typeof(Image), typeof(PictureBoxHandler));
             ControlsManager.RegisterHandlerType(typeof(ZListView), typeof(ZListViewHandler));
         }
 

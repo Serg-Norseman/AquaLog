@@ -4,6 +4,12 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
+using System.Collections.Generic;
+using AquaMate.Core;
+using AquaMate.Core.Model;
+using AquaMate.Core.Types;
+
 namespace AquaMate.UI.Panels
 {
     /// <summary>
@@ -29,7 +35,7 @@ namespace AquaMate.UI.Panels
 
         public override void UpdateContent()
         {
-            /*fGraph.Clear();
+            //fGraph.Clear();
             if (fModel == null) return;
 
             IList<Inhabitant> records = fModel.QueryInhabitants();
@@ -49,8 +55,8 @@ namespace AquaMate.UI.Panels
                     exclusionDate = DateTime.Now;
                 }
 
-                fGraph.AddEventFrame(new EventFrame(rec.Name, inclusionDate, exclusionDate));
-            }*/
+                //fGraph.AddEventFrame(new EventFrame(rec.Name, inclusionDate, exclusionDate));
+            }
         }
     }
 }

@@ -5,11 +5,18 @@
  */
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Controls;
+using System.Windows.Media;
+using AquaMate.Core.Model;
+using AquaMate.Core.Types;
+using AquaMate.UI.Charts;
+using AquaMate.UI.Components;
 
 namespace AquaMate.UI.Panels
 {
-    /*public class Trend
+    public class Trend
     {
         public string Name { get; private set; }
         public Color Color { get; private set; }
@@ -21,46 +28,45 @@ namespace AquaMate.UI.Panels
             Color = color;
             Points = new List<ChartPoint>();
         }
-    }*/
+    }
 
     /// <summary>
     /// 
     /// </summary>
     public sealed class MeasuresChartPanel : DataPanel
     {
-        //private readonly ZChart fChart;
+        private readonly ZChart fChart;
         private string fSelectedAquarium;
-        //private Dictionary<string, Trend> fTrends;
+        private Dictionary<string, Trend> fTrends;
 
 
         public MeasuresChartPanel()
         {
-            /*fChart = new ZChart();
-            fChart.Dock = DockStyle.Fill;
-            Controls.Add(fChart);*/
+            fChart = new ZChart();
+            Content = fChart;
 
             fSelectedAquarium = "*";
         }
 
         public override void UpdateContent()
         {
-            /*fChart.Clear();
+            fChart.Clear();
             if (fModel == null) return;
 
             var measures = fModel.QueryMeasures();
             fTrends = new Dictionary<string, Trend>();
-            fTrends.Add("Temp", new Trend("Temp (°C)", Color.Red));
-            fTrends.Add("NO3", new Trend("NO3 (mg/l)", Color.BlueViolet));
-            fTrends.Add("NO2", new Trend("NO2 (mg/l)", Color.CornflowerBlue));
-            fTrends.Add("GH", new Trend("GH (°d)", Color.DarkGray));
-            fTrends.Add("KH", new Trend("KH (°d)", Color.Gray));
-            fTrends.Add("pH", new Trend("pH", Color.Fuchsia));
-            fTrends.Add("Cl2", new Trend("Cl2 (mg/l)", Color.GreenYellow));
-            fTrends.Add("CO2", new Trend("CO2", Color.Maroon));
-            fTrends.Add("NH", new Trend("NHtot", Color.Violet));
-            fTrends.Add("NH3", new Trend("NH3", Color.PaleVioletRed));
-            fTrends.Add("NH4", new Trend("NH4", Color.MediumVioletRed));
-            fTrends.Add("PO4", new Trend("PO4", Color.BlueViolet));
+            fTrends.Add("Temp", new Trend("Temp (°C)", Colors.Red));
+            fTrends.Add("NO3", new Trend("NO3 (mg/l)", Colors.BlueViolet));
+            fTrends.Add("NO2", new Trend("NO2 (mg/l)", Colors.CornflowerBlue));
+            fTrends.Add("GH", new Trend("GH (°d)", Colors.DarkGray));
+            fTrends.Add("KH", new Trend("KH (°d)", Colors.Gray));
+            fTrends.Add("pH", new Trend("pH", Colors.Fuchsia));
+            fTrends.Add("Cl2", new Trend("Cl2 (mg/l)", Colors.GreenYellow));
+            fTrends.Add("CO2", new Trend("CO2", Colors.Maroon));
+            fTrends.Add("NH", new Trend("NHtot", Colors.Violet));
+            fTrends.Add("NH3", new Trend("NH3", Colors.PaleVioletRed));
+            fTrends.Add("NH4", new Trend("NH4", Colors.MediumVioletRed));
+            fTrends.Add("PO4", new Trend("PO4", Colors.BlueViolet));
 
             foreach (Measure rec in measures) {
                 Aquarium aqm = fModel.Cache.Get<Aquarium>(ItemType.Aquarium, rec.AquariumId);
@@ -84,22 +90,22 @@ namespace AquaMate.UI.Panels
             foreach (var trendPair in fTrends) {
                 var trend = trendPair.Value;
                 fChart.ShowData("", "Time", "Value", new ChartSeries(trend.Name, ChartStyle.Point, trend.Points, trend.Color));
-            }*/
+            }
         }
 
         private void AddTrendValue(string key, DateTime timestamp, double value)
         {
-            /*if (value == 0.0d) return;
+            if (value == 0.0d) return;
 
             Trend trend;
             if (fTrends.TryGetValue(key, out trend)) {
                 trend.Points.Add(new ChartPoint(timestamp, value));
-            }*/
+            }
         }
 
         protected override void InitActions()
         {
-            /*ClearActions();
+            ClearActions();
 
             var aquariums = fModel.QueryAquariums();
             string[] items = new string[aquariums.Count + 1];
@@ -114,7 +120,7 @@ namespace AquaMate.UI.Panels
             if (fTrends != null) {
                 string[] trendItems = fTrends.Keys.ToArray();
                 AddMultiSelector("TrendSelector", trendItems, ItemChangeHandler);
-            }*/
+            }
         }
 
         private void AquariumChangeHandler(object sender, EventArgs e)
@@ -126,7 +132,7 @@ namespace AquaMate.UI.Panels
 
         private void ItemChangeHandler(object sender, EventArgs e)
         {
-            /*var picker = sender as OptionsPicker;
+            var picker = sender as OptionsPicker;
             string[] selected = picker.Text.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
 
             var series = new Dictionary<string, ChartSeries>();
@@ -136,7 +142,7 @@ namespace AquaMate.UI.Panels
                     series.Add(key, new ChartSeries(key, ChartStyle.Point, trend.Points, trend.Color));
                 }
             }
-            fChart.ShowData("", "Time", "", series);*/
+            fChart.ShowData("", "Time", "", series);
         }
     }
 }

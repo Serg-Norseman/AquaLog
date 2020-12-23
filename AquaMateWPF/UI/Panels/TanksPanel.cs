@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
@@ -24,9 +25,9 @@ namespace AquaMate.UI.Panels
     {
         private readonly ILogger fLogger = LogManager.GetLogger(ALCore.LOG_FILE, ALCore.LOG_LEVEL, "TanksPanel");
 
-        /*private readonly ContextMenu fContextMenu;
+        private readonly ContextMenu fContextMenu;
         private readonly MenuItem fEditItem;
-        private readonly MenuItem fDeleteItem;*/
+        private readonly MenuItem fDeleteItem;
         private readonly WrapPanel fLayoutPanel;
 
         private TankSticker fSelectedTank;
@@ -55,27 +56,27 @@ namespace AquaMate.UI.Panels
 
         public TanksPanel() : base()
         {
-            //Click += OnPanelClick;
+            MouseUp += OnPanelClick;
 
             fLayoutPanel = new WrapPanel();
             fLayoutPanel.Margin = new Thickness(10);
-            //fLayoutPanel.Click += OnPanelClick;
+            fLayoutPanel.MouseUp += OnPanelClick;
             Content = fLayoutPanel;
 
-            /*fEditItem = new MenuItem();
+            fEditItem = new MenuItem();
             fEditItem.Click += btnEditTank_Click;
 
             fDeleteItem = new MenuItem();
             fDeleteItem.Click += btnDeleteTank_Click;
 
             fContextMenu = new ContextMenu();
-            fContextMenu.MenuItems.AddRange(new MenuItem[] { fEditItem, fDeleteItem});*/
+            fContextMenu.Items.AddRange(new MenuItem[] { fEditItem, fDeleteItem});
         }
 
         public override void SetLocale()
         {
-            //fEditItem.Text = Localizer.LS(LSID.Edit);
-            //fDeleteItem.Text = Localizer.LS(LSID.Delete);
+            fEditItem.Header = Localizer.LS(LSID.Edit);
+            fDeleteItem.Header = Localizer.LS(LSID.Delete);
         }
 
         protected override void InitActions()
@@ -119,25 +120,29 @@ namespace AquaMate.UI.Panels
                 var aqPanel = new TankSticker();
                 aqPanel.Model = fModel;
                 aqPanel.Aquarium = aqm;
-                //aqPanel.Click += OnTankClick;
-                //aqPanel.DoubleClick += OnTankDoubleClick;
-                //aqPanel.ContextMenu = fContextMenu;
+                aqPanel.MouseUp += OnTankClick;
+                aqPanel.MouseDoubleClick += OnTankDoubleClick;
+                aqPanel.ContextMenu = fContextMenu;
                 fLayoutPanel.Children.Add(aqPanel);
             }
         }
 
-        private void OnTankClick(object sender, EventArgs e)
+        private void OnTankClick(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
+
             SelectedTank = sender as TankSticker;
         }
 
-        private void OnPanelClick(object sender, EventArgs e)
+        private void OnPanelClick(object sender, RoutedEventArgs e)
         {
             SelectedTank = null;
         }
 
-        private void OnTankDoubleClick(object sender, EventArgs e)
+        private void OnTankDoubleClick(object sender, RoutedEventArgs e)
         {
+            e.Handled = true;
+
             var selectedItem = SelectedTank;
             if (selectedItem == null) return;
 
@@ -151,7 +156,7 @@ namespace AquaMate.UI.Panels
             var aqm = new Aquarium();
             aqm.Name = ALCore.UnknownName;
 
-            using (var dlg = new AquariumEditDlg()) {
+            using (var dlg = AppHost.ResolveDialog<IAquariumEditorView>()) {
                 dlg.SetContext(fModel, aqm);
 
                 if (dlg.ShowModal()) {
@@ -170,7 +175,7 @@ namespace AquaMate.UI.Panels
             var aqm = selectedItem.Aquarium;
             if (aqm == null) return;
 
-            using (var dlg = new AquariumEditDlg()) {
+            using (var dlg = AppHost.ResolveDialog<IAquariumEditorView>()) {
                 dlg.SetContext(fModel, aqm);
 
                 if (dlg.ShowModal()) {
@@ -201,7 +206,7 @@ namespace AquaMate.UI.Panels
 
         private void btnLogBook_Click(object sender, EventArgs e)
         {
-            /*var selectedItem = SelectedTank;
+            var selectedItem = SelectedTank;
             if (selectedItem == null) return;
 
             var record = selectedItem.Aquarium;
@@ -209,7 +214,7 @@ namespace AquaMate.UI.Panels
             string fileName = UIHelper.GetSaveFile("RTF files (*.rtf)|*.rtf");
             if (string.IsNullOrEmpty(fileName)) return;
 
-            RTFLogBook.Generate(fModel, record, fileName);
+            /*RTFLogBook.Generate(fModel, record, fileName);
 
             AppHost.LoadExtFile(fileName);*/
         }

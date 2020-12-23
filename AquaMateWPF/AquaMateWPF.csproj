@@ -65,9 +65,6 @@
     <Reference Include="BSLib.Design">
       <HintPath>..\libs\BSLib.Design.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CSharp">
-      <RequiredTargetFramework>4.0</RequiredTargetFramework>
-    </Reference>
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -75,20 +72,12 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="WindowsBase">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
@@ -112,7 +101,9 @@
     <Compile Include="UI\Components\ChartPoint.cs" />
     <Compile Include="UI\Components\ChartSeries.cs" />
     <Compile Include="UI\Components\OptionsPicker.cs" />
+    <Compile Include="UI\Components\QualityControl.cs" />
     <Compile Include="UI\Components\UserAction.cs" />
+    <Compile Include="UI\Components\ZChart.cs" />
     <Compile Include="UI\Components\ZListView.cs" />
     <Compile Include="UI\ControlHandlers.cs" />
     <Compile Include="UI\Dialogs\AboutDlg.xaml.cs">
@@ -140,6 +131,9 @@
     </Compile>
     <Compile Include="UI\Dialogs\InventoryEditDlg.xaml.cs">
       <DependentUpon>InventoryEditDlg.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Dialogs\ShopEditDlg.xaml.cs">
+      <DependentUpon>ShopEditDlg.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\MainForm.xaml.cs">
       <DependentUpon>MainForm.xaml</DependentUpon>
@@ -202,7 +196,9 @@
     <Compile Include="UI\Panels\MeasuresChartPanel.cs" />
     <Compile Include="UI\Panels\NotePanel.cs" />
     <Compile Include="UI\Panels\NutritionPanel.cs" />
+    <Compile Include="UI\Panels\PricelistPanel.cs" />
     <Compile Include="UI\Panels\SchedulePanel.cs" />
+    <Compile Include="UI\Panels\ShopPanel.cs" />
     <Compile Include="UI\Panels\SnapshotPanel.cs" />
     <Compile Include="UI\Panels\SpeciesPanel.cs" />
     <Compile Include="UI\Panels\TanksPanel.cs" />
@@ -245,6 +241,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UI\Dialogs\InventoryEditDlg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Dialogs\ShopEditDlg.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

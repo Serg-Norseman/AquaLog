@@ -61,7 +61,7 @@ namespace AquaMate.UI.Panels
         private void AquariumChangeHandler(object sender, EventArgs e)
         {
             var comboBox = sender as ComboBox;
-            fSelectedAquarium = (comboBox != null) ? comboBox.Text : "*";
+            fSelectedAquarium = (comboBox != null) ? comboBox.SelectedItem.ToString() : "*";
             UpdateContent();
         }
 

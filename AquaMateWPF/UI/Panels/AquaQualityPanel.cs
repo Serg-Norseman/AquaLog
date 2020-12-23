@@ -4,7 +4,10 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using System.Windows;
+using System.Windows.Controls;
 using AquaMate.Core.Model;
+using AquaMate.UI.Components;
 
 namespace AquaMate.UI.Panels
 {
@@ -16,22 +19,18 @@ namespace AquaMate.UI.Panels
         private const int LayoutPadding = 4;
 
         private Aquarium fAquarium;
-        //private readonly TableLayoutPanel fLayoutPanel;
+        private readonly Grid fLayoutPanel;
 
 
         public AquaQualityPanel() : base()
         {
-            /*fLayoutPanel = new TableLayoutPanel();
-            fLayoutPanel.Dock = DockStyle.Fill;
-            fLayoutPanel.Padding = new Padding(LayoutPadding);
-            fLayoutPanel.AutoScroll = true;
-            fLayoutPanel.AutoSize = true;
+            Padding = new Thickness(10);
 
-            fLayoutPanel.ColumnCount = 2;
-            fLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-            fLayoutPanel.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50f));
-
-            Controls.Add(fLayoutPanel);*/
+            fLayoutPanel = new Grid();
+            //fLayoutPanel.Padding = new Padding(LayoutPadding);
+            fLayoutPanel.ColumnDefinitions.Add(new ColumnDefinition());
+            fLayoutPanel.ColumnDefinitions.Add(new ColumnDefinition());
+            Content = fLayoutPanel;
         }
 
         public override void SetExtData(object extData)
@@ -42,13 +41,11 @@ namespace AquaMate.UI.Panels
 
         public override void UpdateContent()
         {
-            /*fLayoutPanel.Controls.Clear();
+            fLayoutPanel.Children.Clear();
             if (fModel == null) return;
 
             if (fAquarium != null) {
-                fLayoutPanel.SuspendLayout();
-
-                fLayoutPanel.RowCount = 1;
+                fLayoutPanel.RowDefinitions.Add(new RowDefinition());
                 int col = 0, row = 0;
                 var values = fModel.CollectData(fAquarium);
                 foreach (var mVal in values) {
@@ -59,27 +56,23 @@ namespace AquaMate.UI.Panels
                         }
 
                         var qCtl = new QualityControl();
-                        qCtl.Margin = new Padding(LayoutPadding);
-                        qCtl.Dock = DockStyle.Top;
-                        qCtl.Anchor = AnchorStyles.Left;
-                        qCtl.Ranges = mVal.Ranges;
-                        qCtl.Value = mVal.Value;
-                        qCtl.Title = title;
-                        qCtl.Width = fLayoutPanel.ClientSize.Width - LayoutPadding * 2;
+                        qCtl.Margin = new Thickness(LayoutPadding);
+                        qCtl.SetData(title, mVal.Value, mVal.Ranges);
 
-                        fLayoutPanel.Controls.Add(qCtl, col, row);
+                        Grid.SetRow(qCtl, row);
+                        Grid.SetColumn(qCtl, col);
+                        fLayoutPanel.Children.Add(qCtl);
+
                         if (col == 0) {
                             col += 1;
                         } else {
                             col = 0;
                             row += 1;
-                            fLayoutPanel.RowCount += 1;
+                            fLayoutPanel.RowDefinitions.Add(new RowDefinition());
                         }
                     }
                 }
-
-                fLayoutPanel.ResumeLayout();
-            }*/
+            }
         }
     }
 }

@@ -55,9 +55,6 @@ namespace AquaMate.UI.Panels
 
         public DataPanel()
         {
-            //Background = BorderBrush.;
-            //BorderStyle = BorderStyle.FixedSingle;
-            //Dock = DockStyle.Fill;
             BorderThickness = new Thickness(1);
             BorderBrush = new SolidColorBrush(Colors.Black);
             Background = new SolidColorBrush(Colors.Silver);

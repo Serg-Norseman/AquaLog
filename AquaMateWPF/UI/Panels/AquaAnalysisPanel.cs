@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
+using BSLib.Design;
 
 namespace AquaMate.UI.Panels
 {
@@ -36,24 +37,24 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            /*ListView.Clear();
+            ListView.Clear();
 
-            ListView.Columns.Add(Localizer.LS(LSID.Date), 120, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Type), 100, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.Value), 100, HorizontalAlignment.Right);
-            ListView.Columns.Add(Localizer.LS(LSID.Note), 250, HorizontalAlignment.Left);
-            ListView.Columns.Add(Localizer.LS(LSID.WaterVolume), 100, HorizontalAlignment.Right);
-            ListView.Columns.Add("% change", 100, HorizontalAlignment.Right);
-            ListView.Columns.Add("period change", 100, HorizontalAlignment.Right);
+            ListView.AddColumn(Localizer.LS(LSID.Date), 120, true, BSDTypes.HorizontalAlignment.Left);
+            ListView.AddColumn(Localizer.LS(LSID.Type), 100, true, BSDTypes.HorizontalAlignment.Left);
+            ListView.AddColumn(Localizer.LS(LSID.Value), 100, true, BSDTypes.HorizontalAlignment.Right);
+            ListView.AddColumn(Localizer.LS(LSID.Note), 250, true, BSDTypes.HorizontalAlignment.Left);
+            ListView.AddColumn(Localizer.LS(LSID.WaterVolume), 100, true, BSDTypes.HorizontalAlignment.Right);
+            ListView.AddColumn("% change", 100, true, BSDTypes.HorizontalAlignment.Right);
+            ListView.AddColumn("period change", 100, true, BSDTypes.HorizontalAlignment.Right);
 
-            ListView.Columns.Add("Temp (°C)", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("NO3 (mg/l)", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("GH (°d)", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("KH (°d)", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("pH", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("CO2", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("NHtot", 60, HorizontalAlignment.Right);
-            ListView.Columns.Add("PO4", 60, HorizontalAlignment.Right);
+            ListView.AddColumn("Temp (°C)", 60, true, BSDTypes.HorizontalAlignment.Right);
+            ListView.AddColumn("NO3 (mg/l)", 60, true, BSDTypes.HorizontalAlignment.Right);
+            ListView.AddColumn("GH (°d)", 60, true, BSDTypes.HorizontalAlignment.Right);
+            ListView.AddColumn("KH (°d)", 60, true, BSDTypes.HorizontalAlignment.Right);
+            ListView.AddColumn("pH", 60, true, BSDTypes.HorizontalAlignment.Right);
+            ListView.AddColumn("CO2", 60, true, BSDTypes.HorizontalAlignment.Right);
+            ListView.AddColumn("NHtot", 60, true, BSDTypes.HorizontalAlignment.Right);
+            ListView.AddColumn("PO4", 60, true, BSDTypes.HorizontalAlignment.Right);
 
             if (fAquarium != null) {
                 var events = new List<IEventEntity>();
@@ -99,7 +100,7 @@ namespace AquaMate.UI.Panels
                         string strType = Localizer.LS(ALData.MaintenanceTypes[(int)mnt.Type].Name);
                         string strDays = (days >= 0) ? days.ToString() : string.Empty;
 
-                        var item = ListView.AddItemEx(mnt,
+                        var item = ListView.AddItem(mnt,
                                        curTime,
                                        strType,
                                        ALCore.GetDecimalStr(mnt.Value),
@@ -113,7 +114,7 @@ namespace AquaMate.UI.Panels
                     if (evnt is Measure) {
                         Measure msr = (Measure)evnt;
 
-                        var item = ListView.AddItemEx(msr,
+                        var item = ListView.AddItem(msr,
                                        curTime,
                                        Localizer.LS(LSID.Measure),
                                        string.Empty,
@@ -136,7 +137,7 @@ namespace AquaMate.UI.Panels
                     if (evnt is Note) {
                         Note note = (Note)evnt;
 
-                        var item = ListView.AddItemEx(note,
+                        var item = ListView.AddItem(note,
                                        curTime,
                                        Localizer.LS(LSID.Event),
                                        string.Empty,
@@ -154,14 +155,14 @@ namespace AquaMate.UI.Panels
                             var itemRec = fModel.GetRecord(transfer.ItemType, transfer.ItemId);
                             string itName = (itemRec == null) ? string.Empty : itemRec.ToString();
 
-                            var item = ListView.AddItemEx(transfer,
+                            var item = ListView.AddItem(transfer,
                                            curTime, strType, transfer.Quantity.ToString(), itName,
                                            string.Empty, string.Empty, string.Empty
                                        );
                         }
                     }
                 }
-            }*/
+            }
         }
 
         private void ExportHandler(object sender, EventArgs e)

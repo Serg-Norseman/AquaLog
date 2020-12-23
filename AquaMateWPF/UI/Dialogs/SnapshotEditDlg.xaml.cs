@@ -67,7 +67,7 @@ namespace AquaMate.UI.Dialogs
 
         IPictureBox ISnapshotEditorView.PicBox
         {
-            get { return /*GetControlHandler<IPictureBox>(pictureBox1)*/null; }
+            get { return GetControlHandler<IPictureBox>(pictureBox1); }
         }
 
         IDateTimeBox ISnapshotEditorView.TimestampField

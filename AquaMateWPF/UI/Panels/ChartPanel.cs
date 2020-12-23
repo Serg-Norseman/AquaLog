@@ -4,6 +4,8 @@
  *  This program is licensed under the GNU General Public License.
  */
 
+using AquaMate.UI.Components;
+
 namespace AquaMate.UI.Panels
 {
     /// <summary>
@@ -11,14 +13,13 @@ namespace AquaMate.UI.Panels
     /// </summary>
     public sealed class ChartPanel : DataPanel
     {
-        //private readonly ZChart fChart;
+        private readonly ZChart fChart;
         private object fData;
 
         public ChartPanel()
         {
-            /*fChart = new ZChart();
-            fChart.Dock = DockStyle.Fill;
-            Controls.Add(fChart);*/
+            fChart = new ZChart();
+            Content = fChart;
         }
 
         public override void SetExtData(object extData)
@@ -28,7 +29,7 @@ namespace AquaMate.UI.Panels
 
         public override void UpdateContent()
         {
-            //fChart.ShowData("", "Labels", "", fData);
+            fChart.ShowData("", "Labels", "", fData);
         }
     }
 }

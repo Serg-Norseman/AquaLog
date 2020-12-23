@@ -338,13 +338,9 @@ namespace AquaMate.UI
 
         private void ChangeTheme(string style)
         {
-            // определяем путь к файлу ресурсов
             var uri = new Uri(style + ".xaml", UriKind.Relative);
-            // загружаем словарь ресурсов
             ResourceDictionary resourceDict = Application.LoadComponent(uri) as ResourceDictionary;
-            // очищаем коллекцию ресурсов приложения
             Application.Current.Resources.Clear();
-            // добавляем загруженный словарь ресурсов
             Application.Current.Resources.MergedDictionaries.Add(resourceDict);
         }
 
@@ -451,7 +447,7 @@ namespace AquaMate.UI
                     SetView<BrandPanel>(extData);
                     break;
                 case MainView.Shops:
-                    //SetView<ShopPanel>(extData);
+                    SetView<ShopPanel>(extData);
                     break;
                 case MainView.Analysis:
                     SetView<AquaAnalysisPanel>(extData);
@@ -463,7 +459,7 @@ namespace AquaMate.UI
                     SetView<BioTreemapPanel>(extData);
                     break;
                 case MainView.Pricelist:
-                    //SetView<PricelistPanel>(extData);
+                    SetView<PricelistPanel>(extData);
                     break;
             }
         }

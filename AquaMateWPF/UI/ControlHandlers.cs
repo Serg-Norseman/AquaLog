@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using AquaMate.UI.Components;
 using BSLib;
 using BSLib.Design;
@@ -143,6 +144,7 @@ namespace AquaMate.UI
         }
     }
 
+
     public sealed class ButtonHandler : BaseControlHandler<Button, ButtonHandler>, IButton
     {
         public ButtonHandler(Button control) : base(control)
@@ -155,6 +157,7 @@ namespace AquaMate.UI
             set { Control.Content = value; }
         }
     }
+
 
     public sealed class CheckBoxHandler : BaseControlHandler<CheckBox, CheckBoxHandler>, ICheckBox
     {
@@ -175,6 +178,7 @@ namespace AquaMate.UI
         }
     }
 
+
     public sealed class RadioButtonHandler : BaseControlHandler<RadioButton, RadioButtonHandler>, IRadioButton
     {
         public RadioButtonHandler(RadioButton control) : base(control)
@@ -193,6 +197,7 @@ namespace AquaMate.UI
             set { Control.Content = value; }
         }
     }
+
 
     public sealed class ComboBoxHandler : BaseControlHandler<ComboBox, ComboBoxHandler>, IComboBox
     {
@@ -308,6 +313,7 @@ namespace AquaMate.UI
             }
         }
     }
+
 
     /*public sealed class ToolStripComboBoxHandler : ControlHandler<ToolStripComboBox, ToolStripComboBoxHandler>, IComboBox
     {
@@ -431,6 +437,7 @@ namespace AquaMate.UI
         }
     }*/
 
+
     public sealed class PropertyGridHandler : BaseControlHandler<PropertyGrid, PropertyGridHandler>, IPropertyGrid
     {
         public PropertyGridHandler(PropertyGrid control) : base(control)
@@ -449,27 +456,30 @@ namespace AquaMate.UI
         }
     }
 
-    /*public sealed class PictureBoxHandler : BaseControlHandler<PictureBox, PictureBoxHandler>, IPictureBox
+
+    public sealed class PictureBoxHandler : BaseControlHandler<Image, PictureBoxHandler>, IPictureBox
     {
-        public PictureBoxHandler(PictureBox control) : base(control)
+        public PictureBoxHandler(Image control) : base(control)
         {
         }
 
         public IImage Image
         {
             get {
-                return new ImageHandler(Control.Image);
+                BitmapImage bmpImage = Control.Source as BitmapImage;
+                return (bmpImage != null) ? new ImageHandler(bmpImage) : null;
             }
             set {
                 if (value == null) {
-                    Control.Image = null;
+                    Control.Source = null;
                 } else {
-                    var image = ((ImageHandler)value).Handle;
-                    Control.Image = image;
+                    var bmpImage = ((ImageHandler)value).Handle;
+                    Control.Source = bmpImage;
                 }
             }
         }
-    }*/
+    }
+
 
     public sealed class TextBoxHandler : BaseControlHandler<TextBox, TextBoxHandler>, ITextBox
     {
@@ -522,6 +532,7 @@ namespace AquaMate.UI
         }
     }
 
+
     /*public sealed class MaskedTextBoxHandler : BaseControlHandler<MaskedTextBox, MaskedTextBoxHandler>, ITextBox
     {
         public MaskedTextBoxHandler(MaskedTextBox control) : base(control)
@@ -573,6 +584,7 @@ namespace AquaMate.UI
         }
     }*/
 
+
     /*public sealed class NumericBoxHandler : BaseControlHandler<NumericUpDown, NumericBoxHandler>, INumericBox
     {
         public NumericBoxHandler(NumericUpDown control) : base(control)
@@ -598,24 +610,26 @@ namespace AquaMate.UI
         }
     }*/
 
-    /*public sealed class DateTimeBoxHandler : BaseControlHandler<DateTimePicker, DateTimeBoxHandler>, IDateTimeBox
+
+    public sealed class DateTimeBoxHandler : BaseControlHandler<DatePicker, DateTimeBoxHandler>, IDateTimeBox
     {
-        public DateTimeBoxHandler(DateTimePicker control) : base(control)
+        public DateTimeBoxHandler(DatePicker control) : base(control)
         {
         }
 
         public bool Checked
         {
-            get { return Control.Checked; }
-            set { Control.Checked = value; }
+            get { return false; }
+            set {  }
         }
 
         public DateTime Value
         {
-            get { return Control.Value; }
-            set { Control.Value = value; }
+            get { return Control.SelectedDate.Value; }
+            set { Control.SelectedDate = value; }
         }
-    }*/
+    }
+
 
     /*public sealed class TreeViewHandler : BaseControlHandler<TreeView, TreeViewHandler>, ITreeViewHandler
     {
@@ -664,6 +678,7 @@ namespace AquaMate.UI
         }
     }*/
 
+
     /*public sealed class ProgressBarHandler : BaseControlHandler<ProgressBar, ProgressBarHandler>, IProgressBar
     {
         public ProgressBarHandler(ProgressBar control) : base(control)
@@ -694,6 +709,7 @@ namespace AquaMate.UI
         }
     }*/
 
+
     public sealed class TabControlHandler : BaseControlHandler<TabControl, TabControlHandler>, ITabControl
     {
         public TabControlHandler(TabControl control) : base(control)
@@ -707,22 +723,23 @@ namespace AquaMate.UI
         }
     }
 
-    /*public sealed class MenuItemHandler : ControlHandler<ToolStripMenuItem, MenuItemHandler>, IMenuItem
+
+    public sealed class MenuItemHandler : ControlHandler<MenuItem, MenuItemHandler>, IMenuItem
     {
-        public MenuItemHandler(ToolStripMenuItem control) : base(control)
+        public MenuItemHandler(MenuItem control) : base(control)
         {
         }
 
         public bool Checked
         {
-            get { return Control.Checked; }
-            set { Control.Checked = value; }
+            get { return Control.IsChecked; }
+            set { Control.IsChecked = value; }
         }
 
         public bool Enabled
         {
-            get { return Control.Enabled; }
-            set { Control.Enabled = value; }
+            get { return Control.IsEnabled; }
+            set { Control.IsEnabled = value; }
         }
 
         public object Tag
@@ -733,105 +750,37 @@ namespace AquaMate.UI
 
         public int ItemsCount
         {
-            get { return Control.DropDownItems.Count; }
+            get { return Control.Items.Count; }
         }
 
         public IMenuItem AddItem(string text, object tag, IImage image, ItemAction action)
         {
-            var item = new MenuItemEx(text, tag, image, action);
-            Control.DropDownItems.Add(item);
-            return item;
+            /*var item = new MenuItemEx(text, tag, image, action);
+            Control.Items.Add(item);
+            return item;*/
+            return null;
         }
 
         public void ClearItems()
         {
-            Control.DropDownItems.Clear();
+            Control.Items.Clear();
         }
-    }*/
+    }
 
 
     /// <summary>
     /// 
     /// </summary>
-    /*public sealed class ColorHandler: TypeHandler<Color>, IColor
-    {
-        public ColorHandler(Color handle) : base(handle)
-        {
-        }
-
-        public IColor Darker(float fraction)
-        {
-            int rgb = this.Handle.ToArgb();
-            Color newColor = Color.FromArgb(GfxHelper.Darker(rgb, fraction));
-            return new ColorHandler(newColor);
-        }
-
-        public IColor Lighter(float fraction)
-        {
-            int rgb = this.Handle.ToArgb();
-            Color newColor = Color.FromArgb(GfxHelper.Lighter(rgb, fraction));
-            return new ColorHandler(newColor);
-        }
-
-        public string GetName()
-        {
-            Color color = this.Handle;
-            return color.Name;
-        }
-
-        public int ToArgb()
-        {
-            int result = this.Handle.ToArgb();
-            return result;
-        }
-
-        public string GetCode()
-        {
-            int argb = ToArgb() & 0xFFFFFF;
-            string result = argb.ToString("X6");
-            return result;
-        }
-
-        public byte GetR()
-        {
-            return Handle.R;
-        }
-
-        public byte GetG()
-        {
-            return Handle.G;
-        }
-
-        public byte GetB()
-        {
-            return Handle.B;
-        }
-
-        public byte GetA()
-        {
-            return Handle.A;
-        }
-
-        public bool IsTransparent()
-        {
-            return (Handle == Color.Transparent);
-        }
-    }*/
-
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /*public sealed class PenHandler: TypeHandler<Pen>, IPen
+    public sealed class PenHandler: TypeHandler<Pen>, IPen
     {
         public IColor Color
         {
-            get { return new ColorHandler(Handle.Color); }
+            get { return null; /*new ColorHandler(Handle.Color)*/; }
         }
 
         public float Width
         {
-            get { return Handle.Width; }
+            get { return (float)Handle.Thickness; }
         }
 
         public PenHandler(Pen handle) : base(handle)
@@ -841,35 +790,11 @@ namespace AquaMate.UI
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                Handle.Dispose();
+                //Handle.Dispose();
             }
             base.Dispose(disposing);
         }
-    }*/
-
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /*public sealed class BrushHandler: TypeHandler<Brush>, IBrush
-    {
-        public IColor Color
-        {
-            get { return new ColorHandler(((SolidBrush)Handle).Color); }
-        }
-
-        public BrushHandler(Brush handle) : base(handle)
-        {
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing) {
-                Handle.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-    }*/
+    }
 
 
     /// <summary>
@@ -909,26 +834,26 @@ namespace AquaMate.UI
     /// <summary>
     /// 
     /// </summary>
-    /*public sealed class ImageHandler: TypeHandler<Image>, IImage
+    public sealed class ImageHandler: TypeHandler<BitmapImage>, IImage
     {
         public int Height
         {
-            get { return Handle.Height; }
+            get { return Handle.PixelHeight; }
         }
 
         public int Width
         {
-            get { return Handle.Width; }
+            get { return Handle.PixelWidth; }
         }
 
-        public ImageHandler(Image handle) : base(handle)
+        public ImageHandler(BitmapImage handle) : base(handle)
         {
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                Handle.Dispose();
+                //Handle.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -936,13 +861,14 @@ namespace AquaMate.UI
         public byte[] GetBytes()
         {
             //Handle.get
-            using (var stream = new MemoryStream())
+            /*using (var stream = new MemoryStream())
             {
                 Handle.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
                 return stream.ToArray();
-            }
+            }*/
+            return null;
         }
-    }*/
+    }
 
 
     /// <summary>

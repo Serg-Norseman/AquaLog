@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using AquaMate.UI.Components;
 using BSLib;
+using Microsoft.Win32;
 
 namespace AquaMate.UI
 {
@@ -41,6 +42,19 @@ namespace AquaMate.UI
             }*/
         }
 
+        public static void AddRange(this ItemCollection collection, MenuItem[] range)
+        {
+            foreach (MenuItem item in range) {
+                collection.Add(item);
+            }
+        }
+
+        public static void SetGridCell(this UIElement element, int col, int row)
+        {
+            Grid.SetColumn(element, col);
+            Grid.SetRow(element, row);
+        }
+
         #endregion
 
         public static string[] Convert(string text)
@@ -54,7 +68,6 @@ namespace AquaMate.UI
         public static ZListView CreateListView(string name)
         {
             var listView = new ZListView();
-            //listView.Dock = DockStyle.Fill;
             listView.Name = name;
             //listView.HideSelection = false;
             //listView.LabelEdit = false;
@@ -104,9 +117,11 @@ namespace AquaMate.UI
             comboBox.Height = 28; // 30
             //comboBox.BackColor = SystemColors.Control;
             //comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-            //comboBox.Items.AddRange(choices);
+            foreach (string ch in choices) {
+                comboBox.Items.Add(ch);
+            }
             comboBox.SelectedIndex = 0;
-            //comboBox.SelectedIndexChanged += handler;
+            comboBox.SelectionChanged += new SelectionChangedEventHandler(handler);
             panel.Children.Add(comboBox);
             return comboBox;
         }
@@ -159,28 +174,27 @@ namespace AquaMate.UI
         public static string GetOpenFile(string title, string context, string filter,
             int filterIndex, string defaultExt, bool multiSelect = false)
         {
-            /*using (OpenFileDialog ofd = new OpenFileDialog()) {
-                if (!string.IsNullOrEmpty(title))
-                    ofd.Title = title;
+            OpenFileDialog ofd = new OpenFileDialog();
 
-                if (!string.IsNullOrEmpty(context))
-                    ofd.InitialDirectory = context;
+            if (!string.IsNullOrEmpty(title))
+                ofd.Title = title;
 
-                if (!string.IsNullOrEmpty(filter)) {
-                    ofd.Filter = filter;
+            if (!string.IsNullOrEmpty(context))
+                ofd.InitialDirectory = context;
 
-                    if (filterIndex > 0)
-                        ofd.FilterIndex = filterIndex;
-                }
+            if (!string.IsNullOrEmpty(filter)) {
+                ofd.Filter = filter;
 
-                if (!string.IsNullOrEmpty(defaultExt))
-                    ofd.DefaultExt = defaultExt;
+                if (filterIndex > 0)
+                    ofd.FilterIndex = filterIndex;
+            }
 
-                ofd.Multiselect = multiSelect;
+            if (!string.IsNullOrEmpty(defaultExt))
+                ofd.DefaultExt = defaultExt;
 
-                return (ofd.ShowDialog() == DialogResult.OK) ? ofd.FileName : string.Empty;
-            }*/
-            return string.Empty;
+            ofd.Multiselect = multiSelect;
+
+            return (bool)ofd.ShowDialog() ? ofd.FileName : string.Empty;
         }
 
         public static string GetSaveFile(string filter)
@@ -191,31 +205,30 @@ namespace AquaMate.UI
         public static string GetSaveFile(string title, string context, string filter,
             int filterIndex, string defaultExt, string suggestedFileName, bool overwritePrompt = true)
         {
-            /*using (SaveFileDialog sfd = new SaveFileDialog()) {
-                if (!string.IsNullOrEmpty(title))
-                    sfd.Title = title;
+            SaveFileDialog sfd = new SaveFileDialog();
 
-                if (!string.IsNullOrEmpty(context))
-                    sfd.InitialDirectory = context;
+            if (!string.IsNullOrEmpty(title))
+                sfd.Title = title;
 
-                if (!string.IsNullOrEmpty(filter)) {
-                    sfd.Filter = filter;
+            if (!string.IsNullOrEmpty(context))
+                sfd.InitialDirectory = context;
 
-                    if (filterIndex > 0)
-                        sfd.FilterIndex = filterIndex;
-                }
+            if (!string.IsNullOrEmpty(filter)) {
+                sfd.Filter = filter;
 
-                if (!string.IsNullOrEmpty(defaultExt))
-                    sfd.DefaultExt = defaultExt;
+                if (filterIndex > 0)
+                    sfd.FilterIndex = filterIndex;
+            }
 
-                if (!string.IsNullOrEmpty(suggestedFileName))
-                    sfd.FileName = suggestedFileName;
+            if (!string.IsNullOrEmpty(defaultExt))
+                sfd.DefaultExt = defaultExt;
 
-                sfd.OverwritePrompt = overwritePrompt;
+            if (!string.IsNullOrEmpty(suggestedFileName))
+                sfd.FileName = suggestedFileName;
 
-                return (sfd.ShowDialog() == DialogResult.OK) ? sfd.FileName : string.Empty;
-            }*/
-            return string.Empty;
+            sfd.OverwritePrompt = overwritePrompt;
+
+            return (bool)sfd.ShowDialog() ? sfd.FileName : string.Empty;
         }
 
         #endregion

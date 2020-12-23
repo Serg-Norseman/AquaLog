@@ -6,7 +6,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
@@ -24,10 +26,23 @@ namespace AquaMate.UI.Panels
 
         public DevicePanel()
         {
+            ListView.SetGridCell(0, 0);
+
             fFooter = new Label();
+            fFooter.BorderThickness = new Thickness(1);
+            fFooter.BorderBrush = new SolidColorBrush(Colors.Black);
+            fFooter.Margin = new Thickness(0, 10, 0, 0);
+            fFooter.SetGridCell(0, 1);
 
             Content = null;
-            var stackPanel = new StackPanel() {
+            var stackPanel = new Grid() {
+                ColumnDefinitions = {
+                    new ColumnDefinition()
+                },
+                RowDefinitions = {
+                    new RowDefinition(),
+                    new RowDefinition() { Height = GridLength.Auto }
+                },
                 Children = {
                     ListView,
                     fFooter
