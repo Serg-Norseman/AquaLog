@@ -1,18 +1,18 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.Core.Types;
-using BSLib.Design.Graphics;
+using BSLib;
 
 namespace AquaMate.UI.Panels
 {
@@ -33,8 +33,6 @@ namespace AquaMate.UI.Panels
         private Aquarium fAquarium;
         private IModel fModel;
         private bool fSelected;
-        //private readonly StringFormat fStrFormat;
-        //private SolidBrush fTextBrush;
         private List<MeasureValue> fValues;
 
         public Aquarium Aquarium
@@ -76,19 +74,8 @@ namespace AquaMate.UI.Panels
             MinHeight = XS * 9;
             MaxHeight = MinHeight;
 
-            /*fStrFormat = new StringFormat();
-            fTextBrush = null;*/
             fValues = new List<MeasureValue>();
         }
-
-        /*protected override void Dispose(bool disposing)
-        {
-            if (disposing) {
-                fStrFormat.Dispose();
-                if (fTextBrush != null) fTextBrush.Dispose();
-            }
-            base.Dispose(disposing);
-        }*/
 
         public SolidColorBrush GetTankState(TankState state)
         {
@@ -111,8 +98,9 @@ namespace AquaMate.UI.Panels
                     break;
             }
 
-            var clr = UIHelper.CreateColor(color);
-            return new SolidColorBrush(clr);
+            var clr = AppHost.GfxProvider.CreateColor(color);
+            Color wpfColor = ((ColorHandler)clr).Handle;
+            return new SolidColorBrush(wpfColor);
         }
 
         public void UpdateView()
@@ -139,18 +127,15 @@ namespace AquaMate.UI.Panels
             var layoutRect = clientRect;
             layoutRect.Inflate(-4, -4);
 
-            FormattedText formattedText = new FormattedText(
-                fAquarium.Name, CultureInfo.CurrentCulture, FlowDirection.LeftToRight,
-                new Typeface("Verdana"), FontSize, Brushes.Black);
-            formattedText.SetFontWeight(FontWeights.Bold);
-            drawingContext.DrawText(formattedText, layoutRect.TopLeft);
+            FormattedText fmtText = UIHelper.GetFmtText("AW", FontSize, Colors.Black, FontWeights.Bold);
 
-            /*double normalWaterVolume = fAquarium.CalcWaterVolume();
+            DrawText(drawingContext, fAquarium.Name, FontSize, Colors.Black, FontWeights.Bold, layoutRect.TopLeft);
+
+            double normalWaterVolume = fAquarium.CalcWaterVolume();
             double waterVolume = fModel.GetWaterVolume(fAquarium.Id);
             string volumes = ALCore.GetDecimalStr(waterVolume) + " / " + ALCore.GetDecimalStr(normalWaterVolume) + " / " + ALCore.GetDecimalStr(fAquarium.TankVolume);
-            fStrFormat.Alignment = StringAlignment.Far;
-            Color wvColor = (DoubleHelper.Equals(normalWaterVolume, waterVolume, 0.5)) ? Color.Green : Color.Orange;
-            DrawText(gfx, volumes, font, wvColor, layoutRect);
+            Color wvColor = (DoubleHelper.Equals(normalWaterVolume, waterVolume, 0.5)) ? Colors.Green : Colors.Orange;
+            DrawText(drawingContext, volumes, FontSize, wvColor, FontWeights.Normal, layoutRect.TopRight, TextAlignment.Right);
 
             string works;
             if (fAquarium.IsInactive()) {
@@ -163,14 +148,17 @@ namespace AquaMate.UI.Panels
                 works = string.Format(Localizer.LS(LSID.AquaWorks), fAquarium.StartDate.ToString("dd/MM/yyyy"), days);
             }
 
-            int x = layoutRect.Left;
-            int y = layoutRect.Top + (int)(Font.Height * 1.6f);
-            DrawText(gfx, works, Font, ForeColor, x, y);
+            var lineOffset = fmtText.Height * 1.6f;
+            var x = layoutRect.Left;
+            var y = layoutRect.Top;
+
+            var pt = new Point(x, y += lineOffset);
+            DrawText(drawingContext, works, FontSize, Colors.Black, FontWeights.Normal, pt);
 
             double avgChangeDays = fModel.GetAverageWaterChangeInterval(fAquarium.Id);
             string avgChange = "avg=" + ALCore.GetDecimalStr(avgChangeDays, 1) + "d";
 
-            Color wsColor = ForeColor;
+            Color wsColor = Colors.Black;
             string lastChange = "";
             string waterStatus = "";
             if (!fAquarium.IsInactive()) {
@@ -179,61 +167,53 @@ namespace AquaMate.UI.Panels
 
                 if (lastChangeDays <= avgChangeDays) {
                     waterStatus = " [normal]";
-                    wsColor = Color.Green;
+                    wsColor = Colors.Green;
                 } else if (lastChangeDays >= avgChangeDays * 2) {
                     waterStatus = " [alarm]";
-                    wsColor = Color.Red;
+                    wsColor = Colors.Red;
                 } else if (avgChangeDays + 1 < lastChangeDays) {
                     waterStatus = " [exceeded]";
-                    wsColor = Color.Orange;
+                    wsColor = Colors.Orange;
                 }
             }
 
             string waterChanges = avgChange + lastChange + waterStatus;
-            y = y + (int)(Font.Height * 1.6f);
-            DrawText(gfx, Localizer.LS(LSID.WaterChanges) + ": " + waterChanges, Font, wsColor, x, y);
+            pt = new Point(x, y += lineOffset);
+            DrawText(drawingContext, Localizer.LS(LSID.WaterChanges) + ": " + waterChanges, FontSize, wsColor, FontWeights.Normal, pt);
 
             int inhabCount = fModel.QueryInhabitantsCount(fAquarium.Id);
-            y = y + (int)(Font.Height * 1.6f);
-            DrawText(gfx, Localizer.LS(LSID.Inhabitants) + ": " + inhabCount.ToString(), Font, ForeColor, x, y);
+            pt = new Point(x, y += lineOffset);
+            DrawText(drawingContext, Localizer.LS(LSID.Inhabitants) + ": " + inhabCount.ToString(), FontSize, Colors.Black, FontWeights.Normal, pt);
 
-            int xoffset = layoutRect.Width / 4;
+            int xoffset = (int)(layoutRect.Width / 4);
             int col = 0;
             for (int i = 0; i < 13; i++) {
                 if (i % 4 == 0) {
-                    y = y + (int)(Font.Height * 1.6f);
+                    y += lineOffset;
                     col = 0;
                 }
 
-                DrawMeasure(gfx, i, font, x + (xoffset * col), y);
+                DrawMeasure(drawingContext, i, FontSize, x + (xoffset * col), y);
                 col += 1;
-            }*/
+            }
         }
 
-        /*private void DrawMeasure(Graphics gfx, int index, Font font, int x, int y)
+        private void DrawMeasure(DrawingContext context, int index, double fontSize, double x, double y)
         {
             MeasureValue tVal = fValues[index];
             if (!string.IsNullOrEmpty(tVal.Text) && !double.IsNaN(tVal.Value)) {
-                DrawText(gfx, tVal.Text, font, tVal.Color, x, y);
+                var wfColor = tVal.Color;
+                var wpfColor = Color.FromArgb(wfColor.A, wfColor.R, wfColor.G, wfColor.B);
+
+                DrawText(context, tVal.Text, fontSize, wpfColor, FontWeights.Normal, new Point(x, y));
             }
         }
 
-        private void DrawText(Graphics gfx, string text, Font font, Color color, int x, int y)
+        private static void DrawText(DrawingContext context, string text, double fontSize, Color color, FontWeight fontWeight,
+            Point origin, TextAlignment textAlignment = TextAlignment.Left)
         {
-            if (fTextBrush == null) {
-                fTextBrush = new SolidBrush(color);
-            }
-            fTextBrush.Color = color;
-            gfx.DrawString(text, font, fTextBrush, x, y);
+            FormattedText fmtText = UIHelper.GetFmtText(text, fontSize, color, fontWeight, textAlignment);
+            context.DrawText(fmtText, origin);
         }
-
-        private void DrawText(Graphics gfx, string text, Font font, Color color, Rectangle layoutRect)
-        {
-            if (fTextBrush == null) {
-                fTextBrush = new SolidBrush(color);
-            }
-            fTextBrush.Color = color;
-            gfx.DrawString(text, font, fTextBrush, layoutRect, fStrFormat);
-        }*/
     }
 }

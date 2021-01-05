@@ -1,10 +1,14 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
 using System.IO;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using BSLib;
 using BSLib.Design.Graphics;
 
@@ -21,29 +25,35 @@ namespace AquaMate.UI
 
         public IImage LoadImage(string fileName)
         {
-            /*if (fileName == null)
+            if (string.IsNullOrEmpty(fileName))
                 throw new ArgumentNullException("fileName");
 
-            using (Bitmap bmp = new Bitmap(fileName))
-            {
-                // cloning is necessary to release the resource
-                // loaded from the image stream
-                Bitmap resImage = (Bitmap)bmp.Clone();
+            if (File.Exists(fileName)) {
+                using (FileStream stream = File.Open(fileName, FileMode.Open)) {
+                    BinaryReader br = new BinaryReader(stream);
+                    byte[] data = br.ReadBytes((int)stream.Length);
+                    return UIHelper.ByteToImage(data);
+                }
+            }
 
-                return new ImageHandler(resImage);
-            }*/
             return null;
         }
 
         public void SaveImage(IImage image, string fileName)
         {
-            /*if (image == null)
+            if (image == null)
                 throw new ArgumentNullException("image");
 
-            if (fileName == null)
+            if (string.IsNullOrEmpty(fileName))
                 throw new ArgumentNullException("fileName");
 
-            ((ImageHandler)image).Handle.Save(fileName, ImageFormat.Bmp);*/
+            var wpfImage = ((ImageHandler)image).Handle;
+
+            BitmapEncoder encoder = new BmpBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(wpfImage));
+            using (var stm = new FileStream(fileName, FileMode.CreateNew)) {
+                encoder.Save(stm);
+            }
         }
 
         public IImage CreateImage(Stream stream)
@@ -129,15 +139,13 @@ namespace AquaMate.UI
 
         public IFont CreateFont(string fontName, float size, bool bold)
         {
-            /*FontStyle style = (!bold) ? FontStyle.Regular : FontStyle.Bold;
-            var sdFont = new Font(fontName, size, style, GraphicsUnit.Point);
-            return new FontHandler(sdFont);*/
-            return null;
+            var weight = (!bold) ? FontWeights.Normal : FontWeights.Bold;
+            var imitFont = new WPFFont(fontName, size, weight);
+            return new FontHandler(imitFont);
         }
 
         public IColor CreateColor(int argb)
         {
-            /*
             // Dirty hack!
             //argb = (int)unchecked((long)argb & (long)((ulong)-1));
             //argb = (int)unchecked((ulong)argb & (uint)0xFF000000);
@@ -145,43 +153,42 @@ namespace AquaMate.UI
             int green = (argb >> 8) & 0xFF;
             int blue = (argb >> 0) & 0xFF;
 
-            Color color = Color.FromArgb(red, green, blue);
-            return new ColorHandler(color);*/
-            return null;
+            Color color = Color.FromRgb((byte)red, (byte)green, (byte)blue);
+            return new ColorHandler(color);
         }
 
         public IColor CreateColor(int r, int g, int b)
         {
-            /*Color color = Color.FromArgb(r, g, b);
-            return new ColorHandler(color);*/
-            return null;
+            Color color = Color.FromRgb((byte)r, (byte)g, (byte)b);
+            return new ColorHandler(color);
         }
 
         public IColor CreateColor(int a, int r, int g, int b)
         {
-            /*Color color = Color.FromArgb(a, r, g, b);
-            return new ColorHandler(color);*/
-            return null;
+            Color color = Color.FromArgb((byte)a, (byte)r, (byte)g, (byte)b);
+            return new ColorHandler(color);
         }
 
         public IBrush CreateSolidBrush(IColor color)
         {
-            /*Color sdColor = ((ColorHandler)color).Handle;
-
-            return new BrushHandler(new SolidBrush(sdColor));*/
-            return null;
+            Color sdColor = ((ColorHandler)color).Handle;
+            return new BrushHandler(new SolidColorBrush(sdColor));
         }
 
         public IPen CreatePen(IColor color, float width)
         {
-            /*Color sdColor = ((ColorHandler)color).Handle;
-
-            return new PenHandler(new Pen(sdColor, width));*/
-            return null;
+            Color sdColor = ((ColorHandler)color).Handle;
+            return new PenHandler(new Pen(new SolidColorBrush(sdColor), width));
         }
 
         public ExtSizeF GetTextSize(string text, IFont font, object target)
         {
+            if (string.IsNullOrEmpty(text))
+                throw new ArgumentNullException("text");
+
+            if (font == null)
+                throw new ArgumentNullException("font");
+
             /*Graphics gfx = target as Graphics;
             if (gfx != null && font != null) {
                 Font sdFnt = ((FontHandler)font).Handle;

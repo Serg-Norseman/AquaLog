@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -79,10 +79,10 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            //var boldFont = new FontHandler(new Font(ListView.Font, FontStyle.Bold));
+            var boldFont = new FontHandler(new WPFFont(ListView.FontFamily.Source, ListView.FontSize, FontWeights.Bold));
             var lv = GetControlHandler<IListView>(ListView);
             var records = fModel.QueryTransferExpenses();
-            ModelPresenter.FillBudgetLV(lv, fModel, records, null/*boldFont*/);
+            ModelPresenter.FillBudgetLV(lv, fModel, records, boldFont);
 
             fTotalFooter = CalcFooter(records);
 

@@ -1,10 +1,11 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
 using System.Collections.Generic;
+using System.Windows;
 using AquaMate.Core;
 using AquaMate.Core.Model;
 using AquaMate.UI.Dialogs;
@@ -38,11 +39,9 @@ namespace AquaMate.UI.Panels
 
         protected override void UpdateListView()
         {
-            //Font defFont = ListView.Font;
-            //var boldFont = new FontHandler(new Font(defFont, FontStyle.Bold));
-
+            var boldFont = new FontHandler(new WPFFont(ListView.FontFamily.Source, ListView.FontSize, FontWeights.Bold));
             var lv = GetControlHandler<IListView>(ListView);
-            ModelPresenter.FillTransfersLV(lv, fModel, /*boldFont*/null);
+            ModelPresenter.FillTransfersLV(lv, fModel, boldFont);
         }
     }
 }

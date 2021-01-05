@@ -1,10 +1,14 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
-using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using AquaMate.Core.Model.Tanks;
+using AquaMate.UI.Components;
 
 namespace AquaMate.UI.Panels
 {
@@ -13,37 +17,52 @@ namespace AquaMate.UI.Panels
     /// </summary>
     public sealed class M3DViewerPanel : DataPanel
     {
-        //private readonly OGLViewer fViewer;
+        private readonly Label fFooter;
+        private readonly M3DViewerControl fViewer;
 
         public M3DViewerPanel()
         {
-            /*var infoPanel = new StatusBarPanel();
-            infoPanel.AutoSize = StatusBarPanelAutoSize.Contents;
-            infoPanel.Text = "Free-rotate (R); Water visible (W); Aeration (A)";
+            fViewer = new M3DViewerControl();
+            fViewer.SetGridCell(0, 0);
 
-            var statusBar = new StatusBar();
-            statusBar.Panels.AddRange(new StatusBarPanel[] { infoPanel });
-            statusBar.ShowPanels = true;
+            fFooter = new Label();
+            fFooter.BorderThickness = new Thickness(1);
+            fFooter.BorderBrush = new SolidColorBrush(Colors.Black);
+            fFooter.Margin = new Thickness(0, 10, 0, 0);
+            fFooter.SetGridCell(0, 1);
+            fFooter.Content = "Free-rotate (R); Water visible (W); Aeration (A)";
 
-            fViewer = new OGLViewer();
-            fViewer.Dock = DockStyle.Fill;
-            fViewer.VisibleChanged += Panel_VisibleChanged;
+            Content = null;
+            var stackPanel = new Grid() {
+                ColumnDefinitions = {
+                    new ColumnDefinition()
+                },
+                RowDefinitions = {
+                    new RowDefinition(),
+                    new RowDefinition() { Height = GridLength.Auto }
+                },
+                Children = {
+                    fViewer,
+                    fFooter
+                }
+            };
+            Content = stackPanel;
 
-            Controls.AddRange(new Control[] { fViewer, statusBar });*/
+            IsVisibleChanged += Panel_VisibleChanged;
         }
 
         public override void SetExtData(object extData)
         {
-            //fViewer.Tank = (BaseTank)extData;
+            fViewer.Tank = (BaseTank)extData;
         }
 
-        private void Panel_VisibleChanged(object sender, EventArgs e)
+        private void Panel_VisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            /*if (Visible) {
+            if (IsVisible) {
                 fViewer.StartTimer();
             } else {
                 fViewer.StopTimer();
-            }*/
+            }
         }
     }
 }

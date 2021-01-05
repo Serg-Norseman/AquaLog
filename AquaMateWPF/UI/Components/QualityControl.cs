@@ -1,11 +1,10 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -79,8 +78,7 @@ namespace AquaMate.UI.Components
 
             UpdateContent();
 
-            FormattedText fmtText = new FormattedText(fTitle, CultureInfo.CurrentCulture, FlowDirection.LeftToRight,
-                new Typeface(this.FontFamily.Source), FontSize, Brushes.Black);
+            FormattedText fmtText = GetFmtText(fTitle, FontSize, Colors.Black);
             fmtText.SetFontWeight(FontWeights.Bold);
             drawingContext.DrawText(fmtText, new Point(0, 0));
 
@@ -90,11 +88,11 @@ namespace AquaMate.UI.Components
             int count = fList.Count;
             if (count > 0) {
                 string line = string.Format(ValuesFormat, fValue);
-                fmtText = GetFmtText(line, scaleSize, Brushes.Black);
+                fmtText = GetFmtText(line, scaleSize, Colors.Black);
                 DrawText(drawingContext, fmtText, fValuePos, (lineHeight + Gap) * 1, -1);
 
                 line = "▼";
-                fmtText = GetFmtText(line, scaleSize, Brushes.Black);
+                fmtText = GetFmtText(line, scaleSize, Colors.Black);
                 DrawText(drawingContext, fmtText, fValuePos, (lineHeight + Gap) * 2, -1);
 
                 int markersY = (int)((lineHeight + Gap) * 3 + (lineHeight / 2 + Gap));
@@ -106,22 +104,22 @@ namespace AquaMate.UI.Components
                         double val = item.Range.Min;
                         line = string.Format(ValuesFormat, val);
                         float x = LayoutPadding + (int)(fScaleWidth * (val / fRangesLength));
-                        DrawText(drawingContext, GetFmtText(line, scaleSize, Brushes.Black), x, markersY, 2);
+                        DrawText(drawingContext, GetFmtText(line, scaleSize, Colors.Black), x, markersY, 2);
                     } else if (i == count - 1) {
                         double val = item.Range.Min;
                         line = string.Format(ValuesFormat, val);
                         float x = LayoutPadding + (int)(fScaleWidth * (val / fRangesLength));
-                        DrawText(drawingContext, GetFmtText(line, scaleSize, Brushes.Black), x, markersY, -1);
+                        DrawText(drawingContext, GetFmtText(line, scaleSize, Colors.Black), x, markersY, -1);
 
                         val = item.Range.Max;
                         line = string.Format(ValuesFormat, val);
                         x = LayoutPadding + (int)(fScaleWidth * (val / fRangesLength));
-                        DrawText(drawingContext, GetFmtText(line, scaleSize, Brushes.Black), x, markersY, 3);
+                        DrawText(drawingContext, GetFmtText(line, scaleSize, Colors.Black), x, markersY, 3);
                     } else {
                         double val = item.Range.Min;
                         line = string.Format(ValuesFormat, val);
                         float x = LayoutPadding + (int)(fScaleWidth * (val / fRangesLength));
-                        DrawText(drawingContext, GetFmtText(line, scaleSize, Brushes.Black), x, markersY, -1);
+                        DrawText(drawingContext, GetFmtText(line, scaleSize, Colors.Black), x, markersY, -1);
                     }
                 }
             } else {
@@ -136,10 +134,9 @@ namespace AquaMate.UI.Components
             }
         }
 
-        private FormattedText GetFmtText(string text, double size, Brush brush)
+        private FormattedText GetFmtText(string text, double size, Color color)
         {
-            return new FormattedText(text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight,
-                new Typeface(this.FontFamily.Source), size, brush);
+            return UIHelper.GetFmtText(text, this.FontFamily.Source, size, color, FontWeights.Normal);
         }
 
         private void DrawText(DrawingContext context, FormattedText fmtText, double x, double y, int quad = 2)
@@ -166,17 +163,24 @@ namespace AquaMate.UI.Components
             context.DrawText(fmtText, new Point(x, y));
         }
 
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
+        {
+            base.OnRenderSizeChanged(sizeInfo);
+            UpdateContent();
+        }
+
         private void UpdateContent()
         {
             fList.Clear();
             if (fRanges == null) return;
 
-            FormattedText fmtText = new FormattedText(fTitle, CultureInfo.CurrentCulture, FlowDirection.LeftToRight,
-                new Typeface(this.FontFamily.Source), FontSize, Foreground);
+            var fmtText = GetFmtText(fTitle, FontSize, Colors.Black);
 
             int lineHeight = (int)fmtText.Height;
             int scaleHeight = lineHeight / 2;
-            //ClientSize = new Size(ClientSize.Width, (lineHeight * 4) + scaleHeight + (Gap * 6));
+            double mbHeight = (lineHeight * 5) + scaleHeight + (Gap * 6);
+            MinHeight = mbHeight;
+            MaxHeight = mbHeight;
 
             int count = fRanges.Length;
             fScaleWidth = ActualWidth - (LayoutPadding * 2) - (count - 1);

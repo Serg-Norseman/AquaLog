@@ -1,17 +1,21 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using AquaMate.Core;
 using AquaMate.UI.Components;
 using BSLib;
+using BSLib.Design.Graphics;
 using Microsoft.Win32;
 
 namespace AquaMate.UI
@@ -64,6 +68,20 @@ namespace AquaMate.UI
         }
 
         #region Helpers to create controls
+
+        public static FormattedText GetFmtText(string text, double size, Color color, FontWeight fontWeight, TextAlignment textAlignment = TextAlignment.Left)
+        {
+            return GetFmtText(text, "Verdana", size, color, fontWeight, textAlignment);
+        }
+
+        public static FormattedText GetFmtText(string text, string typeface, double size, Color color, FontWeight fontWeight, TextAlignment textAlignment = TextAlignment.Left)
+        {
+            var brush = new SolidColorBrush(color);
+            var result = new FormattedText(text, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, new Typeface(typeface), size, brush);
+            result.TextAlignment = textAlignment;
+            result.SetFontWeight(fontWeight);
+            return result;
+        }
 
         public static ZListView CreateListView(string name)
         {
@@ -132,13 +150,12 @@ namespace AquaMate.UI
 
         public static bool ShowQuestionYN(string msg)
         {
-            return false;
-            //return MessageBox.Show(msg, ALCore.AppName, MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes;
+            return MessageBox.Show(msg, ALCore.AppName, MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes;
         }
 
         public static void ShowWarning(string msg)
         {
-            //MessageBox.Show(msg, ALCore.AppName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(msg, ALCore.AppName, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
 
         #endregion
@@ -162,10 +179,50 @@ namespace AquaMate.UI
             return LoadResourceStream(typeof(UIHelper), resName);
         }
 
-        /*public static Bitmap LoadResourceImage(string resName)
+        public static BitmapImage LoadResourceImage(string resName)
         {
-            return new Bitmap(LoadResourceStream(resName));
-        }*/
+            Stream stream = LoadResourceStream(resName);
+
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.StreamSource = stream;
+            image.EndInit();
+
+            return image;
+        }
+
+        #endregion
+
+        #region Images
+
+        public static byte[] ImageToByte(IImage image)
+        {
+            var wfImage = ((ImageHandler)image).Handle;
+
+            byte[] data;
+            JpegBitmapEncoder encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(wfImage));
+            using (MemoryStream ms = new MemoryStream()) {
+                encoder.Save(ms);
+                data = ms.ToArray();
+            }
+
+            return data;
+        }
+
+        public static IImage ByteToImage(byte[] imageBytes)
+        {
+            using (var ms = new MemoryStream(imageBytes)) {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.StreamSource = ms;
+                image.EndInit();
+
+                return new ImageHandler(image);
+            }
+        }
 
         #endregion
 
@@ -229,18 +286,6 @@ namespace AquaMate.UI
             sfd.OverwritePrompt = overwritePrompt;
 
             return (bool)sfd.ShowDialog() ? sfd.FileName : string.Empty;
-        }
-
-        #endregion
-
-        #region Graphics
-
-        public static Color CreateColor(int rgb)
-        {
-            int red = (rgb >> 16) & 0xFF;
-            int green = (rgb >> 8) & 0xFF;
-            int blue = (rgb >> 0) & 0xFF;
-            return Color.FromRgb((byte)red, (byte)green, (byte)blue);
         }
 
         #endregion

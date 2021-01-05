@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -41,9 +41,8 @@ namespace AquaMate.UI
 
         public string GetName()
         {
-            //Color color = this.Handle;
-            //return color.Name;
-            return string.Empty;
+            Color color = this.Handle;
+            return color.ToString();
         }
 
         public int ToArgb()
@@ -315,129 +314,6 @@ namespace AquaMate.UI
     }
 
 
-    /*public sealed class ToolStripComboBoxHandler : ControlHandler<ToolStripComboBox, ToolStripComboBoxHandler>, IComboBox
-    {
-        public ToolStripComboBoxHandler(ToolStripComboBox control) : base(control)
-        {
-        }
-
-        public bool Enabled
-        {
-            get { return Control.Enabled; }
-            set { Control.Enabled = value; }
-        }
-
-        public IList Items
-        {
-            get { return Control.Items; }
-        }
-
-        public bool ReadOnly
-        {
-            get { return (Control.DropDownStyle == ComboBoxStyle.DropDownList); }
-            set { Control.DropDownStyle = (value) ? ComboBoxStyle.DropDownList : ComboBoxStyle.DropDown; }
-        }
-
-        public int SelectedIndex
-        {
-            get { return Control.SelectedIndex; }
-            set { Control.SelectedIndex = value; }
-        }
-
-        public object SelectedItem
-        {
-            get { return Control.SelectedItem; }
-            set { Control.SelectedItem = value; }
-        }
-
-        public string Text
-        {
-            get { return Control.Text; }
-            set { Control.Text = value; }
-        }
-
-        public void Add(object item)
-        {
-            Control.Items.Add(item);
-        }
-
-        public void AddItem<T>(string caption, T tag)
-        {
-            Control.Items.Add(new ListItem<T>(caption, tag));
-        }
-
-        public void AddItem<T>(string caption, T tag, IImage image)
-        {
-            Control.Items.Add(new ListItem<T>(caption, tag, image));
-        }
-
-        public void AddRange(IEnumerable<object> items, bool sorted = false)
-        {
-            Control.Items.Clear();
-            Control.Sorted = false;
-            foreach (object item in items) {
-                Control.Items.Add(item);
-            }
-            Control.Sorted = sorted;
-        }
-
-        public void AddStrings(StringList strings)
-        {
-            int num = strings.Count;
-            for (int i = 0; i < num; i++) {
-                Control.Items.Add(strings[i]);
-            }
-        }
-
-        public void BeginUpdate()
-        {
-            Control.BeginUpdate();
-        }
-
-        public void Clear()
-        {
-            Control.Items.Clear();
-        }
-
-        public void EndUpdate()
-        {
-            Control.EndUpdate();
-        }
-
-        public void Activate()
-        {
-            Control.Select();
-        }
-
-        public void Sort()
-        {
-        }
-
-        public T GetSelectedTag<T>()
-        {
-            object selectedItem = Control.SelectedItem;
-            ListItem<T> comboItem = (ListItem<T>)selectedItem;
-            T itemTag = (T)comboItem.Tag;
-            return itemTag;
-        }
-
-        public void SetSelectedTag<T>(T tagValue)
-        {
-            var ctl = Control;
-            foreach (object item in ctl.Items) {
-                ListItem<T> comboItem = (ListItem<T>)item;
-                T itemTag = (T)comboItem.Tag;
-
-                if (tagValue.Equals(itemTag)) {
-                    ctl.SelectedItem = item;
-                    return;
-                }
-            }
-            ctl.SelectedIndex = 0;
-        }
-    }*/
-
-
     public sealed class PropertyGridHandler : BaseControlHandler<PropertyGrid, PropertyGridHandler>, IPropertyGrid
     {
         public PropertyGridHandler(PropertyGrid control) : base(control)
@@ -679,7 +555,7 @@ namespace AquaMate.UI
     }*/
 
 
-    /*public sealed class ProgressBarHandler : BaseControlHandler<ProgressBar, ProgressBarHandler>, IProgressBar
+    public sealed class ProgressBarHandler : BaseControlHandler<ProgressBar, ProgressBarHandler>, IProgressBar
     {
         public ProgressBarHandler(ProgressBar control) : base(control)
         {
@@ -687,27 +563,27 @@ namespace AquaMate.UI
 
         public int Minimum
         {
-            get { return Control.Minimum; }
+            get { return (int)Control.Minimum; }
             set { Control.Minimum = value; }
         }
 
         public int Maximum
         {
-            get { return Control.Maximum; }
+            get { return (int)Control.Maximum; }
             set { Control.Maximum = value; }
         }
 
         public int Value
         {
-            get { return Control.Value; }
+            get { return (int)Control.Value; }
             set { Control.Value = value; }
         }
 
         public void Increment(int value)
         {
-            Control.Increment(value);
+            Control.Value += value;
         }
-    }*/
+    }
 
 
     public sealed class TabControlHandler : BaseControlHandler<TabControl, TabControlHandler>, ITabControl
@@ -797,38 +673,54 @@ namespace AquaMate.UI
     }
 
 
+    public sealed class WPFFont
+    {
+        public string FontFamily { get; set; }
+
+        public double Size { get; set; }
+
+        public FontWeight FontWeight { get; set; }
+
+        public WPFFont(string fontFamily, double size, FontWeight fontWeight)
+        {
+            FontFamily = fontFamily;
+            Size = size;
+            FontWeight = fontWeight;
+        }
+    }
+
+
     /// <summary>
     /// 
     /// </summary>
-    /*public sealed class FontHandler: TypeHandler<Font>, IFont
+    public sealed class FontHandler: TypeHandler<WPFFont>, IFont
     {
         public string FontFamilyName
         {
-            get { return Handle.FontFamily.Name; }
+            get { return Handle.FontFamily; }
         }
 
         public string Name
         {
-            get { return Handle.Name; }
+            get { return Handle.FontFamily; }
         }
 
         public float Size
         {
-            get { return Handle.Size; }
+            get { return (float)Handle.Size; }
         }
 
-        public FontHandler(Font handle) : base(handle)
+        public FontHandler(WPFFont handle) : base(handle)
         {
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing) {
-                Handle.Dispose();
             }
             base.Dispose(disposing);
         }
-    }*/
+    }
 
 
     /// <summary>
@@ -869,46 +761,6 @@ namespace AquaMate.UI
             return null;
         }
     }
-
-
-    /// <summary>
-    /// 
-    /// </summary>
-    /*public class GfxPathHandler: TypeHandler<GraphicsPath>, IGfxPath
-    {
-        public GfxPathHandler(GraphicsPath handle) : base(handle)
-        {
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing) {
-                Handle.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        public void AddEllipse(float x, float y, float width, float height)
-        {
-            Handle.AddEllipse(x, y, width, height);
-        }
-
-        public void CloseFigure()
-        {
-            Handle.CloseFigure();
-        }
-
-        public void StartFigure()
-        {
-            Handle.StartFigure();
-        }
-
-        public ExtRectF GetBounds()
-        {
-            RectangleF rect = Handle.GetBounds();
-            return ExtRectF.CreateBounds(rect.Left, rect.Top, rect.Width, rect.Height);
-        }
-    }*/
 
 
     /*public class ZListItem : ListViewItem, IListItem
@@ -1039,38 +891,15 @@ namespace AquaMate.UI
         }
     }*/
 
-    public sealed class ZListViewItems : IListViewItems
-    {
-        private readonly ZListView fListView;
-
-        public IListItem this[int index]
-        {
-            get { return (IListItem)fListView.Items[index]; }
-        }
-
-        public int Count
-        {
-            get { return fListView.Items.Count; }
-        }
-
-        public ZListViewItems(ZListView listView)
-        {
-            fListView = listView;
-        }
-    }
-
     public sealed class ZListViewHandler : BaseControlHandler<ZListView, ZListViewHandler>, IListView
     {
-        private ZListViewItems fItems;
-
         public ZListViewHandler(ZListView control) : base(control)
         {
-            fItems = new ZListViewItems(control);
         }
 
         public IListViewItems Items
         {
-            get { return fItems; }
+            get { return ((IListView)Control).Items; }
         }
 
         public int SortColumn
@@ -1090,8 +919,6 @@ namespace AquaMate.UI
 
         public IListItem AddItem(object rowData, params object[] columnValues)
         {
-            //string[] strValues = Array.ConvertAll<object, string>(columnValues, Convert.ToString);
-            //return Control.AddItemEx<ZListItem>(rowData, strValues) as IListItem;
             return Control.AddItem(rowData, columnValues);
         }
 
@@ -1144,7 +971,7 @@ namespace AquaMate.UI
 
         public void Sort(int sortColumn, BSLib.Design.BSDTypes.SortOrder sortOrder)
         {
-            //Control.Sort(sortColumn, (System.Windows.Forms.SortOrder)sortOrder);
+            Control.Sort(sortColumn, sortOrder);
         }
 
         public void UpdateContents(bool columnsChanged = false)
