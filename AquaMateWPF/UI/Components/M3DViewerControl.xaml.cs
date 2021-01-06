@@ -60,9 +60,6 @@ namespace AquaMate.UI.Components
 
             fSceneRenderer.InitScene();
 
-            //M3DHelper.CreateCylinder(fGroup, new Point3D(1, 0, 0), new Vector3D(-2, 0, 0), 0.1, 20, fTransform);
-            //M3DRenderer.CreateRectTank(fGroup, 92f, 31f, 53f, 0.5f, fTransform);
-
             MouseWheel += Grid_MouseWheel;
             MouseMove += Grid_MouseMove;
             MouseDown += Grid_MouseDown;
@@ -115,7 +112,9 @@ namespace AquaMate.UI.Components
 
             if (fTankRenderer != null) {
                 fSceneRenderer.InitRender();
+                fSceneRenderer.InitMesh();
                 fTankRenderer.Render(fWaterVisible, fAeration);
+                fSceneRenderer.DoneMesh();
                 fSceneRenderer.DoneRender();
             }
         }
