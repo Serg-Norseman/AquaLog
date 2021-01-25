@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -22,8 +22,11 @@ namespace AquaMate.UI
         ITextBox DescriptionField { get; }
         IComboBox ShapeCombo { get; }
         IComboBox WaterTypeCombo { get; }
-        IDateTimeBox StartDateField { get; }
-        IDateTimeBox StopDateField { get; }
+
+        // deprecated
+        //IDateTimeBox StartDateField { get; }
+        //IDateTimeBox StopDateField { get; }
+
         ITextBox TankVolumeField { get; }
         ITextBox UnderfillHeightField { get; }
         ITextBox SoilHeightField { get; }
@@ -62,8 +65,11 @@ namespace AquaMate.UI
             fView.ShapeCombo.SetSelectedTag(fRecord.TankShape);
 
             fView.WaterTypeCombo.SetSelectedTag(fRecord.WaterType);
-            fView.StartDateField.SetCheckedDate(fRecord.StartDate);
-            fView.StopDateField.SetCheckedDate(fRecord.StopDate);
+
+            // deprecated
+            //var workTime = fModel.GetWorkTime(fRecord);
+            //fView.StartDateField.SetCheckedDate(workTime.Start);
+            //fView.StopDateField.SetCheckedDate(workTime.Stop);
 
             fView.TankVolumeField.SetDecimalVal(fRecord.TankVolume);
             fView.UnderfillHeightField.SetDecimalVal(fRecord.UnderfillHeight);
@@ -77,10 +83,11 @@ namespace AquaMate.UI
                 fRecord.Brand = fView.BrandCombo.Text;
                 fRecord.Description = fView.DescriptionField.Text;
                 fRecord.TankShape = fView.ShapeCombo.GetSelectedTag<TankShape>();
-
                 fRecord.WaterType = fView.WaterTypeCombo.GetSelectedTag<AquariumWaterType>();
-                fRecord.StartDate = fView.StartDateField.GetCheckedDate();
-                fRecord.StopDate = fView.StopDateField.GetCheckedDate();
+
+                // deprecated
+                //fRecord.StartDate = fView.StartDateField.GetCheckedDate();
+                //fRecord.StopDate = fView.StopDateField.GetCheckedDate();
 
                 fRecord.TankVolume = fView.TankVolumeField.GetDecimalVal();
                 fRecord.UnderfillHeight = fView.UnderfillHeightField.GetDecimalVal();

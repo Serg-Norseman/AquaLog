@@ -283,6 +283,8 @@ namespace AquaMate.UI.Panels
             List<ChartPoint> vals = result.Values.ToList();
 
             if (chartType != BudgetChartType.Monthes) {
+                vals = ZChart.Consolidation(vals);
+
                 // prettification
                 vals = ZChart.AlternateSort(vals);
             }

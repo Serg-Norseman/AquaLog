@@ -1,12 +1,13 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
 using System;
 using System.Timers;
 using System.Windows.Forms;
+using AquaMate.Core.Model;
 using AquaMate.Core.Model.Tanks;
 using AquaMate.Core.Types;
 using AquaMate.M3DViewer;
@@ -17,11 +18,6 @@ namespace AquaMate.UI.Components
 {
     public sealed class OGLViewer : OpenGLControl
     {
-        private readonly float[] LightAmbient = {0.5f, 0.5f, 0.5f, 0.95f};
-        private readonly float[] LightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};
-        private readonly float[] LightSpecular = {1.0f, 1.0f, 1.0f, 1.0f};
-        private readonly float[] LightPosition = {0.0f, 5.0f, -5.0f, 1.0f};
-
         private bool fAeration;
         private System.Timers.Timer fAnimTimer;
         private bool fBusy;
@@ -30,20 +26,22 @@ namespace AquaMate.UI.Components
         private int fLastY;
         private bool fMouseDrag;
         private Vector3D fRotation;
-        private SceneRenderer fSceneRenderer;
-        private BaseTank fTank;
+        private OGLRenderer fSceneRenderer;
+        private Aquarium fAquarium;
         private ITankRenderer fTankRenderer;
         private bool fWaterVisible;
         private float fZ;
 
+        private DeviceModel fAquaLight;
 
-        public BaseTank Tank
+
+        public Aquarium Aquarium
         {
             get {
-                return fTank;
+                return fAquarium;
             }
             set {
-                fTank = value;
+                fAquarium = value;
                 Reset();
             }
         }
@@ -51,7 +49,7 @@ namespace AquaMate.UI.Components
 
         public OGLViewer()
         {
-            fSceneRenderer = new OGLRenderer();
+            fSceneRenderer = new OGLRenderer(this);
 
             Reset();
 
@@ -77,27 +75,33 @@ namespace AquaMate.UI.Components
             fWaterVisible = false;
             fAeration = false;
 
-            fTankRenderer = null;
-            if (fTank == null) return;
+            fAquaLight = null;
 
-            switch (fTank.GetTankShape()) {
+            fTankRenderer = null;
+            if (fAquarium == null) return;
+
+            ITank tank = fAquarium.Tank;
+            switch (tank.GetTankShape()) {
                 case TankShape.Unknown:
                     break;
 
                 case TankShape.Bowl:
-                    fTankRenderer = new BowlTankRenderer(fSceneRenderer, (BowlTank)fTank);
+                    fTankRenderer = new BowlTankRenderer(fSceneRenderer, (BowlTank)tank);
                     break;
 
                 case TankShape.Cube:
-                    fTankRenderer = new CubeTankRenderer(fSceneRenderer, (CubeTank)fTank);
+                    fTankRenderer = new CubeTankRenderer(fSceneRenderer, (CubeTank)tank);
                     break;
 
                 case TankShape.Rectangular:
-                    fTankRenderer = new RectangularTankRenderer(fSceneRenderer, (RectangularTank)fTank);
+                    fTankRenderer = new RectangularTankRenderer(fSceneRenderer, (RectangularTank)tank);
+
+                    // debug, only for `Eheim Aquastar 54 LED`
+                    //fAquaLight = fSceneRenderer.ObjLoad(@".\common\eheim_classic_led_55.m3d");
                     break;
 
                 case TankShape.BowFront:
-                    fTankRenderer = new BowfrontTankRenderer(fSceneRenderer, (BowFrontTank)fTank);
+                    fTankRenderer = new BowfrontTankRenderer(fSceneRenderer, (BowFrontTank)tank);
                     break;
 
                 case TankShape.PlateFrontCorner:
@@ -105,7 +109,7 @@ namespace AquaMate.UI.Components
                     break;
 
                 case TankShape.Cylinder:
-                    fTankRenderer = new CylinderTankRenderer(fSceneRenderer, (CylinderTank)fTank);
+                    fTankRenderer = new CylinderTankRenderer(fSceneRenderer, (CylinderTank)tank);
                     break;
             }
         }
@@ -146,17 +150,27 @@ namespace AquaMate.UI.Components
  
         public override void glDraw()
         {
-            fSceneRenderer.InitDrawing();
-            fSceneRenderer.SetLight(0, new float[] { 0.5f, 0.5f, 0.5f, 1.0f }, null, LightSpecular, null);
-            fSceneRenderer.SetLight(1, LightAmbient, LightDiffuse, LightSpecular, LightPosition);
+            fSceneRenderer.BeginDrawing();
+
+            fSceneRenderer.SetLight(0, new float[] { 0.5f, 0.5f, 0.5f, 1.0f }, null, SceneRenderer.LightSpecular, null);
+            if (fAquaLight == null) {
+                fSceneRenderer.SetLight(1, SceneRenderer.LightAmbient, SceneRenderer.LightDiffuse, SceneRenderer.LightSpecular, SceneRenderer.LightPosition);
+            }
+
             fSceneRenderer.Translatef(0.0f, 0.0f, fZ);
             fSceneRenderer.Rotatef(fRotation.X, 1.0f, 0.0f, 0.0f);
             fSceneRenderer.Rotatef(fRotation.Y, 0.0f, 1.0f, 0.0f);
             fSceneRenderer.Rotatef(fRotation.Z, 0.0f, 0.0f, 1.0f);
 
             if (fTankRenderer != null) {
-                fTankRenderer.Render(fWaterVisible, fAeration);
+                fTankRenderer.Render(fWaterVisible, fAeration, true);
             }
+
+            if (fAquaLight != null) {
+                fSceneRenderer.ObjDraw(fAquaLight);
+            }
+
+            fSceneRenderer.EndDrawing();
         }
 
         protected override OpenGLContext CreateContext()

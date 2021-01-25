@@ -6,7 +6,7 @@
 
 using System;
 using System.Windows.Forms;
-using AquaMate.Core.Model.Tanks;
+using AquaMate.Core.Model;
 using AquaMate.UI.Components;
 
 namespace AquaMate.UI.Panels
@@ -37,7 +37,7 @@ namespace AquaMate.UI.Panels
 
         public override void SetExtData(object extData)
         {
-            fViewer.Tank = (BaseTank)extData;
+            fViewer.Aquarium = (Aquarium)extData;
         }
 
         private void Panel_VisibleChanged(object sender, EventArgs e)

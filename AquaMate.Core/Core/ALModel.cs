@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -133,6 +133,8 @@ namespace AquaMate.Core
             fDB.Execute("drop table if exists Expense");
             fDB.Execute("VACUUM;");
         }
+
+        #region Records
 
         public void Execute(string query, params object[] args)
         {
@@ -280,6 +282,8 @@ namespace AquaMate.Core
             return result;
         }
 
+        #endregion
+
         #region Aquarium functions
 
         public IList<Aquarium> QueryAquariums()
@@ -292,7 +296,8 @@ namespace AquaMate.Core
             var result = new List<ComboItem<int>>();
             var queryResult = QueryAquariums();
             foreach (var aqm in queryResult) {
-                if (aqm.IsInactive() && !showInactive)
+                var workTime = GetWorkTime(aqm);
+                if (workTime.IsInactive() && !showInactive)
                     continue;
 
                 result.Add(new ComboItem<int>(aqm.Name, aqm.Id));
@@ -539,51 +544,79 @@ namespace AquaMate.Core
             return fDB.Query<Maintenance>("select * from Maintenance where (AquariumId = ? and Type between 0 and 3) order by [Timestamp]", aquariumId);
         }
 
+        public IList<Maintenance> QueryWaterChangesEx(int aquariumId)
+        {
+            return fDB.Query<Maintenance>("select * from Maintenance where (AquariumId = ? and Type in (0, 1, 2, 3, 8, 9)) order by [Timestamp]", aquariumId);
+        }
+
         public double GetWaterVolume(int aquariumId)
         {
             double result = 0.0d;
 
-            var records = QueryWaterChanges(aquariumId);
+            var records = QueryWaterChangesEx(aquariumId);
             foreach (Maintenance rec in records) {
-                if (rec.Type == MaintenanceType.Restart) {
-                    result = rec.Value;
-                } else {
-                    int idx = (int)rec.Type;
-                    int factor = ALData.MaintenanceTypes[idx].WaterChangeFactor;
-                    result += (rec.Value * factor);
+                switch (rec.Type) {
+                    case MaintenanceType.Restart:
+                        result = rec.Value;
+                        break;
+
+                    case MaintenanceType.AquariumStarted:
+                    case MaintenanceType.AquariumStopped:
+                        result = 0.0d;
+                        break;
+
+                    default:
+                        int idx = (int)rec.Type;
+                        int factor = ALData.MaintenanceTypes[idx].WaterChangeFactor;
+                        result += (rec.Value * factor);
+                        break;
                 }
             }
 
             return result;
         }
 
-        public double GetAverageWaterChangeInterval(int aquariumId)
+        public void GetWaterChangeIntervals(int aquariumId, WorkTime workTime, out double avgChangeDays, out double lastChangeDays)
         {
-            double result = 0.0d;
-            int count = 0;
+            double changesDays = 0.0d;
+            int changesCount = 0;
 
             DateTime dtPrev = ALCore.ZeroDate;
-            var records = QueryWaterChanges(aquariumId);
+            var records = fDB.Query<Maintenance>("select * from Maintenance where ((AquariumId = ?) and (Type between 0 and 3) and (Timestamp >= ?)) order by [Timestamp]", aquariumId, workTime.Start);
             foreach (Maintenance rec in records) {
                 if (!ALCore.IsZeroDate(dtPrev)) {
                     int days = (rec.Timestamp.Date - dtPrev).Days;
-                    result += days;
-                    count += 1;
+                    changesDays += days;
+                    changesCount += 1;
                 }
                 dtPrev = rec.Timestamp.Date;
             }
 
-            return result / count;
+            avgChangeDays = changesDays / changesCount;
+            lastChangeDays = (DateTime.Now.Date - dtPrev).Days;
         }
 
-        public double GetLastWaterChangeInterval(int aquariumId)
+        public WorkTime GetWorkTime(Aquarium aquarium)
         {
-            DateTime dtPrev = ALCore.ZeroDate;
-            var records = QueryWaterChanges(aquariumId);
-            foreach (Maintenance rec in records) {
-                dtPrev = rec.Timestamp.Date;
+            int aquariumId = aquarium.Id;
+            IList<Maintenance> maintenances = fDB.Query<Maintenance>("select * from Maintenance where (AquariumId = ? and Type between 8 and 9) order by [Timestamp] desc", aquariumId);
+
+            DateTime startDate = ALCore.ZeroDate;
+            DateTime stopDate = ALCore.ZeroDate;
+
+            foreach (var mtn in maintenances) {
+                if (mtn.Type == MaintenanceType.AquariumStopped && ALCore.IsZeroDate(stopDate)) {
+                    stopDate = mtn.Timestamp;
+                }
+
+                if (mtn.Type == MaintenanceType.AquariumStarted && ALCore.IsZeroDate(startDate)) {
+                    startDate = mtn.Timestamp;
+                    break;
+                }
             }
-            return (DateTime.Now.Date - dtPrev).Days;
+
+            return new WorkTime(startDate, stopDate);
+            //return new WorkTime(aquarium.StartDate, aquarium.StopDate);
         }
 
         #endregion

@@ -50,7 +50,11 @@ namespace AquaMate.UI
                 fView.AquariumCombo.AddRange(fModel.QueryAquariumsList(!fRecord.IsNewRecord));
                 fView.AquariumCombo.SetSelectedTag(fRecord.AquariumId);
 
-                fView.TSPointsCombo.AddRange(ALData.GetEntityNamesList(fModel.TSDB.GetPoints()));
+                var pointsList = ALData.GetEntityNamesList(fModel.TSDB.GetPoints());
+                fView.TSPointsCombo.AddItem(" --- ", 0);
+                foreach (var item in pointsList) {
+                    fView.TSPointsCombo.Add(item);
+                }
                 fView.TSPointsCombo.SetSelectedTag(fRecord.PointId);
 
                 fView.BrandCombo.AddRange(fModel.QueryDeviceBrands(), true);

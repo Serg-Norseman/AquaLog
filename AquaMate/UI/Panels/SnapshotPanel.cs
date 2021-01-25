@@ -62,7 +62,7 @@ namespace AquaMate.UI.Panels
                         ListViewItem item = ListView.Items[i];
                         try {
                             Snapshot rec = item.Tag as Snapshot;
-                            var image = ALCore.ByteToImage(rec.Image);
+                            var image = UIHelper.ByteToImage(rec.Image);
                             string fileName = Path.Combine(path, rec.Name + ".jpg");
                             image.Save(fileName);
                         } catch (Exception ex) {

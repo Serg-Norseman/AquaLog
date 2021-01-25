@@ -19,10 +19,8 @@ namespace AquaMate.M3DViewer.Tanks
         {
         }
 
-        public override void Render(bool showWater = true, bool aeration = false)
+        public override void Render(bool showWater = true, bool aeration = false, bool showInfo = false)
         {
-            fScene.PushMatrix();
-
             float height = fTank.Height;
             float bottomDiameter = fTank.BottomDiameter;
             float thickness = fTank.GlassThickness;
@@ -70,8 +68,6 @@ namespace AquaMate.M3DViewer.Tanks
                     fAeration.DrawBubbles(fScene, aeraPt, watHeight, surfacedBubbles);
                 }
             }
-
-            fScene.PopMatrix();
         }
     }
 }

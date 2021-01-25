@@ -54,7 +54,7 @@ namespace AquaMate.UI
                 return null;
             } else {
                 var wfImage = handler.Handle;
-                return ALCore.ImageToByte(wfImage, ImageFormat.Jpeg);
+                return UIHelper.ImageToByte(wfImage, ImageFormat.Jpeg);
             }
         }
 
@@ -63,7 +63,7 @@ namespace AquaMate.UI
             if (imageBytes == null) {
                 return null;
             } else {
-                var wfImage = ALCore.ByteToImage(imageBytes);
+                var wfImage = UIHelper.ByteToImage(imageBytes);
                 return new ImageHandler(wfImage);
             }
         }
@@ -83,7 +83,7 @@ namespace AquaMate.UI
                 using (FileStream stream = File.Open(fileName, FileMode.Open)) {
                     BinaryReader br = new BinaryReader(stream);
                     byte[] data = br.ReadBytes((int)stream.Length);
-                    image = ALCore.ByteToImage(data);
+                    image = UIHelper.ByteToImage(data);
                 }
             }
 

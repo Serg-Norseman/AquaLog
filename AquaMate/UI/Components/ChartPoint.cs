@@ -11,7 +11,7 @@ namespace AquaMate.UI.Components
 {
     public sealed class ChartPoint
     {
-        public string Caption { get; private set; }
+        public string Caption { get; set; }
         public DateTime Timestamp { get; set; }
         public double Value { get; set; }
         public Color Color { get; private set; }

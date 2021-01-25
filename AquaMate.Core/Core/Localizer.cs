@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -53,8 +53,8 @@ namespace AquaMate.Core
         /* 029 */ Name,
         /* 030 */ Description,
         /* 031 */ Shape,
-        /* 032 */ StartDate,
-        /* 033 */ StopDate,
+        /* 032 */ StartDate, // deprecated
+        /* 033 */ StopDate, // deprecated
         /* 034 */ WaterType,
         /* 035 */ Width,
         /* 036 */ Depth,
@@ -250,8 +250,10 @@ namespace AquaMate.Core
         /* 226 */ ViewSite,
         /* 227 */ HideLosses,
         /* 228 */ Pricelist,
+        /* 229 */ AquariumStarted,
+        /* 230 */ AquariumStopped,
 
-        /* 000 */ Last = Pricelist
+        /* 000 */ Last = AquariumStopped
     }
 
 
@@ -293,8 +295,8 @@ namespace AquaMate.Core
             /* 029 */ "Name",
             /* 030 */ "Description",
             /* 031 */ "Shape",
-            /* 032 */ "Start date",
-            /* 033 */ "Stop date",
+            /* 032 */ "Start date", // deprecated
+            /* 033 */ "Stop date", // deprecated
             /* 034 */ "Water type",
             /* 035 */ "Width",
             /* 036 */ "Depth",
@@ -490,6 +492,8 @@ namespace AquaMate.Core
             /* 226 */ "View site",
             /* 227 */ "Hide losses",
             /* 228 */ "Pricelist",
+            /* 229 */ "AquariumStarted",
+            /* 230 */ "AquariumStopped",
         };
 
 

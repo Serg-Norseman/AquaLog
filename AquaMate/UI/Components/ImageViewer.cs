@@ -161,7 +161,7 @@ namespace AquaMate.UI.Components
         private void UpdateImage()
         {
             var record = (fCurrentIndex >= 0 && fCurrentIndex < fSnapshots.Count) ? fSnapshots[fCurrentIndex] : null;
-            fPictureBox.Image = (record == null) ? null : ALCore.ByteToImage(record.Image);
+            fPictureBox.Image = (record == null) ? null : UIHelper.ByteToImage(record.Image);
         }
 
         private void btnImageAdd_Click(object sender, EventArgs e)

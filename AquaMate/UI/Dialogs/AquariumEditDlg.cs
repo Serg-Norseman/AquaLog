@@ -41,8 +41,11 @@ namespace AquaMate.UI.Dialogs
 
             lblName.Text = Localizer.LS(LSID.Name);
             lblDesc.Text = Localizer.LS(LSID.Description);
-            lblStartDate.Text = Localizer.LS(LSID.StartDate);
-            lblStopDate.Text = Localizer.LS(LSID.StopDate);
+
+            // deprecated
+            //lblStartDate.Text = Localizer.LS(LSID.StartDate);
+            //lblStopDate.Text = Localizer.LS(LSID.StopDate);
+
             lblShape.Text = Localizer.LS(LSID.Shape);
             lblWaterType.Text = Localizer.LS(LSID.WaterType);
 
@@ -110,15 +113,15 @@ namespace AquaMate.UI.Dialogs
             get { return GetControlHandler<IComboBox>(cmbWaterType); }
         }
 
-        IDateTimeBox IAquariumEditorView.StartDateField
+        /*IDateTimeBox IAquariumEditorView.StartDateField
         {
-            get { return GetControlHandler<IDateTimeBox>(dtpStartDate); }
+            get { return GetControlHandler<IDateTimeBox>(dtpStartDate); } // deprecated
         }
 
         IDateTimeBox IAquariumEditorView.StopDateField
         {
-            get { return GetControlHandler<IDateTimeBox>(dtpStopDate); }
-        }
+            get { return GetControlHandler<IDateTimeBox>(dtpStopDate); } // deprecated
+        }*/
 
         ITextBox IAquariumEditorView.TankVolumeField
         {

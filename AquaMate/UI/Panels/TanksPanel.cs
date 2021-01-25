@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -112,7 +112,8 @@ namespace AquaMate.UI.Panels
             var aquariums = fModel.QueryAquariums();
 
             foreach (var aqm in aquariums) {
-                if (aqm.IsInactive() && ALSettings.Instance.HideClosedTanks) {
+                var workTime = fModel.GetWorkTime(aqm);
+                if (workTime.IsInactive() && ALSettings.Instance.HideClosedTanks) {
                     continue;
                 }
 
@@ -220,7 +221,7 @@ namespace AquaMate.UI.Panels
             if (selectedItem == null) return;
 
             var record = selectedItem.Aquarium;
-            Browser.SetView(MainView.M3DViewer, record.Tank);
+            Browser.SetView(MainView.M3DViewer, record);
         }
 
         private void TransferHandler(object sender, EventArgs e)

@@ -21,10 +21,8 @@ namespace AquaMate.M3DViewer.Tanks
         {
         }
 
-        public override void Render(bool showWater = true, bool aeration = false)
+        public override void Render(bool showWater = true, bool aeration = false, bool showInfo = false)
         {
-            fScene.PushMatrix();
-
             float length = fTank.Length;
             float width = fTank.Width;
             float fullWidth = fTank.CentreWidth;
@@ -99,8 +97,6 @@ namespace AquaMate.M3DViewer.Tanks
                     fAeration.DrawBubbles(fScene, aeraPt, watHeight, surfacedBubbles);
                 }
             }
-
-            fScene.PopMatrix();
         }
 
         private void DrawBowfrontPlate(float x1, float x2, float z1, float width, float fullWidth, float height, float thickness)

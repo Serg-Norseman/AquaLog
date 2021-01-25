@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -24,9 +24,9 @@ namespace AquaMate.Core.Model
 
         public AquariumWaterType WaterType { get; set; }
 
-        public DateTime StartDate { get; set; }
+        //public DateTime StartDate { get; set; } // deprecated
 
-        public DateTime StopDate { get; set; }
+        //public DateTime StopDate { get; set; } // deprecated
 
         public TankShape TankShape { get; set; }
 
@@ -88,10 +88,11 @@ namespace AquaMate.Core.Model
             return (WaterType != AquariumWaterType.FreshWater);
         }
 
-        public bool IsInactive()
+        // deprecated
+        /*public bool IsInactive()
         {
             return !ALCore.IsZeroDate(StopDate);
-        }
+        }*/
 
         /// <summary>
         /// The base area of an aquarium (cm2).

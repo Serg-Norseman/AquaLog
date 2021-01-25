@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Core\Model\Shop.cs" />
+    <Compile Include="Core\Types\WorkTime.cs" />
     <Compile Include="Prognostics\IConsole.cs" />
     <Compile Include="Prognostics\LogicResult.cs" />
     <Compile Include="Prognostics\LogicService.cs" />

@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -35,6 +35,7 @@ namespace AquaMate.UI.Panels
         private readonly StringFormat fStrFormat;
         private SolidBrush fTextBrush;
         private List<MeasureValue> fValues;
+        private WorkTime fWorkTime;
 
         public Aquarium Aquarium
         {
@@ -59,7 +60,7 @@ namespace AquaMate.UI.Panels
             set {
                 if (fSelected != value) {
                     fSelected = value;
-                    UpdateView();
+                    Refresh();
                 }
             }
         }
@@ -112,7 +113,9 @@ namespace AquaMate.UI.Panels
 
         public void UpdateView()
         {
-            if (fAquarium.IsInactive()) {
+            fWorkTime = fModel.GetWorkTime(fAquarium);
+
+            if (!fWorkTime.WasStarted() || fWorkTime.IsInactive()) {
                 SetTankState(TankState.Inactive);
             } else {
                 SetTankState(TankState.Normal);
@@ -148,44 +151,42 @@ namespace AquaMate.UI.Panels
             Color wvColor = (DoubleHelper.Equals(normalWaterVolume, waterVolume, 0.5)) ? Color.Green : Color.Orange;
             DrawText(gfx, volumes, font, wvColor, layoutRect);
 
-            string works;
-            if (fAquarium.IsInactive()) {
-                TimeSpan span = fAquarium.StopDate - fAquarium.StartDate;
-                int days = span.Days;
-                works = string.Format(Localizer.LS(LSID.AquaWorked), fAquarium.StartDate.ToString("dd/MM/yyyy"), fAquarium.StopDate.ToString("dd/MM/yyyy"), days);
-            } else {
-                TimeSpan span = DateTime.Now - fAquarium.StartDate;
-                int days = span.Days;
-                works = string.Format(Localizer.LS(LSID.AquaWorks), fAquarium.StartDate.ToString("dd/MM/yyyy"), days);
-            }
-
+            string works = fWorkTime.GetWorkDays();
             int x = layoutRect.Left;
             int y = layoutRect.Top + (int)(Font.Height * 1.6f);
             DrawText(gfx, works, Font, ForeColor, x, y);
 
-            double avgChangeDays = fModel.GetAverageWaterChangeInterval(fAquarium.Id);
-            string avgChange = "avg=" + ALCore.GetDecimalStr(avgChangeDays, 1) + "d";
-
             Color wsColor = ForeColor;
-            string lastChange = "";
             string waterStatus = "";
-            if (!fAquarium.IsInactive()) {
-                double lastChangeDays = fModel.GetLastWaterChangeInterval(fAquarium.Id);
-                lastChange = ", last=" + ALCore.GetDecimalStr(lastChangeDays, 1) + "d";
+            string waterChanges = "";
+            if (!fWorkTime.IsInactive()) {
+                if (!fWorkTime.WasStarted()) {
+                    waterChanges = "---";
+                } else {
+                    double avgChangeDays;
+                    double lastChangeDays;
+                    fModel.GetWaterChangeIntervals(fAquarium.Id, fWorkTime, out avgChangeDays, out lastChangeDays);
 
-                if (lastChangeDays <= avgChangeDays) {
-                    waterStatus = " [normal]";
-                    wsColor = Color.Green;
-                } else if (lastChangeDays >= avgChangeDays * 2) {
-                    waterStatus = " [alarm]";
-                    wsColor = Color.Red;
-                } else if (avgChangeDays + 1 < lastChangeDays) {
-                    waterStatus = " [exceeded]";
-                    wsColor = Color.Orange;
+                    string avgChange = "avg=" + ALCore.GetDecimalStr(avgChangeDays, 1) + "d";
+                    string lastChange = ", last=" + ALCore.GetDecimalStr(lastChangeDays, 1) + "d";
+
+                    if (lastChangeDays <= avgChangeDays) {
+                        waterStatus = " [normal]";
+                        wsColor = Color.Green;
+                    } else if (lastChangeDays >= avgChangeDays * 2) {
+                        waterStatus = " [alarm]";
+                        wsColor = Color.Red;
+                    } else if (avgChangeDays + 1 < lastChangeDays) {
+                        waterStatus = " [exceeded]";
+                        wsColor = Color.Orange;
+                    }
+
+                    waterChanges = avgChange + lastChange + waterStatus;
                 }
+            } else {
+                waterChanges = "---";
             }
 
-            string waterChanges = avgChange + lastChange + waterStatus;
             y = y + (int)(Font.Height * 1.6f);
             DrawText(gfx, Localizer.LS(LSID.WaterChanges) + ": " + waterChanges, Font, wsColor, x, y);
 

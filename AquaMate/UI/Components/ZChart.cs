@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using AquaMate.Core;
 using AquaMate.UI.Charts;
 using ZedGraph;
 
@@ -144,6 +145,32 @@ namespace AquaMate.UI.Components
         }
 
         #region Beautify
+
+        public static List<ChartPoint> Consolidation(List<ChartPoint> source, double minLimit = 0.25d)
+        {
+            double sum = 0.0d;
+            foreach (var cp in source) {
+                sum += cp.Value;
+            }
+
+            ChartPoint first = null;
+            for (int i = source.Count - 1; i >= 0; i--) {
+                var cp = source[i];
+                var percent = (cp.Value / sum) * 100.00d;
+
+                if (percent < minLimit) {
+                    if (first == null) {
+                        first = cp;
+                    } else {
+                        first.Caption = Localizer.LS(LSID.Other);
+                        first.Value += cp.Value;
+                        source.RemoveAt(i);
+                    }
+                }
+            }
+
+            return source;
+        }
 
         public static List<ChartPoint> AlternateSort(List<ChartPoint> source)
         {

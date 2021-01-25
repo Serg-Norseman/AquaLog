@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -13,6 +13,11 @@ namespace AquaMate.M3DViewer
     /// </summary>
     public abstract class SceneRenderer
     {
+        public static readonly float[] LightAmbient = {0.5f, 0.5f, 0.5f, 0.95f};
+        public static readonly float[] LightDiffuse = {1.0f, 1.0f, 1.0f, 1.0f};
+        public static readonly float[] LightSpecular = {1.0f, 1.0f, 1.0f, 1.0f};
+        public static readonly float[] LightPosition = {0.0f, 5.0f, -5.0f, 1.0f};
+
         public abstract void PushMatrix();
 
         public abstract void PopMatrix();
@@ -68,6 +73,12 @@ namespace AquaMate.M3DViewer
 
         public abstract void InitScene();
 
-        public abstract void InitDrawing();
+        public abstract void BeginDrawing();
+
+        public abstract void EndDrawing();
+
+        public abstract void DrawText(string text, float x, float y, float z);
+
+        public abstract void DrawSphere(Point3D pt, double radius, int slices, int stacks);
     }
 }

@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -25,7 +25,7 @@ namespace AquaMate.M3DViewer.Tanks
 
     public interface ITankRenderer
     {
-        void Render(bool showWater = true, bool aeration = false);
+        void Render(bool showWater = true, bool aeration = false, bool showInfo = false);
     }
 
     /// <summary>
@@ -42,7 +42,11 @@ namespace AquaMate.M3DViewer.Tanks
         public static readonly float[] GlassSpecular = new float[] { 0.95f, 0.95f, 0.95f, 1.0f };
         public static readonly float[] GlassShininess = new float[] { 128.0f };
 
-        protected const float ScaleFactor = 0.01f;
+        /*public static readonly float[] GlassDiffuse = new float[] { 0.588235f, 0.670588f, 0.729412f, 1.0f };
+        public static readonly float[] GlassSpecular = new float[] { 0.9f, 0.9f, 0.9f, 1.0f };
+        public static readonly float[] GlassShininess = new float[] { 96.0f };*/
+
+        public const float ScaleFactor = 0.01f;
 
         // TODO: Move to aquarium's props
         protected const float StdWaterOffset = 2.0f;
@@ -67,7 +71,7 @@ namespace AquaMate.M3DViewer.Tanks
             fWater = new M3DWaterSurface();
         }
 
-        public abstract void Render(bool showWater = true, bool aeration = false);
+        public abstract void Render(bool showWater = true, bool aeration = false, bool showInfo = false);
 
         public void SetGlassMaterial()
         {
@@ -79,9 +83,10 @@ namespace AquaMate.M3DViewer.Tanks
             fScene.SetMaterial(M3DWaterSurface.Water2Diffuse, M3DWaterSurface.Water2Specular, M3DWaterSurface.Water2Shininess);
         }
 
-        protected void DrawRectangularTank(float length, float width, float height, float thickness, bool showWater = true, bool aeration = false)
+        protected void DrawRectangularTank(float length, float width, float height, float thickness,
+                                           bool showWater = true, bool aeration = false, bool showInfo = false)
         {
-            fScene.PushMatrix();
+            float fltX, fltY, fltZ;
 
             length *= ScaleFactor;
             width *= ScaleFactor;
@@ -112,6 +117,10 @@ namespace AquaMate.M3DViewer.Tanks
             z1 = 0.0f + width;
             z2 = z1 - thickness;
             DrawBox(x1, x2, y1, y2, z1, z2);
+
+            fltX = x1;
+            fltY = y1 + thickness;
+            fltZ = z1;
 
             // back
             y1 = 0.0f + height;
@@ -173,7 +182,10 @@ namespace AquaMate.M3DViewer.Tanks
             // required without condition!
             fWater.Next(surfacedBubbles, !aeration);
 
-            fScene.PopMatrix();
+            // front left top point - for temperature
+            if (showInfo) {
+                fScene.DrawText("T: 25 °C", fltX, fltY, fltZ);
+            }
         }
 
         public void DrawRect(Point3D p1, Point3D p2, Point3D p3, Point3D p4, Point3D normal)

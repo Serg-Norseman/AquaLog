@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -77,16 +77,23 @@ namespace AquaMate.UI.Panels
                         Maintenance mnt = (Maintenance)evnt;
 
                         double changeValue = mnt.Value;
-                        if (mnt.Type == MaintenanceType.Restart) {
-                            prevVolume = curVolume;
-                            curVolume = changeValue;
-                        } else {
-                            int factor = ALData.MaintenanceTypes[(int)mnt.Type].WaterChangeFactor;
-                            if (factor != 0) {
+                        switch (mnt.Type) {
+                            case MaintenanceType.Restart:
+                            case MaintenanceType.AquariumStarted:
+                            case MaintenanceType.AquariumStopped:
                                 prevVolume = curVolume;
-                            }
-                            curVolume += (changeValue * factor);
+                                curVolume = changeValue;
+                                break;
+
+                            default:
+                                int factor = ALData.MaintenanceTypes[(int)mnt.Type].WaterChangeFactor;
+                                if (factor != 0) {
+                                    prevVolume = curVolume;
+                                }
+                                curVolume += (changeValue * factor);
+                                break;
                         }
+
                         double chngPercent = (changeValue / curVolume) * 100.0d;
 
                         int days = -1;

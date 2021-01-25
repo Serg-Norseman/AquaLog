@@ -1,15 +1,12 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
 using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Globalization;
-using System.IO;
 using System.Reflection;
 using AquaMate.Core.Types;
 using BSLib;
@@ -243,26 +240,5 @@ namespace AquaMate.Core
 
             cat.SetValue(att, value);
         }
-
-        #region Image helpers
-
-        public static byte[] ImageToByte(Image image, ImageFormat format)
-        {
-            using (MemoryStream ms = new MemoryStream()) {
-                image.Save(ms, format);
-                byte[] imageBytes = ms.ToArray();
-                return imageBytes;
-            }
-        }
-
-        public static Image ByteToImage(byte[] imageBytes)
-        {
-            MemoryStream ms = new MemoryStream(imageBytes, 0, imageBytes.Length);
-            ms.Write(imageBytes, 0, imageBytes.Length);
-            Image image = new Bitmap(ms);
-            return image;
-        }
-
-        #endregion
     }
 }

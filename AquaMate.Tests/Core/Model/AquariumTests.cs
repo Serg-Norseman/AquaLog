@@ -95,7 +95,7 @@ namespace AquaMate.Core.Model
             Assert.AreEqual("Eheim", tank.Brand);
         }
 
-        [Test]
+        /*[Test] // deprecated
         public void Test_StartDate()
         {
             var tank = new Aquarium();
@@ -104,14 +104,14 @@ namespace AquaMate.Core.Model
             Assert.AreEqual(dtx, tank.StartDate);
         }
 
-        [Test]
+        [Test] // deprecated
         public void Test_StopDate()
         {
             var tank = new Aquarium();
             var dtx = DateTime.Now;
             tank.StopDate = dtx;
             Assert.AreEqual(dtx, tank.StopDate);
-        }
+        }*/
 
         [Test]
         public void Test_WaterType()
@@ -123,7 +123,7 @@ namespace AquaMate.Core.Model
             Assert.AreEqual(AquariumWaterType.FreshWater, tank.WaterType);
         }
 
-        [Test]
+        /*[Test] // deprecated
         public void Test_IsInactive()
         {
             var tank = new Aquarium();
@@ -133,7 +133,7 @@ namespace AquaMate.Core.Model
             tank.StartDate = now;
             tank.StopDate = now;
             Assert.AreEqual(true, tank.IsInactive());
-        }
+        }*/
 
         [Test]
         public void Test_GetBaseArea()

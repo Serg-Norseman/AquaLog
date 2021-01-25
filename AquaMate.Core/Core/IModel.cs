@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -66,8 +66,8 @@ namespace AquaMate.Core
         IList<Maintenance> QueryMaintenances(int aquariumId);
         IList<Maintenance> QueryWaterChanges(int aquariumId);
         double GetWaterVolume(int aquariumId);
-        double GetAverageWaterChangeInterval(int aquariumId);
-        double GetLastWaterChangeInterval(int aquariumId);
+        void GetWaterChangeIntervals(int aquariumId, WorkTime workTime, out double avgChangeDays, out double lastChangeDays);
+        WorkTime GetWorkTime(Aquarium aquarium);
 
         IList<Schedule> QuerySchedule();
 

@@ -59,8 +59,7 @@ namespace AquaMate.M3DViewer
 
         public void DrawBubbles(SceneRenderer renderer, Point3D aeratorPt, float waterHeight, IList<M3DBubble> surfacedBubbles)
         {
-            renderer.PushMatrix();
-            renderer.Translatef(aeratorPt.X, aeratorPt.Y, aeratorPt.Z);
+            renderer.Color4f(1.0f, 1.0f, 1.0f, 0.45f);
 
             foreach (M3DBubble bubble in fBubbles) {
                 bool isSurfaced;
@@ -73,14 +72,9 @@ namespace AquaMate.M3DViewer
                     Init(bubble);
                 }
 
-                renderer.PushMatrix();
-                renderer.Translatef(bubble.X, bubble.Y, bubble.Z);
-                renderer.Color4f(1.0f, 1.0f, 1.0f, 0.45f);
-                renderer.DrawSolidSphere(bubble.Size, 16, 16);
-                renderer.PopMatrix();
+                var bblPt = aeratorPt.Add(bubble.X, bubble.Y, bubble.Z);
+                renderer.DrawSphere(bblPt, bubble.Size, 16, 16);
             }
-
-            renderer.PopMatrix();
         }
     }
 }

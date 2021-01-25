@@ -38,6 +38,15 @@ namespace AquaMate.M3DViewer
             return res;
         }
 
+        public Point3D Add(float pX, float pY, float pZ)
+        {
+            Point3D res;
+            res.X = X + pX;
+            res.Y = Y + pY;
+            res.Z = Z + pZ;
+            return res;
+        }
+
         public Vector3D Sub(Point3D p0)
         {
             Vector3D res;
