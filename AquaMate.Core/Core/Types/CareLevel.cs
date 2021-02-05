@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -11,7 +11,9 @@ namespace AquaMate.Core.Types
     /// </summary>
     public enum CareLevel
     {
+        Unknown,
         Easy,
-        Moderate
+        Moderate,
+        Hard
     }
 }

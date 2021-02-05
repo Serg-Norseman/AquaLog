@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -150,11 +150,17 @@ namespace AquaMate.UI
                 listView.AddColumn(Localizer.LS(LSID.AdultSize), 100, true, BSDTypes.HorizontalAlignment.Right);
                 listView.AddColumn(Localizer.LS(LSID.LifeSpan), 100, true, BSDTypes.HorizontalAlignment.Right);
                 listView.AddColumn(Localizer.LS(LSID.SwimLevel), 100, true, BSDTypes.HorizontalAlignment.Right);
+                listView.AddColumn(Localizer.LS(LSID.Distribution), 100, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Habitat), 100, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.CareLevel), 100, true, BSDTypes.HorizontalAlignment.Left);
+                listView.AddColumn(Localizer.LS(LSID.Temperament), 100, true, BSDTypes.HorizontalAlignment.Left);
 
                 var records = model.QuerySpecies();
                 foreach (Species rec in records) {
                     string strType = Localizer.LS(ALData.SpeciesTypes[(int)rec.Type]);
                     string strLevel = Localizer.LS(ALData.SwimLevels[(int)rec.SwimLevel]);
+                    string strCareLevel = Localizer.LS(ALData.CareLevels[(int)rec.CareLevel]);
+                    string strTemperament = Localizer.LS(ALData.Temperaments[(int)rec.Temperament]);
 
                     var item = listView.AddItem(rec,
                                rec.Name,
@@ -166,7 +172,11 @@ namespace AquaMate.UI
                                rec.GetGHRange(),
                                ALCore.GetDecimalStr(rec.AdultSize),
                                ALCore.GetDecimalStr(rec.LifeSpan),
-                               strLevel
+                               strLevel,
+                               rec.Distribution,
+                               rec.Habitat,
+                               strCareLevel,
+                               strTemperament
                            );
                 }
             } catch (Exception ex) {
@@ -740,6 +750,8 @@ namespace AquaMate.UI
                         );
                     }
                 }
+
+                listView.Sort(2, BSDTypes.SortOrder.Ascending);
             } catch (Exception ex) {
                 fLogger.WriteError("FillPricelistLV()", ex);
             }
@@ -767,6 +779,8 @@ namespace AquaMate.UI
                                rec.Email
                            );
                 }
+
+                listView.Sort(0, BSDTypes.SortOrder.Ascending);
             } catch (Exception ex) {
                 fLogger.WriteError("FillBrandsLV()", ex);
             }
@@ -796,6 +810,8 @@ namespace AquaMate.UI
                                rec.Email
                            );
                 }
+
+                listView.Sort(0, BSDTypes.SortOrder.Ascending);
             } catch (Exception ex) {
                 fLogger.WriteError("FillShopsLV()", ex);
             }

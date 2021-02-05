@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -49,6 +49,10 @@ namespace AquaMate.UI.Dialogs
             lblAdultSize.Text = Localizer.LS(LSID.AdultSize);
             lblLifeSpan.Text = Localizer.LS(LSID.LifeSpan);
             lblSwimLevel.Text = Localizer.LS(LSID.SwimLevel);
+            lblDistribution.Text = Localizer.LS(LSID.Distribution);
+            lblHabitat.Text = Localizer.LS(LSID.Habitat);
+            lblCareLevel.Text = Localizer.LS(LSID.CareLevel);
+            lblTemperament.Text = Localizer.LS(LSID.Temperament);
         }
 
         public void SetContext(IModel model, Species record)
@@ -136,6 +140,26 @@ namespace AquaMate.UI.Dialogs
         IComboBox ISpeciesEditorView.SwimLevelCombo
         {
             get { return GetControlHandler<IComboBox>(cmbSwimLevel); }
+        }
+
+        IComboBox ISpeciesEditorView.DistributionCombo
+        {
+            get { return GetControlHandler<IComboBox>(cmbDistribution); }
+        }
+
+        IComboBox ISpeciesEditorView.HabitatCombo
+        {
+            get { return GetControlHandler<IComboBox>(cmbHabitat); }
+        }
+
+        IComboBox ISpeciesEditorView.CareLevelCombo
+        {
+            get { return GetControlHandler<IComboBox>(cmbCareLevel); }
+        }
+
+        IComboBox ISpeciesEditorView.TemperamentCombo
+        {
+            get { return GetControlHandler<IComboBox>(cmbTemperament); }
         }
 
         #endregion

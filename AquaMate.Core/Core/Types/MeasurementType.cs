@@ -31,6 +31,10 @@ namespace AquaMate.Core.Types
         Length,
         Volume,
         Mass,
+        Flow,
+        LightTemperature,
+        LuminousFlux,
+        PhotosyntheticallyActiveRadiation,
 
         // KH & GH (ppm, degree), Density (_units_), Salinity (ppt), Conductivity, I, K, Mn, B, Mo, S, Zn
     }

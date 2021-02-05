@@ -113,7 +113,7 @@ namespace AquaMate.UI.Panels
 
             foreach (var aqm in aquariums) {
                 var workTime = fModel.GetWorkTime(aqm);
-                if (workTime.IsInactive() && ALSettings.Instance.HideClosedTanks) {
+                if ((workTime.IsInactive() || !workTime.WasStarted()) && ALSettings.Instance.HideClosedTanks) {
                     continue;
                 }
 

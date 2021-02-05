@@ -54,6 +54,8 @@ namespace AquaMate.Core
         IList<Species> QuerySpecies(int type);
         SpeciesType GetSpeciesType(int speciesId);
         IList<string> QuerySpeciesFamilies();
+        IList<string> QuerySpeciesDistributions();
+        IList<string> QuerySpeciesHabitats();
 
         IList<Device> QueryDevices();
         IList<Device> QueryDevices(Aquarium aquarium);

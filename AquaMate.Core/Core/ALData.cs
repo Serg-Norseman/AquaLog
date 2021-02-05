@@ -44,6 +44,14 @@ namespace AquaMate.Core
             new MeasurementUnitProps(LSID.DegreeCelsius, MeasurementType.Temperature),
             new MeasurementUnitProps(LSID.DegreeFahrenheit, MeasurementType.Temperature),
             new MeasurementUnitProps(LSID.DegreeKelvin, MeasurementType.Temperature),
+
+            new MeasurementUnitProps(LSID.KilogramPerLitre, MeasurementType.Density),
+
+            new MeasurementUnitProps(LSID.LitrePerHour, MeasurementType.Flow),
+
+            new MeasurementUnitProps(LSID.Lumen, MeasurementType.LuminousFlux),
+
+            new MeasurementUnitProps(LSID.WattPerSquareMeter, MeasurementType.PhotosyntheticallyActiveRadiation),
         };
 
 
@@ -101,11 +109,13 @@ namespace AquaMate.Core
 
 
         public static readonly DeviceProps[] DeviceProps = new DeviceProps[] {
-            new DeviceProps(LSID.Light, false), // Light
-            new DeviceProps(LSID.Pump, false), // Pump
-            new DeviceProps(LSID.Thermometer, true), // Thermometer
-            new DeviceProps(LSID.Filter, false), // Filter
-            new DeviceProps(LSID.Heater, false), // Heater
+            new DeviceProps(LSID.Light, false, typeof(Light)), // Light
+            new DeviceProps(LSID.Pump, false, typeof(Pump)), // Pump
+            new DeviceProps(LSID.Thermometer, true, null), // Thermometer
+            new DeviceProps(LSID.Filter, false, typeof(Pump)), // Filter
+            new DeviceProps(LSID.Heater, false, null), // Heater
+            new DeviceProps(LSID.UVSterilizer, false, null), // UVSterilizer
+            new DeviceProps(LSID.CO2Kit, false, null), // CO2Kit
         };
 
 
@@ -159,6 +169,22 @@ namespace AquaMate.Core
             LSID.SL_Mid,
             LSID.SL_Mid_and_Bottom,
             LSID.SL_Bottom,
+        };
+
+
+        public static readonly LSID[] CareLevels = new LSID[] {
+            LSID.Unknown,
+            LSID.Easy,
+            LSID.Moderate,
+            LSID.Hard,
+        };
+
+
+        public static readonly LSID[] Temperaments = new LSID[] {
+            LSID.Unknown,
+            LSID.Peaceful,
+            LSID.SemiAggressive,
+            LSID.Aggressive,
         };
 
 
@@ -310,14 +336,34 @@ namespace AquaMate.Core
             string result = Localizer.LS(lsid);
 
             MeasurementUnit mUnit = MeasurementUnit.Unknown;
-            if (measurementType == MeasurementType.Volume) {
-                mUnit = ALSettings.Instance.VolumeUoM;
-            } else if (measurementType == MeasurementType.Length) {
-                mUnit = ALSettings.Instance.LengthUoM;
-            } else if (measurementType == MeasurementType.Mass) {
-                mUnit = ALSettings.Instance.MassUoM;
-            } else if (measurementType == MeasurementType.Temperature) {
-                mUnit = ALSettings.Instance.TemperatureUoM;
+            switch (measurementType) {
+                case MeasurementType.Volume:
+                    mUnit = ALSettings.Instance.VolumeUoM;
+                    break;
+                case MeasurementType.Length:
+                    mUnit = ALSettings.Instance.LengthUoM;
+                    break;
+                case MeasurementType.Mass:
+                    mUnit = ALSettings.Instance.MassUoM;
+                    break;
+                case MeasurementType.Temperature:
+                    mUnit = ALSettings.Instance.TemperatureUoM;
+                    break;
+                case MeasurementType.Density:
+                    mUnit = MeasurementUnit.KilogramPerLitre;
+                    break;
+                case MeasurementType.Flow:
+                    mUnit = MeasurementUnit.LitrePerHour;
+                    break;
+                case MeasurementType.LightTemperature:
+                    mUnit = MeasurementUnit.DegreeKelvin; // FIXME
+                    break;
+                case MeasurementType.LuminousFlux:
+                    mUnit = MeasurementUnit.Lumen;
+                    break;
+                case MeasurementType.PhotosyntheticallyActiveRadiation:
+                    mUnit = MeasurementUnit.WattPerSquareMeter;
+                    break;
             }
 
             if (mUnit != MeasurementUnit.Unknown) {

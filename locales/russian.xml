@@ -230,4 +230,25 @@
   <string id="228">Прейскурант</string>
   <string id="229">Аквариум: Запущен</string>
   <string id="230">Аквариум: Остановлен</string>
+  <string id="231">Распространение</string>
+  <string id="232">Место обитания</string>
+  <string id="233">Легкий</string>
+  <string id="234">Умеренный</string>
+  <string id="235">Сложный</string>
+  <string id="236">Мирный</string>
+  <string id="237">Полуагрессивный</string>
+  <string id="238">Агрессивный</string>
+  <string id="239">Уровень ухода</string>
+  <string id="240">Темперамент</string>
+  <string id="241">Неизвестно</string>
+  <string id="242">УФ-стерилизатор</string>
+  <string id="243">CO2 установка</string>
+  <string id="244">Поток</string>
+  <string id="245">Литр/час,л/ч</string>
+  <string id="246">Килограмм/литр,кг/л</string>
+  <string id="247">Цветовая температура</string>
+  <string id="248">Световой поток</string>
+  <string id="249">Фотосинтетически активная радиация</string>
+  <string id="250">Люмен,лм"</string>
+  <string id="251">Ватт/м2,Вт/м2</string>
 </resources>

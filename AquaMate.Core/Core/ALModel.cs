@@ -490,6 +490,18 @@ namespace AquaMate.Core
             return ALData.GetStringList(queryResult);
         }
 
+        public IList<string> QuerySpeciesDistributions()
+        {
+            var queryResult = fDB.Query<QString>("select distinct Distribution as element from Species");
+            return ALData.GetStringList(queryResult);
+        }
+
+        public IList<string> QuerySpeciesHabitats()
+        {
+            var queryResult = fDB.Query<QString>("select distinct Habitat as element from Species");
+            return ALData.GetStringList(queryResult);
+        }
+
         #endregion
 
         #region Device functions

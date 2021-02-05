@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -27,10 +27,11 @@ namespace AquaMate.Core.Model
 
         #region Common properties
 
-        public CareLevel CareLevel { get; set; }
+        public CareLevel CareLevel { get; set; } // (dlg+)
         public string BioClass { get; set; } // BioClassification: ClassName
         public string BioFamily { get; set; } // BioClassification: FamilyName (dlg+)
-        public string Distribution { get; set; }
+        public string Distribution { get; set; } // (dlg+)
+        public string Habitat { get; set; } // (dlg+)
         public int MinTankSize { get; set; }
         public float PHMin { get; set; } // (dlg+)
         public float PHMax { get; set; } // (dlg+)
@@ -53,13 +54,13 @@ namespace AquaMate.Core.Model
         public string Diet { get; set; }
         public string Environment { get; set; }
         public float LifeSpan { get; set; } // (dlg+)
+        public Temperament Temperament { get; set; } // (dlg+)
 
         #endregion
 
         #region Fish properties
 
         public SwimLevel SwimLevel { get; set; } // (dlg+)
-        public Temperament Temperament { get; set; }
 
         #endregion
 

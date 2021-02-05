@@ -1,15 +1,21 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
 using System;
+using System.ComponentModel;
 using AquaMate.Core.Types;
 using SQLite;
 
 namespace AquaMate.Core.Model
 {
+    public interface IInventoryProperties : IEntityProperties
+    {
+    }
+
+
     /// <summary>
     /// Inventory: additive, chemistry, equipment, maintenance, furniture, decoration.
     /// </summary>
@@ -24,10 +30,10 @@ namespace AquaMate.Core.Model
         // not used
         public ItemState State { get; set; }
 
-        private InventoryProperties fProperties;
+        private IInventoryProperties fProperties;
 
         [Ignore]
-        public InventoryProperties Properties
+        public IInventoryProperties Properties
         {
             get {
                 if (fProperties == null) {
@@ -61,10 +67,46 @@ namespace AquaMate.Core.Model
             return Name;
         }
 
-        public InventoryProperties GetProperties(InventoryType type, string str)
+        public IInventoryProperties GetProperties(InventoryType type, string str)
         {
             Type propsType = ALData.InventoryTypes[(int)type].PropsType;
-            return (propsType == null) ? null : (InventoryProperties)StringSerializer.Deserialize(propsType, str);
+            return (propsType == null) ? null : (IInventoryProperties)StringSerializer.Deserialize(propsType, str);
+        }
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class Decoration : EntityProperties, IInventoryProperties
+    {
+        [Browsable(true), DisplayName("Size")]
+        public float Size { get; set; }
+
+        [Browsable(true), DisplayName("Weight")]
+        public float Weight { get; set; }
+
+
+        public override void SetPropNames()
+        {
+            ALCore.SetDisplayNameValue(this, "Size", ALData.GetLSuom(LSID.Size, MeasurementType.Length));
+            ALCore.SetDisplayNameValue(this, "Weight", ALData.GetLSuom(LSID.Weight, MeasurementType.Mass));
+        }
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class Soil : EntityProperties, IInventoryProperties
+    {
+        [Browsable(true), DisplayName("Density")]
+        public float Density { get; set; } // kg/l
+
+
+        public override void SetPropNames()
+        {
+            ALCore.SetDisplayNameValue(this, "Density", ALData.GetLSuom(LSID.Density, MeasurementType.Density));
         }
     }
 }

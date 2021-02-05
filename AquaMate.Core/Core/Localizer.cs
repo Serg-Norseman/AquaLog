@@ -252,8 +252,29 @@ namespace AquaMate.Core
         /* 228 */ Pricelist,
         /* 229 */ AquariumStarted,
         /* 230 */ AquariumStopped,
+        /* 231 */ Distribution,
+        /* 232 */ Habitat,
+        /* 233 */ Easy,
+        /* 234 */ Moderate,
+        /* 235 */ Hard,
+        /* 236 */ Peaceful,
+        /* 237 */ SemiAggressive,
+        /* 238 */ Aggressive,
+        /* 239 */ CareLevel,
+        /* 240 */ Temperament,
+        /* 241 */ Unknown,
+        /* 242 */ UVSterilizer,
+        /* 243 */ CO2Kit,
+        /* 244 */ Flow,
+        /* 245 */ LitrePerHour,
+        /* 246 */ KilogramPerLitre,
+        /* 247 */ LightTemperature,
+        /* 248 */ LuminousFlux,
+        /* 249 */ PhotosyntheticallyActiveRadiation,
+        /* 250 */ Lumen,
+        /* 251 */ WattPerSquareMeter,
 
-        /* 000 */ Last = AquariumStopped
+        /* 000 */ Last = WattPerSquareMeter
     }
 
 
@@ -494,6 +515,27 @@ namespace AquaMate.Core
             /* 228 */ "Pricelist",
             /* 229 */ "AquariumStarted",
             /* 230 */ "AquariumStopped",
+            /* 231 */ "Distribution",
+            /* 232 */ "Habitat",
+            /* 233 */ "Easy",
+            /* 234 */ "Moderate",
+            /* 235 */ "Hard",
+            /* 236 */ "Peaceful",
+            /* 237 */ "SemiAggressive",
+            /* 238 */ "Aggressive",
+            /* 239 */ "CareLevel",
+            /* 240 */ "Temperament",
+            /* 241 */ "Unknown",
+            /* 242 */ "UV Sterilizer",
+            /* 243 */ "CO2 Kit",
+            /* 244 */ "Flow",
+            /* 245 */ "Litre Per Hour,L/h",
+            /* 246 */ "Kilogram Per Litre,kg/L",
+            /* 247 */ "LightTemperature",
+            /* 248 */ "LuminousFlux",
+            /* 249 */ "PhotosyntheticallyActiveRadiation",
+            /* 250 */ "Lumen,lm",
+            /* 251 */ "Watt Per Square Meter,W/m2",
         };
 
 

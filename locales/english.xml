@@ -230,4 +230,25 @@
   <string id="228">Pricelist</string>
   <string id="229">Aquarium: Started</string>
   <string id="230">Aquarium: Stopped</string>
+  <string id="231">Distribution</string>
+  <string id="232">Habitat</string>
+  <string id="233">Easy</string>
+  <string id="234">Moderate</string>
+  <string id="235">Hard</string>
+  <string id="236">Peaceful</string>
+  <string id="237">SemiAggressive</string>
+  <string id="238">Aggressive</string>
+  <string id="239">CareLevel</string>
+  <string id="240">Temperament</string>
+  <string id="241">Unknown</string>
+  <string id="242">UV Sterilizer</string>
+  <string id="243">CO2 Kit</string>
+  <string id="244">Flow</string>
+  <string id="245">Litre Per Hour,L/h</string>
+  <string id="246">Kilogram Per Litre,kg/L</string>
+  <string id="247">Color temperature</string>
+  <string id="248">Luminous flux</string>
+  <string id="249">Photosynthetically active radiation</string>
+  <string id="250">Lumen,lm"</string>
+  <string id="251">Watt Per Square Meter,W/m2</string>
 </resources>

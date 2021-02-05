@@ -1,13 +1,21 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
+using System;
+using System.ComponentModel;
 using AquaMate.Core.Types;
+using SQLite;
 
 namespace AquaMate.Core.Model
 {
+    public interface IDeviceProperties : IEntityProperties
+    {
+    }
+
+
     /// <summary>
     /// Electrical and/or measurement equipments.
     /// </summary>
@@ -29,25 +37,24 @@ namespace AquaMate.Core.Model
 
         public int PointId { get; set; }
 
-        #region Pump/Filter properties
+        private IDeviceProperties fProperties;
 
-        public int MinFlow { get; set; }
-        public int MaxFlow { get; set; }
+        [Ignore]
+        public IDeviceProperties Properties
+        {
+            get {
+                if (fProperties == null) {
+                    fProperties = GetProperties(Type, RawProperties);
+                }
+                return fProperties;
+            }
+            set {
+                fProperties = value;
+                RawProperties = StringSerializer.Serialize(fProperties);
+            }
+        }
 
-        #endregion
-
-        #region Light properties
-
-        // UoM: K
-        public float LightTemperature { get; set; }
-
-        // UoM: lum
-        public float LuminousFlux { get; set; }
-
-        // Photosynthetically Active Radiation
-        public float PAR { get; set; }
-
-        #endregion
+        public string RawProperties { get; set; }
 
 
         public override EntityType EntityType
@@ -65,6 +72,56 @@ namespace AquaMate.Core.Model
         public override string ToString()
         {
             return Name;
+        }
+
+        public IDeviceProperties GetProperties(DeviceType type, string str)
+        {
+            Type propsType = ALData.DeviceProps[(int)type].PropsType;
+            return (propsType == null) ? null : (IDeviceProperties)StringSerializer.Deserialize(propsType, str);
+        }
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class Light : EntityProperties, IDeviceProperties
+    {
+        [Browsable(true), DisplayName("LightTemperature")]
+        public float LightTemperature { get; set; } // UoM: K
+
+        [Browsable(true), DisplayName("LuminousFlux")]
+        public float LuminousFlux { get; set; } // UoM: lm
+
+        [Browsable(true), DisplayName("PAR")]
+        public float PAR { get; set; } // Photosynthetically Active Radiation, UoM: W/m2
+
+
+        public override void SetPropNames()
+        {
+            ALCore.SetDisplayNameValue(this, "LightTemperature", ALData.GetLSuom(LSID.LightTemperature, MeasurementType.LightTemperature));
+            ALCore.SetDisplayNameValue(this, "LuminousFlux", ALData.GetLSuom(LSID.LuminousFlux, MeasurementType.LuminousFlux));
+            ALCore.SetDisplayNameValue(this, "PAR", ALData.GetLSuom(LSID.PhotosyntheticallyActiveRadiation, MeasurementType.PhotosyntheticallyActiveRadiation));
+        }
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class Pump : EntityProperties, IDeviceProperties
+    {
+        [Browsable(true), DisplayName("MinFlow")]
+        public float MinFlow { get; set; } // UoM: l/h
+
+        [Browsable(true), DisplayName("MaxFlow")]
+        public float MaxFlow { get; set; } // UoM: l/h
+
+
+        public override void SetPropNames()
+        {
+            //ALCore.SetDisplayNameValue(this, "MinFlow", ALData.GetLSuom(LSID.MinFlow, MeasurementType.Flow));
+            //ALCore.SetDisplayNameValue(this, "MaxFlow", ALData.GetLSuom(LSID.MaxFlow, MeasurementType.Flow));
         }
     }
 }

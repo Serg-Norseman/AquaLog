@@ -29,9 +29,18 @@ namespace AquaMate.Core.Types
         DegreeKelvin,
 
         // Density
-        //KilogramPerLiter,
+        KilogramPerLitre,
         //PoundPerUKGallon,
         //PoundPerUSGallon,
+
+        // Flow
+        LitrePerHour,
+
+        // LuminousFlux
+        Lumen,
+
+        // PhotosyntheticallyActiveRadiation
+        WattPerSquareMeter,
 
         First = Centimeter,
         Last = DegreeKelvin
