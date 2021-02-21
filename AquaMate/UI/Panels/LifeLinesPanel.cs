@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -58,7 +58,8 @@ namespace AquaMate.UI.Panels
                     exclusionDate = DateTime.Now;
                 }
 
-                fGraph.AddEventFrame(new EventFrame(rec.Name, inclusionDate, exclusionDate));
+                Color color = ALData.SpeciesTypes[(int)speciesType].Color;
+                fGraph.AddEventFrame(new EventFrame(rec.Name, inclusionDate, exclusionDate, color));
             }
         }
     }

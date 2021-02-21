@@ -273,8 +273,9 @@ namespace AquaMate.Core
         /* 249 */ PhotosyntheticallyActiveRadiation,
         /* 250 */ Lumen,
         /* 251 */ WattPerSquareMeter,
+        /* 252 */ AirPump,
 
-        /* 000 */ Last = WattPerSquareMeter
+        /* 000 */ Last = AirPump
     }
 
 
@@ -536,6 +537,7 @@ namespace AquaMate.Core
             /* 249 */ "PhotosyntheticallyActiveRadiation",
             /* 250 */ "Lumen,lm",
             /* 251 */ "Watt Per Square Meter,W/m2",
+            /* 252 */ "AirPump",
         };
 
 

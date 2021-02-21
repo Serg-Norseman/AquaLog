@@ -64,7 +64,7 @@ namespace AquaMate.UI
                 fRecord.Note = fView.NoteField.Text;
                 fRecord.State = fView.StateCombo.GetSelectedTag<ItemState>();
 
-                //fRecord.Properties = pgProps.SelectedObject as InventoryProperties;
+                fRecord.Properties = fView.PropsGrid.SelectedObject as IInventoryProperties;
 
                 return true;
             } catch (Exception ex) {

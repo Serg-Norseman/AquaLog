@@ -157,7 +157,7 @@ namespace AquaMate.UI
 
                 var records = model.QuerySpecies();
                 foreach (Species rec in records) {
-                    string strType = Localizer.LS(ALData.SpeciesTypes[(int)rec.Type]);
+                    string strType = Localizer.LS(ALData.SpeciesTypes[(int)rec.Type].Name);
                     string strLevel = Localizer.LS(ALData.SwimLevels[(int)rec.SwimLevel]);
                     string strCareLevel = Localizer.LS(ALData.CareLevels[(int)rec.CareLevel]);
                     string strTemperament = Localizer.LS(ALData.Temperaments[(int)rec.Temperament]);

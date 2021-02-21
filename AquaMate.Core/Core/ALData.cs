@@ -109,13 +109,14 @@ namespace AquaMate.Core
 
 
         public static readonly DeviceProps[] DeviceProps = new DeviceProps[] {
-            new DeviceProps(LSID.Light, false, typeof(Light)), // Light
-            new DeviceProps(LSID.Pump, false, typeof(Pump)), // Pump
-            new DeviceProps(LSID.Thermometer, true, null), // Thermometer
-            new DeviceProps(LSID.Filter, false, typeof(Pump)), // Filter
-            new DeviceProps(LSID.Heater, false, null), // Heater
-            new DeviceProps(LSID.UVSterilizer, false, null), // UVSterilizer
-            new DeviceProps(LSID.CO2Kit, false, null), // CO2Kit
+            new DeviceProps(LSID.Light, false, typeof(Light)),
+            new DeviceProps(LSID.AirPump, false, null),
+            new DeviceProps(LSID.Thermometer, true, null),
+            new DeviceProps(LSID.Filter, false, typeof(Filter)),
+            new DeviceProps(LSID.Heater, false, null),
+            new DeviceProps(LSID.UVSterilizer, false, null),
+            new DeviceProps(LSID.CO2Kit, false, null),
+            new DeviceProps(LSID.Pump, false, typeof(Pump)),
         };
 
 
@@ -154,11 +155,11 @@ namespace AquaMate.Core
         };
 
 
-        public static readonly LSID[] SpeciesTypes = new LSID[] {
-            LSID.Fish,
-            LSID.Invertebrate,
-            LSID.Plant,
-            LSID.Coral,
+        public static readonly SpeciesProps[] SpeciesTypes = new SpeciesProps[] {
+            new SpeciesProps(LSID.Fish, Color.Yellow),
+            new SpeciesProps(LSID.Invertebrate, Color.Maroon),
+            new SpeciesProps(LSID.Plant, Color.Green),
+            new SpeciesProps(LSID.Coral, Color.HotPink),
         };
 
 

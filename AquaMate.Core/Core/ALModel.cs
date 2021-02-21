@@ -378,6 +378,7 @@ namespace AquaMate.Core
             exclusionDate = ALCore.ZeroDate;
 
             IList<Transfer> transfers = QueryTransfers(recId, (int)itemType);
+            int count = 0;
             foreach (var trf in transfers) {
                 switch (trf.Type) {
                     case TransferType.Relocation:
@@ -385,6 +386,7 @@ namespace AquaMate.Core
 
                     case TransferType.Purchase:
                     case TransferType.Birth:
+                        count += (int)trf.Quantity;
                         if (ALCore.IsZeroDate(inclusionDate)) {
                             inclusionDate = trf.Timestamp;
                         }
@@ -392,7 +394,8 @@ namespace AquaMate.Core
 
                     case TransferType.Sale:
                     case TransferType.Death:
-                        if (ALCore.IsZeroDate(exclusionDate)) {
+                        count -= (int)trf.Quantity;
+                        if (count == 0) {
                             exclusionDate = trf.Timestamp;
                         }
                         break;

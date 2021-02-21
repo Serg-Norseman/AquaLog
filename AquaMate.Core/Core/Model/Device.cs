@@ -109,7 +109,7 @@ namespace AquaMate.Core.Model
     /// <summary>
     /// 
     /// </summary>
-    public sealed class Pump : EntityProperties, IDeviceProperties
+    public class Pump : EntityProperties, IDeviceProperties
     {
         [Browsable(true), DisplayName("MinFlow")]
         public float MinFlow { get; set; } // UoM: l/h
@@ -122,6 +122,23 @@ namespace AquaMate.Core.Model
         {
             //ALCore.SetDisplayNameValue(this, "MinFlow", ALData.GetLSuom(LSID.MinFlow, MeasurementType.Flow));
             //ALCore.SetDisplayNameValue(this, "MaxFlow", ALData.GetLSuom(LSID.MaxFlow, MeasurementType.Flow));
+        }
+    }
+
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public sealed class Filter : Pump
+    {
+        [Browsable(true), DisplayName("Volume")]
+        public float Volume { get; set; } // UoM: l
+
+
+        public override void SetPropNames()
+        {
+            base.SetPropNames();
+            ALCore.SetDisplayNameValue(this, "Volume", ALData.GetLSuom(LSID.Volume, MeasurementType.Volume));
         }
     }
 }

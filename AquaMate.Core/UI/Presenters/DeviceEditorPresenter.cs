@@ -1,6 +1,6 @@
 ﻿/*
  *  This file is part of the "AquaMate".
- *  Copyright (C) 2019-2020 by Sergey V. Zhdanovskih.
+ *  Copyright (C) 2019-2021 by Sergey V. Zhdanovskih.
  *  This program is licensed under the GNU General Public License.
  */
 
@@ -27,6 +27,7 @@ namespace AquaMate.UI
         ITextBox WorkTimeField { get; }
         ITextBox NoteField { get; }
         IComboBox StateCombo { get; }
+        IPropertyGrid PropsGrid { get; }
     }
 
 
@@ -89,6 +90,8 @@ namespace AquaMate.UI
                 fRecord.Note = fView.NoteField.Text;
                 fRecord.State = fView.StateCombo.GetSelectedTag<ItemState>();
 
+                fRecord.Properties = fView.PropsGrid.SelectedObject as IDeviceProperties;
+
                 return true;
             } catch (Exception ex) {
                 fLogger.WriteError("ApplyChanges()", ex);
@@ -101,9 +104,15 @@ namespace AquaMate.UI
             DeviceType deviceType = fView.TypeCombo.GetSelectedTag<DeviceType>();
 
             if (deviceType >= 0) {
-                var props = ALData.DeviceProps[(int)deviceType];
-                fView.TSPointsCombo.Enabled = props.HasMeasurements;
+                var internalProps = ALData.DeviceProps[(int)deviceType];
+                fView.TSPointsCombo.Enabled = internalProps.HasMeasurements;
             }
+
+            IDeviceProperties devProps = fRecord.GetProperties(deviceType, fRecord.RawProperties);
+            if (devProps != null) {
+                devProps.SetPropNames();
+            }
+            fView.PropsGrid.SelectedObject = devProps;
         }
     }
 }

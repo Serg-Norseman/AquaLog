@@ -12,11 +12,12 @@ namespace AquaMate.Core.Types
     public enum DeviceType
     {
         Light,
-        Pump,
+        AirPump,
         Thermometer,
         Filter,
         Heater,
         UVSterilizer,
         CO2Kit,
+        Pump,
     }
 }
