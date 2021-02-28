@@ -172,10 +172,13 @@ namespace AquaMate.UI.Components
             return source;
         }
 
+        // https://www.geeksforgeeks.org/rearrange-given-list-consists-alternating-minimum-maximum-elements/
+        // https://www.geeksforgeeks.org/alternative-sorting/
+        // https://www.geeksforgeeks.org/rearrange-array-maximum-minimum-form/
         public static List<ChartPoint> AlternateSort(List<ChartPoint> source)
         {
             int srcLen = source.Count;
-            if (srcLen < 2) {
+            if (srcLen < 3) {
                 return source;
             }
 
@@ -185,7 +188,7 @@ namespace AquaMate.UI.Components
 
             ChartPoint[] target = new ChartPoint[srcLen];
 
-            int t, b, lp, rp;
+            /*int t, b, lp, rp;
             t = srcLen - 1;
             b = 0;
             lp = t / 2 - 1;
@@ -208,9 +211,16 @@ namespace AquaMate.UI.Components
                 t--;
                 lp--;
                 rp++;
+            }*/
+
+            int low = 0, high = srcLen - 1;
+            bool flag = true;
+            for (int i = 0; i < srcLen; i++) {
+                target[i] = flag ? source[high--] : source[low++];
+                flag = !flag;
             }
 
-            return target.ToList();
+            return new List<ChartPoint>(target);
         }
 
         #endregion

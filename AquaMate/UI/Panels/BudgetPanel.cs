@@ -60,6 +60,7 @@ namespace AquaMate.UI.Panels
             AddAction("Brands", LSID.Brands, "", ViewBrandsHandler);
             AddAction("Shops", LSID.Shops, "", ViewShopsHandler);
             AddAction("Pricelist", LSID.Pricelist, "", ViewPricelistHandler);
+            AddAction("Export", LSID.Export, "btn_excel.gif", ExportHandler);
         }
 
         protected override void UpdateListView()
@@ -263,7 +264,7 @@ namespace AquaMate.UI.Panels
                 }
 
                 if (string.IsNullOrEmpty(key)) {
-                    key = string.Empty;
+                    key = "-";
                 }
 
                 ChartPoint chartPoint;
@@ -283,13 +284,18 @@ namespace AquaMate.UI.Panels
             List<ChartPoint> vals = result.Values.ToList();
 
             if (chartType != BudgetChartType.Monthes) {
-                vals = ZChart.Consolidation(vals);
+                vals = ZChart.Consolidation(vals, 0.5d);
 
                 // prettification
                 vals = ZChart.AlternateSort(vals);
             }
 
             return vals;
+        }
+
+        private void ExportHandler(object sender, EventArgs e)
+        {
+            Export();
         }
     }
 }
